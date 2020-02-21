@@ -23,7 +23,10 @@ feature_row:
     excerpt: >
       The National Unified Operational Prediction Capability (NUOPC) 
       and its research partners are working toward a common model 
-      architecture - a standard way of building models.      
+      architecture - a standard way of building models.
+    url: "#test-link"
+    btn_label: "Read More"
+    btn_class: "btn--primary"
   
   - image_path: /assets/images/unsplash-gallery-image-2-th.jpg
     image_caption: "Image courtesy of [Unsplash](https://unsplash.com/)"
