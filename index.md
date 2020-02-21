@@ -2,7 +2,7 @@
 layout: splash
 header:
   overlay_color: "#000"
-  overlay_filter: "0.5"
+  overlay_filter: "0.2"
   overlay_image: /assets/images/nasa-splash.jpg
   actions:
     - label: "Download"
