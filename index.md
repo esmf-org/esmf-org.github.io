@@ -7,7 +7,7 @@ header:
   actions:
     - label: "Download"
       url: "/download"
-  caption: "photo caption"
+  caption: "Photo by NASA on Unsplash"
 excerpt: "Excerpt"
 intro: 
   - excerpt: 'this is the intro'
