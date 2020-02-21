@@ -1,13 +1,13 @@
 ---
 layout: splash
 header:
-  overlay_color: "#000"
-  overlay_filter: "0.2"
+  #overlay_color: "#000"
+  #overlay_filter: "0.0"
   overlay_image: /assets/images/nasa-splash.jpg
   actions:
     - label: "Download"
       url: "/download"
-  caption: "Photo by NASA on Unsplash"
+  caption: "Photo by Alexis Antoine on Unsplash"
 excerpt: "Excerpt"
 intro: 
   - excerpt: 'this is the intro'
