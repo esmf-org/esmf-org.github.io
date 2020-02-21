@@ -1,5 +1,6 @@
 ---
 layout: splash
+
 header:
   #overlay_color: "#000"
   overlay_filter: "0.4"
@@ -11,13 +12,18 @@ header:
       url: "http://www.google.com"
   caption: "Photo by Adam Bouse on Unsplash"
 excerpt: "The Earth System Modeling Framework (ESMF) is high-performance, flexible software infrastructure for building and coupling weather, climate, and related Earth science applications."
+
 intro: 
   - excerpt: 'this is the intro'
+
 feature_row:
-  - image_path: assets/images/unsplash-gallery-image-1-th.jpg
-    alt: "placeholder image 1"
-    title: "Placeholder 1"
-    excerpt: "This is some sample content that goes here with **Markdown** formatting."
+  - image_path: assets/images/NUOPC.jpg
+    alt: "NUOPC logo"
+    title: "NUOPC Layer"
+    excerpt: >
+      The National Unified Operational Prediction Capability (NUOPC) 
+      and its research partners are working toward a common model 
+      architecture - a standard way of building models.      
   
   - image_path: /assets/images/unsplash-gallery-image-2-th.jpg
     image_caption: "Image courtesy of [Unsplash](https://unsplash.com/)"
