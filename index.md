@@ -9,7 +9,7 @@ header:
       url: "/download"
     - label: "Docs"
       url: "http://www.google.com"
-  caption: "Photo by Alexis Antoine on Unsplash"
+  caption: "Photo by Adam Bouse on Unsplash"
 excerpt: "The Earth System Modeling Framework (ESMF) is high-performance, flexible software infrastructure for building and coupling weather, climate, and related Earth science applications."
 intro: 
   - excerpt: 'this is the intro'
