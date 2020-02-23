@@ -11,7 +11,7 @@ header:
     - label: "Docs"
       url: "http://www.google.com"
   caption: "Photo by Adam Bouse on Unsplash"
-excerpt: "High-performance software infrastructure for building and coupling weather, climate, and related Earth science applications."
+excerpt: "High-performance software infrastructure for building and coupling Earth system models."
 
 intro: 
   - excerpt: 'this is the intro'
