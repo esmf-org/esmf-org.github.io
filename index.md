@@ -11,7 +11,9 @@ header:
     - label: "Docs"
       url: "http://www.google.com"
   caption: "Photo by Adam Bouse on Unsplash"
-excerpt: "High-performance software infrastructure for building and coupling Earth system models."
+excerpt: >
+  High-performance software infrastructure for building and coupling Earth system models.<br/>
+  <small><a href="#testlink">Latest release v8.0</a></small>
 
 intro: 
   - excerpt: 'this is the intro'
