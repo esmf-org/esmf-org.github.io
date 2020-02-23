@@ -3,7 +3,7 @@ layout: splash
 
 header:
   #overlay_color: "#000"
-  overlay_filter: "0.4"
+  overlay_filter: "0.2"
   overlay_image: /assets/images/nasa-splash.jpg
   actions:
     - label: "Download"
@@ -11,7 +11,7 @@ header:
     - label: "Docs"
       url: "http://www.google.com"
   caption: "Photo by Adam Bouse on Unsplash"
-excerpt: "The Earth System Modeling Framework (ESMF) is high-performance, flexible software infrastructure for building and coupling weather, climate, and related Earth science applications."
+excerpt: "High-performance software infrastructure for building and coupling weather, climate, and related Earth science applications."
 
 intro: 
   - excerpt: 'this is the intro'
