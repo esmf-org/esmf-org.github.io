@@ -1,3 +1,3 @@
-for f in *.html; do 
-    mv -- "$f" "${f%.html}.shtml"
+for f in *.shtml; do 
+    mv -- "$f" "${f%.shtml}.html"
 done
