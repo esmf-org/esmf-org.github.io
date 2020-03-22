@@ -1,0 +1,473 @@
+Return-Path: <silverio.vasquez@noaa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 12 Mar 2020 08:15:02 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 60289221
+	for <esmftest@cgd.ucar.edu>; Thu, 12 Mar 2020 02:08:46 -0600 (MDT)
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 3C84D180024E
+	for <esmftest@cgd.ucar.edu>; Thu, 12 Mar 2020 02:08:46 -0600 (MDT)
+Authentication-Results: vscanx2.ucar.edu;
+	dkim=pass (2048-bit key) header.d=noaa.gov header.i=@noaa.gov header.b="TXpYKEYk"
+Received: by mail-pl1-f198.google.com with SMTP id b10so2857344pls.0
+        for <esmftest@cgd.ucar.edu>; Thu, 12 Mar 2020 01:08:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:dkim-signature:date:to:subject:user-agent
+         :mime-version:content-transfer-encoding:message-id:from;
+        bh=Wt97pJBK88x2jAk5AFun55sM0m3VF85kwB07T5e5MA8=;
+        b=n8H9lxTNxj2LpecrV0N2tlC7AWvCaH+5BhrEcTCI6oZ9UoDtiYAiSE0k/S32PufDkg
+         EH0UUeh9CA3RZqdJHCUsNmeAMOLYEX8uIh1yOw9Ikaicy5dtYAdhiypsU+HSqUh798wc
+         R+UFPf0xqpmfgBqZ7ypVjFBGHQdfjBUGZt0UTANL6tq1IkoRHPIjFCY990adxSDmVpsM
+         cM753Q64LUCclPVtntkwIJo7T6T8xLr668030JM1mB9ygTeOS2b6fu0oiBs+hd4j2niM
+         vu9bNP3fELGXreT9xHqXUMBRm9arxsE/wYfEgkZwU3wO2UnwMpTZ3U3MG9aVCiJSu/Ym
+         YEPA==
+X-Gm-Message-State: ANhLgQ0R5gPLhF5hybFjLe9QK+ALVRObATO2weEPks+JsMkybWxiJIwr
+	jD7HPaV/W/nmjxAtG+3nbi8ve08VGgLH6P1WQR6nca/jnObfrKDXmLqUv/gOXtoLjmwvFOfSPYh
+	xrWHetdN0JzW2pSuY/toQAQ==
+X-Received: by 2002:a17:90a:8d86:: with SMTP id d6mr2896116pjo.119.1584000525682;
+        Thu, 12 Mar 2020 01:08:45 -0700 (PDT)
+X-Received: by 2002:a17:90a:8d86:: with SMTP id d6mr2896081pjo.119.1584000525077;
+        Thu, 12 Mar 2020 01:08:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1584000525; cv=none;
+        d=google.com; s=arc-20160816;
+        b=TtEPAlQfikJMWKMumRsLuyJzRMWcAYBaNnuhbhRQEFBk/HaYvBfmafh0uALl4iteBV
+         Sd4nD7WKMLJ2rVV9rATAzjzgE2WCHgGxV8FPDCN8/RPYFjaAbCwAKwEstgXWD/ajIBlY
+         2iNeP+W+YcfIzcPgbarYC8njbmp9eO4fSoE2GNQrtN45S1+h6hHP84rEno2AXq0eMF8+
+         QdKOWhCNxHgruBPPXJNSOUytnh6+Sw37KP0raCDlRyc4eNqwDHVX+2cmSp/c2Ha/rApS
+         mpAFdlzfP4t5dbinlc/zWY+6kbe21CSCliMGJohnaW5ue5My54BMj2TKrKXN8n1s2oAJ
+         xCwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:message-id:content-transfer-encoding:mime-version:user-agent
+         :subject:to:date:dkim-signature;
+        bh=Wt97pJBK88x2jAk5AFun55sM0m3VF85kwB07T5e5MA8=;
+        b=lI9FVLJkMIlye86s2mRA4b0iDjn6VxWh1+AXeWdvtpsVNKYj1AeMOFvpPlbSr/pYaM
+         HeQC+EmbSVWsW74+/vZGl2kxBA1Rx6sKvNWhByWr3eC2uyetoHM8JBswrMvgVIfdc4LO
+         joyVAeq6bCLKKWXIJe1ubEPaObpP3D5h7ZIGlRVbexvK7KdocJneRd2ZmIRk6yBKf8Uw
+         HaG4VkRX4/aBm6wqdY47cWUlGGAEkmAy6RTk4QRTr8nKb2raBBYi4FnH+y73dLAgz03+
+         SVv9jbh3PqnyYvaanGEvKmcAHrt0+XPcLEO5iK5uFrbO6zxaCvebyQCvotDK/s3vRwPp
+         d8HQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@noaa.gov header.s=google header.b=TXpYKEYk;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.97 as permitted sender) smtp.mailfrom=silverio.vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from mail-sor-f97.google.com (mail-sor-f97.google.com. [209.85.220.97])
+        by mx.google.com with SMTPS id gi7sor4832378pjb.29.2020.03.12.01.08.44
+        for <esmftest@cgd.ucar.edu>
+        (Google Transport Security);
+        Thu, 12 Mar 2020 01:08:44 -0700 (PDT)
+Received-SPF: pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.97 as permitted sender) client-ip=209.85.220.97;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@noaa.gov header.s=google header.b=TXpYKEYk;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.97 as permitted sender) smtp.mailfrom=silverio.vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=noaa.gov; s=google;
+        h=date:to:subject:user-agent:mime-version:content-transfer-encoding
+         :message-id:from;
+        bh=Wt97pJBK88x2jAk5AFun55sM0m3VF85kwB07T5e5MA8=;
+        b=TXpYKEYkgEKh33g5NzHm1en71HyZpoboBAM8YfwAxxcQLpGdciBdlsLBbzF7/WLcvL
+         AklRJOjugssxp0fx3C3a7XPevXjpeQIaXdAd8ZrKpPdd+x+J5ISpkxQvRt+UxhIjeY6q
+         hv6Q95OikDNtgRRQZ8V2eGTgHG6KCWnPIoLgAjMVwZ0OAZuqsxZajsaaEmIwThQn+yjm
+         k8xNxTdoUUbhZ5ed5KdtXwDjnTxdivEQT93ZXHLu8IVIzL8r0+QBD2nfFMjMx3QfHCcB
+         HAOuXksbgGgtSo3qFDlDWVrOoQO6DOHLyOhWk6LVWBFRwY5Gu5Fzv+l3rb9mf3VKBv3i
+         ohDA==
+X-Google-Smtp-Source: ADFU+vtzrjGJiogA5xhO0a2quR2SWiEB+7pk1be29cqvkfmpCTa9B/OGSLZStbI5cWTbdadJH8GK5q1FH3lX
+X-Received: by 2002:a17:90b:370c:: with SMTP id mg12mr2722601pjb.96.1584000523598;
+        Thu, 12 Mar 2020 01:08:43 -0700 (PDT)
+Received: from dmz-smtp-gw4.gsd.esrl.noaa.gov (dmz-smtp-gw4.gsd.esrl.noaa.gov. [137.75.133.82])
+        by smtp-relay.gmail.com with ESMTPS id c23sm446330pjr.8.2020.03.12.01.08.43
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 12 Mar 2020 01:08:43 -0700 (PDT)
+X-Relaying-Domain: noaa.gov
+Received: from smtp-gw1.gsd.esrl.noaa.gov (smtp-gw1.gsd.esrl.noaa.gov [137.75.240.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dmz-smtp-gw4.gsd.esrl.noaa.gov (Postfix) with ESMTPS id 0EA9E227CF2;
+	Thu, 12 Mar 2020 08:08:41 +0000 (UTC)
+Received: from linux-regtest2.gsd.esrl.noaa.gov (linux-regtest2.gsd.esrl.noaa.gov [137.75.232.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp-gw1.gsd.esrl.noaa.gov (Postfix) with ESMTPS id 0D7662269E7;
+	Thu, 12 Mar 2020 08:08:40 +0000 (UTC)
+Received: by linux-regtest2.gsd.esrl.noaa.gov (Postfix, from userid 1992296994)
+	id 5C7C520F; Thu, 12 Mar 2020 08:08:40 +0000 (UTC)
+Date: Thu, 12 Mar 2020 02:08:40 -0600
+To: esmftest@cgd.ucar.edu, esmf_test@noaa.gov
+Subject: ESMF_Tutorial_Linux-regtest2_gfortran
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20200312080840.5C7C520F@linux-regtest2.gsd.esrl.noaa.gov>
+From: silverio.vasquez@noaa.gov (Silverio Vasquez)
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+
+Script start time: Thu Mar 12 01:55:01 MDT 2020
+
+Script end: Thu Mar 12 02:08:40 MDT 2020
+
+
+____________________ESMF TRUNK TUTORIAL_BUILD_AND_TEST_SUMMARY_________=
+_______________
+
+
+
+                                           =20
+                          DOC BUILD
+               BUILD       INSTALL    OS.COMPILER.COMM.ABI         tuto=
+rials build
+_______________________________________________________________________=
+_________________
+               PASS/FAIL   PASS/FAIL                               =20
+_______________________________________________________________________=
+__________________
+linux-regtest2(g)PASS        PASS    Linux.gfortran.mpiuni.64          =
+FAIL
+
+_______________________________________________________________________=
+_________________
+
+Thu Mar 12 01:58:04 MDT 2020 on linux-regtest2.gsd.esrl.noaa.gov=20
+Compiler and configuration information:
+
+--------------------------------------------------------------=20
+No Modulefiles Currently Loaded.
+
+ESMF Repository:
+origin=09git://esmf.git.sourceforge.net/gitroot/esmf/esmf (fetch)
+origin=09git://esmf.git.sourceforge.net/gitroot/esmf/esmf (push)
+=20
+ESMF_8_1_0_beta_snapshot_08-8-g3d0334a
+=20
+=20
+External Demos  Repository:
+origin=09git://git.code.sf.net/p/esmf/external_demos (fetch)
+origin=09git://git.code.sf.net/p/esmf/external_demos (push)
+=20
+ESMF_8_0_0-21-g745a6c2
+=20
+=20
+Tutorials  Repository:
+origin=09git://git.code.sf.net/p/esmf/tutorials (fetch)
+origin=09git://git.code.sf.net/p/esmf/tutorials (push)
+=20
+ESMF_7_1_0r
+=20
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_08-8-g3d0334a
+--------------------------------------------------------------
+# On branch master
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#=09tmp
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.82
+Built for x86_64-redhat-linux-gnu
+Copyright (C) 2010  Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl=
+.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+--------------------------------------------------------------
+Fortran Compiler version:
+GNU Fortran (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
+Copyright (C) 2015 Free Software Foundation, Inc.
+
+GNU Fortran comes with NO WARRANTY, to the extent permitted by law.
+You may redistribute copies of GNU Fortran
+under the terms of the GNU General Public License.
+For more information about these matters, see the file named COPYING
+
+
+--------------------------------------------------------------
+C++ Compiler version:
+g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3Dg
+ESMF_COMM=3Dmpiuni
+ESMF_COMPILER=3Dgfortran
+ESMF_DIR=3D/export/scripts_dir/daily_builds/tutorials/gfortran/esmf
+ESMF_INSTALL_BINDIR=3Dbin
+ESMF_INSTALL_HEADERDIR=3Dinclude
+ESMF_INSTALL_LIBDIR=3Dlib
+ESMF_INSTALL_MODDIR=3Dinclude
+ESMF_INSTALL_PREFIX=3D/export/scripts_dir/daily_builds/tutorials/gfortr=
+an/esmf/../install_dir
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTMPMD=3DOFF
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /export/scripts_dir/daily_builds/tutorials/gfortran/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          gfortran
+ESMF_BOPT:              g
+ESMF_COMM:              mpiuni
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            ON
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          OFF
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: default
+ESMF_TESTHARNESS_FIELD: default
+ESMF_MPIRUN:            /export/scripts_dir/daily_builds/tutorials/gfor=
+tran/esmf/src/Infrastructure/stubs/mpiuni/mpirun
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_YAMLCPP:            internal
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /export/scripts_dir/daily_builds/tutorials/gfor=
+tran/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    include
+ESMF_INSTALL_LIBDIR:    lib
+ESMF_INSTALL_BINDIR:    bin
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /usr/local/share/Modules/bin:/usr/bin:/bin:/usr/local/sbin:/us=
+r/sbin:/home/silverio.vasquez/.local/bin:/home/silverio.vasquez/bin:/ho=
+me/silverio.vasquez/.local/bin:/home/silverio.vasquez/bin:/home/silveri=
+o.vasquez/.local/bin:/home/silverio.vasquez/bin:/export/scripts_dir/dai=
+ly_builds/tutorials/gfortran/esmf/../install_dir/bin:/home/silverio.vas=
+quez/.local/bin:/home/silverio.vasquez/bin
+LD_LIBRARY_PATH:=20
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /usr/bin/gfortran
+Location of the Fortran linker:    /usr/bin/gfortran
+Location of the C++ compiler:      /usr/bin/g++
+Location of the C++ linker:        /usr/bin/g++
+
+Fortran compiler flags:
+ESMF_F90COMPILER: gfortran
+ESMF_F90COMPILEOPTS: -g -Wall -Wextra -Wconversion -Wno-unused -Wno-unu=
+sed-dummy-argument -fbacktrace -fimplicit-none -fcheck=3Darray-temps,bo=
+unds,do,mem,recursion -fPIC  -m64 -mcmodel=3Dsmall -pthread -ffree-line=
+-length-none  -fopenmp
+ESMF_F90COMPILEPATHS: -I/export/scripts_dir/daily_builds/tutorials/gfor=
+tran/esmf/mod/modg/Linux.gfortran.64.mpiuni.default -I/export/scripts_d=
+ir/daily_builds/tutorials/gfortran/esmf/src/include=20
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_08-8-g3d0334a' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_NO_OPENACC -D=
+ESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=
+=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/export/scri=
+pts_dir/daily_builds/tutorials/gfortran/esmf -DESMF_MPIUNI
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP: -ffree-form
+ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:    -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed =
+ -fopenmp
+ESMF_F90LINKPATHS: -L/export/scripts_dir/daily_builds/tutorials/gfortra=
+n/esmf/lib/libg/Linux.gfortran.64.mpiuni.default  -L/usr/lib/gcc/x86_64=
+-redhat-linux/4.8.5/
+ESMF_F90LINKRPATHS: -Wl,-rpath,/export/scripts_dir/daily_builds/tutoria=
+ls/gfortran/esmf/lib/libg/Linux.gfortran.64.mpiuni.default  -Wl,-rpath,=
+/usr/lib/gcc/x86_64-redhat-linux/4.8.5/
+ESMF_F90LINKLIBS:  -lrt -lstdc++ -ldl
+ESMF_F90ESMFLINKLIBS: -lesmf  -lrt -lstdc++ -ldl
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: g++
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -g -Wall -Wextra -Wno-unused  -fPIC -=
+DESMF_LOWERCASE_SINGLEUNDERSCORE -m64 -mcmodel=3Dsmall -pthread  -fopen=
+mp
+ESMF_CXXCOMPILEPATHS:  -I/export/scripts_dir/daily_builds/tutorials/gfo=
+rtran/esmf/src/include   -I/export/scripts_dir/daily_builds/tutorials/g=
+fortran/esmf/src/Infrastructure/stubs/mpiuni -I/export/scripts_dir/dail=
+y_builds/tutorials/gfortran/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_08-8-g3d0334a' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_NO_OPENACC -D=
+ESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=
+=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/export/scri=
+pts_dir/daily_builds/tutorials/gfortran/esmf -D__SDIR__=3D'' -DESMF_CXX=
+STD=3D11 -DESMF_MPIUNI
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed  =
+-fopenmp
+ESMF_CXXLINKPATHS: -L/export/scripts_dir/daily_builds/tutorials/gfortra=
+n/esmf/lib/libg/Linux.gfortran.64.mpiuni.default  -L/usr/lib/gcc/x86_64=
+-redhat-linux/4.8.5/
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/export/scripts_dir/daily_builds/tutoria=
+ls/gfortran/esmf/lib/libg/Linux.gfortran.64.mpiuni.default  -Wl,-rpath,=
+/usr/lib/gcc/x86_64-redhat-linux/4.8.5/
+ESMF_CXXLINKLIBS:  -lrt -lgfortran -ldl
+ESMF_CXXESMFLINKLIBS: -lesmf  -lrt -lgfortran -ldl
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    g++
+ESMF_SL_LIBOPTS:       -shared  -fopenmp
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/export/scripts_dir/daily_builds/tutorials/gfort=
+ran/esmf/lib/libg/Linux.gfortran.64.mpiuni.default/libesmftrace_preload=
+.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Thu Mar 12 01:58:07 MDT 2020 on linux-regtest2.gsd.esrl.no=
+aa.gov
+Machine characteristics: Linux linux-regtest2.gsd.esrl.noaa.gov 3.10.0-=
+1062.4.3.el7.x86_64 #1 SMP Tue Nov 12 10:42:40 EST 2019 x86_64 x86_64 x=
+86_64 GNU/Linux
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Thu Mar 12 02:07:56 MDT 2020 library build -j4 ........................=
+.PASS
+Builds with warnings.
+Thu Mar 12 02:08:17 MDT 2020 library install ..........................=
+.PASS
+Thu Mar 12 02:08:19 MDT 2020 library installcheck .....................=
+.PASS
+Thu Mar 12 02:08:22 MDT 2020 ESMF_CoupledFlow doc build ...............=
+.PASS
+Thu Mar 12 02:08:38 MDT 2020 ESMF_CoupledFlow doc build ...............=
+.PASS
+Thu Mar 12 02:08:38 MDT 2020 build ESMC_HelloWorld ....................=
+.PASS
+Thu Mar 12 02:08:39 MDT 2020 build ESMF_HelloWorld ....................=
+.PASS
+
+
+|----------------------------------- TUTORIALS ------------------------=
+-----|
+Thu Mar 12 02:08:40 MDT 2020 Tutorial build ...........................=
+.FAIL
+
+
+ The following is the config file used:=20
+NUMBER_OF_TUTORIALS=3D3
+TEMPLATE_SRC_DIRECTORY=3Dskel_tutorial
+TUTORIAL_3=3D../../external_demos/ESMF_CoupledFlow/doc/ESMF_CoupledFlow
+TUTORIAL_1=3D/scratch/scripts_dir/daily_builds/tutorials/gfortran/ESMF_=
+usrdoc
+TUTORIAL_2=3D../../external_demos/ESMF_HelloWorld
+TARGET_DIRECTORY=3Dtutorials
+
+
+ The following is the tutorial build output:=20
+
+
+
+
+
+
+
+Test_results:yellow
+Day_of_Week:Thursday
+Test_Failures:0

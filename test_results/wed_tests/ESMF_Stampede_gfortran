@@ -1,0 +1,140 @@
+Return-Path: <vasquez@login3.stampede2.tacc.utexas.edu>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 19 Mar 2020 21:18:40 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id C2C96190
+	for <esmftest@cgd.ucar.edu>; Thu, 19 Mar 2020 14:15:44 -0600 (MDT)
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com [209.85.219.200])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id DF2181801966
+	for <esmftest@cgd.ucar.edu>; Thu, 19 Mar 2020 14:15:43 -0600 (MDT)
+Received: by mail-yb1-f200.google.com with SMTP id w4so1882937ybm.7
+        for <esmftest@cgd.ucar.edu>; Thu, 19 Mar 2020 13:15:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-original-authentication-results:x-gm-message-state:ironport-sdr
+         :date:to:subject:user-agent:mime-version:content-transfer-encoding
+         :message-id:from;
+        bh=eSYeNNDObaCc3ZZ+wW3DZ/ra/jQW1rPhqBlc2dD8+B8=;
+        b=a5NwPHeFIdPCOjcT5Xd//cQf5/MHaZrbkd7N1eKKtEKr1ssehq2iRHianKR+QkeGho
+         PMb6ZHZVMQsPITXVJY+CTu7Pc9ENuYSSIkpDRw+P1cc9cgc2sl8HbrV1kUrWG7zexI8O
+         BpzNKtCKRzBiyDTX+ypgvpGFU7TlklpKddchV9IEkSPxo2gghVXuwIZqnzWP5NP9d/9Y
+         F1kY5IqEx6DSEVpJHsZHrCV+vx9t+yyG4qE4CDSVN5dxQprNgTzRU0nmdPwTVwkGbV/6
+         lKqCK2ElCTcBapV8N6U9gewqUHA8amHPYWx1hGsnw1EtHN0UxQ0E4YVRt26HvXWplus9
+         A9Lg==
+X-Original-Authentication-Results: mx.google.com;       spf=neutral (google.com: 216.71.150.156 is neither permitted nor denied by best guess record for domain of vasquez@login3.stampede2.tacc.utexas.edu) smtp.mailfrom=vasquez@login3.stampede2.tacc.utexas.edu
+X-Gm-Message-State: ANhLgQ21KJO+hyxrae0AnklqfweyfPHzc3dPcDwuinEXq2Ed0O7fZvTm
+	lKd6DJJrU4ACJTflc1opYqLEJDqpKRXRHdjpXKxR5InmQat8HzdRv8zhYatyL5RCHPw19g+7xbS
+	LhXfSQGjsxlx9HA==
+X-Received: by 2002:a25:bccc:: with SMTP id l12mr4408947ybm.142.1584648943443;
+        Thu, 19 Mar 2020 13:15:43 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vubq4lUXzVFXWufssRQj1aeWjq/IwPXRELyvsXwsh+WXW6B81ymXzK058woNv+GX6xEBENP
+X-Received: by 2002:a25:bccc:: with SMTP id l12mr4408899ybm.142.1584648943035;
+        Thu, 19 Mar 2020 13:15:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1584648943; cv=none;
+        d=google.com; s=arc-20160816;
+        b=T11N8yKWRpFObfN2iKRf6NembErXjmMdmppQg5dG7yxHcqalYJHFJVS3d6a0TugsSP
+         DvELEoSy1TxXwNioj/aaFNRkJZ2/dtWOpI515ZjYChe74if2OukgneQRCHpvUwrNUEad
+         Ubn+vDWQxrurg5zYkIvrxYnAPSzOKhErA8jPdwa2b6me9DontWfWMet2Iukrz17hahTd
+         Z3NAG4cSI/0KpBmQ7/A9P8AovPV3mxJQrcrr+uOLoO+JpisLm9xCuOV4x6fOwHQszU9g
+         5keBNBZlCMwPSVlxw56gaAq/gZCa70bgjxpGsPXtW8MNofigQBjqnQyg/eolF/JtJ9fD
+         vo9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:message-id:content-transfer-encoding:mime-version:user-agent
+         :subject:to:date:ironport-sdr;
+        bh=eSYeNNDObaCc3ZZ+wW3DZ/ra/jQW1rPhqBlc2dD8+B8=;
+        b=qxb+EEdW9Wl4ck5hEsb1JDlnrIq5Ar1G8TRhmn3GkwaUemsZIF7bBFi7uG2P/lkAXw
+         Iz0UWjvWUn4d7stOCqLJmgsDMvnEwVnxLDEgq4QHgth6kdbIOzXpjLMfEKXket5zRWQY
+         AWUoSDUba5/A4jOPyrX9PzCx+sjokmsnBoKpN7yEgtiQmDcegte3yUVmJA0xLgNs4ycc
+         zp0lztXegCRsomlaLNgqTQOkhavmZghGaqQF74unt1ufIauqaoKngISV0wbOSRQc+E1Z
+         UdWXC7cdITSUfwpfXb2pdthbcnV0wYEEPjZ9rq3JNBNLbxj/zNg7lhGcrPzkmNOZjzE6
+         DVvg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=neutral (google.com: 216.71.150.156 is neither permitted nor denied by best guess record for domain of vasquez@login3.stampede2.tacc.utexas.edu) smtp.mailfrom=vasquez@login3.stampede2.tacc.utexas.edu
+Received: from esa10.utexas.iphmx.com (esa10.utexas.iphmx.com. [216.71.150.156])
+        by mx.google.com with ESMTPS id c84si2395415yba.322.2020.03.19.13.15.42
+        for <esmftest@cgd.ucar.edu>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 19 Mar 2020 13:15:42 -0700 (PDT)
+Received-SPF: neutral (google.com: 216.71.150.156 is neither permitted nor denied by best guess record for domain of vasquez@login3.stampede2.tacc.utexas.edu) client-ip=216.71.150.156;
+Authentication-Results: mx.google.com;
+       spf=neutral (google.com: 216.71.150.156 is neither permitted nor denied by best guess record for domain of vasquez@login3.stampede2.tacc.utexas.edu) smtp.mailfrom=vasquez@login3.stampede2.tacc.utexas.edu
+IronPort-SDR: vQzmlSqoaxLDRIsH1y6HWatbU2wloQh9b7dGfzJE/YkXYZ5O8dKuNh/lRsu0lCq5zdj0zD3fmw
+ 0r7ePsSwD5J4z/eCASTcE2PObhlfPN9WqKLOCnKp3PpWuqLXR6DciTPZ0guxWA6eOSWr4NU2G9
+ jlnf71Bb01di20/8SZDaBOTk2HNn2A5zlq5qUrXHOc3no/ghlTBdxRAVip/rvUH4Ws7pLic3jH
+ sr4J/119SvavbVQLuPsqCjuXnIRi8NyERRhCYKRSmJcygBhyRePylvnW7b5u7VmbAPIOHJCmmr
+ mOo=
+X-Utexas-Sender-Group: RELAYLIST-SCAN
+X-IronPort-MID: 186735483
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2GUCwDi0XNelwJjcoFmDg8BAQEJARE?=
+ =?us-ascii?q?FBQGBe4NrMYY9jQmBbJRChyQBCAEBAQEBAQEBATcEAQGGYSQ4EwIDAQwBAQY?=
+ =?us-ascii?q?BAQEBAQUEAgIQAQEBAQEIFgaGEoZRKHs0HWaDBIJ8oE8BgSg+AiMBPwEMgQW?=
+ =?us-ascii?q?LMoVMgzeBS4E4jC8aggCBETOIN4J2giwEjW6KBkZ+lhV2gkaWbgwdm0strEu?=
+ =?us-ascii?q?Be3KDO08YDY43jXFbJI9YAQE?=
+X-IPAS-Result: =?us-ascii?q?A2GUCwDi0XNelwJjcoFmDg8BAQEJAREFBQGBe4NrMYY9j?=
+ =?us-ascii?q?QmBbJRChyQBCAEBAQEBAQEBATcEAQGGYSQ4EwIDAQwBAQYBAQEBAQUEAgIQA?=
+ =?us-ascii?q?QEBAQEIFgaGEoZRKHs0HWaDBIJ8oE8BgSg+AiMBPwEMgQWLMoVMgzeBS4E4j?=
+ =?us-ascii?q?C8aggCBETOIN4J2giwEjW6KBkZ+lhV2gkaWbgwdm0strEuBe3KDO08YDY43j?=
+ =?us-ascii?q?XFbJI9YAQE?=
+X-IronPort-AV: E=Sophos;i="5.70,572,1574143200"; 
+   d="scan'208";a="186735483"
+X-Utexas-Seen-Outbound: true
+Received: from relay02.tacc.utexas.edu ([129.114.99.2])
+  by esa10.utexas.iphmx.com with ESMTP; 19 Mar 2020 15:15:41 -0500
+Received: from master.stampede2.tacc.utexas.edu (master.stampede2.tacc.utexas.edu [206.76.192.1])
+	by relay02.tacc.utexas.edu (Postfix) with ESMTP id 351BB20072A
+	for <esmftest@cgd.ucar.edu>; Thu, 19 Mar 2020 15:15:41 -0500 (CDT)
+Received: from login3.stampede2.tacc.utexas.edu (login3.stampede2.tacc.utexas.edu [206.76.192.53])
+	by master.stampede2.tacc.utexas.edu (Postfix) with ESMTP id 2DFE4603EF
+	for <esmftest@cgd.ucar.edu>; Thu, 19 Mar 2020 15:15:41 -0500 (CDT)
+Received: by login3.stampede2.tacc.utexas.edu (Postfix, from userid 838286)
+	id 29B3A80094; Thu, 19 Mar 2020 15:15:41 -0500 (CDT)
+Date: Thu, 19 Mar 2020 15:15:41 -0500
+To: esmftest@cgd.ucar.edu
+Subject: ESMF_Stampede_gfortran
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-Id: <20200319201541.29B3A80094@login3.stampede2.tacc.utexas.edu>
+From: vasquez@login3.stampede2.tacc.utexas.edu (Silverio Vasquez)
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+WARNING: The test experienced an abnormal termination during execution,
+         therefore the test results may be incomplete/invalid.
+
+
+Script end: Thu Mar 19 15:15:41 CDT 2020
+
+
+_____________________________________ESMF TRUNK  BUILD AND TEST SUMMARY_________________________
+
+
+
+                                            
+                    INSTALL/
+           BUILD  QUICK_START OS.COMPILER.COMM.ABI    UNIT TESTS   EXAMPLES  SYSTEM TESTS  APPS TESTS
+_____________________________________________________________________________________________________
+          PASS/FAIL PASS/FAIL                           PASS/FAIL   PASS/FAIL  PASS/FAIL   PASS/FAIL
+_____________________________________________________________________________________________________
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /scratch/04529/vasquez/trunk/gfortran/esmf_logs/2003_test.
+ These tarballs contain the *Log and *stdout files only, not the executables.
+ This directory also contains failed build output files with the naming convention of 
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COMM.
+ For example, if the build fails on longs on the 19th of the month with ESMF_BOPT=g, the file 
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:orange
+Day_of_Week:Wednesday
+Test_Failures:0

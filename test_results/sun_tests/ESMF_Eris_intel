@@ -1,0 +1,637 @@
+Return-Path: <silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 15 Mar 2020 13:30:01 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 07E83229
+	for <esmftest@cgd.ucar.edu>; Sun, 15 Mar 2020 07:19:41 -0600 (MDT)
+Received: from mail-io1-f70.google.com (mail-io1-f70.google.com [209.85.166.70])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id ECB081801980
+	for <esmftest@cgd.ucar.edu>; Sun, 15 Mar 2020 07:19:40 -0600 (MDT)
+Received: by mail-io1-f70.google.com with SMTP id b21so4370982iot.10
+        for <esmftest@cgd.ucar.edu>; Sun, 15 Mar 2020 06:19:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-original-authentication-results:x-gm-message-state:to:subject
+         :message-id:date:from;
+        bh=ifHiX9TndRcQfy1ItlhsQlwenEv1Wi+tRQnEcmJsUCw=;
+        b=IWfSZOllBU2nBkqrRxMHixUlVTiYchiX+jyfTAvS+PM70ZSncM/0tkoCevyOYMwkuO
+         appaosBPeA0WolmUwvPJ2Nt+nFYlNoU7daoG9i1MrxDcLdFI6LzDT+ROawMeLeb1n6gP
+         afLnjj9P4JJ692B+BZf8HoQYXDWQcNgqmRYdmaDqpOA6qp+Xwq9xrJQK1eW3Zqw9Pi19
+         RdSokjJM1NSwt09OmgwC9A3+0UKnEFJf3uhGh1gBjyp75HV6HmfrLETur0unZiHgBI7B
+         VNrEJkdHJRP7dts7X6n8s6PSpp/xqs3lU4rUoFmw1bioXsCOtPp+d5FenSL/pfrapCCZ
+         P++w==
+X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) smtp.mailfrom=silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov;       dmarc=fail (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+X-Gm-Message-State: ANhLgQ3Fd02idVPQboLhXeuX/b0J8INfdtnIrKXnFa4Typbh60hTCaOe
+	3IVJOPyntkcbff+o2QqHEzn2Vuv6IJ5hY67uVm6mM4qHMELh/SCzLBYkp3fUNFrXHEOnfNl9vK9
+	nno0PKvUmFpjoPK12
+X-Received: by 2002:a05:6e02:86:: with SMTP id l6mr22803929ilm.22.1584278380613;
+        Sun, 15 Mar 2020 06:19:40 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vtWihXAfCJemBRe+5Xs5Yv+xUNFpPsiaDWMFtbsAEckEHTyrEcYbmQRyu2nUnl7S+3vl/IU
+X-Received: by 2002:a05:6e02:86:: with SMTP id l6mr22803879ilm.22.1584278379721;
+        Sun, 15 Mar 2020 06:19:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1584278379; cv=none;
+        d=google.com; s=arc-20160816;
+        b=tTWAfM0VoTInHQEAfEtocfKwJ9PSD5/L7owrp9GrEmTyc6sVsAYFzGNdG4B5FFjWAN
+         J11yxHZYcxymUbD99XMaTZc+BdBILCY2qE8GLPI7AMPtyZpMshwXUU38f8iY5s6WAuON
+         sWoWKGILnjwrkUTFhcEQcfds4Nlcm2uyqfFwRD8Ub6rnNpv10xjlFfJDFv1Cgp/dGDt9
+         nJwZ9ix2cFoWars6LxsNl9wayLeoHj+xXowcc+yaCi9SUVw/BW61FCkTE0rDdxLJqiRT
+         PIhZtp1fjna0/8y/HYiJpQEXWtN2WdQ9LtARI3n2pM5SmfM3vpWLzAjzPvgo7ah+eD/8
+         XeaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:date:message-id:subject:to;
+        bh=ifHiX9TndRcQfy1ItlhsQlwenEv1Wi+tRQnEcmJsUCw=;
+        b=uozL9k3EpYaXIMpPavpO7zzs/SLf56o2EqS48HjeybHYHCENd4PWYTFxe58LOzCOt7
+         WCgCgftNqSHyXql2Mswr/UnbIX7A8sQVyTrTcFTI1SLxkdWYCYghHE31TewmwTuK7VfI
+         A51XkKIT9656oaiHW99sBg6pPQLRCmN2K8r/sqNN78F7cRyr1xCS53tcMqJj37YEG3JX
+         sChZzEwD7jXrVs1dmiSjGskRw76PcbxPx0P07ro7n6E4DUsaVKkwrBHoAPb5WDdNFQpt
+         3FDzpBXCtd0TomV7vNTpKo/xk00nu4hkqVaxBuhRi9foDGVoLg98Paunrsh4OcfB51kW
+         ZtHg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) smtp.mailfrom=silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov;
+       dmarc=fail (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from darwin-regtest2.gsd.esrl.noaa.gov (darwin-regtest2.gsd.esrl.noaa.gov. [137.75.232.145])
+        by mx.google.com with ESMTP id e2si3607256ilr.154.2020.03.15.06.19.39
+        for <esmftest@cgd.ucar.edu>;
+        Sun, 15 Mar 2020 06:19:39 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) client-ip=137.75.232.145;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) smtp.mailfrom=silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov;
+       dmarc=fail (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: by darwin-regtest2.gsd.esrl.noaa.gov (Postfix, from userid 1992296994)
+	id 8A77D1201FEA86; Sun, 15 Mar 2020 07:19:39 -0600 (MDT)
+To: esmftest@cgd.ucar.edu
+Subject: ESMF_Eris_intel
+Message-Id: <20200315131939.8A77D1201FEA86@darwin-regtest2.gsd.esrl.noaa.gov>
+Date: Sun, 15 Mar 2020 07:19:39 -0600 (MDT)
+From: silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov (Silverio Vasquez)
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+
+Script start time: Sun Mar 15 07:15:00 MDT 2020
+
+Script end: Sun Mar 15 07:19:39 MDT 2020
+
+
+_____________________________________ESMF TRUNK BUILD AND TEST SUMMARY___________________________
+
+
+
+                                            
+                    INSTALL/
+           BUILD  QUICK_START OS.COMPILER.COMM.ABI    UNIT TESTS   EXAMPLES  SYSTEM TESTS  APPS TESTS
+_____________________________________________________________________________________________________
+          PASS/FAIL PASS/FAIL                           PASS/FAIL   PASS/FAIL  PASS/FAIL   PASS/FAIL
+_____________________________________________________________________________________________________
+darwin-regtest2(g)**FAIL**            Darwin.intel.mpiuni.64
+darwin-regtest2(O)**FAIL**            Darwin.intel.mpiuni.64
+
+_______________________________________________________________________________________________
+
+Sun Mar 15 07:16:12 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov 
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+-------------------------------------------------------------- 
+Currently Loaded Modulefiles:
+  1) compilers/intel/c++/composer_xe_2015.3
+  2) compilers/intel/fortran/composer_xe_2015.5
+  3) null
+
+Repository:
+origin	https://github.com/esmf-org/esmf (fetch)
+origin	https://github.com/esmf-org/esmf (push)
+ 
+ESMF_8_1_0_beta_snapshot_11
+ 
+ 
+ 
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_11
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	tmp
+
+nothing added to commit but untracked files present (use "git add" to track)
+--------------------------------------------------------------
+ 
+--------------------------------------------------------------
+Make version:
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for i386-apple-darwin11.3.0
+
+--------------------------------------------------------------
+Fortran Compiler version:
+Intel(R) Fortran Intel(R) 64 Compiler XE for applications running on Intel(R) 64, Version 15.0.5.222 Build 20150805
+Copyright (C) 1985-2015 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+C++ Compiler version:
+Intel(R) C++ Intel(R) 64 Compiler XE for applications running on Intel(R) 64, Version 15.0.3.187 Build 20150408
+Copyright (C) 1985-2015 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+Preprocessor version:
+Apple LLVM version 10.0.0 (clang-1000.10.44.4)
+Target: x86_64-apple-darwin17.7.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+ 
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=64
+ESMF_BOPT=g
+ESMF_COMM=mpiuni
+ESMF_COMPILER=intel
+ESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf
+ESMF_INSTALL_PREFIX=/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/../install_dir
+ESMF_OS=Darwin
+ESMF_PROJ4=external
+ESMF_PROJ4_INCLUDE=/Users/silverio.vasquez/proj4/include
+ESMF_PROJ4_LIBPATH=/Users/silverio.vasquez/proj4/lib
+ESMF_SITE=default
+ESMF_TESTEXHAUSTIVE=ON
+ESMF_TESTHARNESS_ARRAY=RUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD=RUN_ESMF_TestHarnessFieldUNI_1
+ESMF_TESTMPMD=ON
+ESMF_TESTWITHTHREADS=OFF
+ 
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf
+ESMF_OS:                Darwin
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          intel
+ESMF_BOPT:              g
+ESMF_COMM:              mpiuni
+ESMF_SITE:              default
+ESMF_PTHREADS:          OFF
+ESMF_OPENMP:            ON
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          ON
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessFieldUNI_1
+ESMF_MPIRUN:            /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/Infrastructure/stubs/mpiuni/mpirun
+ESMF_MPIMPMDRUN:        
+ 
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_YAMLCPP:            internal
+ESMF_PROJ4:                external
+ESMF_PROJ4_INCLUDE:        /Users/silverio.vasquez/proj4/include
+ESMF_PROJ4_LIBS:           -lproj
+ESMF_PROJ4_LIBPATH:        /Users/silverio.vasquez/proj4/lib
+ 
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod/modg/Darwin.intel.64.mpiuni.default
+ESMF_INSTALL_LIBDIR:    lib/libg/Darwin.intel.64.mpiuni.default
+ESMF_INSTALL_BINDIR:    bin/bing/Darwin.intel.64.mpiuni.default
+ESMF_INSTALL_DOCDIR:    doc
+ 
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+ 
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/opt/X11/bin:/opt/intel/composer_xe_2015.5.222/bin/intel64:/opt/intel/composer_xe_2015.3.187/bin/intel64:/Users/silverio.vasquez/bin:/Users/silverio.vasquez/bin
+LD_LIBRARY_PATH: 
+ 
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /opt/intel/composer_xe_2015.5.222/bin/intel64/ifort
+Location of the Fortran linker:    /opt/intel/composer_xe_2015.5.222/bin/intel64/ifort
+Location of the C++ compiler:      /opt/intel/composer_xe_2015.3.187/bin/intel64/icpc
+Location of the C++ linker:        /opt/intel/composer_xe_2015.3.187/bin/intel64/icpc
+
+Fortran compiler flags:
+ESMF_F90COMPILER: ifort
+ESMF_F90COMPILEOPTS: -g -traceback -check bounds  -assume realloc_lhs -m64  -openmp
+ESMF_F90COMPILEPATHS: -I/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/mod/modg/Darwin.intel.64.mpiuni.default -I/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/include -I/Users/silverio.vasquez/proj4/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='ESMF_8_1_0_beta_snapshot_11' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_PTHREADS -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf -DESMF_MPIUNI
+ESMF_F90COMPILEFREECPP: 
+ESMF_F90COMPILEFREENOCPP: 
+ESMF_F90COMPILEFIXCPP: 
+ESMF_F90COMPILEFIXNOCPP: 
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64  -openmp
+ESMF_F90LINKPATHS: -L/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libg/Darwin.intel.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib -L/opt/intel/composer_xe_2015.3.187/compiler/lib -L/usr/lib
+ESMF_F90LINKRPATHS: -Wl,-rpath,/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libg/Darwin.intel.64.mpiuni.default  -Wl,-rpath,/Users/silverio.vasquez/proj4/lib
+ESMF_F90LINKLIBS:  -liomp5 -lc++ -lSystem -lpthread -lproj
+ESMF_F90ESMFLINKLIBS: -lesmf  -liomp5 -lc++ -lSystem -lpthread -lproj
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: icpc
+ESMF_CXXCOMPILEOPTS: -std=c++11 -g -Wcheck  -m64  -openmp
+ESMF_CXXCOMPILEPATHS:  -I/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='ESMF_8_1_0_beta_snapshot_11' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_PTHREADS -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf -D__SDIR__='' -DESMF_CXXSTD=11 -DESMF_MPIUNI
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64  -openmp
+ESMF_CXXLINKPATHS: -L/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libg/Darwin.intel.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib -L/opt/intel/composer_xe_2015.5.222/compiler/lib/
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libg/Darwin.intel.64.mpiuni.default  -Wl,-rpath,/Users/silverio.vasquez/proj4/lib -Wl,-rpath,/opt/intel/composer_xe_2015.5.222/compiler/lib/
+ESMF_CXXLINKLIBS:  -lifportmt -lifcoremt -limf -lsvml -lipgo -liomp5 -lSystem -lintlc -lpthread -lsvml -ldl -lproj
+ESMF_CXXESMFLINKLIBS: -lesmf  -lifportmt -lifcoremt -limf -lsvml -lipgo -liomp5 -lSystem -lintlc -lpthread -lsvml -ldl -lproj
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       dylib
+ESMF_SL_LIBLINKER:    icpc
+ESMF_SL_LIBOPTS:       -shared  -openmp
+ESMF_SL_LIBLIBS:       -L/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libg/Darwin.intel.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib -L/opt/intel/composer_xe_2015.3.187/compiler/lib -L/usr/lib  -liomp5 -lc++ -lSystem -lpthread -lproj -L/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libg/Darwin.intel.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib -L/opt/intel/composer_xe_2015.5.222/compiler/lib/  -lifportmt -lifcoremt -limf -lsvml -lipgo -liomp5 -lSystem -lintlc -lpthread -lsvml -ldl -lproj
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libg/Darwin.intel.64.mpiuni.default/libesmftrace_preload.dylib
+ESMF_TRACE_STATICLINKOPTS=-static -Wl,--wrap=c_esmftrace_notify_wrappers -Wl,--wrap=c_esmftrace_isinitialized -Wl,--wrap=write -Wl,--wrap=writev -Wl,--wrap=pwrite -Wl,--wrap=read -Wl,--wrap=open -Wl,--wrap=MPI_Allgather -Wl,--wrap=MPI_Allgatherv -Wl,--wrap=MPI_Allreduce -Wl,--wrap=MPI_Alltoall -Wl,--wrap=MPI_Alltoallv -Wl,--wrap=MPI_Alltoallw -Wl,--wrap=MPI_Barrier -Wl,--wrap=MPI_Bcast -Wl,--wrap=MPI_Gather -Wl,--wrap=MPI_Gatherv -Wl,--wrap=MPI_Recv -Wl,--wrap=MPI_Reduce -Wl,--wrap=MPI_Scatter -Wl,--wrap=MPI_Send -Wl,--wrap=MPI_Sendrecv -Wl,--wrap=MPI_Wait -Wl,--wrap=MPI_Waitall -Wl,--wrap=MPI_Waitany -Wl,--wrap=MPI_Waitsome -Wl,--wrap=mpi_allgather_ -Wl,--wrap=mpi_allgather__ -Wl,--wrap=mpi_allgatherv_ -Wl,--wrap=mpi_allgatherv__ -Wl,--wrap=mpi_allreduce_ -Wl,--wrap=mpi_allreduce__ -Wl,--wrap=mpi_alltoall_ -Wl,--wrap=mpi_alltoall__ -Wl,--wrap=mpi_alltoallv_ -Wl,--wrap=mpi_alltoallv__ -Wl,--wrap=mpi_alltoallw_ -Wl,--wrap=mpi_alltoallw__ -Wl,--wrap=mpi_barrier_ -Wl,--wrap=mpi_barrier_
+ _ -Wl,--wrap=mpi_bcast_ -Wl,--wrap=mpi_bcast__ -Wl,--wrap=mpi_exscan_ -Wl,--wrap=mpi_exscan__ -Wl,--wrap=mpi_gather_ -Wl,--wrap=mpi_gather__ -Wl,--wrap=mpi_gatherv_ -Wl,--wrap=mpi_gatherv__ -Wl,--wrap=mpi_recv_ -Wl,--wrap=mpi_recv__ -Wl,--wrap=mpi_reduce_ -Wl,--wrap=mpi_reduce__ -Wl,--wrap=mpi_reduce_scatter_ -Wl,--wrap=mpi_reduce_scatter__ -Wl,--wrap=mpi_scatter_ -Wl,--wrap=mpi_scatter__ -Wl,--wrap=mpi_scatterv_ -Wl,--wrap=mpi_scatterv__ -Wl,--wrap=mpi_scan_ -Wl,--wrap=mpi_scan__ -Wl,--wrap=mpi_send_ -Wl,--wrap=mpi_send__ -Wl,--wrap=mpi_wait_ -Wl,--wrap=mpi_wait__ -Wl,--wrap=mpi_waitall_ -Wl,--wrap=mpi_waitall__ -Wl,--wrap=mpi_waitany_ -Wl,--wrap=mpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Sun Mar 15 07:16:15 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov
+Machine characteristics: Darwin darwin-regtest2.gsd.esrl.noaa.gov 17.7.0 Darwin Kernel Version 17.7.0: Thu Jan 23 07:05:23 PST 2020; root:xnu-4570.71.69~1/RELEASE_X86_64 x86_64
+==============================================================
+ 
+Sun Mar 15 07:17:29 MDT 2020 library build ****************FAIL
+
+
+The following is the 'tail' of the build failure
+
+In file included from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/../include/yaml-cpp/binary.h(10),
+                 from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp(1):
+/Library/Developer/CommandLineTools/usr/include/c++/v1/string(2116): error: identifier "_Allocator" is undefined
+      _NOEXCEPT_((__noexcept_move_assign_container<_Allocator, __alloc_traits>::value))
+      ^
+
+In file included from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/../include/yaml-cpp/binary.h(11),
+                 from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp(1):
+/Library/Developer/CommandLineTools/usr/include/c++/v1/vector(2886): error: identifier "_Allocator" is undefined
+      _NOEXCEPT_((__noexcept_move_assign_container<_Allocator, __alloc_traits>::value))
+      ^
+
+/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp(82): warning #2259: non-pointer conversion from "unsigned int" to "unsigned char" may lose significant bits
+        *out++ = value >> 16;
+               ^
+
+/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp(84): warning #2259: non-pointer conversion from "unsigned int" to "unsigned char" may lose significant bits
+          *out++ = value >> 8;
+                 ^
+
+/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp(86): warning #2259: non-pointer conversion from "unsigned int" to "unsigned char" may lose significant bits
+          *out++ = value;
+                 ^
+
+/Library/Developer/CommandLineTools/usr/include/c++/v1/memory(1691): error: class "std::__1::enable_if<<error-constant>, void>" has no member "type"
+          >::type
+             ^
+          detected during:
+            instantiation of "std::__1::allocator_traits<_Alloc>::__construct_backward [with _Alloc=std::__1::allocator<unsigned char>]" based on template argument <unsigned char> at line 898 of "/Library/Developer/CommandLineTools/usr/include/c++/v1/vector"
+            instantiation of "void std::__1::vector<_Tp, _Allocator>::__swap_out_circular_buffer(std::__1::__split_buffer<_Tp, _Allocator &> &) [with _Tp=unsigned char, _Allocator=std::__1::allocator<unsigned char>]" at line 1049 of "/Library/Developer/CommandLineTools/usr/include/c++/v1/vector"
+            instantiation of "void std::__1::vector<_Tp, _Allocator>::__append(std::__1::vector<_Tp, _Allocator>::size_type) [with _Tp=unsigned char, _Allocator=std::__1::allocator<unsigned char>]" at line 2008 of "/Library/Developer/CommandLineTools/usr/include/c++/v1/vector"
+            instantiation of "void std::__1::vector<_Tp, _Allocator>::resize(std::__1::vector<_Tp, _Allocator>::size_type) [with _Tp=unsigned char, _Allocator=std::__1::allocator<unsigned char>]" at line 36 of "/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/../include/yaml-cpp/binary.h"
+
+/Library/Developer/CommandLineTools/usr/include/c++/v1/iterator(1280): error: class "std::__1::enable_if<<error-constant>, unsigned char *>" has no member "type"
+  >::type
+     ^
+          detected during:
+            instantiation of "std::__1::__unwrap_iter" based on template argument <unsigned char> at line 1837 of "/Library/Developer/CommandLineTools/usr/include/c++/v1/algorithm"
+            instantiation of "_Op std::__1::copy(_Ip, _Ip, _Op) [with _Ip=const unsigned char *, _Op=std::__1::__wrap_iter<unsigned char *>]" at line 37 of "/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/../include/yaml-cpp/binary.h"
+
+compilation aborted for /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp (code 2)
+make[8]: *** [/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/obj/objg/Darwin.intel.64.mpiuni.default/binary.o] Error 2
+make[7]: *** [esmflib] Error 2
+make[6]: *** [tree_lib] Error 2
+make[5]: *** [tree] Error 1
+make[4]: *** [tree] Error 1
+make[3]: *** [tree] Error 1
+make[2]: *** [tree] Error 1
+make[1]: *** [build_libs] Error 2
+make: *** [lib] Error 2
+
+
+_______________________________________________________________________________________________
+
+Sun Mar 15 07:18:24 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov 
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+-------------------------------------------------------------- 
+Currently Loaded Modulefiles:
+  1) compilers/intel/c++/composer_xe_2015.3
+  2) compilers/intel/fortran/composer_xe_2015.5
+  3) null
+
+Repository:
+origin	https://github.com/esmf-org/esmf (fetch)
+origin	https://github.com/esmf-org/esmf (push)
+ 
+ESMF_8_1_0_beta_snapshot_11
+ 
+ 
+ 
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_11
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	tmp
+
+nothing added to commit but untracked files present (use "git add" to track)
+--------------------------------------------------------------
+ 
+--------------------------------------------------------------
+Make version:
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for i386-apple-darwin11.3.0
+
+--------------------------------------------------------------
+Fortran Compiler version:
+Intel(R) Fortran Intel(R) 64 Compiler XE for applications running on Intel(R) 64, Version 15.0.5.222 Build 20150805
+Copyright (C) 1985-2015 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+C++ Compiler version:
+Intel(R) C++ Intel(R) 64 Compiler XE for applications running on Intel(R) 64, Version 15.0.3.187 Build 20150408
+Copyright (C) 1985-2015 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+Preprocessor version:
+Apple LLVM version 10.0.0 (clang-1000.10.44.4)
+Target: x86_64-apple-darwin17.7.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+ 
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=64
+ESMF_BOPT=O
+ESMF_COMM=mpiuni
+ESMF_COMPILER=intel
+ESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf
+ESMF_INSTALL_PREFIX=/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/../install_dir
+ESMF_OS=Darwin
+ESMF_PROJ4=external
+ESMF_PROJ4_INCLUDE=/Users/silverio.vasquez/proj4/include
+ESMF_PROJ4_LIBPATH=/Users/silverio.vasquez/proj4/lib
+ESMF_SITE=default
+ESMF_TESTEXHAUSTIVE=ON
+ESMF_TESTHARNESS_ARRAY=RUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD=RUN_ESMF_TestHarnessFieldUNI_1
+ESMF_TESTMPMD=ON
+ESMF_TESTWITHTHREADS=OFF
+ 
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf
+ESMF_OS:                Darwin
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          intel
+ESMF_BOPT:              O
+ESMF_COMM:              mpiuni
+ESMF_SITE:              default
+ESMF_PTHREADS:          OFF
+ESMF_OPENMP:            ON
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          ON
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessFieldUNI_1
+ESMF_MPIRUN:            /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/Infrastructure/stubs/mpiuni/mpirun
+ESMF_MPIMPMDRUN:        
+ 
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_YAMLCPP:            internal
+ESMF_PROJ4:                external
+ESMF_PROJ4_INCLUDE:        /Users/silverio.vasquez/proj4/include
+ESMF_PROJ4_LIBS:           -lproj
+ESMF_PROJ4_LIBPATH:        /Users/silverio.vasquez/proj4/lib
+ 
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod/modO/Darwin.intel.64.mpiuni.default
+ESMF_INSTALL_LIBDIR:    lib/libO/Darwin.intel.64.mpiuni.default
+ESMF_INSTALL_BINDIR:    bin/binO/Darwin.intel.64.mpiuni.default
+ESMF_INSTALL_DOCDIR:    doc
+ 
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+ 
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/opt/X11/bin:/opt/intel/composer_xe_2015.5.222/bin/intel64:/opt/intel/composer_xe_2015.3.187/bin/intel64:/Users/silverio.vasquez/bin:/Users/silverio.vasquez/bin
+LD_LIBRARY_PATH: 
+ 
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /opt/intel/composer_xe_2015.5.222/bin/intel64/ifort
+Location of the Fortran linker:    /opt/intel/composer_xe_2015.5.222/bin/intel64/ifort
+Location of the C++ compiler:      /opt/intel/composer_xe_2015.3.187/bin/intel64/icpc
+Location of the C++ linker:        /opt/intel/composer_xe_2015.3.187/bin/intel64/icpc
+
+Fortran compiler flags:
+ESMF_F90COMPILER: ifort
+ESMF_F90COMPILEOPTS: -O  -assume realloc_lhs -m64  -openmp
+ESMF_F90COMPILEPATHS: -I/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/mod/modO/Darwin.intel.64.mpiuni.default -I/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/include -I/Users/silverio.vasquez/proj4/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='ESMF_8_1_0_beta_snapshot_11' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_PTHREADS -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf -DESMF_MPIUNI
+ESMF_F90COMPILEFREECPP: 
+ESMF_F90COMPILEFREENOCPP: 
+ESMF_F90COMPILEFIXCPP: 
+ESMF_F90COMPILEFIXNOCPP: 
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64  -openmp
+ESMF_F90LINKPATHS: -L/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libO/Darwin.intel.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib -L/opt/intel/composer_xe_2015.3.187/compiler/lib -L/usr/lib
+ESMF_F90LINKRPATHS: -Wl,-rpath,/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libO/Darwin.intel.64.mpiuni.default  -Wl,-rpath,/Users/silverio.vasquez/proj4/lib
+ESMF_F90LINKLIBS:  -liomp5 -lc++ -lSystem -lpthread -lproj
+ESMF_F90ESMFLINKLIBS: -lesmf  -liomp5 -lc++ -lSystem -lpthread -lproj
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: icpc
+ESMF_CXXCOMPILEOPTS: -std=c++11 -O -DNDEBUG  -m64  -openmp
+ESMF_CXXCOMPILEPATHS:  -I/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='ESMF_8_1_0_beta_snapshot_11' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_PTHREADS -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf -D__SDIR__='' -DESMF_CXXSTD=11 -DESMF_MPIUNI
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64  -openmp
+ESMF_CXXLINKPATHS: -L/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libO/Darwin.intel.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib -L/opt/intel/composer_xe_2015.5.222/compiler/lib/
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libO/Darwin.intel.64.mpiuni.default  -Wl,-rpath,/Users/silverio.vasquez/proj4/lib -Wl,-rpath,/opt/intel/composer_xe_2015.5.222/compiler/lib/
+ESMF_CXXLINKLIBS:  -lifportmt -lifcoremt -limf -lsvml -lipgo -liomp5 -lSystem -lintlc -lpthread -lsvml -lproj
+ESMF_CXXESMFLINKLIBS: -lesmf  -lifportmt -lifcoremt -limf -lsvml -lipgo -liomp5 -lSystem -lintlc -lpthread -lsvml -lproj
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       dylib
+ESMF_SL_LIBLINKER:    icpc
+ESMF_SL_LIBOPTS:       -shared  -openmp
+ESMF_SL_LIBLIBS:       -L/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libO/Darwin.intel.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib -L/opt/intel/composer_xe_2015.3.187/compiler/lib -L/usr/lib  -liomp5 -lc++ -lSystem -lpthread -lproj -L/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libO/Darwin.intel.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib -L/opt/intel/composer_xe_2015.5.222/compiler/lib/  -lifportmt -lifcoremt -limf -lsvml -lipgo -liomp5 -lSystem -lintlc -lpthread -lsvml -lproj
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/lib/libO/Darwin.intel.64.mpiuni.default/libesmftrace_preload.dylib
+ESMF_TRACE_STATICLINKOPTS=-static -Wl,--wrap=c_esmftrace_notify_wrappers -Wl,--wrap=c_esmftrace_isinitialized -Wl,--wrap=write -Wl,--wrap=writev -Wl,--wrap=pwrite -Wl,--wrap=read -Wl,--wrap=open -Wl,--wrap=MPI_Allgather -Wl,--wrap=MPI_Allgatherv -Wl,--wrap=MPI_Allreduce -Wl,--wrap=MPI_Alltoall -Wl,--wrap=MPI_Alltoallv -Wl,--wrap=MPI_Alltoallw -Wl,--wrap=MPI_Barrier -Wl,--wrap=MPI_Bcast -Wl,--wrap=MPI_Gather -Wl,--wrap=MPI_Gatherv -Wl,--wrap=MPI_Recv -Wl,--wrap=MPI_Reduce -Wl,--wrap=MPI_Scatter -Wl,--wrap=MPI_Send -Wl,--wrap=MPI_Sendrecv -Wl,--wrap=MPI_Wait -Wl,--wrap=MPI_Waitall -Wl,--wrap=MPI_Waitany -Wl,--wrap=MPI_Waitsome -Wl,--wrap=mpi_allgather_ -Wl,--wrap=mpi_allgather__ -Wl,--wrap=mpi_allgatherv_ -Wl,--wrap=mpi_allgatherv__ -Wl,--wrap=mpi_allreduce_ -Wl,--wrap=mpi_allreduce__ -Wl,--wrap=mpi_alltoall_ -Wl,--wrap=mpi_alltoall__ -Wl,--wrap=mpi_alltoallv_ -Wl,--wrap=mpi_alltoallv__ -Wl,--wrap=mpi_alltoallw_ -Wl,--wrap=mpi_alltoallw__ -Wl,--wrap=mpi_barrier_ -Wl,--wrap=mpi_barrier_
+ _ -Wl,--wrap=mpi_bcast_ -Wl,--wrap=mpi_bcast__ -Wl,--wrap=mpi_exscan_ -Wl,--wrap=mpi_exscan__ -Wl,--wrap=mpi_gather_ -Wl,--wrap=mpi_gather__ -Wl,--wrap=mpi_gatherv_ -Wl,--wrap=mpi_gatherv__ -Wl,--wrap=mpi_recv_ -Wl,--wrap=mpi_recv__ -Wl,--wrap=mpi_reduce_ -Wl,--wrap=mpi_reduce__ -Wl,--wrap=mpi_reduce_scatter_ -Wl,--wrap=mpi_reduce_scatter__ -Wl,--wrap=mpi_scatter_ -Wl,--wrap=mpi_scatter__ -Wl,--wrap=mpi_scatterv_ -Wl,--wrap=mpi_scatterv__ -Wl,--wrap=mpi_scan_ -Wl,--wrap=mpi_scan__ -Wl,--wrap=mpi_send_ -Wl,--wrap=mpi_send__ -Wl,--wrap=mpi_wait_ -Wl,--wrap=mpi_wait__ -Wl,--wrap=mpi_waitall_ -Wl,--wrap=mpi_waitall__ -Wl,--wrap=mpi_waitany_ -Wl,--wrap=mpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Sun Mar 15 07:18:27 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov
+Machine characteristics: Darwin darwin-regtest2.gsd.esrl.noaa.gov 17.7.0 Darwin Kernel Version 17.7.0: Thu Jan 23 07:05:23 PST 2020; root:xnu-4570.71.69~1/RELEASE_X86_64 x86_64
+==============================================================
+ 
+Sun Mar 15 07:19:39 MDT 2020 library build ****************FAIL
+
+
+The following is the 'tail' of the build failure
+
+                 from /Library/Developer/CommandLineTools/usr/include/c++/v1/string(477),
+                 from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/../include/yaml-cpp/binary.h(10),
+                 from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp(1):
+          detected during instantiation of type "std::__1::__all<<expression>...>" at line 401
+In file included from /Library/Developer/CommandLineTools/usr/include/c++/v1/utility(198),
+                 from /Library/Developer/CommandLineTools/usr/include/c++/v1/algorithm(642),
+                 from /Library/Developer/CommandLineTools/usr/include/c++/v1/__string(56),
+                 from /Library/Developer/CommandLineTools/usr/include/c++/v1/string_view(176),
+                 from /Library/Developer/CommandLineTools/usr/include/c++/v1/string(477),
+                 from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/../include/yaml-cpp/binary.h(10),
+                 from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp(1):
+
+In file included from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/../include/yaml-cpp/binary.h(10),
+                 from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp(1):
+/Library/Developer/CommandLineTools/usr/include/c++/v1/string(2116): error: identifier "_Allocator" is undefined
+      _NOEXCEPT_((__noexcept_move_assign_container<_Allocator, __alloc_traits>::value))
+      ^
+
+In file included from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/../include/yaml-cpp/binary.h(11),
+                 from /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp(1):
+/Library/Developer/CommandLineTools/usr/include/c++/v1/vector(2886): error: identifier "_Allocator" is undefined
+      _NOEXCEPT_((__noexcept_move_assign_container<_Allocator, __alloc_traits>::value))
+      ^
+
+/Library/Developer/CommandLineTools/usr/include/c++/v1/memory(1691): error: class "std::__1::enable_if<<error-constant>, void>" has no member "type"
+          >::type
+             ^
+          detected during:
+            instantiation of "std::__1::allocator_traits<_Alloc>::__construct_backward [with _Alloc=std::__1::allocator<unsigned char>]" based on template argument <unsigned char> at line 898 of "/Library/Developer/CommandLineTools/usr/include/c++/v1/vector"
+            instantiation of "void std::__1::vector<_Tp, _Allocator>::__swap_out_circular_buffer(std::__1::__split_buffer<_Tp, _Allocator &> &) [with _Tp=unsigned char, _Allocator=std::__1::allocator<unsigned char>]" at line 1049 of "/Library/Developer/CommandLineTools/usr/include/c++/v1/vector"
+            instantiation of "void std::__1::vector<_Tp, _Allocator>::__append(std::__1::vector<_Tp, _Allocator>::size_type) [with _Tp=unsigned char, _Allocator=std::__1::allocator<unsigned char>]" at line 2008 of "/Library/Developer/CommandLineTools/usr/include/c++/v1/vector"
+            instantiation of "void std::__1::vector<_Tp, _Allocator>::resize(std::__1::vector<_Tp, _Allocator>::size_type) [with _Tp=unsigned char, _Allocator=std::__1::allocator<unsigned char>]" at line 36 of "/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/../include/yaml-cpp/binary.h"
+
+/Library/Developer/CommandLineTools/usr/include/c++/v1/iterator(1280): error: class "std::__1::enable_if<<error-constant>, unsigned char *>" has no member "type"
+  >::type
+     ^
+          detected during:
+            instantiation of "std::__1::__unwrap_iter" based on template argument <unsigned char> at line 1837 of "/Library/Developer/CommandLineTools/usr/include/c++/v1/algorithm"
+            instantiation of "_Op std::__1::copy(_Ip, _Ip, _Op) [with _Ip=const unsigned char *, _Op=std::__1::__wrap_iter<unsigned char *>]" at line 37 of "/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/../include/yaml-cpp/binary.h"
+
+compilation aborted for /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp (code 2)
+make[8]: *** [/Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf/obj/objO/Darwin.intel.64.mpiuni.default/binary.o] Error 2
+make[7]: *** [esmflib] Error 2
+make[6]: *** [tree_lib] Error 2
+make[5]: *** [tree] Error 1
+make[4]: *** [tree] Error 1
+make[3]: *** [tree] Error 1
+make[2]: *** [tree] Error 1
+make[1]: *** [build_libs] Error 2
+make: *** [lib] Error 2
+
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /Users/silverio.vasquez/script_dirs/daily_builds/intel/esmf_logs/2003_test.
+ These tarballs contain the *Log and *stdout files only, not the executables.
+ This directory also contains failed build output files with the naming convention of 
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COMM.
+ For example, if the build fails on longs on the 19th of the month with ESMF_BOPT=g, the file 
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:red
+Day_of_Week:Sunday
+Test_Failures:0

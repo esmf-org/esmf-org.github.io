@@ -1,0 +1,70 @@
+Return-Path: <esmftester@gmail.com>
+Delivered-To: tablemesatest@gmail.com
+Received: by 2002:a02:c005:0:0:0:0:0 with SMTP id y5csp3738507jai;
+        Mon, 7 Jan 2019 08:55:36 -0800 (PST)
+X-Google-Smtp-Source: AFSGD/UikRzqlWPUT+9+RgdI5hA9QHYk7TARid5NH1jl3+ibnGfj7DaCoEOfbrKma1oPPpWMi7kZ
+X-Received: by 2002:a81:3007:: with SMTP id w7mr63427440yww.335.1546880136584;
+        Mon, 07 Jan 2019 08:55:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1546880136; cv=none;
+        d=google.com; s=arc-20160816;
+        b=mi2/7UEaORWhQmxIAgA1ltDk95JVR/lh6h1KfkCc2vOxKWyTUNJNri85HSRhKJFTt1
+         mP3pM0keJjVXT61N6fXFGU3R/SbCGmEgXnQioP/TjR7692bFXLaxRlNYIbkQqyh/VRx5
+         N8h1xEQuaupVnPlTE57BVKYFvhCxTRV91oCbG60+U3ENyNz8EIpwr4AE2mGHNZIq1Tim
+         /FFS40q72wHjwe3JQpLdUO501avAJDCSRpdY8QjCkKi4G7FWRCuoLTlgHqZqZNj9roX9
+         DU2uoB4o/XPF3xwtb4SIBAldc8p8f4xPzL1mMFxotlyM2Mzbyz79Z/nGwuxjQTdNpQLb
+         W9QQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:mime-version:user-agent:message-id
+         :subject:to:from:date;
+        bh=M5Isi7PfuEGBnoAyDC746n+vYPo9B+6Xrxdv6XlQB3E=;
+        b=dKebk67IQr/ZDGLv0KRmZUfXkzL9qIGMRJHpHWyvxLZnR2X7O+HQzvbid5F40zY/QR
+         lqi4l6usRXEYToWepfVpvetUMOa4/2mhVb6Efn6PZGUCXb3Tpga+TUNZ3mGogB8KVcX2
+         VhJl+Z4sSzzFqn+VCXuoPxMmvBAhigiFE9085w1XZgAJYOr7mCxqh+gIfGTJj3pONzAc
+         fAU40tk5Dg2J6ItqJkXxsXiIhxoGU+1/XBX/SqOLiKsjhe73OUtXuwJTfcxyBx/Om6hI
+         6vagfeZkzEr+6mraGaNZo4CY6Vi9Blmx2n5Cov3AzUYgrSE/pBAfd1Vi3k5xpEqMrwqX
+         loHA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=softfail (google.com: domain of transitioning esmftester@gmail.com does not designate 192.43.244.84 as permitted sender) smtp.mailfrom=esmftester@gmail.com;
+       dmarc=fail (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from vscani1.ucar.edu (vscani1.ucar.edu. [192.43.244.84])
+        by mx.google.com with ESMTPS id d63si23370138ybd.189.2019.01.07.08.55.36
+        for <tablemesatest@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 07 Jan 2019 08:55:36 -0800 (PST)
+Received-SPF: softfail (google.com: domain of transitioning esmftester@gmail.com does not designate 192.43.244.84 as permitted sender) client-ip=192.43.244.84;
+Authentication-Results: mx.google.com;
+       spf=softfail (google.com: domain of transitioning esmftester@gmail.com does not designate 192.43.244.84 as permitted sender) smtp.mailfrom=esmftester@gmail.com;
+       dmarc=fail (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from cheyenne.ucar.edu (chmgt.ucar.edu [128.117.183.158])
+	by vscani1.ucar.edu (Postfix) with ESMTP id E97EC1811601
+	for <tablemesatest@gmail.com>; Mon,  7 Jan 2019 09:55:05 -0700 (MST)
+Received: from service1.cheyenne.ucar.edu (cheyenne2.head.cheyenne.ucar.edu [172.23.0.3])
+	by cheyenne.ucar.edu (Postfix) with ESMTP id E626425EE3EB
+	for <tablemesatest@gmail.com>; Mon,  7 Jan 2019 09:55:05 -0700 (MST)
+Received: by service1.cheyenne.ucar.edu (Postfix, from userid 2835)
+	id DC5852B5C9F9; Mon,  7 Jan 2019 09:55:05 -0700 (MST)
+Date: Mon, 07 Jan 2019 09:55:05 -0700
+From: esmftester@gmail.com
+To: tablemesatest@gmail.com
+Subject: test_msg3
+Message-ID: <5c338469.aPDh7oqC1A3W2CTx%esmftester@gmail.com>
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-getmail-retrieved-from-mailbox: INBOX
+X-GMAIL-THRID: =?utf-8?q?1622021386014039868?=
+X-GMAIL-MSGID: =?utf-8?q?1622021386014039868?=
+
+#!/usr/bin/expect --
+
+set tag [lindex $argv 0]
+send_user " tag is $tag"
+
+set timeout 900
+
+spawn git checkout tags/$tag
+
+expect  eof
+
+

@@ -1,0 +1,100 @@
+Return-Path: <silverio.vasquez@noaa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by
+  marktest.cgd.ucar.edu with IMAP4-SSL; 06 Mar 2019 06:45:43 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx1.ucar.edu (vscanx1.ucar.edu [128.117.64.141])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 882F2E3
+	for <esmftest@cgd.ucar.edu>; Tue,  5 Mar 2019 17:26:52 -0700 (MST)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+	by vscanx1.ucar.edu (Postfix) with ESMTPS id 44D5318001D1
+	for <esmftest@cgd.ucar.edu>; Tue,  5 Mar 2019 17:26:52 -0700 (MST)
+Received: by mail-wr1-f72.google.com with SMTP id h2so6374175wre.9
+        for <esmftest@cgd.ucar.edu>; Tue, 05 Mar 2019 16:26:52 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:dkim-signature:mime-version:from:date:message-id
+         :subject:to;
+        bh=WKddTQwJtDU/z41YFtT1j5R4CcuuAETeDHBNFyKc+4k=;
+        b=ZmLuOEBF9BiC/qq+qZ2j7DqjfmdW00f2hDLNSF5H6pOLPBZuZDBvM4CY1svKTZxdds
+         CRmCi7YteuL1velZkPUZcNPVeLLGuKEqMNbvEEwQjWvCoLhgxnjX6aTYZZMElbEXWgQs
+         9zj453NaDu3mh9Sws2s9oEnqyAjxKZxdWAD3/GUFNuiPzu0SBxgQIkHsgEVUmF/ViBoH
+         Xe9Uh9GhInaL67ykrEN/7bdNIz94Ku1xXUaLG0oV7Pz/DJO12nvVQlTjVkfs7mY4Ufwf
+         0PqWpo7XygYDCYM6rybgSNalnaQKcu+DbGa0G8BD7PIwCQTlnMX/WvUEPcmWdGAxLPKH
+         ktZg==
+X-Gm-Message-State: APjAAAUokTc5bzE21m9YnVmVSP8oCqA20dSd9gtHblN8+wOHNw+yRwBA
+	R6XHdBNbf80hZXrXlt52+e7E32HwORQCy/lJYXMLpf9A4frYHWVXAIGKA8XDUZqWRFbed7xsHzh
+	QqGKtu9WIA8Tvgfl+32AS4k6TIlpRCil06sxDZvOKfC94p4LSfA++KjT7tMcL65n4vmDGfG5kAW
+	LrMkRPhlGbpxgeFflSNLu+g1Pp+6oy7YMnjV0wvKXN3/dZPrXbnVRVa6ckGy16EM8Tj+jR4ho/s
+	Gl8
+X-Received: by 2002:a1c:3b06:: with SMTP id i6mr596352wma.55.1551832011233;
+        Tue, 05 Mar 2019 16:26:51 -0800 (PST)
+X-Received: by 2002:a1c:3b06:: with SMTP id i6mr596345wma.55.1551832011064;
+        Tue, 05 Mar 2019 16:26:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1551832011; cv=none;
+        d=google.com; s=arc-20160816;
+        b=GYXWrHVY+v9QaGGtj3cZjatUJ8/Kj8MbQHBs3wHqxs44VgYmNphjL5unTbLzWNImbT
+         abldOTADMVKJXzxuNmKiKkB/Jtyp3FmMtoNlq1fbNPIGVJpm/wYtueREZjv6PlJa1kt0
+         WSaSOtP6UJawObm5dwLvzbnf1cKtuIR8eGEbXIIMAnckNvDdC5n1VSQ6M8q6BuVxSuVK
+         6XyyacNZS1Zf5q2ClLqaOPb55kq/JUwL77CsAzCEGXZn78lLFivzWscsUURpQ7LcgOLr
+         RdljhVWcEBQkI99N/ylMdj0COdP2ODtcv7qlcgQtLTB9EFBtEwSj4H0aAdxeEbRBa3uX
+         yIbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=WKddTQwJtDU/z41YFtT1j5R4CcuuAETeDHBNFyKc+4k=;
+        b=Vmtxvy8h37AXhrWPJjd2oolvxBZigFlcQm6iYMa7RfSo/w/jFETa0ggntU4DJKTyGg
+         VEIH9gTO6lwkJlNycVHwk1aKg4vJd1bNBrWJy3mXn62s4tFUopAYbH2ttwwIMOJ4PAx7
+         trl7jC3G0wEep33opsm8+6mPVKiUNrjjsnPp0FjXcSWjjiIT0lcmtcJI8I+3Ad//Z5nl
+         r16n1nDTVzdaTEf/moWXJxoiHCIu9vn9Ta++d83EntWOAE7urvMLB/9xnBM5viPWP0iS
+         ez12TZzW6C8lEk+CB2F9LHhyReMA3hDjfmj9h1Q05bEx2Ohm7+vcXbbLqJ1gqFPlqWh1
+         y9Hg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@noaa.gov header.s=google header.b=qFlvElpw;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.41 as permitted sender) smtp.mailfrom=silverio.vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id g9sor152140wmg.4.2019.03.05.16.26.51
+        for <esmftest@cgd.ucar.edu>
+        (Google Transport Security);
+        Tue, 05 Mar 2019 16:26:51 -0800 (PST)
+Received-SPF: pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@noaa.gov header.s=google header.b=qFlvElpw;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.41 as permitted sender) smtp.mailfrom=silverio.vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=noaa.gov; s=google;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=WKddTQwJtDU/z41YFtT1j5R4CcuuAETeDHBNFyKc+4k=;
+        b=qFlvElpwGhl6TO2Dhqi02ggNaku8HWeESf5NTii/hAdML0LDyVPJRjSzHpKthmT1kJ
+         Eq+P5a/LGofnjb3oGZ2BQELLDM7mJv1IFlU1SYfcZTlVXArj/DNWdJIvQPXVIiFr5hGt
+         YAaWgzmSwGN/JIvd8xzHzxI0a8Q00a4z5o0vRiomNRsL5u3G7XeVctQ/ryib8kVOMIN0
+         CgDl9RxyFU+b/+Ar2TAKnXJzDe1Z8rzinIN0aQ9GpJL41yh4D6fv8lcHl1xS3v9JiPMl
+         ywHvhpXTUsDIea+D6T9pmcuUQoRHw7MQdUZ2CoapVZAQjvR/tRGNeZc+SPePeAxdU2KQ
+         UKTw==
+X-Google-Smtp-Source: APXvYqwSyVZBhW/M9OvZss6XJmeywjgiUHteRFkkNU41y8vhs2SBrLj/FzIC9szZv+wdwpzz5cKswSFLV7SiQX258ow=
+X-Received: by 2002:a1c:48f:: with SMTP id 137mr580701wme.21.1551832010096;
+ Tue, 05 Mar 2019 16:26:50 -0800 (PST)
+MIME-Version: 1.0
+From: Silverio Vasquez - NOAA Affiliate <silverio.vasquez@noaa.gov>
+Date: Tue, 5 Mar 2019 17:26:39 -0700
+Message-ID: <CAMKputBniM09XXHZtJZqKBQVud+FWAWPNi7H30Q_NP2a3dJNPQ@mail.gmail.com>
+Subject: Build_NUOPC_LIS_Cap_Doc
+To: esmftest@cgd.ucar.edu
+Content-Type: multipart/alternative; boundary="000000000000b6c0970583620b6e"
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+--000000000000b6c0970583620b6e
+Content-Type: text/plain; charset="UTF-8"
+
+
+
+--000000000000b6c0970583620b6e
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr"><br></div>
+
+--000000000000b6c0970583620b6e--

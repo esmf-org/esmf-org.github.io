@@ -1,0 +1,675 @@
+Return-Path: <silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 20 Mar 2020 12:45:02 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id DDC7A266
+	for <esmftest@cgd.ucar.edu>; Fri, 20 Mar 2020 06:34:41 -0600 (MDT)
+Received: from mail-io1-f69.google.com (mail-io1-f69.google.com [209.85.166.69])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id CB840180196D
+	for <esmftest@cgd.ucar.edu>; Fri, 20 Mar 2020 06:34:41 -0600 (MDT)
+Received: by mail-io1-f69.google.com with SMTP id q24so4374110iot.20
+        for <esmftest@cgd.ucar.edu>; Fri, 20 Mar 2020 05:34:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-original-authentication-results:x-gm-message-state:to:subject
+         :message-id:date:from;
+        bh=q4OYzY5sJ7zZfStMe/7inwb2kgC06ElvWkeQszUsRe8=;
+        b=HW3HxyP4QWlIEaiAFxGxS7nj1wH4B8FkPxNaMGVT4v8BXQBsm/58GcPigpBuG4eNNS
+         8RlzOcOF+I6AJGej9t5jdEJTCnOiWHuOzKxCy0Fg+jW/RJfWWG46/K/ozhqP6x/oBudY
+         12zHi/Y+EgYoAWgwRcRLw9UTnFGOne9hWFza98t83Mnlcs0aw7kK9yks614CCfhLBaCH
+         uGrkuZQJVkk97U91pdwC99apWi41KKY8NJ3daUjs8RxrG4l3wvcaB+qJQsanK/HuIsDu
+         txuw1+XoKFtVQr428ZkOv3yaOihlukOo0/wSxJ8S6pH6JEygZgAo5Iu6qBUFt/CcioPI
+         XyTg==
+X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) smtp.mailfrom=silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov;       dmarc=fail (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+X-Gm-Message-State: ANhLgQ2rYF/PPCC7J2216CPNCaaY+EDx04gqCE0icdyK8zn/Iipf3Xvp
+	dCunNtr0vPZSmRWc1i7FvzfrLvNOyFJsIkQXzdSHO7eauzntd/N/zdZXbEv7exXNEa34O0DV1oO
+	gTG9ds3toynx3c4An
+X-Received: by 2002:a92:bb9d:: with SMTP id x29mr8194207ilk.137.1584707681437;
+        Fri, 20 Mar 2020 05:34:41 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vuUKV3jkQjjPqNEA6+BJGstqRfnls2NKxPuCNBlpM9tq8o4GofludPtfWnPqD9V3kL4I4I3
+X-Received: by 2002:a92:bb9d:: with SMTP id x29mr8194119ilk.137.1584707680337;
+        Fri, 20 Mar 2020 05:34:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1584707680; cv=none;
+        d=google.com; s=arc-20160816;
+        b=QofVgT2JFDAbnA+s5vKM53wu4sfghkgFCZIAvmrAYbvcasPtmMe6JM31TEysqQqXGD
+         y+/+mnORdS8POBJ1RrZ3RyYqJVc1idafuNKsSHB+7uQZwAlv8598q2s+IoR0hT5ZygqD
+         MlsYCbUxD1fwBqg4th1orQ4O7sX/pYEowhzwz7r5foWLaC/m4Y313vd41ImilB4pFSAW
+         XSElmd9uxo5L/TSmwz13obwYeQ9RGGGPtFEHUyBAJ4tgawbJkNNPrG2GGMOWyoAlsb73
+         amdkFis+pa6o1PGTn2r8Xcrz8bAQF3F84gL7vIf+VEjyh/OrSUVKKqPEnD6y56caCP3F
+         071g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:date:message-id:subject:to;
+        bh=q4OYzY5sJ7zZfStMe/7inwb2kgC06ElvWkeQszUsRe8=;
+        b=T3QbxkMPv+CT1btScPPM2qX2/zt4mIE/Oej7W8g9TZHJyjHPT6JAJ8uvgEDDpn82IF
+         NyMF6draQMTH/m3xy2ZWMEzAwz3mhBFS4SZB7xqgRnv75ly+6Zd5heak0v4kqo2jlF8Q
+         zzKUAsBySGvTnDQaMeXLj0oIipSj8DgAIHHHlKYfUDqS0VvCX/gGquh/vEDBvJMtRWKe
+         G+mltxguo/KZ00/lkFg7LFs3ZpBVYaXV9uby/XCh6ZxCH/tXpV2HUFfpLcy2UwMNZulb
+         un9mytFtIJck9xgvbipOB93Q4onZ1pvAg6BX/rtS5LF1mXwaEQP0OtZUIB3xrz3WNfwF
+         MRfQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) smtp.mailfrom=silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov;
+       dmarc=fail (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from darwin-regtest2.gsd.esrl.noaa.gov (darwin-regtest2.gsd.esrl.noaa.gov. [137.75.232.145])
+        by mx.google.com with ESMTP id c7si4482981ioc.5.2020.03.20.05.34.40
+        for <esmftest@cgd.ucar.edu>;
+        Fri, 20 Mar 2020 05:34:40 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) client-ip=137.75.232.145;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) smtp.mailfrom=silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov;
+       dmarc=fail (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: by darwin-regtest2.gsd.esrl.noaa.gov (Postfix, from userid 1992296994)
+	id 0AD0C1203B6456; Fri, 20 Mar 2020 06:34:39 -0600 (MDT)
+To: esmftest@cgd.ucar.edu
+Subject: ESMF_Eris_NAG
+Message-Id: <20200320123440.0AD0C1203B6456@darwin-regtest2.gsd.esrl.noaa.gov>
+Date: Fri, 20 Mar 2020 06:34:39 -0600 (MDT)
+From: silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov (Silverio Vasquez)
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+
+Script start time: Fri Mar 20 06:30:00 MDT 2020
+
+Script end: Fri Mar 20 06:34:39 MDT 2020
+
+
+_____________________________________ESMF TRUNK BUILD AND TEST SUMMARY___________________________
+
+
+
+                                            
+                    INSTALL/
+           BUILD  QUICK_START OS.COMPILER.COMM.ABI    UNIT TESTS   EXAMPLES  SYSTEM TESTS  APPS TESTS
+_____________________________________________________________________________________________________
+          PASS/FAIL PASS/FAIL                           PASS/FAIL   PASS/FAIL  PASS/FAIL   PASS/FAIL
+_____________________________________________________________________________________________________
+darwin-regtest2(g)**FAIL**            Darwin.nag.mpiuni.64
+darwin-regtest2(O)**FAIL**            Darwin.nag.mpiuni.64
+
+_______________________________________________________________________________________________
+
+Fri Mar 20 06:31:04 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov 
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+-------------------------------------------------------------- 
+Currently Loaded Modulefiles:
+  1) null                    2) compilers/nag/6.1/nag
+
+Repository:
+origin	https://github.com/esmf-org/esmf (fetch)
+origin	https://github.com/esmf-org/esmf (push)
+ 
+ESMF_8_1_0_beta_snapshot_12-7-g08a69607
+ 
+ 
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+ 
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_12-7-g08a69607
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	tmp
+
+nothing added to commit but untracked files present (use "git add" to track)
+--------------------------------------------------------------
+ 
+--------------------------------------------------------------
+Make version:
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for i386-apple-darwin11.3.0
+
+--------------------------------------------------------------
+Fortran Compiler version:
+NAG Fortran Compiler Release 6.1(Tozai) Build 6113
+Product NPMI661NA for Apple Intel Mac OSX 64-bit
+Copyright 1990-2016 The Numerical Algorithms Group Ltd., Oxford, U.K.
+
+--------------------------------------------------------------
+C++ Compiler version:
+Apple LLVM version 10.0.0 (clang-1000.10.44.4)
+Target: x86_64-apple-darwin17.7.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+
+--------------------------------------------------------------
+Preprocessor version:
+Apple LLVM version 10.0.0 (clang-1000.10.44.4)
+Target: x86_64-apple-darwin17.7.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+ 
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=64
+ESMF_BOPT=g
+ESMF_COMM=mpiuni
+ESMF_COMPILER=nag
+ESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf
+ESMF_INSTALL_PREFIX=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/../install_dir
+ESMF_OS=Darwin
+ESMF_PROJ4=external
+ESMF_PROJ4_INCLUDE=/Users/silverio.vasquez/proj4/include
+ESMF_PROJ4_LIBPATH=/Users/silverio.vasquez/proj4/lib
+ESMF_SITE=default
+ESMF_TESTEXHAUSTIVE=ON
+ESMF_TESTHARNESS_ARRAY=RUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD=RUN_ESMF_TestHarnessFieldUNI_1
+ESMF_TESTMPMD=ON
+ESMF_TESTWITHTHREADS=OFF
+ 
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf
+ESMF_OS:                Darwin
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          nag
+ESMF_BOPT:              g
+ESMF_OPTLEVEL:          0
+ESMF_COMM:              mpiuni
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            OFF
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          ON
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessFieldUNI_1
+ESMF_MPIRUN:            /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni/mpirun
+ESMF_MPIMPMDRUN:        
+ 
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_YAMLCPP:            internal
+ESMF_PROJ4:                external
+ESMF_PROJ4_INCLUDE:        /Users/silverio.vasquez/proj4/include
+ESMF_PROJ4_LIBS:           -lproj
+ESMF_PROJ4_LIBPATH:        /Users/silverio.vasquez/proj4/lib
+ 
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod/modg/Darwin.nag.64.mpiuni.default
+ESMF_INSTALL_LIBDIR:    lib/libg/Darwin.nag.64.mpiuni.default
+ESMF_INSTALL_BINDIR:    bin/bing/Darwin.nag.64.mpiuni.default
+ESMF_INSTALL_DOCDIR:    doc
+ 
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+ 
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/opt/X11/bin:/opt/compilers/nag/6.1/bin:/Users/silverio.vasquez/bin:/Users/silverio.vasquez/bin
+LD_LIBRARY_PATH: 
+ 
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] [-C[num]]
+	[-e pattern] [-f file] [--binary-files=value] [--color=when]
+	[--context[=num]] [--directories=action] [--label] [--line-buffered]
+	[--null] [pattern] [file ...]
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] [-C[num]]
+	[-e pattern] [-f file] [--binary-files=value] [--color=when]
+	[--context[=num]] [--directories=action] [--label] [--line-buffered]
+	[--null] [pattern] [file ...]
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] [-C[num]]
+	[-e pattern] [-f file] [--binary-files=value] [--color=when]
+	[--context[=num]] [--directories=action] [--label] [--line-buffered]
+	[--null] [pattern] [file ...]
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /opt/compilers/nag/6.1/bin/nagfor
+Location of the Fortran linker:    /opt/compilers/nag/6.1/bin/nagfor
+Location of the C++ compiler:      /usr/bin/g++
+Location of the C++ linker:        /usr/bin/g++
+
+Fortran compiler flags:
+ESMF_F90COMPILER: nagfor
+ESMF_F90COMPILEOPTS: -g  -DESMF_NAG_UNIX_MODULE -dusty -thread_safe
+ESMF_F90COMPILEPATHS: -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modg/Darwin.nag.64.mpiuni.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include -I/Users/silverio.vasquez/proj4/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='ESMF_8_1_0_beta_snapshot_12-7-g08a69607' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -DESMF_MPIUNI
+ESMF_F90COMPILEFREECPP: -free -fpp
+ESMF_F90COMPILEFREENOCPP: -free
+ESMF_F90COMPILEFIXCPP: -fixed -fpp
+ESMF_F90COMPILEFIXNOCPP: -fixed
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -thread_safe
+ESMF_F90LINKPATHS: -L/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/lib/libg/Darwin.nag.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib
+ESMF_F90LINKRPATHS: 
+ESMF_F90LINKLIBS:  -lstdc++ -lc++ -lproj
+ESMF_F90ESMFLINKLIBS: -lesmf  -lstdc++ -lc++ -lproj
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: g++
+ESMF_CXXCOMPILEOPTS: -std=c++11 -g 
+ESMF_CXXCOMPILEPATHS:  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='ESMF_8_1_0_beta_snapshot_12-7-g08a69607' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='' -DESMF_CXXSTD=11 -DESMF_MPIUNI
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:  
+ESMF_CXXLINKPATHS: -L/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/lib/libg/Darwin.nag.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib
+ESMF_CXXLINKRPATHS: 
+ESMF_CXXLINKLIBS:   -lproj
+ESMF_CXXESMFLINKLIBS: -lesmf   -lproj
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       dylib
+ESMF_SL_LIBLINKER:    g++
+ESMF_SL_LIBOPTS:       -dynamiclib
+ESMF_SL_LIBLIBS:       -L/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/lib/libg/Darwin.nag.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib  -lstdc++ -lc++ -lproj -L/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/lib/libg/Darwin.nag.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib   -lproj
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/lib/libg/Darwin.nag.64.mpiuni.default/libesmftrace_preload.dylib
+ESMF_TRACE_STATICLINKOPTS=-static -Wl,--wrap=c_esmftrace_notify_wrappers -Wl,--wrap=c_esmftrace_isinitialized -Wl,--wrap=write -Wl,--wrap=writev -Wl,--wrap=pwrite -Wl,--wrap=read -Wl,--wrap=open -Wl,--wrap=MPI_Allgather -Wl,--wrap=MPI_Allgatherv -Wl,--wrap=MPI_Allreduce -Wl,--wrap=MPI_Alltoall -Wl,--wrap=MPI_Alltoallv -Wl,--wrap=MPI_Alltoallw -Wl,--wrap=MPI_Barrier -Wl,--wrap=MPI_Bcast -Wl,--wrap=MPI_Gather -Wl,--wrap=MPI_Gatherv -Wl,--wrap=MPI_Recv -Wl,--wrap=MPI_Reduce -Wl,--wrap=MPI_Scatter -Wl,--wrap=MPI_Send -Wl,--wrap=MPI_Sendrecv -Wl,--wrap=MPI_Wait -Wl,--wrap=MPI_Waitall -Wl,--wrap=MPI_Waitany -Wl,--wrap=MPI_Waitsome -Wl,--wrap=mpi_allgather_ -Wl,--wrap=mpi_allgather__ -Wl,--wrap=mpi_allgatherv_ -Wl,--wrap=mpi_allgatherv__ -Wl,--wrap=mpi_allreduce_ -Wl,--wrap=mpi_allreduce__ -Wl,--wrap=mpi_alltoall_ -Wl,--wrap=mpi_alltoall__ -Wl,--wrap=mpi_alltoallv_ -Wl,--wrap=mpi_alltoallv__ -Wl,--wrap=mpi_alltoallw_ -Wl,--wrap=mpi_alltoallw__ -Wl,--wrap=mpi_barrier_ -Wl,--wrap=mpi_barrier_
+ _ -Wl,--wrap=mpi_bcast_ -Wl,--wrap=mpi_bcast__ -Wl,--wrap=mpi_exscan_ -Wl,--wrap=mpi_exscan__ -Wl,--wrap=mpi_gather_ -Wl,--wrap=mpi_gather__ -Wl,--wrap=mpi_gatherv_ -Wl,--wrap=mpi_gatherv__ -Wl,--wrap=mpi_recv_ -Wl,--wrap=mpi_recv__ -Wl,--wrap=mpi_reduce_ -Wl,--wrap=mpi_reduce__ -Wl,--wrap=mpi_reduce_scatter_ -Wl,--wrap=mpi_reduce_scatter__ -Wl,--wrap=mpi_scatter_ -Wl,--wrap=mpi_scatter__ -Wl,--wrap=mpi_scatterv_ -Wl,--wrap=mpi_scatterv__ -Wl,--wrap=mpi_scan_ -Wl,--wrap=mpi_scan__ -Wl,--wrap=mpi_send_ -Wl,--wrap=mpi_send__ -Wl,--wrap=mpi_wait_ -Wl,--wrap=mpi_wait__ -Wl,--wrap=mpi_waitall_ -Wl,--wrap=mpi_waitall__ -Wl,--wrap=mpi_waitany_ -Wl,--wrap=mpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Fri Mar 20 06:31:05 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov
+Machine characteristics: Darwin darwin-regtest2.gsd.esrl.noaa.gov 17.7.0 Darwin Kernel Version 17.7.0: Thu Jan 23 07:05:23 PST 2020; root:xnu-4570.71.69~1/RELEASE_X86_64 x86_64
+==============================================================
+ 
+Fri Mar 20 06:32:31 MDT 2020 library build ****************FAIL
+
+
+The following is the 'tail' of the build failure
+
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modg/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/test_harness/src
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modg/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modg/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modg/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modg/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+g++ -c -std=c++11 -g  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni/../include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/pthread  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_LAPACK=1 -
+ DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='"src/Infrastructure/stubs/mpiuni"' -DESMF_CXXSTD=11 -DESMF_MPIUNI /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni/mpi.c -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objg/Darwin.nag.64.mpiuni.default/mpi.o
+clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modg/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modg/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+gcc -E -P -x c -C -nostdinc -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_FortranWordsize.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_FortranWordsize.F90
+gcc -E -P -x c -C -nostdinc -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_TypeKindGet.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_TypeKindGet.F90
+gcc -E -P -x c -C -nostdinc -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_UtilSort.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_UtilSort.F90
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+g++ -c -std=c++11 -g  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/../include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/pthread  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LA
+ PACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='"src/Infrastructure/Util/src"' -DESMF_CXXSTD=11 -DESMF_MPIUNI /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMCI_Util.C -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objg/Darwin.nag.64.mpiuni.default/ESMCI_Util.o
+g++ -c -std=c++11 -g  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/../include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/pthread  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LA
+ PACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='"src/Infrastructure/Util/src"' -DESMF_CXXSTD=11 -DESMF_MPIUNI /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMCI_Fraction.C -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objg/Darwin.nag.64.mpiuni.default/ESMCI_Fraction.o
+g++ -c -std=c++11 -g  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/../include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/pthread  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LA
+ PACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='"src/Infrastructure/Util/src"' -DESMF_CXXSTD=11 -DESMF_MPIUNI /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMCI_F90Interface.C -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objg/Darwin.nag.64.mpiuni.default/ESMCI_F90Interface.o
+g++ -c -std=c++11 -g  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/../include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/pthread  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LA
+ PACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='"src/Infrastructure/Util/src"' -DESMF_CXXSTD=11 -DESMF_MPIUNI /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMCI_CoordSys.C -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objg/Darwin.nag.64.mpiuni.default/ESMCI_CoordSys.o
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+nagfor -c -g  -DESMF_NAG_UNIX_MODULE -dusty -thread_safe  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modg/Darwin.nag.64.mpiuni.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include -I/Users/silverio.vasquez/proj4/include -free -fpp -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -DESMF_MPIUNI /Use
+ rs/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_UtilTypes.F90 -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objg/Darwin.nag.64.mpiuni.default/ESMF_UtilTypes.o
+NAG Fortran Compiler Release 6.1(Tozai) Build 6113
+Error: No licence found for this product
+make[8]: *** [/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objg/Darwin.nag.64.mpiuni.default/ESMF_UtilTypes.o] Error 2
+make[7]: *** [esmflib] Error 2
+make[6]: *** [tree_lib] Error 2
+make[5]: *** [tree] Error 1
+make[4]: *** [tree] Error 1
+make[3]: *** [tree] Error 1
+make[2]: *** [tree] Error 1
+make[1]: *** [build_libs] Error 2
+make: *** [lib] Error 2
+
+
+_______________________________________________________________________________________________
+
+Fri Mar 20 06:33:19 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov 
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+-------------------------------------------------------------- 
+Currently Loaded Modulefiles:
+  1) null                    2) compilers/nag/6.1/nag
+
+Repository:
+origin	https://github.com/esmf-org/esmf (fetch)
+origin	https://github.com/esmf-org/esmf (push)
+ 
+ESMF_8_1_0_beta_snapshot_12-7-g08a69607
+ 
+ 
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+ 
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_12-7-g08a69607
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	tmp
+
+nothing added to commit but untracked files present (use "git add" to track)
+--------------------------------------------------------------
+ 
+--------------------------------------------------------------
+Make version:
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for i386-apple-darwin11.3.0
+
+--------------------------------------------------------------
+Fortran Compiler version:
+NAG Fortran Compiler Release 6.1(Tozai) Build 6113
+Product NPMI661NA for Apple Intel Mac OSX 64-bit
+Copyright 1990-2016 The Numerical Algorithms Group Ltd., Oxford, U.K.
+
+--------------------------------------------------------------
+C++ Compiler version:
+Apple LLVM version 10.0.0 (clang-1000.10.44.4)
+Target: x86_64-apple-darwin17.7.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+
+--------------------------------------------------------------
+Preprocessor version:
+Apple LLVM version 10.0.0 (clang-1000.10.44.4)
+Target: x86_64-apple-darwin17.7.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+ 
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=64
+ESMF_BOPT=O
+ESMF_COMM=mpiuni
+ESMF_COMPILER=nag
+ESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf
+ESMF_INSTALL_PREFIX=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/../install_dir
+ESMF_OS=Darwin
+ESMF_PROJ4=external
+ESMF_PROJ4_INCLUDE=/Users/silverio.vasquez/proj4/include
+ESMF_PROJ4_LIBPATH=/Users/silverio.vasquez/proj4/lib
+ESMF_SITE=default
+ESMF_TESTEXHAUSTIVE=ON
+ESMF_TESTHARNESS_ARRAY=RUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD=RUN_ESMF_TestHarnessFieldUNI_1
+ESMF_TESTMPMD=ON
+ESMF_TESTWITHTHREADS=OFF
+ 
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf
+ESMF_OS:                Darwin
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          nag
+ESMF_BOPT:              O
+ESMF_OPTLEVEL:          0
+ESMF_COMM:              mpiuni
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            OFF
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          ON
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessFieldUNI_1
+ESMF_MPIRUN:            /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni/mpirun
+ESMF_MPIMPMDRUN:        
+ 
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_YAMLCPP:            internal
+ESMF_PROJ4:                external
+ESMF_PROJ4_INCLUDE:        /Users/silverio.vasquez/proj4/include
+ESMF_PROJ4_LIBS:           -lproj
+ESMF_PROJ4_LIBPATH:        /Users/silverio.vasquez/proj4/lib
+ 
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod/modO/Darwin.nag.64.mpiuni.default
+ESMF_INSTALL_LIBDIR:    lib/libO/Darwin.nag.64.mpiuni.default
+ESMF_INSTALL_BINDIR:    bin/binO/Darwin.nag.64.mpiuni.default
+ESMF_INSTALL_DOCDIR:    doc
+ 
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+ 
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/opt/X11/bin:/opt/compilers/nag/6.1/bin:/Users/silverio.vasquez/bin:/Users/silverio.vasquez/bin
+LD_LIBRARY_PATH: 
+ 
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] [-C[num]]
+	[-e pattern] [-f file] [--binary-files=value] [--color=when]
+	[--context[=num]] [--directories=action] [--label] [--line-buffered]
+	[--null] [pattern] [file ...]
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] [-C[num]]
+	[-e pattern] [-f file] [--binary-files=value] [--color=when]
+	[--context[=num]] [--directories=action] [--label] [--line-buffered]
+	[--null] [pattern] [file ...]
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] [-C[num]]
+	[-e pattern] [-f file] [--binary-files=value] [--color=when]
+	[--context[=num]] [--directories=action] [--label] [--line-buffered]
+	[--null] [pattern] [file ...]
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /opt/compilers/nag/6.1/bin/nagfor
+Location of the Fortran linker:    /opt/compilers/nag/6.1/bin/nagfor
+Location of the C++ compiler:      /usr/bin/g++
+Location of the C++ linker:        /usr/bin/g++
+
+Fortran compiler flags:
+ESMF_F90COMPILER: nagfor
+ESMF_F90COMPILEOPTS: -O0  -DESMF_NAG_UNIX_MODULE -dusty -thread_safe
+ESMF_F90COMPILEPATHS: -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modO/Darwin.nag.64.mpiuni.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include -I/Users/silverio.vasquez/proj4/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='ESMF_8_1_0_beta_snapshot_12-7-g08a69607' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -DESMF_MPIUNI
+ESMF_F90COMPILEFREECPP: -free -fpp
+ESMF_F90COMPILEFREENOCPP: -free
+ESMF_F90COMPILEFIXCPP: -fixed -fpp
+ESMF_F90COMPILEFIXNOCPP: -fixed
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -thread_safe
+ESMF_F90LINKPATHS: -L/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/lib/libO/Darwin.nag.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib
+ESMF_F90LINKRPATHS: 
+ESMF_F90LINKLIBS:  -lstdc++ -lc++ -lproj
+ESMF_F90ESMFLINKLIBS: -lesmf  -lstdc++ -lc++ -lproj
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: g++
+ESMF_CXXCOMPILEOPTS: -std=c++11 -O0 -DNDEBUG 
+ESMF_CXXCOMPILEPATHS:  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='ESMF_8_1_0_beta_snapshot_12-7-g08a69607' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='' -DESMF_CXXSTD=11 -DESMF_MPIUNI
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:  
+ESMF_CXXLINKPATHS: -L/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/lib/libO/Darwin.nag.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib
+ESMF_CXXLINKRPATHS: 
+ESMF_CXXLINKLIBS:   -lproj
+ESMF_CXXESMFLINKLIBS: -lesmf   -lproj
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       dylib
+ESMF_SL_LIBLINKER:    g++
+ESMF_SL_LIBOPTS:       -dynamiclib
+ESMF_SL_LIBLIBS:       -L/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/lib/libO/Darwin.nag.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib  -lstdc++ -lc++ -lproj -L/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/lib/libO/Darwin.nag.64.mpiuni.default -L/Users/silverio.vasquez/proj4/lib   -lproj
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/lib/libO/Darwin.nag.64.mpiuni.default/libesmftrace_preload.dylib
+ESMF_TRACE_STATICLINKOPTS=-static -Wl,--wrap=c_esmftrace_notify_wrappers -Wl,--wrap=c_esmftrace_isinitialized -Wl,--wrap=write -Wl,--wrap=writev -Wl,--wrap=pwrite -Wl,--wrap=read -Wl,--wrap=open -Wl,--wrap=MPI_Allgather -Wl,--wrap=MPI_Allgatherv -Wl,--wrap=MPI_Allreduce -Wl,--wrap=MPI_Alltoall -Wl,--wrap=MPI_Alltoallv -Wl,--wrap=MPI_Alltoallw -Wl,--wrap=MPI_Barrier -Wl,--wrap=MPI_Bcast -Wl,--wrap=MPI_Gather -Wl,--wrap=MPI_Gatherv -Wl,--wrap=MPI_Recv -Wl,--wrap=MPI_Reduce -Wl,--wrap=MPI_Scatter -Wl,--wrap=MPI_Send -Wl,--wrap=MPI_Sendrecv -Wl,--wrap=MPI_Wait -Wl,--wrap=MPI_Waitall -Wl,--wrap=MPI_Waitany -Wl,--wrap=MPI_Waitsome -Wl,--wrap=mpi_allgather_ -Wl,--wrap=mpi_allgather__ -Wl,--wrap=mpi_allgatherv_ -Wl,--wrap=mpi_allgatherv__ -Wl,--wrap=mpi_allreduce_ -Wl,--wrap=mpi_allreduce__ -Wl,--wrap=mpi_alltoall_ -Wl,--wrap=mpi_alltoall__ -Wl,--wrap=mpi_alltoallv_ -Wl,--wrap=mpi_alltoallv__ -Wl,--wrap=mpi_alltoallw_ -Wl,--wrap=mpi_alltoallw__ -Wl,--wrap=mpi_barrier_ -Wl,--wrap=mpi_barrier_
+ _ -Wl,--wrap=mpi_bcast_ -Wl,--wrap=mpi_bcast__ -Wl,--wrap=mpi_exscan_ -Wl,--wrap=mpi_exscan__ -Wl,--wrap=mpi_gather_ -Wl,--wrap=mpi_gather__ -Wl,--wrap=mpi_gatherv_ -Wl,--wrap=mpi_gatherv__ -Wl,--wrap=mpi_recv_ -Wl,--wrap=mpi_recv__ -Wl,--wrap=mpi_reduce_ -Wl,--wrap=mpi_reduce__ -Wl,--wrap=mpi_reduce_scatter_ -Wl,--wrap=mpi_reduce_scatter__ -Wl,--wrap=mpi_scatter_ -Wl,--wrap=mpi_scatter__ -Wl,--wrap=mpi_scatterv_ -Wl,--wrap=mpi_scatterv__ -Wl,--wrap=mpi_scan_ -Wl,--wrap=mpi_scan__ -Wl,--wrap=mpi_send_ -Wl,--wrap=mpi_send__ -Wl,--wrap=mpi_wait_ -Wl,--wrap=mpi_wait__ -Wl,--wrap=mpi_waitall_ -Wl,--wrap=mpi_waitall__ -Wl,--wrap=mpi_waitany_ -Wl,--wrap=mpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Fri Mar 20 06:33:20 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov
+Machine characteristics: Darwin darwin-regtest2.gsd.esrl.noaa.gov 17.7.0 Darwin Kernel Version 17.7.0: Thu Jan 23 07:05:23 PST 2020; root:xnu-4570.71.69~1/RELEASE_X86_64 x86_64
+==============================================================
+ 
+Fri Mar 20 06:34:39 MDT 2020 library build ****************FAIL
+
+
+The following is the 'tail' of the build failure
+
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modO/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/test_harness/src
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modO/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modO/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modO/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modO/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+g++ -c -std=c++11 -O0 -DNDEBUG  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni/../include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/pthread  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_
+ LAPACK=1 -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='"src/Infrastructure/stubs/mpiuni"' -DESMF_CXXSTD=11 -DESMF_MPIUNI /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni/mpi.c -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objO/Darwin.nag.64.mpiuni.default/mpi.o
+clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modO/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+tree_lib in: /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+dir=`pwd`; cd /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modO/Darwin.nag.64.mpiuni.default; /Library/Developer/CommandLineTools/usr/bin/make -f ${dir}/makefile MAKEFILE=${dir}/makefile esmflib
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+gcc -E -P -x c -C -nostdinc -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_FortranWordsize.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_FortranWordsize.F90
+gcc -E -P -x c -C -nostdinc -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_TypeKindGet.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_TypeKindGet.F90
+gcc -E -P -x c -C -nostdinc -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_UtilSort.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_UtilSort.F90
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+g++ -c -std=c++11 -O0 -DNDEBUG  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/../include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/pthread  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_LAPACK=1
+  -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='"src/Infrastructure/Util/src"' -DESMF_CXXSTD=11 -DESMF_MPIUNI /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMCI_Util.C -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objO/Darwin.nag.64.mpiuni.default/ESMCI_Util.o
+g++ -c -std=c++11 -O0 -DNDEBUG  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/../include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/pthread  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_LAPACK=1
+  -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='"src/Infrastructure/Util/src"' -DESMF_CXXSTD=11 -DESMF_MPIUNI /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMCI_Fraction.C -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objO/Darwin.nag.64.mpiuni.default/ESMCI_Fraction.o
+g++ -c -std=c++11 -O0 -DNDEBUG  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/../include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/pthread  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_LAPACK=1
+  -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='"src/Infrastructure/Util/src"' -DESMF_CXXSTD=11 -DESMF_MPIUNI /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMCI_F90Interface.C -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objO/Darwin.nag.64.mpiuni.default/ESMCI_F90Interface.o
+g++ -c -std=c++11 -O0 -DNDEBUG  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/../include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/pthread  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include  -I/Users/silverio.vasquez/proj4/include -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/stubs/mpiuni -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_LAPACK=1
+  -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -D__SDIR__='"src/Infrastructure/Util/src"' -DESMF_CXXSTD=11 -DESMF_MPIUNI /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMCI_CoordSys.C -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objO/Darwin.nag.64.mpiuni.default/ESMCI_CoordSys.o
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+nagfor -c -O0  -DESMF_NAG_UNIX_MODULE -dusty -thread_safe  -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/build_config/Darwin.nag.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Superstructure -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/mod/modO/Darwin.nag.64.mpiuni.default -I/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/include -I/Users/silverio.vasquez/proj4/include -free -fpp -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT='"ESMF_8_1_0_beta_snapshot_12-7-g08a69607"' -DESMF_MOAB=1 -DESMF_LAPACK=1 -DESMF_LAPACK_INTERNAL=1 -DESMF_NO_ACC_SOFTWARE_STACK=1 -DESMF_YAMLCPP=1 -DESMF_YAML=1 -DESMF_PROJ4=1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=1 -DESMF_OS_Darwin=1 -DESMF_COMM=mpiuni -DESMF_DIR=/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf -DESMF_MPIUNI /Us
+ ers/silverio.vasquez/script_dirs/daily_builds/nag/esmf/src/Infrastructure/Util/src/ESMF_UtilTypes.F90 -o /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objO/Darwin.nag.64.mpiuni.default/ESMF_UtilTypes.o
+NAG Fortran Compiler Release 6.1(Tozai) Build 6113
+Error: No licence found for this product
+make[8]: *** [/Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf/obj/objO/Darwin.nag.64.mpiuni.default/ESMF_UtilTypes.o] Error 2
+make[7]: *** [esmflib] Error 2
+make[6]: *** [tree_lib] Error 2
+make[5]: *** [tree] Error 1
+make[4]: *** [tree] Error 1
+make[3]: *** [tree] Error 1
+make[2]: *** [tree] Error 1
+make[1]: *** [build_libs] Error 2
+make: *** [lib] Error 2
+
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /Users/silverio.vasquez/script_dirs/daily_builds/nag/esmf_logs/2003_test.
+ These tarballs contain the *Log and *stdout files only, not the executables.
+ This directory also contains failed build output files with the naming convention of 
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COMM.
+ For example, if the build fails on longs on the 19th of the month with ESMF_BOPT=g, the file 
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:red
+Day_of_Week:Friday
+Test_Failures:0
