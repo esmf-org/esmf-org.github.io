@@ -1,0 +1,1046 @@
+<pre>
+Return-Path: <scvasque@discover.nccs.nasa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 13 Mar 2020 08:15:02 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 11BE929F
+	for <esmftest@cgd.ucar.edu>; Fri, 13 Mar 2020 02:02:20 -0600 (MDT)
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id D350D1800273
+	for <esmftest@cgd.ucar.edu>; Fri, 13 Mar 2020 02:02:19 -0600 (MDT)
+Authentication-Results: vscanx2.ucar.edu;
+	dkim=pass (1024-bit key) header.d=nccs.nasa.gov header.i=@nccs.nasa.gov header.b="a1wMzHjY"
+Received: by mail-qt1-f200.google.com with SMTP id y11so6712748qtn.3
+        for <esmftest@cgd.ucar.edu>; Fri, 13 Mar 2020 01:02:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:message-id:dkim-filter:dkim-signature:from:date
+         :to:subject:user-agent:mime-version:content-transfer-encoding;
+        bh=9SmMZVCm6T8527W5OoJIGlPv+aI3TdpTNKoskAEQ3iY=;
+        b=M/sTiqW/9rs+pec2j4KvqRj+bf982G5Oj6EIWKR9WU34ZCmKrxPFfqV3/rAxt00dTb
+         BzTi4aokkWbdvTIDArU6SlEaXjeHuNuGdeDs9jqb5avHsBvPm5V81lBpkg/7K7+byiyP
+         Pv4PEvKJt8zgzIVj5U4CNyKrcX2D628kzz3E1k3pn2cqaxpkpt78ksqcdUNLIoLDvi3r
+         fAa4xGs4lQeTrN7foQ+BVrJSRA0gs2WjjMBmgWXNWWf3FVNwUBKKShXo2nS4t6DubEI0
+         iEq5oUNB+u8EiMpZjmG7sm5EtjMPx8N5YkTivM7eZTZ9Il71DWyvq8cMY67lKZSHb/JG
+         9tsw==
+X-Gm-Message-State: ANhLgQ2DqyUeH78DZ1cb72hlVttjMwN4818sBATW4fZ4SXfYqEGarV0D
+	tn4nh/JThMs4b+f1cdjOVpKO5XwOnBZEPmSnhUTIYKOvu6b232CD0ihj/ZZPfEWEKhl2Yz8CfJr
+	s4PQpPPCKJHcFVUY4
+X-Received: by 2002:ad4:49cc:: with SMTP id j12mr10809467qvy.94.1584086539195;
+        Fri, 13 Mar 2020 01:02:19 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vs0j8kD26r/036sfy7XRneTLs3k1FhjcoAQPEFHH/Uo/g1YqFzbNIiEMR7jW/Lwn6L7WHj8
+X-Received: by 2002:ad4:49cc:: with SMTP id j12mr10809412qvy.94.1584086538181;
+        Fri, 13 Mar 2020 01:02:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1584086538; cv=none;
+        d=google.com; s=arc-20160816;
+        b=VAWFYu2hogeaCg4QG3EnMGjyI0rBsABCzfmfqslQ4aFY+DE3ldyQC+VB6Wv5lNdbWQ
+         SSdX1F1zw4El3AIyokBhpKeuABPho/xx859v5wGTdrTApgdTs32xW2qN89G+lAxMA13P
+         fihzbBxD/h5jKBYBT90VlRQOE7e960RpK3VPL/pHqfidR5g7NsOkTjpnQDFF7otmTXhc
+         s8E/3TE6jHxSRhUXouxzM2RRaIz4pwcPLpBIfLux/1ThJtpWFPv3iyT1Wo1G6Tysy2TO
+         VimZyzC6iqs1AVfv8ejlGcHCz3w21L+KMoCILW6YHhLtvoSIU8jbxrtPjpOgtz1N3rr3
+         WXFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:mime-version:user-agent:subject:to:date
+         :from:dkim-signature:dkim-filter:message-id;
+        bh=9SmMZVCm6T8527W5OoJIGlPv+aI3TdpTNKoskAEQ3iY=;
+        b=OIkZ0Jv8qU0pa0f065/YNCLmg/NTaemAyG4QbgNiK6posVCDymXP/IqARliA4C2Dyt
+         3MQ/8gbnQSGhoaWlBvK5H3/bW1ikcr04Z3tKa62QRsjKcFXyNX2R1xpWCX6imE/D9wtS
+         GNT7w9K18CPrNCc7w32pj1MLqRwIjvrdzZGWNUsY7f0LknmFsNrsTIbbVqb6UaOrD2We
+         6/Kt0LVPmQFMog5paA6dC1bKHK9csvjly4L12veUf64v/YjQLd8i6/yvUga1GkyNQWqc
+         kFJmSf2gmMhYY1ZisGP7bR+zY/D+rWJjvbJUo/H0BL1U3bC4M6fCBosjv7+kKA5Gp/4I
+         MEqA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=a1wMzHjY;
+       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
+Received: from mail1.nccs.nasa.gov (mail1.nccs.nasa.gov. [2001:4d0:2418:2800::a99a:928c])
+        by mx.google.com with ESMTP id v57si4334234qtj.182.2020.03.13.01.02.18
+        for <esmftest@cgd.ucar.edu>;
+        Fri, 13 Mar 2020 01:02:18 -0700 (PDT)
+Received-SPF: pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) client-ip=2001:4d0:2418:2800::a99a:928c;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=a1wMzHjY;
+       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
+Message-ID: <5e6b3e0a.1c69fb81.7e730.1e60SMTPIN_ADDED_MISSING@mx.google.com>
+X-Comment: SPF check N/A for local connections - client-ip=169.154.145.205; helo=borgmx1.prv.cube; envelope-from=scvasque@discover.nccs.nasa.gov; receiver=esmftest@cgd.ucar.edu 
+DKIM-Filter: OpenDKIM Filter v2.9.2 mail1.nccs.nasa.gov 8F7275AF
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nccs.nasa.gov;
+	s=default; t=1584086536;
+	bh=2jc5NRTJcBGmLTPP9Oikafd4fx8NOdDtEPRm2z44PAE=;
+	h=From:Date:To:Subject:From;
+	b=a1wMzHjYVM9ZbQ0lufbTvU2jHfrzmQAioJenUrefhsDviz13LF/XDRDZAUwlXSdI0
+	 aF+ApNDzXwyBEwQ09aSw/S7pFzhQpcGB9PmodNd4OJgp5CuM4rS9V0xN7NnPekntp2
+	 7Ro/AgsirYNZku8GnQ8LGWbHOdw68qULWUxv2VzE=
+Received: from borgmx1.prv.cube (borgmx1.nccs.nasa.gov [169.154.145.205])
+	by mail1.nccs.nasa.gov (Postfix) with ESMTP id 8F7275AF;
+	Fri, 13 Mar 2020 04:02:16 -0400 (EDT)
+Received: from discover.nccs.nasa.gov (discover01.prv.cube [10.1.50.1])
+	by borgmx1.prv.cube (Postfix) with SMTP id 8BBB739E7C;
+	Fri, 13 Mar 2020 04:02:15 -0400 (EDT)
+Received: by discover.nccs.nasa.gov (sSMTP sendmail emulation); Fri, 13 Mar 2020 04:02:15 -0400
+From: "Silverio   C Vasquez" <scvasque@discover.nccs.nasa.gov>
+Date: Fri, 13 Mar 2020 04:02:15 -0400
+To: esmftest@cgd.ucar.edu, esmf_test@noaa.gov
+Subject: Branch_External_Demos_Discover_PGI
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+
+Script start time: Fri Mar 13 03:40:02 EDT 2020
+
+Script end: Fri Mar 13 04:02:15 EDT 2020
+
+
+_________________ESMF_8_0_1branch EXTERNAL_DEMOS_BUILD_AND_TEST_SUMMARY=
+________________________
+
+
+
+                                           =20
+                          DOC BUILD
+               BUILD       INSTALL    OS.COMPILER.COMM.ABI       extern=
+al demos
+_______________________________________________________________________=
+_________________
+               PASS/FAIL   PASS/FAIL                              PASS/=
+FAIL/SKIP
+_______________________________________________________________________=
+__________________
+discover01(g)**FAIL**            Linux.pgi.mvapich2.64
+discover01(O)**FAIL**            Linux.pgi.mvapich2.64
+
+_______________________________________________________________________=
+_________________
+
+Fri Mar 13 03:45:11 EDT 2020 on discover01=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+--------------------------------------------------------------=20
+Currently Loaded Modulefiles:
+  1) comp/pgi-14.1.0
+  2) other/mpi/mvapich2-2.0b/pgi-14.1.0
+  3) other/git-2.21.0
+
+ESMF Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_0_1_beta_snapshot_05
+=20
+=20
+External Demos  Repository:
+origin=09git://git.code.sf.net/p/esmf/external_demos (fetch)
+origin=09git://git.code.sf.net/p/esmf/external_demos (push)
+=20
+ESMF_8_0_0-21-g745a6c2
+=20
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.0.1 beta snapshot
+ESMF_8_0_1_beta_snapshot_05
+--------------------------------------------------------------
+HEAD detached at origin/ESMF_8_0_1branch
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for x86_64-unknown-linux-gnu
+
+--------------------------------------------------------------
+Fortran Compiler version:
+mpif90 for MVAPICH2 version 2.0b
+Export PGI=3D/gpfsm/dulocal/sles11/pgi
+pgf90-Warning-No files to process
+
+
+pgf90 14.1-0 64-bit target on x86-64 Linux -tp haswell=20
+The Portland Group - PGI Compilers and Tools
+Copyright (c) 2014, NVIDIA CORPORATION.  All rights reserved.
+
+--------------------------------------------------------------
+C++ Compiler version:
+mpicxx for MVAPICH2 version 2.0b
+Export PGI=3D/gpfsm/dulocal/sles11/pgi
+pgcpp-Warning-No files to process
+
+
+pgCC 14.1-0 64-bit target on x86-64 Linux -tp haswell=20
+The Portland Group - PGI Compilers and Tools
+Copyright (c) 2014, NVIDIA CORPORATION.  All rights reserved.
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (SUSE Linux) 4.3.4 [gcc-4_3-branch revision 152973]
+Copyright (C) 2008 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3Dg
+ESMF_COMM=3Dmvapich2
+ESMF_COMPILER=3Dpgi
+ESMF_CXXCOMPILEOPTS=3D-DWORKAROUND_NONBLOCKPROGRESSBUG
+ESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/branch_builds/extern=
+al_demos/pgi/esmf
+ESMF_INSTALL_BINDIR=3Dbin
+ESMF_INSTALL_HEADERDIR=3Dinclude
+ESMF_INSTALL_LIBDIR=3Dlib
+ESMF_INSTALL_MODDIR=3Dinclude
+ESMF_INSTALL_PREFIX=3D/discover/nobackup/scvasque/scripts_dir/branch_bu=
+ilds/external_demos/pgi/esmf/../install_dir
+ESMF_LAPACK=3Dinternal
+ESMF_NETCDF_INCLUDE=3D/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/i=
+nclude
+ESMF_NETCDF_LIBPATH=3D/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/l=
+ib
+ESMF_NETCDF=3Dsplit
+ESMF_OPENMP=3DOFF
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArray_default
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessField_default
+ESMF_TESTMPMD=3DOFF
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /discover/nobackup/scvasque/scripts_dir/branch_builds/externa=
+l_demos/pgi/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          pgi
+ESMF_BOPT:              g
+ESMF_COMM:              mvapich2
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            OFF
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          OFF
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArray_default
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessField_default
+ESMF_MPIRUN:            mpirun=20
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_NETCDF:             split
+ESMF_NETCDF_INCLUDE:     /usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.=
+0/include
+ESMF_NETCDF_LIBS:        -lnetcdff -lnetcdf
+ESMF_NETCDF_LIBPATH:     /usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.=
+0/lib
+ESMF_YAMLCPP:            internal
+ESMF_PIO:                internal
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /discover/nobackup/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    include
+ESMF_INSTALL_LIBDIR:    lib
+ESMF_INSTALL_BINDIR:    bin
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /gpfsm/dulocal/sles11/other/SLES11.3/git/2.21.0/libexec/git-co=
+re:/gpfsm/dulocal/sles11/other/SLES11.3/git/2.21.0/bin:/usr/local/other=
+/SLES11.1/mvapich2/2.0b/pgi-14.1.0/bin:/usr/local/sles11/pgi/linux86-64=
+/14.1/bin:/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/bin:/home/scv=
+asque/bin:/opt/cwx/bin:/usr/local/bin:/usr/bin:/usr/X11R6/bin:/bin:/usr=
+/lib/java/bin:/usr/pbs/bin:/usr/slurm/bin:/discover/nobackup/scvasque/s=
+cripts_dir/branch_builds/external_demos/pgi/esmf/../install_dir/bin
+LD_LIBRARY_PATH: /gpfsm/dulocal/sles11/other/SLES11.3/git/2.21.0/lib:/u=
+sr/local/other/SLES11.1/mvapich2/2.0b/pgi-14.1.0/lib:/usr/local/sles11/=
+pgi/linux86-64/14.1/lib:/usr/local/sles11/pgi/linux86-64/14.1/libso
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /usr/local/other/SLES11.1/mvapich2/2=
+.0b/pgi-14.1.0/bin/mpif90
+Location of the Fortran linker:    /usr/local/other/SLES11.1/mvapich2/2=
+.0b/pgi-14.1.0/bin/mpif90
+Location of the C++ compiler:      /usr/local/other/SLES11.1/mvapich2/2=
+.0b/pgi-14.1.0/bin/mpicxx
+Location of the C++ linker:        /usr/local/other/SLES11.1/mvapich2/2=
+.0b/pgi-14.1.0/bin/mpicxx
+
+Fortran compiler flags:
+ESMF_F90COMPILER: mpif90
+ESMF_F90COMPILEOPTS: -g -fpic -Mallocatable=3D03 -lpthread
+ESMF_F90COMPILEPATHS: -I/discover/nobackup/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default -=
+I/discover/nobackup/scvasque/scripts_dir/branch_builds/external_demos/p=
+gi/esmf/src/include -I/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/i=
+nclude
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_05' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE=
+ -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linu=
+x=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/s=
+cripts_dir/branch_builds/external_demos/pgi/esmf -DESMF_PGIVERSION_MAJO=
+R=3D14 -DESMF_PGIVERSION_MINOR=3D1 -DESMF_PGIVERSION_PATCH=3D0
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP: -Mfreeform
+ESMF_F90COMPILEFIXCPP: -Mpreprocess -Mnofreeform
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -lpthread -Wl,--no-as-needed
+ESMF_F90LINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/branch_bui=
+lds/external_demos/pgi/esmf/lib/libg/Linux.pgi.64.mvapich2.default -L/u=
+sr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/lib -L/gpfsm/dulocal/sles=
+11/pgi/linux86-64/14.1/libso
+ESMF_F90LINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+branch_builds/external_demos/pgi/esmf/lib/libg/Linux.pgi.64.mvapich2.de=
+fault  -Wl,-rpath,/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/lib -=
+Wl,-rpath,/gpfsm/dulocal/sles11/pgi/linux86-64/14.1/libso
+ESMF_F90LINKLIBS:  -pgcpplibs -ldl -lnetcdff -lnetcdf
+ESMF_F90ESMFLINKLIBS: -lesmf  -pgcpplibs -ldl -lnetcdff -lnetcdf
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: mpicxx
+ESMF_CXXCOMPILEOPTS: -DWORKAROUND_NONBLOCKPROGRESSBUG -std=3Dc++11 -g -=
+fpic -lpthread
+ESMF_CXXCOMPILEPATHS:  -I/discover/nobackup/scvasque/scripts_dir/branch=
+_builds/external_demos/pgi/esmf/src/include  -I/usr/local/other/SLES11/=
+netcdf/4.1.3/pgi-12.6.0/include -I/discover/nobackup/scvasque/scripts_d=
+ir/branch_builds/external_demos/pgi/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_05' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE=
+  -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Lin=
+ux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/=
+scripts_dir/branch_builds/external_demos/pgi/esmf -D__SDIR__=3D'' -DESM=
+F_CXXSTD=3D11 -DESMF_PGIVERSION_MAJOR=3D14 -DESMF_PGIVERSION_MINOR=3D1 =
+-DESMF_PGIVERSION_PATCH=3D0
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -lpthread -Wl,--no-as-needed
+ESMF_CXXLINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/branch_bui=
+lds/external_demos/pgi/esmf/lib/libg/Linux.pgi.64.mvapich2.default -L/u=
+sr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/lib -L/gpfsm/dulocal/sles=
+11/pgi/linux86-64/14.1/libso
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+branch_builds/external_demos/pgi/esmf/lib/libg/Linux.pgi.64.mvapich2.de=
+fault  -Wl,-rpath,/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/lib -=
+Wl,-rpath,/gpfsm/dulocal/sles11/pgi/linux86-64/14.1/libso
+ESMF_CXXLINKLIBS:   -pgf90libs -ldl -lnetcdff -lnetcdf
+ESMF_CXXESMFLINKLIBS: -lesmf   -pgf90libs -ldl -lnetcdff -lnetcdf
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    mpicxx
+ESMF_SL_LIBOPTS:       -shared
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/discover/nobackup/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/lib/libg/Linux.pgi.64.mvapich2.default/li=
+besmftrace_preload.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Fri Mar 13 03:45:29 EDT 2020 on discover01
+Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
+MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
+x
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Fri Mar 13 03:50:46 EDT 2020 library build ****************************=
+*FAILED
+
+
+The following is the 'tail' of the build failure
+
+cd /discover/nobackup/scvasque/scripts_dir/branch_builds/external_demos=
+/pgi/esmf ; gmake ACTION=3Dtree_lib tree
+gmake[2]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[3]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+gmake[3]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/branch_builds/exte=
+rnal_demos/pgi/esmf/src
+gmake[3]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/src'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[4]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+gmake[4]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/branch_builds/exte=
+rnal_demos/pgi/esmf/src/prologue
+gmake[4]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/src/prologue'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[5]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+gmake[5]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/branch_builds/exte=
+rnal_demos/pgi/esmf/src/prologue/tests
+gmake[5]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/src/prologue/tests'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[6]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+gmake[5]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src/prologue/tests'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/branch_builds/exte=
+rnal_demos/pgi/esmf/src/prologue/yaml-cpp
+gmake[5]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/src/prologue/yaml-cpp'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[6]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/branch_builds/exte=
+rnal_demos/pgi/esmf/src/prologue/yaml-cpp/src
+gmake[6]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/src/prologue/yaml-cpp/src'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[7]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+gmake[8]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+mpicxx -c -DWORKAROUND_NONBLOCKPROGRESSBUG -std=3Dc++11 -g -fpic -lpthr=
+ead -I/discover/nobackup/scvasque/scripts_dir/branch_builds/external_de=
+mos/pgi/esmf/src/prologue/yaml-cpp/src -I/discover/nobackup/scvasque/sc=
+ripts_dir/branch_builds/external_demos/pgi/esmf/src/prologue/yaml-cpp/s=
+rc/../include  -I/discover/nobackup/scvasque/scripts_dir/branch_builds/=
+external_demos/pgi/esmf/build_config/Linux.pgi.default -I/discover/noba=
+ckup/scvasque/scripts_dir/branch_builds/external_demos/pgi/esmf/src/Inf=
+rastructure -I/discover/nobackup/scvasque/scripts_dir/branch_builds/ext=
+ernal_demos/pgi/esmf/src/Superstructure -I/discover/nobackup/scvasque/s=
+cripts_dir/branch_builds/external_demos/pgi/esmf/src/Infrastructure/stu=
+bs/pthread  -I/discover/nobackup/scvasque/scripts_dir/branch_builds/ext=
+ernal_demos/pgi/esmf/src/include  -I/usr/local/other/SLES11/netcdf/4.1.=
+3/pgi-12.6.0/include -I/discover/nobackup/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src/prologue/yaml-cpp/include -DESMF_NO_I=
+NTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_0_1_=
+beta_snapshot_05"' -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_=
+MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAML=
+CPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE  -DESMF_BOPT_g -DESMF_TESTCOMPTUN=
+NEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DES=
+MF_DIR=3D/discover/nobackup/scvasque/scripts_dir/branch_builds/external=
+_demos/pgi/esmf -D__SDIR__=3D'"src/prologue/yaml-cpp/src"' -DESMF_CXXST=
+D=3D11 -DESMF_PGIVERSION_MAJOR=3D14 -DESMF_PGIVERSION_MINOR=3D1 -DESMF_=
+PGIVERSION_PATCH=3D0 /discover/nobackup/scvasque/scripts_dir/branch_bui=
+lds/external_demos/pgi/esmf/src/prologue/yaml-cpp/src/binary.cpp -o /di=
+scover/nobackup/scvasque/scripts_dir/branch_builds/external_demos/pgi/e=
+smf/obj/objg/Linux.pgi.64.mvapich2.default/binary.o
+pgcpp-Error-Unknown switch: -std=3Dc++11
+gmake[8]: *** [/discover/nobackup/scvasque/scripts_dir/branch_builds/ex=
+ternal_demos/pgi/esmf/obj/objg/Linux.pgi.64.mvapich2.default/binary.o] =
+Error 1
+gmake[8]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+gmake[7]: *** [esmflib] Error 2
+gmake[7]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modg/Linux.pgi.64.mvapich2.default'
+gmake[6]: *** [tree_lib] Error 2
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src/prologue/yaml-cpp/src'
+gmake[5]: *** [tree] Error 1
+gmake[5]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src/prologue/yaml-cpp'
+gmake[4]: *** [tree] Error 1
+gmake[4]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src/prologue'
+gmake[3]: *** [tree] Error 1
+gmake[3]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src'
+gmake[2]: *** [tree] Error 1
+gmake[2]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf'
+gmake[1]: *** [build_libs] Error 2
+gmake[1]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf'
+gmake: *** [lib] Error 2
+
+
+_______________________________________________________________________=
+_________________
+
+Fri Mar 13 03:55:36 EDT 2020 on discover01=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+--------------------------------------------------------------=20
+Currently Loaded Modulefiles:
+  1) comp/pgi-14.1.0
+  2) other/mpi/mvapich2-2.0b/pgi-14.1.0
+  3) other/git-2.21.0
+
+ESMF Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_0_1_beta_snapshot_05
+=20
+=20
+External Demos  Repository:
+origin=09git://git.code.sf.net/p/esmf/external_demos (fetch)
+origin=09git://git.code.sf.net/p/esmf/external_demos (push)
+=20
+ESMF_8_0_0-21-g745a6c2
+=20
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.0.1 beta snapshot
+ESMF_8_0_1_beta_snapshot_05
+--------------------------------------------------------------
+HEAD detached at origin/ESMF_8_0_1branch
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for x86_64-unknown-linux-gnu
+
+--------------------------------------------------------------
+Fortran Compiler version:
+mpif90 for MVAPICH2 version 2.0b
+Export PGI=3D/gpfsm/dulocal/sles11/pgi
+pgf90-Warning-No files to process
+
+
+pgf90 14.1-0 64-bit target on x86-64 Linux -tp haswell=20
+The Portland Group - PGI Compilers and Tools
+Copyright (c) 2014, NVIDIA CORPORATION.  All rights reserved.
+
+--------------------------------------------------------------
+C++ Compiler version:
+mpicxx for MVAPICH2 version 2.0b
+Export PGI=3D/gpfsm/dulocal/sles11/pgi
+pgcpp-Warning-No files to process
+
+
+pgCC 14.1-0 64-bit target on x86-64 Linux -tp haswell=20
+The Portland Group - PGI Compilers and Tools
+Copyright (c) 2014, NVIDIA CORPORATION.  All rights reserved.
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (SUSE Linux) 4.3.4 [gcc-4_3-branch revision 152973]
+Copyright (C) 2008 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3DO
+ESMF_COMM=3Dmvapich2
+ESMF_COMPILER=3Dpgi
+ESMF_CXXCOMPILEOPTS=3D-DWORKAROUND_NONBLOCKPROGRESSBUG
+ESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/branch_builds/extern=
+al_demos/pgi/esmf
+ESMF_INSTALL_BINDIR=3Dbin
+ESMF_INSTALL_HEADERDIR=3Dinclude
+ESMF_INSTALL_LIBDIR=3Dlib
+ESMF_INSTALL_MODDIR=3Dinclude
+ESMF_INSTALL_PREFIX=3D/discover/nobackup/scvasque/scripts_dir/branch_bu=
+ilds/external_demos/pgi/esmf/../install_dir
+ESMF_LAPACK=3Dinternal
+ESMF_NETCDF_INCLUDE=3D/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/i=
+nclude
+ESMF_NETCDF_LIBPATH=3D/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/l=
+ib
+ESMF_NETCDF=3Dsplit
+ESMF_OPENMP=3DOFF
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArray_default
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessField_default
+ESMF_TESTMPMD=3DOFF
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /discover/nobackup/scvasque/scripts_dir/branch_builds/externa=
+l_demos/pgi/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          pgi
+ESMF_BOPT:              O
+ESMF_COMM:              mvapich2
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            OFF
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          OFF
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArray_default
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessField_default
+ESMF_MPIRUN:            mpirun=20
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_NETCDF:             split
+ESMF_NETCDF_INCLUDE:     /usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.=
+0/include
+ESMF_NETCDF_LIBS:        -lnetcdff -lnetcdf
+ESMF_NETCDF_LIBPATH:     /usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.=
+0/lib
+ESMF_YAMLCPP:            internal
+ESMF_PIO:                internal
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /discover/nobackup/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    include
+ESMF_INSTALL_LIBDIR:    lib
+ESMF_INSTALL_BINDIR:    bin
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /gpfsm/dulocal/sles11/other/SLES11.3/git/2.21.0/libexec/git-co=
+re:/gpfsm/dulocal/sles11/other/SLES11.3/git/2.21.0/bin:/usr/local/other=
+/SLES11.1/mvapich2/2.0b/pgi-14.1.0/bin:/usr/local/sles11/pgi/linux86-64=
+/14.1/bin:/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/bin:/home/scv=
+asque/bin:/opt/cwx/bin:/usr/local/bin:/usr/bin:/usr/X11R6/bin:/bin:/usr=
+/lib/java/bin:/usr/pbs/bin:/usr/slurm/bin:/discover/nobackup/scvasque/s=
+cripts_dir/branch_builds/external_demos/pgi/esmf/../install_dir/bin
+LD_LIBRARY_PATH: /gpfsm/dulocal/sles11/other/SLES11.3/git/2.21.0/lib:/u=
+sr/local/other/SLES11.1/mvapich2/2.0b/pgi-14.1.0/lib:/usr/local/sles11/=
+pgi/linux86-64/14.1/lib:/usr/local/sles11/pgi/linux86-64/14.1/libso
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /usr/local/other/SLES11.1/mvapich2/2=
+.0b/pgi-14.1.0/bin/mpif90
+Location of the Fortran linker:    /usr/local/other/SLES11.1/mvapich2/2=
+.0b/pgi-14.1.0/bin/mpif90
+Location of the C++ compiler:      /usr/local/other/SLES11.1/mvapich2/2=
+.0b/pgi-14.1.0/bin/mpicxx
+Location of the C++ linker:        /usr/local/other/SLES11.1/mvapich2/2=
+.0b/pgi-14.1.0/bin/mpicxx
+
+Fortran compiler flags:
+ESMF_F90COMPILER: mpif90
+ESMF_F90COMPILEOPTS: -O -fpic -Mallocatable=3D03 -lpthread
+ESMF_F90COMPILEPATHS: -I/discover/nobackup/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default -=
+I/discover/nobackup/scvasque/scripts_dir/branch_builds/external_demos/p=
+gi/esmf/src/include -I/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/i=
+nclude
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_05' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE=
+ -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linu=
+x=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/s=
+cripts_dir/branch_builds/external_demos/pgi/esmf -DESMF_PGIVERSION_MAJO=
+R=3D14 -DESMF_PGIVERSION_MINOR=3D1 -DESMF_PGIVERSION_PATCH=3D0
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP: -Mfreeform
+ESMF_F90COMPILEFIXCPP: -Mpreprocess -Mnofreeform
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -lpthread -Wl,--no-as-needed
+ESMF_F90LINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/branch_bui=
+lds/external_demos/pgi/esmf/lib/libO/Linux.pgi.64.mvapich2.default -L/u=
+sr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/lib -L/gpfsm/dulocal/sles=
+11/pgi/linux86-64/14.1/libso
+ESMF_F90LINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+branch_builds/external_demos/pgi/esmf/lib/libO/Linux.pgi.64.mvapich2.de=
+fault  -Wl,-rpath,/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/lib -=
+Wl,-rpath,/gpfsm/dulocal/sles11/pgi/linux86-64/14.1/libso
+ESMF_F90LINKLIBS:  -pgcpplibs -ldl -lnetcdff -lnetcdf
+ESMF_F90ESMFLINKLIBS: -lesmf  -pgcpplibs -ldl -lnetcdff -lnetcdf
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: mpicxx
+ESMF_CXXCOMPILEOPTS: -DWORKAROUND_NONBLOCKPROGRESSBUG -std=3Dc++11 -O -=
+DNDEBUG -fpic -lpthread
+ESMF_CXXCOMPILEPATHS:  -I/discover/nobackup/scvasque/scripts_dir/branch=
+_builds/external_demos/pgi/esmf/src/include  -I/usr/local/other/SLES11/=
+netcdf/4.1.3/pgi-12.6.0/include -I/discover/nobackup/scvasque/scripts_d=
+ir/branch_builds/external_demos/pgi/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_05' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE=
+  -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Lin=
+ux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/=
+scripts_dir/branch_builds/external_demos/pgi/esmf -D__SDIR__=3D'' -DESM=
+F_CXXSTD=3D11 -DESMF_PGIVERSION_MAJOR=3D14 -DESMF_PGIVERSION_MINOR=3D1 =
+-DESMF_PGIVERSION_PATCH=3D0
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -lpthread -Wl,--no-as-needed
+ESMF_CXXLINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/branch_bui=
+lds/external_demos/pgi/esmf/lib/libO/Linux.pgi.64.mvapich2.default -L/u=
+sr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/lib -L/gpfsm/dulocal/sles=
+11/pgi/linux86-64/14.1/libso
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+branch_builds/external_demos/pgi/esmf/lib/libO/Linux.pgi.64.mvapich2.de=
+fault  -Wl,-rpath,/usr/local/other/SLES11/netcdf/4.1.3/pgi-12.6.0/lib -=
+Wl,-rpath,/gpfsm/dulocal/sles11/pgi/linux86-64/14.1/libso
+ESMF_CXXLINKLIBS:   -pgf90libs -ldl -lnetcdff -lnetcdf
+ESMF_CXXESMFLINKLIBS: -lesmf   -pgf90libs -ldl -lnetcdff -lnetcdf
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    mpicxx
+ESMF_SL_LIBOPTS:       -shared
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/discover/nobackup/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/lib/libO/Linux.pgi.64.mvapich2.default/li=
+besmftrace_preload.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Fri Mar 13 03:55:40 EDT 2020 on discover01
+Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
+MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
+x
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Fri Mar 13 04:01:10 EDT 2020 library build ****************************=
+*FAILED
+
+
+The following is the 'tail' of the build failure
+
+cd /discover/nobackup/scvasque/scripts_dir/branch_builds/external_demos=
+/pgi/esmf ; gmake ACTION=3Dtree_lib tree
+gmake[2]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[3]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+gmake[3]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/branch_builds/exte=
+rnal_demos/pgi/esmf/src
+gmake[3]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/src'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[4]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+gmake[4]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/branch_builds/exte=
+rnal_demos/pgi/esmf/src/prologue
+gmake[4]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/src/prologue'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[5]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+gmake[5]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/branch_builds/exte=
+rnal_demos/pgi/esmf/src/prologue/tests
+gmake[5]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/src/prologue/tests'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[6]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+gmake[5]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src/prologue/tests'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/branch_builds/exte=
+rnal_demos/pgi/esmf/src/prologue/yaml-cpp
+gmake[5]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/src/prologue/yaml-cpp'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[6]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/branch_builds/exte=
+rnal_demos/pgi/esmf/src/prologue/yaml-cpp/src
+gmake[6]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/src/prologue/yaml-cpp/src'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/branch_builds/e=
+xternal_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default; gmake -f=
+ ${dir}/makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[7]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+gmake[8]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_=
+builds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+mpicxx -c -DWORKAROUND_NONBLOCKPROGRESSBUG -std=3Dc++11 -O -DNDEBUG -fp=
+ic -lpthread -I/discover/nobackup/scvasque/scripts_dir/branch_builds/ex=
+ternal_demos/pgi/esmf/src/prologue/yaml-cpp/src -I/discover/nobackup/sc=
+vasque/scripts_dir/branch_builds/external_demos/pgi/esmf/src/prologue/y=
+aml-cpp/src/../include  -I/discover/nobackup/scvasque/scripts_dir/branc=
+h_builds/external_demos/pgi/esmf/build_config/Linux.pgi.default -I/disc=
+over/nobackup/scvasque/scripts_dir/branch_builds/external_demos/pgi/esm=
+f/src/Infrastructure -I/discover/nobackup/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src/Superstructure -I/discover/nobackup/s=
+cvasque/scripts_dir/branch_builds/external_demos/pgi/esmf/src/Infrastru=
+cture/stubs/pthread  -I/discover/nobackup/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src/include  -I/usr/local/other/SLES11/ne=
+tcdf/4.1.3/pgi-12.6.0/include -I/discover/nobackup/scvasque/scripts_dir=
+/branch_builds/external_demos/pgi/esmf/src/prologue/yaml-cpp/include -D=
+ESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ES=
+MF_8_0_1_beta_snapshot_05"' -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D=
+1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -D=
+ESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE  -DESMF_BOPT_O -DESMF_TE=
+STCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvap=
+ich2 -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/branch_builds=
+/external_demos/pgi/esmf -D__SDIR__=3D'"src/prologue/yaml-cpp/src"' -DE=
+SMF_CXXSTD=3D11 -DESMF_PGIVERSION_MAJOR=3D14 -DESMF_PGIVERSION_MINOR=3D=
+1 -DESMF_PGIVERSION_PATCH=3D0 /discover/nobackup/scvasque/scripts_dir/b=
+ranch_builds/external_demos/pgi/esmf/src/prologue/yaml-cpp/src/binary.c=
+pp -o /discover/nobackup/scvasque/scripts_dir/branch_builds/external_de=
+mos/pgi/esmf/obj/objO/Linux.pgi.64.mvapich2.default/binary.o
+pgcpp-Error-Unknown switch: -std=3Dc++11
+gmake[8]: *** [/discover/nobackup/scvasque/scripts_dir/branch_builds/ex=
+ternal_demos/pgi/esmf/obj/objO/Linux.pgi.64.mvapich2.default/binary.o] =
+Error 1
+gmake[8]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+gmake[7]: *** [esmflib] Error 2
+gmake[7]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/mod/modO/Linux.pgi.64.mvapich2.default'
+gmake[6]: *** [tree_lib] Error 2
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src/prologue/yaml-cpp/src'
+gmake[5]: *** [tree] Error 1
+gmake[5]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src/prologue/yaml-cpp'
+gmake[4]: *** [tree] Error 1
+gmake[4]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src/prologue'
+gmake[3]: *** [tree] Error 1
+gmake[3]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf/src'
+gmake[2]: *** [tree] Error 1
+gmake[2]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf'
+gmake[1]: *** [build_libs] Error 2
+gmake[1]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/branch_b=
+uilds/external_demos/pgi/esmf'
+gmake: *** [lib] Error 2
+
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /discover/nobackup/scvasque/scripts_dir/branch_builds/external_demos/p=
+gi/esmf_logs/2003_test.
+ These tarballs contain the *Log and *stdout files only, not the execut=
+ables.
+ This directory also contains failed build output files with the naming=
+ convention of=20
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COM=
+M.
+ For example, if the build fails on longs on the 19th of the month with=
+ ESMF_BOPT=3Dg, the file=20
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:red
+Day_of_Week:Friday
+Test_Failures:0
