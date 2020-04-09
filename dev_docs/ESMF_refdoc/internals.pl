@@ -1654,6 +1654,10 @@ $key = q/sec:xgrid:usage:xgrid_create_masking/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/const:filemodeflag/;
+$ref_files{$key} = "$dir".q|node9.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:concurrency/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";

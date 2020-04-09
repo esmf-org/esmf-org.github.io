@@ -198,6 +198,10 @@ $key = q/fig:GEOS5/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/opt:cfilemode/;
+$ref_files{$key} = "$dir".q|node9.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/part:Superstructure/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";

@@ -1689,8 +1689,8 @@ The arguments are:
      ESMC_Field srcField,                           // in
      ESMC_Field dstField,                           // in
      const char *filename,                          // in
-     ESMC_InterArrayInt *srcMaskValues,              // in
-     ESMC_InterArrayInt *dstMaskValues,              // in
+     ESMC_InterArrayInt *srcMaskValues,             // in
+     ESMC_InterArrayInt *dstMaskValues,             // in
      ESMC_RouteHandle *routehandle,                 // inout
      enum ESMC_RegridMethod_Flag *regridmethod,     // in
      enum ESMC_PoleMethod_Flag *polemethod,         // in
@@ -1700,6 +1700,11 @@ The arguments are:
      enum ESMC_UnmappedAction_Flag *unmappedaction, // in
      enum ESMC_Logical *ignoreDegenerate,           // in
      enum ESMC_Logical *create_rh,                  // in
+     ESMC_FileMode_Flag *filemode,                  // in
+     const char *srcFile,                           // in
+     const char *dstFile,                           // in
+     enum ESMC_FileFormat_Flag *srcFileType,        // in
+     enum ESMC_FileFormat_Flag *dstFileType,        // in
      ESMC_Field *srcFracField,                      // out
      ESMC_Field *dstFracField);                     // out
 </PRE><EM>RETURN VALUE:</EM>
@@ -1788,6 +1793,31 @@ The arguments are:
 <DT><STRONG>create_rh</STRONG></DT>
 <DD>Specifies whether or not to create a routehandle, or just write weights to file.
       If not specified, defaults to <TT>ESMF_TRUE</TT>.
+    
+</DD>
+<DT><STRONG>filemode</STRONG></DT>
+<DD>Specifies the mode to use when creating the weight file. Options are
+      <TT>ESMC_FILEMODE_BASIC</TT> and <TT>ESMC_FILEMODE_WITHAUX</TT>, which will
+      write a file that includes center coordinates of the grids. The default 
+      value is <TT>ESMC_FILEMODE_BASIC</TT>.
+    
+</DD>
+<DT><STRONG>srcFile</STRONG></DT>
+<DD>The name of the source file used to create the <TT>ESMC_Grid</TT> used
+      in this regridding operation.
+    
+</DD>
+<DT><STRONG>dstFile</STRONG></DT>
+<DD>The name of the destination file used to create the <TT>ESMC_Grid</TT> used
+      in this regridding operation.
+    
+</DD>
+<DT><STRONG>srcFileType</STRONG></DT>
+<DD>The type of the file used to represent the source grid.
+    
+</DD>
+<DT><STRONG>dstFileType</STRONG></DT>
+<DD>The type of the file used to represent the destination grid.
     
 </DD>
 <DT><STRONG>[srcFracField]</STRONG></DT>
@@ -2647,7 +2677,7 @@ is limited in the current version of ESMF.
 <P>
 Figure <A HREF="#fig:GridDecomps">7</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="4844"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="4864"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 Examples of regular and irregular decomposition of
@@ -2688,7 +2718,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="4812"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="4832"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -3033,7 +3063,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="5067"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="5087"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -3074,7 +3104,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="5078"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="5098"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 3D Predefined Stagger Locations</CAPTION>

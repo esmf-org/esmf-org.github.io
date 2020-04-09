@@ -198,6 +198,10 @@ $key = q/fig:GEOS5/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/opt:cfilemode/;
+$external_labels{$key} = "$URL/" . q|node9.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/part:Superstructure/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
@@ -497,6 +501,10 @@ $key = q/fig:GEOS5/;
 $external_latex_labels{$key} = q|2|; 
 $noresave{$key} = "$nosave";
 
+$key = q/opt:cfilemode/;
+$external_latex_labels{$key} = q|33.4|; 
+$noresave{$key} = "$nosave";
+
 $key = q/part:Superstructure/;
 $external_latex_labels{$key} = q|III|; 
 $noresave{$key} = "$nosave";
@@ -553,12 +561,12 @@ $key = q/sec:ShapeShortcut/;
 $external_latex_labels{$key} = q|19.1.3|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:unmappedaction/;
-$external_latex_labels{$key} = q|33.19|; 
-$noresave{$key} = "$nosave";
-
 $key = q/const:clogkindflag/;
 $external_latex_labels{$key} = q|31.2.1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/const:unmappedaction/;
+$external_latex_labels{$key} = q|33.19|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:desc:dist/;
