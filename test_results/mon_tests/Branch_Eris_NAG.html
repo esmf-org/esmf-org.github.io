@@ -2,71 +2,71 @@
 Return-Path: <silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov>
 Delivered-To: unknown
 Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
-  with IMAP4-SSL; 16 Mar 2020 12:45:02 -0000
+  with IMAP4-SSL; 30 Mar 2020 12:45:02 -0000
 X-Original-To: esmftest@cgd.ucar.edu
 Delivered-To: esmftest@cgd.ucar.edu
 Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
-	by post2.cgd.ucar.edu (Postfix) with ESMTP id 8E1A21AF
-	for <esmftest@cgd.ucar.edu>; Mon, 16 Mar 2020 06:33:26 -0600 (MDT)
-Received: from mail-io1-f69.google.com (mail-io1-f69.google.com [209.85.166.69])
-	by vscanx2.ucar.edu (Postfix) with ESMTPS id 7FF6C180025C
-	for <esmftest@cgd.ucar.edu>; Mon, 16 Mar 2020 06:33:26 -0600 (MDT)
-Received: by mail-io1-f69.google.com with SMTP id p4so11522195ioo.4
-        for <esmftest@cgd.ucar.edu>; Mon, 16 Mar 2020 05:33:26 -0700 (PDT)
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 3FC0F1E0
+	for <esmftest@cgd.ucar.edu>; Mon, 30 Mar 2020 06:33:26 -0600 (MDT)
+Received: from mail-il1-f197.google.com (mail-il1-f197.google.com [209.85.166.197])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 005631800251
+	for <esmftest@cgd.ucar.edu>; Mon, 30 Mar 2020 06:33:25 -0600 (MDT)
+Received: by mail-il1-f197.google.com with SMTP id a15so780862ilh.20
+        for <esmftest@cgd.ucar.edu>; Mon, 30 Mar 2020 05:33:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-original-authentication-results:x-gm-message-state:to:subject
          :message-id:date:from;
-        bh=u+xqfMnNL9ZrHrEq+YdLTyaoLwgKMJZdK2pc21WriZQ=;
-        b=W0JCxnDvjuqQeJJ51ZTvzi9lts4pIbzv5Srfzi4dh0Lsy0figqP+cv8GRN/E9p0Oug
-         zfY8Pr8t9xGEU3p0MuGurX7rRljwnnKCWDGuJsINTdCGgLZLy1yYFNBbyEiylQSCUU9k
-         rTznMinay7pxKp20niLuqgqGoCM+xiYzPimOKFnvaggsHd1AJhgGy9PTjalqmdv+AHTZ
-         VIeIvB00IqJf18oEVrIW3V/MZDzYmeGDHK368oCp8qaXj8tc+hgIlZAwara0SPYcA5tm
-         2m8OIO/zklKkes9DihP5lTxbcn7j+r0SJ7DXQmSiKpapcEPBBx6N0A1M41TBcdc9IRIw
-         2TNA==
+        bh=iUuvlu8HucsTW6zYNpfktwRU8KzuMfErZ0+zJUrbV+U=;
+        b=FPrlHDVqT6kMYjeAEBz0P/s9zWAIUlDWw7+UFHX16mK12085YbvsH/w/NyTcaAzE0x
+         OrmNacN7iX1+m1gTjQyewSGF+Z58tOJpy8B6cqrD2t0erV1IV74QQvNO/iLkmo8TOHh5
+         k8tqx4xbusTiXp0wcv6h7cnVjGeGYfIMLlXMlyEjo3KazvMyb+ZeAxDADNznbHVAOoMP
+         Jd9chWUp8BzTcbjYaLoEy0DpR3xRunq3cL7GlmYWuUUX/36EHsHoAzw1SSfhUwOCRcWu
+         k4pCqhO+a8g/E8hy837hvVwJgmuauYxkCjBgqtobi1sz7HStTry9MNH9PKu6qPw6rsiZ
+         BmWA==
 X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) smtp.mailfrom=silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov;       dmarc=fail (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
-X-Gm-Message-State: ANhLgQ0+s/gnDZJkIkjYW3iIzCnqY47L6WTuz6t6sMC7sQsysCDdgaJl
-	d49iSpZ60riENh8objNgl9WMTSJCsxcjK2pezC7DEkHlu7em5iIY/n9jQ8NwDoO1INIxDzu/gp8
-	hJQbyvM2/paEuRP5W
-X-Received: by 2002:a6b:ee12:: with SMTP id i18mr23687042ioh.125.1584362005995;
-        Mon, 16 Mar 2020 05:33:25 -0700 (PDT)
-X-Google-Smtp-Source: ADFU+vuF3CpetcX1iqYmNjnh9By3r+yWTK5Qmusfp4iwe9LuNgFQJ4oYX1KBSruoLYQ3aaYVVRGy
-X-Received: by 2002:a6b:ee12:: with SMTP id i18mr23686968ioh.125.1584362004855;
-        Mon, 16 Mar 2020 05:33:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1584362004; cv=none;
+X-Gm-Message-State: ANhLgQ26QuwuwfwvALu+kLc9OY0L+BCkM06+PB7ZPnLhcFLSl+k75gR7
+	1a83c0ndolNrapReocW6lYjBZ3B/bOlHo8ncm+MHcuNXA/+1l0dwsdnHz6DEDY3OWQHz66Xa45t
+	OmwbmwNYvzDTe65k/
+X-Received: by 2002:a92:d490:: with SMTP id p16mr11300773ilg.300.1585571605588;
+        Mon, 30 Mar 2020 05:33:25 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vtoSGdNcOK+PBLzX6lPDBZ/ObGpM4VtLd8J2yhl8h3ZOcVWQ2ebbAU8sKsbEO5uUyghXOTW
+X-Received: by 2002:a92:d490:: with SMTP id p16mr11300704ilg.300.1585571604628;
+        Mon, 30 Mar 2020 05:33:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1585571604; cv=none;
         d=google.com; s=arc-20160816;
-        b=A3gjK9WISJj7YJVwqf7GOw688HZmwvT/pTsPqlVtT3Luh2kZjcXSM/X069k6E7C773
-         PbYBDjTAKq2nc2104FF02wyaReU2R5qjvZSvkTrRvGn01kR0oGg6aTv/vRcJ6cLKvh2V
-         JX86ngy38FIRBJ6jyhKmmh4txYuJHWnJ7+r8Tv/XaztPx27HHskZiUT1sLKwR2pdWVOZ
-         Hd4NrI9gmf4p1GeCLSVXlmgk9KMBgj78UlzvRFIdZ5OSxSC/K12QX1ib+BZM/V8pySVJ
-         IBIcXQUwQIyqnGyM8Y796bzKcHIA7/szUo/hHewZAlCaKRGvDiHeXMd3WcXhcLz1XLcc
-         KYYg==
+        b=ppz+MnrWYA0S2SQsPOPCz3JGtiW7eSc4yazJrwV/bQPHunoW2mc77E9u0wjoBUDyer
+         hKnuzCZRmIZpOdBk5fNA3TfweC7oeD3tGIKUzhpkeZcnjHI5qV+HxXSRqwFA4NNTQ7f8
+         4iwLEWA9S80qlmVRHUiD8Ql1yZTBu45Mc3coddX1wxpUobtJxaVG3ws0soeQ9auZV2zQ
+         0trkLpr3VtWyEL3iCKFVQk+Xr1SstGHfms3z1SfcSKxRk9eBIuW5zvNu5FvcBNgljAz2
+         QLfndNZG2HJECY3ju60CnvPg+kX1sSJArrWdEViHsjq2JZ9nit1I81KczAREkSdjcANq
+         HtNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=from:date:message-id:subject:to;
-        bh=u+xqfMnNL9ZrHrEq+YdLTyaoLwgKMJZdK2pc21WriZQ=;
-        b=ryQPnfV4GznqSRENLsSbZnHazORxwp62Dv8+FwBvyUwp7MAM1MJahRrQFhT4m0/BPE
-         n/jwD2KF5WIuYaI0Z3joemIEMTVR3b9LGAH1NvOPzokDytzrBHoDguZeGNgXD6dVxlYm
-         P2eLimFafGe+YIfRRdb8JFXZ5ohdv343O3lDamS8jAuUnBE+9wG6Wx/u0arl8+N+1j/9
-         mqwlJgi1pVpCJ+LtlNuxLqlLA/Zslv8yzWC77SpNQBt+nonOE4YxFmP9fvcFORTtohLV
-         eD4Vrv41PwCKkaqEBli3G8uTvoOkvk2zoM0u6QO66x/5lRihazqrzrcJQsRDR2lSQL61
-         x2cw==
+        bh=iUuvlu8HucsTW6zYNpfktwRU8KzuMfErZ0+zJUrbV+U=;
+        b=BJxDypp7LKjxDkq+nPLBPjjGMl+v5dVyxOLkSk7AsJcx1xO4JVc2GtURVK9dFKin2i
+         DXK8XI5cnrohppzbwBW40CYO6ZsYOSJFmtARm3ox4bn5y/9N2gkuyK7DtGj8e7dJJ6nn
+         gYkytkYqo6Qb5jPB8eKjk4HvX4Y83FK82uB/PCtYbKFnkE5MG/lIU7LwbzF70jWTRsd5
+         9pYJXyO3EU4R3iM5d5ZpYUjD8xbnnCWit8F48TPF6dE+DAc9TT1Q5l0T3WrETqGV2HOD
+         VU2Ooz4/6LpRrfJEPaq7zwAl50Nuve+vZGD1ETxmdPyxUiaIJOYJVomtOj7SU21NXYZA
+         f3YQ==
 ARC-Authentication-Results: i=1; mx.google.com;
        spf=pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) smtp.mailfrom=silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov;
        dmarc=fail (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
 Received: from darwin-regtest2.gsd.esrl.noaa.gov (darwin-regtest2.gsd.esrl.noaa.gov. [137.75.232.145])
-        by mx.google.com with ESMTP id e4si12418365jaj.67.2020.03.16.05.33.24
+        by mx.google.com with ESMTP id r11si7118083ioa.42.2020.03.30.05.33.24
         for <esmftest@cgd.ucar.edu>;
-        Mon, 16 Mar 2020 05:33:24 -0700 (PDT)
+        Mon, 30 Mar 2020 05:33:24 -0700 (PDT)
 Received-SPF: pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) client-ip=137.75.232.145;
 Authentication-Results: mx.google.com;
        spf=pass (google.com: best guess record for domain of silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov designates 137.75.232.145 as permitted sender) smtp.mailfrom=silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov;
        dmarc=fail (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
 Received: by darwin-regtest2.gsd.esrl.noaa.gov (Postfix, from userid 1992296994)
-	id 5DA5E12024FB8F; Mon, 16 Mar 2020 06:33:23 -0600 (MDT)
+	id 2B38B12073A4A8; Mon, 30 Mar 2020 06:33:23 -0600 (MDT)
 To: esmf_test@noaa.gov, esmftest@cgd.ucar.edu
 Subject: Branch_Eris_NAG
-Message-Id: <20200316123324.5DA5E12024FB8F@darwin-regtest2.gsd.esrl.noaa.gov>
-Date: Mon, 16 Mar 2020 06:33:23 -0600 (MDT)
+Message-Id: <20200330123324.2B38B12073A4A8@darwin-regtest2.gsd.esrl.noaa.gov>
+Date: Mon, 30 Mar 2020 06:33:23 -0600 (MDT)
 From: silverio.vasquez@darwin-regtest2.gsd.esrl.noaa.gov (Silverio Vasquez)
 X-Gm-Spam: 0
 X-Gm-Phishy: 0
@@ -76,9 +76,9 @@ X-getmail-retrieved-from-mailbox: INBOX
 
 
 
-Script start time: Mon Mar 16 06:30:01 MDT 2020
+Script start time: Mon Mar 30 06:30:00 MDT 2020
 
-Script end: Mon Mar 16 06:33:22 MDT 2020
+Script end: Mon Mar 30 06:33:23 MDT 2020
 
 
 _____________________________________ESMF_7_1_0rbranch BUILD AND TEST SUMMARY___________________________
@@ -96,7 +96,7 @@ darwin-regtest2(O)**FAIL**            Darwin.nag.mpiuni.64
 
 _______________________________________________________________________________________________
 
-Mon Mar 16 06:31:00 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov 
+Mon Mar 30 06:31:02 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov 
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -298,11 +298,11 @@ ESMF_SL_LIBLIBS:       -L/Users/silverio.vasquez/script_dirs/branch_builds/nag/e
 
 
 --------------------------------------------------------------
-Compiling on Mon Mar 16 06:31:01 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov
-Machine characteristics: Darwin darwin-regtest2.gsd.esrl.noaa.gov 17.7.0 Darwin Kernel Version 17.7.0: Thu Jan 23 07:05:23 PST 2020; root:xnu-4570.71.69~1/RELEASE_X86_64 x86_64
+Compiling on Mon Mar 30 06:31:02 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov
+Machine characteristics: Darwin darwin-regtest2.gsd.esrl.noaa.gov 17.7.0 Darwin Kernel Version 17.7.0: Tue Feb 18 22:51:29 PST 2020; root:xnu-4570.71.73~1/RELEASE_X86_64 x86_64
 ==============================================================
  
-Mon Mar 16 06:31:54 MDT 2020 library build ****************FAIL
+Mon Mar 30 06:31:55 MDT 2020 library build ****************FAIL
 
 
 The following is the 'tail' of the build failure
@@ -367,7 +367,7 @@ make: *** [lib] Error 2
 
 _______________________________________________________________________________________________
 
-Mon Mar 16 06:32:29 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov 
+Mon Mar 30 06:32:30 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov 
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -569,11 +569,11 @@ ESMF_SL_LIBLIBS:       -L/Users/silverio.vasquez/script_dirs/branch_builds/nag/e
 
 
 --------------------------------------------------------------
-Compiling on Mon Mar 16 06:32:30 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov
-Machine characteristics: Darwin darwin-regtest2.gsd.esrl.noaa.gov 17.7.0 Darwin Kernel Version 17.7.0: Thu Jan 23 07:05:23 PST 2020; root:xnu-4570.71.69~1/RELEASE_X86_64 x86_64
+Compiling on Mon Mar 30 06:32:31 MDT 2020 on darwin-regtest2.gsd.esrl.noaa.gov
+Machine characteristics: Darwin darwin-regtest2.gsd.esrl.noaa.gov 17.7.0 Darwin Kernel Version 17.7.0: Tue Feb 18 22:51:29 PST 2020; root:xnu-4570.71.73~1/RELEASE_X86_64 x86_64
 ==============================================================
  
-Mon Mar 16 06:33:22 MDT 2020 library build ****************FAIL
+Mon Mar 30 06:33:23 MDT 2020 library build ****************FAIL
 
 
 The following is the 'tail' of the build failure

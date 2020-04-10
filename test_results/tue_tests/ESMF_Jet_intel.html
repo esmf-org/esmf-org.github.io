@@ -2,81 +2,68 @@
 Return-Path: <Silverio.Vasquez@boulder.rdhpcs.noaa.gov>
 Delivered-To: unknown
 Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
-  with IMAP4-SSL; 17 Mar 2020 12:45:02 -0000
+  with IMAP4-SSL; 31 Mar 2020 12:45:02 -0000
 X-Original-To: esmftest@cgd.ucar.edu
 Delivered-To: esmftest@cgd.ucar.edu
 Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
-	by post2.cgd.ucar.edu (Postfix) with ESMTP id 016241AA
-	for <esmftest@cgd.ucar.edu>; Tue, 17 Mar 2020 06:37:38 -0600 (MDT)
-Received: from mail-il1-f200.google.com (mail-il1-f200.google.com [209.85.166.200])
-	by vscanx2.ucar.edu (Postfix) with ESMTPS id D2FD8180196E
-	for <esmftest@cgd.ucar.edu>; Tue, 17 Mar 2020 06:37:37 -0600 (MDT)
-Received: by mail-il1-f200.google.com with SMTP id h12so16676551ils.12
-        for <esmftest@cgd.ucar.edu>; Tue, 17 Mar 2020 05:37:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-original-authentication-results:x-gm-message-state:date:from:to
-         :subject:message-id:user-agent:mime-version
-         :content-transfer-encoding;
-        bh=3DH0EofCbWeEy9s4jxXYigUbs5DefezBQBBsW09zMbs=;
-        b=MpehzDb40+UA1m2PGQ1iVlcT3Dg3mlQiVA1RzyicLrpC6za/H9eofe57PcjLZehRGO
-         D6TwczS35A7ei5BrwGm6h+qEB4lx1OqUWx7+n2ySXze8IYIf1cqsJVbngdvcRCXmypyF
-         mkmVoNQvLp0newNcD37cL6Ku5EwOKyHGcWnVFUBEvAhSyJe5/AeIaGT37kWy8YgwmhI4
-         LOglBAfIPGLvblwJ9vSh0GVpDXF4n7EBn30daRdI3Kau5wqGNb8a+skJ9JaX1MFYLGO5
-         3ZBUp76FEN4biiPhWc8YRZ3QgVZRsk0t7i0lG/Q9lo0VgDhtioYn+8eyAkyvoLV/xqXX
-         R9GQ==
-X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com: domain of silverio.vasquez@boulder.rdhpcs.noaa.gov designates 140.208.168.138 as permitted sender) smtp.mailfrom=Silverio.Vasquez@boulder.rdhpcs.noaa.gov
-X-Gm-Message-State: ANhLgQ3hViuyXoZGqDavJFK8yuCyn5BL4VtrOWy+kEGOn77kBlL37zII
-	Rvnoj4H9UzAZ7g/0Qmm162fdpofbwKq+2GbEp58GrePSlRHfcF1frK0rtALZv5FhKhu0bzzAxEb
-	hCypQfAR98vEaUQ==
-X-Received: by 2002:a92:884e:: with SMTP id h75mr4909643ild.199.1584448657148;
-        Tue, 17 Mar 2020 05:37:37 -0700 (PDT)
-X-Google-Smtp-Source: ADFU+vsetFz3xmXws9Vl5m7o8LF5D1si1q3QKUVvuZBIsLLFMb0hEgNNgIaMbEg5bGelkoK1JGSB
-X-Received: by 2002:a92:884e:: with SMTP id h75mr4909589ild.199.1584448656369;
-        Tue, 17 Mar 2020 05:37:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1584448656; cv=none;
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 41E8C551
+	for <esmftest@cgd.ucar.edu>; Tue, 31 Mar 2020 06:42:22 -0600 (MDT)
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id C3A6F1801964
+	for <esmftest@cgd.ucar.edu>; Tue, 31 Mar 2020 06:42:21 -0600 (MDT)
+Received: by mail-qv1-f69.google.com with SMTP id j7so17096708qvy.22
+        for <esmftest@cgd.ucar.edu>; Tue, 31 Mar 2020 05:42:21 -0700 (PDT)
+X-Gm-Message-State: ANhLgQ0cCqkKtCQZTX1DGN+SBERICgqT6CmHlXrZc0kmK8GOKHlSflF6
+	M1fh4MhiNWSY3irfkpcdBg3NiAr7fviWK8NhshKEjy8Us3XDvb3rT7fwgdeDvAdEQiXrLssWs4Q
+	xXP54mPepMWgA6g==
+X-Received: by 2002:a0c:ff06:: with SMTP id w6mr16373349qvt.143.1585658540876;
+        Tue, 31 Mar 2020 05:42:20 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vsjKJF3lcsskJ9mPTMaVi5O1KBk+/sPmVpsCqpkIwqsUbOWAjbMzzHe1YzAcJazOE+DXk1W
+X-Received: by 2002:a0c:ff06:: with SMTP id w6mr16373289qvt.143.1585658539937;
+        Tue, 31 Mar 2020 05:42:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1585658539; cv=none;
         d=google.com; s=arc-20160816;
-        b=V8ZWlrXksTiom4f04WC3/ZBCxhl1X/+17fo3ThWWkSLJHZEMaqc82ioR19fqgmz0jG
-         fUgYzTeEWHTfQTwNwKbH2EK+xL9CZS78rShDMub2ZU5y0oMzD2rs2MlP8HtPBjsWAgmP
-         2CUEEsc7UF5w1yOEm2PEA+ja+wEEPfYj7lDiytpuVP6Bv80MY0JovGszrCc/OSA4Uzk2
-         aJLJd9qUbamHoXmFgv6CPiNoCy/62kAezpB34LcFHgRu7ovydfSVaV2Zk5rqceKP12fY
-         khVxwyiTqHQll55HeD7A9DAuUs0Y+1TO5YLkOlNjEpGutzjkop2l8Pk3h5X/ecJ2lzW7
-         HEOA==
+        b=fWt9v0rPw2gM3njLccFe+CqWY1KQ6yKZ5/oKq6VqP7FY99P+s9E/q+uWtmBn4BU4Xg
+         J41+iPCE0u1QNmYdycxy4ovFXzB8iy8E13sdt6Qwq1RaQFfYdrPKTeIJn20BIvS5aDW0
+         zKzTzKuINJThuyrHZWeKYPtVJgzVhhmFMzfdAUVNIJkXvaFjShjQegc4esyprmwjfTuF
+         aCvXSVWlWqDoNKumquhLPoPzyDB0Oiq4ZKvOChbHf997PK3xbh5LjoggUzw73gyx2rRk
+         ImCtwo55dW5OTKZq8CuoCP3IWwg+W6czg+tvSXLX3rJWetMKH0bBtab93tp3Zfu2ZZR2
+         jZFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:user-agent:message-id
          :subject:to:from:date;
-        bh=3DH0EofCbWeEy9s4jxXYigUbs5DefezBQBBsW09zMbs=;
-        b=swhRBaNcX7PmZSUCMREPlyKEtWMcouTTbkjq+DU35/CFtQ8WOl9FxDCBc+st2L3wRI
-         ulyYWTXDc4TWF5kNpyXBuyzbuHTQreYjupc2NT9qdiABd+meLlaAcyhAZNJqN8AR0QUA
-         cYbrz1XiPsBT8TTIS5PEuQyXS3C1CvOOeGytfj/GRiKOqAYfcEoSjDddV/O712f+hxlp
-         2BuhxpBFjCZuTdzn8jXyk4mIu0f/1lms16RB8Ta4t9En6etpAgJZTsteS8UHfKTcVq6g
-         V0iqzBOMQl+YgYFy5b4oLJ1nUWPDDz+qPUcA84La03NS8/xYLjFYapzThp3RfepTTlQj
-         YicQ==
+        bh=0ofZ10xd9ldtRJ4TisvTE/+nW1pJFAfGT8xgz1/7yKs=;
+        b=l0CIMee08bbLfZaBNOmO+x62wZE1LKUdILwA4grvoLGoYiVSHvozDzrQ2zlvbl2vl4
+         D56YXwdnq7LiTndmyg6eY7kthjIbY9buxvZrK2KnoHbNVRKqEx21cLh4vJq9W9kiMurs
+         DfbRy8Pd1MGQ91OMBWMV/fv0z/schRKvNUXpT0NV0V7twQMtr56d3mGmwUmf2VXiDqK9
+         Fu0Hg+xsQLx3n5vM2cSH/FW71y5WKE601mkN2ydl40Ln2f0R0LUBU5PX1gli03zmNFhK
+         ZsjoYxSZsV9UnagL8T9SVHR4BlT8pDUzwB7MDxehYXGHuFo/Rw/Ox9jRswHMyF+n2RgF
+         4n4Q==
 ARC-Authentication-Results: i=1; mx.google.com;
        spf=pass (google.com: domain of silverio.vasquez@boulder.rdhpcs.noaa.gov designates 140.208.168.138 as permitted sender) smtp.mailfrom=Silverio.Vasquez@boulder.rdhpcs.noaa.gov
 Received: from relay2.boulder.rdhpcs.noaa.gov (relay2.boulder.rdhpcs.noaa.gov. [140.208.168.138])
-        by mx.google.com with ESMTP id u62si2976424ili.36.2020.03.17.05.37.36
+        by mx.google.com with ESMTP id x9si9645482qta.101.2020.03.31.05.42.19
         for <esmftest@cgd.ucar.edu>;
-        Tue, 17 Mar 2020 05:37:36 -0700 (PDT)
+        Tue, 31 Mar 2020 05:42:19 -0700 (PDT)
 Received-SPF: pass (google.com: domain of silverio.vasquez@boulder.rdhpcs.noaa.gov designates 140.208.168.138 as permitted sender) client-ip=140.208.168.138;
 Authentication-Results: mx.google.com;
        spf=pass (google.com: domain of silverio.vasquez@boulder.rdhpcs.noaa.gov designates 140.208.168.138 as permitted sender) smtp.mailfrom=Silverio.Vasquez@boulder.rdhpcs.noaa.gov
 Received: from jetmail.boulder.rdhpcs.noaa.gov (jetadm5.boulder.rdhpcs.noaa.gov [140.208.160.45])
-	by relay2.boulder.rdhpcs.noaa.gov (Postfix) with ESMTP id E3E01100EA5B
-	for <esmftest@cgd.ucar.edu>; Tue, 17 Mar 2020 12:37:35 +0000 (UTC)
+	by relay2.boulder.rdhpcs.noaa.gov (Postfix) with ESMTP id EB444100EA5B
+	for <esmftest@cgd.ucar.edu>; Tue, 31 Mar 2020 12:42:18 +0000 (UTC)
 Received: from fe2 (fe2 [10.178.126.6])
-	by jetmail.boulder.rdhpcs.noaa.gov (Postfix) with SMTP id EB1FB6071C
-	for <esmftest@cgd.ucar.edu>; Tue, 17 Mar 2020 12:37:35 +0000 (GMT)
-Date: Tue, 17 Mar 2020 06:37:35 -0600
+	by jetmail.boulder.rdhpcs.noaa.gov (Postfix) with SMTP id F0D236074B
+	for <esmftest@cgd.ucar.edu>; Tue, 31 Mar 2020 12:42:18 +0000 (GMT)
+Date: Tue, 31 Mar 2020 06:42:18 -0600
 From: Silverio.Vasquez@fe2.cgd.ucar.edu
 To: esmftest@cgd.ucar.edu
 Subject: ESMF_Jet_intel
-Message-ID: <5e70c48f.ShqQzluRT+EOxUCr%Silverio.Vasquez@fe2>
+Message-ID: <5e833aab.NSi6rQsvdaknG+wE%Silverio.Vasquez@fe2>
 User-Agent: Heirloom mailx 12.5 7/5/10
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
-X-Gm-Spam: 0
+X-Gm-Spam: 1
 X-Gm-Phishy: 0
 X-getmail-retrieved-from-mailbox: INBOX
 
@@ -84,9 +71,9 @@ X-getmail-retrieved-from-mailbox: INBOX
 
 
 
-Script start time: Tue Mar 17 04:27:11 MDT 2020
+Script start time: Tue Mar 31 04:27:05 MDT 2020
 
-Script end: Tue Mar 17 06:37:35 MDT 2020
+Script end: Tue Mar 31 06:42:18 MDT 2020
 
 
 ______________________________________ESMF TRUNK BUILD AND TEST SUMMARY=
@@ -104,16 +91,16 @@ ______________________________
 S/FAIL  PASS/FAIL   PASS/FAIL
 _______________________________________________________________________=
 ______________________________
-fe2(g)      PASS      PASS    Linux.intel.intelmpi.64      9075/0      =
-85/0       8/0      18/0
-fe2(O)      PASS      PASS    Linux.intel.intelmpi.64      9075/0      =
+fe2(g)      PASS      PASS    Linux.intel.intelmpi.64      9078/0      =
 85/0      46/0      18/0
+fe2(O)      PASS      PASS    Linux.intel.intelmpi.64      9078/0      =
+85/0       8/0      18/0
 
 _______________________________________________________________________=
 ________________________
 
 
-Tue Mar 17 04:29:55 MDT 2020 on fe2=20
+Tue Mar 31 04:29:38 MDT 2020 on fe2=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -133,13 +120,13 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_11-4-g2f94055c
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a9
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_11-4-g2f94055c
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a9
 --------------------------------------------------------------
 On branch master
 Your branch is up to date with 'origin/master'.
@@ -316,7 +303,7 @@ _dirs/daily_builds/intel/esmf/mod/modg/Linux.intel.64.intelmpi.default =
 -I/mnt/lfs1/projects/esmf/Silverio.Vasquez/script_dirs/daily_builds/int=
 el/esmf/src/include=20
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_11-4-g2f94055c' -DESMF=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a9' -DESMF=
 _MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
 FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DES=
 MF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_T=
@@ -348,7 +335,7 @@ t_dirs/daily_builds/intel/esmf/src/include   -I/mnt/lfs1/projects/esmf/=
 Silverio.Vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-=
 cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_11-4-g2f94055c' -DESMF=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a9' -DESMF=
 _MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
 FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DES=
 MF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_T=
@@ -415,23 +402,23 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Tue Mar 17 04:29:58 MDT 2020 on fe2
+Compiling on Tue Mar 31 04:29:41 MDT 2020 on fe2
 Machine characteristics: Linux fe2 3.10.0-1062.12.1.el7.x86_64 #1 SMP T=
 ue Feb 4 23:02:59 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Tue Mar 17 04:41:50 MDT 2020 library build -j16 ...........PASS
-Tue Mar 17 04:42:21 MDT 2020 library install -j4 ..........PASS
-Tue Mar 17 04:42:24 MDT 2020 library installcheck -j4 .....PASS
-Tue Mar 17 04:44:32 MDT 2020 quickstart build -j4 .........PASS
+Tue Mar 31 04:42:15 MDT 2020 library build -j16 ...........PASS
+Tue Mar 31 04:42:50 MDT 2020 library install -j4 ..........PASS
+Tue Mar 31 04:42:52 MDT 2020 library installcheck -j4 .....PASS
+Tue Mar 31 04:45:06 MDT 2020 quickstart build -j4 .........PASS
 
 |------------------------ APPs TESTS --------------------------|
-Tue Mar 17 04:44:47 MDT 2020 apps build -j4 ...............PASS
+Tue Mar 31 04:45:22 MDT 2020 apps build -j4 ...............PASS
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:44:54 MDT 2020 ESMF_Regrid --help ...........PASS
+Tue Mar 31 04:45:30 MDT 2020 ESMF_Regrid --help ...........PASS
 The following is the output of ESMF_Regrid --help
 
  Usage: ESMF_Regrid
@@ -561,7 +548,7 @@ lon(i,j)),=20
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:44:54 MDT 2020 ESMF_Regrid --version ........PASS
+Tue Mar 31 04:45:31 MDT 2020 ESMF_Regrid --version ........PASS
 The following is the output of ESMF_Regrid --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -627,7 +614,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:44:55 MDT 2020 ESMF_Regrid -V ...............PASS
+Tue Mar 31 04:45:32 MDT 2020 ESMF_Regrid -V ...............PASS
 The following is the output of ESMF_Regrid -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -635,7 +622,7 @@ The following is the output of ESMF_Regrid -V
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:44:56 MDT 2020 ESMF_Info --help .............PASS
+Tue Mar 31 04:45:33 MDT 2020 ESMF_Info --help .............PASS
 The following is the output of ESMF_Info --help=20
 
  ESMF_Info: Print information about the ESMF installation.
@@ -648,7 +635,7 @@ The following is the output of ESMF_Info --help=20
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:44:57 MDT 2020 ESMF_Info --version ..........PASS
+Tue Mar 31 04:45:34 MDT 2020 ESMF_Info --version ..........PASS
 The following is the output of ESMF_Info --version=20
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -714,7 +701,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:44:58 MDT 2020 ESMF_Info -V .................PASS
+Tue Mar 31 04:45:34 MDT 2020 ESMF_Info -V .................PASS
 The following is the output of ESMF_Info -V=20
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -722,7 +709,7 @@ The following is the output of ESMF_Info -V=20
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:44:58 MDT 2020 ESMF_InfoC --help ............PASS
+Tue Mar 31 04:45:35 MDT 2020 ESMF_InfoC --help ............PASS
 The following is the output of ESMF_InfoC --help
 
 ESMF_InfoC: Print information about the ESMF installation.
@@ -735,7 +722,7 @@ Options:
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:44:59 MDT 2020 ESMF_InfoC --version .........PASS
+Tue Mar 31 04:45:36 MDT 2020 ESMF_InfoC --version .........PASS
 The following is the output of ESMF_InfoC --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -801,7 +788,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:45:00 MDT 2020 ESMF_InfoC -V ................PASS
+Tue Mar 31 04:45:42 MDT 2020 ESMF_InfoC -V ................PASS
 The following is the output of ESMF_InfoC -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -809,7 +796,7 @@ The following is the output of ESMF_InfoC -V
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:45:01 MDT 2020 ESMF_RegridWeightGen --help ..PASS
+Tue Mar 31 04:45:43 MDT 2020 ESMF_RegridWeightGen --help ..PASS
 The following is the output of ESMF_RegridWeightGen --help
 
  Usage: ESMF_RegridWeightGen --source|-s src_grid_filename
@@ -1046,7 +1033,7 @@ case.
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:45:02 MDT 2020 ESMF_RegridWeightGen --version PASS
+Tue Mar 31 04:45:44 MDT 2020 ESMF_RegridWeightGen --version PASS
 The following is the output of ESMF_RegridWeightGen --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1112,7 +1099,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:45:03 MDT 2020 ESMF_RegridWeightGen -V ......PASS
+Tue Mar 31 04:45:44 MDT 2020 ESMF_RegridWeightGen -V ......PASS
 The following is the output of ESMF_RegridWeightGen -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1120,7 +1107,7 @@ The following is the output of ESMF_RegridWeightGen -V
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:45:04 MDT 2020 ESMF_Scrip2Unstruct --help ...PASS
+Tue Mar 31 04:45:45 MDT 2020 ESMF_Scrip2Unstruct --help ...PASS
 The following is the output of ESMF_Scrip2Unstruct --help
 
 ESMF_Scrip2Unstruct: Convert an unstructured grid file in SCRIP format =
@@ -1140,7 +1127,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:45:05 MDT 2020 ESMF_Scrip2Unstruct --version PASS
+Tue Mar 31 04:45:46 MDT 2020 ESMF_Scrip2Unstruct --version PASS
 The following is the output of ESMF_Scrip2Unstruct --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1206,7 +1193,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:45:05 MDT 2020 ESMF_Scrip2Unstruct -V .......PASS
+Tue Mar 31 04:45:47 MDT 2020 ESMF_Scrip2Unstruct -V .......PASS
 The following is the output of ESMF_Scrip2Unstruct -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1214,7 +1201,7 @@ The following is the output of ESMF_Scrip2Unstruct -V
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:45:05 MDT 2020 ESMF_WebServController --help PASS
+Tue Mar 31 04:45:47 MDT 2020 ESMF_WebServController --help PASS
 The following is the output of ESMF_WebServController --help
 
 ESMF_WebServController: Run a Process Controller that provides access t=
@@ -1235,7 +1222,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:45:06 MDT 2020 ESMF_WebServController --version PASS
+Tue Mar 31 04:45:47 MDT 2020 ESMF_WebServController --version PASS
 The following is the output of ESMF_WebServController --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1301,7 +1288,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 04:45:06 MDT 2020 ESMF_WebServController -V ....PASS
+Tue Mar 31 04:45:47 MDT 2020 ESMF_WebServController -V ....PASS
 The following is the output of ESMF_WebServController -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1312,27 +1299,102 @@ The following is the output of ESMF_WebServController -V
 Ran 18 applications tests, 18 passed and 0 failed.
 
 |----------------------- SYSTEM TESTS -------------------------|
-Tue Mar 17 04:48:06 MDT 2020 build_system_tests -j4 .......PASS
-Tue Mar 17 04:50:38 MDT 2020 run_system_tests .............PASS
+Tue Mar 31 04:49:00 MDT 2020 build_system_tests -j4 .......PASS
+Tue Mar 31 04:51:41 MDT 2020 run_system_tests .............PASS
 
 
 The following system tests passed:
 
 
+PASS: intelmpi/g: src/system_tests/ESMF_ArrayBundleRedist/ESMF_ArrayBun=
+dleRedistSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_ArrayBundleSparseMatMul/ESMF_Ar=
+rayBundleSparseMatMulSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_ArrayRedist/ESMF_ArrayRedistSTe=
+st.F90
+PASS: intelmpi/g: src/system_tests/ESMF_ArrayRedist3D/ESMF_ArrayRedist3=
+DSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_ArrayRedistOpenACC/ESMF_ArrayRe=
+distOpenACCSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_ArrayRedistOpenMP/ESMF_ArrayRed=
+istOpenMPSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_ArrayScatterGather/ESMF_ArraySc=
+atterGatherSTest.F90
 PASS: intelmpi/g: src/system_tests/ESMF_ArraySharedDeSSI/ESMF_ArrayShar=
 edDeSSISTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_ArraySparseMatMul/ESMF_ArraySpa=
+rseMatMulSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_Attribute/ESMF_AttributeSTest.F=
+90
 PASS: intelmpi/g: src/system_tests/ESMF_AttributeCIM/ESMF_AttributeCIMS=
 Test.F90
 PASS: intelmpi/g: src/system_tests/ESMF_CompCreate/ESMF_CompCreateSTest=
 .F90
 PASS: intelmpi/g: src/system_tests/ESMF_CompFortranAndC/ESMF_CompFortra=
 nAndCSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_ComplianceChecker/ESMF_Complian=
+ceCheckerSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_ConcurrentComponent/ESMF_Concur=
+rentCompSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_ConcurrentEnsemble/ESMF_Concurr=
+entEnsembleSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_DirectCoupling/ESMF_DirectCoupl=
+ingSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldBundleLSRedistArb2Arb/ESMF=
+_FieldBundleLSRedistArb2ArbSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldBundleLSRedistArb2ArbUngrd=
+Dim/ESMF_FieldBundleLSRedistArb2ArbUngrdDimSTest.F90
 PASS: intelmpi/g: src/system_tests/ESMF_FieldBundleRedistArb2Arb/ESMF_F=
 ieldBundleRedistArb2ArbSTest.F90
 PASS: intelmpi/g: src/system_tests/ESMF_FieldBundleRedistBlk2Arb/ESMF_F=
 ieldBundleRedistBlk2ArbSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldBundleRedistBlk2Blk/ESMF_F=
+ieldBundleRedistBlk2BlkSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldBundleSMM/ESMF_FieldBundle=
+SMMSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldBundleSMMPacked/ESMF_Field=
+BundleSMMPackedSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldConcurrentComp/ESMF_FieldC=
+onCompSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldLSRedistArb2Arb/ESMF_Field=
+LSRedistArb2ArbSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldLSRedistArb2ArbUngrdDim/ES=
+MF_FieldLSRedistArb2ArbUngrdDimSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldLSSMM/ESMF_FieldLSSMMSTest=
+.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldMeshSMM/ESMF_FieldMeshSMMS=
+Test.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldRedist/ESMF_FieldRedistSTe=
+st.F90
 PASS: intelmpi/g: src/system_tests/ESMF_FieldRedistArb2Arb/ESMF_FieldRe=
 distArb2ArbSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldRedistBlk2Arb/ESMF_FieldRe=
+distBlk2ArbSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldRedistBlk2Blk/ESMF_FieldRe=
+distBlk2BlkSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldRegrid/ESMF_FieldRegridSTe=
+st.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldRegridDisjoint/ESMF_FieldR=
+egridDisjointSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldRegridMesh/ESMF_FieldRegri=
+dMeshSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldRegridMeshToMesh/ESMF_Fiel=
+dRegridMeshToMeshSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldRegridOverlap/ESMF_FieldRe=
+gridOverlapSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldSparseMatMul/ESMF_FieldSpa=
+rseMatMulSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_RecursiveComponent/ESMF_Recursi=
+veComponentSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_SequentialEnsemble/ESMF_Sequent=
+ialEnsembleSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_Trace/ESMF_TraceSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_TransferGrid/ESMF_TransferGridS=
+Test.F90
+PASS: intelmpi/g: src/system_tests/ESMF_TransferMesh/ESMF_TransferMeshS=
+Test.F90
+PASS: intelmpi/g: src/system_tests/ESMF_XGridConcurrent/ESMF_XGridConcu=
+rrentSTest.F90
 PASS: intelmpi/g: src/system_tests/ESMF_XGridSerial/ESMF_XGridSerialSTe=
 st.F90
 
@@ -1344,13 +1406,13 @@ The stdout files for the system_tests can be found at:
 /esmf/test/testg/Linux.intel.64.intelmpi.default
 
 
-Found 8 single processor system tests, 8 passed and 0 failed.
+Found 46 multi-processor system tests, 46 passed and 0 failed.
 
 
 
 |------------------------- EXAMPLES ---------------------------|
-Tue Mar 17 04:55:43 MDT 2020 build_examples -j4 ...........PASS
-Tue Mar 17 05:03:47 MDT 2020 run_examples .................PASS
+Tue Mar 31 04:57:21 MDT 2020 build_examples -j4 ...........PASS
+Tue Mar 31 05:03:06 MDT 2020 run_examples .................PASS
 
 
 The following examples passed:
@@ -1523,8 +1585,8 @@ Found 85 multi-processor examples, 85 passed and 0 failed.
 
 
 |-------------------- EXHAUSTIVE UNIT TESTS -------------------|
-Tue Mar 17 05:15:26 MDT 2020 build_unit_tests -j4 .........PASS
-Tue Mar 17 05:35:13 MDT 2020 run_unit_tests ...............PASS
+Tue Mar 31 05:15:36 MDT 2020 build_unit_tests -j4 .........PASS
+Tue Mar 31 05:35:54 MDT 2020 run_unit_tests ...............PASS
 
 
 
@@ -1888,7 +1950,7 @@ The log and stdout files for the unit tests can be found at:
 /esmf/test/testg/Linux.intel.64.intelmpi.default
 
 
-Found 9075 exhaustive multi-processor unit tests, 9075 passed and 0 fai=
+Found 9078 exhaustive multi-processor unit tests, 9078 passed and 0 fai=
 led.
 
 
@@ -1897,7 +1959,7 @@ _______________________________________________________________________=
 ________________________
 
 
-Tue Mar 17 05:37:29 MDT 2020 on fe2=20
+Tue Mar 31 05:38:35 MDT 2020 on fe2=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -1917,13 +1979,13 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_11-4-g2f94055c
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a9
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_11-4-g2f94055c
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a9
 --------------------------------------------------------------
 On branch master
 Your branch is up to date with 'origin/master'.
@@ -2104,7 +2166,7 @@ _dirs/daily_builds/intel/esmf/mod/modO/Linux.intel.64.intelmpi.default =
 -I/mnt/lfs1/projects/esmf/Silverio.Vasquez/script_dirs/daily_builds/int=
 el/esmf/src/include=20
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_11-4-g2f94055c' -DESMF=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a9' -DESMF=
 _MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
 FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DES=
 MF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_T=
@@ -2136,7 +2198,7 @@ t_dirs/daily_builds/intel/esmf/src/include   -I/mnt/lfs1/projects/esmf/=
 Silverio.Vasquez/script_dirs/daily_builds/intel/esmf/src/prologue/yaml-=
 cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_11-4-g2f94055c' -DESMF=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a9' -DESMF=
 _MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
 FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DES=
 MF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_T=
@@ -2203,23 +2265,23 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Tue Mar 17 05:37:32 MDT 2020 on fe2
+Compiling on Tue Mar 31 05:38:37 MDT 2020 on fe2
 Machine characteristics: Linux fe2 3.10.0-1062.12.1.el7.x86_64 #1 SMP T=
 ue Feb 4 23:02:59 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Tue Mar 17 05:56:10 MDT 2020 library build -j16 ...........PASS
-Tue Mar 17 05:56:38 MDT 2020 library install -j4 ..........PASS
-Tue Mar 17 05:56:40 MDT 2020 library installcheck -j4 .....PASS
-Tue Mar 17 05:58:48 MDT 2020 quickstart build -j4 .........PASS
+Tue Mar 31 05:58:30 MDT 2020 library build -j16 ...........PASS
+Tue Mar 31 05:58:55 MDT 2020 library install -j4 ..........PASS
+Tue Mar 31 05:58:57 MDT 2020 library installcheck -j4 .....PASS
+Tue Mar 31 06:01:23 MDT 2020 quickstart build -j4 .........PASS
 
 |------------------------ APPs TESTS --------------------------|
-Tue Mar 17 05:58:59 MDT 2020 apps build -j4 ...............PASS
+Tue Mar 31 06:01:35 MDT 2020 apps build -j4 ...............PASS
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:04 MDT 2020 ESMF_Regrid --help ...........PASS
+Tue Mar 31 06:01:42 MDT 2020 ESMF_Regrid --help ...........PASS
 The following is the output of ESMF_Regrid --help
 
  Usage: ESMF_Regrid
@@ -2349,7 +2411,7 @@ lon(i,j)),=20
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:05 MDT 2020 ESMF_Regrid --version ........PASS
+Tue Mar 31 06:01:43 MDT 2020 ESMF_Regrid --version ........PASS
 The following is the output of ESMF_Regrid --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2415,7 +2477,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:06 MDT 2020 ESMF_Regrid -V ...............PASS
+Tue Mar 31 06:01:44 MDT 2020 ESMF_Regrid -V ...............PASS
 The following is the output of ESMF_Regrid -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2423,7 +2485,7 @@ The following is the output of ESMF_Regrid -V
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:07 MDT 2020 ESMF_Info --help .............PASS
+Tue Mar 31 06:01:45 MDT 2020 ESMF_Info --help .............PASS
 The following is the output of ESMF_Info --help=20
 
  ESMF_Info: Print information about the ESMF installation.
@@ -2436,7 +2498,7 @@ The following is the output of ESMF_Info --help=20
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:08 MDT 2020 ESMF_Info --version ..........PASS
+Tue Mar 31 06:01:45 MDT 2020 ESMF_Info --version ..........PASS
 The following is the output of ESMF_Info --version=20
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2502,7 +2564,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:09 MDT 2020 ESMF_Info -V .................PASS
+Tue Mar 31 06:01:47 MDT 2020 ESMF_Info -V .................PASS
 The following is the output of ESMF_Info -V=20
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2510,7 +2572,7 @@ The following is the output of ESMF_Info -V=20
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:10 MDT 2020 ESMF_InfoC --help ............PASS
+Tue Mar 31 06:01:47 MDT 2020 ESMF_InfoC --help ............PASS
 The following is the output of ESMF_InfoC --help
 
 ESMF_InfoC: Print information about the ESMF installation.
@@ -2523,7 +2585,7 @@ Options:
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:10 MDT 2020 ESMF_InfoC --version .........PASS
+Tue Mar 31 06:01:48 MDT 2020 ESMF_InfoC --version .........PASS
 The following is the output of ESMF_InfoC --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2589,7 +2651,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:12 MDT 2020 ESMF_InfoC -V ................PASS
+Tue Mar 31 06:01:49 MDT 2020 ESMF_InfoC -V ................PASS
 The following is the output of ESMF_InfoC -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2597,7 +2659,7 @@ The following is the output of ESMF_InfoC -V
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:12 MDT 2020 ESMF_RegridWeightGen --help ..PASS
+Tue Mar 31 06:01:50 MDT 2020 ESMF_RegridWeightGen --help ..PASS
 The following is the output of ESMF_RegridWeightGen --help
 
  Usage: ESMF_RegridWeightGen --source|-s src_grid_filename
@@ -2834,7 +2896,7 @@ case.
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:13 MDT 2020 ESMF_RegridWeightGen --version PASS
+Tue Mar 31 06:01:51 MDT 2020 ESMF_RegridWeightGen --version PASS
 The following is the output of ESMF_RegridWeightGen --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2900,7 +2962,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:14 MDT 2020 ESMF_RegridWeightGen -V ......PASS
+Tue Mar 31 06:01:51 MDT 2020 ESMF_RegridWeightGen -V ......PASS
 The following is the output of ESMF_RegridWeightGen -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2908,7 +2970,7 @@ The following is the output of ESMF_RegridWeightGen -V
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:15 MDT 2020 ESMF_Scrip2Unstruct --help ...PASS
+Tue Mar 31 06:01:53 MDT 2020 ESMF_Scrip2Unstruct --help ...PASS
 The following is the output of ESMF_Scrip2Unstruct --help
 
 ESMF_Scrip2Unstruct: Convert an unstructured grid file in SCRIP format =
@@ -2928,7 +2990,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:16 MDT 2020 ESMF_Scrip2Unstruct --version PASS
+Tue Mar 31 06:01:53 MDT 2020 ESMF_Scrip2Unstruct --version PASS
 The following is the output of ESMF_Scrip2Unstruct --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2994,7 +3056,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:17 MDT 2020 ESMF_Scrip2Unstruct -V .......PASS
+Tue Mar 31 06:01:54 MDT 2020 ESMF_Scrip2Unstruct -V .......PASS
 The following is the output of ESMF_Scrip2Unstruct -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -3002,7 +3064,7 @@ The following is the output of ESMF_Scrip2Unstruct -V
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:17 MDT 2020 ESMF_WebServController --help PASS
+Tue Mar 31 06:01:54 MDT 2020 ESMF_WebServController --help PASS
 The following is the output of ESMF_WebServController --help
 
 ESMF_WebServController: Run a Process Controller that provides access t=
@@ -3023,7 +3085,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:17 MDT 2020 ESMF_WebServController --version PASS
+Tue Mar 31 06:01:54 MDT 2020 ESMF_WebServController --version PASS
 The following is the output of ESMF_WebServController --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -3089,7 +3151,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Tue Mar 17 05:59:17 MDT 2020 ESMF_WebServController -V ....PASS
+Tue Mar 31 06:01:54 MDT 2020 ESMF_WebServController -V ....PASS
 The following is the output of ESMF_WebServController -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -3100,102 +3162,27 @@ The following is the output of ESMF_WebServController -V
 Ran 18 applications tests, 18 passed and 0 failed.
 
 |----------------------- SYSTEM TESTS -------------------------|
-Tue Mar 17 06:02:09 MDT 2020 build_system_tests -j4 .......PASS
-Tue Mar 17 06:04:15 MDT 2020 run_system_tests .............PASS
+Tue Mar 31 06:04:52 MDT 2020 build_system_tests -j4 .......PASS
+Tue Mar 31 06:06:51 MDT 2020 run_system_tests .............PASS
 
 
 The following system tests passed:
 
 
-PASS: intelmpi/O: src/system_tests/ESMF_ArrayBundleRedist/ESMF_ArrayBun=
-dleRedistSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_ArrayBundleSparseMatMul/ESMF_Ar=
-rayBundleSparseMatMulSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_ArrayRedist/ESMF_ArrayRedistSTe=
-st.F90
-PASS: intelmpi/O: src/system_tests/ESMF_ArrayRedist3D/ESMF_ArrayRedist3=
-DSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_ArrayRedistOpenACC/ESMF_ArrayRe=
-distOpenACCSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_ArrayRedistOpenMP/ESMF_ArrayRed=
-istOpenMPSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_ArrayScatterGather/ESMF_ArraySc=
-atterGatherSTest.F90
 PASS: intelmpi/O: src/system_tests/ESMF_ArraySharedDeSSI/ESMF_ArrayShar=
 edDeSSISTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_ArraySparseMatMul/ESMF_ArraySpa=
-rseMatMulSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_Attribute/ESMF_AttributeSTest.F=
-90
 PASS: intelmpi/O: src/system_tests/ESMF_AttributeCIM/ESMF_AttributeCIMS=
 Test.F90
 PASS: intelmpi/O: src/system_tests/ESMF_CompCreate/ESMF_CompCreateSTest=
 .F90
 PASS: intelmpi/O: src/system_tests/ESMF_CompFortranAndC/ESMF_CompFortra=
 nAndCSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_ComplianceChecker/ESMF_Complian=
-ceCheckerSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_ConcurrentComponent/ESMF_Concur=
-rentCompSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_ConcurrentEnsemble/ESMF_Concurr=
-entEnsembleSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_DirectCoupling/ESMF_DirectCoupl=
-ingSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldBundleLSRedistArb2Arb/ESMF=
-_FieldBundleLSRedistArb2ArbSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldBundleLSRedistArb2ArbUngrd=
-Dim/ESMF_FieldBundleLSRedistArb2ArbUngrdDimSTest.F90
 PASS: intelmpi/O: src/system_tests/ESMF_FieldBundleRedistArb2Arb/ESMF_F=
 ieldBundleRedistArb2ArbSTest.F90
 PASS: intelmpi/O: src/system_tests/ESMF_FieldBundleRedistBlk2Arb/ESMF_F=
 ieldBundleRedistBlk2ArbSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldBundleRedistBlk2Blk/ESMF_F=
-ieldBundleRedistBlk2BlkSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldBundleSMM/ESMF_FieldBundle=
-SMMSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldBundleSMMPacked/ESMF_Field=
-BundleSMMPackedSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldConcurrentComp/ESMF_FieldC=
-onCompSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldLSRedistArb2Arb/ESMF_Field=
-LSRedistArb2ArbSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldLSRedistArb2ArbUngrdDim/ES=
-MF_FieldLSRedistArb2ArbUngrdDimSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldLSSMM/ESMF_FieldLSSMMSTest=
-.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldMeshSMM/ESMF_FieldMeshSMMS=
-Test.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldRedist/ESMF_FieldRedistSTe=
-st.F90
 PASS: intelmpi/O: src/system_tests/ESMF_FieldRedistArb2Arb/ESMF_FieldRe=
 distArb2ArbSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldRedistBlk2Arb/ESMF_FieldRe=
-distBlk2ArbSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldRedistBlk2Blk/ESMF_FieldRe=
-distBlk2BlkSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldRegrid/ESMF_FieldRegridSTe=
-st.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldRegridDisjoint/ESMF_FieldR=
-egridDisjointSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldRegridMesh/ESMF_FieldRegri=
-dMeshSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldRegridMeshToMesh/ESMF_Fiel=
-dRegridMeshToMeshSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldRegridOverlap/ESMF_FieldRe=
-gridOverlapSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_FieldSparseMatMul/ESMF_FieldSpa=
-rseMatMulSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_RecursiveComponent/ESMF_Recursi=
-veComponentSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_SequentialEnsemble/ESMF_Sequent=
-ialEnsembleSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_Trace/ESMF_TraceSTest.F90
-PASS: intelmpi/O: src/system_tests/ESMF_TransferGrid/ESMF_TransferGridS=
-Test.F90
-PASS: intelmpi/O: src/system_tests/ESMF_TransferMesh/ESMF_TransferMeshS=
-Test.F90
-PASS: intelmpi/O: src/system_tests/ESMF_XGridConcurrent/ESMF_XGridConcu=
-rrentSTest.F90
 PASS: intelmpi/O: src/system_tests/ESMF_XGridSerial/ESMF_XGridSerialSTe=
 st.F90
 
@@ -3207,13 +3194,13 @@ The stdout files for the system_tests can be found at:
 /esmf/test/testO/Linux.intel.64.intelmpi.default
 
 
-Found 46 multi-processor system tests, 46 passed and 0 failed.
+Found 8 single processor system tests, 8 passed and 0 failed.
 
 
 
 |------------------------- EXAMPLES ---------------------------|
-Tue Mar 17 06:08:55 MDT 2020 build_examples -j4 ...........PASS
-Tue Mar 17 06:13:37 MDT 2020 run_examples .................PASS
+Tue Mar 31 06:11:56 MDT 2020 build_examples -j4 ...........PASS
+Tue Mar 31 06:16:16 MDT 2020 run_examples .................PASS
 
 
 The following examples passed:
@@ -3386,8 +3373,8 @@ Found 85 multi-processor examples, 85 passed and 0 failed.
 
 
 |-------------------- EXHAUSTIVE UNIT TESTS -------------------|
-Tue Mar 17 06:26:55 MDT 2020 build_unit_tests -j4 .........PASS
-Tue Mar 17 06:37:31 MDT 2020 run_unit_tests ...............PASS
+Tue Mar 31 06:30:51 MDT 2020 build_unit_tests -j4 .........PASS
+Tue Mar 31 06:42:14 MDT 2020 run_unit_tests ...............PASS
 
 
 
@@ -3751,7 +3738,7 @@ The log and stdout files for the unit tests can be found at:
 /esmf/test/testO/Linux.intel.64.intelmpi.default
 
 
-Found 9075 exhaustive multi-processor unit tests, 9075 passed and 0 fai=
+Found 9078 exhaustive multi-processor unit tests, 9078 passed and 0 fai=
 led.
 
 

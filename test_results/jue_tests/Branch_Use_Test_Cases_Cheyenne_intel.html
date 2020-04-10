@@ -1,2 +1,128 @@
 <pre>
-No report is available at this time.
+Return-Path: <svasquez@service8.cheyenne.ucar.edu>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 09 Apr 2020 11:30:27 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 1E975DE
+	for <esmftest@cgd.ucar.edu>; Thu,  9 Apr 2020 05:20:44 -0600 (MDT)
+Received: from mail-io1-f72.google.com (mail-io1-f72.google.com [209.85.166.72])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id D19D21800255
+	for <esmftest@cgd.ucar.edu>; Thu,  9 Apr 2020 05:20:43 -0600 (MDT)
+Authentication-Results: vscanx2.ucar.edu;
+	dkim=pass (2048-bit key) header.d=ucar.edu header.i=@ucar.edu header.b="W+EWcclU"
+Received: by mail-io1-f72.google.com with SMTP id p20so2205451iob.8
+        for <esmftest@cgd.ucar.edu>; Thu, 09 Apr 2020 04:20:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:dkim-signature:date:to:subject:user-agent
+         :mime-version:content-transfer-encoding:message-id:from;
+        bh=LAqXj8nfRNQDw0mgRwq0n2Jsz9J95CBOzESFoRDYxeE=;
+        b=NdKTV/LH3oPVcnK7qXzrSp7a1aKEO5yNkUYlq/TI7XMyEWk26ROJMsyy6JNuHIm0Cn
+         N1UUx6jaT5Cat6LWyee+qUgi71uuTsRXYUXXfIrIU08D1cs0IC+SuL0IWFAZHb5y0An2
+         nPkOWF5LycVauDEBb7Xb3zag64XofTkttvXV0azSIOujvOLtUm0HN10ijltvIfERX7ER
+         xKCPpSLuGlomr2+7T0YEo5MKrEuSe3eGoAGcCPPY8VJXOmWld6stEXRU4RV+uN22a6pQ
+         cLBqax9UczbHyLvGeZXf59wpS1GiDovJUzPDRZpu86fn2FJ8x+BMRS6ytx2VVh6IRsKu
+         OISg==
+X-Gm-Message-State: AGi0PuYIZ/dgrdWDvpWCSp1KKWFE78tKIs8Yd6BIzIWHBL5WiYwCaNAU
+	KwnxBBwPM6Wey+KXuj4Ui9KPtaR+Zpjqnk9Nz34aK7r9gbV9v6bMfcHQGGox06BlnF5PZG0CVpS
+	sd5mNK1gAGMUZYSth6mQ=
+X-Received: by 2002:a92:1a53:: with SMTP id z19mr12849134ill.85.1586431243506;
+        Thu, 09 Apr 2020 04:20:43 -0700 (PDT)
+X-Google-Smtp-Source: APiQypK8VuzuI2sAKo023X++lBxx9KA7Cw77fD6WJNQPltrCu2+8xn6lWSBFgPYE+VlSaC7kegav
+X-Received: by 2002:a92:1a53:: with SMTP id z19mr12849121ill.85.1586431243265;
+        Thu, 09 Apr 2020 04:20:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1586431243; cv=none;
+        d=google.com; s=arc-20160816;
+        b=EVh+wkcNFbZyVjkuSU0KkY1PunoppztSLEpJ/DVohl1rvRN5xINQy7vXCk1RsvDtlZ
+         uQBeEJ4ua6x/jo0VKn8EvFnx0y2RVcGfuvP5Eu1l+0apm3IJ97CWAen5NX+11D/c7eo8
+         78eZS9VNvGNc9j4Pbk8CiRfM46PiiQPT3ztX/Rey+fjkLh19nRVSVylqjgtnWbPwLfwl
+         K+j2B7AmOyRqRW7WLiSaIg2V68LSPU2YBbER4AexlHkMqDdN8ONllB0niumZ1apc5B2i
+         iJKqhtc5nmQGuZmqSMSmK5QaZ/CBr/MvGFMXCjPJiMvOuOnu3LOSGLbDotMYllovOKLX
+         ZpOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:message-id:content-transfer-encoding:mime-version:user-agent
+         :subject:to:date:dkim-signature;
+        bh=LAqXj8nfRNQDw0mgRwq0n2Jsz9J95CBOzESFoRDYxeE=;
+        b=tkGqtYNedYGYFt//isvyPiYOUnHsCr+zjx5qgdM8euj96ZbfpLDx6N8EasmxXMrpL0
+         kHMmGQfbqwMKTjMsaN7cDi2WlvbY7DXwFMWKWpXPSpyVop01uQ4AUy4x2mgJjTzSSCtn
+         KLcoQCHNilIZkM/4ispTELwQSZ83lNPc89bW9nUpdyccJ9BJH50a+FYfVy6oSUBKx/7n
+         7434ElJLzdoY6ZXbNkIohd1NbToBnIg17ATYTrUP3+J51E0xt2rlR3qbZhOMhsdF93Hs
+         Y6Ufr2H1Z12z/2qe5AYk3kj7GCr2w9n220j+d//9/hcjBPKxTVmR9xeAl3qLElcdgTKY
+         kAzg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@ucar.edu header.s=mail header.b=W+EWcclU;
+       spf=pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) smtp.mailfrom=svasquez@service8.cheyenne.ucar.edu;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ucar.edu
+Received: from vscani1.ucar.edu (vscani1.ucar.edu. [192.43.244.84])
+        by mx.google.com with ESMTPS id v7si7453820jaa.23.2020.04.09.04.20.43
+        for <esmftest@cgd.ucar.edu>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 09 Apr 2020 04:20:43 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) client-ip=192.43.244.84;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@ucar.edu header.s=mail header.b=W+EWcclU;
+       spf=pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) smtp.mailfrom=svasquez@service8.cheyenne.ucar.edu;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ucar.edu
+Received: from cheyenne.ucar.edu (chmgt.ucar.edu [128.117.183.158])
+	by vscani1.ucar.edu (Postfix) with ESMTP id 064A31807277
+	for <esmftest@cgd.ucar.edu>; Thu,  9 Apr 2020 05:20:13 -0600 (MDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ucar.edu; s=mail;
+	t=1586431213; bh=x9rlWQQiLkUyHP/WsTCt9KgqPWztkoKnr+2iHSF11MU=;
+	h=Date:To:Subject:From;
+	b=W+EWcclUFsv8VqSWdS2xnHLX0Qt9608O1O2dtYMViKRl317hFpIwUj6l9kXBxI58w
+	 X+zSbMyqwKxHkG8lHzf7HJWKbWkL1x4ZYOcZ0UfaTtsSzwTf4LMZZsGqIG9q0d1KqW
+	 vQ0amcknodEX0soAA6xM2RrQEBerNeET84pRfxCZupw0kABPDRTfObbA2ID1a41FaK
+	 W1Qs1Py/HWrsrIrvYQUZ+sqIQ/LhCG66A2cXzhodQ24FRY3ZjLNaZLFioB+CCKT747
+	 5aejDaAsE/tvOhY7zEjgMJo7odGsYYmgYVNk9NoujcV0+RidglgEYcab9zdk6lbZjj
+	 P4ofEm+vU6fKQ==
+Received: from service8.cheyenne.ucar.edu (chadmin3.head.cheyenne.ucar.edu [172.23.0.10])
+	by cheyenne.ucar.edu (Postfix) with ESMTP id CE8D6941C46
+	for <esmftest@cgd.ucar.edu>; Thu,  9 Apr 2020 05:20:12 -0600 (MDT)
+Received: by service8.cheyenne.ucar.edu (Postfix, from userid 2835)
+	id CB6A71A808D6; Thu,  9 Apr 2020 05:20:12 -0600 (MDT)
+Date: Thu, 09 Apr 2020 05:20:12 -0600
+To: esmftest@cgd.ucar.edu
+Subject: Branch_Use_Test_Cases_Cheyenne_intel
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-Id: <20200409112012.CB6A71A808D6@service8.cheyenne.ucar.edu>
+From: svasquez@service8.cheyenne.ucar.edu (Silverio Vasquez)
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+
+Script start time: Thu Apr  9 05:20:12 MDT 2020
+
+Script end: Thu Apr  9 05:20:12 MDT 2020
+
+
+_______________ESMF_8_1_0branch USE TEST CASES TEST SUMMARY_____________________
+
+                                            
+           BUILD     OS.COMPILER.COMM.ABI    USE TEST CASES
+                                             ESMF_MAX_PROC=
+__________________________________________________________________________
+          PASS/FAIL                            PASS/FAIL  
+__________________________________________________________________________
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /glade/work/svasquez/scripts_dir/branch/use_test_cases/intel/esmf_logs/2004_test.
+ These tarballs contain the *Log and *stdout files only, not the executables.
+ This directory also contains failed build output files with the naming convention of 
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COMM.
+ For example, if the build fails on longs on the 19th of the month with ESMF_BOPT=g, the file 
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:green
+Day_of_Week:Thursday
+Test_Failures:0

@@ -2,88 +2,88 @@
 Return-Path: <scvasque@discover.nccs.nasa.gov>
 Delivered-To: unknown
 Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
-  with IMAP4-SSL; 20 Mar 2020 08:00:03 -0000
+  with IMAP4-SSL; 03 Apr 2020 08:00:02 -0000
 X-Original-To: esmftest@cgd.ucar.edu
 Delivered-To: esmftest@cgd.ucar.edu
 Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
-	by post2.cgd.ucar.edu (Postfix) with ESMTP id D0F6F332
-	for <esmftest@cgd.ucar.edu>; Fri, 20 Mar 2020 01:49:28 -0600 (MDT)
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by vscanx2.ucar.edu (Postfix) with ESMTPS id 9D5E81801966
-	for <esmftest@cgd.ucar.edu>; Fri, 20 Mar 2020 01:49:27 -0600 (MDT)
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 0BB02220
+	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 01:51:28 -0600 (MDT)
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 1BF89180199E
+	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 01:51:28 -0600 (MDT)
 Authentication-Results: vscanx2.ucar.edu;
-	dkim=pass (1024-bit key) header.d=nccs.nasa.gov header.i=@nccs.nasa.gov header.b="fG+QyKA2"
-Received: by mail-qv1-f72.google.com with SMTP id j5so5024048qvo.18
-        for <esmftest@cgd.ucar.edu>; Fri, 20 Mar 2020 00:49:27 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=nccs.nasa.gov header.i=@nccs.nasa.gov header.b="i9EEQxIo"
+Received: by mail-qk1-f199.google.com with SMTP id a21so5622068qkg.6
+        for <esmftest@cgd.ucar.edu>; Fri, 03 Apr 2020 00:51:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:message-id:dkim-filter:dkim-signature:from:date
          :to:subject:user-agent:mime-version:content-transfer-encoding;
-        bh=4q9Z0XYgsq3HGV7jLAuDnnAldD0Yq4UVYQbMWLeAFOE=;
-        b=OblEI61CzOANG95zkLLRAA36yzs+kB5kNiLYa0KF3otX9X3yJlFcVQ78G9+sswsuiU
-         a79sH7KrnSSMtbouQIPBiQdNv8nuk1DsiTAgpmGGwHt2Mv6vkok2wG7vCaOT+XQ10m1u
-         FBgZIrc/glNj/u9hYCw3+Z6AjlM3OimtN8Nz0DCkqpinYeOu9yQGt7ZgLvVdGKDPlE9x
-         LwnrSi9Dq4M5k5d2XJiM4EbG7sBPldNmSC0/S5B7Hq0Cz/J+nF+COFn9gyyFPFvNzW4G
-         Tl0Ccq89AtpGM/WXMw0IfoU1snfzPDth47ykPDovm8kSE46ipraewSZbnpqyMhtM5mhN
-         XqwA==
-X-Gm-Message-State: ANhLgQ15aGboWntbLz78rozRWoWWM4q+1pxKcK1PL3sNepPiskKElIdb
-	af1XQxHRD14S9XJvPGKlbraQo6xTrC0/rIw5KpaX/q6fVNix8+KcRSPNqLzVaLpXHjG9Qvs6eif
-	/g5KhzFWnw0FWfeZ+
-X-Received: by 2002:ac8:76d5:: with SMTP id q21mr6682467qtr.202.1584690566675;
-        Fri, 20 Mar 2020 00:49:26 -0700 (PDT)
-X-Google-Smtp-Source: ADFU+vuHgFvnnS5Eo32kxni88RjDu48YXqou/YIxMXNyyvjmPRQ4jPxhU6ui2oK2IeNIe4aRMCb3
-X-Received: by 2002:ac8:76d5:: with SMTP id q21mr6682393qtr.202.1584690564877;
-        Fri, 20 Mar 2020 00:49:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1584690564; cv=none;
+        bh=ZvIbBwym4endjoza2BvDLGDCtAGYchbKLc2cixgJOWg=;
+        b=UOusl874zTL1HupbbJPlCgfU/ap9hK9HfbmEuKJLuqQ1vM9uV1ziY2WSG6ta/6kPqp
+         AmUFSZZ4XHd4qk7L6x+FZDyo+2OFIp/Zb2hBwD6Y1snDVOmjbKkkBPyKiVnVTlN+J6yN
+         oCQLsVDl2Ob/i44X8Z3qsYzgNJEi8Tn5xWCzGzuUHDmLz9icIh5I7afJoSSx+sGjTnDI
+         1RT+nTjw53kRiFZ8t8WoqhppK55mOJ2TK2p++FGVhanZXeBLZ4nZbC6gXNq6hvE9+LU9
+         e4UZ1OjpxJOWCNfKVJykxrP0MoxN8iwYzpf0bZVzDEg0zjHSK+A6xfkiqpzJIuK8nJcP
+         msYw==
+X-Gm-Message-State: AGi0PubZPT2oRIUnS3aonqLln1ZcTtXu96As/XgQFn4M1sEpu6Vkxc6D
+	rJY0hHv1B8QsrzGZHZFitH0HB08/F9SR0/y3oSbFNG8r+yIzT3oR1H3QhOqLFqxH7gDZq+OIQsS
+	XdOgMd7Zsnjn4bkTV
+X-Received: by 2002:ac8:6919:: with SMTP id e25mr6888972qtr.151.1585900287210;
+        Fri, 03 Apr 2020 00:51:27 -0700 (PDT)
+X-Google-Smtp-Source: APiQypK5x9Lvg8REIcagKX6RJBwZ+AfOiomkPUf/U1R7PehZdeHVL+GY1E1lXYceRQYGfB1XhGgm
+X-Received: by 2002:ac8:6919:: with SMTP id e25mr6888900qtr.151.1585900285171;
+        Fri, 03 Apr 2020 00:51:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1585900285; cv=none;
         d=google.com; s=arc-20160816;
-        b=GRiRDXVkWHA/1pgsN/U0hOJtnNv59NFGdTTRkfVL6PDTgQaKFpui7BTsaSqtrMNe9X
-         wLGVp5Uik9jYwCR3RZPdmmXb9B+FS/g8EyneyMZ2T8QelODOOPMTCMQxDtAcIdbguOXO
-         3z11JEeUT6H1Y1RFEtrYQhA/I1WeHiXocmjTZQ1ci4EoAsjoDkvP7R/L6RyZXPg9qbdI
-         BM8fo+3gEfeF4X60kXP45zXLjIvfeWW1LTt/qhl7DsRiKHe2Gtw6Kow+RTa6V9qGqeB8
-         dySYZWxys+gFxyw4mhHzkqAHQ4UUN0bofhTkq0TjP/l4R7SNS3nBFckRqWMaL4C+akVa
-         ZPjQ==
+        b=Ge2RIQ93214e8sE77dEhWvg4rF7Z+wgDWZVC4vKJTJ/fdv5pyy2Dic/9/3Raa7X/xJ
+         7iFT5xFd8ud99zu0mx2GasAPVBoHzioX6xk/BhAnEolZli7ltE4bp206GTmJC5dwYUx3
+         1e7DV6dng/GTlY/5q39TIQMauFiWo9WZzT7X4kd8AflaXjHpaXDdKebu+fSFVm6dTxcf
+         VWzBY1N24A3YgawMvgGJ0WJUrfGAWNET20O0sC+pOQ3l3tMQlo1MRZCsZzWR1NSwovWu
+         d32SlLx6nPo046cyTw7VDi1xPaeMqHzrOQPOQtUT9NqoV4rVF6Y/gyzhZySRJ/19QPwa
+         SwWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:user-agent:subject:to:date
          :from:dkim-signature:dkim-filter:message-id;
-        bh=4q9Z0XYgsq3HGV7jLAuDnnAldD0Yq4UVYQbMWLeAFOE=;
-        b=ln1uZ+PbvJ7GaID9Rm/lyTC0PM3/QgtE1LUdPyxlc5Y1GmT1iLacVrA24UlZFXZxyT
-         YRQIMn9oicZTtoLpCwJcT6ooUfQ4BhrcdkkT8KkDaLvuiJBZ7XLqwmprmBYHjj59FR1z
-         avc+sL2sS6Kjkk4s5diR1HsljBS68zBrW+YHQcOK+v+Co/7EuSswRwRXrptKwPix9E14
-         9aYSr6YDAdP+/KBf+kdV5ZUpfzlO9anaIlUFJRLs+BU+mUj1nHvNr3MRAwcjGbx+mYv5
-         KpbaOZ+Jfpi0bX1usio0y4f/A5efjMhuvlPL6Yl+pjiIsK/c26SRhI/uRxjU+bmQfqkw
-         FySw==
+        bh=ZvIbBwym4endjoza2BvDLGDCtAGYchbKLc2cixgJOWg=;
+        b=T3Ds8f/EfPplRvgDp+BoDvWEUm7c8LnGmzQOoYMR6BaqzK4BWfY4wugiar61J5t6tC
+         7IYWZ1+wq9dMTn/Ve+kEQHt6lV7qxziKZepqA2ZleUu6ynxt3kZKp6W8g+8A4RnLGgs0
+         rB9EkNOf6S7Hnbo5G367Vu/x42BROq+6/8DhBtK4zHtLM/WMaJxHzc/SuZk2hFnIajkB
+         Y6+RGQWxEbFaB6RmM7j235sIZqp1D7zUWNaDy/KvOp/KDXd7yd+tpHnkn+k16dsWjV6T
+         AwE7Te9ex3Np8C/kvKQK0HzcbM2pDbLGf7hWMBaEkcFjrMhR2LIsv5CHda0hTy+5L4kT
+         05Lw==
 ARC-Authentication-Results: i=1; mx.google.com;
-       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=fG+QyKA2;
-       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 169.154.146.140 as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=i9EEQxIo;
+       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
        dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
-Received: from mail1.nccs.nasa.gov (mail1.nccs.nasa.gov. [169.154.146.140])
-        by mx.google.com with ESMTP id x27si2882304qtm.346.2020.03.20.00.49.24
+Received: from mail1.nccs.nasa.gov (mail1.nccs.nasa.gov. [2001:4d0:2418:2800::a99a:928c])
+        by mx.google.com with ESMTP id w6si4897493qki.311.2020.04.03.00.51.24
         for <esmftest@cgd.ucar.edu>;
-        Fri, 20 Mar 2020 00:49:24 -0700 (PDT)
-Received-SPF: pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 169.154.146.140 as permitted sender) client-ip=169.154.146.140;
+        Fri, 03 Apr 2020 00:51:24 -0700 (PDT)
+Received-SPF: pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) client-ip=2001:4d0:2418:2800::a99a:928c;
 Authentication-Results: mx.google.com;
-       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=fG+QyKA2;
-       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 169.154.146.140 as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=i9EEQxIo;
+       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
        dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
-Message-ID: <5e747584.1c69fb81.deee4.c59fSMTPIN_ADDED_MISSING@mx.google.com>
+Message-ID: <5e86eafc.1c69fb81.b58ec.0a2eSMTPIN_ADDED_MISSING@mx.google.com>
 X-Comment: SPF check N/A for local connections - client-ip=169.154.145.205; helo=borgmx1.prv.cube; envelope-from=scvasque@discover.nccs.nasa.gov; receiver=esmftest@cgd.ucar.edu 
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail1.nccs.nasa.gov 3C0C25F8
+DKIM-Filter: OpenDKIM Filter v2.9.2 mail1.nccs.nasa.gov EA1E15B2
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nccs.nasa.gov;
-	s=default; t=1584690564;
-	bh=RLdhHH8agEpX/bCEbpMeJ7vFD38vTGNU7LMaxIJr0PA=;
+	s=default; t=1585900282;
+	bh=l7HDF4PmVNtcF7B4qM1ZsueZ3+tdfqfpBxrYGZMX5fY=;
 	h=From:Date:To:Subject:From;
-	b=fG+QyKA2EaRfyPsIBColyA/1RoK5HSXDFtxFDIqivQxfVbvdibGcecKNjTX7ODsOu
-	 RM8vHOG9ykIxXoBBu0Tfekwdto1p5qoI1ypLgDfor1Y8j3QKB6je42rsabCeQnH7/W
-	 byeolhvX7v0qXMA1AmhiDTPhU1/18pO4dxRYycVs=
+	b=i9EEQxIouLcVOZiBYyF7Bye2P9RV50XenlsE2XQVZXzvUJ/LwTfQtYgm/alTipvIW
+	 aklxB+w4k1RgTEcf6uqxUPdzv6OPBdp11j3/wF1Kqmq7XlyDcnR9Rv21591ocIvWTT
+	 SCG3I8yqgq7+kjmwFF6IyPwYwx7v0ZVzZX7+TbIA=
 Received: from borgmx1.prv.cube (borgmx1.nccs.nasa.gov [169.154.145.205])
-	by mail1.nccs.nasa.gov (Postfix) with ESMTP id 3C0C25F8
-	for <esmftest@cgd.ucar.edu>; Fri, 20 Mar 2020 03:49:24 -0400 (EDT)
+	by mail1.nccs.nasa.gov (Postfix) with ESMTP id EA1E15B2
+	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 03:51:22 -0400 (EDT)
 Received: from discover.nccs.nasa.gov (discover01.prv.cube [10.1.50.1])
-	by borgmx1.prv.cube (Postfix) with SMTP id 1A4CD39E7C
-	for <esmftest@cgd.ucar.edu>; Fri, 20 Mar 2020 03:49:23 -0400 (EDT)
-Received: by discover.nccs.nasa.gov (sSMTP sendmail emulation); Fri, 20 Mar 2020 03:49:23 -0400
+	by borgmx1.prv.cube (Postfix) with SMTP id C85C039E7C
+	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 03:51:21 -0400 (EDT)
+Received: by discover.nccs.nasa.gov (sSMTP sendmail emulation); Fri, 03 Apr 2020 03:51:21 -0400
 From: "Silverio   C Vasquez" <scvasque@discover.nccs.nasa.gov>
-Date: Fri, 20 Mar 2020 03:49:23 -0400
+Date: Fri, 03 Apr 2020 03:51:21 -0400
 To: esmftest@cgd.ucar.edu
 Subject: ESMF_ESMPy_Discover_PGI
 User-Agent: Heirloom mailx 12.5 7/5/10
@@ -98,9 +98,9 @@ X-getmail-retrieved-from-mailbox: INBOX
 
 
 
-Script start time: Fri Mar 20 02:15:03 EDT 2020
+Script start time: Fri Apr  3 02:15:03 EDT 2020
 
-Script end: Fri Mar 20 03:49:22 EDT 2020
+Script end: Fri Apr  3 03:51:21 EDT 2020
 
 
 ___________________________________ ESMPy Trunk BUILD AND TEST SUMMARY_=
@@ -129,7 +129,7 @@ discover01(O)**FAIL**            Linux.pgi.openmpi.64
 _______________________________________________________________________=
 ______________________________________
 
-Fri Mar 20 02:19:32 EDT 2020 on discover01=20
+Fri Apr  3 02:19:32 EDT 2020 on discover01=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -147,12 +147,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_12-7-g08a6960
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_12-7-g08a6960
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -336,7 +336,7 @@ obackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/include -I=
 /usr/local/other/SLES11.1/netcdf/4.3.2/pgi-14.3.0/include -I/home/scvas=
 que/proj4/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-7-g08a6960' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DE=
 SMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNE=
@@ -372,7 +372,7 @@ builds/esmpy/pgi/esmf/src/include  -I/usr/local/other/SLES11.1/netcdf/4=
 ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/stubs/mpiuni
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-7-g08a6960' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DE=
 SMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNE=
@@ -436,7 +436,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Fri Mar 20 02:19:42 EDT 2020 on discover01
+Compiling on Fri Apr 3 02:19:50 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -444,7 +444,7 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Fri Mar 20 02:37:23 EDT 2020 library build -j4 ************FAIL
+Fri Apr  3 02:37:40 EDT 2020 library build -j4 ************FAIL
 
 
 The following is the 'tail' of the build failure
@@ -475,7 +475,45 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
+MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
+DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
+=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scri=
+pts_dir/daily_builds/esmpy/pgi/esmf -D__SDIR__=3D'"src/Infrastructure/M=
+esh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESMF_PGIVER=
+SION_MINOR=3D5 -DESMF_PGIVERSION_PATCH=3D0 /discover/nobackup/scvasque/=
+scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moa=
+b/AdaptiveKDTree.cpp -o /discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/pgi/esmf/obj/objg/Linux.pgi.64.mpiuni.default/AdaptiveKDTre=
+e.o
+pgc++ -c  -g -fpic -lpthread -I/discover/nobackup/scvasque/scripts_dir/=
+daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab -I/discove=
+r/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrast=
+ructure/Mesh/src/Moab/../include -I/discover/nobackup/scvasque/scripts_=
+dir/daily_builds/esmpy/pgi/esmf/build_config/Linux.pgi.default -I/disco=
+ver/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infra=
+structure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/=
+pgi/esmf/src/Superstructure -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/pgi/esmf/src/Infrastructure/stubs/pthread  -I/discove=
+r/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/include=
+  -I/usr/local/other/SLES11.1/netcdf/4.3.2/pgi-14.3.0/include -I/home/s=
+cvasque/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/pgi/esmf/src/Infrastructure/stubs/mpiuni -DIS_BUILDING_MB -=
+DHAVE_VSNPRINTF -DLINUX -DUSE_MPI -I/discover/nobackup/scvasque/scripts=
+_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/Discr=
+eteGeometry -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmp=
+y/pgi/esmf/src/Infrastructure/Mesh/src/Moab/IntxMesh -I/discover/noback=
+up/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/=
+Mesh/src/Moab/io -I/discover/nobackup/scvasque/scripts_dir/daily_builds=
+/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/io/mhdf/include -I/dis=
+cover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Inf=
+rastructure/Mesh/src/Moab/LocalDiscretization -I/discover/nobackup/scva=
+sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
+c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
+esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
+ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -513,7 +551,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -558,7 +596,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -595,7 +633,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -632,7 +670,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -669,7 +707,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -706,7 +744,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -743,7 +781,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -780,7 +818,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -817,7 +855,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -854,7 +892,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -891,7 +929,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -928,7 +966,7 @@ sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
 c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
 ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
+_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
 CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
 MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
 DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
@@ -939,43 +977,6 @@ SION_MINOR=3D5 -DESMF_PGIVERSION_PATCH=3D0 /discover/nobackup/scvasque/=
 scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moa=
 b/DebugOutput.cpp -o /discover/nobackup/scvasque/scripts_dir/daily_buil=
 ds/esmpy/pgi/esmf/obj/objg/Linux.pgi.64.mpiuni.default/DebugOutput.o
-pgc++ -c  -g -fpic -lpthread -I/discover/nobackup/scvasque/scripts_dir/=
-daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab -I/discove=
-r/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrast=
-ructure/Mesh/src/Moab/../include -I/discover/nobackup/scvasque/scripts_=
-dir/daily_builds/esmpy/pgi/esmf/build_config/Linux.pgi.default -I/disco=
-ver/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infra=
-structure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/=
-pgi/esmf/src/Superstructure -I/discover/nobackup/scvasque/scripts_dir/d=
-aily_builds/esmpy/pgi/esmf/src/Infrastructure/stubs/pthread  -I/discove=
-r/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/include=
-  -I/usr/local/other/SLES11.1/netcdf/4.3.2/pgi-14.3.0/include -I/home/s=
-cvasque/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_b=
-uilds/esmpy/pgi/esmf/src/Infrastructure/stubs/mpiuni -DIS_BUILDING_MB -=
-DHAVE_VSNPRINTF -DLINUX -DUSE_MPI -I/discover/nobackup/scvasque/scripts=
-_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/Discr=
-eteGeometry -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmp=
-y/pgi/esmf/src/Infrastructure/Mesh/src/Moab/IntxMesh -I/discover/noback=
-up/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/=
-Mesh/src/Moab/io -I/discover/nobackup/scvasque/scripts_dir/daily_builds=
-/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/io/mhdf/include -I/dis=
-cover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Inf=
-rastructure/Mesh/src/Moab/LocalDiscretization -I/discover/nobackup/scva=
-sque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/sr=
-c/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
-esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEG=
-ER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta=
-_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPA=
-CK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DES=
-MF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
-DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
-=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scri=
-pts_dir/daily_builds/esmpy/pgi/esmf -D__SDIR__=3D'"src/Infrastructure/M=
-esh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESMF_PGIVER=
-SION_MINOR=3D5 -DESMF_PGIVERSION_PATCH=3D0 /discover/nobackup/scvasque/=
-scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moa=
-b/DenseTag.cpp -o /discover/nobackup/scvasque/scripts_dir/daily_builds/=
-esmpy/pgi/esmf/obj/objg/Linux.pgi.64.mpiuni.default/DenseTag.o
 "/usr/include/c++/4.3/c++0x_warning.h", line 36: catastrophic error: #e=
 rror
           directive: This file requires compiler and library support fo=
@@ -995,7 +996,8 @@ Compilation terminated.
 gmake[9]: *** [/discover/nobackup/scvasque/scripts_dir/daily_builds/esm=
 py/pgi/esmf/obj/objg/Linux.pgi.64.mpiuni.default/Core.o] Error 2
 gmake[9]: *** Waiting for unfinished jobs....
-gmake[9]: *** wait: No child processes.  Stop.
+gmake[9]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/pgi/esmf/mod/modg/Linux.pgi.64.mpiuni.default'
 gmake[8]: *** [esmflib] Error 2
 gmake[8]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
 ilds/esmpy/pgi/esmf/mod/modg/Linux.pgi.64.mpiuni.default'
@@ -1026,7 +1028,7 @@ gmake: *** [lib] Error 2
 _______________________________________________________________________=
 ______________________________________
 
-Fri Mar 20 02:41:35 EDT 2020 on discover01=20
+Fri Apr  3 02:41:53 EDT 2020 on discover01=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -1044,12 +1046,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_12-7-g08a6960
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_12-7-g08a6960
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -1233,7 +1235,7 @@ obackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/include -I=
 /usr/local/other/SLES11.1/netcdf/4.3.2/pgi-14.3.0/include -I/home/scvas=
 que/proj4/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-7-g08a6960' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DE=
 SMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNE=
@@ -1269,7 +1271,7 @@ builds/esmpy/pgi/esmf/src/include  -I/usr/local/other/SLES11.1/netcdf/4=
 ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/stubs/mpiuni
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-7-g08a6960' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DE=
 SMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNE=
@@ -1333,7 +1335,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Fri Mar 20 02:41:45 EDT 2020 on discover01
+Compiling on Fri Apr 3 02:42:03 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -1341,7 +1343,7 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Fri Mar 20 02:58:35 EDT 2020 library build -j4 ************FAIL
+Fri Apr  3 02:59:22 EDT 2020 library build -j4 ************FAIL
 
 
 The following is the 'tail' of the build failure
@@ -1372,7 +1374,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1410,7 +1412,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1448,7 +1450,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1493,7 +1495,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1530,7 +1532,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1567,7 +1569,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1604,7 +1606,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1641,7 +1643,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1679,7 +1681,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1716,7 +1718,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1753,7 +1755,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1790,7 +1792,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1827,7 +1829,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1865,7 +1867,7 @@ ckup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastructur=
 e/Mesh/src/Moab/parallel -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF=
 _NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8=
-_1_0_beta_snapshot_12-7-g08a6960"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
+_1_0_beta_snapshot_12-8-g406ff0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -D=
 ESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=
 =3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXH=
 AUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_=
@@ -1895,7 +1897,8 @@ Compilation terminated.
 gmake[9]: *** [/discover/nobackup/scvasque/scripts_dir/daily_builds/esm=
 py/pgi/esmf/obj/objO/Linux.pgi.64.mpiuni.default/Core.o] Error 2
 gmake[9]: *** Waiting for unfinished jobs....
-gmake[9]: *** wait: No child processes.  Stop.
+gmake[9]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/pgi/esmf/mod/modO/Linux.pgi.64.mpiuni.default'
 gmake[8]: *** [esmflib] Error 2
 gmake[8]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
 ilds/esmpy/pgi/esmf/mod/modO/Linux.pgi.64.mpiuni.default'
@@ -1926,7 +1929,7 @@ gmake: *** [lib] Error 2
 _______________________________________________________________________=
 ______________________________________
 
-Fri Mar 20 03:03:27 EDT 2020 on discover01=20
+Fri Apr  3 03:04:17 EDT 2020 on discover01=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -1944,12 +1947,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_12-7-g08a6960
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_12-7-g08a6960
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -2135,7 +2138,7 @@ nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/include -=
 I/usr/local/other/SLES11.1/netcdf/4.3.2/pgi-14.3.0/include -I/home/scva=
 sque/proj4/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-7-g08a6960' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PR=
 OJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF=
@@ -2170,7 +2173,7 @@ ESMF_CXXCOMPILEPATHS:  -I/discover/nobackup/scvasque/scripts_dir/daily_=
 builds/esmpy/pgi/esmf/src/include  -I/usr/local/other/SLES11.1/netcdf/4=
 .3.2/pgi-14.3.0/include -I/home/scvasque/proj4/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-7-g08a6960' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PR=
 OJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF=
@@ -2237,7 +2240,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Fri Mar 20 03:03:35 EDT 2020 on discover01
+Compiling on Fri Apr 3 03:04:26 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -2245,7 +2248,7 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Fri Mar 20 03:24:09 EDT 2020 library build -j4 ************FAIL
+Fri Apr  3 03:25:21 EDT 2020 library build -j4 ************FAIL
 
 
 The following is the 'tail' of the build failure
@@ -2274,7 +2277,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2311,7 +2314,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2348,7 +2351,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2392,7 +2395,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2428,7 +2431,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2464,7 +2467,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2500,7 +2503,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2536,7 +2539,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2572,7 +2575,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2608,7 +2611,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2644,7 +2647,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2680,7 +2683,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2716,7 +2719,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2752,7 +2755,7 @@ lDiscretization -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
 esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/discover/no=
 backup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_=
-BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a6960"' -DES=
+BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff0a"' -DES=
 MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
 SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF=
 _PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
@@ -2814,7 +2817,7 @@ gmake: *** [lib] Error 2
 _______________________________________________________________________=
 ______________________________________
 
-Fri Mar 20 03:29:12 EDT 2020 on discover01=20
+Fri Apr  3 03:30:24 EDT 2020 on discover01=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -2832,12 +2835,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_12-7-g08a6960
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_12-7-g08a6960
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -3023,7 +3026,7 @@ nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/include -=
 I/usr/local/other/SLES11.1/netcdf/4.3.2/pgi-14.3.0/include -I/home/scva=
 sque/proj4/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-7-g08a6960' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PR=
 OJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF=
@@ -3058,7 +3061,7 @@ ESMF_CXXCOMPILEPATHS:  -I/discover/nobackup/scvasque/scripts_dir/daily_=
 builds/esmpy/pgi/esmf/src/include  -I/usr/local/other/SLES11.1/netcdf/4=
 .3.2/pgi-14.3.0/include -I/home/scvasque/proj4/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-7-g08a6960' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PR=
 OJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF=
@@ -3125,7 +3128,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Fri Mar 20 03:29:20 EDT 2020 on discover01
+Compiling on Fri Apr 3 03:30:34 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -3133,7 +3136,7 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Fri Mar 20 03:48:27 EDT 2020 library build -j4 ************FAIL
+Fri Apr  3 03:50:37 EDT 2020 library build -j4 ************FAIL
 
 
 The following is the 'tail' of the build failure
@@ -3162,8 +3165,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3199,8 +3202,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3236,8 +3239,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3281,8 +3284,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3318,8 +3321,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3355,8 +3358,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3391,8 +3394,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3428,8 +3431,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3465,8 +3468,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3502,8 +3505,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3539,8 +3542,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3576,8 +3579,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3612,8 +3615,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3648,8 +3651,8 @@ Moab/LocalDiscretization -I/discover/nobackup/scvasque/scripts_dir/dail=
 y_builds/esmpy/pgi/esmf/src/Infrastructure/Mesh/src/Moab/parallel -I/di=
 scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf/src/In=
 frastructure/Mesh/src/Moab/verdict -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_I=
-NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-7-g08a69=
-60"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
+NTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_12-8-g406ff=
+0a"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESM=
 F_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPI=
 IO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAU=
 STIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS=
@@ -3712,7 +3715,7 @@ gmake: *** [lib] Error 2
 
  The tarballs of the tests and examples directories can be found at:
  /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/pgi/esmf_lo=
-gs/2003_test.
+gs/2004_test.
  These tarballs contain the *Log and *stdout files only, not the execut=
 ables.
  This directory also contains failed build output files with the naming=

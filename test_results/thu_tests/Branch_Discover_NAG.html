@@ -2,88 +2,88 @@
 Return-Path: <scvasque@discover.nccs.nasa.gov>
 Delivered-To: unknown
 Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
-  with IMAP4-SSL; 19 Mar 2020 21:18:35 -0000
+  with IMAP4-SSL; 02 Apr 2020 08:15:03 -0000
 X-Original-To: esmftest@cgd.ucar.edu
 Delivered-To: esmftest@cgd.ucar.edu
 Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
-	by post2.cgd.ucar.edu (Postfix) with ESMTP id C790F185
-	for <esmftest@cgd.ucar.edu>; Thu, 19 Mar 2020 02:16:27 -0600 (MDT)
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by vscanx2.ucar.edu (Postfix) with ESMTPS id 1EEAA1801D0D
-	for <esmftest@cgd.ucar.edu>; Thu, 19 Mar 2020 02:16:27 -0600 (MDT)
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id BB87716C
+	for <esmftest@cgd.ucar.edu>; Thu,  2 Apr 2020 02:12:11 -0600 (MDT)
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 013441801980
+	for <esmftest@cgd.ucar.edu>; Thu,  2 Apr 2020 02:12:11 -0600 (MDT)
 Authentication-Results: vscanx2.ucar.edu;
-	dkim=pass (1024-bit key) header.d=nccs.nasa.gov header.i=@nccs.nasa.gov header.b="RZ3IvczJ"
-Received: by mail-qv1-f71.google.com with SMTP id a1so1970513qvt.10
-        for <esmftest@cgd.ucar.edu>; Thu, 19 Mar 2020 01:16:27 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=nccs.nasa.gov header.i=@nccs.nasa.gov header.b="mZLgwOUJ"
+Received: by mail-qt1-f200.google.com with SMTP id g13so2412544qti.21
+        for <esmftest@cgd.ucar.edu>; Thu, 02 Apr 2020 01:12:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:message-id:dkim-filter:dkim-signature:from:date
          :to:subject:user-agent:mime-version:content-transfer-encoding;
-        bh=Pzv/bVo13Ly+LhFM7cXtmk3gfSW+W/Fkf5JHKEWAE24=;
-        b=cC04rlADIl8IvvMjzWvHQMm1iZLzV2eIwx8YDF0a9hGTou7SygkUm8xERsJ8pvUHC6
-         1ugBdntzf3L8Eyd07KnE+K+9mV8QPXfIWMe8Aox09cStxVxV0Kdj8Z9CpaiNHgdOWGhX
-         x5vVkh9QGvXZhJrZUyHvOpSZSoOrsvDWYTxTD+6Abrw3J6xtvSKKG/x+rJsonjIw2t+V
-         h4FqlOYRtQumPL5kMQ/Q7mhubrRyLHHWMNLiW3n2cqgJkYCvdnJkP+9t/B+kom5nfSY7
-         zfZSbOeGhomJHu7mwKBL4w+HaEmDInPmI7WazTpORrL135Rpicpch7FBQX6+VaiQ4fLI
-         UdBA==
-X-Gm-Message-State: ANhLgQ1lFKYh0wmS27EsTLEbFZ0zWHi1/eXR4sIQsV/rbhEXDeNEJNDM
-	8EksDJR6/zb3a17vzGM92FwrsW9gCUySXHUsxbFIFwMj+TRvpaK0SqVQjA/5iP87t61OY5MBhUz
-	mHr4vIuYhRVXXeB8D
-X-Received: by 2002:ae9:e8c6:: with SMTP id a189mr1713307qkg.361.1584605786357;
-        Thu, 19 Mar 2020 01:16:26 -0700 (PDT)
-X-Google-Smtp-Source: ADFU+vulemRFNlyPfAcYw+bAe6i7pEv7DUNeVHMdS8EyVva9I1qvT9ReVMpiTWNm/UTfycGQIE1V
-X-Received: by 2002:ae9:e8c6:: with SMTP id a189mr1713263qkg.361.1584605785216;
-        Thu, 19 Mar 2020 01:16:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1584605785; cv=none;
+        bh=mPMaBSpdlFzS+aT9kbVmDjgiDSI2IGCo8xJSNOwObYE=;
+        b=J+GEykgv4k7/vsp+7h0Ww27l7kvGGP9+M+6zip6baoo2Ul8I22BROx4ZuJCz1yn08r
+         gmfxwnidk7moncYhxdxUbw1IXK9J6NHUn3dTCkKnGUPbUhNnSNSFLB2L+9kFB7QfK0Fb
+         Pfx4zTt+Yy3ik0H+R4Zn3xwBUz15WVp/yxKRsHUnse/tNzqA29Ieai+rmJfAQ4Fdf21h
+         udthmeGj/s9zNqYT8mT9LcRjHpQxU+J6PtIzi8MZw/qulNzIo7jKITvyH+sB+H4BhDde
+         hAMB3JtM4FdblrLNwcKAoQGOq3s15qiSJ72l0sRgku2qpws/PyjSD+yXWB4+R1Bn3aIC
+         7QOg==
+X-Gm-Message-State: AGi0PuaFH8plV8bTb6DrKqR6lyILjMuLJ8cYoC7zu4hZ1cs524BdlxIS
+	ymHflnJHWKSIokBN0O/E8KdcamNNxwy1Lf6lpM574cPmh7FtlAh+Q5+Pu86EDiUcfdhADN/izFW
+	SoisykkOHmS6pU63Y
+X-Received: by 2002:a05:620a:1e:: with SMTP id j30mr2235951qki.311.1585815130295;
+        Thu, 02 Apr 2020 01:12:10 -0700 (PDT)
+X-Google-Smtp-Source: APiQypImtpRAJ+krGHc34+ruuT+05QZhdQQ7nnckEd5JUMbqbvxGne6uUGcyUHrDkfRhBMbNFQMS
+X-Received: by 2002:a05:620a:1e:: with SMTP id j30mr2235912qki.311.1585815129313;
+        Thu, 02 Apr 2020 01:12:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1585815129; cv=none;
         d=google.com; s=arc-20160816;
-        b=zTggKtS03LOAZhhxMyRRXYe0R5TsOa67twk0FH2OCxxMl1YYlwK7UttRHAISr3pCEG
-         p1VYO5Tut7anPzVwDi0ApgcjOkiovl6cLhRItq54XIwFcFfdVxh+aZLlyea816r6SLSw
-         i+GzeG/his7ojbWfnW/tpPTASZ5UEX59u4Nfjjd3uFHA7c9OF3Xx5MlncrmyFpBSD0Xc
-         x72/BCDC+c6W4iLwQA0lfST08BYckjYiBHpe8ADthqlKQfmD4lmfJMYRdM8YRSBY+ZvQ
-         QF0tf8AOC2OhqmNULS3XCd/bu5deAR0NWn4F7dV45kW15jxj3Jij+oQy7d3feKlhODmv
-         6Uog==
+        b=GTVvvFFwEGbr/fy2def+a51k5HmSI86TRjVCEDcDsRJ0Vdee2WQleBycdFgHDTxSAq
+         ss8LObRj4Qg1UgLUh7vZLLjmEYhkGffPlPH7Zi7UwQdIRUAFestyxxmGSfGmh4o3sOpO
+         mW523nXeN00E6j9mdRi65SLNenFXV4Q96J2cwTlvjFKsFi/zDMnsca2d2tqt6zrgeURE
+         ITXfR/Q0hpuGkH2zG7Qcbg1tgLMtq4ior6O4iuS4m7xf/JyBJpbuk8boG6u1vj+VBcu4
+         NLAx/08DhGIWl37+QJOUL1ppzBuvFx5m+9sqNKxCygbgkiA2odqQbxIHhPamjy5grcDa
+         ed8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:user-agent:subject:to:date
          :from:dkim-signature:dkim-filter:message-id;
-        bh=Pzv/bVo13Ly+LhFM7cXtmk3gfSW+W/Fkf5JHKEWAE24=;
-        b=nNAhy7KiLtCRQ6TI7FZaaw/HpARKtAAbgp6yg30BpBkZOVpZAt8Fwz0s2RKx9haEUO
-         7ecvtQ8WK/ttSL1yK1/gaRWCIwYyGBW1yLem+PwIOSB2mOLO1zZ458VCx4cXkqty+91u
-         YhaNX05U9KxGVsfR6I5tOWjBQ8TTuzn/GJnsLGI/5V1yj4sur9v76BkQJtXyYaRWcOzH
-         HYba2dyVo0ozDNGdYe0cayEulakm3dSi6JfpdaDExLzDHg0IIY3w4AoDZBHh37AqskhH
-         AAO6JE0SFKrIgGrv+phpNm3A054Ra21yVfl3ogp2haQIipE7i/OCWYizEhu71BJJUkpv
-         9uzg==
+        bh=mPMaBSpdlFzS+aT9kbVmDjgiDSI2IGCo8xJSNOwObYE=;
+        b=SfTi9lhITuLq40frTJLJ6JxsQFtwHY+/W0QB4Xv2Xc0UaINj2XPVgpdwhX8LNuOD4I
+         1eccxw2spKEAPH6xbaJWR3h5bFcUFMWTMIbew+sKTZq0hKuk362VMSwo9eZuiPGIDfew
+         o3V7PhjI3OZ/x4fjE+BYRdP7FQGyl7gsSeuB8QZgjJNWpvx6y/ad5wq2nm46TVweKuWQ
+         6WDBtGbtozvHgkWpELAMZYiWlemhh4FDlhY3VuqzpQ9hXj25x0QpHG69sgOlWVxaQfA9
+         7FEmX9mm+PLo759iHy6xAaWm0Z5A1m9qxBcApIllCEDSAD3ZTta9w2vArXznHTNhBEOo
+         TTXQ==
 ARC-Authentication-Results: i=1; mx.google.com;
-       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=RZ3IvczJ;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=mZLgwOUJ;
        spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
        dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
 Received: from mail1.nccs.nasa.gov (mail1.nccs.nasa.gov. [2001:4d0:2418:2800::a99a:928c])
-        by mx.google.com with ESMTP id h23si773525qtq.224.2020.03.19.01.16.24
+        by mx.google.com with ESMTP id s12si2837680qth.9.2020.04.02.01.12.09
         for <esmftest@cgd.ucar.edu>;
-        Thu, 19 Mar 2020 01:16:25 -0700 (PDT)
+        Thu, 02 Apr 2020 01:12:09 -0700 (PDT)
 Received-SPF: pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) client-ip=2001:4d0:2418:2800::a99a:928c;
 Authentication-Results: mx.google.com;
-       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=RZ3IvczJ;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=mZLgwOUJ;
        spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
        dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
-Message-ID: <5e732a59.1c69fb81.61a9b.784fSMTPIN_ADDED_MISSING@mx.google.com>
+Message-ID: <5e859e59.1c69fb81.7c108.1e9bSMTPIN_ADDED_MISSING@mx.google.com>
 X-Comment: SPF check N/A for local connections - client-ip=169.154.145.205; helo=borgmx1.prv.cube; envelope-from=scvasque@discover.nccs.nasa.gov; receiver=esmftest@cgd.ucar.edu 
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail1.nccs.nasa.gov 4D2C253F
+DKIM-Filter: OpenDKIM Filter v2.9.2 mail1.nccs.nasa.gov 427BC534
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nccs.nasa.gov;
-	s=default; t=1584605784;
-	bh=/bs0j+egfUsOjWsQxj0CefpDJWl8sOuJed8No0UODgs=;
+	s=default; t=1585815128;
+	bh=+1Y0aQT0pXKAj4aGbSF0pxCSFHQ7OVREcNXCMDz5xa8=;
 	h=From:Date:To:Subject:From;
-	b=RZ3IvczJuz06HWtJqRuibwQzEbwJIipJaycsophNG3ZeBeIAyAPK9GcGduhMbzY6n
-	 4aOeBrZRXbso1dLlVclvXtmINtozO4TzDcU56e0DNa15zpGHxdjJQDjnM5MEnO5SbI
-	 TgC4gX8j95wMxzH/D7kezwKsdYPeSx5Ejne0bnqc=
+	b=mZLgwOUJLxR3NReyAuIJq7hn3c1Nk976gHLutpx6mRv12aFVtowRkpvVSNCIfgV65
+	 Yw+vz/QjxWKPd5Ai9/Yw0IeSAsMp0Ltd9FY5bga0VHULoNjp2+4ZxpY11v4dHYrJCl
+	 Ab5ICfJut4X+plzcThHQqG/pDHZJq9g3o0Fl7YK4=
 Received: from borgmx1.prv.cube (borgmx1.nccs.nasa.gov [169.154.145.205])
-	by mail1.nccs.nasa.gov (Postfix) with ESMTP id 4D2C253F;
-	Thu, 19 Mar 2020 04:16:24 -0400 (EDT)
+	by mail1.nccs.nasa.gov (Postfix) with ESMTP id 427BC534;
+	Thu,  2 Apr 2020 04:12:08 -0400 (EDT)
 Received: from discover.nccs.nasa.gov (discover01.prv.cube [10.1.50.1])
-	by borgmx1.prv.cube (Postfix) with SMTP id 2FBE639E7C;
-	Thu, 19 Mar 2020 04:16:23 -0400 (EDT)
-Received: by discover.nccs.nasa.gov (sSMTP sendmail emulation); Thu, 19 Mar 2020 04:16:23 -0400
+	by borgmx1.prv.cube (Postfix) with SMTP id 202D039E7A;
+	Thu,  2 Apr 2020 04:12:07 -0400 (EDT)
+Received: by discover.nccs.nasa.gov (sSMTP sendmail emulation); Thu, 02 Apr 2020 04:12:07 -0400
 From: "Silverio   C Vasquez" <scvasque@discover.nccs.nasa.gov>
-Date: Thu, 19 Mar 2020 04:16:23 -0400
+Date: Thu, 02 Apr 2020 04:12:07 -0400
 To: esmftest@cgd.ucar.edu, esmf_test@noaa.gov
 Subject: Branch_Discover_NAG
 User-Agent: Heirloom mailx 12.5 7/5/10
@@ -98,9 +98,9 @@ X-getmail-retrieved-from-mailbox: INBOX
 
 
 
-Script start time: Thu Mar 19 04:03:03 EDT 2020
+Script start time: Thu Apr  2 04:03:02 EDT 2020
 
-Script end: Thu Mar 19 04:16:22 EDT 2020
+Script end: Thu Apr  2 04:12:06 EDT 2020
 
 
 _____________________________________ESMF_8_0_1branch BUILD AND TEST SU=
@@ -124,7 +124,7 @@ _______________________________________________________________________=
 ________________________
 
 
-Thu Mar 19 04:04:45 EDT 2020 on discover01=20
+Thu Apr  2 04:04:23 EDT 2020 on discover01=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -409,7 +409,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Thu Mar 19 04:04:47 EDT 2020 on discover01
+Compiling on Thu Apr 2 04:04:34 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -417,7 +417,7 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Thu Mar 19 04:09:15 EDT 2020 library build -j16 ***********FAIL
+Thu Apr  2 04:07:42 EDT 2020 library build -j16 ***********FAIL
 
 
 The following is the 'tail' of the build failure
@@ -558,7 +558,7 @@ _______________________________________________________________________=
 ________________________
 
 
-Thu Mar 19 04:10:14 EDT 2020 on discover01=20
+Thu Apr  2 04:08:32 EDT 2020 on discover01=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -844,7 +844,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Thu Mar 19 04:10:16 EDT 2020 on discover01
+Compiling on Thu Apr 2 04:08:33 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -852,7 +852,7 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Thu Mar 19 04:14:23 EDT 2020 library build -j16 ***********FAIL
+Thu Apr  2 04:11:21 EDT 2020 library build -j16 ***********FAIL
 
 
 The following is the 'tail' of the build failure
@@ -993,7 +993,7 @@ gmake: *** [lib] Error 2
 
  The tarballs of the tests and examples directories can be found at:
  /discover/nobackup/scvasque/scripts_dir/branch_builds/nag/esmf_logs/20=
-03_test.
+04_test.
  These tarballs contain the *Log and *stdout files only, not the execut=
 ables.
  This directory also contains failed build output files with the naming=

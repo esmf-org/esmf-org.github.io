@@ -2,108 +2,97 @@
 Return-Path: <silverio.vasquez@noaa.gov>
 Delivered-To: unknown
 Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
-  with IMAP4-SSL; 18 Mar 2020 18:07:21 -0000
+  with IMAP4-SSL; 01 Apr 2020 17:45:02 -0000
 X-Original-To: esmftest@cgd.ucar.edu
 Delivered-To: esmftest@cgd.ucar.edu
 Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
-	by post2.cgd.ucar.edu (Postfix) with ESMTP id 21507396
-	for <esmftest@cgd.ucar.edu>; Wed, 18 Mar 2020 11:20:48 -0600 (MDT)
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by vscanx2.ucar.edu (Postfix) with ESMTPS id D92FE1801D0A
-	for <esmftest@cgd.ucar.edu>; Wed, 18 Mar 2020 11:20:47 -0600 (MDT)
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id BB92616C
+	for <esmftest@cgd.ucar.edu>; Wed,  1 Apr 2020 11:32:02 -0600 (MDT)
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id C39981800273
+	for <esmftest@cgd.ucar.edu>; Wed,  1 Apr 2020 11:32:01 -0600 (MDT)
 Authentication-Results: vscanx2.ucar.edu;
-	dkim=pass (2048-bit key) header.d=noaa.gov header.i=@noaa.gov header.b="iaC6re6Y"
-Received: by mail-ua1-f70.google.com with SMTP id a30so5048776uae.6
-        for <esmftest@cgd.ucar.edu>; Wed, 18 Mar 2020 10:20:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:dkim-signature:date:to:subject:user-agent
-         :mime-version:content-transfer-encoding:message-id:from;
-        bh=hQ5D2Wi4i7k3xsdQptYN32vJvbZ/4H7ya6nq8UE56SA=;
-        b=PUCaG2eGFFn+SQ6SpJ0PDYl7d98PTlT5CS1BPYtNfFHQu3aOstVORuq4quzyP37Nz+
-         BQgLvBAfygvhoy5VUENJ3zp0APQCzYzznerU5XlrrHPvDAfvAEXv7/zcNzFYtjmVHrSd
-         +M9wAUjLdGdcY3kVzqj1opHMZkeAUI68NKffjmfjoOdTinpG9g1YZdSIpLUPg2OG16Di
-         iiPYLKVFbp02IDNH26WiVVmvxhgZF3msNc6UzGJMIBypZWNZML0YcmM0Y761FBYzDuCh
-         AUCu9+H9xFYoorvp7hc7ipPU+XSHO9NKLB75xdj0TnhL61tpJR26VE7nA+gB5gcEqXBC
-         hQQw==
-X-Gm-Message-State: ANhLgQ3ce6iZJc1h9AyG8pxlhC+DTS1XqE0HjX8PkvQUHLQxeeXY2ySJ
-	+npfxynDRJdkqVflEYE6qrgRw88/GMltx4rRHvQpTlYvf5LS0Ovz8MsdtRzexjINX+yc0ksuugc
-	sug6maj3it0YN0NewcL3Vaw==
-X-Received: by 2002:a1f:1714:: with SMTP id 20mr3922327vkx.72.1584552046686;
-        Wed, 18 Mar 2020 10:20:46 -0700 (PDT)
-X-Received: by 2002:a1f:1714:: with SMTP id 20mr3922178vkx.72.1584552044239;
-        Wed, 18 Mar 2020 10:20:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1584552044; cv=none;
+	dkim=pass (2048-bit key) header.d=noaa.gov header.i=@noaa.gov header.b="CnMkMjc4"
+Received: by mail-qt1-f200.google.com with SMTP id g13so478831qti.21
+        for <esmftest@cgd.ucar.edu>; Wed, 01 Apr 2020 10:32:01 -0700 (PDT)
+X-Gm-Message-State: ANhLgQ1q5gRJgI9++r95pnUZ9dKH8EF44agvPt7OJHgrHUP+nXaHd8J/
+	n3zd4VjYMgQ7LBln9yUmdmFkw2BjcDC5s2X3+sX5rAYegHqaR9e51sn75k35KbtlreiIdt3EJI4
+	1FGFvEhYax0rFqRVgVWyJ9g==
+X-Received: by 2002:ac8:1207:: with SMTP id x7mr11806533qti.295.1585762320834;
+        Wed, 01 Apr 2020 10:32:00 -0700 (PDT)
+X-Received: by 2002:ac8:1207:: with SMTP id x7mr11806341qti.295.1585762318698;
+        Wed, 01 Apr 2020 10:31:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1585762318; cv=none;
         d=google.com; s=arc-20160816;
-        b=vSmEAdOCNTyHo5zJyGD1dQNYDEpzmUOhjeic754RPp6YiqEBTd9rK2/103dpHlho93
-         hiD46I0wTuJUjtsnZAM6J/55Z5WsfH1dOIFx2vSmfZq2eArISvNWDxRPWR80Iuii7oqP
-         pB6HlUOTAbCiOstmW10TZuX60iAq+oCRLTx8L2k6kaEm35l1nMD5pl1aShEXycFKhN6G
-         tTuTiGAxByvqmWtOohoFHz9l4FLIyEpcWg7yRQXUczhP1NvqOVUp+wBySmWQhn3CLlvf
-         6MsIKLiZvfesNwvQAoPJ3fH3mLliMENPKxVODp9fgtDEH9T4YZ2Im0Yw53kFFGjc3vvt
-         xskw==
+        b=TjWPkQlQhFBPkYp/3dDqAbEUEYbO4RWaH/HZyZ+bVsq/XZZ7eunQ68J/6qt6qp81Sb
+         jCKQ4saajmmSEZmcvrX0mjN7hsW5XghqeRUvClol22ysr/RDjSCkXxm7xJhYQGT0nZBq
+         y4JOT+d76ATRXD0cSlPEsU901l3pOJEs8mTzu8AwGXWNQoS6IKmEmqQtLbsSo4OgbU64
+         +8G/aZ7ZpdTK3aYYnKn6x4mVJXqLGGA/kYMGO1nh4gNTefnrN2GWzoKANffTAgPb62W5
+         kqGi0v/cQOjHiHGLqunNKO4Q1Egj4UKj/761cnRfhFsz6BWWCRBjXVX54fkb6BduVtPh
+         FNVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=from:message-id:content-transfer-encoding:mime-version:user-agent
          :subject:to:date:dkim-signature;
-        bh=hQ5D2Wi4i7k3xsdQptYN32vJvbZ/4H7ya6nq8UE56SA=;
-        b=rtVuEX0zMxBP/2alX1R05GRH38PSsmxXxbY8o6kp9QtkUoaje7hYFST0aEbNvPgVzJ
-         DykVNTgRC0yPVPmFnsR/uKTxy4E/5AnxEsD70nwYen9W80YZy+B+Eq/4oFNVqiFec989
-         fa1YQsU8yutlZPsA7y84yhH7HaJDZhptUiWWjhX+9DCFhly9fq/usSQpZ7IcYcrKmqoQ
-         BK0KhKdLUpMx/i2Zq1fDoslPDzSFI4aRb9gNVbuLqfGwdCzf6rXrHqGr1jWV5EX6s5DP
-         AGc74BosKOeG2y2Qhqm2JjOqW3GZuLvb9XJRQhrm+GKRYvvrjAMVv/1trf2dWGSpldps
-         o0RA==
+        bh=hmSK0uo9ReL2x93lpoLuLV+nWq6r2QUQRMapYhj4Ir0=;
+        b=mmSkXWaDNggfClSRcEmT2G8clL0n43DP91zDG6gP1gI+vDA7t4EdpvZ8eIplXCWx9h
+         OsgKMmT/fYHMEwXGSr4KyNz05No3NCcNJeOJHMAKukK5dNrSOspsvCreGqrT2oAvAH0O
+         tem/Ur/b6kUcB2Q+sVn+r9IubVjvfgfV6XHi/5aG9zEX1sA/9m52h3oYSyxPzsUSjkKf
+         tReikuHxawh/tQZqy1rVuweWx6paPaJIEZTVjFL8WUqLTE7dHWYeHIYHQoOZIqgZ98T4
+         Wndns+J+XeFxGtDEX4Z9LYNxR6HQZkELhhmvVT1abnLUIMzBPqSwrJRaSZ3AJlyJtmkU
+         IhRA==
 ARC-Authentication-Results: i=1; mx.google.com;
-       dkim=pass header.i=@noaa.gov header.s=google header.b=iaC6re6Y;
+       dkim=pass header.i=@noaa.gov header.s=google header.b=CnMkMjc4;
        spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.97 as permitted sender) smtp.mailfrom=silverio.vasquez@noaa.gov;
        dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
 Received: from mail-sor-f97.google.com (mail-sor-f97.google.com. [209.85.220.97])
-        by mx.google.com with SMTPS id e10sor4738779uam.62.2020.03.18.10.20.44
+        by mx.google.com with SMTPS id 207sor2062114qkf.22.2020.04.01.10.31.58
         for <esmftest@cgd.ucar.edu>
         (Google Transport Security);
-        Wed, 18 Mar 2020 10:20:44 -0700 (PDT)
+        Wed, 01 Apr 2020 10:31:58 -0700 (PDT)
 Received-SPF: pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.97 as permitted sender) client-ip=209.85.220.97;
 Authentication-Results: mx.google.com;
-       dkim=pass header.i=@noaa.gov header.s=google header.b=iaC6re6Y;
+       dkim=pass header.i=@noaa.gov header.s=google header.b=CnMkMjc4;
        spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.97 as permitted sender) smtp.mailfrom=silverio.vasquez@noaa.gov;
        dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=noaa.gov; s=google;
         h=date:to:subject:user-agent:mime-version:content-transfer-encoding
          :message-id:from;
-        bh=hQ5D2Wi4i7k3xsdQptYN32vJvbZ/4H7ya6nq8UE56SA=;
-        b=iaC6re6YG1NaXSBMCXtgeGPgOpHuZ0ntRvc+TEpNb7gC6z/yYCk2j4N3KX5gDBx56i
-         wgUL6FjdkVc6cfiFGKMwXZSvHhNAkdPsHBbrr1dXROcaiY8mTmwE+jQmJkJfPZg67ThO
-         is0LdUu8RfqDhWHlQKkxkjoxSNYQPaG4HO8rYMyb8S07ArkaftICEP5DZBC38q85Yhpc
-         vMbK9zk0Ap0d6DrO40H28RFJ6XEAWqKr9ARVTNR1Ih4G1rEzOP5iBtSHMbybFFoJYfqQ
-         mc1tWDs+rlciODZweJvYLzh4eREZSkd44/dqgRgNPIt/9WI0jOZgNLEoUjlc986XrhwE
-         sHCw==
-X-Google-Smtp-Source: ADFU+vvA+HRFL4TFenf7HGBsnzGJTCVDCA4tKg/0zxDBs6qz2o/2NGXAhP92bPtXKv/x+eU1nTc1leimmKmz
-X-Received: by 2002:a9f:300a:: with SMTP id h10mr3810253uab.91.1584552043321;
-        Wed, 18 Mar 2020 10:20:43 -0700 (PDT)
+        bh=hmSK0uo9ReL2x93lpoLuLV+nWq6r2QUQRMapYhj4Ir0=;
+        b=CnMkMjc4dO+Ov/9tkblkO6Rrpwo0rxnxOZYijmL8Cw2oucPsIgJiA58g2dJeg/hhGd
+         q/ijLDTU0fML01o8cWzuP4WFqn050z1xhjTwDl83D9WG4NohQy03N6E28uZm009du1jI
+         TAebXxei1MBKvKwl/ZU4q6kyxWWcb1kWMR5zUtbGzM+Sus5Z6Gv1QP0JILujB4U2tS5M
+         9eU3mIyjQ+ARJp1XM4gdRhfdYwfCN/yGvzreZX/qf8tbTNjXknYbSBVrUbKwJoJXgS/H
+         LTxw2bB1Tt3gKFcoT9MI0+Y7w/Jr4N9jxPsVn1pvLaabTSo5JznPopnYCLLlXetXmQiQ
+         Xzdw==
+X-Google-Smtp-Source: ADFU+vsJ6KiUcZ8o3RtMwL+8RbbmX9wyvC/ck81qfe3uJyfRSSZADVDIz+IfM9L0tGPYCJ2QedrlxNHlsNPn
+X-Received: by 2002:a37:84c7:: with SMTP id g190mr10742527qkd.335.1585762316868;
+        Wed, 01 Apr 2020 10:31:56 -0700 (PDT)
 Received: from dmz-smtp-gw4.gsd.esrl.noaa.gov (dmz-smtp-gw4.gsd.esrl.noaa.gov. [137.75.133.82])
-        by smtp-relay.gmail.com with ESMTPS id b23sm1115525vkl.5.2020.03.18.10.20.41
+        by smtp-relay.gmail.com with ESMTPS id h20sm364911qkh.8.2020.04.01.10.31.55
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 18 Mar 2020 10:20:42 -0700 (PDT)
+        Wed, 01 Apr 2020 10:31:56 -0700 (PDT)
 X-Relaying-Domain: noaa.gov
 Received: from smtp-gw1.gsd.esrl.noaa.gov (smtp-gw1.gsd.esrl.noaa.gov [137.75.240.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dmz-smtp-gw4.gsd.esrl.noaa.gov (Postfix) with ESMTPS id E8559227CF6;
-	Wed, 18 Mar 2020 17:20:40 +0000 (UTC)
+	by dmz-smtp-gw4.gsd.esrl.noaa.gov (Postfix) with ESMTPS id A7D89227CF6;
+	Wed,  1 Apr 2020 17:31:54 +0000 (UTC)
 Received: from linux-regtest2.gsd.esrl.noaa.gov (linux-regtest2.gsd.esrl.noaa.gov [137.75.232.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-gw1.gsd.esrl.noaa.gov (Postfix) with ESMTPS id 7CF0C2269E6;
-	Wed, 18 Mar 2020 17:20:40 +0000 (UTC)
+	by smtp-gw1.gsd.esrl.noaa.gov (Postfix) with ESMTPS id 1EC082269E1;
+	Wed,  1 Apr 2020 17:31:53 +0000 (UTC)
 Received: by linux-regtest2.gsd.esrl.noaa.gov (Postfix, from userid 1992296994)
-	id 355041020; Wed, 18 Mar 2020 17:20:40 +0000 (UTC)
-Date: Wed, 18 Mar 2020 11:20:39 -0600
+	id A15DD145C; Wed,  1 Apr 2020 17:31:53 +0000 (UTC)
+Date: Wed, 01 Apr 2020 11:31:53 -0600
 To: esmftest@cgd.ucar.edu, esmf_test@noaa.gov
 Subject: ESMF_External_Demos_Linux-regtest2_gfortran
 User-Agent: Heirloom mailx 12.5 7/5/10
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20200318172040.355041020@linux-regtest2.gsd.esrl.noaa.gov>
+Message-Id: <20200401173153.A15DD145C@linux-regtest2.gsd.esrl.noaa.gov>
 From: silverio.vasquez@noaa.gov (Silverio Vasquez)
 X-Gm-Spam: 1
 X-Gm-Phishy: 0
@@ -113,9 +102,9 @@ X-getmail-retrieved-from-mailbox: INBOX
 
 
 
-Script start time: Wed Mar 18 05:10:12 MDT 2020
+Script start time: Wed Apr  1 05:10:12 MDT 2020
 
-Script end: Wed Mar 18 11:20:39 MDT 2020
+Script end: Wed Apr  1 11:31:52 MDT 2020
 
 
 ________________ESMF TRUNK EXTERNAL_DEMOS_BUILD_AND_TEST_SUMMARY_______=
@@ -141,7 +130,7 @@ linux-regtest2(O)PASS        PASS    Linux.gfortran.mpich3.64       190=
 _______________________________________________________________________=
 _________________
 
-Wed Mar 18 05:14:33 MDT 2020 on linux-regtest2.gsd.esrl.noaa.gov=20
+Wed Apr  1 05:14:43 MDT 2020 on linux-regtest2.gsd.esrl.noaa.gov=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -155,20 +144,20 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_12-6-g0772133
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 =20
 =20
 External Demos  Repository:
 origin=09git://git.code.sf.net/p/esmf/external_demos (fetch)
 origin=09git://git.code.sf.net/p/esmf/external_demos (push)
 =20
-ESMF_8_0_0-21-g745a6c2
+ESMF_8_0_0-22-g84f6125
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_12-6-g0772133
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -340,7 +329,7 @@ ESMF_F90COMPILEPATHS: -I/export/scripts_dir/daily_builds/external_demos=
 pts_dir/daily_builds/external_demos/gfortran/esmf/src/include -I/export=
 /esmf_env/build/netcdf_gfortran/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-6-g0772133' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
 ESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESM=
@@ -375,7 +364,7 @@ s/gfortran/esmf/src/include  -I/export/esmf_env/build/netcdf_gfortran/i=
 nclude -I/export/scripts_dir/daily_builds/external_demos/gfortran/esmf/=
 src/prologue/yaml-cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-6-g0772133' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
 ESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESM=
@@ -438,8 +427,8 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Wed Mar 18 05:14:39 MDT 2020 on linux-regtest2.gsd.esrl.no=
-aa.gov
+Compiling on Wed Apr 1 05:14:48 MDT 2020 on linux-regtest2.gsd.esrl.noa=
+a.gov
 Machine characteristics: Linux linux-regtest2.gsd.esrl.noaa.gov 3.10.0-=
 1062.12.1.el7.x86_64 #1 SMP Thu Dec 12 06:44:49 EST 2019 x86_64 x86_64 =
 x86_64 GNU/Linux
@@ -447,21 +436,21 @@ x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Wed Mar 18 05:50:23 MDT 2020 library build ............................=
+Wed Apr  1 05:50:44 MDT 2020 library build ............................=
 .PASSED
 Builds with warnings.
-Wed Mar 18 05:51:56 MDT 2020 library install ..........................=
+Wed Apr  1 05:52:22 MDT 2020 library install ..........................=
 .PASSED
-Wed Mar 18 05:52:06 MDT 2020 library installcheck .....................=
+Wed Apr  1 05:52:30 MDT 2020 library installcheck .....................=
 .PASSED
-Wed Mar 18 05:52:14 MDT 2020 ESMF_CoupledFlow doc build ...............=
+Wed Apr  1 05:52:38 MDT 2020 ESMF_CoupledFlow doc build ...............=
 .PASSED
 
 
 |--------------------------------- EXTERNAL DEMOS ---------------------=
 -----|
 
-Wed Mar 18 05:52:15 MDT 2020 ESMF_InstallationCheck ...................=
+Wed Apr  1 05:52:38 MDT 2020 ESMF_InstallationCheck ...................=
 .PASSED
 Output of ESMF_InstallationCheck.sh
 
@@ -487,55 +476,55 @@ ESMF_WebServController
 l_dir/bin
 
 
-Wed Mar 18 05:52:18 MDT 2020 build ESMC_HelloWorld ....................=
+Wed Apr  1 05:52:40 MDT 2020 build ESMC_HelloWorld ....................=
 .PASSED
-Wed Mar 18 05:52:20 MDT 2020 run_ESMC_HelloWorld (4 PET)...............=
-.PASSED
-
-Wed Mar 18 05:52:23 MDT 2020 build ESMF_HelloWorld ....................=
-.PASSED
-Wed Mar 18 05:52:23 MDT 2020 run_ESMF_HelloWorld (4 PET)...............=
+Wed Apr  1 05:52:43 MDT 2020 run_ESMC_HelloWorld (4 PET)...............=
 .PASSED
 
-Wed Mar 18 05:52:46 MDT 2020 build ESMF_CoupledFlow ...................=
+Wed Apr  1 05:52:47 MDT 2020 build ESMF_HelloWorld ....................=
 .PASSED
-Wed Mar 18 05:53:17 MDT 2020 run ESMF_CoupledFlow (4 PET)..............=
+Wed Apr  1 05:52:49 MDT 2020 run_ESMF_HelloWorld (4 PET)...............=
 .PASSED
 
-
-
-The following are the *.nc files generated:
-
--rw-r--r--. 1 silverio.vasquez wxusers  45040 Mar 18 05:52 DE.nc
--rw-r--r--. 1 silverio.vasquez wxusers  45040 Mar 18 05:52 FLAG.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224772 Mar 18 05:53 OMEGA.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224768 Mar 18 05:53 SIE.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224760 Mar 18 05:53 U_velocity.n=
-c
--rw-r--r--. 1 silverio.vasquez wxusers 224760 Mar 18 05:53 V_velocity.n=
-c
-
-
-Wed Mar 18 05:53:54 MDT 2020 run ESMF_CoupledFlow (4 PET)..............=
+Wed Apr  1 05:53:08 MDT 2020 build ESMF_CoupledFlow ...................=
+.PASSED
+Wed Apr  1 05:53:27 MDT 2020 run ESMF_CoupledFlow (4 PET)..............=
 .PASSED
 
 
 
 The following are the *.nc files generated:
 
--rw-r--r--. 1 silverio.vasquez wxusers  45040 Mar 18 05:53 DE.nc
--rw-r--r--. 1 silverio.vasquez wxusers  45040 Mar 18 05:53 FLAG.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224772 Mar 18 05:53 OMEGA.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224768 Mar 18 05:53 SIE.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224760 Mar 18 05:53 U_velocity.n=
+-rw-r--r--. 1 silverio.vasquez wxusers  45040 Apr  1 05:53 DE.nc
+-rw-r--r--. 1 silverio.vasquez wxusers  45040 Apr  1 05:53 FLAG.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224772 Apr  1 05:53 OMEGA.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224768 Apr  1 05:53 SIE.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224760 Apr  1 05:53 U_velocity.n=
 c
--rw-r--r--. 1 silverio.vasquez wxusers 224760 Mar 18 05:53 V_velocity.n=
+-rw-r--r--. 1 silverio.vasquez wxusers 224760 Apr  1 05:53 V_velocity.n=
 c
 
 
-Wed Mar 18 05:54:01 MDT 2020 build ESMF_Regrid ........................=
+Wed Apr  1 05:53:52 MDT 2020 run ESMF_CoupledFlow (4 PET)..............=
 .PASSED
-Wed Mar 18 05:55:46 MDT 2020 run ESMF_Regrid (4 PETs)..................=
+
+
+
+The following are the *.nc files generated:
+
+-rw-r--r--. 1 silverio.vasquez wxusers  45040 Apr  1 05:53 DE.nc
+-rw-r--r--. 1 silverio.vasquez wxusers  45040 Apr  1 05:53 FLAG.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224772 Apr  1 05:53 OMEGA.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224768 Apr  1 05:53 SIE.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224760 Apr  1 05:53 U_velocity.n=
+c
+-rw-r--r--. 1 silverio.vasquez wxusers 224760 Apr  1 05:53 V_velocity.n=
+c
+
+
+Wed Apr  1 05:53:56 MDT 2020 build ESMF_Regrid ........................=
+.PASSED
+Wed Apr  1 05:55:21 MDT 2020 run ESMF_Regrid (4 PETs)..................=
 .PASSED
 
 The following is run output log:
@@ -550,11 +539,11 @@ The following is run output log:
 
 
 
-Wed Mar 18 05:56:21 MDT 2020 run ESMF_RegridWeightGenCheck dryrun .....=
+Wed Apr  1 05:56:08 MDT 2020 run ESMF_RegridWeightGenCheck dryrun .....=
 .PASSED
 
 
-Wed Mar 18 09:12:29 MDT 2020 run ESMF_RegridWeightGenCheck (4 PETS)....=
+Wed Apr  1 09:14:54 MDT 2020 run ESMF_RegridWeightGenCheck (4 PETS)....=
 .PASSED
 
 
@@ -1214,15 +1203,15 @@ Regridding Weight Generator
  =20
  Grid 1 min:    1.4077278853648267          Grid 1 max:    2.8808062066=
 569420    =20
- Grid 2 min:    1.4142952242530207          Grid 2 max:    2.8781963083=
+ Grid 2 min:    1.4142952242530209          Grid 2 max:    2.8781963083=
 920821    =20
  =20
  Maximum negative weight =3D   -4.4114131943119576E-002
  Maximum positive weight =3D   0.58372840861774467    =20
  =20
- Mean relative error     =3D    2.6718769339064852E-006
- Maximum relative error  =3D    8.4647073271794656E-006
- Least squares error     =3D    1.5632930836288283E-006
+ Mean relative error     =3D    2.6718769339078756E-006
+ Maximum relative error  =3D    8.4647073273348436E-006
+ Least squares error     =3D    1.5632930836288615E-006
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -1356,7 +1345,7 @@ c - ESMF Offline Regridding Weight Generator
  Maximum negative weight =3D   -4.4114131943119576E-002
  Maximum positive weight =3D   0.58372840861774467    =20
  =20
- Mean relative error     =3D    2.6718769339071001E-006
+ Mean relative error     =3D    2.6718769339071018E-006
  Maximum relative error  =3D    8.4647073273348436E-006
  Least squares error     =3D    1.5632930836281869E-006
  =20
@@ -1423,7 +1412,7 @@ SMF Offline Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.1817100638062489E-004
+ Mean relative error     =3D    1.1817100638062494E-004
  Maximum relative error  =3D    1.2463857845340057E-003
  Least squares error     =3D    1.6722631542461644E-004
  =20
@@ -1494,8 +1483,8 @@ SMF Offline Regridding Weight Generator
  Least squares error     =3D    7.9719020209779461E-005
  =20
  Grid 1 area =3D    4.9476074524512151E-002
- Grid 2 area =3D    4.9476074524515322E-002
- Conservation error =3D    3.1710745140856034E-015
+ Grid 2 area =3D    4.9476074524515315E-002
+ Conservation error =3D    3.1641356201816961E-015
 
 Tolerance values:
   - Mean Relative Error: 10E-05
@@ -1551,12 +1540,12 @@ SMF Offline Regridding Weight Generator
  Grid 1 min:    1.1041930030111393          Grid 1 max:    1.2677504289=
 561952    =20
  Grid 2 min:    1.1037641937451421          Grid 2 max:    1.2674095477=
-758061    =20
+758058    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.1817100638062491E-004
+ Mean relative error     =3D    1.1817100638062494E-004
  Maximum relative error  =3D    1.2463857845340057E-003
  Least squares error     =3D    1.6722631542461644E-004
  =20
@@ -1814,9 +1803,9 @@ ight Generator
  Maximum negative weight =3D   -6.3624361605005578E-002
  Maximum positive weight =3D   0.69918466380898125    =20
  =20
- Mean relative error     =3D    1.5609425918282382E-004
+ Mean relative error     =3D    1.5609425918282333E-004
  Maximum relative error  =3D    9.4921568323778579E-004
- Least squares error     =3D    1.1613392943153156E-004
+ Least squares error     =3D    1.1613392943153139E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -1873,14 +1862,14 @@ ight Generator
  Grid 1 min:    1.0005929367551678          Grid 1 max:    2.9994070632=
 448326    =20
  Grid 2 min:    1.0016725729207379          Grid 2 max:    2.9983274270=
-788609    =20
+788614    =20
  =20
  Maximum negative weight =3D   -5.8614745980012047E-002
  Maximum positive weight =3D   0.69932014203023107    =20
  =20
- Mean relative error     =3D    1.9715117708703754E-004
- Maximum relative error  =3D    1.1961145018723868E-003
- Least squares error     =3D    1.4713751545418206E-004
+ Mean relative error     =3D    1.9715117708703743E-004
+ Maximum relative error  =3D    1.1961145018726087E-003
+ Least squares error     =3D    1.4713751545418209E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -2130,9 +2119,9 @@ ing Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.19205720453310238    =20
  =20
- Mean relative error     =3D    2.1786738416079419E-004
+ Mean relative error     =3D    2.1786738416079617E-004
  Maximum relative error  =3D    9.1628879155132830E-004
- Least squares error     =3D    1.3904366145515683E-004
+ Least squares error     =3D    1.3904366145515811E-004
  =20
  Grid 1 area =3D    25.132741163829067    =20
  Grid 2 area =3D    25.132741163829390    =20
@@ -2187,19 +2176,19 @@ idding Weight Generator
  =20
  Grid 1 min:    1.0000761524206250          Grid 1 max:    2.9999238475=
 793755    =20
- Grid 2 min:    1.0008831374510161          Grid 2 max:    2.9991168625=
-489810    =20
+ Grid 2 min:    1.0008831374510163          Grid 2 max:    2.9991168625=
+489806    =20
  =20
  Maximum negative weight =3D   -1.3853114995673198E-002
  Maximum positive weight =3D   0.19205720453310238    =20
  =20
- Mean relative error     =3D    9.0103204264826205E-005
- Maximum relative error  =3D    4.0827820940537079E-004
- Least squares error     =3D    5.8460316852205510E-005
+ Mean relative error     =3D    9.0103204264824931E-005
+ Maximum relative error  =3D    4.0827820940559192E-004
+ Least squares error     =3D    5.8460316852204263E-005
  =20
  Grid 1 area =3D    25.132741163829067    =20
- Grid 2 area =3D    25.132741163829316    =20
- Conservation error =3D    2.4868995751603507E-013
+ Grid 2 area =3D    25.132741163829312    =20
+ Conservation error =3D    2.4513724383723456E-013
 
 Tolerance values:
   - Mean Relative Error: 10E-04
@@ -2256,9 +2245,9 @@ Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99634551426679507    =20
  =20
- Mean relative error     =3D    1.0307089262538523E-004
+ Mean relative error     =3D    1.0307089262538543E-004
  Maximum relative error  =3D    5.3681060887402431E-004
- Least squares error     =3D    6.7329861438909767E-005
+ Least squares error     =3D    6.7329861438909685E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -2319,9 +2308,9 @@ ght Generator
  Maximum negative weight =3D   -6.1982849778907730E-002
  Maximum positive weight =3D   0.70465405420293459    =20
  =20
- Mean relative error     =3D    9.9450805069487656E-005
+ Mean relative error     =3D    9.9450805069488225E-005
  Maximum relative error  =3D    3.8153304568270337E-004
- Least squares error     =3D    6.2111011424470543E-005
+ Least squares error     =3D    6.2111011424470435E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -2567,15 +2556,15 @@ ght Generator
  =20
  Grid 1 min:    1.4077278853648267          Grid 1 max:    2.8808062066=
 569420    =20
- Grid 2 min:    1.4212112528473679          Grid 2 max:    2.8681804561=
-835302    =20
+ Grid 2 min:    1.4212112528473682          Grid 2 max:    2.8681804561=
+835298    =20
  =20
  Maximum negative weight =3D   -4.4685625522894859E-002
  Maximum positive weight =3D   0.58406263519934720    =20
  =20
- Mean relative error     =3D    1.9460604338554574E-006
- Maximum relative error  =3D    8.4291838827598185E-006
- Least squares error     =3D    1.3033118721034981E-006
+ Mean relative error     =3D    1.9460604338607886E-006
+ Maximum relative error  =3D    8.4291838829148476E-006
+ Least squares error     =3D    1.3033118721059917E-006
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -2637,9 +2626,9 @@ Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    3.0963068567666868E-002
  =20
- Mean relative error     =3D    1.0071631128575111E-004
+ Mean relative error     =3D    1.0071631128575511E-004
  Maximum relative error  =3D    3.1532770857316245E-004
- Least squares error     =3D    6.3320017241748675E-005
+ Least squares error     =3D    6.3320017241751413E-005
  =20
  Grid 1 area =3D    5.5408316793620020    =20
  Grid 2 area =3D    5.5408316793619692    =20
@@ -2695,19 +2684,19 @@ ng Weight Generator
  =20
  Grid 1 min:    1.4077278853648267          Grid 1 max:    2.8808062066=
 569420    =20
- Grid 2 min:    1.4462602609904478          Grid 2 max:    2.8551540296=
-434013    =20
+ Grid 2 min:    1.4462602609904476          Grid 2 max:    2.8551540296=
+434021    =20
  =20
  Maximum negative weight =3D   -1.6301139323853006E-003
  Maximum positive weight =3D    3.0963068567666868E-002
  =20
- Mean relative error     =3D    1.0048028459523723E-004
- Maximum relative error  =3D    3.0908050555322400E-004
- Least squares error     =3D    6.3105484777011868E-005
+ Mean relative error     =3D    1.0048028459523781E-004
+ Maximum relative error  =3D    3.0908050555344523E-004
+ Least squares error     =3D    6.3105484777012735E-005
  =20
  Grid 1 area =3D    5.5408316793620020    =20
- Grid 2 area =3D    5.5408316793619861    =20
- Conservation error =3D    1.5987211554602254E-014
+ Grid 2 area =3D    5.5408316793619878    =20
+ Conservation error =3D    1.4210854715202004E-014
 
 Tolerance values:
   - Mean Relative Error: 10E-04
@@ -2764,9 +2753,9 @@ Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99872570461984922    =20
  =20
- Mean relative error     =3D    1.3394951567904161E-004
+ Mean relative error     =3D    1.3394951567904139E-004
  Maximum relative error  =3D    9.2581498202157100E-004
- Least squares error     =3D    8.3368157242846082E-005
+ Least squares error     =3D    8.3368157242846014E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -2947,15 +2936,15 @@ ng Weight Generator
  =20
  Grid 1 min:    1.0005929367551678          Grid 1 max:    2.9994070632=
 448326    =20
- Grid 2 min:    1.2464275018998057          Grid 2 max:    2.9328316034=
-035233    =20
+ Grid 2 min:    1.2464275018998059          Grid 2 max:    2.9328316034=
+035238    =20
  =20
  Maximum negative weight =3D  -0.17883944347109665    =20
  Maximum positive weight =3D    1.0005937408936014    =20
  =20
- Mean relative error     =3D    4.9611395280694864E-004
+ Mean relative error     =3D    4.9611395280694875E-004
  Maximum relative error  =3D    2.4539565317318272E-002
- Least squares error     =3D    6.0449696940234696E-004
+ Least squares error     =3D    6.0449696940234675E-004
  =20
  Grid 1 area =3D    4.1018856117112836    =20
  Grid 2 area =3D    4.1018856117111611    =20
@@ -3075,15 +3064,15 @@ ght Generator
  =20
  Grid 1 min:    1.2692253004076504          Grid 1 max:    2.9212689561=
 084089    =20
- Grid 2 min:    1.2811467351719621          Grid 2 max:    2.9030771575=
+ Grid 2 min:    1.2811467351719623          Grid 2 max:    2.9030771575=
 279171    =20
  =20
  Maximum negative weight =3D   -4.6372575695870270E-002
  Maximum positive weight =3D   0.58401374175767296    =20
  =20
- Mean relative error     =3D    9.0797951255136989E-008
- Maximum relative error  =3D    4.9922437218925768E-007
- Least squares error     =3D    6.2180756095066909E-008
+ Mean relative error     =3D    9.0797951261222921E-008
+ Maximum relative error  =3D    4.9922437236257481E-007
+ Least squares error     =3D    6.2180756097679106E-008
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -3339,7 +3328,7 @@ ing Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    6.3146800262014297E-004
+ Mean relative error     =3D    6.3146800262014308E-004
  Maximum relative error  =3D    2.7210620439182503E-003
  Least squares error     =3D    3.5993920164122790E-004
  =20
@@ -3403,7 +3392,7 @@ idding Weight Generator
  Maximum negative weight =3D  -0.30309805044794508    =20
  Maximum positive weight =3D    1.0000170475085626    =20
  =20
- Mean relative error     =3D    2.5850149029310117E-005
+ Mean relative error     =3D    2.5850149029310053E-005
  Maximum relative error  =3D    2.5001141665431581E-003
  Least squares error     =3D    4.8324047740492562E-005
  =20
@@ -3527,15 +3516,15 @@ ortran/external_demos/ESMF_RegridWeightGenCheck/input/wr50a_090614.nc
  =20
  Grid 1 min:    1.2692253004076504          Grid 1 max:    2.9212689561=
 084089    =20
- Grid 2 min:    1.4098644882324196          Grid 2 max:    2.8808053347=
+ Grid 2 min:    1.4098644882324194          Grid 2 max:    2.8808053347=
 889073    =20
  =20
  Maximum negative weight =3D   -6.9438884880716784E-002
  Maximum positive weight =3D   0.89744928897172893    =20
  =20
- Mean relative error     =3D    1.3346960441006682E-007
+ Mean relative error     =3D    1.3346960440957170E-007
  Maximum relative error  =3D    3.5941723480111264E-007
- Least squares error     =3D    7.1953230266604834E-008
+ Least squares error     =3D    7.1953230266559584E-008
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -3591,19 +3580,19 @@ ing Weight Generator
  =20
  Grid 1 min:    1.2692253004076504          Grid 1 max:    2.9212689561=
 084089    =20
- Grid 2 min:    1.4098713210066789          Grid 2 max:    2.8808017655=
+ Grid 2 min:    1.4098713210066787          Grid 2 max:    2.8808017655=
 996201    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    6.9865670601383295E-002
  =20
- Mean relative error     =3D    4.6103857876181182E-006
+ Mean relative error     =3D    4.6103857876176888E-006
  Maximum relative error  =3D    9.9774031715568062E-004
- Least squares error     =3D    8.3235226301412158E-006
+ Least squares error     =3D    8.3235226301409244E-006
  =20
  Grid 1 area =3D    3.2737370905810135    =20
- Grid 2 area =3D    3.2737370905809065    =20
- Conservation error =3D    1.0702549957386509E-013
+ Grid 2 area =3D    3.2737370905809060    =20
+ Conservation error =3D    1.0746958878371515E-013
 
 Tolerance values:
   - Mean Relative Error: 10E-06
@@ -3661,9 +3650,9 @@ dding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    3.4029239305711066E-005
+ Mean relative error     =3D    3.4029239305710538E-005
  Maximum relative error  =3D    3.5423921218374546E-004
- Least squares error     =3D    2.5418777226480383E-005
+ Least squares error     =3D    2.5418777226479929E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -3725,9 +3714,9 @@ ng Weight Generator
  Maximum negative weight =3D   -4.3093132730389401E-002
  Maximum positive weight =3D   0.62160874159041579    =20
  =20
- Mean relative error     =3D    2.9595153681206572E-005
+ Mean relative error     =3D    2.9595153681206501E-005
  Maximum relative error  =3D    2.3468032665852228E-004
- Least squares error     =3D    2.2194846802747773E-005
+ Least squares error     =3D    2.2194846802747787E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -3847,15 +3836,15 @@ gridding Weight Generator
  =20
  Grid 1 min:    1.0000000000000004          Grid 1 max:    2.9999999999=
 999987    =20
- Grid 2 min:    1.0005313249446091          Grid 2 max:    2.9994686750=
+ Grid 2 min:    1.0005313249446093          Grid 2 max:    2.9994686750=
 554158    =20
  =20
  Maximum negative weight =3D  -0.10189307513594642    =20
  Maximum positive weight =3D   0.93361484396240157    =20
  =20
- Mean relative error     =3D    1.4471651998304144E-004
- Maximum relative error  =3D    6.9729508758026282E-004
- Least squares error     =3D    9.2161234729707121E-005
+ Mean relative error     =3D    1.4471651998304038E-004
+ Maximum relative error  =3D    6.9729508758037905E-004
+ Least squares error     =3D    9.2161234729707067E-005
  =20
  Grid 1 area =3D    25.132741146490989    =20
  Grid 2 area =3D    25.132741146491039    =20
@@ -3979,9 +3968,9 @@ ng Weight Generator
  Maximum negative weight =3D   -5.2453953163262568E-002
  Maximum positive weight =3D   0.70481582759008532    =20
  =20
- Mean relative error     =3D    1.6228071643103166E-004
- Maximum relative error  =3D    8.1632422137323214E-004
- Least squares error     =3D    1.1412492077025641E-004
+ Mean relative error     =3D    1.6228071643103261E-004
+ Maximum relative error  =3D    8.1632422137301009E-004
+ Least squares error     =3D    1.1412492077025606E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -4042,7 +4031,7 @@ dding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    3.5509508215902808E-003
+ Mean relative error     =3D    3.5509508215902800E-003
  Maximum relative error  =3D    2.0168439180763165E-002
  Least squares error     =3D    2.4925207875614508E-003
  =20
@@ -4236,9 +4225,9 @@ Regridding Weight Generator
  Maximum negative weight =3D   -5.2741950008508669E-002
  Maximum positive weight =3D   0.66596236446253687    =20
  =20
- Mean relative error     =3D    1.0743240146781454E-005
+ Mean relative error     =3D    1.0743240146781449E-005
  Maximum relative error  =3D    6.4191810729649073E-005
- Least squares error     =3D    7.4530295796179498E-006
+ Least squares error     =3D    7.4530295796179490E-006
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -4302,9 +4291,9 @@ ne Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.49854345278642803    =20
  =20
- Mean relative error     =3D    2.2370033311681903E-004
+ Mean relative error     =3D    2.2370033311681873E-004
  Maximum relative error  =3D    2.3913496459469618E-003
- Least squares error     =3D    1.4528010518900518E-004
+ Least squares error     =3D    1.4528010518900507E-004
  =20
  Grid 1 area =3D    25.132741163821976    =20
  Grid 2 area =3D    25.132741163821940    =20
@@ -4362,15 +4351,15 @@ fline Regridding Weight Generator
  =20
  Grid 1 min:    1.0000000000000004          Grid 1 max:    2.9999999999=
 999987    =20
- Grid 2 min:   0.99995191851706744          Grid 2 max:    3.0000480814=
-828392    =20
+ Grid 2 min:   0.99995191851706733          Grid 2 max:    3.0000480814=
+828396    =20
  =20
  Maximum negative weight =3D   -4.1404873409852695E-002
  Maximum positive weight =3D   0.54728401807630767    =20
  =20
- Mean relative error     =3D    3.5700222874833650E-004
- Maximum relative error  =3D    1.7323374312331085E-003
- Least squares error     =3D    2.2348320340610176E-004
+ Mean relative error     =3D    3.5700222874833433E-004
+ Maximum relative error  =3D    1.7323374312329949E-003
+ Least squares error     =3D    2.2348320340610214E-004
  =20
  Grid 1 area =3D    25.132741163821976    =20
  Grid 2 area =3D    25.132741163822740    =20
@@ -4434,7 +4423,7 @@ g Weight Generator
  =20
  Mean relative error     =3D    2.2857240227858481E-005
  Maximum relative error  =3D    1.3034610711876269E-004
- Least squares error     =3D    1.3990871385700675E-005
+ Least squares error     =3D    1.3990871385700678E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -4490,15 +4479,15 @@ eight Generator
  =20
  Grid 1 min:    1.0000000000000004          Grid 1 max:    2.9999999999=
 999987    =20
- Grid 2 min:    1.4077881638043799          Grid 2 max:    2.8806577556=
-681447    =20
+ Grid 2 min:    1.4077881638043797          Grid 2 max:    2.8806577556=
+681443    =20
  =20
  Maximum negative weight =3D   -7.0802712058223902E-002
  Maximum positive weight =3D   0.62604339534933173    =20
  =20
- Mean relative error     =3D    1.8492176088181849E-005
+ Mean relative error     =3D    1.8492176088181720E-005
  Maximum relative error  =3D    8.4237243279657731E-005
- Least squares error     =3D    1.0917897390054262E-005
+ Least squares error     =3D    1.0917897390054125E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -4618,19 +4607,19 @@ ding Weight Generator
  =20
  Grid 1 min:    1.0000000000000004          Grid 1 max:    2.9999999999=
 999987    =20
- Grid 2 min:    1.2598915272411997          Grid 2 max:    2.9263201655=
-421716    =20
+ Grid 2 min:    1.2598915272411995          Grid 2 max:    2.9263201655=
+421720    =20
  =20
  Maximum negative weight =3D  -0.21884389977565052    =20
  Maximum positive weight =3D    1.0001922401604193    =20
  =20
- Mean relative error     =3D    3.9850058943553552E-004
+ Mean relative error     =3D    3.9850058943553622E-004
  Maximum relative error  =3D    1.0524808476885467E-002
- Least squares error     =3D    2.8606096926348803E-004
+ Least squares error     =3D    2.8606096926348754E-004
  =20
  Grid 1 area =3D    4.1019625178992962    =20
- Grid 2 area =3D    4.1019625178991932    =20
- Conservation error =3D    1.0302869668521453E-013
+ Grid 2 area =3D    4.1019625178991923    =20
+ Conservation error =3D    1.0391687510491465E-013
 
 Tolerance values:
   - Mean Relative Error: 10E-03
@@ -4752,9 +4741,9 @@ eight Generator
  Maximum negative weight =3D   -8.8937867737293994E-002
  Maximum positive weight =3D   0.66400398688413709    =20
  =20
- Mean relative error     =3D    2.7839477519682906E-006
+ Mean relative error     =3D    2.7839477519681352E-006
  Maximum relative error  =3D    8.9976173478404172E-006
- Least squares error     =3D    1.6108963457881405E-006
+ Least squares error     =3D    1.6108963457881170E-006
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -4816,9 +4805,9 @@ g Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    9.1782952578195506E-002
  =20
- Mean relative error     =3D    2.7377562095863458E-004
- Maximum relative error  =3D    1.9485797454945415E-003
- Least squares error     =3D    1.6074565146877300E-004
+ Mean relative error     =3D    2.7377562095863615E-004
+ Maximum relative error  =3D    1.9485797454946554E-003
+ Least squares error     =3D    1.6074565146877290E-004
  =20
  Grid 1 area =3D    4.1019920664849989    =20
  Grid 2 area =3D    4.1019920664849119    =20
@@ -4882,9 +4871,9 @@ F Offline Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.50473712171260843    =20
  =20
- Mean relative error     =3D    2.0026025856754353E-004
+ Mean relative error     =3D    2.0026025856754350E-004
  Maximum relative error  =3D    8.9630634429856452E-004
- Least squares error     =3D    1.2518081469127743E-004
+ Least squares error     =3D    1.2518081469127746E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -4949,9 +4938,9 @@ F Offline Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.38191633875290704    =20
  =20
- Mean relative error     =3D    1.7579552083652985E-004
+ Mean relative error     =3D    1.7579552083652887E-004
  Maximum relative error  =3D    7.4857024423672215E-004
- Least squares error     =3D    1.1345148771463086E-004
+ Least squares error     =3D    1.1345148771463060E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -5015,9 +5004,9 @@ ffline Regridding Weight Generator
  Maximum negative weight =3D   -8.7239116125593152E-002
  Maximum positive weight =3D   0.50392123408048939    =20
  =20
- Mean relative error     =3D    1.2268232022935610E-004
+ Mean relative error     =3D    1.2268232022935601E-004
  Maximum relative error  =3D    5.9619379805876042E-004
- Least squares error     =3D    7.8124166255741731E-005
+ Least squares error     =3D    7.8124166255741432E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -5082,7 +5071,7 @@ ffline Regridding Weight Generator
  Maximum negative weight =3D   -2.9792420601031287E-002
  Maximum positive weight =3D   0.40101053184952573    =20
  =20
- Mean relative error     =3D    1.3066287713470426E-004
+ Mean relative error     =3D    1.3066287713470450E-004
  Maximum relative error  =3D    5.5589087118558512E-004
  Least squares error     =3D    8.4720224746373695E-005
  =20
@@ -5142,15 +5131,15 @@ F Offline Regridding Weight Generator
  =20
  Grid 1 min:    1.0002316457600195          Grid 1 max:    2.9996255169=
 445383    =20
- Grid 2 min:    1.0009085993378686          Grid 2 max:    2.9990449685=
+ Grid 2 min:    1.0009085993378688          Grid 2 max:    2.9990449685=
 787044    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.38191209425119160    =20
  =20
- Mean relative error     =3D    7.0231678159128901E-004
+ Mean relative error     =3D    7.0231678159128912E-004
  Maximum relative error  =3D    3.7707384435919657E-003
- Least squares error     =3D    4.2834597006489279E-004
+ Least squares error     =3D    4.2834597006489262E-004
  =20
  Grid 1 area =3D    25.132741228715886    =20
  Grid 2 area =3D    25.132741228715709    =20
@@ -5214,12 +5203,12 @@ F Offline Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.20000000431993198    =20
  =20
- Mean relative error     =3D    1.7462455265368089E-004
+ Mean relative error     =3D    1.7462455265368130E-004
  Maximum relative error  =3D    7.3852448463029928E-004
- Least squares error     =3D    1.1330539336195359E-004
+ Least squares error     =3D    1.1330539336195376E-004
  =20
  Grid 1 area =3D    25.132741228720150    =20
- Grid 2 area =3D    25.132741228720146    =20
+ Grid 2 area =3D    25.132741228720153    =20
  Conservation error =3D    3.5527136788005009E-015
 
 Tolerance values:
@@ -5274,15 +5263,15 @@ ESMF Offline Regridding Weight Generator
  =20
  Grid 1 min:    1.0002316457600195          Grid 1 max:    2.9996255169=
 445383    =20
- Grid 2 min:    1.0005971525423090          Grid 2 max:    2.9994043159=
-920314    =20
+ Grid 2 min:    1.0005971525423092          Grid 2 max:    2.9994043159=
+920309    =20
  =20
  Maximum negative weight =3D   -5.2302895979323943E-002
  Maximum positive weight =3D   0.43530340586418770    =20
  =20
- Mean relative error     =3D    6.1257600436670837E-004
- Maximum relative error  =3D    4.5043735317753745E-003
- Least squares error     =3D    4.0733086883227020E-004
+ Mean relative error     =3D    6.1257600436670707E-004
+ Maximum relative error  =3D    4.5043735317752288E-003
+ Least squares error     =3D    4.0733086883227004E-004
  =20
  Grid 1 area =3D    25.132741228715886    =20
  Grid 2 area =3D    25.132741228715833    =20
@@ -5340,15 +5329,15 @@ ESMF Offline Regridding Weight Generator
  =20
  Grid 1 min:    1.0002226373301049          Grid 1 max:    2.9997875328=
 209118    =20
- Grid 2 min:    1.0003544947867751          Grid 2 max:    2.9994929939=
+ Grid 2 min:    1.0003544947867753          Grid 2 max:    2.9994929939=
 864212    =20
  =20
  Maximum negative weight =3D   -1.3548292150780329E-002
  Maximum positive weight =3D   0.22183390422914437    =20
  =20
- Mean relative error     =3D    1.1501710726857458E-004
+ Mean relative error     =3D    1.1501710726857448E-004
  Maximum relative error  =3D    7.8199491537867915E-004
- Least squares error     =3D    7.3922944544839846E-005
+ Least squares error     =3D    7.3922944544840062E-005
  =20
  Grid 1 area =3D    25.132741228720150    =20
  Grid 2 area =3D    25.132741228720221    =20
@@ -5404,15 +5393,15 @@ ridding Weight Generator
  =20
  Grid 1 min:    1.0005929367551678          Grid 1 max:    2.9994070632=
 448326    =20
- Grid 2 min:    1.0014283670941013          Grid 2 max:    2.9984291734=
-808379    =20
+ Grid 2 min:    1.0014283670941009          Grid 2 max:    2.9984291734=
+808375    =20
  =20
  Maximum negative weight =3D   -5.8162135290800943E-002
  Maximum positive weight =3D   0.70434611102594480    =20
  =20
- Mean relative error     =3D    2.4791441139646920E-004
+ Mean relative error     =3D    2.4791441139646937E-004
  Maximum relative error  =3D    1.1964451410939440E-003
- Least squares error     =3D    1.7295655608570013E-004
+ Least squares error     =3D    1.7295655608570007E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -5474,9 +5463,9 @@ Regridding Weight Generator
  Maximum negative weight =3D   -3.7966505486605392E-002
  Maximum positive weight =3D   0.76948484718886268    =20
  =20
- Mean relative error     =3D    1.0018764466370494E-004
+ Mean relative error     =3D    1.0018764466370489E-004
  Maximum relative error  =3D    5.5941940624416094E-004
- Least squares error     =3D    7.1352542997221220E-005
+ Least squares error     =3D    7.1352542997220894E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -5540,7 +5529,7 @@ line Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    2.3586985616313671E-003
+ Mean relative error     =3D    2.3586985616313666E-003
  Maximum relative error  =3D    9.9089649267739676E-003
  Least squares error     =3D    1.4697463444350656E-003
  =20
@@ -5605,9 +5594,9 @@ ne Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.8005404692723668E-003
+ Mean relative error     =3D    1.8005404692723673E-003
  Maximum relative error  =3D    9.1833470932938532E-003
- Least squares error     =3D    1.1963445155095569E-003
+ Least squares error     =3D    1.1963445155095571E-003
  =20
  Grid 1 area =3D    25.132741228720143    =20
  Grid 2 area =3D    25.132741228720082    =20
@@ -5665,15 +5654,15 @@ Offline Regridding Weight Generator
  =20
  Grid 1 min:    1.0004758892016996          Grid 1 max:    2.9995241107=
 983004    =20
- Grid 2 min:   0.99979514011332393          Grid 2 max:    3.0002189596=
-164137    =20
+ Grid 2 min:   0.99979514011332382          Grid 2 max:    3.0002189596=
+164142    =20
  =20
  Maximum negative weight =3D   -7.4719918620803530E-002
  Maximum positive weight =3D    1.0000138196046424    =20
  =20
- Mean relative error     =3D    7.2967191849432540E-004
+ Mean relative error     =3D    7.2967191849432702E-004
  Maximum relative error  =3D    4.9552680488289891E-003
- Least squares error     =3D    4.9930859418429168E-004
+ Least squares error     =3D    4.9930859418429200E-004
  =20
  Grid 1 area =3D    25.132741163864676    =20
  Grid 2 area =3D    25.132741163864907    =20
@@ -5736,9 +5725,9 @@ fline Regridding Weight Generator
  Maximum negative weight =3D   -6.2875430739396970E-002
  Maximum positive weight =3D    1.0000038416287966    =20
  =20
- Mean relative error     =3D    2.9731357703591629E-004
+ Mean relative error     =3D    2.9731357703591705E-004
  Maximum relative error  =3D    2.8936836883727132E-003
- Least squares error     =3D    2.0226450731602690E-004
+ Least squares error     =3D    2.0226450731602709E-004
  =20
  Grid 1 area =3D    25.132741228720143    =20
  Grid 2 area =3D    25.132741228720217    =20
@@ -5803,9 +5792,9 @@ inear_test73.nc
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99551188548477842    =20
  =20
- Mean relative error     =3D    1.3197458555628703E-004
+ Mean relative error     =3D    1.3197458555628654E-004
  Maximum relative error  =3D    7.8068525778381517E-004
- Least squares error     =3D    8.7375151915731591E-005
+ Least squares error     =3D    8.7375151915731428E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -5935,9 +5924,9 @@ ESMF Offline Regridding Weight Generator
  Maximum negative weight =3D   -3.8518390425710175E-002
  Maximum positive weight =3D   0.76801340742282564    =20
  =20
- Mean relative error     =3D    1.2627575971176422E-004
+ Mean relative error     =3D    1.2627575971176441E-004
  Maximum relative error  =3D    5.6096976260798168E-004
- Least squares error     =3D    8.1928550174392270E-005
+ Least squares error     =3D    8.1928550174391633E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -5996,14 +5985,14 @@ Offline Regridding Weight Generator
  Grid 1 min:    1.0000000000000004          Grid 1 max:    2.9999999999=
 999987    =20
  Grid 2 min:    1.0002723451303324          Grid 2 max:    2.9997337190=
-686952    =20
+686957    =20
  =20
  Maximum negative weight =3D   -5.6858267396534698E-002
  Maximum positive weight =3D   0.65460845128776879    =20
  =20
- Mean relative error     =3D    9.5807626313555831E-006
- Maximum relative error  =3D    6.2711804731122278E-005
- Least squares error     =3D    6.6069160236501507E-006
+ Mean relative error     =3D    9.5807626313566961E-006
+ Maximum relative error  =3D    6.2711804731344214E-005
+ Least squares error     =3D    6.6069160236501651E-006
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -6067,7 +6056,7 @@ serve_test77.nc
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000002    =20
  =20
- Mean relative error     =3D    3.0856633780707785E-003
+ Mean relative error     =3D    3.0856633780707798E-003
  Maximum relative error  =3D    1.8408116426323590E-002
  Least squares error     =3D    1.9671714224314134E-003
  =20
@@ -6127,19 +6116,19 @@ MF Offline Regridding Weight Generator
  =20
  Grid 1 min:    1.0000000000000004          Grid 1 max:    2.9999999999=
 999987    =20
- Grid 2 min:    1.0005566193119535          Grid 2 max:    2.9993011798=
-476008    =20
+ Grid 2 min:    1.0005566193119533          Grid 2 max:    2.9993011798=
+476004    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.13289114745696567    =20
  =20
- Mean relative error     =3D    8.5481276753673530E-005
+ Mean relative error     =3D    8.5481276753674736E-005
  Maximum relative error  =3D    3.7493683496640459E-004
- Least squares error     =3D    5.5175911537771906E-005
+ Least squares error     =3D    5.5175911537771459E-005
  =20
  Grid 1 area =3D    25.132741163821972    =20
- Grid 2 area =3D    25.132741163822455    =20
- Conservation error =3D    4.8316906031686813E-013
+ Grid 2 area =3D    25.132741163822462    =20
+ Conservation error =3D    4.9027448767446913E-013
 
 Tolerance values:
   - Mean Relative Error: 10E-05
@@ -6198,9 +6187,9 @@ ine Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99676690947457658    =20
  =20
- Mean relative error     =3D    8.4816712278229327E-005
+ Mean relative error     =3D    8.4816712278229124E-005
  Maximum relative error  =3D    3.4838108923085836E-004
- Least squares error     =3D    4.9537801680696440E-005
+ Least squares error     =3D    4.9537801680696298E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -6262,9 +6251,9 @@ ortran/external_demos/ESMF_RegridWeightGenCheck/input/wr50a_090614.nc
  Maximum negative weight =3D   -3.8767089443496938E-002
  Maximum positive weight =3D   0.77066928197976181    =20
  =20
- Mean relative error     =3D    7.3991153168546670E-005
+ Mean relative error     =3D    7.3991153168546995E-005
  Maximum relative error  =3D    2.2051044462201441E-004
- Least squares error     =3D    4.1760948653343244E-005
+ Least squares error     =3D    4.1760948653343190E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -6322,15 +6311,15 @@ ine Regridding Weight Generator
  =20
  Grid 1 min:    1.4077278853648267          Grid 1 max:    2.8808062066=
 569420    =20
- Grid 2 min:    1.4324716155424235          Grid 2 max:    2.8664581772=
+ Grid 2 min:    1.4324716155424233          Grid 2 max:    2.8664581772=
 404918    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.13412785847808445    =20
  =20
- Mean relative error     =3D    3.3188314311300592E-004
- Maximum relative error  =3D    1.6390681319075383E-003
- Least squares error     =3D    1.9671537018039613E-004
+ Mean relative error     =3D    3.3188314311300392E-004
+ Maximum relative error  =3D    1.6390681319074021E-003
+ Least squares error     =3D    1.9671537018039524E-004
  =20
  Grid 1 area =3D    5.5408316793619994    =20
  Grid 2 area =3D    5.5408316793619914    =20
@@ -6394,8 +6383,8 @@ ine Regridding Weight Generator
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
  Mean relative error     =3D    2.6535139680051250E-003
- Maximum relative error  =3D    1.5754890439058696E-002
- Least squares error     =3D    1.6292337023121131E-003
+ Maximum relative error  =3D    1.5754890439058825E-002
+ Least squares error     =3D    1.6292337023121122E-003
  =20
  Grid 1 area =3D    5.5408007161638997    =20
  Grid 2 area =3D    5.5408007161638650    =20
@@ -6457,9 +6446,9 @@ eight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.61381699025081071    =20
  =20
- Mean relative error     =3D    1.0401692492597932E-003
+ Mean relative error     =3D    1.0401692492597952E-003
  Maximum relative error  =3D    4.9809645290137452E-003
- Least squares error     =3D    6.8044026636770582E-004
+ Least squares error     =3D    6.8044026636770538E-004
  =20
  Grid 1 area =3D    17.551152008903301    =20
  Grid 2 area =3D    17.551152008903294    =20
@@ -6585,9 +6574,9 @@ gridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.97477713569104840    =20
  =20
- Mean relative error     =3D    6.2111131743676517E-005
+ Mean relative error     =3D    6.2111131743676287E-005
  Maximum relative error  =3D    5.0298578803447628E-004
- Least squares error     =3D    4.5001298038450309E-005
+ Least squares error     =3D    4.5001298038450227E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -6644,14 +6633,14 @@ gridding Weight Generator
  Grid 1 min:    1.0005139225633701          Grid 1 max:    2.9994860767=
 997000    =20
  Grid 2 min:    1.0007993776002215          Grid 2 max:    2.9992006223=
-997785    =20
+997780    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    3.6434733521317975E-004
+ Mean relative error     =3D    3.6434733521317959E-004
  Maximum relative error  =3D    1.6433980992000621E-003
- Least squares error     =3D    2.3537181116070591E-004
+ Least squares error     =3D    2.3537181116070599E-004
  =20
  Grid 1 area =3D    25.132741163811851    =20
  Grid 2 area =3D    25.132741163812184    =20
@@ -6775,9 +6764,9 @@ dding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    7.8303800170336250E-004
+ Mean relative error     =3D    7.8303800170336402E-004
  Maximum relative error  =3D    2.7520856784953706E-003
- Least squares error     =3D    5.0499246931837291E-004
+ Least squares error     =3D    5.0499246931837323E-004
  =20
  Grid 1 area =3D    25.132741768764497    =20
  Grid 2 area =3D    25.132741768764348    =20
@@ -7480,9 +7469,9 @@ idding Weight Generator
  Maximum negative weight =3D   -2.0247314279283951E-015
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    8.2067311106150324E-009
+ Mean relative error     =3D    8.2067311125456306E-009
  Maximum relative error  =3D    5.6184472459840344E-008
- Least squares error     =3D    7.8633045420196470E-009
+ Least squares error     =3D    7.8633045419989046E-009
  =20
  Grid 1 area =3D    25.132741163818846    =20
  Grid 2 area =3D    25.132741163818860    =20
@@ -7614,9 +7603,9 @@ c
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99992220268967791    =20
  =20
- Mean relative error     =3D    5.9977385435243121E-005
+ Mean relative error     =3D    5.9977385435243060E-005
  Maximum relative error  =3D    9.6686304233434522E-004
- Least squares error     =3D    4.7435225637414801E-005
+ Least squares error     =3D    4.7435225637414767E-005
  =20
  Grid 1 area =3D    14.102839583426567    =20
  Grid 2 area =3D    14.102839583426579    =20
@@ -7675,12 +7664,12 @@ line Regridding Weight Generator
  Grid 1 min:    1.1041930030111393          Grid 1 max:    1.2677504289=
 561952    =20
  Grid 2 min:    1.1037641937451421          Grid 2 max:    1.2674095477=
-758061    =20
+758058    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.1817100638062491E-004
+ Mean relative error     =3D    1.1817100638062494E-004
  Maximum relative error  =3D    1.2463857845340057E-003
  Least squares error     =3D    1.6722631542461644E-004
  =20
@@ -7876,9 +7865,9 @@ line Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99823829254021057    =20
  =20
- Mean relative error     =3D    8.3660389496621681E-008
+ Mean relative error     =3D    8.3660389496620093E-008
  Maximum relative error  =3D    1.9053202492041687E-007
- Least squares error     =3D    7.1326526662336052E-008
+ Least squares error     =3D    7.1326526662334344E-008
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -7942,9 +7931,9 @@ Offline Regridding Weight Generator
  Maximum negative weight =3D   -9.3807537075742548E-002
  Maximum positive weight =3D    1.0000016462518759    =20
  =20
- Mean relative error     =3D    1.1079680668926185E-005
+ Mean relative error     =3D    1.1079680668926183E-005
  Maximum relative error  =3D    9.9860850983971559E-004
- Least squares error     =3D    1.6253679197788220E-005
+ Least squares error     =3D    1.6253679197788464E-005
  =20
  Grid 1 area =3D    4.9476057539754148E-002
  Grid 2 area =3D    4.9476057539752379E-002
@@ -8008,7 +7997,7 @@ line Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99574832179220607    =20
  =20
- Mean relative error     =3D    7.7595179178742173E-007
+ Mean relative error     =3D    7.7595179178742798E-007
  Maximum relative error  =3D    8.7101224194488131E-006
  Least squares error     =3D    1.1122534491965541E-006
  =20
@@ -8073,9 +8062,9 @@ line Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99979777063699515    =20
  =20
- Mean relative error     =3D    8.3641087992745986E-008
+ Mean relative error     =3D    8.3641087992750486E-008
  Maximum relative error  =3D    1.9047882022690803E-007
- Least squares error     =3D    7.1307896643837114E-008
+ Least squares error     =3D    7.1307896643841468E-008
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -8200,9 +8189,9 @@ gridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.6289703910335205E-004
+ Mean relative error     =3D    1.6289703910335381E-004
  Maximum relative error  =3D    1.1996535010058965E-003
- Least squares error     =3D    1.2155788949573655E-004
+ Least squares error     =3D    1.2155788949573677E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -8330,9 +8319,9 @@ e Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.6289703910335381E-004
+ Mean relative error     =3D    1.6289703910335357E-004
  Maximum relative error  =3D    1.1996535010058965E-003
- Least squares error     =3D    1.2155788949573678E-004
+ Least squares error     =3D    1.2155788949573669E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -8523,9 +8512,9 @@ idding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.80095899694569517    =20
  =20
- Mean relative error     =3D    5.3062722702205110E-004
+ Mean relative error     =3D    5.3062722702205392E-004
  Maximum relative error  =3D    2.5161336733329821E-003
- Least squares error     =3D    3.3421111501551702E-004
+ Least squares error     =3D    3.3421111501551757E-004
  =20
  Grid 1 area =3D    25.132741228715890    =20
  Grid 2 area =3D    25.132741228715965    =20
@@ -8587,7 +8576,7 @@ idding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.8209792383482553E-003
+ Mean relative error     =3D    1.8209792383482549E-003
  Maximum relative error  =3D    6.9637126088784350E-003
  Least squares error     =3D    1.1454775127853582E-003
  =20
@@ -8846,7 +8835,7 @@ ng Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.98306522538443220    =20
  =20
- Mean relative error     =3D    1.3831487149091709E-004
+ Mean relative error     =3D    1.3831487149091714E-004
  Maximum relative error  =3D    7.9507100290357414E-004
  Least squares error     =3D    9.5230427230864951E-005
  =20
@@ -8910,9 +8899,9 @@ ng Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.98562403423640510    =20
  =20
- Mean relative error     =3D    4.1383338591143731E-004
+ Mean relative error     =3D    4.1383338591143682E-004
  Maximum relative error  =3D    3.2112542949449801E-003
- Least squares error     =3D    3.1325315634453085E-004
+ Least squares error     =3D    3.1325315634452987E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -9030,9 +9019,9 @@ ortran/external_demos/ESMF_RegridWeightGenCheck/input/latlon_mosaic.nc
  Maximum negative weight =3D   -4.4699989157694894E-002
  Maximum positive weight =3D   0.70564624430008727    =20
  =20
- Mean relative error     =3D    9.1294261799827338E-005
+ Mean relative error     =3D    9.1294261799827392E-005
  Maximum relative error  =3D    6.3967945147166559E-004
- Least squares error     =3D    7.2368904517964281E-005
+ Least squares error     =3D    7.2368904517964552E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -9144,19 +9133,19 @@ idding Weight Generator
  =20
  Grid 1 min:    1.0006114203163836          Grid 1 max:    2.9993885790=
 962960    =20
- Grid 2 min:    1.0013129542190808          Grid 2 max:    2.9986870447=
+ Grid 2 min:    1.0013129542190811          Grid 2 max:    2.9986870447=
 198859    =20
  =20
  Maximum negative weight =3D  -0.12101186579566607    =20
  Maximum positive weight =3D    1.0000005194093762    =20
  =20
- Mean relative error     =3D    1.4825353225334884E-004
- Maximum relative error  =3D    1.2257925848768048E-003
- Least squares error     =3D    1.0276900892619894E-004
+ Mean relative error     =3D    1.4825353225334759E-004
+ Maximum relative error  =3D    1.2257925848766856E-003
+ Least squares error     =3D    1.0276900892619846E-004
  =20
  Grid 1 area =3D    25.132741163814153    =20
- Grid 2 area =3D    25.132741163814032    =20
- Conservation error =3D    1.2079226507921703E-013
+ Grid 2 area =3D    25.132741163814035    =20
+ Conservation error =3D    1.1723955140041653E-013
 
 Tolerance values:
   - Mean Relative Error: 10E-04
@@ -9278,9 +9267,9 @@ ding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.89997715018436542    =20
  =20
- Mean relative error     =3D    1.5445121139735695E-004
+ Mean relative error     =3D    1.5445121139735709E-004
  Maximum relative error  =3D    1.3802938606293481E-003
- Least squares error     =3D    1.2205163975130116E-004
+ Least squares error     =3D    1.2205163975130113E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -9344,9 +9333,9 @@ ding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.89997715018436542    =20
  =20
- Mean relative error     =3D    1.5445121139735698E-004
+ Mean relative error     =3D    1.5445121139735695E-004
  Maximum relative error  =3D    1.3802938606293481E-003
- Least squares error     =3D    1.2205163975130110E-004
+ Least squares error     =3D    1.2205163975130116E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -9668,9 +9657,9 @@ ridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.30560087489904852    =20
  =20
- Mean relative error     =3D    3.6486801501522839E-006
+ Mean relative error     =3D    3.6486801501310221E-006
  Maximum relative error  =3D    7.8107750742917061E-006
- Least squares error     =3D    1.8301180922915784E-006
+ Least squares error     =3D    1.8301180922817867E-006
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -9991,14 +9980,14 @@ dding Weight Generator
  Grid 1 min:    1.5059098210481028          Grid 1 max:    3.0000000000=
 000000    =20
  Grid 2 min:    1.5274718953636510          Grid 2 max:    2.9868572114=
-205145    =20
+205141    =20
  =20
  Maximum negative weight =3D   -5.3744154587580230E-006
  Maximum positive weight =3D   0.25226019268560956    =20
  =20
- Mean relative error     =3D    5.0008510021269680E-004
- Maximum relative error  =3D    4.4490580632587694E-003
- Least squares error     =3D    3.2842282259198317E-004
+ Mean relative error     =3D    5.0008510021269420E-004
+ Maximum relative error  =3D    4.4490580632586202E-003
+ Least squares error     =3D    3.2842282259198328E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -10122,9 +10111,9 @@ ortran/external_demos/ESMF_RegridWeightGenCheck/input/SCRIP_1x1.nc
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    3.4176475102320183E-003
+ Mean relative error     =3D    3.4176475102320209E-003
  Maximum relative error  =3D    1.5676522837397247E-002
- Least squares error     =3D    2.3113146354161204E-003
+ Least squares error     =3D    2.3113146354161200E-003
  =20
  Grid 1 area =3D    25.132741163801036    =20
  Grid 2 area =3D    25.132741163801171    =20
@@ -10248,9 +10237,9 @@ ortran/external_demos/ESMF_RegridWeightGenCheck/input/latlon_grid.nc
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.29998096800153939    =20
  =20
- Mean relative error     =3D    3.1313933166261055E-004
+ Mean relative error     =3D    3.1313933166260985E-004
  Maximum relative error  =3D    1.1769619679156235E-003
- Least squares error     =3D    2.0701941696187162E-004
+ Least squares error     =3D    2.0701941696187236E-004
  =20
  Grid 1 area =3D    25.132741163819201    =20
  Grid 2 area =3D    25.132741163819311    =20
@@ -10380,14 +10369,14 @@ c - ESMF Offline Regridding Weight Generator
  Grid 1 min:    1.1041930030111393          Grid 1 max:    1.2677504289=
 561952    =20
  Grid 2 min:    1.1037577571380004          Grid 2 max:    1.2674094778=
-279075    =20
+279077    =20
  =20
  Maximum negative weight =3D   -9.3807537075742548E-002
  Maximum positive weight =3D    1.0000016462518759    =20
  =20
- Mean relative error     =3D    1.1079680668926185E-005
+ Mean relative error     =3D    1.1079680668926893E-005
  Maximum relative error  =3D    9.9860850983971559E-004
- Least squares error     =3D    1.6253679197788220E-005
+ Least squares error     =3D    1.6253679197788674E-005
  =20
  Grid 1 area =3D    4.9476057539754148E-002
  Grid 2 area =3D    4.9476057539752379E-002
@@ -10515,15 +10504,15 @@ gridding Weight Generator
  =20
  Grid 1 min:    1.0001607174717779          Grid 1 max:    2.9998392821=
 035065    =20
- Grid 2 min:    1.0003355795984232          Grid 2 max:    2.9996644199=
+ Grid 2 min:    1.0003355795984230          Grid 2 max:    2.9996644199=
 862486    =20
  =20
  Maximum negative weight =3D  -0.10439317844361651    =20
  Maximum positive weight =3D    1.0007507025011046    =20
  =20
- Mean relative error     =3D    7.5987093859928350E-005
- Maximum relative error  =3D    1.6774269500576391E-002
- Least squares error     =3D    3.3312128344408604E-004
+ Mean relative error     =3D    7.5987093859929732E-005
+ Maximum relative error  =3D    1.6774269500576280E-002
+ Least squares error     =3D    3.3312128344408859E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -10656,9 +10645,9 @@ e Regridding Weight Generator
  Maximum negative weight =3D   -8.1436098425530956E-002
  Maximum positive weight =3D   0.82637326758497398    =20
  =20
- Mean relative error     =3D    9.1775376050376268E-007
- Maximum relative error  =3D    5.0252722956782980E-006
- Least squares error     =3D    1.1671978551545557E-006
+ Mean relative error     =3D    9.1775376050414395E-007
+ Maximum relative error  =3D    5.0252722958658955E-006
+ Least squares error     =3D    1.1671978551546057E-006
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -10722,9 +10711,9 @@ e Regridding Weight Generator
  Maximum negative weight =3D  -0.12395848224286986    =20
  Maximum positive weight =3D   0.77039976301170887    =20
  =20
- Mean relative error     =3D    7.5650177334024038E-007
- Maximum relative error  =3D    5.7865527027764755E-006
- Least squares error     =3D    9.7756160206185925E-007
+ Mean relative error     =3D    7.5650177334030306E-007
+ Maximum relative error  =3D    5.7865527025895412E-006
+ Least squares error     =3D    9.7756160206201299E-007
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -11107,9 +11096,9 @@ ding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.89997715018436542    =20
  =20
- Mean relative error     =3D    1.5582863936334233E-004
+ Mean relative error     =3D    1.5582863936334230E-004
  Maximum relative error  =3D    1.3802938606293481E-003
- Least squares error     =3D    1.2266966596685244E-004
+ Least squares error     =3D    1.2266966596685241E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -11617,9 +11606,9 @@ g Weight Generator
  Maximum negative weight =3D   -6.6825024090604382E-002
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.5501198156396697E-004
+ Mean relative error     =3D    1.5501198156396689E-004
  Maximum relative error  =3D    9.5101251020568303E-004
- Least squares error     =3D    1.1565865982918868E-004
+ Least squares error     =3D    1.1565865982918863E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -11683,9 +11672,9 @@ g Weight Generator
  Maximum negative weight =3D   -6.6825024090604382E-002
  Maximum positive weight =3D   0.69615092203641293    =20
  =20
- Mean relative error     =3D    1.5497955922717091E-004
+ Mean relative error     =3D    1.5497955922717154E-004
  Maximum relative error  =3D    9.5101251020568303E-004
- Least squares error     =3D    1.1564762235055800E-004
+ Least squares error     =3D    1.1564762235055775E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -11773,11 +11762,11 @@ perl ./RegridWeightGenCheckDriver.pl > RegridWeightGenCheck.Log
 
 
 
-Wed Mar 18 09:12:40 MDT 2020 run ESMF_RegridCheck dryrun ..............=
+Wed Apr  1 09:15:00 MDT 2020 run ESMF_RegridCheck dryrun ..............=
 .PASSED
 
 
-Wed Mar 18 09:45:31 MDT 2020 run ESMF_RegridCheck (16 PETS)............=
+Wed Apr  1 09:47:22 MDT 2020 run ESMF_RegridCheck (16 PETS)............=
 .PASSED
 
 
@@ -11934,9 +11923,9 @@ ortran/external_demos/ESMF_RegridCheck/input/BT42_ugrid_dual.nc
  =20
  Variable Name           =3D nodedata1
  =20
- Value min:    1.8751444659767826          Value max:    3.998802470618=
-3309    =20
- Mean relative error     =3D    1.6474543502080957E-004
+ Value min:    1.8751444659767824          Value max:    3.998802470618=
+3314    =20
+ Mean relative error     =3D    1.6474543502079892E-004
  Maximum relative error  =3D    4.4639803891292581E-004
  =20
  Completed file regrid successfully.
@@ -11980,7 +11969,7 @@ ortran/external_demos/ESMF_RegridCheck/input/GRIDSPEC_2.5.nc
  =20
  Value min:    1.0022649656994369          Value max:    3.997735033240=
 3074    =20
- Mean relative error     =3D    1.6269674760722178E-004
+ Mean relative error     =3D    1.6269674760722189E-004
  Maximum relative error  =3D    1.5775167675972802E-003
  =20
  Completed file regrid successfully.
@@ -12070,7 +12059,7 @@ ortran/external_demos/ESMF_RegridCheck/input/GRIDSPEC_2.5_time.nc
  =20
  Value min:    1.0015792639714036          Value max:    13.99842071388=
 0533    =20
- Mean relative error     =3D    8.6595176537221856E-006
+ Mean relative error     =3D    8.6595176537217807E-006
  Maximum relative error  =3D    1.5183578862630823E-004
  =20
  Completed file regrid successfully.
@@ -12508,7 +12497,7 @@ ortran/external_demos/ESMF_RegridCheck/input/FVCOM_grid2d_test.nc
  =20
  Value min:    1.1041266874538314          Value max:    1.267965453679=
 0275    =20
- Mean relative error     =3D    4.6835925461347208E-006
+ Mean relative error     =3D    4.6835925461347420E-006
  Maximum relative error  =3D    2.3751400448675250E-004
  =20
  Completed file regrid successfully.
@@ -12770,7 +12759,7 @@ perl ./RegridCheckDriver.pl > RegridCheck.Log
 _______________________________________________________________________=
 _________________
 
-Wed Mar 18 09:48:11 MDT 2020 on linux-regtest2.gsd.esrl.noaa.gov=20
+Wed Apr  1 09:52:38 MDT 2020 on linux-regtest2.gsd.esrl.noaa.gov=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -12784,20 +12773,20 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_12-6-g0772133
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 =20
 =20
 External Demos  Repository:
 origin=09git://git.code.sf.net/p/esmf/external_demos (fetch)
 origin=09git://git.code.sf.net/p/esmf/external_demos (push)
 =20
-ESMF_8_0_0-21-g745a6c2
+ESMF_8_0_0-22-g84f6125
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_12-6-g0772133
+ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -12972,7 +12961,7 @@ ESMF_F90COMPILEPATHS: -I/export/scripts_dir/daily_builds/external_demos=
 pts_dir/daily_builds/external_demos/gfortran/esmf/src/include -I/export=
 /esmf_env/build/netcdf_gfortran/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-6-g0772133' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
 ESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESM=
@@ -13006,7 +12995,7 @@ s/gfortran/esmf/src/include  -I/export/esmf_env/build/netcdf_gfortran/i=
 nclude -I/export/scripts_dir/daily_builds/external_demos/gfortran/esmf/=
 src/prologue/yaml-cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-6-g0772133' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
 ESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESM=
@@ -13069,8 +13058,8 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Wed Mar 18 09:48:19 MDT 2020 on linux-regtest2.gsd.esrl.no=
-aa.gov
+Compiling on Wed Apr 1 09:52:47 MDT 2020 on linux-regtest2.gsd.esrl.noa=
+a.gov
 Machine characteristics: Linux linux-regtest2.gsd.esrl.noaa.gov 3.10.0-=
 1062.12.1.el7.x86_64 #1 SMP Thu Dec 12 06:44:49 EST 2019 x86_64 x86_64 =
 x86_64 GNU/Linux
@@ -13078,21 +13067,21 @@ x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Wed Mar 18 10:24:43 MDT 2020 library build ............................=
+Wed Apr  1 10:32:05 MDT 2020 library build ............................=
 .PASSED
 Builds with warnings.
-Wed Mar 18 10:25:14 MDT 2020 library install ..........................=
+Wed Apr  1 10:32:42 MDT 2020 library install ..........................=
 .PASSED
-Wed Mar 18 10:25:17 MDT 2020 library installcheck .....................=
+Wed Apr  1 10:32:45 MDT 2020 library installcheck .....................=
 .PASSED
-Wed Mar 18 10:25:17 MDT 2020 ESMF_CoupledFlow doc build ...............=
+Wed Apr  1 10:32:45 MDT 2020 ESMF_CoupledFlow doc build ...............=
 .PASSED
 
 
 |--------------------------------- EXTERNAL DEMOS ---------------------=
 -----|
 
-Wed Mar 18 10:25:18 MDT 2020 ESMF_InstallationCheck ...................=
+Wed Apr  1 10:32:45 MDT 2020 ESMF_InstallationCheck ...................=
 .PASSED
 Output of ESMF_InstallationCheck.sh
 
@@ -13118,55 +13107,55 @@ ESMF_WebServController
 l_dir/bin
 
 
-Wed Mar 18 10:25:19 MDT 2020 build ESMC_HelloWorld ....................=
+Wed Apr  1 10:32:46 MDT 2020 build ESMC_HelloWorld ....................=
 .PASSED
-Wed Mar 18 10:25:19 MDT 2020 run_ESMC_HelloWorld (4 PET)...............=
-.PASSED
-
-Wed Mar 18 10:25:21 MDT 2020 build ESMF_HelloWorld ....................=
-.PASSED
-Wed Mar 18 10:25:22 MDT 2020 run_ESMF_HelloWorld (4 PET)...............=
+Wed Apr  1 10:32:47 MDT 2020 run_ESMC_HelloWorld (4 PET)...............=
 .PASSED
 
-Wed Mar 18 10:25:35 MDT 2020 build ESMF_CoupledFlow ...................=
+Wed Apr  1 10:32:49 MDT 2020 build ESMF_HelloWorld ....................=
 .PASSED
-Wed Mar 18 10:25:38 MDT 2020 run ESMF_CoupledFlow (4 PET)..............=
+Wed Apr  1 10:32:50 MDT 2020 run_ESMF_HelloWorld (4 PET)...............=
 .PASSED
 
-
-
-The following are the *.nc files generated:
-
--rw-r--r--. 1 silverio.vasquez wxusers  45040 Mar 18 10:25 DE.nc
--rw-r--r--. 1 silverio.vasquez wxusers  45040 Mar 18 10:25 FLAG.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224772 Mar 18 10:25 OMEGA.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224768 Mar 18 10:25 SIE.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224760 Mar 18 10:25 U_velocity.n=
-c
--rw-r--r--. 1 silverio.vasquez wxusers 224760 Mar 18 10:25 V_velocity.n=
-c
-
-
-Wed Mar 18 10:25:40 MDT 2020 run ESMF_CoupledFlow (4 PET)..............=
+Wed Apr  1 10:33:04 MDT 2020 build ESMF_CoupledFlow ...................=
+.PASSED
+Wed Apr  1 10:33:08 MDT 2020 run ESMF_CoupledFlow (4 PET)..............=
 .PASSED
 
 
 
 The following are the *.nc files generated:
 
--rw-r--r--. 1 silverio.vasquez wxusers  45040 Mar 18 10:25 DE.nc
--rw-r--r--. 1 silverio.vasquez wxusers  45040 Mar 18 10:25 FLAG.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224772 Mar 18 10:25 OMEGA.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224768 Mar 18 10:25 SIE.nc
--rw-r--r--. 1 silverio.vasquez wxusers 224760 Mar 18 10:25 U_velocity.n=
+-rw-r--r--. 1 silverio.vasquez wxusers  45040 Apr  1 10:33 DE.nc
+-rw-r--r--. 1 silverio.vasquez wxusers  45040 Apr  1 10:33 FLAG.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224772 Apr  1 10:33 OMEGA.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224768 Apr  1 10:33 SIE.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224760 Apr  1 10:33 U_velocity.n=
 c
--rw-r--r--. 1 silverio.vasquez wxusers 224760 Mar 18 10:25 V_velocity.n=
+-rw-r--r--. 1 silverio.vasquez wxusers 224760 Apr  1 10:33 V_velocity.n=
 c
 
 
-Wed Mar 18 10:25:43 MDT 2020 build ESMF_Regrid ........................=
+Wed Apr  1 10:33:11 MDT 2020 run ESMF_CoupledFlow (4 PET)..............=
 .PASSED
-Wed Mar 18 10:25:55 MDT 2020 run ESMF_Regrid (4 PETs)..................=
+
+
+
+The following are the *.nc files generated:
+
+-rw-r--r--. 1 silverio.vasquez wxusers  45040 Apr  1 10:33 DE.nc
+-rw-r--r--. 1 silverio.vasquez wxusers  45040 Apr  1 10:33 FLAG.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224772 Apr  1 10:33 OMEGA.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224768 Apr  1 10:33 SIE.nc
+-rw-r--r--. 1 silverio.vasquez wxusers 224760 Apr  1 10:33 U_velocity.n=
+c
+-rw-r--r--. 1 silverio.vasquez wxusers 224760 Apr  1 10:33 V_velocity.n=
+c
+
+
+Wed Apr  1 10:33:13 MDT 2020 build ESMF_Regrid ........................=
+.PASSED
+Wed Apr  1 10:33:24 MDT 2020 run ESMF_Regrid (4 PETs)..................=
 .PASSED
 
 The following is run output log:
@@ -13181,11 +13170,11 @@ The following is run output log:
 
 
 
-Wed Mar 18 10:26:03 MDT 2020 run ESMF_RegridWeightGenCheck dryrun .....=
+Wed Apr  1 10:33:38 MDT 2020 run ESMF_RegridWeightGenCheck dryrun .....=
 .PASSED
 
 
-Wed Mar 18 11:12:25 MDT 2020 run ESMF_RegridWeightGenCheck (4 PETS)....=
+Wed Apr  1 11:22:52 MDT 2020 run ESMF_RegridWeightGenCheck (4 PETS)....=
 .PASSED
 
 
@@ -13987,9 +13976,9 @@ c - ESMF Offline Regridding Weight Generator
  Maximum negative weight =3D   -4.4114131943119576E-002
  Maximum positive weight =3D   0.58372840861774467    =20
  =20
- Mean relative error     =3D    2.6718769339035405E-006
- Maximum relative error  =3D    8.4647073273348436E-006
- Least squares error     =3D    1.5632930836282231E-006
+ Mean relative error     =3D    2.6718769339077430E-006
+ Maximum relative error  =3D    8.4647073271794656E-006
+ Least squares error     =3D    1.5632930836293833E-006
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -14054,7 +14043,7 @@ SMF Offline Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.1817100638062489E-004
+ Mean relative error     =3D    1.1817100638062494E-004
  Maximum relative error  =3D    1.2463857845340057E-003
  Least squares error     =3D    1.6722631542461644E-004
  =20
@@ -14187,9 +14176,9 @@ SMF Offline Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.1817100638062494E-004
+ Mean relative error     =3D    1.1817100638062555E-004
  Maximum relative error  =3D    1.2463857845340057E-003
- Least squares error     =3D    1.6722631542461644E-004
+ Least squares error     =3D    1.6722631542461649E-004
  =20
  Grid 1 area =3D    4.9476057539754148E-002
  Grid 2 area =3D    4.9476057539751872E-002
@@ -14253,13 +14242,13 @@ SMF Offline Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    8.2969666127430706E-005
+ Mean relative error     =3D    8.2969666127430692E-005
  Maximum relative error  =3D    2.6018572724500273E-004
  Least squares error     =3D    7.9719020209779461E-005
  =20
  Grid 1 area =3D    4.9476074524512151E-002
- Grid 2 area =3D    4.9476074524515315E-002
- Conservation error =3D    3.1641356201816961E-015
+ Grid 2 area =3D    4.9476074524515322E-002
+ Conservation error =3D    3.1710745140856034E-015
 
 Tolerance values:
   - Mean Relative Error: 10E-05
@@ -14382,9 +14371,9 @@ ortran/external_demos/ESMF_RegridWeightGenCheck/input/T42_grid.nc
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.96589386245818398    =20
  =20
- Mean relative error     =3D    1.5952287252993385E-004
+ Mean relative error     =3D    1.5952287252993485E-004
  Maximum relative error  =3D    1.1480005671931216E-003
- Least squares error     =3D    1.2315304773456381E-004
+ Least squares error     =3D    1.2315304773456384E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -14439,15 +14428,15 @@ ight Generator
  =20
  Grid 1 min:    1.0004758892016996          Grid 1 max:    2.9995241107=
 983004    =20
- Grid 2 min:    1.0015427152627137          Grid 2 max:    2.9984574105=
+ Grid 2 min:    1.0015427152627139          Grid 2 max:    2.9984574105=
 762514    =20
  =20
  Maximum negative weight =3D   -6.3624361605005578E-002
  Maximum positive weight =3D   0.69918466380898125    =20
  =20
- Mean relative error     =3D    1.5609425918282729E-004
+ Mean relative error     =3D    1.5609425918282647E-004
  Maximum relative error  =3D    9.4921568323778579E-004
- Least squares error     =3D    1.1613392943153260E-004
+ Least squares error     =3D    1.1613392943153245E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -14572,9 +14561,9 @@ ortran/external_demos/ESMF_RegridWeightGenCheck/input/ll2.5deg_grid.nc
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.96944230629924300    =20
  =20
- Mean relative error     =3D    2.0344046061245927E-004
+ Mean relative error     =3D    2.0344046061245897E-004
  Maximum relative error  =3D    1.4544920500493522E-003
- Least squares error     =3D    1.5614625004551169E-004
+ Least squares error     =3D    1.5614625004551152E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -14755,15 +14744,15 @@ ing Weight Generator
  =20
  Grid 1 min:    1.0000761524206250          Grid 1 max:    2.9999238475=
 793755    =20
- Grid 2 min:    1.0010503048349342          Grid 2 max:    2.9989496951=
+ Grid 2 min:    1.0010503048349340          Grid 2 max:    2.9989496951=
 650638    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.19205720453310238    =20
  =20
- Mean relative error     =3D    2.1786738416079530E-004
+ Mean relative error     =3D    2.1786738416079744E-004
  Maximum relative error  =3D    9.1628879155132830E-004
- Least squares error     =3D    1.3904366145515724E-004
+ Least squares error     =3D    1.3904366145515789E-004
  =20
  Grid 1 area =3D    25.132741163829067    =20
  Grid 2 area =3D    25.132741163829390    =20
@@ -14818,19 +14807,19 @@ idding Weight Generator
  =20
  Grid 1 min:    1.0000761524206250          Grid 1 max:    2.9999238475=
 793755    =20
- Grid 2 min:    1.0008831374510163          Grid 2 max:    2.9991168625=
-489806    =20
+ Grid 2 min:    1.0008831374510161          Grid 2 max:    2.9991168625=
+489810    =20
  =20
  Maximum negative weight =3D   -1.3853114995673198E-002
  Maximum positive weight =3D   0.19205720453310238    =20
  =20
- Mean relative error     =3D    9.0103204264824931E-005
- Maximum relative error  =3D    4.0827820940559192E-004
- Least squares error     =3D    5.8460316852204263E-005
+ Mean relative error     =3D    9.0103204264826205E-005
+ Maximum relative error  =3D    4.0827820940537079E-004
+ Least squares error     =3D    5.8460316852205510E-005
  =20
  Grid 1 area =3D    25.132741163829067    =20
- Grid 2 area =3D    25.132741163829312    =20
- Conservation error =3D    2.4513724383723456E-013
+ Grid 2 area =3D    25.132741163829316    =20
+ Conservation error =3D    2.4868995751603507E-013
 
 Tolerance values:
   - Mean Relative Error: 10E-04
@@ -14887,9 +14876,9 @@ Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99634551426679507    =20
  =20
- Mean relative error     =3D    1.0307089262538523E-004
+ Mean relative error     =3D    1.0307089262538520E-004
  Maximum relative error  =3D    5.3681060887402431E-004
- Least squares error     =3D    6.7329861438909767E-005
+ Least squares error     =3D    6.7329861438909699E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -15395,9 +15384,9 @@ Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99872570461984922    =20
  =20
- Mean relative error     =3D    1.3394951567904148E-004
+ Mean relative error     =3D    1.3394951567904142E-004
  Maximum relative error  =3D    9.2581498202157100E-004
- Least squares error     =3D    8.3368157242846055E-005
+ Least squares error     =3D    8.3368157242845987E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -15458,9 +15447,9 @@ ght Generator
  Maximum negative weight =3D   -6.2540089210556149E-002
  Maximum positive weight =3D   0.70435907483241200    =20
  =20
- Mean relative error     =3D    1.3173523889149690E-004
+ Mean relative error     =3D    1.3173523889149728E-004
  Maximum relative error  =3D    6.6103353672108023E-004
- Least squares error     =3D    7.8064944040824344E-005
+ Least squares error     =3D    7.8064944040824317E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -15771,18 +15760,18 @@ Weight Generator
  Grid 1 min:    1.2692253004076504          Grid 1 max:    2.9212689561=
 084089    =20
  Grid 2 min:    1.3296536947647666          Grid 2 max:    2.9025590263=
-106467    =20
+106449    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.2151017517006469E-003
  =20
- Mean relative error     =3D    1.1998198659359355E-004
- Maximum relative error  =3D    1.1084381276233036E-003
- Least squares error     =3D    7.3028406048993589E-005
+ Mean relative error     =3D    1.1998198659360208E-004
+ Maximum relative error  =3D    1.1084381276236100E-003
+ Least squares error     =3D    7.3028406048994063E-005
  =20
  Grid 1 area =3D    4.1019920664849998    =20
- Grid 2 area =3D    4.1019920664849181    =20
- Conservation error =3D    8.1712414612411521E-014
+ Grid 2 area =3D    4.1019920664849208    =20
+ Conservation error =3D    7.9047879353311146E-014
 
 Tolerance values:
   - Mean Relative Error: 10E-04
@@ -16034,7 +16023,7 @@ idding Weight Generator
  Maximum negative weight =3D  -0.30309805044794508    =20
  Maximum positive weight =3D    1.0000170475085626    =20
  =20
- Mean relative error     =3D    2.5850149029310053E-005
+ Mean relative error     =3D    2.5850149029310117E-005
  Maximum relative error  =3D    2.5001141665431581E-003
  Least squares error     =3D    4.8324047740492562E-005
  =20
@@ -16222,19 +16211,19 @@ ing Weight Generator
  =20
  Grid 1 min:    1.2692253004076504          Grid 1 max:    2.9212689561=
 084089    =20
- Grid 2 min:    1.4098713210066789          Grid 2 max:    2.8808017655=
+ Grid 2 min:    1.4098713210066787          Grid 2 max:    2.8808017655=
 996201    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    6.9865670601383295E-002
  =20
- Mean relative error     =3D    4.6103857876181182E-006
+ Mean relative error     =3D    4.6103857876176888E-006
  Maximum relative error  =3D    9.9774031715568062E-004
- Least squares error     =3D    8.3235226301412158E-006
+ Least squares error     =3D    8.3235226301409244E-006
  =20
  Grid 1 area =3D    3.2737370905810135    =20
- Grid 2 area =3D    3.2737370905809065    =20
- Conservation error =3D    1.0702549957386509E-013
+ Grid 2 area =3D    3.2737370905809060    =20
+ Conservation error =3D    1.0746958878371515E-013
 
 Tolerance values:
   - Mean Relative Error: 10E-06
@@ -16350,15 +16339,15 @@ ng Weight Generator
  =20
  Grid 1 min:    1.0000000000000004          Grid 1 max:    2.9999999999=
 999987    =20
- Grid 2 min:    1.0004140583187933          Grid 2 max:    2.9995861921=
+ Grid 2 min:    1.0004140583187935          Grid 2 max:    2.9995861921=
 453697    =20
  =20
  Maximum negative weight =3D   -4.3093132730389401E-002
  Maximum positive weight =3D   0.62160874159041579    =20
  =20
- Mean relative error     =3D    2.9595153681206501E-005
- Maximum relative error  =3D    2.3468032665852228E-004
- Least squares error     =3D    2.2194846802747787E-005
+ Mean relative error     =3D    2.9595153681208835E-005
+ Maximum relative error  =3D    2.3468032665830891E-004
+ Least squares error     =3D    2.2194846802748539E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -16420,9 +16409,9 @@ dding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.93032802678336535    =20
  =20
- Mean relative error     =3D    3.0620202684084470E-004
+ Mean relative error     =3D    3.0620202684084437E-004
  Maximum relative error  =3D    1.6029209620310216E-003
- Least squares error     =3D    2.0729209485469832E-004
+ Least squares error     =3D    2.0729209485469848E-004
  =20
  Grid 1 area =3D    25.132741146490989    =20
  Grid 2 area =3D    25.132741146491057    =20
@@ -16484,9 +16473,9 @@ gridding Weight Generator
  Maximum negative weight =3D  -0.10189307513594642    =20
  Maximum positive weight =3D   0.93361484396240157    =20
  =20
- Mean relative error     =3D    1.4471651998304135E-004
+ Mean relative error     =3D    1.4471651998304133E-004
  Maximum relative error  =3D    6.9729508758026282E-004
- Least squares error     =3D    9.2161234729707121E-005
+ Least squares error     =3D    9.2161234729707162E-005
  =20
  Grid 1 area =3D    25.132741146490989    =20
  Grid 2 area =3D    25.132741146491039    =20
@@ -16547,9 +16536,9 @@ dding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.6289703910335357E-004
+ Mean relative error     =3D    1.6289703910335381E-004
  Maximum relative error  =3D    1.1996535010058965E-003
- Least squares error     =3D    1.2155788949573669E-004
+ Least squares error     =3D    1.2155788949573678E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -16730,15 +16719,15 @@ gridding Weight Generator
  =20
  Grid 1 min:    1.0002733713253025          Grid 1 max:    2.9997266286=
 746980    =20
- Grid 2 min:   0.99980044833805326          Grid 2 max:    3.0001996637=
-999322    =20
+ Grid 2 min:   0.99980044833805315          Grid 2 max:    3.0001996637=
+999326    =20
  =20
  Maximum negative weight =3D  -0.10585450365472351    =20
  Maximum positive weight =3D    1.0000354739103363    =20
  =20
- Mean relative error     =3D    4.0258038118925159E-004
+ Mean relative error     =3D    4.0258038118925219E-004
  Maximum relative error  =3D    2.6450052052758464E-003
- Least squares error     =3D    2.5544646506188266E-004
+ Least squares error     =3D    2.5544646506188244E-004
  =20
  Grid 1 area =3D    25.132741163862576    =20
  Grid 2 area =3D    25.132741163862455    =20
@@ -16993,19 +16982,19 @@ fline Regridding Weight Generator
  =20
  Grid 1 min:    1.0000000000000004          Grid 1 max:    2.9999999999=
 999987    =20
- Grid 2 min:   0.99995191851706744          Grid 2 max:    3.0000480814=
+ Grid 2 min:   0.99995191851706755          Grid 2 max:    3.0000480814=
 828392    =20
  =20
  Maximum negative weight =3D   -4.1404873409852695E-002
  Maximum positive weight =3D   0.54728401807630767    =20
  =20
- Mean relative error     =3D    3.5700222874833650E-004
- Maximum relative error  =3D    1.7323374312331085E-003
- Least squares error     =3D    2.2348320340610174E-004
+ Mean relative error     =3D    3.5700222874833812E-004
+ Maximum relative error  =3D    1.7323374312333362E-003
+ Least squares error     =3D    2.2348320340610182E-004
  =20
  Grid 1 area =3D    25.132741163821976    =20
- Grid 2 area =3D    25.132741163822740    =20
- Conservation error =3D    7.6383344094210770E-013
+ Grid 2 area =3D    25.132741163822743    =20
+ Conservation error =3D    7.6738615462090820E-013
 
 Tolerance values:
   - Mean Relative Error: 10E-04
@@ -17063,7 +17052,7 @@ g Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99894209264501699    =20
  =20
- Mean relative error     =3D    2.2857240227858481E-005
+ Mean relative error     =3D    2.2857240227858491E-005
  Maximum relative error  =3D    1.3034610711876269E-004
  Least squares error     =3D    1.3990871385700678E-005
  =20
@@ -17255,9 +17244,9 @@ ding Weight Generator
  Maximum negative weight =3D  -0.21884389977565052    =20
  Maximum positive weight =3D    1.0001922401604193    =20
  =20
- Mean relative error     =3D    3.9850058943553590E-004
+ Mean relative error     =3D    3.9850058943553617E-004
  Maximum relative error  =3D    1.0524808476885467E-002
- Least squares error     =3D    2.8606096926348743E-004
+ Least squares error     =3D    2.8606096926348754E-004
  =20
  Grid 1 area =3D    4.1019625178992962    =20
  Grid 2 area =3D    4.1019625178991923    =20
@@ -17447,9 +17436,9 @@ g Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    9.1782952578195506E-002
  =20
- Mean relative error     =3D    2.7377562095863615E-004
- Maximum relative error  =3D    1.9485797454946554E-003
- Least squares error     =3D    1.6074565146877295E-004
+ Mean relative error     =3D    2.7377562095863458E-004
+ Maximum relative error  =3D    1.9485797454945415E-003
+ Least squares error     =3D    1.6074565146877300E-004
  =20
  Grid 1 area =3D    4.1019920664849989    =20
  Grid 2 area =3D    4.1019920664849119    =20
@@ -17580,9 +17569,9 @@ F Offline Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.38191633875290704    =20
  =20
- Mean relative error     =3D    1.7579552083652955E-004
+ Mean relative error     =3D    1.7579552083652985E-004
  Maximum relative error  =3D    7.4857024423672215E-004
- Least squares error     =3D    1.1345148771463098E-004
+ Least squares error     =3D    1.1345148771463086E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -17646,9 +17635,9 @@ ffline Regridding Weight Generator
  Maximum negative weight =3D   -8.7239116125593152E-002
  Maximum positive weight =3D   0.50392123408048939    =20
  =20
- Mean relative error     =3D    1.2268232022935555E-004
+ Mean relative error     =3D    1.2268232022935561E-004
  Maximum relative error  =3D    5.9619379805876042E-004
- Least squares error     =3D    7.8124166255741582E-005
+ Least squares error     =3D    7.8124166255741365E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -17845,9 +17834,9 @@ F Offline Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.20000000431993198    =20
  =20
- Mean relative error     =3D    1.7462455265368130E-004
+ Mean relative error     =3D    1.7462455265368078E-004
  Maximum relative error  =3D    7.3852448463029928E-004
- Least squares error     =3D    1.1330539336195376E-004
+ Least squares error     =3D    1.1330539336195354E-004
  =20
  Grid 1 area =3D    25.132741228720150    =20
  Grid 2 area =3D    25.132741228720153    =20
@@ -17906,14 +17895,14 @@ ESMF Offline Regridding Weight Generator
  Grid 1 min:    1.0002316457600195          Grid 1 max:    2.9996255169=
 445383    =20
  Grid 2 min:    1.0005971525423090          Grid 2 max:    2.9994043159=
-920314    =20
+920309    =20
  =20
  Maximum negative weight =3D   -5.2302895979323943E-002
  Maximum positive weight =3D   0.43530340586418770    =20
  =20
- Mean relative error     =3D    6.1257600436670837E-004
- Maximum relative error  =3D    4.5043735317753745E-003
- Least squares error     =3D    4.0733086883227020E-004
+ Mean relative error     =3D    6.1257600436670674E-004
+ Maximum relative error  =3D    4.5043735317752288E-003
+ Least squares error     =3D    4.0733086883226987E-004
  =20
  Grid 1 area =3D    25.132741228715886    =20
  Grid 2 area =3D    25.132741228715833    =20
@@ -17977,9 +17966,9 @@ ESMF Offline Regridding Weight Generator
  Maximum negative weight =3D   -1.3548292150780329E-002
  Maximum positive weight =3D   0.22183390422914437    =20
  =20
- Mean relative error     =3D    1.1501710726857662E-004
- Maximum relative error  =3D    7.8199491537882650E-004
- Least squares error     =3D    7.3922944544840889E-005
+ Mean relative error     =3D    1.1501710726857556E-004
+ Maximum relative error  =3D    7.8199491537867915E-004
+ Least squares error     =3D    7.3922944544840428E-005
  =20
  Grid 1 area =3D    25.132741228720150    =20
  Grid 2 area =3D    25.132741228720221    =20
@@ -18035,15 +18024,15 @@ ridding Weight Generator
  =20
  Grid 1 min:    1.0005929367551678          Grid 1 max:    2.9994070632=
 448326    =20
- Grid 2 min:    1.0014283670941011          Grid 2 max:    2.9984291734=
+ Grid 2 min:    1.0014283670941013          Grid 2 max:    2.9984291734=
 808379    =20
  =20
  Maximum negative weight =3D   -5.8162135290800943E-002
  Maximum positive weight =3D   0.70434611102594480    =20
  =20
- Mean relative error     =3D    2.4791441139646909E-004
- Maximum relative error  =3D    1.1964451410941658E-003
- Least squares error     =3D    1.7295655608570078E-004
+ Mean relative error     =3D    2.4791441139646920E-004
+ Maximum relative error  =3D    1.1964451410939440E-003
+ Least squares error     =3D    1.7295655608570013E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -18105,9 +18094,9 @@ Regridding Weight Generator
  Maximum negative weight =3D   -3.7966505486605392E-002
  Maximum positive weight =3D   0.76948484718886268    =20
  =20
- Mean relative error     =3D    1.0018764466370498E-004
+ Mean relative error     =3D    1.0018764466370490E-004
  Maximum relative error  =3D    5.5941940624416094E-004
- Least squares error     =3D    7.1352542997220962E-005
+ Least squares error     =3D    7.1352542997220759E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -18171,7 +18160,7 @@ line Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    2.3586985616313684E-003
+ Mean relative error     =3D    2.3586985616313666E-003
  Maximum relative error  =3D    9.9089649267739676E-003
  Least squares error     =3D    1.4697463444350656E-003
  =20
@@ -18236,9 +18225,9 @@ ne Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.8005404692723653E-003
+ Mean relative error     =3D    1.8005404692723679E-003
  Maximum relative error  =3D    9.1833470932938532E-003
- Least squares error     =3D    1.1963445155095571E-003
+ Least squares error     =3D    1.1963445155095574E-003
  =20
  Grid 1 area =3D    25.132741228720143    =20
  Grid 2 area =3D    25.132741228720082    =20
@@ -18297,14 +18286,14 @@ Offline Regridding Weight Generator
  Grid 1 min:    1.0004758892016996          Grid 1 max:    2.9995241107=
 983004    =20
  Grid 2 min:   0.99979514011332382          Grid 2 max:    3.0002189596=
-164133    =20
+164142    =20
  =20
  Maximum negative weight =3D   -7.4719918620803530E-002
  Maximum positive weight =3D    1.0000138196046424    =20
  =20
- Mean relative error     =3D    7.2967191849432713E-004
- Maximum relative error  =3D    4.9552680488291366E-003
- Least squares error     =3D    4.9930859418429114E-004
+ Mean relative error     =3D    7.2967191849432648E-004
+ Maximum relative error  =3D    4.9552680488288408E-003
+ Least squares error     =3D    4.9930859418429211E-004
  =20
  Grid 1 area =3D    25.132741163864676    =20
  Grid 2 area =3D    25.132741163864907    =20
@@ -18362,18 +18351,18 @@ fline Regridding Weight Generator
  Grid 1 min:    1.0002226373301049          Grid 1 max:    2.9997875328=
 209118    =20
  Grid 2 min:   0.99987961785205326          Grid 2 max:    3.0000836553=
-651822    =20
+651826    =20
  =20
  Maximum negative weight =3D   -6.2875430739396970E-002
  Maximum positive weight =3D    1.0000038416287966    =20
  =20
- Mean relative error     =3D    2.9731357703591602E-004
- Maximum relative error  =3D    2.8936836883727132E-003
- Least squares error     =3D    2.0226450731602582E-004
+ Mean relative error     =3D    2.9731357703591629E-004
+ Maximum relative error  =3D    2.8936836883728693E-003
+ Least squares error     =3D    2.0226450731602706E-004
  =20
  Grid 1 area =3D    25.132741228720143    =20
- Grid 2 area =3D    25.132741228720217    =20
- Conservation error =3D    7.4606987254810520E-014
+ Grid 2 area =3D    25.132741228720210    =20
+ Conservation error =3D    6.7501559897209518E-014
 
 Tolerance values:
   - Mean Relative Error: 10E-03
@@ -18434,9 +18423,9 @@ inear_test73.nc
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99551188548477842    =20
  =20
- Mean relative error     =3D    1.3197458555628717E-004
+ Mean relative error     =3D    1.3197458555628703E-004
  Maximum relative error  =3D    7.8068525778381517E-004
- Least squares error     =3D    8.7375151915731523E-005
+ Least squares error     =3D    8.7375151915731591E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -18566,9 +18555,9 @@ ESMF Offline Regridding Weight Generator
  Maximum negative weight =3D   -3.8518390425710175E-002
  Maximum positive weight =3D   0.76801340742282564    =20
  =20
- Mean relative error     =3D    1.2627575971176414E-004
- Maximum relative error  =3D    5.6096976260798168E-004
- Least squares error     =3D    8.1928550174391633E-005
+ Mean relative error     =3D    1.2627575971176362E-004
+ Maximum relative error  =3D    5.6096976260820372E-004
+ Least squares error     =3D    8.1928550174391904E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -18632,9 +18621,9 @@ Offline Regridding Weight Generator
  Maximum negative weight =3D   -5.6858267396534698E-002
  Maximum positive weight =3D   0.65460845128776879    =20
  =20
- Mean relative error     =3D    9.5807626313556051E-006
+ Mean relative error     =3D    9.5807626313555831E-006
  Maximum relative error  =3D    6.2711804731122278E-005
- Least squares error     =3D    6.6069160236501516E-006
+ Least squares error     =3D    6.6069160236501507E-006
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -18698,9 +18687,9 @@ serve_test77.nc
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000002    =20
  =20
- Mean relative error     =3D    3.0856633780707789E-003
- Maximum relative error  =3D    1.8408116426323437E-002
- Least squares error     =3D    1.9671714224314138E-003
+ Mean relative error     =3D    3.0856633780707785E-003
+ Maximum relative error  =3D    1.8408116426323590E-002
+ Least squares error     =3D    1.9671714224314134E-003
  =20
  Grid 1 area =3D    25.132741228720146    =20
  Grid 2 area =3D    25.132741228720434    =20
@@ -18758,19 +18747,19 @@ MF Offline Regridding Weight Generator
  =20
  Grid 1 min:    1.0000000000000004          Grid 1 max:    2.9999999999=
 999987    =20
- Grid 2 min:    1.0005566193119533          Grid 2 max:    2.9993011798=
-476004    =20
+ Grid 2 min:    1.0005566193119535          Grid 2 max:    2.9993011798=
+476008    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.13289114745696567    =20
  =20
- Mean relative error     =3D    8.5481276753674736E-005
+ Mean relative error     =3D    8.5481276753674506E-005
  Maximum relative error  =3D    3.7493683496640459E-004
- Least squares error     =3D    5.5175911537771459E-005
+ Least squares error     =3D    5.5175911537771377E-005
  =20
  Grid 1 area =3D    25.132741163821972    =20
- Grid 2 area =3D    25.132741163822462    =20
- Conservation error =3D    4.9027448767446913E-013
+ Grid 2 area =3D    25.132741163822459    =20
+ Conservation error =3D    4.8672177399566863E-013
 
 Tolerance values:
   - Mean Relative Error: 10E-05
@@ -18829,9 +18818,9 @@ ine Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99676690947457658    =20
  =20
- Mean relative error     =3D    8.4816712278229286E-005
+ Mean relative error     =3D    8.4816712278229327E-005
  Maximum relative error  =3D    3.4838108923085836E-004
- Least squares error     =3D    4.9537801680696474E-005
+ Least squares error     =3D    4.9537801680696440E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -18887,15 +18876,15 @@ ortran/external_demos/ESMF_RegridWeightGenCheck/input/wr50a_090614.nc
  =20
  Grid 1 min:    1.0002316457600195          Grid 1 max:    2.9996255169=
 445383    =20
- Grid 2 min:    1.4080342585141423          Grid 2 max:    2.8803350035=
-838560    =20
+ Grid 2 min:    1.4080342585141421          Grid 2 max:    2.8803350035=
+838555    =20
  =20
  Maximum negative weight =3D   -3.8767089443496938E-002
  Maximum positive weight =3D   0.77066928197976181    =20
  =20
- Mean relative error     =3D    7.3991153168546440E-005
+ Mean relative error     =3D    7.3991153168547239E-005
  Maximum relative error  =3D    2.2051044462201441E-004
- Least squares error     =3D    4.1760948653343217E-005
+ Least squares error     =3D    4.1760948653343455E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -18953,15 +18942,15 @@ ine Regridding Weight Generator
  =20
  Grid 1 min:    1.4077278853648267          Grid 1 max:    2.8808062066=
 569420    =20
- Grid 2 min:    1.4324716155424233          Grid 2 max:    2.8664581772=
+ Grid 2 min:    1.4324716155424235          Grid 2 max:    2.8664581772=
 404918    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.13412785847808445    =20
  =20
- Mean relative error     =3D    3.3188314311300468E-004
- Maximum relative error  =3D    1.6390681319076745E-003
- Least squares error     =3D    1.9671537018039594E-004
+ Mean relative error     =3D    3.3188314311300581E-004
+ Maximum relative error  =3D    1.6390681319075383E-003
+ Least squares error     =3D    1.9671537018039611E-004
  =20
  Grid 1 area =3D    5.5408316793619994    =20
  Grid 2 area =3D    5.5408316793619914    =20
@@ -19024,7 +19013,7 @@ ine Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    2.6535139680051241E-003
+ Mean relative error     =3D    2.6535139680051245E-003
  Maximum relative error  =3D    1.5754890439058825E-002
  Least squares error     =3D    1.6292337023121124E-003
  =20
@@ -19216,7 +19205,7 @@ gridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.97477713569104840    =20
  =20
- Mean relative error     =3D    6.2111131743676287E-005
+ Mean relative error     =3D    6.2111131743676260E-005
  Maximum relative error  =3D    5.0298578803447628E-004
  Least squares error     =3D    4.5001298038450227E-005
  =20
@@ -19280,9 +19269,9 @@ gridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    3.6434733521317975E-004
+ Mean relative error     =3D    3.6434733521317899E-004
  Maximum relative error  =3D    1.6433980992000621E-003
- Least squares error     =3D    2.3537181116070591E-004
+ Least squares error     =3D    2.3537181116070572E-004
  =20
  Grid 1 area =3D    25.132741163811851    =20
  Grid 2 area =3D    25.132741163812184    =20
@@ -19922,9 +19911,9 @@ ding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99992220268968013    =20
  =20
- Mean relative error     =3D    5.7138641266402549E-005
+ Mean relative error     =3D    5.7138641266402556E-005
  Maximum relative error  =3D    9.6686564325284999E-004
- Least squares error     =3D    4.5414408765757126E-005
+ Least squares error     =3D    4.5414408765757139E-005
  =20
  Grid 1 area =3D    18.053469711205111    =20
  Grid 2 area =3D    18.053469711205256    =20
@@ -20111,9 +20100,9 @@ idding Weight Generator
  Maximum negative weight =3D   -2.0247314279283951E-015
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    8.2067311231089685E-009
+ Mean relative error     =3D    8.2067311230842524E-009
  Maximum relative error  =3D    5.6184472459840344E-008
- Least squares error     =3D    7.8633045420038726E-009
+ Least squares error     =3D    7.8633045419829152E-009
  =20
  Grid 1 area =3D    25.132741163818846    =20
  Grid 2 area =3D    25.132741163818860    =20
@@ -20178,9 +20167,9 @@ c
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    5.4218502129952521E-005
- Maximum relative error  =3D    1.5732878654888222E-002
- Least squares error     =3D    3.4723290919402996E-004
+ Mean relative error     =3D    5.4218502129952670E-005
+ Maximum relative error  =3D    1.5732878654888108E-002
+ Least squares error     =3D    3.4723290919403017E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -20245,9 +20234,9 @@ c
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99992220268967791    =20
  =20
- Mean relative error     =3D    5.9977385435243060E-005
+ Mean relative error     =3D    5.9977385435243508E-005
  Maximum relative error  =3D    9.6686304233434522E-004
- Least squares error     =3D    4.7435225637414767E-005
+ Least squares error     =3D    4.7435225637414923E-005
  =20
  Grid 1 area =3D    14.102839583426567    =20
  Grid 2 area =3D    14.102839583426579    =20
@@ -20311,9 +20300,9 @@ line Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.1817100638062494E-004
+ Mean relative error     =3D    1.1817100638062555E-004
  Maximum relative error  =3D    1.2463857845340057E-003
- Least squares error     =3D    1.6722631542461644E-004
+ Least squares error     =3D    1.6722631542461649E-004
  =20
  Grid 1 area =3D    4.9476057539754148E-002
  Grid 2 area =3D    4.9476057539751872E-002
@@ -20377,9 +20366,9 @@ line Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99591105054183515    =20
  =20
- Mean relative error     =3D    9.0979470250296256E-007
+ Mean relative error     =3D    9.0979470250296277E-007
  Maximum relative error  =3D    7.3313467229456635E-006
- Least squares error     =3D    1.2275487745380834E-006
+ Least squares error     =3D    1.2275487745380830E-006
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -20573,7 +20562,7 @@ Offline Regridding Weight Generator
  Maximum negative weight =3D   -9.3807537075742548E-002
  Maximum positive weight =3D    1.0000016462518759    =20
  =20
- Mean relative error     =3D    1.1079680668925797E-005
+ Mean relative error     =3D    1.1079680668925825E-005
  Maximum relative error  =3D    9.9860850983971559E-004
  Least squares error     =3D    1.6253679197788220E-005
  =20
@@ -20704,9 +20693,9 @@ line Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.99979777063699515    =20
  =20
- Mean relative error     =3D    8.3641087992750486E-008
+ Mean relative error     =3D    8.3641087992748673E-008
  Maximum relative error  =3D    1.9047882022690803E-007
- Least squares error     =3D    7.1307896643841468E-008
+ Least squares error     =3D    7.1307896643838715E-008
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -20831,7 +20820,7 @@ gridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.6289703910335378E-004
+ Mean relative error     =3D    1.6289703910335381E-004
  Maximum relative error  =3D    1.1996535010058965E-003
  Least squares error     =3D    1.2155788949573677E-004
  =20
@@ -21154,9 +21143,9 @@ idding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.80095899694569517    =20
  =20
- Mean relative error     =3D    5.3062722702205349E-004
+ Mean relative error     =3D    5.3062722702205240E-004
  Maximum relative error  =3D    2.5161336733329821E-003
- Least squares error     =3D    3.3421111501551778E-004
+ Least squares error     =3D    3.3421111501551746E-004
  =20
  Grid 1 area =3D    25.132741228715890    =20
  Grid 2 area =3D    25.132741228715965    =20
@@ -21218,9 +21207,9 @@ idding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.8209792383482555E-003
+ Mean relative error     =3D    1.8209792383482553E-003
  Maximum relative error  =3D    6.9637126088784350E-003
- Least squares error     =3D    1.1454775127853584E-003
+ Least squares error     =3D    1.1454775127853582E-003
  =20
  Grid 1 area =3D    25.132741163875927    =20
  Grid 2 area =3D    25.132741163875906    =20
@@ -21348,9 +21337,9 @@ ine Regridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    4.3652863182711287E-004
- Maximum relative error  =3D    3.9287576864440159E-003
- Least squares error     =3D    4.5458781754768429E-004
+ Mean relative error     =3D    4.3652863182709563E-004
+ Maximum relative error  =3D    3.9287576864438607E-003
+ Least squares error     =3D    4.5458781754766634E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -21477,9 +21466,9 @@ ng Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.98306522538443220    =20
  =20
- Mean relative error     =3D    1.3831487149091714E-004
+ Mean relative error     =3D    1.3831487149091606E-004
  Maximum relative error  =3D    7.9507100290357414E-004
- Least squares error     =3D    9.5230427230864951E-005
+ Least squares error     =3D    9.5230427230865548E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -21541,9 +21530,9 @@ ng Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.98562403423640510    =20
  =20
- Mean relative error     =3D    4.1383338591143682E-004
+ Mean relative error     =3D    4.1383338591143883E-004
  Maximum relative error  =3D    3.2112542949449801E-003
- Least squares error     =3D    3.1325315634452987E-004
+ Least squares error     =3D    3.1325315634452998E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -21601,9 +21590,9 @@ ing Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.98129231027144892    =20
  =20
- Mean relative error     =3D    9.7854008146719236E-005
+ Mean relative error     =3D    9.7854008146719019E-005
  Maximum relative error  =3D    7.2708767938518088E-004
- Least squares error     =3D    7.0988994428024265E-005
+ Least squares error     =3D    7.0988994428024157E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -21781,13 +21770,13 @@ idding Weight Generator
  Maximum negative weight =3D  -0.12101186579566607    =20
  Maximum positive weight =3D    1.0000005194093762    =20
  =20
- Mean relative error     =3D    1.4825353225334851E-004
+ Mean relative error     =3D    1.4825353225334875E-004
  Maximum relative error  =3D    1.2257925848768048E-003
- Least squares error     =3D    1.0276900892619872E-004
+ Least squares error     =3D    1.0276900892619894E-004
  =20
  Grid 1 area =3D    25.132741163814153    =20
- Grid 2 area =3D    25.132741163814035    =20
- Conservation error =3D    1.1723955140041653E-013
+ Grid 2 area =3D    25.132741163814032    =20
+ Conservation error =3D    1.2079226507921703E-013
 
 Tolerance values:
   - Mean Relative Error: 10E-04
@@ -21844,9 +21833,9 @@ ding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.5448363373415230E-004
+ Mean relative error     =3D    1.5448363373415233E-004
  Maximum relative error  =3D    1.3802938606293481E-003
- Least squares error     =3D    1.2206209814732902E-004
+ Least squares error     =3D    1.2206209814732897E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -21909,9 +21898,9 @@ ding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.89997715018436542    =20
  =20
- Mean relative error     =3D    1.5445121139735657E-004
+ Mean relative error     =3D    1.5445121139735698E-004
  Maximum relative error  =3D    1.3802938606293481E-003
- Least squares error     =3D    1.2205163975130085E-004
+ Least squares error     =3D    1.2205163975130110E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -22561,9 +22550,9 @@ gridding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    4.7543904334779839E-010
+ Mean relative error     =3D    4.7543904326249818E-010
  Maximum relative error  =3D    2.4150457368935281E-009
- Least squares error     =3D    2.8069949164904129E-010
+ Least squares error     =3D    2.8069949154648971E-010
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -22621,15 +22610,15 @@ dding Weight Generator
  =20
  Grid 1 min:    1.5059098210481028          Grid 1 max:    3.0000000000=
 000000    =20
- Grid 2 min:    1.5274718953636510          Grid 2 max:    2.9868572114=
-205141    =20
+ Grid 2 min:    1.5274718953636508          Grid 2 max:    2.9868572114=
+205145    =20
  =20
  Maximum negative weight =3D   -5.3744154587580230E-006
  Maximum positive weight =3D   0.25226019268560956    =20
  =20
- Mean relative error     =3D    5.0008510021269420E-004
- Maximum relative error  =3D    4.4490580632586202E-003
- Least squares error     =3D    3.2842282259198328E-004
+ Mean relative error     =3D    5.0008510021269474E-004
+ Maximum relative error  =3D    4.4490580632587694E-003
+ Least squares error     =3D    3.2842282259198415E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -22690,9 +22679,9 @@ ortran/external_demos/ESMF_RegridWeightGenCheck/input/SCRIP_1x1.nc
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.67584788635840454    =20
  =20
- Mean relative error     =3D    1.3909949506225367E-004
+ Mean relative error     =3D    1.3909949506225346E-004
  Maximum relative error  =3D    1.1708966440551994E-003
- Least squares error     =3D    1.1070864612035872E-004
+ Least squares error     =3D    1.1070864612035868E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -22753,9 +22742,9 @@ ortran/external_demos/ESMF_RegridWeightGenCheck/input/SCRIP_1x1.nc
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    3.4176475102320183E-003
+ Mean relative error     =3D    3.4176475102320209E-003
  Maximum relative error  =3D    1.5676522837397247E-002
- Least squares error     =3D    2.3113146354161204E-003
+ Least squares error     =3D    2.3113146354161200E-003
  =20
  Grid 1 area =3D    25.132741163801036    =20
  Grid 2 area =3D    25.132741163801171    =20
@@ -22873,15 +22862,15 @@ ortran/external_demos/ESMF_RegridWeightGenCheck/input/latlon_grid.nc
  =20
  Grid 1 min:    1.0002284452388037          Grid 1 max:    2.9997715543=
 365087    =20
- Grid 2 min:    1.0017504673884614          Grid 2 max:    2.9982495315=
-084052    =20
+ Grid 2 min:    1.0017504673884612          Grid 2 max:    2.9982495315=
+084048    =20
  =20
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.29998096800153939    =20
  =20
- Mean relative error     =3D    3.1313933166261055E-004
+ Mean relative error     =3D    3.1313933166260849E-004
  Maximum relative error  =3D    1.1769619679156235E-003
- Least squares error     =3D    2.0701941696187162E-004
+ Least squares error     =3D    2.0701941696187195E-004
  =20
  Grid 1 area =3D    25.132741163819201    =20
  Grid 2 area =3D    25.132741163819311    =20
@@ -22948,9 +22937,9 @@ conserve2nd_test143.nc - ESMF Offline Regridding Weight Generator
  Maximum negative weight =3D   -8.4456244840079728E-002
  Maximum positive weight =3D   0.87666878628819345    =20
  =20
- Mean relative error     =3D    2.4500113860675916E-004
+ Mean relative error     =3D    2.4500113860675932E-004
  Maximum relative error  =3D    6.7708562737445639E-003
- Least squares error     =3D    2.4945684083124394E-004
+ Least squares error     =3D    2.4945684083124410E-004
  =20
  Grid 1 area =3D    19.068548406404588    =20
  Grid 2 area =3D    19.068548406404673    =20
@@ -23016,9 +23005,9 @@ c - ESMF Offline Regridding Weight Generator
  Maximum negative weight =3D   -9.3807537075742548E-002
  Maximum positive weight =3D    1.0000016462518759    =20
  =20
- Mean relative error     =3D    1.1079680668926185E-005
+ Mean relative error     =3D    1.1079680668926183E-005
  Maximum relative error  =3D    9.9860850983971559E-004
- Least squares error     =3D    1.6253679197788220E-005
+ Least squares error     =3D    1.6253679197788260E-005
  =20
  Grid 1 area =3D    4.9476057539754148E-002
  Grid 2 area =3D    4.9476057539752379E-002
@@ -23079,15 +23068,15 @@ ine Regridding Weight Generator
  =20
  Grid 1 min:    1.0001607174717779          Grid 1 max:    2.9998392821=
 035065    =20
- Grid 2 min:    1.0002509515882987          Grid 2 max:    2.9997490479=
-870250    =20
+ Grid 2 min:    1.0002509515882985          Grid 2 max:    2.9997490479=
+870246    =20
  =20
  Maximum negative weight =3D   -4.9534314985921327E-002
  Maximum positive weight =3D   0.99992220268967791    =20
  =20
- Mean relative error     =3D    1.8899531407513794E-005
+ Mean relative error     =3D    1.8899531407513232E-005
  Maximum relative error  =3D    1.0048198889939567E-003
- Least squares error     =3D    2.4416284491458458E-005
+ Least squares error     =3D    2.4416284491458560E-005
  =20
  Grid 1 area =3D    14.102839583426567    =20
  Grid 2 area =3D    14.102839583426622    =20
@@ -23146,15 +23135,15 @@ gridding Weight Generator
  =20
  Grid 1 min:    1.0001607174717779          Grid 1 max:    2.9998392821=
 035065    =20
- Grid 2 min:    1.0003355795984230          Grid 2 max:    2.9996644199=
+ Grid 2 min:    1.0003355795984232          Grid 2 max:    2.9996644199=
 862486    =20
  =20
  Maximum negative weight =3D  -0.10439317844361651    =20
  Maximum positive weight =3D    1.0007507025011046    =20
  =20
- Mean relative error     =3D    7.5987093859929732E-005
- Maximum relative error  =3D    1.6774269500576280E-002
- Least squares error     =3D    3.3312128344408859E-004
+ Mean relative error     =3D    7.5987093859928404E-005
+ Maximum relative error  =3D    1.6774269500576391E-002
+ Least squares error     =3D    3.3312128344408631E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -23353,9 +23342,9 @@ e Regridding Weight Generator
  Maximum negative weight =3D  -0.12395848224286986    =20
  Maximum positive weight =3D   0.77039976301170887    =20
  =20
- Mean relative error     =3D    7.5650177334024038E-007
- Maximum relative error  =3D    5.7865527027764755E-006
- Least squares error     =3D    9.7756160206185925E-007
+ Mean relative error     =3D    7.5650177334030306E-007
+ Maximum relative error  =3D    5.7865527025895412E-006
+ Least squares error     =3D    9.7756160206201299E-007
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -23738,9 +23727,9 @@ ding Weight Generator
  Maximum negative weight =3D    0.0000000000000000    =20
  Maximum positive weight =3D   0.89997715018436542    =20
  =20
- Mean relative error     =3D    1.5582863936334230E-004
+ Mean relative error     =3D    1.5582863936334233E-004
  Maximum relative error  =3D    1.3802938606293481E-003
- Least squares error     =3D    1.2266966596685241E-004
+ Least squares error     =3D    1.2266966596685244E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -23802,9 +23791,9 @@ ding Weight Generator
  Maximum negative weight =3D   -2.1316343577744666E-002
  Maximum positive weight =3D   0.33152935279914392    =20
  =20
- Mean relative error     =3D    2.6389000837684493E-006
+ Mean relative error     =3D    2.6389000837472807E-006
  Maximum relative error  =3D    3.5940896322470741E-006
- Least squares error     =3D    1.1643056022120619E-006
+ Least squares error     =3D    1.1643056022015329E-006
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -24115,15 +24104,15 @@ g Weight Generator
  =20
  Grid 1 min:    1.0000761524206250          Grid 1 max:    2.9999238475=
 793755    =20
- Grid 2 min:    1.0006280745185314          Grid 2 max:    2.9993719193=
-475061    =20
+ Grid 2 min:    1.0006280745185316          Grid 2 max:    2.9993719193=
+475066    =20
  =20
  Maximum negative weight =3D   -5.8731841620398829E-002
  Maximum positive weight =3D   0.52992353007301263    =20
  =20
- Mean relative error     =3D    2.4802280017152871E-005
+ Mean relative error     =3D    2.4802280017155714E-005
  Maximum relative error  =3D    1.5211292794950135E-004
- Least squares error     =3D    1.8509706071780275E-005
+ Least squares error     =3D    1.8509706071781021E-005
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -24179,15 +24168,15 @@ egridding Weight Generator
  =20
  Grid 1 min:    1.0005929367551678          Grid 1 max:    2.9994070632=
 448326    =20
- Grid 2 min:   0.99983450152820852          Grid 2 max:    2.9998346802=
-467979    =20
+ Grid 2 min:   0.99983450152820819          Grid 2 max:    2.9998346802=
+467983    =20
  =20
  Maximum negative weight =3D   -5.9209702422542747E-002
  Maximum positive weight =3D    1.0000023196477925    =20
  =20
- Mean relative error     =3D    3.8729980807208046E-004
+ Mean relative error     =3D    3.8729980807207976E-004
  Maximum relative error  =3D    3.5374017109127973E-003
- Least squares error     =3D    2.7344395649900750E-004
+ Least squares error     =3D    2.7344395649900755E-004
  =20
  Grid 1 area =3D    25.132741163875927    =20
  Grid 2 area =3D    25.132741163875874    =20
@@ -24243,14 +24232,14 @@ g Weight Generator
  Grid 1 min:    1.0004758892016996          Grid 1 max:    2.9995241107=
 983004    =20
  Grid 2 min:    1.0010272373524889          Grid 2 max:    2.9989727626=
-473961    =20
+473957    =20
  =20
  Maximum negative weight =3D   -6.6825024090604382E-002
  Maximum positive weight =3D    1.0000000000000000    =20
  =20
- Mean relative error     =3D    1.5501198156396597E-004
+ Mean relative error     =3D    1.5501198156396643E-004
  Maximum relative error  =3D    9.5101251020568303E-004
- Least squares error     =3D    1.1565865982918826E-004
+ Least squares error     =3D    1.1565865982918827E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -24378,9 +24367,9 @@ g Weight Generator
  Maximum negative weight =3D   -6.6825024090604007E-002
  Maximum positive weight =3D   0.69621778026161729    =20
  =20
- Mean relative error     =3D    1.5640398239840243E-004
+ Mean relative error     =3D    1.5640398239840256E-004
  Maximum relative error  =3D    9.5101251020568303E-004
- Least squares error     =3D    1.1632950605771590E-004
+ Least squares error     =3D    1.1632950605771505E-004
  =20
  Grid 1 area =3D 0.000000000000000
  Grid 2 area =3D 0.000000000000000
@@ -24404,11 +24393,11 @@ perl ./RegridWeightGenCheckDriver.pl > RegridWeightGenCheck.Log
 
 
 
-Wed Mar 18 11:12:26 MDT 2020 run ESMF_RegridCheck dryrun ..............=
+Wed Apr  1 11:22:55 MDT 2020 run ESMF_RegridCheck dryrun ..............=
 .PASSED
 
 
-Wed Mar 18 11:19:45 MDT 2020 run ESMF_RegridCheck (16 PETS)............=
+Wed Apr  1 11:30:36 MDT 2020 run ESMF_RegridCheck (16 PETS)............=
 .PASSED
 
 
@@ -24566,8 +24555,8 @@ ortran/external_demos/ESMF_RegridCheck/input/BT42_ugrid_dual.nc
  Variable Name           =3D nodedata1
  =20
  Value min:    1.8751444659767824          Value max:    3.998802470618=
-3309    =20
- Mean relative error     =3D    1.6474543502080356E-004
+3314    =20
+ Mean relative error     =3D    1.6474543502079892E-004
  Maximum relative error  =3D    4.4639803891292581E-004
  =20
  Completed file regrid successfully.
@@ -24611,7 +24600,7 @@ ortran/external_demos/ESMF_RegridCheck/input/GRIDSPEC_2.5.nc
  =20
  Value min:    1.0022649656994369          Value max:    3.997735033240=
 3074    =20
- Mean relative error     =3D    1.6269674760722189E-004
+ Mean relative error     =3D    1.6269674760722186E-004
  Maximum relative error  =3D    1.5775167675972802E-003
  =20
  Completed file regrid successfully.
@@ -24702,8 +24691,8 @@ ortran/external_demos/ESMF_RegridCheck/input/GRIDSPEC_2.5_time.nc
  Variable Name           =3D so
  =20
  Value min:    1.0015792639714036          Value max:    13.99842071388=
-0531    =20
- Mean relative error     =3D    8.6595176537217909E-006
+0533    =20
+ Mean relative error     =3D    8.6595176537217807E-006
  Maximum relative error  =3D    1.5183578862630823E-004
  =20
  Completed file regrid successfully.
@@ -25389,7 +25378,7 @@ ortran/external_demos/ESMF_RegridCheck/input/C48_mosaic.nc
  =20
  Value min:    1.0007816069011390          Value max:    13.99921839309=
 8863    =20
- Mean relative error     =3D    1.0051948289108377E-005
+ Mean relative error     =3D    1.0051948289108385E-005
  Maximum relative error  =3D    2.0743945609521890E-004
  =20
  Completed file regrid successfully.
@@ -25416,7 +25405,7 @@ perl ./RegridCheckDriver.pl > RegridCheck.Log
 
  The tarballs of the examples directories can be found at:
  /export/scripts_dir/daily_builds/external_demos/gfortran/esmf_logs/200=
-3_test.
+4_test.
  These tarballs contain the *Log and *stdout files only, not the execut=
 ables.
  This directory also contains failed build output files with the naming=

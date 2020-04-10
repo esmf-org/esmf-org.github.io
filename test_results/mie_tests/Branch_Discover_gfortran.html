@@ -2,88 +2,88 @@
 Return-Path: <scvasque@discover.nccs.nasa.gov>
 Delivered-To: unknown
 Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
-  with IMAP4-SSL; 11 Mar 2020 11:45:02 -0000
+  with IMAP4-SSL; 08 Apr 2020 11:30:02 -0000
 X-Original-To: esmftest@cgd.ucar.edu
 Delivered-To: esmftest@cgd.ucar.edu
 Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
-	by post2.cgd.ucar.edu (Postfix) with ESMTP id D34F610F
-	for <esmftest@cgd.ucar.edu>; Wed, 11 Mar 2020 05:32:15 -0600 (MDT)
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by vscanx2.ucar.edu (Postfix) with ESMTPS id A766E180027E
-	for <esmftest@cgd.ucar.edu>; Wed, 11 Mar 2020 05:32:14 -0600 (MDT)
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id A5EE511C
+	for <esmftest@cgd.ucar.edu>; Wed,  8 Apr 2020 05:28:37 -0600 (MDT)
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 7E9901801472
+	for <esmftest@cgd.ucar.edu>; Wed,  8 Apr 2020 05:28:36 -0600 (MDT)
 Authentication-Results: vscanx2.ucar.edu;
-	dkim=pass (1024-bit key) header.d=nccs.nasa.gov header.i=@nccs.nasa.gov header.b="kDECyCg2"
-Received: by mail-qv1-f70.google.com with SMTP id u5so1115361qvj.10
-        for <esmftest@cgd.ucar.edu>; Wed, 11 Mar 2020 04:32:14 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=nccs.nasa.gov header.i=@nccs.nasa.gov header.b="FYAFJwxq"
+Received: by mail-qk1-f199.google.com with SMTP id q128so2430903qkb.20
+        for <esmftest@cgd.ucar.edu>; Wed, 08 Apr 2020 04:28:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:message-id:dkim-filter:dkim-signature:from:date
          :to:subject:user-agent:mime-version:content-transfer-encoding;
-        bh=868Z9lOVFotQ7F4HoYnTLwLoqtyevt+1CBzz1pK/g4E=;
-        b=tPV4CODn8uX/hx07V057N3ZPLEWndwgVBdcVCBU8PsFbxOxKW8WQkrqCvixrbGWqHo
-         JFwy4ptX/r3e/h0RPykEjD8bupWvEd/anNApx4mFhy2ONb567V5Wob2+tIb2kt1p7Q/2
-         +7T/wJSSsjwuR2lcFfyGLKwF4/4oe5C4BhK76HAVQjUqVsUWtqx7wvHUwlQIVzwrtRUq
-         MDtzO7gFm0nteH8vxQN7ffEKZFlD1rNIgZR9oLIxpP1RLZru+bTS6Z1CqPJ7+uYX77L8
-         aHXRnMGmrZI5jk2hxzyRVKMps9eYrr3WO9pJWKGoM8VE6+EKK3FeCN/nIQB2Pa/krqp9
-         Npjw==
-X-Gm-Message-State: ANhLgQ1OJ/o4aeN809a4CtgP5N39TWTY9Zzj77gGfYNPlyYyU/lKpWKu
-	bau9Xa1tQ2H0119sPx7PJ3Vt232KXfNr18l5wrgrnI73nDonwhDdzrua14M6m3YZCHPIOaoQrol
-	t6uFWly4Ui6R+o5uK
-X-Received: by 2002:a05:620a:848:: with SMTP id u8mr2204987qku.495.1583926333789;
-        Wed, 11 Mar 2020 04:32:13 -0700 (PDT)
-X-Google-Smtp-Source: ADFU+vuDiBsRm535JQMEAss2R+0GnQQRllawf80MN7Xqme/xksSK0AvEfV9xvR6VCJTuoS5xjeWb
-X-Received: by 2002:a05:620a:848:: with SMTP id u8mr2204835qku.495.1583926331695;
-        Wed, 11 Mar 2020 04:32:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1583926331; cv=none;
+        bh=HvPFHTpa2w2fBWTThhSpL+wk6JLs2j7GvGU0l1qvtI8=;
+        b=Om+zUEmrdOIV8utHtFCad6c8oHsreWoe4trlMLj2z8kSxnI2YbrS4nZBxHK3YKvi7E
+         tZOlORvuORNEkMT03STlGYBYKgPtrepCnHvghRKwe2IxygFLtBRcuC7TdkN0RYMxqwvy
+         +2E73WlPioWJ5JuoK5ROMeM+bQfUCQF6SMB3Qul8kar14tYeabmiVEsSiS+0Iy0WFJ7/
+         DNa5XSKDRMdPl0QtQsTm1RvwbIeTPOGfC3VbXMAVqDaMs2mDlNYQ/UpjbbASSPEXGLqD
+         E5rrX5OudoD8r4MxRmLldJnQmSIqO2wZU34tqJX72dhtusHYOdqWczWqsM8gdXOVHue6
+         fniA==
+X-Gm-Message-State: AGi0PuZhJrNckt2VZ3htsE+pImCOPn+y3BO2fgFXyEGpYtPcqxpLUvhj
+	j9HTJ3hvll0wgc3awFau/lPlyru4hvW5pU2TCZXNVCpN/G3oZkknEjm1EA5K4RHtA3899JK3ld1
+	wxvgRtF/O9WjSCP4f
+X-Received: by 2002:a37:8c41:: with SMTP id o62mr7130274qkd.84.1586345315472;
+        Wed, 08 Apr 2020 04:28:35 -0700 (PDT)
+X-Google-Smtp-Source: APiQypKgQsyb0FaaPIROAPOrEvFyK1U2hjkHPT+LMlzsiVgTS6RvIcjgsPsJY3Y7BcRtamkabV7z
+X-Received: by 2002:a37:8c41:: with SMTP id o62mr7130150qkd.84.1586345313317;
+        Wed, 08 Apr 2020 04:28:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1586345313; cv=none;
         d=google.com; s=arc-20160816;
-        b=e1y+OCDXLw1O5tY2oqZf+CE50ry3BBXPB8Nql6vnq5cNGNXCydD6JmvHHed8nfhMVP
-         hIckC9A4+yTvzYG5zon8PC8Wq4LUqehc3QPEvZQ8hjaiPGeZTT7noKwsfpKSBZ1fG0nU
-         uP3H/cM0nh+/rRBUyq1iGQMUijt/cia6Z0iIWjElBC2YCCbJS/COmGb9qMKr5iwbpSNr
-         hFqVNFrtXPq59n3H8vRM1s1I8ztuAq6nJq6ghWnNX+Lw43NF782Dzuq1JDln9mpHA560
-         gb3XXOp0GBfwLTqDbN5vP/YMUuGaE41qpUzU7evcli2lQSqeUn19FZmYIibYU77XCJs9
-         k4Dg==
+        b=jg24Xss8GW5tSpZt3CZXNtnnghDcdKeHhm9Wb1/GkBNimat8VtTBO7882IJYxVxhcu
+         x7GnWxeEELDoFscgdtvTVsm4k8Z1l/FSzfzVs1aDHdfFE3HG9+HfQZ+9S0bjb9f12qFZ
+         U3vktT7Ga62sLCQAJ7lAsCZWsjGmXD5yFS+1teYbVnVsLad8cP8xscaUJM2w7x97YiLp
+         nxQQrrDrkXl4QpvdpD0pWwFbyRxc0H6uat3pv4qrOUhR9hAK6ENedQQu3EFFeWflUym3
+         lyTcszoru7jJs9OgAzSgfDi+7suMRyk+kBE1VJaoWI4/ihmRzrt4pivABSYaBnnMN7XH
+         7gDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:user-agent:subject:to:date
          :from:dkim-signature:dkim-filter:message-id;
-        bh=868Z9lOVFotQ7F4HoYnTLwLoqtyevt+1CBzz1pK/g4E=;
-        b=ZzQgp4g5991i8Cx4ob69JdKanTfB303JV/L0Gs2P5Rap29mKXzeJuMUrAdMg0EO3Mw
-         gKdCHfgkU+HHPJvqPoWzoPCzdB412bk1jvUG1xuWF4H/s1aIt2gt3HNB/fPMHpHkyQmb
-         LiyopzgMfQvlBDOeqW4WTRZSHiYnKcyAfkB9Vj68/mBsDM96qCiV9x1GuRxWazAzN9Ac
-         BbH0XtyxlU1COWGgURd39UEzQyk7LdeBo3rxN3+d1EEt3ZEm8H6ViT22lzZwbsF28NIV
-         Nc3FePRXnf0kYAo+IExANE3LnFfn3kqzjSphBlUR+M28xbqoin41LM8wmhhNIhxL6yCe
-         yo2w==
+        bh=HvPFHTpa2w2fBWTThhSpL+wk6JLs2j7GvGU0l1qvtI8=;
+        b=0lFSrXeJWJUiBe3zLdHg7EvmDKN/Re/QDNzZl0iBpEnep8cyNNu6AfLJznPlKm0CRw
+         Ao8Z6819ML20e70brUza4APZu5iCuWOnj6hiruvTmGUw0WNTBKHgAe3j2L22UJXO6J4Y
+         RTyTTPCmDl9f+ybEhMUz5pNP6qQvLWdRqnFN8Rh+DqpW3C4aDnKRS2dHeZ6iOSkBOREs
+         p04q/dhe9LIt3cT3sBtrtlnnxxW/zirYwBDkunjpMeb/0XGk4iUkTNbwraiSnFT9onju
+         xZsm0pLES+njC6lXuDWUH5FWr8YBYYG4fDZsJ4YRIdkhRpj2cNMoCx3BXCnipYp7/5aM
+         NnWA==
 ARC-Authentication-Results: i=1; mx.google.com;
-       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=kDECyCg2;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=FYAFJwxq;
        spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
        dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
 Received: from mail1.nccs.nasa.gov (mail1.nccs.nasa.gov. [2001:4d0:2418:2800::a99a:928c])
-        by mx.google.com with ESMTP id m3si796018qke.131.2020.03.11.04.32.11
+        by mx.google.com with ESMTP id v57si3384173qtj.182.2020.04.08.04.28.33
         for <esmftest@cgd.ucar.edu>;
-        Wed, 11 Mar 2020 04:32:11 -0700 (PDT)
+        Wed, 08 Apr 2020 04:28:33 -0700 (PDT)
 Received-SPF: pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) client-ip=2001:4d0:2418:2800::a99a:928c;
 Authentication-Results: mx.google.com;
-       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=kDECyCg2;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=FYAFJwxq;
        spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
        dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
-Message-ID: <5e68cc3b.1c69fb81.f7586.8c6bSMTPIN_ADDED_MISSING@mx.google.com>
+Message-ID: <5e8db561.1c69fb81.9e3b7.3668SMTPIN_ADDED_MISSING@mx.google.com>
 X-Comment: SPF check N/A for local connections - client-ip=169.154.145.205; helo=borgmx1.prv.cube; envelope-from=scvasque@discover.nccs.nasa.gov; receiver=esmftest@cgd.ucar.edu 
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail1.nccs.nasa.gov BC1D85B1
+DKIM-Filter: OpenDKIM Filter v2.9.2 mail1.nccs.nasa.gov 51A7C612
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nccs.nasa.gov;
-	s=default; t=1583926330;
-	bh=dfVC4TAF9leUBHfKyuHodeP2WfoQ0NvylXtnG+WN9po=;
+	s=default; t=1586345312;
+	bh=PxSj/AOXePl+ocF90pKd2DHVOIboFsE8U0QMENsaMPM=;
 	h=From:Date:To:Subject:From;
-	b=kDECyCg2+wBdygxOM0rFeana6IPqmXsk5bPDfcJ/Xh7uGJs1fG1DRtXh0vRk1zFDT
-	 x9tS8g61XKyP4RiU2L4djCobgNa28P1u88/S4kWVDf4uuyIghlisZmh3+EdueR5nmc
-	 Wru1F/HWD913scpxjipdSBjCKFxF8Ez03acRg7Yw=
+	b=FYAFJwxqFOxrtHr/sp/q7BErmXEUthKED9tw3b5tnkTApi29agMbIS/qgZhStT7S3
+	 0OolVD7W8IG+01RTUpL1eAbdLHgCQjjjScVilUFOnQUEFnIvF+Vj2Y64ysZ6GteL1N
+	 d1fF5Vtn38RBqxARIgE16ykpCHvpXUCiDQAeJvKo=
 Received: from borgmx1.prv.cube (borgmx1.nccs.nasa.gov [169.154.145.205])
-	by mail1.nccs.nasa.gov (Postfix) with ESMTP id BC1D85B1;
-	Wed, 11 Mar 2020 07:32:10 -0400 (EDT)
+	by mail1.nccs.nasa.gov (Postfix) with ESMTP id 51A7C612;
+	Wed,  8 Apr 2020 07:28:32 -0400 (EDT)
 Received: from discover.nccs.nasa.gov (discover01.prv.cube [10.1.50.1])
-	by borgmx1.prv.cube (Postfix) with SMTP id 8F59639E7A;
-	Wed, 11 Mar 2020 07:32:09 -0400 (EDT)
-Received: by discover.nccs.nasa.gov (sSMTP sendmail emulation); Wed, 11 Mar 2020 07:32:09 -0400
+	by borgmx1.prv.cube (Postfix) with SMTP id 2AE3D39E7A;
+	Wed,  8 Apr 2020 07:28:31 -0400 (EDT)
+Received: by discover.nccs.nasa.gov (sSMTP sendmail emulation); Wed, 08 Apr 2020 07:28:31 -0400
 From: "Silverio   C Vasquez" <scvasque@discover.nccs.nasa.gov>
-Date: Wed, 11 Mar 2020 07:32:09 -0400
+Date: Wed, 08 Apr 2020 07:28:31 -0400
 To: esmftest@cgd.ucar.edu, esmf_test@noaa.gov
 Subject: Branch_Discover_gfortran
 User-Agent: Heirloom mailx 12.5 7/5/10
@@ -97,13 +97,10 @@ X-getmail-retrieved-from-mailbox: INBOX
 
 
 
-WARNING: The test experienced an abnormal termination during execution,
-         therefore the test results may be incomplete/invalid.
 
+Script start time: Wed Apr  8 04:03:02 EDT 2020
 
-Script start time: Wed Mar 11 04:03:03 EDT 2020
-
-Script end: Wed Mar 11 07:32:09 EDT 2020
+Script end: Wed Apr  8 07:28:30 EDT 2020
 
 
 ______________________________________ESMF_8_0_1branch BUILD AND TEST S=
@@ -132,7 +129,7 @@ _______________________________________________________________________=
 ________________________
 
 
-Wed Mar 11 04:04:47 EDT 2020 on discover01=20
+Wed Apr  8 04:04:37 EDT 2020 on discover01=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -148,13 +145,13 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc
+ESMF_8_0_1_beta_snapshot_07
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.0.1 beta snapshot
-ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc
+ESMF_8_0_1_beta_snapshot_07
 --------------------------------------------------------------
 HEAD detached at origin/ESMF_8_0_1branch
 Untracked files:
@@ -342,13 +339,13 @@ over/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf/src/incl=
 ude -I/usr/local/other/SLES11.1/netcdf/3.6.3/gcc-4.8.1/include -I/home/=
 scvasque/proj4/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc' -DES=
-MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
-SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
- -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_N=
-O_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS=
-x86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dopenmpi -DESMF_DIR=
-=3D/discover/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_07' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DES=
+MF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=
+=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dopenmpi -DESMF_DIR=3D/discover/n=
+obackup/scvasque/scripts_dir/branch_builds/gfortran/esmf
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -380,14 +377,14 @@ _builds/gfortran/esmf/src/include  -I/usr/local/other/SLES11.1/netcdf/3=
 kup/scvasque/scripts_dir/branch_builds/gfortran/esmf/src/prologue/yaml-=
 cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc' -DES=
-MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
-SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
- -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_N=
-O_OPENACC -DESMF_TESTEXHAUSTIVE  -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -D=
-Sx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dopenmpi -DESMF_DIR=
-=3D/discover/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf =
--D__SDIR__=3D'' -DESMF_CXXSTD=3D11 -DESMF_NO_SIGUSR2
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_07' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DES=
+MF_TESTEXHAUSTIVE  -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=
+=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dopenmpi -DESMF_DIR=3D/discover/n=
+obackup/scvasque/scripts_dir/branch_builds/gfortran/esmf -D__SDIR__=3D'=
+' -DESMF_CXXSTD=3D11 -DESMF_NO_SIGUSR2
 
 C++ linker flags:
 ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed
@@ -445,7 +442,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Wed Mar 11 04:04:50 EDT 2020 on discover01
+Compiling on Wed Apr 8 04:04:47 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -453,17 +450,17 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Wed Mar 11 04:14:44 EDT 2020 library build -j16 ...........PASS
+Wed Apr  8 04:14:30 EDT 2020 library build -j16 ...........PASS
 Builds with warnings.
-Wed Mar 11 04:15:08 EDT 2020 library install -j4 ..........PASS
-Wed Mar 11 04:15:10 EDT 2020 library installcheck -j4 .....PASS
-Wed Mar 11 04:16:25 EDT 2020 quickstart build -j4 .........PASS
+Wed Apr  8 04:14:56 EDT 2020 library install -j4 ..........PASS
+Wed Apr  8 04:14:57 EDT 2020 library installcheck -j4 .....PASS
+Wed Apr  8 04:16:06 EDT 2020 quickstart build -j4 .........PASS
 
 |------------------------ APPs TESTS --------------------------|
-Wed Mar 11 04:16:30 EDT 2020 apps build -j4 ...............PASS
+Wed Apr  8 04:16:11 EDT 2020 apps build -j4 ...............PASS
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:17 EDT 2020 ESMF_Regrid --help ...........PASS
+Wed Apr  8 04:16:34 EDT 2020 ESMF_Regrid --help ...........PASS
 The following is the output of ESMF_Regrid --help
 
 -----------------------------------------------------------------------=
@@ -483,9 +480,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/30738/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/12213/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -603,15 +600,15 @@ lon(i,j)), assuming
  Visit http://www.earthsystemmodeling.org/ to find out more about the
  Earth System Modeling Framework.
 =20
-[borgs002:04012] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:30818] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04012] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:30818] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:17 EDT 2020 ESMF_Regrid --version ........PASS
+Wed Apr  8 04:16:35 EDT 2020 ESMF_Regrid --version ........PASS
 The following is the output of ESMF_Regrid --version
 
 -----------------------------------------------------------------------=
@@ -631,9 +628,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/30834/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/12117/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -698,15 +695,15 @@ G
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
 ALINGS
  WITH THE SOFTWARE.
-[borgs002:04044] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:30850] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04044] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:30850] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:17 EDT 2020 ESMF_Regrid -V ...............PASS
+Wed Apr  8 04:16:35 EDT 2020 ESMF_Regrid -V ...............PASS
 The following is the output of ESMF_Regrid -V
 
 -----------------------------------------------------------------------=
@@ -726,24 +723,24 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/30802/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/12148/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
 -----------------------------------------------------------------------=
 ---
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
-[borgs002:04076] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:30883] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04076] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:30883] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:18 EDT 2020 ESMF_Info --help .............PASS
+Wed Apr  8 04:16:36 EDT 2020 ESMF_Info --help .............PASS
 The following is the output of ESMF_Info --help=20
 
 -----------------------------------------------------------------------=
@@ -763,9 +760,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26542/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/11988/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -777,15 +774,15 @@ disable this message.
    --version     Display ESMF version and license information and exit.
    -V            Display ESMF version string and exit.
 =20
-[borgs002:04112] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:30979] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04112] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:30979] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:18 EDT 2020 ESMF_Info --version ..........PASS
+Wed Apr  8 04:16:36 EDT 2020 ESMF_Info --version ..........PASS
 The following is the output of ESMF_Info --version=20
 
 -----------------------------------------------------------------------=
@@ -805,9 +802,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26510/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/12020/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -872,15 +869,15 @@ G
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
 ALINGS
  WITH THE SOFTWARE.
-[borgs002:04144] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:31011] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04144] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:31011] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:19 EDT 2020 ESMF_Info -V .................PASS
+Wed Apr  8 04:16:36 EDT 2020 ESMF_Info -V .................PASS
 The following is the output of ESMF_Info -V=20
 
 -----------------------------------------------------------------------=
@@ -900,24 +897,24 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26606/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/11924/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
 -----------------------------------------------------------------------=
 ---
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
-[borgs002:04176] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:31043] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04176] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:31043] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:19 EDT 2020 ESMF_InfoC --help ............PASS
+Wed Apr  8 04:16:37 EDT 2020 ESMF_InfoC --help ............PASS
 The following is the output of ESMF_InfoC --help
 
 -----------------------------------------------------------------------=
@@ -937,9 +934,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26574/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/11956/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -951,15 +948,15 @@ Options:
   --version     Display ESMF version and license information and exit.
   -V            Display ESMF version string and exit.
 
-[borgs002:04208] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:31075] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04208] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:31075] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:20 EDT 2020 ESMF_InfoC --version .........PASS
+Wed Apr  8 04:16:37 EDT 2020 ESMF_InfoC --version .........PASS
 The following is the output of ESMF_InfoC --version
 
 -----------------------------------------------------------------------=
@@ -979,9 +976,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26414/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/11854/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -1046,15 +1043,15 @@ G
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
 ALINGS
  WITH THE SOFTWARE.
-[borgs002:04240] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:31129] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04240] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:31129] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:20 EDT 2020 ESMF_InfoC -V ................PASS
+Wed Apr  8 04:16:38 EDT 2020 ESMF_InfoC -V ................PASS
 The following is the output of ESMF_InfoC -V
 
 -----------------------------------------------------------------------=
@@ -1074,24 +1071,24 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26380/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/11886/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
 -----------------------------------------------------------------------=
 ---
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
-[borgs002:04274] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:31161] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04274] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:31161] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:21 EDT 2020 ESMF_RegridWeightGen --help ..PASS
+Wed Apr  8 04:16:38 EDT 2020 ESMF_RegridWeightGen --help ..PASS
 The following is the output of ESMF_RegridWeightGen --help
 
 -----------------------------------------------------------------------=
@@ -1111,9 +1108,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26477/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/11822/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -1308,15 +1305,15 @@ case.
  Visit http://www.earthsystemmodeling.org/ to find out more about the
  Earth System Modeling Framework.
 =20
-[borgs002:04307] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:31225] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04307] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:31225] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:21 EDT 2020 ESMF_RegridWeightGen --version PASS
+Wed Apr  8 04:16:39 EDT 2020 ESMF_RegridWeightGen --version PASS
 The following is the output of ESMF_RegridWeightGen --version
 
 -----------------------------------------------------------------------=
@@ -1336,9 +1333,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26443/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/11722/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -1403,15 +1400,15 @@ G
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
 ALINGS
  WITH THE SOFTWARE.
-[borgs002:04341] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:31261] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04341] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:31261] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:22 EDT 2020 ESMF_RegridWeightGen -V ......PASS
+Wed Apr  8 04:16:39 EDT 2020 ESMF_RegridWeightGen -V ......PASS
 The following is the output of ESMF_RegridWeightGen -V
 
 -----------------------------------------------------------------------=
@@ -1431,24 +1428,24 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26272/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/11752/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
 -----------------------------------------------------------------------=
 ---
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
-[borgs002:04382] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:31295] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04382] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:31295] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:22 EDT 2020 ESMF_Scrip2Unstruct --help ...PASS
+Wed Apr  8 04:16:39 EDT 2020 ESMF_Scrip2Unstruct --help ...PASS
 The following is the output of ESMF_Scrip2Unstruct --help
 
 -----------------------------------------------------------------------=
@@ -1468,9 +1465,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26364/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/11702/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -1489,15 +1486,15 @@ it.
     dualflag        1 to generate a dual mesh, 0 for non-dual mesh
     [fileformat]    Either ESMF or UGRID, the default is ESMF
 
-[borgs002:04418] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:31329] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04418] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:31329] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:22 EDT 2020 ESMF_Scrip2Unstruct --version PASS
+Wed Apr  8 04:16:40 EDT 2020 ESMF_Scrip2Unstruct --version PASS
 The following is the output of ESMF_Scrip2Unstruct --version
 
 -----------------------------------------------------------------------=
@@ -1517,9 +1514,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26332/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/11603/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -1584,15 +1581,15 @@ G
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
 ALINGS
  WITH THE SOFTWARE.
-[borgs002:04450] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:31364] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04450] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:31364] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:23 EDT 2020 ESMF_Scrip2Unstruct -V .......PASS
+Wed Apr  8 04:16:40 EDT 2020 ESMF_Scrip2Unstruct -V .......PASS
 The following is the output of ESMF_Scrip2Unstruct -V
 
 -----------------------------------------------------------------------=
@@ -1612,24 +1609,24 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgs002
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37727739.scvasque/openmpi-se=
-ssions-scvasque@borgs002_0/26173/1/shared_mem_pool.borgs002
+  Local host: borgl002
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150162.scvasque/openmpi-se=
+ssions-scvasque@borgl002_0/11635/1/shared_mem_pool.borgl002
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
 -----------------------------------------------------------------------=
 ---
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
-[borgs002:04483] 1 more process has sent help message help-opal-shmem-m=
+[borgl002:31396] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgs002:04483] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgl002:31396] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:23 EDT 2020 ESMF_WebServController --help PASS
+Wed Apr  8 04:16:40 EDT 2020 ESMF_WebServController --help PASS
 The following is the output of ESMF_WebServController --help
 
 ESMF_WebServController: Run a Process Controller that provides access t=
@@ -1650,7 +1647,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:23 EDT 2020 ESMF_WebServController --version PASS
+Wed Apr  8 04:16:40 EDT 2020 ESMF_WebServController --version PASS
 The following is the output of ESMF_WebServController --version
 
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
@@ -1716,7 +1713,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 04:17:23 EDT 2020 ESMF_WebServController -V ....PASS
+Wed Apr  8 04:16:40 EDT 2020 ESMF_WebServController -V ....PASS
 The following is the output of ESMF_WebServController -V
 
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
@@ -1727,8 +1724,8 @@ The following is the output of ESMF_WebServController -V
 Ran 18 applications tests, 18 passed and 0 failed.
 
 |----------------------- SYSTEM TESTS -------------------------|
-Wed Mar 11 04:20:50 EDT 2020 build_system_tests -j4 .......PASS
-Wed Mar 11 04:22:54 EDT 2020 run_system_tests .............PASS
+Wed Apr  8 04:20:00 EDT 2020 build_system_tests -j4 .......PASS
+Wed Apr  8 04:23:21 EDT 2020 run_system_tests .............PASS
 
 
 The following system tests passed:
@@ -1839,8 +1836,8 @@ Found 46 multi-processor system tests, 46 passed and 0 failed.
 
 
 |------------------------- EXAMPLES ---------------------------|
-Wed Mar 11 04:26:46 EDT 2020 build_examples -j4 ...........PASS
-Wed Mar 11 04:30:27 EDT 2020 run_examples .................PASS
+Wed Apr  8 04:27:07 EDT 2020 build_examples -j4 ...........PASS
+Wed Apr  8 04:29:32 EDT 2020 run_examples .................PASS
 
 
 The following examples passed:
@@ -2006,8 +2003,8 @@ Found 85 multi-processor examples, 85 passed and 0 failed.
 
 
 |-------------------- EXHAUSTIVE UNIT TESTS -------------------|
-Wed Mar 11 04:39:12 EDT 2020 build_unit_tests -j4 .........PASS
-Wed Mar 11 04:49:55 EDT 2020 run_unit_tests ...............PASS
+Wed Apr  8 04:38:17 EDT 2020 build_unit_tests -j4 .........PASS
+Wed Apr  8 04:46:53 EDT 2020 run_unit_tests ...............PASS
 
 
 
@@ -2365,7 +2362,7 @@ _______________________________________________________________________=
 ________________________
 
 
-Wed Mar 11 04:52:28 EDT 2020 on discover01=20
+Wed Apr  8 04:48:22 EDT 2020 on discover01=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -2381,13 +2378,13 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc
+ESMF_8_0_1_beta_snapshot_07
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.0.1 beta snapshot
-ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc
+ESMF_8_0_1_beta_snapshot_07
 --------------------------------------------------------------
 HEAD detached at origin/ESMF_8_0_1branch
 Untracked files:
@@ -2578,13 +2575,13 @@ over/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf/src/incl=
 ude -I/usr/local/other/SLES11.1/netcdf/3.6.3/gcc-4.8.1/include -I/home/=
 scvasque/proj4/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc' -DES=
-MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
-SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
- -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_N=
-O_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS=
-x86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dopenmpi -DESMF_DIR=
-=3D/discover/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_07' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DES=
+MF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=
+=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dopenmpi -DESMF_DIR=3D/discover/n=
+obackup/scvasque/scripts_dir/branch_builds/gfortran/esmf
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -2615,14 +2612,14 @@ _builds/gfortran/esmf/src/include  -I/usr/local/other/SLES11.1/netcdf/3=
 kup/scvasque/scripts_dir/branch_builds/gfortran/esmf/src/prologue/yaml-=
 cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc' -DES=
-MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
-SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
- -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_N=
-O_OPENACC -DESMF_TESTEXHAUSTIVE  -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -D=
-Sx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dopenmpi -DESMF_DIR=
-=3D/discover/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf =
--D__SDIR__=3D'' -DESMF_CXXSTD=3D11 -DESMF_NO_SIGUSR2
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_07' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DES=
+MF_TESTEXHAUSTIVE  -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=
+=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dopenmpi -DESMF_DIR=3D/discover/n=
+obackup/scvasque/scripts_dir/branch_builds/gfortran/esmf -D__SDIR__=3D'=
+' -DESMF_CXXSTD=3D11 -DESMF_NO_SIGUSR2
 
 C++ linker flags:
 ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed
@@ -2680,7 +2677,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Wed Mar 11 04:52:32 EDT 2020 on discover01
+Compiling on Wed Apr 8 04:48:24 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -2688,17 +2685,17 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Wed Mar 11 05:02:40 EDT 2020 library build -j16 ...........PASS
+Wed Apr  8 04:58:36 EDT 2020 library build -j16 ...........PASS
 Builds with warnings.
-Wed Mar 11 05:02:59 EDT 2020 library install -j4 ..........PASS
-Wed Mar 11 05:03:00 EDT 2020 library installcheck -j4 .....PASS
-Wed Mar 11 05:04:10 EDT 2020 quickstart build -j4 .........PASS
+Wed Apr  8 04:58:54 EDT 2020 library install -j4 ..........PASS
+Wed Apr  8 04:58:56 EDT 2020 library installcheck -j4 .....PASS
+Wed Apr  8 04:59:58 EDT 2020 quickstart build -j4 .........PASS
 
 |------------------------ APPs TESTS --------------------------|
-Wed Mar 11 05:04:14 EDT 2020 apps build -j4 ...............PASS
+Wed Apr  8 05:00:02 EDT 2020 apps build -j4 ...............PASS
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:00 EDT 2020 ESMF_Regrid --help ...........PASS
+Wed Apr  8 05:01:35 EDT 2020 ESMF_Regrid --help ...........PASS
 The following is the output of ESMF_Regrid --help
 
 -----------------------------------------------------------------------=
@@ -2718,9 +2715,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14907/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7222/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -2838,15 +2835,15 @@ lon(i,j)), assuming
  Visit http://www.earthsystemmodeling.org/ to find out more about the
  Earth System Modeling Framework.
 =20
-[borgm111:20977] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:23754] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:20977] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:23754] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:01 EDT 2020 ESMF_Regrid --version ........PASS
+Wed Apr  8 05:01:35 EDT 2020 ESMF_Regrid --version ........PASS
 The following is the output of ESMF_Regrid --version
 
 -----------------------------------------------------------------------=
@@ -2866,9 +2863,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14808/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7190/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -2933,15 +2930,15 @@ G
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
 ALINGS
  WITH THE SOFTWARE.
-[borgm111:21010] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:23786] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21010] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:23786] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:01 EDT 2020 ESMF_Regrid -V ...............PASS
+Wed Apr  8 05:01:36 EDT 2020 ESMF_Regrid -V ...............PASS
 The following is the output of ESMF_Regrid -V
 
 -----------------------------------------------------------------------=
@@ -2961,24 +2958,24 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14840/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7670/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
 -----------------------------------------------------------------------=
 ---
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
-[borgm111:21042] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:23818] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21042] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:23818] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:02 EDT 2020 ESMF_Info --help .............PASS
+Wed Apr  8 05:01:36 EDT 2020 ESMF_Info --help .............PASS
 The following is the output of ESMF_Info --help=20
 
 -----------------------------------------------------------------------=
@@ -2998,9 +2995,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14768/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7638/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -3012,15 +3009,15 @@ disable this message.
    --version     Display ESMF version and license information and exit.
    -V            Display ESMF version string and exit.
 =20
-[borgm111:21114] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:23850] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21114] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:23850] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:02 EDT 2020 ESMF_Info --version ..........PASS
+Wed Apr  8 05:01:37 EDT 2020 ESMF_Info --version ..........PASS
 The following is the output of ESMF_Info --version=20
 
 -----------------------------------------------------------------------=
@@ -3040,9 +3037,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14672/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7600/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -3107,15 +3104,15 @@ G
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
 ALINGS
  WITH THE SOFTWARE.
-[borgm111:21146] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:23884] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21146] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:23884] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:03 EDT 2020 ESMF_Info -V .................PASS
+Wed Apr  8 05:01:37 EDT 2020 ESMF_Info -V .................PASS
 The following is the output of ESMF_Info -V=20
 
 -----------------------------------------------------------------------=
@@ -3135,24 +3132,24 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14704/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7568/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
 -----------------------------------------------------------------------=
 ---
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
-[borgm111:21178] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:23916] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21178] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:23916] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:03 EDT 2020 ESMF_InfoC --help ............PASS
+Wed Apr  8 05:01:38 EDT 2020 ESMF_InfoC --help ............PASS
 The following is the output of ESMF_InfoC --help
 
 -----------------------------------------------------------------------=
@@ -3172,9 +3169,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14608/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7536/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -3186,15 +3183,15 @@ Options:
   --version     Display ESMF version and license information and exit.
   -V            Display ESMF version string and exit.
 
-[borgm111:21210] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:23948] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21210] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:23948] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:03 EDT 2020 ESMF_InfoC --version .........PASS
+Wed Apr  8 05:01:38 EDT 2020 ESMF_InfoC --version .........PASS
 The following is the output of ESMF_InfoC --version
 
 -----------------------------------------------------------------------=
@@ -3214,9 +3211,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14640/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7504/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -3281,15 +3278,15 @@ G
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
 ALINGS
  WITH THE SOFTWARE.
-[borgm111:21242] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:23980] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21242] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:23980] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:04 EDT 2020 ESMF_InfoC -V ................PASS
+Wed Apr  8 05:01:39 EDT 2020 ESMF_InfoC -V ................PASS
 The following is the output of ESMF_InfoC -V
 
 -----------------------------------------------------------------------=
@@ -3309,24 +3306,24 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14544/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7472/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
 -----------------------------------------------------------------------=
 ---
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
-[borgm111:21274] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:24012] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21274] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:24012] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:04 EDT 2020 ESMF_RegridWeightGen --help ..PASS
+Wed Apr  8 05:01:39 EDT 2020 ESMF_RegridWeightGen --help ..PASS
 The following is the output of ESMF_RegridWeightGen --help
 
 -----------------------------------------------------------------------=
@@ -3346,9 +3343,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14576/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7440/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -3543,15 +3540,15 @@ case.
  Visit http://www.earthsystemmodeling.org/ to find out more about the
  Earth System Modeling Framework.
 =20
-[borgm111:21306] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:24044] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21306] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:24044] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:05 EDT 2020 ESMF_RegridWeightGen --version PASS
+Wed Apr  8 05:01:39 EDT 2020 ESMF_RegridWeightGen --version PASS
 The following is the output of ESMF_RegridWeightGen --version
 
 -----------------------------------------------------------------------=
@@ -3571,9 +3568,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14480/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7920/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -3638,15 +3635,15 @@ G
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
 ALINGS
  WITH THE SOFTWARE.
-[borgm111:21338] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:24076] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21338] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:24076] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:05 EDT 2020 ESMF_RegridWeightGen -V ......PASS
+Wed Apr  8 05:01:40 EDT 2020 ESMF_RegridWeightGen -V ......PASS
 The following is the output of ESMF_RegridWeightGen -V
 
 -----------------------------------------------------------------------=
@@ -3666,24 +3663,24 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14512/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7888/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
 -----------------------------------------------------------------------=
 ---
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
-[borgm111:21370] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:24108] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21370] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:24108] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:06 EDT 2020 ESMF_Scrip2Unstruct --help ...PASS
+Wed Apr  8 05:01:40 EDT 2020 ESMF_Scrip2Unstruct --help ...PASS
 The following is the output of ESMF_Scrip2Unstruct --help
 
 -----------------------------------------------------------------------=
@@ -3703,9 +3700,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14416/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7856/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -3724,15 +3721,15 @@ it.
     dualflag        1 to generate a dual mesh, 0 for non-dual mesh
     [fileformat]    Either ESMF or UGRID, the default is ESMF
 
-[borgm111:21402] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:24140] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21402] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:24140] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:06 EDT 2020 ESMF_Scrip2Unstruct --version PASS
+Wed Apr  8 05:01:41 EDT 2020 ESMF_Scrip2Unstruct --version PASS
 The following is the output of ESMF_Scrip2Unstruct --version
 
 -----------------------------------------------------------------------=
@@ -3752,9 +3749,9 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14448/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7824/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
@@ -3819,15 +3816,15 @@ G
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
 ALINGS
  WITH THE SOFTWARE.
-[borgm111:21434] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:24172] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21434] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:24172] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:06 EDT 2020 ESMF_Scrip2Unstruct -V .......PASS
+Wed Apr  8 05:01:41 EDT 2020 ESMF_Scrip2Unstruct -V .......PASS
 The following is the output of ESMF_Scrip2Unstruct -V
 
 -----------------------------------------------------------------------=
@@ -3847,24 +3844,24 @@ Note, too, that system administrators can set a list of filesystems
 where Open MPI is disallowed from creating temporary files by setting
 the MCA parameter "orte_no_session_dir".
 
-  Local host: borgm111
-  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.37728161.scvasque/openmpi-se=
-ssions-scvasque@borgm111_0/14352/1/shared_mem_pool.borgm111
+  Local host: borgm129
+  Fileame:    /gpfsm/dnb31/tdirs/pbs/slurm.38150458.scvasque/openmpi-se=
+ssions-scvasque@borgm129_0/7792/1/shared_mem_pool.borgm129
 
 You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
 disable this message.
 -----------------------------------------------------------------------=
 ---
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
-[borgm111:21466] 1 more process has sent help message help-opal-shmem-m=
+[borgm129:24204] 1 more process has sent help message help-opal-shmem-m=
 map.txt / mmap on nfs
-[borgm111:21466] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
+[borgm129:24204] Set MCA parameter "orte_base_help_aggregate" to 0 to s=
 ee all help / error messages
 
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:06 EDT 2020 ESMF_WebServController --help PASS
+Wed Apr  8 05:01:41 EDT 2020 ESMF_WebServController --help PASS
 The following is the output of ESMF_WebServController --help
 
 ESMF_WebServController: Run a Process Controller that provides access t=
@@ -3885,7 +3882,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:06 EDT 2020 ESMF_WebServController --version PASS
+Wed Apr  8 05:01:41 EDT 2020 ESMF_WebServController --version PASS
 The following is the output of ESMF_WebServController --version
 
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
@@ -3951,7 +3948,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:05:06 EDT 2020 ESMF_WebServController -V ....PASS
+Wed Apr  8 05:01:41 EDT 2020 ESMF_WebServController -V ....PASS
 The following is the output of ESMF_WebServController -V
 
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
@@ -3962,8 +3959,8 @@ The following is the output of ESMF_WebServController -V
 Ran 18 applications tests, 18 passed and 0 failed.
 
 |----------------------- SYSTEM TESTS -------------------------|
-Wed Mar 11 05:08:39 EDT 2020 build_system_tests -j4 .......PASS
-Wed Mar 11 05:12:03 EDT 2020 run_system_tests .............PASS
+Wed Apr  8 05:04:54 EDT 2020 build_system_tests -j4 .......PASS
+Wed Apr  8 05:06:39 EDT 2020 run_system_tests .............PASS
 
 
 The following system tests passed:
@@ -4074,8 +4071,8 @@ Found 46 multi-processor system tests, 46 passed and 0 failed.
 
 
 |------------------------- EXAMPLES ---------------------------|
-Wed Mar 11 05:15:40 EDT 2020 build_examples -j4 ...........PASS
-Wed Mar 11 05:19:10 EDT 2020 run_examples .................PASS
+Wed Apr  8 05:10:07 EDT 2020 build_examples -j4 ...........PASS
+Wed Apr  8 05:12:24 EDT 2020 run_examples .................PASS
 
 
 The following examples passed:
@@ -4241,8 +4238,8 @@ Found 85 multi-processor examples, 85 passed and 0 failed.
 
 
 |-------------------- EXHAUSTIVE UNIT TESTS -------------------|
-Wed Mar 11 05:28:05 EDT 2020 build_unit_tests -j4 .........PASS
-Wed Mar 11 05:36:30 EDT 2020 run_unit_tests ...............PASS
+Wed Apr  8 05:21:20 EDT 2020 build_unit_tests -j4 .........PASS
+Wed Apr  8 05:28:19 EDT 2020 run_unit_tests ...............PASS
 
 
 
@@ -4600,7 +4597,7 @@ _______________________________________________________________________=
 ________________________
 
 
-Wed Mar 11 05:39:25 EDT 2020 on discover01=20
+Wed Apr  8 05:29:52 EDT 2020 on discover01=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -4615,13 +4612,13 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc
+ESMF_8_0_1_beta_snapshot_07
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.0.1 beta snapshot
-ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc
+ESMF_8_0_1_beta_snapshot_07
 --------------------------------------------------------------
 HEAD detached at origin/ESMF_8_0_1branch
 Untracked files:
@@ -4815,13 +4812,13 @@ cover/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf/src/inc=
 lude -I/usr/local/other/SLES11.1/netcdf/3.6.3/gcc-4.8.1/include -I/home=
 /scvasque/proj4/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc' -DES=
-MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
-SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
- -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_N=
-O_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS=
-x86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=
-=3D/discover/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_07' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DES=
+MF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=
+=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/=
+nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -4852,14 +4849,14 @@ _builds/gfortran/esmf/src/include  -I/usr/local/other/SLES11.1/netcdf/3=
 kup/scvasque/scripts_dir/branch_builds/gfortran/esmf/src/prologue/yaml-=
 cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc' -DES=
-MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
-SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
- -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_N=
-O_OPENACC -DESMF_TESTEXHAUSTIVE  -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -D=
-Sx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=
-=3D/discover/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf =
--D__SDIR__=3D'' -DESMF_CXXSTD=3D11
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_07' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DES=
+MF_TESTEXHAUSTIVE  -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=
+=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/=
+nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf -D__SDIR__=3D=
+'' -DESMF_CXXSTD=3D11
 
 C++ linker flags:
 ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed
@@ -4916,7 +4913,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Wed Mar 11 05:39:26 EDT 2020 on discover01
+Compiling on Wed Apr 8 05:29:54 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -4924,17 +4921,17 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Wed Mar 11 05:50:10 EDT 2020 library build -j16 ...........PASS
+Wed Apr  8 05:40:51 EDT 2020 library build -j16 ...........PASS
 Builds with warnings.
-Wed Mar 11 05:52:23 EDT 2020 library install -j4 ..........PASS
-Wed Mar 11 05:52:24 EDT 2020 library installcheck -j4 .....PASS
-Wed Mar 11 05:53:55 EDT 2020 quickstart build -j4 .........PASS
+Wed Apr  8 05:42:18 EDT 2020 library install -j4 ..........PASS
+Wed Apr  8 05:42:19 EDT 2020 library installcheck -j4 .....PASS
+Wed Apr  8 05:43:41 EDT 2020 quickstart build -j4 .........PASS
 
 |------------------------ APPs TESTS --------------------------|
-Wed Mar 11 05:54:01 EDT 2020 apps build -j4 ...............PASS
+Wed Apr  8 05:43:47 EDT 2020 apps build -j4 ...............PASS
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:54:54 EDT 2020 ESMF_Regrid --help ...........PASS
+Wed Apr  8 05:44:27 EDT 2020 ESMF_Regrid --help ...........PASS
 The following is the output of ESMF_Regrid --help
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5054,7 +5051,7 @@ lon(i,j)), assuming
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:54:54 EDT 2020 ESMF_Regrid --version ........PASS
+Wed Apr  8 05:44:28 EDT 2020 ESMF_Regrid --version ........PASS
 The following is the output of ESMF_Regrid --version
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5121,7 +5118,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:54:55 EDT 2020 ESMF_Regrid -V ...............PASS
+Wed Apr  8 05:44:28 EDT 2020 ESMF_Regrid -V ...............PASS
 The following is the output of ESMF_Regrid -V
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5130,7 +5127,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:54:56 EDT 2020 ESMF_Info --help .............PASS
+Wed Apr  8 05:44:29 EDT 2020 ESMF_Info --help .............PASS
 The following is the output of ESMF_Info --help=20
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5144,7 +5141,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:54:56 EDT 2020 ESMF_Info --version ..........PASS
+Wed Apr  8 05:44:29 EDT 2020 ESMF_Info --version ..........PASS
 The following is the output of ESMF_Info --version=20
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5211,7 +5208,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:54:57 EDT 2020 ESMF_Info -V .................PASS
+Wed Apr  8 05:44:30 EDT 2020 ESMF_Info -V .................PASS
 The following is the output of ESMF_Info -V=20
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5220,7 +5217,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:54:57 EDT 2020 ESMF_InfoC --help ............PASS
+Wed Apr  8 05:44:30 EDT 2020 ESMF_InfoC --help ............PASS
 The following is the output of ESMF_InfoC --help
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5234,7 +5231,7 @@ Options:
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:54:58 EDT 2020 ESMF_InfoC --version .........PASS
+Wed Apr  8 05:44:31 EDT 2020 ESMF_InfoC --version .........PASS
 The following is the output of ESMF_InfoC --version
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5301,7 +5298,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:54:58 EDT 2020 ESMF_InfoC -V ................PASS
+Wed Apr  8 05:44:31 EDT 2020 ESMF_InfoC -V ................PASS
 The following is the output of ESMF_InfoC -V
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5310,7 +5307,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:54:59 EDT 2020 ESMF_RegridWeightGen --help ..PASS
+Wed Apr  8 05:44:32 EDT 2020 ESMF_RegridWeightGen --help ..PASS
 The following is the output of ESMF_RegridWeightGen --help
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5507,7 +5504,7 @@ case.
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:54:59 EDT 2020 ESMF_RegridWeightGen --version PASS
+Wed Apr  8 05:44:32 EDT 2020 ESMF_RegridWeightGen --version PASS
 The following is the output of ESMF_RegridWeightGen --version
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5574,7 +5571,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:55:00 EDT 2020 ESMF_RegridWeightGen -V ......PASS
+Wed Apr  8 05:44:33 EDT 2020 ESMF_RegridWeightGen -V ......PASS
 The following is the output of ESMF_RegridWeightGen -V
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5583,7 +5580,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:55:01 EDT 2020 ESMF_Scrip2Unstruct --help ...PASS
+Wed Apr  8 05:44:34 EDT 2020 ESMF_Scrip2Unstruct --help ...PASS
 The following is the output of ESMF_Scrip2Unstruct --help
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5604,7 +5601,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:55:01 EDT 2020 ESMF_Scrip2Unstruct --version PASS
+Wed Apr  8 05:44:34 EDT 2020 ESMF_Scrip2Unstruct --version PASS
 The following is the output of ESMF_Scrip2Unstruct --version
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5671,7 +5668,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:55:02 EDT 2020 ESMF_Scrip2Unstruct -V .......PASS
+Wed Apr  8 05:44:35 EDT 2020 ESMF_Scrip2Unstruct -V .......PASS
 The following is the output of ESMF_Scrip2Unstruct -V
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -5680,7 +5677,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:55:02 EDT 2020 ESMF_WebServController --help PASS
+Wed Apr  8 05:44:35 EDT 2020 ESMF_WebServController --help PASS
 The following is the output of ESMF_WebServController --help
 
 ESMF_WebServController: Run a Process Controller that provides access t=
@@ -5701,7 +5698,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:55:02 EDT 2020 ESMF_WebServController --version PASS
+Wed Apr  8 05:44:35 EDT 2020 ESMF_WebServController --version PASS
 The following is the output of ESMF_WebServController --version
 
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
@@ -5767,7 +5764,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 05:55:02 EDT 2020 ESMF_WebServController -V ....PASS
+Wed Apr  8 05:44:35 EDT 2020 ESMF_WebServController -V ....PASS
 The following is the output of ESMF_WebServController -V
 
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
@@ -5778,8 +5775,8 @@ The following is the output of ESMF_WebServController -V
 Ran 18 applications tests, 18 passed and 0 failed.
 
 |----------------------- SYSTEM TESTS -------------------------|
-Wed Mar 11 05:58:55 EDT 2020 build_system_tests -j4 .......PASS
-Wed Mar 11 06:02:05 EDT 2020 run_system_tests .............PASS
+Wed Apr  8 05:48:04 EDT 2020 build_system_tests -j4 .......PASS
+Wed Apr  8 05:52:11 EDT 2020 run_system_tests .............PASS
 
 
 The following system tests passed:
@@ -5890,8 +5887,8 @@ Found 46 multi-processor system tests, 46 passed and 0 failed.
 
 
 |------------------------- EXAMPLES ---------------------------|
-Wed Mar 11 06:07:08 EDT 2020 build_examples -j4 ...........PASS
-Wed Mar 11 06:11:43 EDT 2020 run_examples .................PASS
+Wed Apr  8 05:56:13 EDT 2020 build_examples -j4 ...........PASS
+Wed Apr  8 05:59:17 EDT 2020 run_examples .................PASS
 
 
 The following examples passed:
@@ -6064,8 +6061,8 @@ Found 85 multi-processor examples, 85 passed and 0 failed.
 
 
 |-------------------- EXHAUSTIVE UNIT TESTS -------------------|
-Wed Mar 11 06:23:34 EDT 2020 build_unit_tests -j4 .........PASS
-Wed Mar 11 06:36:00 EDT 2020 run_unit_tests ...............PASS
+Wed Apr  8 06:11:04 EDT 2020 build_unit_tests -j4 .........PASS
+Wed Apr  8 06:29:24 EDT 2020 run_unit_tests ...............PASS
 
 
 
@@ -6435,7 +6432,7 @@ _______________________________________________________________________=
 ________________________
 
 
-Wed Mar 11 06:39:01 EDT 2020 on discover01=20
+Wed Apr  8 06:31:13 EDT 2020 on discover01=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -6450,13 +6447,13 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc
+ESMF_8_0_1_beta_snapshot_07
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.0.1 beta snapshot
-ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc
+ESMF_8_0_1_beta_snapshot_07
 --------------------------------------------------------------
 HEAD detached at origin/ESMF_8_0_1branch
 Untracked files:
@@ -6648,13 +6645,13 @@ cover/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf/src/inc=
 lude -I/usr/local/other/SLES11.1/netcdf/3.6.3/gcc-4.8.1/include -I/home=
 /scvasque/proj4/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc' -DES=
-MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
-SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
- -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_N=
-O_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS=
-x86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=
-=3D/discover/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_07' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DES=
+MF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=
+=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/=
+nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -6684,14 +6681,14 @@ _builds/gfortran/esmf/src/include  -I/usr/local/other/SLES11.1/netcdf/3=
 kup/scvasque/scripts_dir/branch_builds/gfortran/esmf/src/prologue/yaml-=
 cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_04-9-gd892ad3adc' -DES=
-MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
-SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
- -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_N=
-O_OPENACC -DESMF_TESTEXHAUSTIVE  -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -D=
-Sx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=
-=3D/discover/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf =
--D__SDIR__=3D'' -DESMF_CXXSTD=3D11
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_07' -DESMF_LAPACK=3D1 =
+-DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
+1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DES=
+MF_TESTEXHAUSTIVE  -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=
+=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/=
+nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf -D__SDIR__=3D=
+'' -DESMF_CXXSTD=3D11
 
 C++ linker flags:
 ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed
@@ -6748,7 +6745,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Wed Mar 11 06:39:04 EDT 2020 on discover01
+Compiling on Wed Apr 8 06:31:15 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -6756,17 +6753,17 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Wed Mar 11 06:51:11 EDT 2020 library build -j16 ...........PASS
+Wed Apr  8 06:44:53 EDT 2020 library build -j16 ...........PASS
 Builds with warnings.
-Wed Mar 11 06:51:37 EDT 2020 library install -j4 ..........PASS
-Wed Mar 11 06:51:39 EDT 2020 library installcheck -j4 .....PASS
-Wed Mar 11 06:53:06 EDT 2020 quickstart build -j4 .........PASS
+Wed Apr  8 06:45:23 EDT 2020 library install -j4 ..........PASS
+Wed Apr  8 06:45:25 EDT 2020 library installcheck -j4 .....PASS
+Wed Apr  8 06:46:50 EDT 2020 quickstart build -j4 .........PASS
 
 |------------------------ APPs TESTS --------------------------|
-Wed Mar 11 06:53:11 EDT 2020 apps build -j4 ...............PASS
+Wed Apr  8 06:46:55 EDT 2020 apps build -j4 ...............PASS
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:25 EDT 2020 ESMF_Regrid --help ...........PASS
+Wed Apr  8 06:48:24 EDT 2020 ESMF_Regrid --help ...........PASS
 The following is the output of ESMF_Regrid --help
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -6886,7 +6883,7 @@ lon(i,j)), assuming
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:26 EDT 2020 ESMF_Regrid --version ........PASS
+Wed Apr  8 06:48:24 EDT 2020 ESMF_Regrid --version ........PASS
 The following is the output of ESMF_Regrid --version
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -6953,7 +6950,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:26 EDT 2020 ESMF_Regrid -V ...............PASS
+Wed Apr  8 06:48:25 EDT 2020 ESMF_Regrid -V ...............PASS
 The following is the output of ESMF_Regrid -V
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -6962,7 +6959,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:27 EDT 2020 ESMF_Info --help .............PASS
+Wed Apr  8 06:48:26 EDT 2020 ESMF_Info --help .............PASS
 The following is the output of ESMF_Info --help=20
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -6976,7 +6973,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:27 EDT 2020 ESMF_Info --version ..........PASS
+Wed Apr  8 06:48:26 EDT 2020 ESMF_Info --version ..........PASS
 The following is the output of ESMF_Info --version=20
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -7043,7 +7040,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:28 EDT 2020 ESMF_Info -V .................PASS
+Wed Apr  8 06:48:27 EDT 2020 ESMF_Info -V .................PASS
 The following is the output of ESMF_Info -V=20
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -7052,7 +7049,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:28 EDT 2020 ESMF_InfoC --help ............PASS
+Wed Apr  8 06:48:27 EDT 2020 ESMF_InfoC --help ............PASS
 The following is the output of ESMF_InfoC --help
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -7066,7 +7063,7 @@ Options:
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:29 EDT 2020 ESMF_InfoC --version .........PASS
+Wed Apr  8 06:48:28 EDT 2020 ESMF_InfoC --version .........PASS
 The following is the output of ESMF_InfoC --version
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -7133,7 +7130,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:30 EDT 2020 ESMF_InfoC -V ................PASS
+Wed Apr  8 06:48:28 EDT 2020 ESMF_InfoC -V ................PASS
 The following is the output of ESMF_InfoC -V
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -7142,7 +7139,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:30 EDT 2020 ESMF_RegridWeightGen --help ..PASS
+Wed Apr  8 06:48:29 EDT 2020 ESMF_RegridWeightGen --help ..PASS
 The following is the output of ESMF_RegridWeightGen --help
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -7339,7 +7336,7 @@ case.
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:31 EDT 2020 ESMF_RegridWeightGen --version PASS
+Wed Apr  8 06:48:29 EDT 2020 ESMF_RegridWeightGen --version PASS
 The following is the output of ESMF_RegridWeightGen --version
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -7406,7 +7403,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:31 EDT 2020 ESMF_RegridWeightGen -V ......PASS
+Wed Apr  8 06:48:30 EDT 2020 ESMF_RegridWeightGen -V ......PASS
 The following is the output of ESMF_RegridWeightGen -V
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -7415,7 +7412,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:32 EDT 2020 ESMF_Scrip2Unstruct --help ...PASS
+Wed Apr  8 06:48:31 EDT 2020 ESMF_Scrip2Unstruct --help ...PASS
 The following is the output of ESMF_Scrip2Unstruct --help
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -7436,7 +7433,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:32 EDT 2020 ESMF_Scrip2Unstruct --version PASS
+Wed Apr  8 06:48:31 EDT 2020 ESMF_Scrip2Unstruct --version PASS
 The following is the output of ESMF_Scrip2Unstruct --version
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -7503,7 +7500,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:33 EDT 2020 ESMF_Scrip2Unstruct -V .......PASS
+Wed Apr  8 06:48:32 EDT 2020 ESMF_Scrip2Unstruct -V .......PASS
 The following is the output of ESMF_Scrip2Unstruct -V
 
 srun.slurm: cluster configuration lacks support for cpu binding
@@ -7512,7 +7509,7 @@ srun.slurm: cluster configuration lacks support for cpu binding
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:33 EDT 2020 ESMF_WebServController --help PASS
+Wed Apr  8 06:48:32 EDT 2020 ESMF_WebServController --help PASS
 The following is the output of ESMF_WebServController --help
 
 ESMF_WebServController: Run a Process Controller that provides access t=
@@ -7533,7 +7530,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:33 EDT 2020 ESMF_WebServController --version PASS
+Wed Apr  8 06:48:32 EDT 2020 ESMF_WebServController --version PASS
 The following is the output of ESMF_WebServController --version
 
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
@@ -7599,7 +7596,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Wed Mar 11 06:54:33 EDT 2020 ESMF_WebServController -V ....PASS
+Wed Apr  8 06:48:32 EDT 2020 ESMF_WebServController -V ....PASS
 The following is the output of ESMF_WebServController -V
 
    ESMF_VERSION_STRING:       8.0.1 beta snapshot
@@ -7610,8 +7607,8 @@ The following is the output of ESMF_WebServController -V
 Ran 18 applications tests, 18 passed and 0 failed.
 
 |----------------------- SYSTEM TESTS -------------------------|
-Wed Mar 11 06:58:30 EDT 2020 build_system_tests -j4 .......PASS
-Wed Mar 11 07:01:35 EDT 2020 run_system_tests .............PASS
+Wed Apr  8 06:52:22 EDT 2020 build_system_tests -j4 .......PASS
+Wed Apr  8 06:59:47 EDT 2020 run_system_tests .............PASS
 
 
 The following system tests passed:
@@ -7722,8 +7719,8 @@ Found 46 multi-processor system tests, 46 passed and 0 failed.
 
 
 |------------------------- EXAMPLES ---------------------------|
-Wed Mar 11 07:06:04 EDT 2020 build_examples -j4 ...........PASS
-Wed Mar 11 07:09:21 EDT 2020 run_examples .................PASS
+Wed Apr  8 07:03:47 EDT 2020 build_examples -j4 ...........PASS
+Wed Apr  8 07:06:41 EDT 2020 run_examples .................PASS
 
 
 The following examples passed:
@@ -7896,8 +7893,8 @@ Found 85 multi-processor examples, 85 passed and 0 failed.
 
 
 |-------------------- EXHAUSTIVE UNIT TESTS -------------------|
-Wed Mar 11 07:19:56 EDT 2020 build_unit_tests -j4 .........PASS
-Wed Mar 11 07:29:18 EDT 2020 run_unit_tests ...............PASS
+Wed Apr  8 07:17:12 EDT 2020 build_unit_tests -j4 .........PASS
+Wed Apr  8 07:26:26 EDT 2020 run_unit_tests ...............PASS
 
 
 
@@ -8267,7 +8264,7 @@ led.
 
  The tarballs of the tests and examples directories can be found at:
  /discover/nobackup/scvasque/scripts_dir/branch_builds/gfortran/esmf_lo=
-gs/2003_test.
+gs/2004_test.
  These tarballs contain the *Log and *stdout files only, not the execut=
 ables.
  This directory also contains failed build output files with the naming=
@@ -8277,6 +8274,6 @@ M.
  For example, if the build fails on longs on the 19th of the month with=
  ESMF_BOPT=3Dg, the file=20
  would be called 'build_g_19longslinux32pgimpiuni'.
-Test_results:orange
+Test_results:green
 Day_of_Week:Wednesday
 Test_Failures:0

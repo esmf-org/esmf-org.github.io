@@ -1,0 +1,143 @@
+<pre>
+Return-Path: <silverio.vasquez@noaa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 02 Apr 2020 11:15:02 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id D01B6F4
+	for <esmftest@cgd.ucar.edu>; Thu,  2 Apr 2020 05:05:08 -0600 (MDT)
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id A97221801497
+	for <esmftest@cgd.ucar.edu>; Thu,  2 Apr 2020 05:05:08 -0600 (MDT)
+Authentication-Results: vscanx2.ucar.edu;
+	dkim=pass (2048-bit key) header.d=noaa.gov header.i=@noaa.gov header.b="Drd4jJEG"
+Received: by mail-vs1-f71.google.com with SMTP id o4so749170vsq.9
+        for <esmftest@cgd.ucar.edu>; Thu, 02 Apr 2020 04:05:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:dkim-signature:date:to:subject:user-agent
+         :mime-version:content-transfer-encoding:message-id:from;
+        bh=MVyL9ZGR/FLpV7JEONv5WNFBWioPhdOG9qEpI3eXWNY=;
+        b=FiXVH+4ua21ih+ALrk+ySEJdiydWdrhxkkApIwa++j5tLVWpqbyNgZmrEGAja9oM4s
+         bS+16fQitxNn3uvl+nHZlVru8NXyyMNq04pIZK3VvzUPwtSoFuqmF3znOHms6CRo17I+
+         kfc1+KsYshIDgxEQfImpWpVTJwlo4vWi1/q0WUn6um1jy0Y91KlP+9AG3Jg+YJiLxfp8
+         ocisQKNi3rAv3FxoetsMd7kAJmZLkyh24CzZuMrGUWBn7AvyqYB1gFWFYoLXe/1ulVFg
+         kgwi5+gnxveNioofAWR/j1Uy7rlVREtQgvvHS1KTafcJFm6ZIoFcCr+KMHJHblys1O3t
+         5UXw==
+X-Gm-Message-State: AGi0PuaGUsCIt+gvTKvgLuF46Tx3EUgVt0xM/vcMpjMG2zXGkx1eanrO
+	PbsX98PRR3HYwQHzKtG3wKb4C+DV8TfUbsFe75qlVh8sjip1zt9gN9oBnIGiIfSNLTiRNTpTBJv
+	g8BF4kFk8S51bdjuS1LL6nA==
+X-Received: by 2002:a9f:384f:: with SMTP id q15mr2036282uad.133.1585825508015;
+        Thu, 02 Apr 2020 04:05:08 -0700 (PDT)
+X-Received: by 2002:a9f:384f:: with SMTP id q15mr2036250uad.133.1585825507393;
+        Thu, 02 Apr 2020 04:05:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1585825507; cv=none;
+        d=google.com; s=arc-20160816;
+        b=OXvOtSkn7Qy8ngg+RdxT/e5TYyuMzchPoUSBfrFQk//scIo3hxk+F7qBNRjC7gvF4i
+         QihSdcTEX2c64fMu8ePdqg0dxJIrSqNqufuma4GgEe1O5hO3tD0iTMc6kjg+ifVVih2v
+         +CaRvksuLeL6OBDSGRuQfSLHNygN6n7wg4UZfeXZRolkhmv5LxqizzJgK2GGc9nDSYdM
+         B8zFPLr/4RD6h2xHF7E57I5g/N8g1bfnERaCUf32TWdmHY2613i8qEzHKDvTUsBmaYOe
+         Ec6BPYuuVSGiWhFXyqp+LTuep1NmNh56iRpuPhFixLBf6qGOHDoIta5seenrSiIdtWgA
+         VXqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:message-id:content-transfer-encoding:mime-version:user-agent
+         :subject:to:date:dkim-signature;
+        bh=MVyL9ZGR/FLpV7JEONv5WNFBWioPhdOG9qEpI3eXWNY=;
+        b=Z8Nd4KEb7CH3uro393emkBahIeRRkPvH6z5nwaQOZv2pGVDPqUKuzim6YHRAeUY77d
+         oMgliK0vFUd4k4JDqaOYPlaC3rHU/mOoAS4qwOgpduPrgpVnuf+wPqcwDFz8d3TNsmZy
+         9f58G+qteu1saFRKmCcTNVbOSCPM4Aq7kQJYR8WWqbMrUWyKlnSLf+uCh7lrMzJf3eVA
+         ny+z5Frd01f+LzB4oeUA/vj2hakLVdP7KLaavh94h3EG6E7yZO425TLE1IWWayM2Cggp
+         3+TEfPOkwBOW0zAw2NiJaZ77w0HQjREQlZgq1zfNsAfADF6OyG1BdJeE+rmcGG0yiVok
+         KOTA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@noaa.gov header.s=google header.b=Drd4jJEG;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.97 as permitted sender) smtp.mailfrom=silverio.vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from mail-sor-f97.google.com (mail-sor-f97.google.com. [209.85.220.97])
+        by mx.google.com with SMTPS id 11sor3334560uat.66.2020.04.02.04.05.07
+        for <esmftest@cgd.ucar.edu>
+        (Google Transport Security);
+        Thu, 02 Apr 2020 04:05:07 -0700 (PDT)
+Received-SPF: pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.97 as permitted sender) client-ip=209.85.220.97;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@noaa.gov header.s=google header.b=Drd4jJEG;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.97 as permitted sender) smtp.mailfrom=silverio.vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=noaa.gov; s=google;
+        h=date:to:subject:user-agent:mime-version:content-transfer-encoding
+         :message-id:from;
+        bh=MVyL9ZGR/FLpV7JEONv5WNFBWioPhdOG9qEpI3eXWNY=;
+        b=Drd4jJEG4dA6oxlJktdR5GvG1ap+QgjoEyLCpucV7jcQYhyiYbVQ95bk/w9sBNAQaO
+         xlOVe2ChWzcmqdCOoe81Wg1VPT5edEzGguTnoiw1eydJDvw7xuXZAtna8le88YoIv+3X
+         /M/ys/OdAVFPoGQVAsqg6OxinMwK0zRneWmL8r0NEV+uiC1jfm9xGosYTpJP3nA8kF2f
+         b+mUWJ23zLyMjNBbRQgUSHK3hrRvlSvO6WZOhc8pATx+FD7pJL0UCPQyvFQI8gsBcXqG
+         OePX4e0atA36XUo+IYi/for6CNVCgZpyrQHeVfN5RCn5piHACP6lQhqBE6TlXCZi+oiO
+         0I2A==
+X-Google-Smtp-Source: APiQypIkNU7ZUApJiXlwlt60TvBUBHGFSPaO84/AhmXF7c8iBAosnZWIcxuVGRh/5OaDXA0mslpLZku9MYZo
+X-Received: by 2002:a9f:2c8a:: with SMTP id w10mr1986137uaj.97.1585825507075;
+        Thu, 02 Apr 2020 04:05:07 -0700 (PDT)
+Received: from dmz-smtp-gw4.gsd.esrl.noaa.gov (dmz-smtp-gw4.gsd.esrl.noaa.gov. [137.75.133.82])
+        by smtp-relay.gmail.com with ESMTPS id 199sm396996vkx.3.2020.04.02.04.05.06
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 02 Apr 2020 04:05:07 -0700 (PDT)
+X-Relaying-Domain: noaa.gov
+Received: from smtp-gw1.gsd.esrl.noaa.gov (smtp-gw1.gsd.esrl.noaa.gov [137.75.240.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dmz-smtp-gw4.gsd.esrl.noaa.gov (Postfix) with ESMTPS id BAC50227CF2;
+	Thu,  2 Apr 2020 11:05:05 +0000 (UTC)
+Received: from linux-regtest2.gsd.esrl.noaa.gov (linux-regtest2.gsd.esrl.noaa.gov [137.75.232.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp-gw1.gsd.esrl.noaa.gov (Postfix) with ESMTPS id 7AF0C2269DF;
+	Thu,  2 Apr 2020 11:05:04 +0000 (UTC)
+Received: by linux-regtest2.gsd.esrl.noaa.gov (Postfix, from userid 1992296994)
+	id 979C69C4; Thu,  2 Apr 2020 11:05:03 +0000 (UTC)
+Date: Thu, 02 Apr 2020 11:05:03 +0000
+To: esmftest@cgd.ucar.edu, esmf_test@noaa.gov
+Subject: ESMF_Targets_Linux-regtest2_gfortran
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-Id: <20200402110503.979C69C4@linux-regtest2.gsd.esrl.noaa.gov>
+From: silverio.vasquez@noaa.gov (Silverio Vasquez)
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+WARNING: The test experienced an abnormal termination during execution,
+         therefore the test results may be incomplete/invalid.
+
+
+Script end: Thu Apr  2 11:05:03 UTC 2020
+
+
+__________________________ESMF TRUNK TARGETS TEST SUMMARY_______________________________
+
+
+
+                                            
+                              INSTALL/
+                 BUILD      QUICK_START   OS.COMPILER.COMM.ABI       TARGETS
+______________________________________________________________________________________
+               PASS/FAIL    PASS/FAIL                                PASS/FAIL   
+______________________________________________________________________________________
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /export/scripts_dir/daily_builds/all_targets/gfortran/esmf_logs/2004_test.
+ These tarballs contain the *Log and *stdout files only, not the executables.
+ This directory also contains failed build output files with the naming convention of 
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COMM.
+ For example, if the build fails on longs on the 19th of the month with ESMF_BOPT=g, the file 
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:orange
+Test_Failures:
