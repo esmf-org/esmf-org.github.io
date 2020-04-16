@@ -1,0 +1,3937 @@
+<pre>
+Return-Path: <silverio.vasquez@noaa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by
+  marktest.cgd.ucar.edu with IMAP4-SSL; 14 Apr 2019 23:40:35 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id CC2D2220
+	for <esmftest@cgd.ucar.edu>; Sun, 14 Apr 2019 17:29:03 -0600 (MDT)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 2CE89180239E
+	for <esmftest@cgd.ucar.edu>; Sun, 14 Apr 2019 17:29:03 -0600 (MDT)
+Received: by mail-wr1-f72.google.com with SMTP id h12so13734831wrx.23
+        for <esmftest@cgd.ucar.edu>; Sun, 14 Apr 2019 16:29:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:dkim-signature:mime-version:references
+         :in-reply-to:from:date:message-id:subject:to;
+        bh=7VFCCqUQ9Dt+VVTlyn7jwY24S/K3d9gG7kj7UI12kbY=;
+        b=glCTVhZeCyb55TZDf4K0YLzoguvi+g8b7y+mexCja5I7PMl09lR7fVvFz/qW74FwSl
+         4iEU+WWL3au2+o+ZP6D8FRmh/b3dUX5Rn+mxIzS9VHvSX7YN4vtsM2zpUMXtkw7Gjbyw
+         haELiw6ezP7+AgbQnuP4fPF0rZEcCN05HPbYUCAINrl1yqFwlmKOY6dag/ufsU50iWgr
+         YYRzAEWYRauqzHtTQ6zG+YMFQOdqIshDz9ytFe7IkmOZftlzprS/uF/nW8Mln/L5cNFq
+         yv85nNjFivb8SptK9vM7QCAvywnCgj4CllmKXVCEwC5q36r8FtajoMGGVzTPjXlMn1zo
+         h7+Q==
+X-Gm-Message-State: APjAAAUP+WLeg8kD3u58WbVofyMmVaSFvISy4kuCzCIPYfnWtCyiJRD2
+	SU2VXvFHYJFrpJI0G+AtfoWzszpzvhvG1EGQtPwo1qaHezHwMxTqQOtF95HKy5vwBWDeG7y5SP+
+	zZJnNaAK9ykl7MLSr
+X-Received: by 2002:a1c:e709:: with SMTP id e9mr20521792wmh.14.1555284541869;
+        Sun, 14 Apr 2019 16:29:01 -0700 (PDT)
+X-Received: by 2002:a1c:e709:: with SMTP id e9mr20521774wmh.14.1555284541332;
+        Sun, 14 Apr 2019 16:29:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1555284541; cv=none;
+        d=google.com; s=arc-20160816;
+        b=fd8kk+NhmEhJ+EmZXM2xg8tx9ycuHyst0r3P25WIoS6m8QKLIj1WZBVmqxwlImHHNd
+         93fhg108u0MZvgTQQpRbpg8jFc6bccZvZOyYlX7lx93WIKt0lSja7zesIrHLo/x7Iye1
+         1bv8I/KVtubWqpl+rDyNpP1cExIeHEwek50oY79EpZCzo7gx+WAGxNSyYmBVxGWFAIiv
+         PA9rgdwY3KKOXmUPMQi1+KPbY5lQMgEG04VAuy2ssLdTnEkbJRdnI8B7ybsZA4U9fQgc
+         BkhgNOSWRFTR2OTceZhrHDix3vwjzKTuIBNXU7lsUioWsY0T8IfJ3J/XLnefbx+eNvtm
+         +lvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=7VFCCqUQ9Dt+VVTlyn7jwY24S/K3d9gG7kj7UI12kbY=;
+        b=vl7qRg1gWjDpQYMG3t0xXMcK2Bm30xB+J9kDxtm4Vm+8clPZBqR1BXOf+46WKsYBV9
+         hi3uvYwIJcEelITIy2DOmPL8wxXtse6Go8jgHNVX0OTuTJGh53D4qK3F+E14qdE4T0Hk
+         rrq5G3vabqudAROPKwGhxkCTNtgthI4To60cl1gfNinzDnWQeELY6AR525Z8L9hBO3ug
+         b0gZoCoQNkFyVFXZXiVCPumdQENp+ZUiJ+aFPgZmKm/a73yYRHLFB4Zd0HqEsie8gt6U
+         EMiFKxNzeX6WfMm8Q74CcpUsqF6z5qulvU20icS/g4qyxs27H4W2MOACQcXcZt83PyJ5
+         Ncxw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@noaa.gov header.s=google header.b=TKSQ3eLh;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.41 as permitted sender) smtp.mailfrom=silverio.vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id x3sor9444318wmk.9.2019.04.14.16.29.01
+        for <esmftest@cgd.ucar.edu>
+        (Google Transport Security);
+        Sun, 14 Apr 2019 16:29:01 -0700 (PDT)
+Received-SPF: pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@noaa.gov header.s=google header.b=TKSQ3eLh;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 209.85.220.41 as permitted sender) smtp.mailfrom=silverio.vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=noaa.gov; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+        bh=7VFCCqUQ9Dt+VVTlyn7jwY24S/K3d9gG7kj7UI12kbY=;
+        b=TKSQ3eLhWOiGz2STFwAMgnZIes5qsKyloCn1WBMoWz5PihUSoqkystsJGk79eWAM8H
+         wkf8NEyB9yHK6+YLKokFiRj0zBryUGagzvUcA8vQ0k0WNVGk5kFb1L88/5ZJrDIVfvQZ
+         hYWf5NgGB7sDhI/H/zLQNNl9uHoYq0p4Wh9f0+FhrqmhADOBOzTK/NzhJjgiaEIJYJdX
+         bAHmVoZD3CcQRs+XUjjLc/pdZBG9OWt8LdnhdxvfeOxy94Hq+SDNtBTX1egJozUYcp1m
+         qZ/dJ/LrJCoTuKJOawxNEXXH8RbPrIAFc1o4gyL09y/QMvf7aTUJeCgdBxQ5CUHe0zV9
+         Tn7g==
+X-Google-Smtp-Source: APXvYqxug22wJsjrxTpuBBF35ExvJdTNAs7b5IHTtc51dj+hZSax64iAAWZR8Ml7ZwYulsbHw8SV04eQ2LCDA0XjVWU=
+X-Received: by 2002:a1c:2087:: with SMTP id g129mr19589036wmg.114.1555284539675;
+ Sun, 14 Apr 2019 16:28:59 -0700 (PDT)
+MIME-Version: 1.0
+References: <20190414193304.2FCB7998@linux-regtest2.gsd.esrl.noaa.gov>
+In-Reply-To: <20190414193304.2FCB7998@linux-regtest2.gsd.esrl.noaa.gov>
+From: Silverio Vasquez - NOAA Affiliate <silverio.vasquez@noaa.gov>
+Date: Sun, 14 Apr 2019 17:28:47 -0600
+Message-ID: <CAMKputCDUWdRyRD9dY4WGFw0taahk5-fcxjM=HcWPfMgv8NkzQ@mail.gmail.com>
+Subject: Branch_ESMPy_Linux-regtest2_gfortran
+To: esmftest@cgd.ucar.edu
+Content-Type: multipart/alternative; boundary="000000000000835780058685e6cf"
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+--000000000000835780058685e6cf
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+---------- Forwarded message ---------
+From: Silverio Vasquez <silverio.vasquez@noaa.gov>
+Date: Sun, Apr 14, 2019 at 1:33 PM
+Subject: Branch_ESMPy_Linux-regtest2_gfortran
+To: <silverio.vasquez@noaa.gov>
+
+
+
+
+
+
+Script start time: Sun Apr 14 13:10:02 MDT 2019
+
+Script end: Sun Apr 14 13:33:03 MDT 2019
+
+
+___________________________________ESMF_7_1_0rbranch ESMPy BUILD AND TEST
+SUMMARY___________________________
+
+
+
+                      Python Build
+
+                    Regrid from
+               BUILD       INSTALL    OS.COMPILER.COMM.ABI      unit tests
+       examples      file tests
+___________________________________________________________________________=
+__________________________________
+               PASS/FAIL   PASS/FAIL
+ PASS/FAIL/SKIP PASS/FAIL/SKIP PASS/FAIL/SKIP
+___________________________________________________________________________=
+__________________________________
+linux-regtest2(g)PASS        PASS    Linux.gfortran.mpiuni.64   59/16/12
+      2/5/1          0/0/0
+linux-regtest2(O)PASS        PASS    Linux.gfortran.mpiuni.64   59/16/12
+      2/5/1          0/0/0
+
+___________________________________________________________________________=
+__________________________________
+
+Sun Apr 14 13:13:45 MDT 2019 on linux-regtest2.gsd.esrl.noaa.gov
+
+ESMF Checkout Source: git://git.code.sf.net/p/esmf/esmf
+
+Compiler and configuration information:
+
+--------------------------------------------------------------
+No Modulefiles Currently Loaded.
+
+
+
+ESMF Repository:
+origin  git://git.code.sf.net/p/esmf/esmf (fetch)
+origin  git://git.code.sf.net/p/esmf/esmf (push)
+
+ESMF_7_1_0rp1_beta_snapshot_05
+
+
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    7.1.0rp1 beta snapshot
+ESMF_7_1_0rp1_beta_snapshot_05
+--------------------------------------------------------------
+# HEAD detached at origin/ESMF_7_1_0rbranch
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#       tmp
+nothing added to commit but untracked files present (use "git add" to track=
+)
+--------------------------------------------------------------
+
+--------------------------------------------------------------
+Make version:
+GNU Make 3.82
+Built for x86_64-redhat-linux-gnu
+Copyright (C) 2010  Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.htm=
+l
+>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+--------------------------------------------------------------
+Fortran Compiler version:
+GNU Fortran (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)
+Copyright (C) 2015 Free Software Foundation, Inc.
+
+GNU Fortran comes with NO WARRANTY, to the extent permitted by law.
+You may redistribute copies of GNU Fortran
+under the terms of the GNU General Public License.
+For more information about these matters, see the file named COPYING
+
+
+--------------------------------------------------------------
+C++ Compiler version:
+g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3Dg
+ESMF_COMM=3Dmpiuni
+ESMF_COMPILER=3Dgfortran
+ESMF_DIR=3D/export/scripts_dir/branch_builds/esmpy/gfortran/esmf
+ESMF_INSTALL_BINDIR=3Dbin
+ESMF_INSTALL_LIBDIR=3Dlib
+ESMF_INSTALL_MODDIR=3Dmod
+ESMF_INSTALL_PREFIX=3D/export/scripts_dir/branch_builds/esmpy/gfortran/esmf=
+/../install_dir
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessFieldUNI_1
+ESMF_TESTMPMD=3DON
+ESMF_TESTWITHTHREADS=3DOFF
+
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /export/scripts_dir/branch_builds/esmpy/gfortran/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          gfortran
+ESMF_BOPT:              g
+ESMF_COMM:              mpiuni
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            ON
+ESMF_OPENACC:           OFF
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          ON
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessFieldUNI_1
+ESMF_MPIRUN:
+/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/Infrastructure/st=
+ubs/mpiuni/mpirun
+ESMF_MPIMPMDRUN:
+
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:
+/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod
+ESMF_INSTALL_LIBDIR:    lib
+ESMF_INSTALL_BINDIR:    bin
+ESMF_INSTALL_DOCDIR:    doc
+
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:
+/home/silverio.vasquez/bin:/usr/local/share/Modules/bin:/usr/bin:/bin:/usr/=
+local/sbin:/usr/sbin:/home/silverio.vasquez/.local/bin:/home/silverio.vasqu=
+ez/bin:/home/silverio.vasquez/.local/bin:/home/silverio.vasquez/bin:/home/s=
+ilverio.vasquez/.local/bin:/home/silverio.vasquez/bin:/home/silverio.vasque=
+z/.local/bin:/home/silverio.vasquez/bin
+LD_LIBRARY_PATH:
+
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /usr/bin/gfortran
+Location of the Fortran linker:    /usr/bin/gfortran
+Location of the C++ compiler:      /usr/bin/g++
+Location of the C++ linker:        /usr/bin/g++
+
+Fortran compiler flags:
+ESMF_F90COMPILER: gfortran
+ESMF_F90COMPILEOPTS: -g -Wall -Wextra -Wconversion -Wno-unused
+-Wno-unused-dummy-argument -fbacktrace -fimplicit-none
+-fcheck=3Darray-temps,bounds,do,mem,recursion -fPIC  -m64 -mcmodel=3Dsmall
+-pthread -ffree-line-length-none  -fopenmp
+ESMF_F90COMPILEPATHS:
+-I/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/mod/modg/Linux.gfor=
+tran.64.mpiuni.default
+-I/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE
+-DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1
+-DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE
+-DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_MPIUNI
+ESMF_F90COMPILEFREECPP:
+ESMF_F90COMPILEFREENOCPP: -ffree-form
+ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
+ESMF_F90COMPILEFIXNOCPP:
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed
+-fopenmp
+ESMF_F90LINKPATHS:
+-L/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/lib/libg/Linux.gfor=
+tran.64.mpiuni.default
+-L/usr/lib/gcc/x86_64-redhat-linux/4.8.5/
+ESMF_F90LINKRPATHS:
+-Wl,-rpath,/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/lib/libg/L=
+inux.gfortran.64.mpiuni.default
+-Wl,-rpath,/usr/lib/gcc/x86_64-redhat-linux/4.8.5/
+ESMF_F90LINKLIBS:  -lrt -lstdc++ -ldl
+ESMF_F90ESMFLINKLIBS: -lesmf  -lrt -lstdc++ -ldl
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: g++
+ESMF_CXXCOMPILEOPTS: -g -Wall -Wextra -Wno-unused -fcheck-data-deps -fPIC
+-DESMF_LOWERCASE_SINGLEUNDERSCORE -m64 -mcmodel=3Dsmall -pthread  -fopenmp
+ESMF_CXXCOMPILEPATHS:
+-I/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/include
+ -I/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/Infrastructure=
+/stubs/mpiuni
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE
+-DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1
+-DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE
+-DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -D__SDIR__=3D=
+''
+-DESMF_MPIUNI
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:  -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed  -fope=
+nmp
+ESMF_CXXLINKPATHS:
+-L/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/lib/libg/Linux.gfor=
+tran.64.mpiuni.default
+-L/usr/lib/gcc/x86_64-redhat-linux/4.8.5/
+ESMF_CXXLINKRPATHS:
+-Wl,-rpath,/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/lib/libg/L=
+inux.gfortran.64.mpiuni.default
+-Wl,-rpath,/usr/lib/gcc/x86_64-redhat-linux/4.8.5/
+ESMF_CXXLINKLIBS:  -lrt -lgfortran -ldl
+ESMF_CXXESMFLINKLIBS: -lesmf  -lrt -lgfortran -ldl
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    g++
+ESMF_SL_LIBOPTS:       -shared  -fopenmp
+ESMF_SL_LIBLIBS:
+
+
+--------------------------------------------------------------
+Compiling on Sun Apr 14 13:13:48 MDT 2019 on
+linux-regtest2.gsd.esrl.noaa.gov
+Machine characteristics: Linux linux-regtest2.gsd.esrl.noaa.gov
+3.10.0-957.5.1.el7.x86_64 #1 SMP Wed Dec 19 10:46:58 EST 2018 x86_64 x86_64
+x86_64 GNU/Linux
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Sun Apr 14 13:21:31 MDT 2019 library build -j4 ............PASS
+Builds with warnings.
+Sun Apr 14 13:21:51 MDT 2019 library install ..............PASS
+Sun Apr 14 13:21:52 MDT 2019 library installcheck .........PASS
+
+|------------------------ PYTHON BUILD ------------------------|
+Sun Apr 14 13:21:57 MDT 2019 python build .................PASS
+
+
+|-------------------- PYTHON UNIT TESTS -----------------------|
+Sun Apr 14 13:22:01 MDT 2019 run test .....................PASS
+
+Found 87 unit tests, 59 pass, 16 fail and 12 were skipped.
+
+
+
+ The following is the run_unit_test.output file.
+
+running test
+test_assertNumpyAll_bad_mask (ESMF.test.base_test.Test) ... ok
+test_assertNumpyAll_type_differs (ESMF.test.base_test.Test) ... ok
+test_copy (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_del (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_doublebuffer (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_mul (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_new (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_ownership (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_reshape (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_slice (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_slice2 (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_stress (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_field_area (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_create_from_gridfield (ESMF.test.test_api.test_field.TestField)
+... ok
+test_field_extradims_grid (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_extradims_mesh (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_grid_copy (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_locstream_mask (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_reshape (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_slice_grid (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_slice_grid_extraindices
+(ESMF.test.test_api.test_field.TestField) ... ok
+test_field_slice_mesh (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_switchedindices_grid (ESMF.test.test_api.test_field.TestField)
+... ok
+test_field_uniqueness (ESMF.test.test_api.test_field.TestField) ... ok
+test_meta_del (ESMF.test.test_api.test_field.TestField) ... ok
+test_numpy_funcs (ESMF.test.test_api.test_field.TestField) ... ok
+test_grid_area (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_area_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_attributes_2d (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_attributes_3d (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_coords (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_coords_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_copy (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_create_cubed_sphere (ESMF.test.test_api.test_grid.TestGrid) ...
+At line 321 of file
+/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/Infrastructure/Ut=
+il/src/ESMF_UtilCubedSphere.F90
+Fortran runtime warning: An array temporary was created for argument 'q1'
+of procedure 'cell_center2'
+At line 321 of file
+/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/Infrastructure/Ut=
+il/src/ESMF_UtilCubedSphere.F90
+Fortran runtime warning: An array temporary was created for argument 'q2'
+of procedure 'cell_center2'
+At line 322 of file
+/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/Infrastructure/Ut=
+il/src/ESMF_UtilCubedSphere.F90
+Fortran runtime warning: An array temporary was created for argument 'q3'
+of procedure 'cell_center2'
+At line 322 of file
+/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/Infrastructure/Ut=
+il/src/ESMF_UtilCubedSphere.F90
+Fortran runtime warning: An array temporary was created for argument 'q4'
+of procedure 'cell_center2'
+ok
+test_grid_create_from_file_gridspec1D
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip (ESMF.test.test_api.test_grid.TestGrid)
+... ERROR
+test_grid_create_from_file_scrip_decomp_balanced_balanced
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_balanced_cyclic
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_balanced_restfirst
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_balanced_restlast
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_cyclic_balanced
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_cyclic_cyclic
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_cyclic_restfirst
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_cyclic_restlast
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_restfirst_balanced
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_restfirst_cyclic
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_restfirst_restfirst
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_restfirst_restlast
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_restlast_balanced
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_restlast_cyclic
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_restlast_restfirst
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_restlast_restlast
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_mask (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_mask_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_periodic (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_slice_2d (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_slice_2d_corners (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_slice_3d (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_slice_3d_corners (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_slice_periodic (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_slice_grid_created_from_file_scrip
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_copy (ESMF.test.test_api.test_locstream.TestLocStream) ... ok
+test_create (ESMF.test.test_api.test_locstream.TestLocStream) ... ok
+test_mask (ESMF.test.test_api.test_locstream.TestLocStream) ... ok
+test_pickle (ESMF.test.test_api.test_locstream.TestLocStream) ... SKIP
+test_properties (ESMF.test.test_api.test_locstream.TestLocStream) ... SKIP
+test_slice (ESMF.test.test_api.test_locstream.TestLocStream) ... ok
+test_mesh_10 (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_5 (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_50 (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_50_mask_area (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_50_ngons (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_copy (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_create_from_file_esmfmesh (ESMF.test.test_api.test_mesh.TestMesh)
+... ERROR
+test_mesh_create_from_file_scrip (ESMF.test.test_api.test_mesh.TestMesh)
+... ERROR
+test_mesh_slicing (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_slice_mesh_created_from_file_elem_coords
+(ESMF.test.test_api.test_mesh.TestMesh) ... SKIP
+test_slice_mesh_created_from_file_esmfmesh
+(ESMF.test.test_api.test_mesh.TestMesh) ... ERROR
+test_slice_mesh_created_from_file_scrip
+(ESMF.test.test_api.test_mesh.TestMesh) ... ERROR
+test_field_regrid (ESMF.test.test_api.test_regrid.TestRegrid) ... ok
+test_field_regrid_gridmesh (ESMF.test.test_api.test_regrid.TestRegrid) ...
+ok
+test_interfaceint (ESMF.test.test_cbindings.TestCbindings) ... ok
+test_interfaceint2 (ESMF.test.test_cbindings.TestCbindings) ... SKIP
+test_interfaceint3 (ESMF.test.test_cbindings.TestCbindings) ... SKIP
+test_log (ESMF.test.test_cbindings.TestCbindings) ... ok
+test_version_compare (ESMF.test.test_cbindings.TestCbindings) ... ok
+test_vm (ESMF.test.test_cbindings.TestCbindings) ... ok
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_gridspec1D
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 625, in test_grid_create_from_file_gridspec1D
+    coord_names=3D["longitude", "latitude"])
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/grid.py",
+line 331, in __init__
+    coordNames=3Dcoord_names)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 638, in test_grid_create_from_file_scrip
+    raise NameError('grid_create_from_file_scrip failed!')
+NameError: grid_create_from_file_scrip failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_balanced
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 651, in test_grid_create_from_file_scrip_decomp_balanced_balanced
+    raise NameError('grid_create_from_file_scrip_balanced_balanced failed!'=
+)
+NameError: grid_create_from_file_scrip_balanced_balanced failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_restfirst
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 664, in test_grid_create_from_file_scrip_decomp_balanced_restfirst
+    raise NameError('grid_create_from_file_scrip_balanced_restfirst
+failed!')
+NameError: grid_create_from_file_scrip_balanced_restfirst failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_restlast
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 677, in test_grid_create_from_file_scrip_decomp_balanced_restlast
+    raise NameError('grid_create_from_file_scrip_balanced_restlast failed!'=
+)
+NameError: grid_create_from_file_scrip_balanced_restlast failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_balanced
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 704, in test_grid_create_from_file_scrip_decomp_restfirst_balanced
+    raise NameError('grid_create_from_file_scrip_restfirst_balanced
+failed!')
+NameError: grid_create_from_file_scrip_restfirst_balanced failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_restfirst
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 717, in test_grid_create_from_file_scrip_decomp_restfirst_restfirst
+    raise NameError('grid_create_from_file_scrip_restfirst_restfirst
+failed!')
+NameError: grid_create_from_file_scrip_restfirst_restfirst failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_restlast
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 730, in test_grid_create_from_file_scrip_decomp_restfirst_restlast
+    raise NameError('grid_create_from_file_scrip_restfirst_restlast
+failed!')
+NameError: grid_create_from_file_scrip_restfirst_restlast failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_balanced
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 757, in test_grid_create_from_file_scrip_decomp_restlast_balanced
+    raise NameError('grid_create_from_file_scrip_restlast_balanced failed!'=
+)
+NameError: grid_create_from_file_scrip_restlast_balanced failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_restfirst
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 770, in test_grid_create_from_file_scrip_decomp_restlast_restfirst
+    raise NameError('grid_create_from_file_scrip_restlast_restfirst
+failed!')
+NameError: grid_create_from_file_scrip_restlast_restfirst failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_restlast
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 783, in test_grid_create_from_file_scrip_decomp_restlast_restlast
+    raise NameError('grid_create_from_file_scrip_restlast_restlast failed!'=
+)
+NameError: grid_create_from_file_scrip_restlast_restlast failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_slice_grid_created_from_file_scrip
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 431, in test_slice_grid_created_from_file_scrip
+    raise NameError('grid_create_from_file_scrip failed!')
+NameError: grid_create_from_file_scrip failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_mesh_create_from_file_esmfmesh
+(ESMF.test.test_api.test_mesh.TestMesh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_mesh.py",
+line 151, in test_mesh_create_from_file_esmfmesh
+    raise NameError('mesh_create_from_file_scrip failed!')
+NameError: mesh_create_from_file_scrip failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_mesh_create_from_file_scrip
+(ESMF.test.test_api.test_mesh.TestMesh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_mesh.py",
+line 142, in test_mesh_create_from_file_scrip
+    raise NameError('mesh_create_from_file_scrip failed!')
+NameError: mesh_create_from_file_scrip failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_slice_mesh_created_from_file_esmfmesh
+(ESMF.test.test_api.test_mesh.TestMesh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_mesh.py",
+line 238, in test_slice_mesh_created_from_file_esmfmesh
+    raise NameError('mesh_create_from_file_esmfmesh failed!')
+NameError: mesh_create_from_file_esmfmesh failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_slice_mesh_created_from_file_scrip
+(ESMF.test.test_api.test_mesh.TestMesh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_mesh.py",
+line 215, in test_slice_mesh_created_from_file_scrip
+    raise NameError('mesh_create_from_file_scrip failed!')
+NameError: mesh_create_from_file_scrip failed!
+
+----------------------------------------------------------------------
+Ran 87 tests in 1.585s
+
+FAILED (SKIP=3D12, errors=3D16)
+Field:
+    name =3D None
+    type =3D <TypeKind.R8: 6>
+    rank =3D 1
+    extra dimensions =3D 0
+    staggerloc =3D <StaggerLoc.CENTER: 0>
+    lower bounds =3D array([0], dtype=3Dint32)
+    upper bounds =3D array([5], dtype=3Dint32)
+    extra bounds =3D None
+    data =3D array([ 7.,  7.,  7.,  7.,  7.])
+    grid =3D
+LocStream:
+    name =3D 'Test LocStream'
+    lower_bounds =3D array([0], dtype=3Dint32)
+    upper_bounds =3D array([5], dtype=3Dint32)
+    keys =3D [('ESMF:Y', array([7, 7, 7, 7, 7])), ('ESMF:X', array([1, 2, 3=
+,
+4, 5])), ('ESMF:Mask', array([0, 0, 1, 1, 1]))]
+
+)
+Grid Bounds:
+    exclusiveLBounds =3D [0 0]
+<type 'numpy.ndarray'>
+    exclusiveUBounds =3D [12 20]
+int32
+Grid Bounds:
+    exclusiveLBounds =3D [0 0 0]
+<type 'numpy.ndarray'>
+    exclusiveUBounds =3D [10 20 30]
+int32
+LocStream:
+    name =3D 'Test LocStream'
+    lower_bounds =3D array([0], dtype=3Dint32)
+    upper_bounds =3D array([5], dtype=3Dint32)
+    keys =3D [('ESMF:Y', array([7, 7, 7, 7, 7])), ('ESMF:X', array([1, 2, 3=
+,
+4, 5])), ('ESMF:Mask', array([0, 0, 1, 1, 1]))]
+
+
+local_pet =3D 0
+
+
+pet_count =3D 1
+
+Traceback (most recent call last):
+  File "setup.py", line 272, in <module>
+    'test_regrid_from_file_parallel': TestRegridFromFileParallelCommand})
+  File "/usr/lib64/python2.7/distutils/core.py", line 152, in setup
+    dist.run_commands()
+  File "/usr/lib64/python2.7/distutils/dist.py", line 953, in run_commands
+    self.run_command(cmd)
+  File "/usr/lib64/python2.7/distutils/dist.py", line 972, in run_command
+    cmd_obj.run()
+  File "setup.py", line 49, in run
+    subprocess.check_call(cmd)
+  File "/usr/lib64/python2.7/subprocess.py", line 542, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['nosetests', '-vs', '-a',
+'!slow,!parallel', 'src/ESMF']' returned non-zero exit status 1
+
+
+
+|------------------- PYTHON EXAMPLES TESTS --------------------|
+Sun Apr 14 13:22:09 MDT 2019 run test_examples ............PASS
+
+Found 8 examples tests, 2 pass, 5 fail , and 1 skipped.
+
+ The following is the run_examples.output file.
+
+running test_examples
+test_gridcreateperimask (examples.exampletest.TestExamples) ... ERROR
+test_gridlocstreamregrid (examples.exampletest.TestExamples) ... ERROR
+test_gridmeshrg (examples.exampletest.TestExamples) ... SKIP: ESMF must be
+built with MPI for test
+test_helloworld (examples.exampletest.TestExamples) ... ok
+test_locstreamgridregrid (examples.exampletest.TestExamples) ... ERROR
+test_meshlocstreamregrid (examples.exampletest.TestExamples) ... ok
+test_ugrid_latlon_regrid (examples.exampletest.TestExamples) ... ERROR
+test_ungriddedrg (examples.exampletest.TestExamples) ... ERROR
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_gridcreateperimask (examples.exampletest.TestExamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/exampletest.py",
+line 43, in test_gridcreateperimask
+    from . import grid_create_peridim_mask
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/grid_create_peridim_mask.py",
+line 60, in <module>
+    filetype=3DESMF.FileFormat.SCRIP)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/grid.py",
+line 331, in __init__
+    coordNames=3Dcoord_names)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_gridlocstreamregrid (examples.exampletest.TestExamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/exampletest.py",
+line 49, in test_gridlocstreamregrid
+    from . import grid_locstream_regrid
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/grid_locstream_regrid.py",
+line 33, in <module>
+    grid =3D ESMF.Grid(filename=3Dgrid1, filetype=3DESMF.FileFormat.SCRIP)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/grid.py",
+line 331, in __init__
+    coordNames=3Dcoord_names)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_locstreamgridregrid (examples.exampletest.TestExamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/exampletest.py",
+line 52, in test_locstreamgridregrid
+    from . import locstream_grid_regrid
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/locstream_grid_regrid.py",
+line 22, in <module>
+    grid =3D ESMF.Grid(filename=3Dgrid1, filetype=3DESMF.FileFormat.SCRIP)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/grid.py",
+line 331, in __init__
+    coordNames=3Dcoord_names)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_ugrid_latlon_regrid (examples.exampletest.TestExamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/exampletest.py",
+line 55, in test_ugrid_latlon_regrid
+    from . import ugrid_latlon_regrid
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/ugrid_latlon_regrid.py",
+line 98, in <module>
+    mesh =3D ESMF.Mesh(filename=3Dmeshfile, filetype=3DESMF.FileFormat.UGRI=
+D,
+meshname=3D'adcirc_mesh')
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/mesh.py",
+line 201, in __init__
+    mask_flag, varname)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_ungriddedrg (examples.exampletest.TestExamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/exampletest.py",
+line 40, in test_ungriddedrg
+    from . import ungridded_dimension_regrid
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/ungridded_dimension_regrid.py",
+line 32, in <module>
+    add_corner_stagger=3DTrue)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/grid.py",
+line 331, in __init__
+    coordNames=3Dcoord_names)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.227s
+
+FAILED (SKIP=3D1, errors=3D5)
+Hello ESMPy World from PET (processor) 0!
+ESMPy Grid Mesh Regridding Example
+  interpolation mean relative error =3D 2.2839050714e-05
+Traceback (most recent call last):
+  File "setup.py", line 272, in <module>
+    'test_regrid_from_file_parallel': TestRegridFromFileParallelCommand})
+  File "/usr/lib64/python2.7/distutils/core.py", line 152, in setup
+    dist.run_commands()
+  File "/usr/lib64/python2.7/distutils/dist.py", line 953, in run_commands
+    self.run_command(cmd)
+  File "/usr/lib64/python2.7/distutils/dist.py", line 972, in run_command
+    cmd_obj.run()
+  File "setup.py", line 15, in wrapper
+    return func(self)
+  File "setup.py", line 166, in run
+    AbstractESMFNoseCommand.run(self)
+  File "setup.py", line 49, in run
+    subprocess.check_call(cmd)
+  File "/usr/lib64/python2.7/subprocess.py", line 542, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['nosetests', '-vs', '-a',
+'!slow,!parallel', 'examples/exampletest.py']' returned non-zero exit
+status 1
+
+
+
+___________________________________________________________________________=
+__________________________________
+
+Sun Apr 14 13:23:17 MDT 2019 on linux-regtest2.gsd.esrl.noaa.gov
+
+ESMF Checkout Source: git://git.code.sf.net/p/esmf/esmf
+
+Compiler and configuration information:
+
+--------------------------------------------------------------
+No Modulefiles Currently Loaded.
+
+
+
+ESMF Repository:
+origin  git://git.code.sf.net/p/esmf/esmf (fetch)
+origin  git://git.code.sf.net/p/esmf/esmf (push)
+
+ESMF_7_1_0rp1_beta_snapshot_05
+
+
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    7.1.0rp1 beta snapshot
+ESMF_7_1_0rp1_beta_snapshot_05
+--------------------------------------------------------------
+# HEAD detached at origin/ESMF_7_1_0rbranch
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#       src/addon/ESMPy/PET0.ESMF_LogFile
+#       src/addon/ESMPy/environ
+#       src/addon/ESMPy/queue_results
+#       src/addon/ESMPy/run_examples.output
+#       src/addon/ESMPy/run_unit_test.output
+#       src/addon/ESMPy/tmp
+#       src/installcheck/esmc_application
+#       src/installcheck/esmc_application.o
+#       src/installcheck/esmf_application
+#       src/installcheck/esmf_application.o
+#       tmp
+nothing added to commit but untracked files present (use "git add" to track=
+)
+--------------------------------------------------------------
+
+--------------------------------------------------------------
+Make version:
+GNU Make 3.82
+Built for x86_64-redhat-linux-gnu
+Copyright (C) 2010  Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.htm=
+l
+>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+--------------------------------------------------------------
+Fortran Compiler version:
+GNU Fortran (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)
+Copyright (C) 2015 Free Software Foundation, Inc.
+
+GNU Fortran comes with NO WARRANTY, to the extent permitted by law.
+You may redistribute copies of GNU Fortran
+under the terms of the GNU General Public License.
+For more information about these matters, see the file named COPYING
+
+
+--------------------------------------------------------------
+C++ Compiler version:
+g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3DO
+ESMF_COMM=3Dmpiuni
+ESMF_COMPILER=3Dgfortran
+ESMF_DIR=3D/export/scripts_dir/branch_builds/esmpy/gfortran/esmf
+ESMF_INSTALL_BINDIR=3Dbin
+ESMF_INSTALL_LIBDIR=3Dlib
+ESMF_INSTALL_MODDIR=3Dmod
+ESMF_INSTALL_PREFIX=3D/export/scripts_dir/branch_builds/esmpy/gfortran/esmf=
+/../install_dir
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessFieldUNI_1
+ESMF_TESTMPMD=3DON
+ESMF_TESTWITHTHREADS=3DOFF
+
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /export/scripts_dir/branch_builds/esmpy/gfortran/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          gfortran
+ESMF_BOPT:              O
+ESMF_COMM:              mpiuni
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            ON
+ESMF_OPENACC:           OFF
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          ON
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArrayUNI_2
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessFieldUNI_1
+ESMF_MPIRUN:
+/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/Infrastructure/st=
+ubs/mpiuni/mpirun
+ESMF_MPIMPMDRUN:
+
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:
+/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod
+ESMF_INSTALL_LIBDIR:    lib
+ESMF_INSTALL_BINDIR:    bin
+ESMF_INSTALL_DOCDIR:    doc
+
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:
+/home/silverio.vasquez/bin:/usr/local/share/Modules/bin:/usr/bin:/bin:/usr/=
+local/sbin:/usr/sbin:/home/silverio.vasquez/.local/bin:/home/silverio.vasqu=
+ez/bin:/home/silverio.vasquez/.local/bin:/home/silverio.vasquez/bin:/home/s=
+ilverio.vasquez/.local/bin:/home/silverio.vasquez/bin:/home/silverio.vasque=
+z/.local/bin:/home/silverio.vasquez/bin
+LD_LIBRARY_PATH:
+
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /usr/bin/gfortran
+Location of the Fortran linker:    /usr/bin/gfortran
+Location of the C++ compiler:      /usr/bin/g++
+Location of the C++ linker:        /usr/bin/g++
+
+Fortran compiler flags:
+ESMF_F90COMPILER: gfortran
+ESMF_F90COMPILEOPTS: -O -fPIC  -m64 -mcmodel=3Dsmall -pthread
+-ffree-line-length-none  -fopenmp
+ESMF_F90COMPILEPATHS:
+-I/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/mod/modO/Linux.gfor=
+tran.64.mpiuni.default
+-I/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE
+-DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1
+-DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE
+-DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_MPIUNI
+ESMF_F90COMPILEFREECPP:
+ESMF_F90COMPILEFREENOCPP: -ffree-form
+ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
+ESMF_F90COMPILEFIXNOCPP:
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed
+-fopenmp
+ESMF_F90LINKPATHS:
+-L/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/lib/libO/Linux.gfor=
+tran.64.mpiuni.default
+-L/usr/lib/gcc/x86_64-redhat-linux/4.8.5/
+ESMF_F90LINKRPATHS:
+-Wl,-rpath,/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/lib/libO/L=
+inux.gfortran.64.mpiuni.default
+-Wl,-rpath,/usr/lib/gcc/x86_64-redhat-linux/4.8.5/
+ESMF_F90LINKLIBS:  -lrt -lstdc++ -ldl
+ESMF_F90ESMFLINKLIBS: -lesmf  -lrt -lstdc++ -ldl
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: g++
+ESMF_CXXCOMPILEOPTS: -O -DNDEBUG -fPIC -DESMF_LOWERCASE_SINGLEUNDERSCORE
+-m64 -mcmodel=3Dsmall -pthread  -fopenmp
+ESMF_CXXCOMPILEPATHS:
+-I/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/include
+ -I/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/Infrastructure=
+/stubs/mpiuni
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE
+-DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1
+-DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE
+-DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -D__SDIR__=3D=
+''
+-DESMF_MPIUNI
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:  -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed  -fope=
+nmp
+ESMF_CXXLINKPATHS:
+-L/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/lib/libO/Linux.gfor=
+tran.64.mpiuni.default
+-L/usr/lib/gcc/x86_64-redhat-linux/4.8.5/
+ESMF_CXXLINKRPATHS:
+-Wl,-rpath,/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/lib/libO/L=
+inux.gfortran.64.mpiuni.default
+-Wl,-rpath,/usr/lib/gcc/x86_64-redhat-linux/4.8.5/
+ESMF_CXXLINKLIBS:  -lrt -lgfortran -ldl
+ESMF_CXXESMFLINKLIBS: -lesmf  -lrt -lgfortran -ldl
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    g++
+ESMF_SL_LIBOPTS:       -shared  -fopenmp
+ESMF_SL_LIBLIBS:
+
+
+--------------------------------------------------------------
+Compiling on Sun Apr 14 13:23:23 MDT 2019 on
+linux-regtest2.gsd.esrl.noaa.gov
+Machine characteristics: Linux linux-regtest2.gsd.esrl.noaa.gov
+3.10.0-957.5.1.el7.x86_64 #1 SMP Wed Dec 19 10:46:58 EST 2018 x86_64 x86_64
+x86_64 GNU/Linux
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Sun Apr 14 13:31:33 MDT 2019 library build -j4 ............PASS
+Builds with warnings.
+Sun Apr 14 13:31:47 MDT 2019 library install ..............PASS
+Sun Apr 14 13:31:49 MDT 2019 library installcheck .........PASS
+
+|------------------------ PYTHON BUILD ------------------------|
+Sun Apr 14 13:31:52 MDT 2019 python build .................PASS
+
+
+|-------------------- PYTHON UNIT TESTS -----------------------|
+Sun Apr 14 13:31:53 MDT 2019 run test .....................PASS
+
+Found 87 unit tests, 59 pass, 16 fail and 12 were skipped.
+
+
+
+ The following is the run_unit_test.output file.
+
+running test
+test_assertNumpyAll_bad_mask (ESMF.test.base_test.Test) ... ok
+test_assertNumpyAll_type_differs (ESMF.test.base_test.Test) ... ok
+test_copy (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_del (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_doublebuffer (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_mul (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_new (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_ownership (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_reshape (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_slice (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_slice2 (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_stress (ESMF.test.test_api.test_array.TestMaskedArray) ... ok
+test_field_area (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_create_from_gridfield (ESMF.test.test_api.test_field.TestField)
+... ok
+test_field_extradims_grid (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_extradims_mesh (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_grid_copy (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_locstream_mask (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_reshape (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_slice_grid (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_slice_grid_extraindices
+(ESMF.test.test_api.test_field.TestField) ... ok
+test_field_slice_mesh (ESMF.test.test_api.test_field.TestField) ... ok
+test_field_switchedindices_grid (ESMF.test.test_api.test_field.TestField)
+... ok
+test_field_uniqueness (ESMF.test.test_api.test_field.TestField) ... ok
+test_meta_del (ESMF.test.test_api.test_field.TestField) ... ok
+test_numpy_funcs (ESMF.test.test_api.test_field.TestField) ... ok
+test_grid_area (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_area_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_attributes_2d (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_attributes_3d (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_coords (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_coords_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_copy (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_create_cubed_sphere (ESMF.test.test_api.test_grid.TestGrid) ... o=
+k
+test_grid_create_from_file_gridspec1D
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip (ESMF.test.test_api.test_grid.TestGrid)
+... ERROR
+test_grid_create_from_file_scrip_decomp_balanced_balanced
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_balanced_cyclic
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_balanced_restfirst
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_balanced_restlast
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_cyclic_balanced
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_cyclic_cyclic
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_cyclic_restfirst
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_cyclic_restlast
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_restfirst_balanced
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_restfirst_cyclic
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_restfirst_restfirst
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_restfirst_restlast
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_restlast_balanced
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_restlast_cyclic
+(ESMF.test.test_api.test_grid.TestGrid) ... SKIP
+test_grid_create_from_file_scrip_decomp_restlast_restfirst
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_create_from_file_scrip_decomp_restlast_restlast
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_grid_mask (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_mask_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_periodic (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_slice_2d (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_slice_2d_corners (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_slice_3d (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_slice_3d_corners (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_grid_slice_periodic (ESMF.test.test_api.test_grid.TestGrid) ... ok
+test_slice_grid_created_from_file_scrip
+(ESMF.test.test_api.test_grid.TestGrid) ... ERROR
+test_copy (ESMF.test.test_api.test_locstream.TestLocStream) ... ok
+test_create (ESMF.test.test_api.test_locstream.TestLocStream) ... ok
+test_mask (ESMF.test.test_api.test_locstream.TestLocStream) ... ok
+test_pickle (ESMF.test.test_api.test_locstream.TestLocStream) ... SKIP
+test_properties (ESMF.test.test_api.test_locstream.TestLocStream) ... SKIP
+test_slice (ESMF.test.test_api.test_locstream.TestLocStream) ... ok
+test_mesh_10 (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_5 (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_50 (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_50_mask_area (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_50_ngons (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_copy (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_mesh_create_from_file_esmfmesh (ESMF.test.test_api.test_mesh.TestMesh)
+... ERROR
+test_mesh_create_from_file_scrip (ESMF.test.test_api.test_mesh.TestMesh)
+... ERROR
+test_mesh_slicing (ESMF.test.test_api.test_mesh.TestMesh) ... ok
+test_slice_mesh_created_from_file_elem_coords
+(ESMF.test.test_api.test_mesh.TestMesh) ... SKIP
+test_slice_mesh_created_from_file_esmfmesh
+(ESMF.test.test_api.test_mesh.TestMesh) ... ERROR
+test_slice_mesh_created_from_file_scrip
+(ESMF.test.test_api.test_mesh.TestMesh) ... ERROR
+test_field_regrid (ESMF.test.test_api.test_regrid.TestRegrid) ... ok
+test_field_regrid_gridmesh (ESMF.test.test_api.test_regrid.TestRegrid) ...
+ok
+test_interfaceint (ESMF.test.test_cbindings.TestCbindings) ... ok
+test_interfaceint2 (ESMF.test.test_cbindings.TestCbindings) ... SKIP
+test_interfaceint3 (ESMF.test.test_cbindings.TestCbindings) ... SKIP
+test_log (ESMF.test.test_cbindings.TestCbindings) ... ok
+test_version_compare (ESMF.test.test_cbindings.TestCbindings) ... ok
+test_vm (ESMF.test.test_cbindings.TestCbindings) ... ok
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_gridspec1D
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 625, in test_grid_create_from_file_gridspec1D
+    coord_names=3D["longitude", "latitude"])
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/grid.py",
+line 331, in __init__
+    coordNames=3Dcoord_names)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 638, in test_grid_create_from_file_scrip
+    raise NameError('grid_create_from_file_scrip failed!')
+NameError: grid_create_from_file_scrip failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_balanced
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 651, in test_grid_create_from_file_scrip_decomp_balanced_balanced
+    raise NameError('grid_create_from_file_scrip_balanced_balanced failed!'=
+)
+NameError: grid_create_from_file_scrip_balanced_balanced failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_restfirst
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 664, in test_grid_create_from_file_scrip_decomp_balanced_restfirst
+    raise NameError('grid_create_from_file_scrip_balanced_restfirst
+failed!')
+NameError: grid_create_from_file_scrip_balanced_restfirst failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_restlast
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 677, in test_grid_create_from_file_scrip_decomp_balanced_restlast
+    raise NameError('grid_create_from_file_scrip_balanced_restlast failed!'=
+)
+NameError: grid_create_from_file_scrip_balanced_restlast failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_balanced
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 704, in test_grid_create_from_file_scrip_decomp_restfirst_balanced
+    raise NameError('grid_create_from_file_scrip_restfirst_balanced
+failed!')
+NameError: grid_create_from_file_scrip_restfirst_balanced failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_restfirst
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 717, in test_grid_create_from_file_scrip_decomp_restfirst_restfirst
+    raise NameError('grid_create_from_file_scrip_restfirst_restfirst
+failed!')
+NameError: grid_create_from_file_scrip_restfirst_restfirst failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_restlast
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 730, in test_grid_create_from_file_scrip_decomp_restfirst_restlast
+    raise NameError('grid_create_from_file_scrip_restfirst_restlast
+failed!')
+NameError: grid_create_from_file_scrip_restfirst_restlast failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_balanced
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 757, in test_grid_create_from_file_scrip_decomp_restlast_balanced
+    raise NameError('grid_create_from_file_scrip_restlast_balanced failed!'=
+)
+NameError: grid_create_from_file_scrip_restlast_balanced failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_restfirst
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 770, in test_grid_create_from_file_scrip_decomp_restlast_restfirst
+    raise NameError('grid_create_from_file_scrip_restlast_restfirst
+failed!')
+NameError: grid_create_from_file_scrip_restlast_restfirst failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_restlast
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 783, in test_grid_create_from_file_scrip_decomp_restlast_restlast
+    raise NameError('grid_create_from_file_scrip_restlast_restlast failed!'=
+)
+NameError: grid_create_from_file_scrip_restlast_restlast failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_slice_grid_created_from_file_scrip
+(ESMF.test.test_api.test_grid.TestGrid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_grid.py",
+line 431, in test_slice_grid_created_from_file_scrip
+    raise NameError('grid_create_from_file_scrip failed!')
+NameError: grid_create_from_file_scrip failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_mesh_create_from_file_esmfmesh
+(ESMF.test.test_api.test_mesh.TestMesh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_mesh.py",
+line 151, in test_mesh_create_from_file_esmfmesh
+    raise NameError('mesh_create_from_file_scrip failed!')
+NameError: mesh_create_from_file_scrip failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_mesh_create_from_file_scrip
+(ESMF.test.test_api.test_mesh.TestMesh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_mesh.py",
+line 142, in test_mesh_create_from_file_scrip
+    raise NameError('mesh_create_from_file_scrip failed!')
+NameError: mesh_create_from_file_scrip failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_slice_mesh_created_from_file_esmfmesh
+(ESMF.test.test_api.test_mesh.TestMesh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_mesh.py",
+line 238, in test_slice_mesh_created_from_file_esmfmesh
+    raise NameError('mesh_create_from_file_esmfmesh failed!')
+NameError: mesh_create_from_file_esmfmesh failed!
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_slice_mesh_created_from_file_scrip
+(ESMF.test.test_api.test_mesh.TestMesh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/test/test_api/test_mesh.py",
+line 215, in test_slice_mesh_created_from_file_scrip
+    raise NameError('mesh_create_from_file_scrip failed!')
+NameError: mesh_create_from_file_scrip failed!
+
+----------------------------------------------------------------------
+Ran 87 tests in 1.056s
+
+FAILED (SKIP=3D12, errors=3D16)
+Field:
+    name =3D None
+    type =3D <TypeKind.R8: 6>
+    rank =3D 1
+    extra dimensions =3D 0
+    staggerloc =3D <StaggerLoc.CENTER: 0>
+    lower bounds =3D array([0], dtype=3Dint32)
+    upper bounds =3D array([5], dtype=3Dint32)
+    extra bounds =3D None
+    data =3D array([ 7.,  7.,  7.,  7.,  7.])
+    grid =3D
+LocStream:
+    name =3D 'Test LocStream'
+    lower_bounds =3D array([0], dtype=3Dint32)
+    upper_bounds =3D array([5], dtype=3Dint32)
+    keys =3D [('ESMF:Y', array([7, 7, 7, 7, 7])), ('ESMF:X', array([1, 2, 3=
+,
+4, 5])), ('ESMF:Mask', array([0, 0, 1, 1, 1]))]
+
+)
+Grid Bounds:
+    exclusiveLBounds =3D [0 0]
+<type 'numpy.ndarray'>
+    exclusiveUBounds =3D [12 20]
+int32
+Grid Bounds:
+    exclusiveLBounds =3D [0 0 0]
+<type 'numpy.ndarray'>
+    exclusiveUBounds =3D [10 20 30]
+int32
+LocStream:
+    name =3D 'Test LocStream'
+    lower_bounds =3D array([0], dtype=3Dint32)
+    upper_bounds =3D array([5], dtype=3Dint32)
+    keys =3D [('ESMF:Y', array([7, 7, 7, 7, 7])), ('ESMF:X', array([1, 2, 3=
+,
+4, 5])), ('ESMF:Mask', array([0, 0, 1, 1, 1]))]
+
+
+local_pet =3D 0
+
+
+pet_count =3D 1
+
+Traceback (most recent call last):
+  File "setup.py", line 272, in <module>
+    'test_regrid_from_file_parallel': TestRegridFromFileParallelCommand})
+  File "/usr/lib64/python2.7/distutils/core.py", line 152, in setup
+    dist.run_commands()
+  File "/usr/lib64/python2.7/distutils/dist.py", line 953, in run_commands
+    self.run_command(cmd)
+  File "/usr/lib64/python2.7/distutils/dist.py", line 972, in run_command
+    cmd_obj.run()
+  File "setup.py", line 49, in run
+    subprocess.check_call(cmd)
+  File "/usr/lib64/python2.7/subprocess.py", line 542, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['nosetests', '-vs', '-a',
+'!slow,!parallel', 'src/ESMF']' returned non-zero exit status 1
+
+
+
+|------------------- PYTHON EXAMPLES TESTS --------------------|
+Sun Apr 14 13:31:55 MDT 2019 run test_examples ............PASS
+
+Found 8 examples tests, 2 pass, 5 fail , and 1 skipped.
+
+ The following is the run_examples.output file.
+
+running test_examples
+test_gridcreateperimask (examples.exampletest.TestExamples) ... ERROR
+test_gridlocstreamregrid (examples.exampletest.TestExamples) ... ERROR
+test_gridmeshrg (examples.exampletest.TestExamples) ... SKIP: ESMF must be
+built with MPI for test
+test_helloworld (examples.exampletest.TestExamples) ... ok
+test_locstreamgridregrid (examples.exampletest.TestExamples) ... ERROR
+test_meshlocstreamregrid (examples.exampletest.TestExamples) ... ok
+test_ugrid_latlon_regrid (examples.exampletest.TestExamples) ... ERROR
+test_ungriddedrg (examples.exampletest.TestExamples) ... ERROR
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_gridcreateperimask (examples.exampletest.TestExamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/exampletest.py",
+line 43, in test_gridcreateperimask
+    from . import grid_create_peridim_mask
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/grid_create_peridim_mask.py",
+line 60, in <module>
+    filetype=3DESMF.FileFormat.SCRIP)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/grid.py",
+line 331, in __init__
+    coordNames=3Dcoord_names)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_gridlocstreamregrid (examples.exampletest.TestExamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/exampletest.py",
+line 49, in test_gridlocstreamregrid
+    from . import grid_locstream_regrid
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/grid_locstream_regrid.py",
+line 33, in <module>
+    grid =3D ESMF.Grid(filename=3Dgrid1, filetype=3DESMF.FileFormat.SCRIP)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/grid.py",
+line 331, in __init__
+    coordNames=3Dcoord_names)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_locstreamgridregrid (examples.exampletest.TestExamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/exampletest.py",
+line 52, in test_locstreamgridregrid
+    from . import locstream_grid_regrid
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/locstream_grid_regrid.py",
+line 22, in <module>
+    grid =3D ESMF.Grid(filename=3Dgrid1, filetype=3DESMF.FileFormat.SCRIP)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/grid.py",
+line 331, in __init__
+    coordNames=3Dcoord_names)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_ugrid_latlon_regrid (examples.exampletest.TestExamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/exampletest.py",
+line 55, in test_ugrid_latlon_regrid
+    from . import ugrid_latlon_regrid
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/ugrid_latlon_regrid.py",
+line 98, in <module>
+    mesh =3D ESMF.Mesh(filename=3Dmeshfile, filetype=3DESMF.FileFormat.UGRI=
+D,
+meshname=3D'adcirc_mesh')
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/mesh.py",
+line 201, in __init__
+    mask_flag, varname)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ERROR: test_ungriddedrg (examples.exampletest.TestExamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/exampletest.py",
+line 40, in test_ungriddedrg
+    from . import ungridded_dimension_regrid
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/exam=
+ples/ungridded_dimension_regrid.py",
+line 32, in <module>
+    add_corner_stagger=3DTrue)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 64, in new_func
+    return func(*args, **kwargs)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/api/grid.py",
+line 331, in __init__
+    coordNames=3Dcoord_names)
+  File
+"/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src/addon/ESMPy/src/=
+ESMF/util/decorators.py",
+line 78, in new_func
+    raise NetCDFMissing("This function requires ESMF to have been built
+with NetCDF.")
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.250s
+
+FAILED (SKIP=3D1, errors=3D5)
+Hello ESMPy World from PET (processor) 0!
+ESMPy Grid Mesh Regridding Example
+  interpolation mean relative error =3D 2.2839050714e-05
+Traceback (most recent call last):
+  File "setup.py", line 272, in <module>
+    'test_regrid_from_file_parallel': TestRegridFromFileParallelCommand})
+  File "/usr/lib64/python2.7/distutils/core.py", line 152, in setup
+    dist.run_commands()
+  File "/usr/lib64/python2.7/distutils/dist.py", line 953, in run_commands
+    self.run_command(cmd)
+  File "/usr/lib64/python2.7/distutils/dist.py", line 972, in run_command
+    cmd_obj.run()
+  File "setup.py", line 15, in wrapper
+    return func(self)
+  File "setup.py", line 166, in run
+    AbstractESMFNoseCommand.run(self)
+  File "setup.py", line 49, in run
+    subprocess.check_call(cmd)
+  File "/usr/lib64/python2.7/subprocess.py", line 542, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['nosetests', '-vs', '-a',
+'!slow,!parallel', 'examples/exampletest.py']' returned non-zero exit
+status 1
+
+
+
+|--------------- PYTHON REGRID FROM FILE TESTS ----------------|
+Sun Apr 14 13:32:19 MDT 2019 run test_regrid_from_file ****FAIL
+
+
+The following is the 'tail' of the run regrid tests from file failure
+
+running test_regrid_from_file
+sh: mpirun: command not found
+Regrid from file test results: run_regrid_from_file.log
+PASS  =3D 0
+FAIL  =3D 0
+SKIP  =3D 0
+run_regrid_from_file.log:
+
+
+Found 0 regrid from file tests, 0 pass, 0 fail and 0 were skipped.
+
+
+ The following is the run_regrid_from_file.log file.
+
+sh: mpirun: command not found
+
+
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /export/scripts_dir/branch_builds/esmpy/gfortran/esmf_logs/1904_test.
+ These tarballs contain the *Log and *stdout files only, not the
+executables.
+ This directory also contains failed build output files with the naming
+convention of
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COMM.
+ For example, if the build fails on longs on the 19th of the month with
+ESMF_BOPT=3Dg, the file
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:yellow
+Day_of_Week:Sunday
+Test_Failures:32
+
+--000000000000835780058685e6cf
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">---------- Forwarded message ---------<br>From: <strong cla=
+ss=3D"gmail_sendername" dir=3D"auto">Silverio Vasquez</strong> <span dir=3D=
+"ltr">&lt;<a href=3D"mailto:silverio.vasquez@noaa.gov">silverio.vasquez@noa=
+a.gov</a>&gt;</span><br>Date: Sun, Apr 14, 2019 at 1:33 PM<br>Subject: Bran=
+ch_ESMPy_Linux-regtest2_gfortran<br>To:  &lt;<a href=3D"mailto:silverio.vas=
+quez@noaa.gov">silverio.vasquez@noaa.gov</a>&gt;<br></div><br><br><br>
+<br>
+<br>
+<br>
+Script start time: Sun Apr 14 13:10:02 MDT 2019<br>
+<br>
+Script end: Sun Apr 14 13:33:03 MDT 2019<br>
+<br>
+<br>
+___________________________________ESMF_7_1_0rbranch ESMPy BUILD AND TEST S=
+UMMARY___________________________<br>
+<br>
+<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 Python Build<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Regrid from=C2=A0 =C2=A0<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0BUILD=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0INSTALL=C2=A0 =C2=A0 OS.COMPILER.COMM.ABI=C2=A0 =C2=A0 =C2=A0 =
+unit tests=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0examples=C2=A0 =C2=A0 =C2=A0 fi=
+le tests <br>
+___________________________________________________________________________=
+__________________________________<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PASS/FAIL=C2=A0 =C2=
+=A0PASS/FAIL=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PASS/FAIL/SKIP PASS/FAIL/SKIP PASS/FAIL/S=
+KIP <br>
+___________________________________________________________________________=
+__________________________________<br>
+linux-regtest2(g)PASS=C2=A0 =C2=A0 =C2=A0 =C2=A0 PASS=C2=A0 =C2=A0 Linux.gf=
+ortran.mpiuni.64=C2=A0 =C2=A059/16/12=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 2/5=
+/1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0/0/0<br>
+linux-regtest2(O)PASS=C2=A0 =C2=A0 =C2=A0 =C2=A0 PASS=C2=A0 =C2=A0 Linux.gf=
+ortran.mpiuni.64=C2=A0 =C2=A059/16/12=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 2/5=
+/1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0/0/0<br>
+<br>
+___________________________________________________________________________=
+__________________________________<br>
+<br>
+Sun Apr 14 13:13:45 MDT 2019 on <a href=3D"http://linux-regtest2.gsd.esrl.n=
+oaa.gov" rel=3D"noreferrer" target=3D"_blank">linux-regtest2.gsd.esrl.noaa.=
+gov</a> <br>
+<br>
+ESMF Checkout Source: git://<a href=3D"http://git.code.sf.net/p/esmf/esmf" =
+rel=3D"noreferrer" target=3D"_blank">git.code.sf.net/p/esmf/esmf</a><br>
+<br>
+Compiler and configuration information:<br>
+<br>
+-------------------------------------------------------------- <br>
+No Modulefiles Currently Loaded.<br>
+<br>
+<br>
+<br>
+ESMF Repository:<br>
+origin=C2=A0 git://<a href=3D"http://git.code.sf.net/p/esmf/esmf" rel=3D"no=
+referrer" target=3D"_blank">git.code.sf.net/p/esmf/esmf</a> (fetch)<br>
+origin=C2=A0 git://<a href=3D"http://git.code.sf.net/p/esmf/esmf" rel=3D"no=
+referrer" target=3D"_blank">git.code.sf.net/p/esmf/esmf</a> (push)<br>
+<br>
+ESMF_7_1_0rp1_beta_snapshot_05<br>
+<br>
+<br>
+--------------------------------------------------------------<br>
+ESMF_VERSION_STRING:=C2=A0 =C2=A0 7.1.0rp1 beta snapshot<br>
+ESMF_7_1_0rp1_beta_snapshot_05<br>
+--------------------------------------------------------------<br>
+# HEAD detached at origin/ESMF_7_1_0rbranch<br>
+# Untracked files:<br>
+#=C2=A0 =C2=A0(use &quot;git add &lt;file&gt;...&quot; to include in what w=
+ill be committed)<br>
+#<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0tmp<br>
+nothing added to commit but untracked files present (use &quot;git add&quot=
+; to track)<br>
+--------------------------------------------------------------<br>
+<br>
+--------------------------------------------------------------<br>
+Make version:<br>
+GNU Make 3.82<br>
+Built for x86_64-redhat-linux-gnu<br>
+Copyright (C) 2010=C2=A0 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later &lt;<a href=3D"http://gnu.org/li=
+censes/gpl.html" rel=3D"noreferrer" target=3D"_blank">http://gnu.org/licens=
+es/gpl.html</a>&gt;<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.<br>
+<br>
+--------------------------------------------------------------<br>
+Fortran Compiler version:<br>
+GNU Fortran (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)<br>
+Copyright (C) 2015 Free Software Foundation, Inc.<br>
+<br>
+GNU Fortran comes with NO WARRANTY, to the extent permitted by law.<br>
+You may redistribute copies of GNU Fortran<br>
+under the terms of the GNU General Public License.<br>
+For more information about these matters, see the file named COPYING<br>
+<br>
+<br>
+--------------------------------------------------------------<br>
+C++ Compiler version:<br>
+g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)<br>
+Copyright (C) 2015 Free Software Foundation, Inc.<br>
+This is free software; see the source for copying conditions.=C2=A0 There i=
+s NO<br>
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.=
+<br>
+<br>
+<br>
+--------------------------------------------------------------<br>
+Preprocessor version:<br>
+gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)<br>
+Copyright (C) 2015 Free Software Foundation, Inc.<br>
+This is free software; see the source for copying conditions.=C2=A0 There i=
+s NO<br>
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.=
+<br>
+<br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* User set ESMF environment variables *<br>
+ESMF_ABI=3D64<br>
+ESMF_BOPT=3Dg<br>
+ESMF_COMM=3Dmpiuni<br>
+ESMF_COMPILER=3Dgfortran<br>
+ESMF_DIR=3D/export/scripts_dir/branch_builds/esmpy/gfortran/esmf<br>
+ESMF_INSTALL_BINDIR=3Dbin<br>
+ESMF_INSTALL_LIBDIR=3Dlib<br>
+ESMF_INSTALL_MODDIR=3Dmod<br>
+ESMF_INSTALL_PREFIX=3D/export/scripts_dir/branch_builds/esmpy/gfortran/esmf=
+/../install_dir<br>
+ESMF_OS=3DLinux<br>
+ESMF_SITE=3Ddefault<br>
+ESMF_TESTEXHAUSTIVE=3DON<br>
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArrayUNI_2<br>
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessFieldUNI_1<br>
+ESMF_TESTMPMD=3DON<br>
+ESMF_TESTWITHTHREADS=3DOFF<br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* ESMF environment variables *<br>
+ESMF_DIR: /export/scripts_dir/branch_builds/esmpy/gfortran/esmf<br>
+ESMF_OS:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Linux<br>
+ESMF_MACHINE:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0x86_64<br>
+ESMF_ABI:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A064<br>
+ESMF_COMPILER:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 gfortran<br>
+ESMF_BOPT:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 g<br>
+ESMF_COMM:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 mpiuni<br>
+ESMF_SITE:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 default<br>
+ESMF_PTHREADS:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ON<br>
+ESMF_OPENMP:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ON<br>
+ESMF_OPENACC:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0OFF<br>
+ESMF_ARRAY_LITE:=C2=A0 =C2=A0 =C2=A0 =C2=A0 FALSE<br>
+ESMF_NO_INTEGER_1_BYTE: TRUE<br>
+ESMF_NO_INTEGER_2_BYTE: TRUE<br>
+ESMF_FORTRANSYMBOLS:=C2=A0 =C2=A0 default<br>
+ESMF_DEFER_LIB_BUILD:=C2=A0 =C2=A0ON<br>
+ESMF_SHARED_LIB_BUILD:=C2=A0 ON<br>
+ESMF_TESTEXHAUSTIVE:=C2=A0 =C2=A0 ON<br>
+ESMF_TESTCOMPTUNNEL:=C2=A0 =C2=A0 ON<br>
+ESMF_TESTWITHTHREADS:=C2=A0 =C2=A0OFF<br>
+ESMF_TESTMPMD:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ON<br>
+ESMF_TESTSHAREDOBJ:=C2=A0 =C2=A0 =C2=A0OFF<br>
+ESMF_TESTFORCEOPENMP:=C2=A0 =C2=A0OFF<br>
+ESMF_TESTFORCEOPENACC:=C2=A0 OFF<br>
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArrayUNI_2<br>
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessFieldUNI_1<br>
+ESMF_MPIRUN:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /export/scripts_dir/b=
+ranch_builds/esmpy/gfortran/esmf/src/Infrastructure/stubs/mpiuni/mpirun<br>
+ESMF_MPIMPMDRUN:=C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* ESMF environment variables pointing to 3rd party software *<br>
+ESMF_MOAB:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0internal<b=
+r>
+ESMF_LAPACK:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0internal<br>
+ESMF_ACC_SOFTWARE_STACK: none<br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* ESMF environment variables for final installation *<br>
+ESMF_INSTALL_PREFIX:=C2=A0 =C2=A0 /export/scripts_dir/branch_builds/esmpy/g=
+fortran/esmf/../install_dir<br>
+ESMF_INSTALL_HEADERDIR: include<br>
+ESMF_INSTALL_MODDIR:=C2=A0 =C2=A0 mod<br>
+ESMF_INSTALL_LIBDIR:=C2=A0 =C2=A0 lib<br>
+ESMF_INSTALL_BINDIR:=C2=A0 =C2=A0 bin<br>
+ESMF_INSTALL_DOCDIR:=C2=A0 =C2=A0 doc<br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* ESMF Benchmark directory and parameters *<br>
+ESMF_BENCHMARK_PREFIX:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0./DEFAULTBENCHMARKD=
+IR<br>
+ESMF_BENCHMARK_TOLERANCE:=C2=A0 =C2=A0 =C2=A0 20%<br>
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500<br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* Other relevant environment variables *<br>
+PATH:=C2=A0 =C2=A0 /home/silverio.vasquez/bin:/usr/local/share/Modules/bin:=
+/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/home/silverio.vasquez/.local/bin:/=
+home/silverio.vasquez/bin:/home/silverio.vasquez/.local/bin:/home/silverio.=
+vasquez/bin:/home/silverio.vasquez/.local/bin:/home/silverio.vasquez/bin:/h=
+ome/silverio.vasquez/.local/bin:/home/silverio.vasquez/bin<br>
+LD_LIBRARY_PATH: <br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* Compilers, Linkers, Flags, and Libraries *<br>
+Location of the preprocessor:=C2=A0 =C2=A0 =C2=A0 /usr/bin/gcc<br>
+Location of the Fortran compiler:=C2=A0 /usr/bin/gfortran<br>
+Location of the Fortran linker:=C2=A0 =C2=A0 /usr/bin/gfortran<br>
+Location of the C++ compiler:=C2=A0 =C2=A0 =C2=A0 /usr/bin/g++<br>
+Location of the C++ linker:=C2=A0 =C2=A0 =C2=A0 =C2=A0 /usr/bin/g++<br>
+<br>
+Fortran compiler flags:<br>
+ESMF_F90COMPILER: gfortran<br>
+ESMF_F90COMPILEOPTS: -g -Wall -Wextra -Wconversion -Wno-unused -Wno-unused-=
+dummy-argument -fbacktrace -fimplicit-none -fcheck=3Darray-temps,bounds,do,=
+mem,recursion -fPIC=C2=A0 -m64 -mcmodel=3Dsmall -pthread -ffree-line-length=
+-none=C2=A0 -fopenmp<br>
+ESMF_F90COMPILEPATHS: -I/export/scripts_dir/branch_builds/esmpy/gfortran/es=
+mf/mod/modg/Linux.gfortran.64.mpiuni.default -I/export/scripts_dir/branch_b=
+uilds/esmpy/gfortran/esmf/src/include <br>
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE =
+-DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
+SOFTWARE_STACK=3D1 -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_TESTCOMPT=
+UNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_MPIUNI<br>
+ESMF_F90COMPILEFREECPP: <br>
+ESMF_F90COMPILEFREENOCPP: -ffree-form<br>
+ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form<br>
+ESMF_F90COMPILEFIXNOCPP: <br>
+<br>
+Fortran linker flags:<br>
+ESMF_F90LINKOPTS:=C2=A0 =C2=A0-m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-ne=
+eded=C2=A0 -fopenmp<br>
+ESMF_F90LINKPATHS: -L/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/=
+lib/libg/Linux.gfortran.64.mpiuni.default=C2=A0 -L/usr/lib/gcc/x86_64-redha=
+t-linux/4.8.5/<br>
+ESMF_F90LINKRPATHS: -Wl,-rpath,/export/scripts_dir/branch_builds/esmpy/gfor=
+tran/esmf/lib/libg/Linux.gfortran.64.mpiuni.default=C2=A0 -Wl,-rpath,/usr/l=
+ib/gcc/x86_64-redhat-linux/4.8.5/<br>
+ESMF_F90LINKLIBS:=C2=A0 -lrt -lstdc++ -ldl<br>
+ESMF_F90ESMFLINKLIBS: -lesmf=C2=A0 -lrt -lstdc++ -ldl<br>
+<br>
+C++ compiler flags:<br>
+ESMF_CXXCOMPILER: g++<br>
+ESMF_CXXCOMPILEOPTS: -g -Wall -Wextra -Wno-unused -fcheck-data-deps -fPIC -=
+DESMF_LOWERCASE_SINGLEUNDERSCORE -m64 -mcmodel=3Dsmall -pthread=C2=A0 -fope=
+nmp<br>
+ESMF_CXXCOMPILEPATHS:=C2=A0 -I/export/scripts_dir/branch_builds/esmpy/gfort=
+ran/esmf/src/include=C2=A0 =C2=A0-I/export/scripts_dir/branch_builds/esmpy/=
+gfortran/esmf/src/Infrastructure/stubs/mpiuni<br>
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE =
+-DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
+SOFTWARE_STACK=3D1 -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE=C2=A0 -DESMF_TES=
+TCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -D__SDIR__=3D&#39;&#39;=
+ -DESMF_MPIUNI<br>
+<br>
+C++ linker flags:<br>
+ESMF_CXXLINKOPTS:=C2=A0 -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed=
+=C2=A0 -fopenmp<br>
+ESMF_CXXLINKPATHS: -L/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/=
+lib/libg/Linux.gfortran.64.mpiuni.default=C2=A0 -L/usr/lib/gcc/x86_64-redha=
+t-linux/4.8.5/<br>
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/export/scripts_dir/branch_builds/esmpy/gfor=
+tran/esmf/lib/libg/Linux.gfortran.64.mpiuni.default=C2=A0 -Wl,-rpath,/usr/l=
+ib/gcc/x86_64-redhat-linux/4.8.5/<br>
+ESMF_CXXLINKLIBS:=C2=A0 -lrt -lgfortran -ldl<br>
+ESMF_CXXESMFLINKLIBS: -lesmf=C2=A0 -lrt -lgfortran -ldl<br>
+<br>
+Shared library build:<br>
+ESMF_SL_LIBS_TO_MAKE: libesmf<br>
+ESMF_SL_SUFFIX:=C2=A0 =C2=A0 =C2=A0 =C2=A0so<br>
+ESMF_SL_LIBLINKER:=C2=A0 =C2=A0 g++<br>
+ESMF_SL_LIBOPTS:=C2=A0 =C2=A0 =C2=A0 =C2=A0-shared=C2=A0 -fopenmp<br>
+ESMF_SL_LIBLIBS:=C2=A0 =C2=A0 =C2=A0 <br>
+<br>
+<br>
+--------------------------------------------------------------<br>
+Compiling on Sun Apr 14 13:13:48 MDT 2019 on <a href=3D"http://linux-regtes=
+t2.gsd.esrl.noaa.gov" rel=3D"noreferrer" target=3D"_blank">linux-regtest2.g=
+sd.esrl.noaa.gov</a><br>
+Machine characteristics: Linux <a href=3D"http://linux-regtest2.gsd.esrl.no=
+aa.gov" rel=3D"noreferrer" target=3D"_blank">linux-regtest2.gsd.esrl.noaa.g=
+ov</a> 3.10.0-957.5.1.el7.x86_64 #1 SMP Wed Dec 19 10:46:58 EST 2018 x86_64=
+ x86_64 x86_64 GNU/Linux<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+<br>
+Sun Apr 14 13:21:31 MDT 2019 library build -j4 ............PASS<br>
+Builds with warnings.<br>
+Sun Apr 14 13:21:51 MDT 2019 library install ..............PASS<br>
+Sun Apr 14 13:21:52 MDT 2019 library installcheck .........PASS<br>
+<br>
+|------------------------ PYTHON BUILD ------------------------|<br>
+Sun Apr 14 13:21:57 MDT 2019 python build .................PASS<br>
+<br>
+<br>
+|-------------------- PYTHON UNIT TESTS -----------------------|<br>
+Sun Apr 14 13:22:01 MDT 2019 run test .....................PASS<br>
+<br>
+Found 87 unit tests, 59 pass, 16 fail and 12 were skipped.<br>
+<br>
+<br>
+<br>
+=C2=A0The following is the run_unit_test.output file.<br>
+<br>
+running test<br>
+test_assertNumpyAll_bad_mask (ESMF.test.base_test.Test) ... ok<br>
+test_assertNumpyAll_type_differs (ESMF.test.base_test.Test) ... ok<br>
+test_copy (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_del (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_doublebuffer (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br=
+>
+test_mul (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_new (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_ownership (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_reshape (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_slice (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_slice2 (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_stress (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_field_area (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_field_create_from_gridfield (ESMF.test.test_api.test_field.TestField) =
+... ok<br>
+test_field_extradims_grid (ESMF.test.test_api.test_field.TestField) ... ok<=
+br>
+test_field_extradims_mesh (ESMF.test.test_api.test_field.TestField) ... ok<=
+br>
+test_field_grid_copy (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_field_locstream_mask (ESMF.test.test_api.test_field.TestField) ... ok<=
+br>
+test_field_reshape (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_field_slice_grid (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_field_slice_grid_extraindices (ESMF.test.test_api.test_field.TestField=
+) ... ok<br>
+test_field_slice_mesh (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_field_switchedindices_grid (ESMF.test.test_api.test_field.TestField) .=
+.. ok<br>
+test_field_uniqueness (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_meta_del (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_numpy_funcs (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_grid_area (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_area_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_attributes_2d (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_attributes_3d (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_coords (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_coords_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_copy (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_create_cubed_sphere (ESMF.test.test_api.test_grid.TestGrid) ... A=
+t line 321 of file /export/scripts_dir/branch_builds/esmpy/gfortran/esmf/sr=
+c/Infrastructure/Util/src/ESMF_UtilCubedSphere.F90<br>
+Fortran runtime warning: An array temporary was created for argument &#39;q=
+1&#39; of procedure &#39;cell_center2&#39;<br>
+At line 321 of file /export/scripts_dir/branch_builds/esmpy/gfortran/esmf/s=
+rc/Infrastructure/Util/src/ESMF_UtilCubedSphere.F90<br>
+Fortran runtime warning: An array temporary was created for argument &#39;q=
+2&#39; of procedure &#39;cell_center2&#39;<br>
+At line 322 of file /export/scripts_dir/branch_builds/esmpy/gfortran/esmf/s=
+rc/Infrastructure/Util/src/ESMF_UtilCubedSphere.F90<br>
+Fortran runtime warning: An array temporary was created for argument &#39;q=
+3&#39; of procedure &#39;cell_center2&#39;<br>
+At line 322 of file /export/scripts_dir/branch_builds/esmpy/gfortran/esmf/s=
+rc/Infrastructure/Util/src/ESMF_UtilCubedSphere.F90<br>
+Fortran runtime warning: An array temporary was created for argument &#39;q=
+4&#39; of procedure &#39;cell_center2&#39;<br>
+ok<br>
+test_grid_create_from_file_gridspec1D (ESMF.test.test_api.test_grid.TestGri=
+d) ... ERROR<br>
+test_grid_create_from_file_scrip (ESMF.test.test_api.test_grid.TestGrid) ..=
+. ERROR<br>
+test_grid_create_from_file_scrip_decomp_balanced_balanced (ESMF.test.test_a=
+pi.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_balanced_cyclic (ESMF.test.test_api=
+.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_balanced_restfirst (ESMF.test.test_=
+api.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_balanced_restlast (ESMF.test.test_a=
+pi.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_cyclic_balanced (ESMF.test.test_api=
+.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_cyclic_cyclic (ESMF.test.test_api.t=
+est_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_cyclic_restfirst (ESMF.test.test_ap=
+i.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_cyclic_restlast (ESMF.test.test_api=
+.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_restfirst_balanced (ESMF.test.test_=
+api.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_restfirst_cyclic (ESMF.test.test_ap=
+i.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_restfirst_restfirst (ESMF.test.test=
+_api.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_restfirst_restlast (ESMF.test.test_=
+api.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_restlast_balanced (ESMF.test.test_a=
+pi.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_restlast_cyclic (ESMF.test.test_api=
+.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_restlast_restfirst (ESMF.test.test_=
+api.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_restlast_restlast (ESMF.test.test_a=
+pi.test_grid.TestGrid) ... ERROR<br>
+test_grid_mask (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_mask_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_periodic (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_slice_2d (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_slice_2d_corners (ESMF.test.test_api.test_grid.TestGrid) ... ok<b=
+r>
+test_grid_slice_3d (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_slice_3d_corners (ESMF.test.test_api.test_grid.TestGrid) ... ok<b=
+r>
+test_grid_slice_periodic (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_slice_grid_created_from_file_scrip (ESMF.test.test_api.test_grid.TestG=
+rid) ... ERROR<br>
+test_copy (ESMF.test.test_api.test_locstream.TestLocStream) ... ok<br>
+test_create (ESMF.test.test_api.test_locstream.TestLocStream) ... ok<br>
+test_mask (ESMF.test.test_api.test_locstream.TestLocStream) ... ok<br>
+test_pickle (ESMF.test.test_api.test_locstream.TestLocStream) ... SKIP<br>
+test_properties (ESMF.test.test_api.test_locstream.TestLocStream) ... SKIP<=
+br>
+test_slice (ESMF.test.test_api.test_locstream.TestLocStream) ... ok<br>
+test_mesh_10 (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_5 (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_50 (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_50_mask_area (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_50_ngons (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_copy (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_create_from_file_esmfmesh (ESMF.test.test_api.test_mesh.TestMesh)=
+ ... ERROR<br>
+test_mesh_create_from_file_scrip (ESMF.test.test_api.test_mesh.TestMesh) ..=
+. ERROR<br>
+test_mesh_slicing (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_slice_mesh_created_from_file_elem_coords (ESMF.test.test_api.test_mesh=
+.TestMesh) ... SKIP<br>
+test_slice_mesh_created_from_file_esmfmesh (ESMF.test.test_api.test_mesh.Te=
+stMesh) ... ERROR<br>
+test_slice_mesh_created_from_file_scrip (ESMF.test.test_api.test_mesh.TestM=
+esh) ... ERROR<br>
+test_field_regrid (ESMF.test.test_api.test_regrid.TestRegrid) ... ok<br>
+test_field_regrid_gridmesh (ESMF.test.test_api.test_regrid.TestRegrid) ... =
+ok<br>
+test_interfaceint (ESMF.test.test_cbindings.TestCbindings) ... ok<br>
+test_interfaceint2 (ESMF.test.test_cbindings.TestCbindings) ... SKIP<br>
+test_interfaceint3 (ESMF.test.test_cbindings.TestCbindings) ... SKIP<br>
+test_log (ESMF.test.test_cbindings.TestCbindings) ... ok<br>
+test_version_compare (ESMF.test.test_cbindings.TestCbindings) ... ok<br>
+test_vm (ESMF.test.test_cbindings.TestCbindings) ... ok<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_gridspec1D (ESMF.test.test_api.test_grid.=
+TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 625, in test_g=
+rid_create_from_file_gridspec1D<br>
+=C2=A0 =C2=A0 coord_names=3D[&quot;longitude&quot;, &quot;latitude&quot;])<=
+br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/grid.py&quot;, line 331, in __init__<br>
+=C2=A0 =C2=A0 coordNames=3Dcoord_names)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip (ESMF.test.test_api.test_grid.TestG=
+rid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 638, in test_g=
+rid_create_from_file_scrip<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip failed!&#39;=
+)<br>
+NameError: grid_create_from_file_scrip failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_balanced (ESMF.test=
+.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 651, in test_g=
+rid_create_from_file_scrip_decomp_balanced_balanced<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_balanced_bal=
+anced failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_balanced_balanced failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_restfirst (ESMF.tes=
+t.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 664, in test_g=
+rid_create_from_file_scrip_decomp_balanced_restfirst<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_balanced_res=
+tfirst failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_balanced_restfirst failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_restlast (ESMF.test=
+.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 677, in test_g=
+rid_create_from_file_scrip_decomp_balanced_restlast<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_balanced_res=
+tlast failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_balanced_restlast failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_balanced (ESMF.tes=
+t.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 704, in test_g=
+rid_create_from_file_scrip_decomp_restfirst_balanced<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restfirst_ba=
+lanced failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restfirst_balanced failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_restfirst (ESMF.te=
+st.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 717, in test_g=
+rid_create_from_file_scrip_decomp_restfirst_restfirst<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restfirst_re=
+stfirst failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restfirst_restfirst failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_restlast (ESMF.tes=
+t.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 730, in test_g=
+rid_create_from_file_scrip_decomp_restfirst_restlast<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restfirst_re=
+stlast failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restfirst_restlast failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_balanced (ESMF.test=
+.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 757, in test_g=
+rid_create_from_file_scrip_decomp_restlast_balanced<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restlast_bal=
+anced failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restlast_balanced failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_restfirst (ESMF.tes=
+t.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 770, in test_g=
+rid_create_from_file_scrip_decomp_restlast_restfirst<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restlast_res=
+tfirst failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restlast_restfirst failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_restlast (ESMF.test=
+.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 783, in test_g=
+rid_create_from_file_scrip_decomp_restlast_restlast<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restlast_res=
+tlast failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restlast_restlast failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_slice_grid_created_from_file_scrip (ESMF.test.test_api.test_gri=
+d.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 431, in test_s=
+lice_grid_created_from_file_scrip<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip failed!&#39;=
+)<br>
+NameError: grid_create_from_file_scrip failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_mesh_create_from_file_esmfmesh (ESMF.test.test_api.test_mesh.Te=
+stMesh)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_mesh.py&quot;, line 151, in test_m=
+esh_create_from_file_esmfmesh<br>
+=C2=A0 =C2=A0 raise NameError(&#39;mesh_create_from_file_scrip failed!&#39;=
+)<br>
+NameError: mesh_create_from_file_scrip failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_mesh_create_from_file_scrip (ESMF.test.test_api.test_mesh.TestM=
+esh)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_mesh.py&quot;, line 142, in test_m=
+esh_create_from_file_scrip<br>
+=C2=A0 =C2=A0 raise NameError(&#39;mesh_create_from_file_scrip failed!&#39;=
+)<br>
+NameError: mesh_create_from_file_scrip failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_slice_mesh_created_from_file_esmfmesh (ESMF.test.test_api.test_=
+mesh.TestMesh)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_mesh.py&quot;, line 238, in test_s=
+lice_mesh_created_from_file_esmfmesh<br>
+=C2=A0 =C2=A0 raise NameError(&#39;mesh_create_from_file_esmfmesh failed!&#=
+39;)<br>
+NameError: mesh_create_from_file_esmfmesh failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_slice_mesh_created_from_file_scrip (ESMF.test.test_api.test_mes=
+h.TestMesh)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_mesh.py&quot;, line 215, in test_s=
+lice_mesh_created_from_file_scrip<br>
+=C2=A0 =C2=A0 raise NameError(&#39;mesh_create_from_file_scrip failed!&#39;=
+)<br>
+NameError: mesh_create_from_file_scrip failed!<br>
+<br>
+----------------------------------------------------------------------<br>
+Ran 87 tests in 1.585s<br>
+<br>
+FAILED (SKIP=3D12, errors=3D16)<br>
+Field:<br>
+=C2=A0 =C2=A0 name =3D None<br>
+=C2=A0 =C2=A0 type =3D &lt;TypeKind.R8: 6&gt;<br>
+=C2=A0 =C2=A0 rank =3D 1<br>
+=C2=A0 =C2=A0 extra dimensions =3D 0<br>
+=C2=A0 =C2=A0 staggerloc =3D &lt;StaggerLoc.CENTER: 0&gt;<br>
+=C2=A0 =C2=A0 lower bounds =3D array([0], dtype=3Dint32)<br>
+=C2=A0 =C2=A0 upper bounds =3D array([5], dtype=3Dint32)<br>
+=C2=A0 =C2=A0 extra bounds =3D None<br>
+=C2=A0 =C2=A0 data =3D array([ 7.,=C2=A0 7.,=C2=A0 7.,=C2=A0 7.,=C2=A0 7.])=
+<br>
+=C2=A0 =C2=A0 grid =3D <br>
+LocStream:<br>
+=C2=A0 =C2=A0 name =3D &#39;Test LocStream&#39; <br>
+=C2=A0 =C2=A0 lower_bounds =3D array([0], dtype=3Dint32) <br>
+=C2=A0 =C2=A0 upper_bounds =3D array([5], dtype=3Dint32) <br>
+=C2=A0 =C2=A0 keys =3D [(&#39;ESMF:Y&#39;, array([7, 7, 7, 7, 7])), (&#39;E=
+SMF:X&#39;, array([1, 2, 3, 4, 5])), (&#39;ESMF:Mask&#39;, array([0, 0, 1, =
+1, 1]))] <br>
+<br>
+)<br>
+Grid Bounds:<br>
+=C2=A0 =C2=A0 exclusiveLBounds =3D [0 0]<br>
+&lt;type &#39;numpy.ndarray&#39;&gt;<br>
+=C2=A0 =C2=A0 exclusiveUBounds =3D [12 20]<br>
+int32<br>
+Grid Bounds:<br>
+=C2=A0 =C2=A0 exclusiveLBounds =3D [0 0 0]<br>
+&lt;type &#39;numpy.ndarray&#39;&gt;<br>
+=C2=A0 =C2=A0 exclusiveUBounds =3D [10 20 30]<br>
+int32<br>
+LocStream:<br>
+=C2=A0 =C2=A0 name =3D &#39;Test LocStream&#39; <br>
+=C2=A0 =C2=A0 lower_bounds =3D array([0], dtype=3Dint32) <br>
+=C2=A0 =C2=A0 upper_bounds =3D array([5], dtype=3Dint32) <br>
+=C2=A0 =C2=A0 keys =3D [(&#39;ESMF:Y&#39;, array([7, 7, 7, 7, 7])), (&#39;E=
+SMF:X&#39;, array([1, 2, 3, 4, 5])), (&#39;ESMF:Mask&#39;, array([0, 0, 1, =
+1, 1]))] <br>
+<br>
+<br>
+local_pet =3D 0<br>
+<br>
+<br>
+pet_count =3D 1<br>
+<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;setup.py&quot;, line 272, in &lt;module&gt;<br>
+=C2=A0 =C2=A0 &#39;test_regrid_from_file_parallel&#39;: TestRegridFromFileP=
+arallelCommand})<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/core.py&quot;, line 152, i=
+n setup<br>
+=C2=A0 =C2=A0 dist.run_commands()<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/dist.py&quot;, line 953, i=
+n run_commands<br>
+=C2=A0 =C2=A0 self.run_command(cmd)<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/dist.py&quot;, line 972, i=
+n run_command<br>
+=C2=A0 =C2=A0 cmd_obj.run()<br>
+=C2=A0 File &quot;setup.py&quot;, line 49, in run<br>
+=C2=A0 =C2=A0 subprocess.check_call(cmd)<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/subprocess.py&quot;, line 542, in ch=
+eck_call<br>
+=C2=A0 =C2=A0 raise CalledProcessError(retcode, cmd)<br>
+subprocess.CalledProcessError: Command &#39;[&#39;nosetests&#39;, &#39;-vs&=
+#39;, &#39;-a&#39;, &#39;!slow,!parallel&#39;, &#39;src/ESMF&#39;]&#39; ret=
+urned non-zero exit status 1<br>
+<br>
+<br>
+<br>
+|------------------- PYTHON EXAMPLES TESTS --------------------|<br>
+Sun Apr 14 13:22:09 MDT 2019 run test_examples ............PASS<br>
+<br>
+Found 8 examples tests, 2 pass, 5 fail , and 1 skipped.<br>
+<br>
+=C2=A0The following is the run_examples.output file.<br>
+<br>
+running test_examples<br>
+test_gridcreateperimask (examples.exampletest.TestExamples) ... ERROR<br>
+test_gridlocstreamregrid (examples.exampletest.TestExamples) ... ERROR<br>
+test_gridmeshrg (examples.exampletest.TestExamples) ... SKIP: ESMF must be =
+built with MPI for test<br>
+test_helloworld (examples.exampletest.TestExamples) ... ok<br>
+test_locstreamgridregrid (examples.exampletest.TestExamples) ... ERROR<br>
+test_meshlocstreamregrid (examples.exampletest.TestExamples) ... ok<br>
+test_ugrid_latlon_regrid (examples.exampletest.TestExamples) ... ERROR<br>
+test_ungriddedrg (examples.exampletest.TestExamples) ... ERROR<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_gridcreateperimask (examples.exampletest.TestExamples)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/exampletest.py&quot;, line 43, in test_gridcreateperi=
+mask<br>
+=C2=A0 =C2=A0 from . import grid_create_peridim_mask<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/grid_create_peridim_mask.py&quot;, line 60, in &lt;mo=
+dule&gt;<br>
+=C2=A0 =C2=A0 filetype=3DESMF.FileFormat.SCRIP)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/grid.py&quot;, line 331, in __init__<br>
+=C2=A0 =C2=A0 coordNames=3Dcoord_names)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_gridlocstreamregrid (examples.exampletest.TestExamples)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/exampletest.py&quot;, line 49, in test_gridlocstreamr=
+egrid<br>
+=C2=A0 =C2=A0 from . import grid_locstream_regrid<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/grid_locstream_regrid.py&quot;, line 33, in &lt;modul=
+e&gt;<br>
+=C2=A0 =C2=A0 grid =3D ESMF.Grid(filename=3Dgrid1, filetype=3DESMF.FileForm=
+at.SCRIP)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/grid.py&quot;, line 331, in __init__<br>
+=C2=A0 =C2=A0 coordNames=3Dcoord_names)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_locstreamgridregrid (examples.exampletest.TestExamples)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/exampletest.py&quot;, line 52, in test_locstreamgridr=
+egrid<br>
+=C2=A0 =C2=A0 from . import locstream_grid_regrid<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/locstream_grid_regrid.py&quot;, line 22, in &lt;modul=
+e&gt;<br>
+=C2=A0 =C2=A0 grid =3D ESMF.Grid(filename=3Dgrid1, filetype=3DESMF.FileForm=
+at.SCRIP)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/grid.py&quot;, line 331, in __init__<br>
+=C2=A0 =C2=A0 coordNames=3Dcoord_names)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_ugrid_latlon_regrid (examples.exampletest.TestExamples)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/exampletest.py&quot;, line 55, in test_ugrid_latlon_r=
+egrid<br>
+=C2=A0 =C2=A0 from . import ugrid_latlon_regrid<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/ugrid_latlon_regrid.py&quot;, line 98, in &lt;module&=
+gt;<br>
+=C2=A0 =C2=A0 mesh =3D ESMF.Mesh(filename=3Dmeshfile, filetype=3DESMF.FileF=
+ormat.UGRID, meshname=3D&#39;adcirc_mesh&#39;)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/mesh.py&quot;, line 201, in __init__<br>
+=C2=A0 =C2=A0 mask_flag, varname)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_ungriddedrg (examples.exampletest.TestExamples)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/exampletest.py&quot;, line 40, in test_ungriddedrg<br=
+>
+=C2=A0 =C2=A0 from . import ungridded_dimension_regrid<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/ungridded_dimension_regrid.py&quot;, line 32, in &lt;=
+module&gt;<br>
+=C2=A0 =C2=A0 add_corner_stagger=3DTrue)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/grid.py&quot;, line 331, in __init__<br>
+=C2=A0 =C2=A0 coordNames=3Dcoord_names)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+----------------------------------------------------------------------<br>
+Ran 8 tests in 0.227s<br>
+<br>
+FAILED (SKIP=3D1, errors=3D5)<br>
+Hello ESMPy World from PET (processor) 0!<br>
+ESMPy Grid Mesh Regridding Example<br>
+=C2=A0 interpolation mean relative error =3D 2.2839050714e-05<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;setup.py&quot;, line 272, in &lt;module&gt;<br>
+=C2=A0 =C2=A0 &#39;test_regrid_from_file_parallel&#39;: TestRegridFromFileP=
+arallelCommand})<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/core.py&quot;, line 152, i=
+n setup<br>
+=C2=A0 =C2=A0 dist.run_commands()<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/dist.py&quot;, line 953, i=
+n run_commands<br>
+=C2=A0 =C2=A0 self.run_command(cmd)<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/dist.py&quot;, line 972, i=
+n run_command<br>
+=C2=A0 =C2=A0 cmd_obj.run()<br>
+=C2=A0 File &quot;setup.py&quot;, line 15, in wrapper<br>
+=C2=A0 =C2=A0 return func(self)<br>
+=C2=A0 File &quot;setup.py&quot;, line 166, in run<br>
+=C2=A0 =C2=A0 AbstractESMFNoseCommand.run(self)<br>
+=C2=A0 File &quot;setup.py&quot;, line 49, in run<br>
+=C2=A0 =C2=A0 subprocess.check_call(cmd)<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/subprocess.py&quot;, line 542, in ch=
+eck_call<br>
+=C2=A0 =C2=A0 raise CalledProcessError(retcode, cmd)<br>
+subprocess.CalledProcessError: Command &#39;[&#39;nosetests&#39;, &#39;-vs&=
+#39;, &#39;-a&#39;, &#39;!slow,!parallel&#39;, &#39;examples/exampletest.py=
+&#39;]&#39; returned non-zero exit status 1<br>
+<br>
+<br>
+<br>
+___________________________________________________________________________=
+__________________________________<br>
+<br>
+Sun Apr 14 13:23:17 MDT 2019 on <a href=3D"http://linux-regtest2.gsd.esrl.n=
+oaa.gov" rel=3D"noreferrer" target=3D"_blank">linux-regtest2.gsd.esrl.noaa.=
+gov</a> <br>
+<br>
+ESMF Checkout Source: git://<a href=3D"http://git.code.sf.net/p/esmf/esmf" =
+rel=3D"noreferrer" target=3D"_blank">git.code.sf.net/p/esmf/esmf</a><br>
+<br>
+Compiler and configuration information:<br>
+<br>
+-------------------------------------------------------------- <br>
+No Modulefiles Currently Loaded.<br>
+<br>
+<br>
+<br>
+ESMF Repository:<br>
+origin=C2=A0 git://<a href=3D"http://git.code.sf.net/p/esmf/esmf" rel=3D"no=
+referrer" target=3D"_blank">git.code.sf.net/p/esmf/esmf</a> (fetch)<br>
+origin=C2=A0 git://<a href=3D"http://git.code.sf.net/p/esmf/esmf" rel=3D"no=
+referrer" target=3D"_blank">git.code.sf.net/p/esmf/esmf</a> (push)<br>
+<br>
+ESMF_7_1_0rp1_beta_snapshot_05<br>
+<br>
+<br>
+--------------------------------------------------------------<br>
+ESMF_VERSION_STRING:=C2=A0 =C2=A0 7.1.0rp1 beta snapshot<br>
+ESMF_7_1_0rp1_beta_snapshot_05<br>
+--------------------------------------------------------------<br>
+# HEAD detached at origin/ESMF_7_1_0rbranch<br>
+# Untracked files:<br>
+#=C2=A0 =C2=A0(use &quot;git add &lt;file&gt;...&quot; to include in what w=
+ill be committed)<br>
+#<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0src/addon/ESMPy/PET0.ESMF_LogFile<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0src/addon/ESMPy/environ<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0src/addon/ESMPy/queue_results<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0src/addon/ESMPy/run_examples.output<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0src/addon/ESMPy/run_unit_test.output<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0src/addon/ESMPy/tmp<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0src/installcheck/esmc_application<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0src/installcheck/esmc_application.o<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0src/installcheck/esmf_application<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0src/installcheck/esmf_application.o<br>
+#=C2=A0 =C2=A0 =C2=A0 =C2=A0tmp<br>
+nothing added to commit but untracked files present (use &quot;git add&quot=
+; to track)<br>
+--------------------------------------------------------------<br>
+<br>
+--------------------------------------------------------------<br>
+Make version:<br>
+GNU Make 3.82<br>
+Built for x86_64-redhat-linux-gnu<br>
+Copyright (C) 2010=C2=A0 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later &lt;<a href=3D"http://gnu.org/li=
+censes/gpl.html" rel=3D"noreferrer" target=3D"_blank">http://gnu.org/licens=
+es/gpl.html</a>&gt;<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.<br>
+<br>
+--------------------------------------------------------------<br>
+Fortran Compiler version:<br>
+GNU Fortran (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)<br>
+Copyright (C) 2015 Free Software Foundation, Inc.<br>
+<br>
+GNU Fortran comes with NO WARRANTY, to the extent permitted by law.<br>
+You may redistribute copies of GNU Fortran<br>
+under the terms of the GNU General Public License.<br>
+For more information about these matters, see the file named COPYING<br>
+<br>
+<br>
+--------------------------------------------------------------<br>
+C++ Compiler version:<br>
+g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)<br>
+Copyright (C) 2015 Free Software Foundation, Inc.<br>
+This is free software; see the source for copying conditions.=C2=A0 There i=
+s NO<br>
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.=
+<br>
+<br>
+<br>
+--------------------------------------------------------------<br>
+Preprocessor version:<br>
+gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)<br>
+Copyright (C) 2015 Free Software Foundation, Inc.<br>
+This is free software; see the source for copying conditions.=C2=A0 There i=
+s NO<br>
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.=
+<br>
+<br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* User set ESMF environment variables *<br>
+ESMF_ABI=3D64<br>
+ESMF_BOPT=3DO<br>
+ESMF_COMM=3Dmpiuni<br>
+ESMF_COMPILER=3Dgfortran<br>
+ESMF_DIR=3D/export/scripts_dir/branch_builds/esmpy/gfortran/esmf<br>
+ESMF_INSTALL_BINDIR=3Dbin<br>
+ESMF_INSTALL_LIBDIR=3Dlib<br>
+ESMF_INSTALL_MODDIR=3Dmod<br>
+ESMF_INSTALL_PREFIX=3D/export/scripts_dir/branch_builds/esmpy/gfortran/esmf=
+/../install_dir<br>
+ESMF_OS=3DLinux<br>
+ESMF_SITE=3Ddefault<br>
+ESMF_TESTEXHAUSTIVE=3DON<br>
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArrayUNI_2<br>
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessFieldUNI_1<br>
+ESMF_TESTMPMD=3DON<br>
+ESMF_TESTWITHTHREADS=3DOFF<br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* ESMF environment variables *<br>
+ESMF_DIR: /export/scripts_dir/branch_builds/esmpy/gfortran/esmf<br>
+ESMF_OS:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Linux<br>
+ESMF_MACHINE:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0x86_64<br>
+ESMF_ABI:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A064<br>
+ESMF_COMPILER:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 gfortran<br>
+ESMF_BOPT:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 O<br>
+ESMF_COMM:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 mpiuni<br>
+ESMF_SITE:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 default<br>
+ESMF_PTHREADS:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ON<br>
+ESMF_OPENMP:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ON<br>
+ESMF_OPENACC:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0OFF<br>
+ESMF_ARRAY_LITE:=C2=A0 =C2=A0 =C2=A0 =C2=A0 FALSE<br>
+ESMF_NO_INTEGER_1_BYTE: TRUE<br>
+ESMF_NO_INTEGER_2_BYTE: TRUE<br>
+ESMF_FORTRANSYMBOLS:=C2=A0 =C2=A0 default<br>
+ESMF_DEFER_LIB_BUILD:=C2=A0 =C2=A0ON<br>
+ESMF_SHARED_LIB_BUILD:=C2=A0 ON<br>
+ESMF_TESTEXHAUSTIVE:=C2=A0 =C2=A0 ON<br>
+ESMF_TESTCOMPTUNNEL:=C2=A0 =C2=A0 ON<br>
+ESMF_TESTWITHTHREADS:=C2=A0 =C2=A0OFF<br>
+ESMF_TESTMPMD:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ON<br>
+ESMF_TESTSHAREDOBJ:=C2=A0 =C2=A0 =C2=A0OFF<br>
+ESMF_TESTFORCEOPENMP:=C2=A0 =C2=A0OFF<br>
+ESMF_TESTFORCEOPENACC:=C2=A0 OFF<br>
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArrayUNI_2<br>
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessFieldUNI_1<br>
+ESMF_MPIRUN:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /export/scripts_dir/b=
+ranch_builds/esmpy/gfortran/esmf/src/Infrastructure/stubs/mpiuni/mpirun<br>
+ESMF_MPIMPMDRUN:=C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* ESMF environment variables pointing to 3rd party software *<br>
+ESMF_MOAB:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0internal<b=
+r>
+ESMF_LAPACK:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0internal<br>
+ESMF_ACC_SOFTWARE_STACK: none<br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* ESMF environment variables for final installation *<br>
+ESMF_INSTALL_PREFIX:=C2=A0 =C2=A0 /export/scripts_dir/branch_builds/esmpy/g=
+fortran/esmf/../install_dir<br>
+ESMF_INSTALL_HEADERDIR: include<br>
+ESMF_INSTALL_MODDIR:=C2=A0 =C2=A0 mod<br>
+ESMF_INSTALL_LIBDIR:=C2=A0 =C2=A0 lib<br>
+ESMF_INSTALL_BINDIR:=C2=A0 =C2=A0 bin<br>
+ESMF_INSTALL_DOCDIR:=C2=A0 =C2=A0 doc<br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* ESMF Benchmark directory and parameters *<br>
+ESMF_BENCHMARK_PREFIX:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0./DEFAULTBENCHMARKD=
+IR<br>
+ESMF_BENCHMARK_TOLERANCE:=C2=A0 =C2=A0 =C2=A0 20%<br>
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500<br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* Other relevant environment variables *<br>
+PATH:=C2=A0 =C2=A0 /home/silverio.vasquez/bin:/usr/local/share/Modules/bin:=
+/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/home/silverio.vasquez/.local/bin:/=
+home/silverio.vasquez/bin:/home/silverio.vasquez/.local/bin:/home/silverio.=
+vasquez/bin:/home/silverio.vasquez/.local/bin:/home/silverio.vasquez/bin:/h=
+ome/silverio.vasquez/.local/bin:/home/silverio.vasquez/bin<br>
+LD_LIBRARY_PATH: <br>
+<br>
+--------------------------------------------------------------<br>
+=C2=A0* Compilers, Linkers, Flags, and Libraries *<br>
+Location of the preprocessor:=C2=A0 =C2=A0 =C2=A0 /usr/bin/gcc<br>
+Location of the Fortran compiler:=C2=A0 /usr/bin/gfortran<br>
+Location of the Fortran linker:=C2=A0 =C2=A0 /usr/bin/gfortran<br>
+Location of the C++ compiler:=C2=A0 =C2=A0 =C2=A0 /usr/bin/g++<br>
+Location of the C++ linker:=C2=A0 =C2=A0 =C2=A0 =C2=A0 /usr/bin/g++<br>
+<br>
+Fortran compiler flags:<br>
+ESMF_F90COMPILER: gfortran<br>
+ESMF_F90COMPILEOPTS: -O -fPIC=C2=A0 -m64 -mcmodel=3Dsmall -pthread -ffree-l=
+ine-length-none=C2=A0 -fopenmp<br>
+ESMF_F90COMPILEPATHS: -I/export/scripts_dir/branch_builds/esmpy/gfortran/es=
+mf/mod/modO/Linux.gfortran.64.mpiuni.default -I/export/scripts_dir/branch_b=
+uilds/esmpy/gfortran/esmf/src/include <br>
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE =
+-DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
+SOFTWARE_STACK=3D1 -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_TESTCOMPT=
+UNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_MPIUNI<br>
+ESMF_F90COMPILEFREECPP: <br>
+ESMF_F90COMPILEFREENOCPP: -ffree-form<br>
+ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form<br>
+ESMF_F90COMPILEFIXNOCPP: <br>
+<br>
+Fortran linker flags:<br>
+ESMF_F90LINKOPTS:=C2=A0 =C2=A0-m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-ne=
+eded=C2=A0 -fopenmp<br>
+ESMF_F90LINKPATHS: -L/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/=
+lib/libO/Linux.gfortran.64.mpiuni.default=C2=A0 -L/usr/lib/gcc/x86_64-redha=
+t-linux/4.8.5/<br>
+ESMF_F90LINKRPATHS: -Wl,-rpath,/export/scripts_dir/branch_builds/esmpy/gfor=
+tran/esmf/lib/libO/Linux.gfortran.64.mpiuni.default=C2=A0 -Wl,-rpath,/usr/l=
+ib/gcc/x86_64-redhat-linux/4.8.5/<br>
+ESMF_F90LINKLIBS:=C2=A0 -lrt -lstdc++ -ldl<br>
+ESMF_F90ESMFLINKLIBS: -lesmf=C2=A0 -lrt -lstdc++ -ldl<br>
+<br>
+C++ compiler flags:<br>
+ESMF_CXXCOMPILER: g++<br>
+ESMF_CXXCOMPILEOPTS: -O -DNDEBUG -fPIC -DESMF_LOWERCASE_SINGLEUNDERSCORE -m=
+64 -mcmodel=3Dsmall -pthread=C2=A0 -fopenmp<br>
+ESMF_CXXCOMPILEPATHS:=C2=A0 -I/export/scripts_dir/branch_builds/esmpy/gfort=
+ran/esmf/src/include=C2=A0 =C2=A0-I/export/scripts_dir/branch_builds/esmpy/=
+gfortran/esmf/src/Infrastructure/stubs/mpiuni<br>
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE =
+-DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
+SOFTWARE_STACK=3D1 -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE=C2=A0 -DESMF_TES=
+TCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -D__SDIR__=3D&#39;&#39;=
+ -DESMF_MPIUNI<br>
+<br>
+C++ linker flags:<br>
+ESMF_CXXLINKOPTS:=C2=A0 -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed=
+=C2=A0 -fopenmp<br>
+ESMF_CXXLINKPATHS: -L/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/=
+lib/libO/Linux.gfortran.64.mpiuni.default=C2=A0 -L/usr/lib/gcc/x86_64-redha=
+t-linux/4.8.5/<br>
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/export/scripts_dir/branch_builds/esmpy/gfor=
+tran/esmf/lib/libO/Linux.gfortran.64.mpiuni.default=C2=A0 -Wl,-rpath,/usr/l=
+ib/gcc/x86_64-redhat-linux/4.8.5/<br>
+ESMF_CXXLINKLIBS:=C2=A0 -lrt -lgfortran -ldl<br>
+ESMF_CXXESMFLINKLIBS: -lesmf=C2=A0 -lrt -lgfortran -ldl<br>
+<br>
+Shared library build:<br>
+ESMF_SL_LIBS_TO_MAKE: libesmf<br>
+ESMF_SL_SUFFIX:=C2=A0 =C2=A0 =C2=A0 =C2=A0so<br>
+ESMF_SL_LIBLINKER:=C2=A0 =C2=A0 g++<br>
+ESMF_SL_LIBOPTS:=C2=A0 =C2=A0 =C2=A0 =C2=A0-shared=C2=A0 -fopenmp<br>
+ESMF_SL_LIBLIBS:=C2=A0 =C2=A0 =C2=A0 <br>
+<br>
+<br>
+--------------------------------------------------------------<br>
+Compiling on Sun Apr 14 13:23:23 MDT 2019 on <a href=3D"http://linux-regtes=
+t2.gsd.esrl.noaa.gov" rel=3D"noreferrer" target=3D"_blank">linux-regtest2.g=
+sd.esrl.noaa.gov</a><br>
+Machine characteristics: Linux <a href=3D"http://linux-regtest2.gsd.esrl.no=
+aa.gov" rel=3D"noreferrer" target=3D"_blank">linux-regtest2.gsd.esrl.noaa.g=
+ov</a> 3.10.0-957.5.1.el7.x86_64 #1 SMP Wed Dec 19 10:46:58 EST 2018 x86_64=
+ x86_64 x86_64 GNU/Linux<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+<br>
+Sun Apr 14 13:31:33 MDT 2019 library build -j4 ............PASS<br>
+Builds with warnings.<br>
+Sun Apr 14 13:31:47 MDT 2019 library install ..............PASS<br>
+Sun Apr 14 13:31:49 MDT 2019 library installcheck .........PASS<br>
+<br>
+|------------------------ PYTHON BUILD ------------------------|<br>
+Sun Apr 14 13:31:52 MDT 2019 python build .................PASS<br>
+<br>
+<br>
+|-------------------- PYTHON UNIT TESTS -----------------------|<br>
+Sun Apr 14 13:31:53 MDT 2019 run test .....................PASS<br>
+<br>
+Found 87 unit tests, 59 pass, 16 fail and 12 were skipped.<br>
+<br>
+<br>
+<br>
+=C2=A0The following is the run_unit_test.output file.<br>
+<br>
+running test<br>
+test_assertNumpyAll_bad_mask (ESMF.test.base_test.Test) ... ok<br>
+test_assertNumpyAll_type_differs (ESMF.test.base_test.Test) ... ok<br>
+test_copy (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_del (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_doublebuffer (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br=
+>
+test_mul (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_new (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_ownership (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_reshape (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_slice (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_slice2 (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_stress (ESMF.test.test_api.test_array.TestMaskedArray) ... ok<br>
+test_field_area (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_field_create_from_gridfield (ESMF.test.test_api.test_field.TestField) =
+... ok<br>
+test_field_extradims_grid (ESMF.test.test_api.test_field.TestField) ... ok<=
+br>
+test_field_extradims_mesh (ESMF.test.test_api.test_field.TestField) ... ok<=
+br>
+test_field_grid_copy (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_field_locstream_mask (ESMF.test.test_api.test_field.TestField) ... ok<=
+br>
+test_field_reshape (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_field_slice_grid (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_field_slice_grid_extraindices (ESMF.test.test_api.test_field.TestField=
+) ... ok<br>
+test_field_slice_mesh (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_field_switchedindices_grid (ESMF.test.test_api.test_field.TestField) .=
+.. ok<br>
+test_field_uniqueness (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_meta_del (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_numpy_funcs (ESMF.test.test_api.test_field.TestField) ... ok<br>
+test_grid_area (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_area_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_attributes_2d (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_attributes_3d (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_coords (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_coords_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_copy (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_create_cubed_sphere (ESMF.test.test_api.test_grid.TestGrid) ... o=
+k<br>
+test_grid_create_from_file_gridspec1D (ESMF.test.test_api.test_grid.TestGri=
+d) ... ERROR<br>
+test_grid_create_from_file_scrip (ESMF.test.test_api.test_grid.TestGrid) ..=
+. ERROR<br>
+test_grid_create_from_file_scrip_decomp_balanced_balanced (ESMF.test.test_a=
+pi.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_balanced_cyclic (ESMF.test.test_api=
+.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_balanced_restfirst (ESMF.test.test_=
+api.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_balanced_restlast (ESMF.test.test_a=
+pi.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_cyclic_balanced (ESMF.test.test_api=
+.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_cyclic_cyclic (ESMF.test.test_api.t=
+est_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_cyclic_restfirst (ESMF.test.test_ap=
+i.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_cyclic_restlast (ESMF.test.test_api=
+.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_restfirst_balanced (ESMF.test.test_=
+api.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_restfirst_cyclic (ESMF.test.test_ap=
+i.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_restfirst_restfirst (ESMF.test.test=
+_api.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_restfirst_restlast (ESMF.test.test_=
+api.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_restlast_balanced (ESMF.test.test_a=
+pi.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_restlast_cyclic (ESMF.test.test_api=
+.test_grid.TestGrid) ... SKIP<br>
+test_grid_create_from_file_scrip_decomp_restlast_restfirst (ESMF.test.test_=
+api.test_grid.TestGrid) ... ERROR<br>
+test_grid_create_from_file_scrip_decomp_restlast_restlast (ESMF.test.test_a=
+pi.test_grid.TestGrid) ... ERROR<br>
+test_grid_mask (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_mask_3D (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_periodic (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_slice_2d (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_slice_2d_corners (ESMF.test.test_api.test_grid.TestGrid) ... ok<b=
+r>
+test_grid_slice_3d (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_grid_slice_3d_corners (ESMF.test.test_api.test_grid.TestGrid) ... ok<b=
+r>
+test_grid_slice_periodic (ESMF.test.test_api.test_grid.TestGrid) ... ok<br>
+test_slice_grid_created_from_file_scrip (ESMF.test.test_api.test_grid.TestG=
+rid) ... ERROR<br>
+test_copy (ESMF.test.test_api.test_locstream.TestLocStream) ... ok<br>
+test_create (ESMF.test.test_api.test_locstream.TestLocStream) ... ok<br>
+test_mask (ESMF.test.test_api.test_locstream.TestLocStream) ... ok<br>
+test_pickle (ESMF.test.test_api.test_locstream.TestLocStream) ... SKIP<br>
+test_properties (ESMF.test.test_api.test_locstream.TestLocStream) ... SKIP<=
+br>
+test_slice (ESMF.test.test_api.test_locstream.TestLocStream) ... ok<br>
+test_mesh_10 (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_5 (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_50 (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_50_mask_area (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_50_ngons (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_copy (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_mesh_create_from_file_esmfmesh (ESMF.test.test_api.test_mesh.TestMesh)=
+ ... ERROR<br>
+test_mesh_create_from_file_scrip (ESMF.test.test_api.test_mesh.TestMesh) ..=
+. ERROR<br>
+test_mesh_slicing (ESMF.test.test_api.test_mesh.TestMesh) ... ok<br>
+test_slice_mesh_created_from_file_elem_coords (ESMF.test.test_api.test_mesh=
+.TestMesh) ... SKIP<br>
+test_slice_mesh_created_from_file_esmfmesh (ESMF.test.test_api.test_mesh.Te=
+stMesh) ... ERROR<br>
+test_slice_mesh_created_from_file_scrip (ESMF.test.test_api.test_mesh.TestM=
+esh) ... ERROR<br>
+test_field_regrid (ESMF.test.test_api.test_regrid.TestRegrid) ... ok<br>
+test_field_regrid_gridmesh (ESMF.test.test_api.test_regrid.TestRegrid) ... =
+ok<br>
+test_interfaceint (ESMF.test.test_cbindings.TestCbindings) ... ok<br>
+test_interfaceint2 (ESMF.test.test_cbindings.TestCbindings) ... SKIP<br>
+test_interfaceint3 (ESMF.test.test_cbindings.TestCbindings) ... SKIP<br>
+test_log (ESMF.test.test_cbindings.TestCbindings) ... ok<br>
+test_version_compare (ESMF.test.test_cbindings.TestCbindings) ... ok<br>
+test_vm (ESMF.test.test_cbindings.TestCbindings) ... ok<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_gridspec1D (ESMF.test.test_api.test_grid.=
+TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 625, in test_g=
+rid_create_from_file_gridspec1D<br>
+=C2=A0 =C2=A0 coord_names=3D[&quot;longitude&quot;, &quot;latitude&quot;])<=
+br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/grid.py&quot;, line 331, in __init__<br>
+=C2=A0 =C2=A0 coordNames=3Dcoord_names)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip (ESMF.test.test_api.test_grid.TestG=
+rid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 638, in test_g=
+rid_create_from_file_scrip<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip failed!&#39;=
+)<br>
+NameError: grid_create_from_file_scrip failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_balanced (ESMF.test=
+.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 651, in test_g=
+rid_create_from_file_scrip_decomp_balanced_balanced<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_balanced_bal=
+anced failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_balanced_balanced failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_restfirst (ESMF.tes=
+t.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 664, in test_g=
+rid_create_from_file_scrip_decomp_balanced_restfirst<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_balanced_res=
+tfirst failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_balanced_restfirst failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_balanced_restlast (ESMF.test=
+.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 677, in test_g=
+rid_create_from_file_scrip_decomp_balanced_restlast<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_balanced_res=
+tlast failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_balanced_restlast failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_balanced (ESMF.tes=
+t.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 704, in test_g=
+rid_create_from_file_scrip_decomp_restfirst_balanced<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restfirst_ba=
+lanced failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restfirst_balanced failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_restfirst (ESMF.te=
+st.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 717, in test_g=
+rid_create_from_file_scrip_decomp_restfirst_restfirst<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restfirst_re=
+stfirst failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restfirst_restfirst failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restfirst_restlast (ESMF.tes=
+t.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 730, in test_g=
+rid_create_from_file_scrip_decomp_restfirst_restlast<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restfirst_re=
+stlast failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restfirst_restlast failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_balanced (ESMF.test=
+.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 757, in test_g=
+rid_create_from_file_scrip_decomp_restlast_balanced<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restlast_bal=
+anced failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restlast_balanced failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_restfirst (ESMF.tes=
+t.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 770, in test_g=
+rid_create_from_file_scrip_decomp_restlast_restfirst<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restlast_res=
+tfirst failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restlast_restfirst failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_grid_create_from_file_scrip_decomp_restlast_restlast (ESMF.test=
+.test_api.test_grid.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 783, in test_g=
+rid_create_from_file_scrip_decomp_restlast_restlast<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip_restlast_res=
+tlast failed!&#39;)<br>
+NameError: grid_create_from_file_scrip_restlast_restlast failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_slice_grid_created_from_file_scrip (ESMF.test.test_api.test_gri=
+d.TestGrid)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_grid.py&quot;, line 431, in test_s=
+lice_grid_created_from_file_scrip<br>
+=C2=A0 =C2=A0 raise NameError(&#39;grid_create_from_file_scrip failed!&#39;=
+)<br>
+NameError: grid_create_from_file_scrip failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_mesh_create_from_file_esmfmesh (ESMF.test.test_api.test_mesh.Te=
+stMesh)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_mesh.py&quot;, line 151, in test_m=
+esh_create_from_file_esmfmesh<br>
+=C2=A0 =C2=A0 raise NameError(&#39;mesh_create_from_file_scrip failed!&#39;=
+)<br>
+NameError: mesh_create_from_file_scrip failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_mesh_create_from_file_scrip (ESMF.test.test_api.test_mesh.TestM=
+esh)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_mesh.py&quot;, line 142, in test_m=
+esh_create_from_file_scrip<br>
+=C2=A0 =C2=A0 raise NameError(&#39;mesh_create_from_file_scrip failed!&#39;=
+)<br>
+NameError: mesh_create_from_file_scrip failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_slice_mesh_created_from_file_esmfmesh (ESMF.test.test_api.test_=
+mesh.TestMesh)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_mesh.py&quot;, line 238, in test_s=
+lice_mesh_created_from_file_esmfmesh<br>
+=C2=A0 =C2=A0 raise NameError(&#39;mesh_create_from_file_esmfmesh failed!&#=
+39;)<br>
+NameError: mesh_create_from_file_esmfmesh failed!<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_slice_mesh_created_from_file_scrip (ESMF.test.test_api.test_mes=
+h.TestMesh)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/test/test_api/test_mesh.py&quot;, line 215, in test_s=
+lice_mesh_created_from_file_scrip<br>
+=C2=A0 =C2=A0 raise NameError(&#39;mesh_create_from_file_scrip failed!&#39;=
+)<br>
+NameError: mesh_create_from_file_scrip failed!<br>
+<br>
+----------------------------------------------------------------------<br>
+Ran 87 tests in 1.056s<br>
+<br>
+FAILED (SKIP=3D12, errors=3D16)<br>
+Field:<br>
+=C2=A0 =C2=A0 name =3D None<br>
+=C2=A0 =C2=A0 type =3D &lt;TypeKind.R8: 6&gt;<br>
+=C2=A0 =C2=A0 rank =3D 1<br>
+=C2=A0 =C2=A0 extra dimensions =3D 0<br>
+=C2=A0 =C2=A0 staggerloc =3D &lt;StaggerLoc.CENTER: 0&gt;<br>
+=C2=A0 =C2=A0 lower bounds =3D array([0], dtype=3Dint32)<br>
+=C2=A0 =C2=A0 upper bounds =3D array([5], dtype=3Dint32)<br>
+=C2=A0 =C2=A0 extra bounds =3D None<br>
+=C2=A0 =C2=A0 data =3D array([ 7.,=C2=A0 7.,=C2=A0 7.,=C2=A0 7.,=C2=A0 7.])=
+<br>
+=C2=A0 =C2=A0 grid =3D <br>
+LocStream:<br>
+=C2=A0 =C2=A0 name =3D &#39;Test LocStream&#39; <br>
+=C2=A0 =C2=A0 lower_bounds =3D array([0], dtype=3Dint32) <br>
+=C2=A0 =C2=A0 upper_bounds =3D array([5], dtype=3Dint32) <br>
+=C2=A0 =C2=A0 keys =3D [(&#39;ESMF:Y&#39;, array([7, 7, 7, 7, 7])), (&#39;E=
+SMF:X&#39;, array([1, 2, 3, 4, 5])), (&#39;ESMF:Mask&#39;, array([0, 0, 1, =
+1, 1]))] <br>
+<br>
+)<br>
+Grid Bounds:<br>
+=C2=A0 =C2=A0 exclusiveLBounds =3D [0 0]<br>
+&lt;type &#39;numpy.ndarray&#39;&gt;<br>
+=C2=A0 =C2=A0 exclusiveUBounds =3D [12 20]<br>
+int32<br>
+Grid Bounds:<br>
+=C2=A0 =C2=A0 exclusiveLBounds =3D [0 0 0]<br>
+&lt;type &#39;numpy.ndarray&#39;&gt;<br>
+=C2=A0 =C2=A0 exclusiveUBounds =3D [10 20 30]<br>
+int32<br>
+LocStream:<br>
+=C2=A0 =C2=A0 name =3D &#39;Test LocStream&#39; <br>
+=C2=A0 =C2=A0 lower_bounds =3D array([0], dtype=3Dint32) <br>
+=C2=A0 =C2=A0 upper_bounds =3D array([5], dtype=3Dint32) <br>
+=C2=A0 =C2=A0 keys =3D [(&#39;ESMF:Y&#39;, array([7, 7, 7, 7, 7])), (&#39;E=
+SMF:X&#39;, array([1, 2, 3, 4, 5])), (&#39;ESMF:Mask&#39;, array([0, 0, 1, =
+1, 1]))] <br>
+<br>
+<br>
+local_pet =3D 0<br>
+<br>
+<br>
+pet_count =3D 1<br>
+<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;setup.py&quot;, line 272, in &lt;module&gt;<br>
+=C2=A0 =C2=A0 &#39;test_regrid_from_file_parallel&#39;: TestRegridFromFileP=
+arallelCommand})<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/core.py&quot;, line 152, i=
+n setup<br>
+=C2=A0 =C2=A0 dist.run_commands()<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/dist.py&quot;, line 953, i=
+n run_commands<br>
+=C2=A0 =C2=A0 self.run_command(cmd)<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/dist.py&quot;, line 972, i=
+n run_command<br>
+=C2=A0 =C2=A0 cmd_obj.run()<br>
+=C2=A0 File &quot;setup.py&quot;, line 49, in run<br>
+=C2=A0 =C2=A0 subprocess.check_call(cmd)<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/subprocess.py&quot;, line 542, in ch=
+eck_call<br>
+=C2=A0 =C2=A0 raise CalledProcessError(retcode, cmd)<br>
+subprocess.CalledProcessError: Command &#39;[&#39;nosetests&#39;, &#39;-vs&=
+#39;, &#39;-a&#39;, &#39;!slow,!parallel&#39;, &#39;src/ESMF&#39;]&#39; ret=
+urned non-zero exit status 1<br>
+<br>
+<br>
+<br>
+|------------------- PYTHON EXAMPLES TESTS --------------------|<br>
+Sun Apr 14 13:31:55 MDT 2019 run test_examples ............PASS<br>
+<br>
+Found 8 examples tests, 2 pass, 5 fail , and 1 skipped.<br>
+<br>
+=C2=A0The following is the run_examples.output file.<br>
+<br>
+running test_examples<br>
+test_gridcreateperimask (examples.exampletest.TestExamples) ... ERROR<br>
+test_gridlocstreamregrid (examples.exampletest.TestExamples) ... ERROR<br>
+test_gridmeshrg (examples.exampletest.TestExamples) ... SKIP: ESMF must be =
+built with MPI for test<br>
+test_helloworld (examples.exampletest.TestExamples) ... ok<br>
+test_locstreamgridregrid (examples.exampletest.TestExamples) ... ERROR<br>
+test_meshlocstreamregrid (examples.exampletest.TestExamples) ... ok<br>
+test_ugrid_latlon_regrid (examples.exampletest.TestExamples) ... ERROR<br>
+test_ungriddedrg (examples.exampletest.TestExamples) ... ERROR<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_gridcreateperimask (examples.exampletest.TestExamples)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/exampletest.py&quot;, line 43, in test_gridcreateperi=
+mask<br>
+=C2=A0 =C2=A0 from . import grid_create_peridim_mask<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/grid_create_peridim_mask.py&quot;, line 60, in &lt;mo=
+dule&gt;<br>
+=C2=A0 =C2=A0 filetype=3DESMF.FileFormat.SCRIP)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/grid.py&quot;, line 331, in __init__<br>
+=C2=A0 =C2=A0 coordNames=3Dcoord_names)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_gridlocstreamregrid (examples.exampletest.TestExamples)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/exampletest.py&quot;, line 49, in test_gridlocstreamr=
+egrid<br>
+=C2=A0 =C2=A0 from . import grid_locstream_regrid<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/grid_locstream_regrid.py&quot;, line 33, in &lt;modul=
+e&gt;<br>
+=C2=A0 =C2=A0 grid =3D ESMF.Grid(filename=3Dgrid1, filetype=3DESMF.FileForm=
+at.SCRIP)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/grid.py&quot;, line 331, in __init__<br>
+=C2=A0 =C2=A0 coordNames=3Dcoord_names)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_locstreamgridregrid (examples.exampletest.TestExamples)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/exampletest.py&quot;, line 52, in test_locstreamgridr=
+egrid<br>
+=C2=A0 =C2=A0 from . import locstream_grid_regrid<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/locstream_grid_regrid.py&quot;, line 22, in &lt;modul=
+e&gt;<br>
+=C2=A0 =C2=A0 grid =3D ESMF.Grid(filename=3Dgrid1, filetype=3DESMF.FileForm=
+at.SCRIP)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/grid.py&quot;, line 331, in __init__<br>
+=C2=A0 =C2=A0 coordNames=3Dcoord_names)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_ugrid_latlon_regrid (examples.exampletest.TestExamples)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/exampletest.py&quot;, line 55, in test_ugrid_latlon_r=
+egrid<br>
+=C2=A0 =C2=A0 from . import ugrid_latlon_regrid<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/ugrid_latlon_regrid.py&quot;, line 98, in &lt;module&=
+gt;<br>
+=C2=A0 =C2=A0 mesh =3D ESMF.Mesh(filename=3Dmeshfile, filetype=3DESMF.FileF=
+ormat.UGRID, meshname=3D&#39;adcirc_mesh&#39;)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/mesh.py&quot;, line 201, in __init__<br>
+=C2=A0 =C2=A0 mask_flag, varname)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: test_ungriddedrg (examples.exampletest.TestExamples)<br>
+----------------------------------------------------------------------<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/exampletest.py&quot;, line 40, in test_ungriddedrg<br=
+>
+=C2=A0 =C2=A0 from . import ungridded_dimension_regrid<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/examples/ungridded_dimension_regrid.py&quot;, line 32, in &lt;=
+module&gt;<br>
+=C2=A0 =C2=A0 add_corner_stagger=3DTrue)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 64, in new_func<br>
+=C2=A0 =C2=A0 return func(*args, **kwargs)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/api/grid.py&quot;, line 331, in __init__<br>
+=C2=A0 =C2=A0 coordNames=3Dcoord_names)<br>
+=C2=A0 File &quot;/export/scripts_dir/branch_builds/esmpy/gfortran/esmf/src=
+/addon/ESMPy/src/ESMF/util/decorators.py&quot;, line 78, in new_func<br>
+=C2=A0 =C2=A0 raise NetCDFMissing(&quot;This function requires ESMF to have=
+ been built with NetCDF.&quot;)<br>
+NetCDFMissing: This function requires ESMF to have been built with NetCDF.<=
+br>
+<br>
+----------------------------------------------------------------------<br>
+Ran 8 tests in 0.250s<br>
+<br>
+FAILED (SKIP=3D1, errors=3D5)<br>
+Hello ESMPy World from PET (processor) 0!<br>
+ESMPy Grid Mesh Regridding Example<br>
+=C2=A0 interpolation mean relative error =3D 2.2839050714e-05<br>
+Traceback (most recent call last):<br>
+=C2=A0 File &quot;setup.py&quot;, line 272, in &lt;module&gt;<br>
+=C2=A0 =C2=A0 &#39;test_regrid_from_file_parallel&#39;: TestRegridFromFileP=
+arallelCommand})<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/core.py&quot;, line 152, i=
+n setup<br>
+=C2=A0 =C2=A0 dist.run_commands()<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/dist.py&quot;, line 953, i=
+n run_commands<br>
+=C2=A0 =C2=A0 self.run_command(cmd)<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/distutils/dist.py&quot;, line 972, i=
+n run_command<br>
+=C2=A0 =C2=A0 cmd_obj.run()<br>
+=C2=A0 File &quot;setup.py&quot;, line 15, in wrapper<br>
+=C2=A0 =C2=A0 return func(self)<br>
+=C2=A0 File &quot;setup.py&quot;, line 166, in run<br>
+=C2=A0 =C2=A0 AbstractESMFNoseCommand.run(self)<br>
+=C2=A0 File &quot;setup.py&quot;, line 49, in run<br>
+=C2=A0 =C2=A0 subprocess.check_call(cmd)<br>
+=C2=A0 File &quot;/usr/lib64/python2.7/subprocess.py&quot;, line 542, in ch=
+eck_call<br>
+=C2=A0 =C2=A0 raise CalledProcessError(retcode, cmd)<br>
+subprocess.CalledProcessError: Command &#39;[&#39;nosetests&#39;, &#39;-vs&=
+#39;, &#39;-a&#39;, &#39;!slow,!parallel&#39;, &#39;examples/exampletest.py=
+&#39;]&#39; returned non-zero exit status 1<br>
+<br>
+<br>
+<br>
+|--------------- PYTHON REGRID FROM FILE TESTS ----------------|<br>
+Sun Apr 14 13:32:19 MDT 2019 run test_regrid_from_file ****FAIL<br>
+<br>
+<br>
+The following is the &#39;tail&#39; of the run regrid tests from file failu=
+re<br>
+<br>
+running test_regrid_from_file<br>
+sh: mpirun: command not found<br>
+Regrid from file test results: run_regrid_from_file.log<br>
+PASS=C2=A0 =3D 0<br>
+FAIL=C2=A0 =3D 0<br>
+SKIP=C2=A0 =3D 0<br>
+run_regrid_from_file.log:<br>
+<br>
+<br>
+Found 0 regrid from file tests, 0 pass, 0 fail and 0 were skipped.<br>
+<br>
+<br>
+=C2=A0The following is the run_regrid_from_file.log file.<br>
+<br>
+sh: mpirun: command not found<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+=C2=A0The tarballs of the tests and examples directories can be found at:<b=
+r>
+=C2=A0/export/scripts_dir/branch_builds/esmpy/gfortran/esmf_logs/1904_test.=
+<br>
+=C2=A0These tarballs contain the *Log and *stdout files only, not the execu=
+tables.<br>
+=C2=A0This directory also contains failed build output files with the namin=
+g convention of <br>
+=C2=A0build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_CO=
+MM.<br>
+=C2=A0For example, if the build fails on longs on the 19th of the month wit=
+h ESMF_BOPT=3Dg, the file <br>
+=C2=A0would be called &#39;build_g_19longslinux32pgimpiuni&#39;.<br>
+Test_results:yellow<br>
+Day_of_Week:Sunday<br>
+Test_Failures:32<br>
+</div></div>
+
+--000000000000835780058685e6cf--

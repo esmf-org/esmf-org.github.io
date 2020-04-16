@@ -1,0 +1,172 @@
+<pre>
+Return-Path: <Silverio.Vasquez@boulder.rdhpcs.noaa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 03 Apr 2020 13:00:02 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id DF6AD33F
+	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 06:52:43 -0600 (MDT)
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 52B2C18019CA
+	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 06:52:43 -0600 (MDT)
+Received: by mail-qt1-f199.google.com with SMTP id d18so6301252qtq.16
+        for <esmftest@cgd.ucar.edu>; Fri, 03 Apr 2020 05:52:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-original-authentication-results:x-gm-message-state:date:from:to
+         :subject:message-id:user-agent:mime-version
+         :content-transfer-encoding;
+        bh=dfcCjVX2VV7LA8PmUnz1JoQ+WoLHMCshwotKT5lHZW0=;
+        b=ZROGNvvtBZT5hcYwnR+n/t5p6W72MW3J1+AizIjn2ubCtCiY7LgKVyM+mhUmacxSVg
+         v3RBFIHBjyXmWtmp9YXK6nn/EtXZj+suhBW6fj6cf169LmoxnkJetZGIO5qQeSwXRV6k
+         zuYI8BdGHiwItKXeA2PmnGR+wqimXzBpXHzeAu4/2JEXzCas9by6SdrdSXkO1tgjzyjQ
+         iPcqWGsZfK06ud5v/N4r4LV77j67rFN9FdwtezhltZfUzk9vIPrzYNSGnJV1ZCoItA5E
+         JqfbcsXZNgrbNrUr+m/Qh6f4IGgPX0VI1cyywmkCh/eteKIClqh5A0Ca1NH5p/eHINfT
+         3N/w==
+X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com: domain of silverio.vasquez@boulder.rdhpcs.noaa.gov designates 140.208.168.138 as permitted sender) smtp.mailfrom=Silverio.Vasquez@boulder.rdhpcs.noaa.gov
+X-Gm-Message-State: AGi0Pubv5pKkv918MgIMW/CRdKun5Y8pPw0qKh+hHmO8uOSftC2+d9j6
+	SNjnmK1Ubl2j588cwvEh88K5l/HlbdcKqLftNVjvln46klJBu+zUNdbTgLZlQ3kiTd4VFJfAadn
+	9npuOvv0C5wZA4g==
+X-Received: by 2002:ac8:304d:: with SMTP id g13mr4186337qte.221.1585918362811;
+        Fri, 03 Apr 2020 05:52:42 -0700 (PDT)
+X-Google-Smtp-Source: APiQypLENvnlwkxoiP22peGYm4vY1bv4UEEzjbO8eNJO8FnejwCULSMAK5Dwcvtke+HbhrL0uLee
+X-Received: by 2002:ac8:304d:: with SMTP id g13mr4186317qte.221.1585918362533;
+        Fri, 03 Apr 2020 05:52:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1585918362; cv=none;
+        d=google.com; s=arc-20160816;
+        b=aC98o7KjjT6pIcioarTkbeRI46+hL5S854zPKibooUKdCaZ4WTy8+9Mr3e2Xjg/lIQ
+         w8Gm3SAW3mKBoY3G5k03K1jBYlQqQvqpdAB052MAz3s5ipVdd2/i2WUmmS35KXFCXgH8
+         POakAE95WIJe0mM/LlTn8euwYUB/XzrKJU8n8gHDY8ARB2aHUDy/wRsjoADX6g4RHLul
+         ttn7RUsnVuN3l0M7WliphodbSSWtFD9KK+SYGZ/TTdddOOCnyIqtdECMTfXuFdVdCDAf
+         p0hr68ksetJ2i/3Rf3hcbpX9RVEnw6V1xTpmXmbMA7HY+UkWpbkiNVTuyVc1ev0p6mgu
+         eG2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:mime-version:user-agent:message-id
+         :subject:to:from:date;
+        bh=dfcCjVX2VV7LA8PmUnz1JoQ+WoLHMCshwotKT5lHZW0=;
+        b=he57+VJP5SfJd+Nwtm7Ds5LHDsjPIP2Pl55DS7B+C1W6KYtB/NoWaajlZpD1dF+dDz
+         gLrEA+nXBqVaOl0D5UTy8kJtbvwFogSyDOcEfoP/i8njfGgYVmqua7hAHdzeEAHa/whQ
+         Tf0hesMpWYu4Y99VxgnmdHcXcvv0gg3BcZbn4TQVfe4xvvQBAgpdlF1RB38JayME5HB1
+         lD6IKgTvxQODeB4+xQh3WfWZbU3Cil1gQnbzCEmJ2VbDni+u9aygv1rqxHkNJYilheWl
+         zHtQprXbczbsMzJbwEkDtDhZ2QmZZtVdYLa4A9yQBFf9GiNoOD/J4/NItxJcmavYJNPs
+         /AXA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: domain of silverio.vasquez@boulder.rdhpcs.noaa.gov designates 140.208.168.138 as permitted sender) smtp.mailfrom=Silverio.Vasquez@boulder.rdhpcs.noaa.gov
+Received: from relay2.boulder.rdhpcs.noaa.gov (relay2.boulder.rdhpcs.noaa.gov. [140.208.168.138])
+        by mx.google.com with ESMTP id ay5si483970qvb.215.2020.04.03.05.52.42
+        for <esmftest@cgd.ucar.edu>;
+        Fri, 03 Apr 2020 05:52:42 -0700 (PDT)
+Received-SPF: pass (google.com: domain of silverio.vasquez@boulder.rdhpcs.noaa.gov designates 140.208.168.138 as permitted sender) client-ip=140.208.168.138;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of silverio.vasquez@boulder.rdhpcs.noaa.gov designates 140.208.168.138 as permitted sender) smtp.mailfrom=Silverio.Vasquez@boulder.rdhpcs.noaa.gov
+Received: from jetmail.boulder.rdhpcs.noaa.gov (jetadm5.boulder.rdhpcs.noaa.gov [140.208.160.45])
+	by relay2.boulder.rdhpcs.noaa.gov (Postfix) with ESMTP id C42651017C4C
+	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 12:44:18 +0000 (UTC)
+Received: from fe8 (fe8 [10.178.126.3])
+	by jetmail.boulder.rdhpcs.noaa.gov (Postfix) with SMTP id ADB616055D
+	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 12:44:18 +0000 (GMT)
+Date: Fri, 03 Apr 2020 12:44:18 +0000
+From: Silverio.Vasquez@fe8.cgd.ucar.edu
+To: esmftest@cgd.ucar.edu
+Subject: ESMF_Jet_lahey
+Message-ID: <5e872fa2.nT0BxHxywRR83lqN%Silverio.Vasquez@fe8>
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+
+Script start time: Fri Apr  3 12:27:13 GMT 2020
+
+Script end: Fri Apr  3 12:44:18 GMT 2020
+
+
+_______________________________________ESMF TRUNK BUILD AND TEST SUMMARY__________________________
+
+
+
+                                            
+                    INSTALL/
+           BUILD  QUICK_START OS.COMPILER.COMM.ABI    UNIT TESTS   EXAMPLES  SYSTEM TESTS  APPS TESTS
+_____________________________________________________________________________________________________
+          PASS/FAIL PASS/FAIL                           PASS/FAIL   PASS/FAIL  PASS/FAIL   PASS/FAIL
+_____________________________________________________________________________________________________
+fe8(g)    **FAIL**            Linux.lahey.mpiuni.64
+fe8(O)    **FAIL**            Linux.lahey.mpiuni.64
+
+_______________________________________________________________________________________________
+
+Fri Apr  3 12:44:18 GMT 2020 on fe8 
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+-------------------------------------------------------------- 
+No modules loaded
+
+Repository:
+fatal: not a git repository (or any parent up to mount point /misc)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+ 
+fatal: not a git repository (or any parent up to mount point /misc)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+ 
+ 
+gmake: *** No rule to make target `info'.  Stop.
+Fri Apr  3 12:44:18 GMT 2020 library build ****************FAIL
+
+
+The following is the 'tail' of the build failure
+
+gmake: *** No targets specified and no makefile found.  Stop.
+
+
+_______________________________________________________________________________________________
+
+Fri Apr  3 12:44:18 GMT 2020 on fe8 
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+-------------------------------------------------------------- 
+No modules loaded
+
+Repository:
+fatal: not a git repository (or any parent up to mount point /misc)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+ 
+fatal: not a git repository (or any parent up to mount point /misc)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+ 
+ 
+gmake: *** No rule to make target `info'.  Stop.
+Fri Apr  3 12:44:18 GMT 2020 library build ****************FAIL
+
+
+The following is the 'tail' of the build failure
+
+gmake: *** No targets specified and no makefile found.  Stop.
+
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /mnt/lfs1/projects/esmf/Silverio.Vasquez/script_dirs/daily_builds/lahey/esmf_logs/2004_test.
+ These tarballs contain the *Log and *stdout files only, not the executables.
+ This directory also contains failed build output files with the naming convention of 
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COMM.
+ For example, if the build fails on longs on the 19th of the month with ESMF_BOPT=g, the file 
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:blue
+Day_of_Week:Friday
+Test_Failures:0

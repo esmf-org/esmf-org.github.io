@@ -1,0 +1,515 @@
+<pre>
+Return-Path: <svasquez@service8.cheyenne.ucar.edu>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 05 Apr 2020 12:00:02 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id B6AD3229
+	for <esmftest@cgd.ucar.edu>; Sun,  5 Apr 2020 05:52:10 -0600 (MDT)
+Received: from mail-il1-f200.google.com (mail-il1-f200.google.com [209.85.166.200])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 88F99180025A
+	for <esmftest@cgd.ucar.edu>; Sun,  5 Apr 2020 05:52:10 -0600 (MDT)
+Authentication-Results: vscanx2.ucar.edu;
+	dkim=pass (2048-bit key) header.d=ucar.edu header.i=@ucar.edu header.b="tZAKy8yO"
+Received: by mail-il1-f200.google.com with SMTP id j88so12199226ilg.9
+        for <esmftest@cgd.ucar.edu>; Sun, 05 Apr 2020 04:52:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:dkim-signature:date:to:subject:user-agent
+         :mime-version:content-transfer-encoding:message-id:from;
+        bh=05t5u/XU1rnh4hj3/19DJk7UmXdBsl0Nv7iGSE3ruZk=;
+        b=IxUp2+Z31r4Zc/j1t5dLQpsUPIv5aIXVOCwBK6B2qrbne86jZm4WfPGLCyq1yEBHFI
+         1jayuU59tEa1uAE/JyBFEeh0INDSORyYk+7yqgzqnTknuVDWekDCIAuSJLpTiAxD78F9
+         oy3kJfShbQtbupTQUSOtMnB7chuzbMMrXwg0NOs2i5jWL1qsBYZCv4cNoU+VCzLXYP0/
+         l3hIy5eJmCNN59If5AfMaH7PUkrqemZO6r3LOfo6IdrbmtoB2zo7qYCPdOkVrBL7ntfx
+         84ZFoQQcqHDItXa5Zv/jg+rnOu2+uX/CB2gvGzAQI1dEIGFyKrs3SB4qBT98MokHNIyv
+         lvzQ==
+X-Gm-Message-State: AGi0PuZieRSZaqmn5pnC9E9PBj8HMgAYrWc7Y6wE2mVfWlksrm5SS9GT
+	/5p2Swn2dEGqvzo77RHN8N+Yn0npsPSRGQNQvsnScmZUretXp/IgKfdJA9yUKnd2AF0exDfCSzT
+	Ju2IHblj+x12Ko1I22tU=
+X-Received: by 2002:a92:8f53:: with SMTP id j80mr17238873ild.171.1586087530243;
+        Sun, 05 Apr 2020 04:52:10 -0700 (PDT)
+X-Google-Smtp-Source: APiQypJVNuOz67t9NSEKLtLwNyAy8EqCCIDpPys1EIzv3E3L5L5D6kZpIVXFJrPwLiXUPM+ywOBG
+X-Received: by 2002:a92:8f53:: with SMTP id j80mr17238857ild.171.1586087529495;
+        Sun, 05 Apr 2020 04:52:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1586087529; cv=none;
+        d=google.com; s=arc-20160816;
+        b=IFGSTCljG8gp3V9KT/aPYrGeT1srbqiTC5ovc8Qgk1RbucYkZW+KfK46x09bVOFYV6
+         rlKuiVIbhUq1yw562Dq6YaJc+n1OyYB8Rx2Mq8MD5N57Ll7x2lDnaq+A1qyeFD7auWFQ
+         eac0wkN6QoMPya7tRXkjGyKki3rFRKQjlCUjpWPKPSRCxarIGUAVbE5hwl7mDMJRz7Un
+         4fLI/YYDKm1YWHzQcIS58V0EuFicHNK1AECPzortE7jzC2v0K0G2BF+98cKOd/qqwHpY
+         6zSDNOXaSPOKhXNAW4qff2o04Xr2gp52VtTGbhvBGSVGmQ51oD68O0Kbs2NjNB81kone
+         mLOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:message-id:content-transfer-encoding:mime-version:user-agent
+         :subject:to:date:dkim-signature;
+        bh=05t5u/XU1rnh4hj3/19DJk7UmXdBsl0Nv7iGSE3ruZk=;
+        b=BSctoXaHb4fOayRFC1RQHtlNxLoiQAhmQK5izhlroYYmTBzCQMhaBJ4yI75dh2GOj9
+         w22XOwaGWoaS3blQtAjKmjwvmZBX4ZFB+G07rSOJn6BzfMkv6zp9XE53tJqonT+w7hIM
+         ABX/lUaeZAm4pAOmFJeoJ5Hm3XLPQ1zvCduZZJHk8yXqYyryETZJNvELBBF5n2nwMTdh
+         RMqNm7EAo72yXAem+ORqJu5n7Gc2bD3Lz4syMiJ5T2qPa47h7cnGN2GIf7UExCihjZrg
+         MJAZpCclP3HZSYv0EcmthVX3v0hcSj3Y5Exs8QLtq0zyeAff5e0ZSlvboHNbSWgJty/i
+         zrFw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@ucar.edu header.s=mail header.b=tZAKy8yO;
+       spf=pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) smtp.mailfrom=svasquez@service8.cheyenne.ucar.edu;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ucar.edu
+Received: from vscani1.ucar.edu (vscani1.ucar.edu. [192.43.244.84])
+        by mx.google.com with ESMTPS id x84si11614124ilk.67.2020.04.05.04.52.09
+        for <esmftest@cgd.ucar.edu>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 05 Apr 2020 04:52:09 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) client-ip=192.43.244.84;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@ucar.edu header.s=mail header.b=tZAKy8yO;
+       spf=pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) smtp.mailfrom=svasquez@service8.cheyenne.ucar.edu;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ucar.edu
+Received: from cheyenne.ucar.edu (chmgt.ucar.edu [128.117.183.158])
+	by vscani1.ucar.edu (Postfix) with ESMTP id 44DBA1809211
+	for <esmftest@cgd.ucar.edu>; Sun,  5 Apr 2020 05:52:09 -0600 (MDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ucar.edu; s=mail;
+	t=1586087529; bh=+NhJIT3Sy2MuJ987uVL5VM5TiPxOIPiHQXFE7EHylnU=;
+	h=Date:To:Subject:From;
+	b=tZAKy8yOUxpxX4CMZznKC40HUoSmRpftwQ415z48co9Sy7sBBXwbgtn/CLrxonZve
+	 0O+gZ+uXxyHndr9yoplmj1lBDOy94dwUdf/PFBBj+s0wsV+b17Gy3ISRRMj0GiAY/6
+	 Rs2LjXoh1XbNsE4iv5STgDI779d0qUQ8w30BROMwdghM5bWY/vL6qhPjZQO2wYl3fG
+	 PICOG5knrfniZrGBIgaLh++E9oO21J7g5DxPobcnFskl9Bt1ghHIjYlgCsmRwodOxF
+	 zNo/r+N0mLCX7zGbiNH2JJEd2JkrusF0OsnuscyYC7A1WjChUh4eLeQSfI9qw9gjWf
+	 mcNj1Roqnq6bw==
+Received: from service8.cheyenne.ucar.edu (chadmin3.head.cheyenne.ucar.edu [172.23.0.10])
+	by cheyenne.ucar.edu (Postfix) with ESMTP id 3BD51941D83
+	for <esmftest@cgd.ucar.edu>; Sun,  5 Apr 2020 05:52:09 -0600 (MDT)
+Received: by service8.cheyenne.ucar.edu (Postfix, from userid 2835)
+	id 376311A80890; Sun,  5 Apr 2020 05:52:09 -0600 (MDT)
+Date: Sun, 05 Apr 2020 05:52:09 -0600
+To: esmftest@cgd.ucar.edu
+Subject: ESMF_BFB_Cheyenne_intel
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20200405115209.376311A80890@service8.cheyenne.ucar.edu>
+From: svasquez@service8.cheyenne.ucar.edu (Silverio Vasquez)
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+WARNING: The test experienced an abnormal termination during execution,
+         therefore the test results may be incomplete/invalid.
+
+
+Script start time: Sun Apr  5 01:50:11 MDT 2020
+
+Script end: Sun Apr  5 05:52:09 MDT 2020
+
+
+_______________________ESMF TRUNK EXTERNAL DEMOS AND BFB TEST SUMMARY__=
+___________________________
+
+               BUILD       INSTALL    OS.COMPILER.COMM.ABI       extern=
+al demos     bfb compare
+_______________________________________________________________________=
+__________________________
+               PASS/FAIL   PASS/FAIL                              PASS/=
+FAIL/SKIP PASS/FAIL/NOTFOUND
+_______________________________________________________________________=
+_________________________
+
+_______________________________________________________________________=
+_________________
+
+Sun Apr  5 01:52:33 MDT 2020 on r14i5n29=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Bit for Bit compare using ESMF_8_1_0_beta_snapshot_08 as the baseline.
+
+
+Compiler and configuration information:
+
+--------------------------------------------------------------=20
+
+Currently Loaded Modules:
+  1) ncarenv/1.3
+  2) intel/18.0.5
+  3) ncarcompilers/0.5.0
+  4) netcdf/4.6.3
+  5) impi/2018.4.274
+  6) nccmp/1.8.2.1
+
+=20
+
+
+ESMF Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7d67
+=20
+=20
+External Demos  Repository:
+origin=09git://git.code.sf.net/p/esmf/external_demos (fetch)
+origin=09git://git.code.sf.net/p/esmf/external_demos (push)
+=20
+ESMF_8_0_0-29-g7a790de
+=20
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7d67
+--------------------------------------------------------------
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 4.0
+Built for x86_64-unknown-linux-gnu
+Copyright (C) 1988-2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl=
+.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+--------------------------------------------------------------
+Fortran Compiler version:
+mpiifort for the Intel(R) MPI Library 2018 Update 4 for Linux*
+Copyright(C) 2003-2018, Intel Corporation.  All rights reserved.
+Intel(R) Fortran Intel(R) 64 Compiler for applications running on Intel=
+(R) 64, Version 18.0.5.274 Build 20180823
+Copyright (C) 1985-2018 Intel Corporation.  All rights reserved.
+ifort: warning #10315: specifying -lm before files may supersede the In=
+tel(R) math library and affect performance
+
+ifort version 18.0.5
+
+--------------------------------------------------------------
+C++ Compiler version:
+mpiicpc for the Intel(R) MPI Library 2018 Update 4 for Linux*
+Copyright(C) 2003-2018, Intel Corporation.  All rights reserved.
+Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) =
+64, Version 18.0.5.274 Build 20180823
+Copyright (C) 1985-2018 Intel Corporation.  All rights reserved.
+icpc: warning #10315: specifying -lm before files may supersede the Int=
+el(R) math library and affect performance
+
+icpc version 18.0.5 (gcc version 4.8.0 compatibility)
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (SUSE Linux) 4.8.5
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+--------------------------------------------------------------
+NetCDF library version: netCDF 4.6.3
+NetCDF Fortran version: netCDF-Fortran 4.4.4
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BASELINE_DIR=3D/glade/work/svasquez/SACADO_test/810bs08/external_d=
+emos/ESMF_RegridWeightGenCheck/
+ESMF_BASELINE_REF=3DESMF_8_1_0_beta_snapshot_08
+ESMF_BOPT=3DO
+ESMF_COMM=3Dintelmpi
+ESMF_COMPILER=3Dintel
+ESMF_CXXCOMPILEOPTS=3D-g -traceback -fp-model precise
+ESMF_DIR=3D/glade/work/svasquez/scripts_dir/daily/external_demos_cheyen=
+ne/intel/esmf
+ESMF_F90COMPILEOPTS=3D-g -traceback -fp-model precise
+ESMF_INSTALL_PREFIX=3D/glade/work/svasquez/scripts_dir/daily/external_d=
+emos_cheyenne/intel/esmf/../install_dir
+ESMF_MPIRUN=3Dmpirun
+ESMF_NETCDF=3Dnc-config
+ESMF_NUM_PROCS=3D16
+ESMF_OPTLEVEL=3D2
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArray_2
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessField_1
+ESMF_TESTMPMD=3DOFF
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /glade/work/svasquez/scripts_dir/daily/external_demos_cheyenn=
+e/intel/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          intel
+ESMF_BOPT:              O
+ESMF_OPTLEVEL:          2
+ESMF_COMM:              intelmpi
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            ON
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          OFF
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArray_2
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessField_1
+ESMF_MPIRUN:            mpirun
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_NETCDF:             nc-config
+ESMF_NETCDF_INCLUDE:     /glade/u/apps/ch/opt/netcdf/4.6.3/intel/18.0.5=
+/include
+ESMF_NETCDF_LIBS:        -L/glade/u/apps/ch/opt/netcdf/4.6.3/intel/18.0=
+.5/lib -lnetcdff -L/glade/u/apps/ch/opt/netcdf/4.6.3/intel/18.0.5//lib =
+-Wl,--disable-new-dtags -lnetcdf -lnetcdf -L/glade/u/apps/ch/opt/netcdf=
+/4.6.3/intel/18.0.5/lib -lnetcdf
+ESMF_YAMLCPP:            internal
+ESMF_PIO:                internal
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /glade/work/svasquez/scripts_dir/daily/external=
+_demos_cheyenne/intel/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod/modO/Linux.intel.64.intelmpi.default
+ESMF_INSTALL_LIBDIR:    lib/libO/Linux.intel.64.intelmpi.default
+ESMF_INSTALL_BINDIR:    bin/binO/Linux.intel.64.intelmpi.default
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /glade/u/apps/ch/opt/nccmp/1.8.2.1/gnu/8.3.0/bin:/glade/u/apps=
+/ch/opt/ncarcompilers/0.5.0/intel/18.0.5/mpi:/glade/u/apps/opt/intel/20=
+18u4/impi/2018.4.274/intel64/bin:/glade/u/apps/ch/opt/netcdf/4.6.3/inte=
+l/18.0.5/bin:/glade/work/svasquez/scripts_dir/daily/external_demos_chey=
+enne/intel/esmf/../install_dir/bin/binO/Linux.intel.64.intelmpi.default=
+:/glade/u/home/svasquez/bin:/glade/u/apps/ch/opt/lmod/8.1.7/bin:/ncar/o=
+pt/slurm/latest/bin:/opt/clmgr/sbin:/opt/clmgr/bin:/opt/sgi/sbin:/opt/s=
+gi/bin:/glade/u/apps/ch/opt/ncarcompilers/0.5.0/intel/18.0.5:/glade/u/a=
+pps/opt/intel/2018u4/vtune_amplifier/bin64:/glade/u/apps/opt/intel/2018=
+u4/inspector/bin64:/glade/u/apps/opt/intel/2018u4/advisor/bin64:/glade/=
+u/apps/opt/intel/2018u4/compilers_and_libraries/linux/bin/intel64:/glad=
+e/u/apps/opt/vncmgr:/glade/u/apps/opt/globus-utils:/glade/u/apps/ch/opt=
+/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/opt/ibut=
+ils/bin:/usr/lib/mit/bin:/glade/u/apps/opt/hpss/hpss-client.5.0.2.p5/bi=
+n:/glade/u/apps/ch/os/usr/bin:/opt/pbs/bin:/sbin
+LD_LIBRARY_PATH: /glade/u/apps/opt/intel/2018u4/impi/2018.4.274/intel64=
+/lib:/ncar/opt/slurm/latest/lib:/glade/u/apps/opt/intel/2018u4/compiler=
+s_and_libraries/linux/lib/intel64:/glade/u/apps/ch/os/usr/lib64:/glade/=
+u/apps/ch/os/usr/lib:/glade/u/apps/ch/os/lib64:/glade/u/apps/ch/os/lib
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/gcc
+Location of the Fortran compiler:  /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/mpi/mpiifort
+Location of the Fortran linker:    /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/mpi/mpiifort
+Location of the C++ compiler:      /glade/u/apps/opt/intel/2018u4/impi/=
+2018.4.274/intel64/bin/mpiicpc
+Location of the C++ linker:        /glade/u/apps/opt/intel/2018u4/impi/=
+2018.4.274/intel64/bin/mpiicpc
+
+Fortran compiler flags:
+ESMF_F90COMPILER: mpiifort
+ESMF_F90COMPILEOPTS: -g -traceback -fp-model precise -O2 -fPIC -assume =
+realloc_lhs -m64 -mcmodel=3Dsmall -threads  -qopenmp
+ESMF_F90COMPILEPATHS: -I/glade/work/svasquez/scripts_dir/daily/external=
+_demos_cheyenne/intel/esmf/mod/modO/Linux.intel.64.intelmpi.default -I/=
+glade/work/svasquez/scripts_dir/daily/external_demos_cheyenne/intel/esm=
+f/src/include -I/glade/u/apps/ch/opt/netcdf/4.6.3/intel/18.0.5/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7d67' -DE=
+SMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC=
+_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D=
+1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
+DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
+=3D1 -DESMF_COMM=3Dintelmpi -DESMF_DIR=3D/glade/work/svasquez/scripts_d=
+ir/daily/external_demos_cheyenne/intel/esmf
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP:=20
+ESMF_F90COMPILEFIXCPP:=20
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64 -mcmodel=3Dsmall -threads -Wl,--no-as-needed  =
+-qopenmp
+ESMF_F90LINKPATHS: -L/glade/work/svasquez/scripts_dir/daily/external_de=
+mos_cheyenne/intel/esmf/lib/libO/Linux.intel.64.intelmpi.default =20
+ESMF_F90LINKRPATHS: -Wl,-rpath,/glade/work/svasquez/scripts_dir/daily/e=
+xternal_demos_cheyenne/intel/esmf/lib/libO/Linux.intel.64.intelmpi.defa=
+ult -Wl,-rpath,/glade/u/apps/ch/opt/netcdf/4.6.3/intel/18.0.5/lib -Wl,-=
+rpath,/glade/u/apps/ch/opt/netcdf/4.6.3/intel/18.0.5//lib -Wl,-rpath,/g=
+lade/u/apps/ch/opt/netcdf/4.6.3/intel/18.0.5/lib
+ESMF_F90LINKLIBS:  -cxxlib -lrt -ldl -L/glade/u/apps/ch/opt/netcdf/4.6.=
+3/intel/18.0.5/lib -lnetcdff -L/glade/u/apps/ch/opt/netcdf/4.6.3/intel/=
+18.0.5//lib -Wl,--disable-new-dtags -lnetcdf -lnetcdf -L/glade/u/apps/c=
+h/opt/netcdf/4.6.3/intel/18.0.5/lib -lnetcdf
+ESMF_F90ESMFLINKLIBS: -lesmf  -cxxlib -lrt -ldl -L/glade/u/apps/ch/opt/=
+netcdf/4.6.3/intel/18.0.5/lib -lnetcdff -L/glade/u/apps/ch/opt/netcdf/4=
+.6.3/intel/18.0.5//lib -Wl,--disable-new-dtags -lnetcdf -lnetcdf -L/gla=
+de/u/apps/ch/opt/netcdf/4.6.3/intel/18.0.5/lib -lnetcdf
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: mpiicpc
+ESMF_CXXCOMPILEOPTS: -g -traceback -fp-model precise -std=3Dc++11 -O2 -=
+DNDEBUG -fPIC -m64 -mcmodel=3Dsmall -pthread  -qopenmp
+ESMF_CXXCOMPILEPATHS:  -I/glade/work/svasquez/scripts_dir/daily/externa=
+l_demos_cheyenne/intel/esmf/src/include  -I/glade/u/apps/ch/opt/netcdf/=
+4.6.3/intel/18.0.5/include -I/glade/work/svasquez/scripts_dir/daily/ext=
+ernal_demos_cheyenne/intel/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7d67' -DE=
+SMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC=
+_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D=
+1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -=
+DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
+=3D1 -DESMF_COMM=3Dintelmpi -DESMF_DIR=3D/glade/work/svasquez/scripts_d=
+ir/daily/external_demos_cheyenne/intel/esmf -D__SDIR__=3D'' -DESMF_CXXS=
+TD=3D11
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed  =
+-qopenmp
+ESMF_CXXLINKPATHS: -L/glade/work/svasquez/scripts_dir/daily/external_de=
+mos_cheyenne/intel/esmf/lib/libO/Linux.intel.64.intelmpi.default  -L/gl=
+ade/u/apps/opt/intel/2018u4/compilers_and_libraries_2018.5.274/linux/co=
+mpiler/lib/intel64_lin/
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/glade/work/svasquez/scripts_dir/daily/e=
+xternal_demos_cheyenne/intel/esmf/lib/libO/Linux.intel.64.intelmpi.defa=
+ult -Wl,-rpath,/glade/u/apps/ch/opt/netcdf/4.6.3/intel/18.0.5/lib -Wl,-=
+rpath,/glade/u/apps/ch/opt/netcdf/4.6.3/intel/18.0.5//lib -Wl,-rpath,/g=
+lade/u/apps/ch/opt/netcdf/4.6.3/intel/18.0.5/lib -Wl,-rpath,/glade/u/ap=
+ps/opt/intel/2018u4/compilers_and_libraries_2018.5.274/linux/compiler/l=
+ib/intel64_lin/
+ESMF_CXXLINKLIBS:  -lsz -lz -limf -lm -ldl -ldl -lrt -lpthread -lifport=
+ -lifcoremt -limf -lsvml -lm -lipgo -liomp5 -lintlc -lpthread -lsvml -l=
+dl -lgcc -lgcc_s -lirc_s -ldl -lrt -ldl -L/glade/u/apps/ch/opt/netcdf/4=
+.6.3/intel/18.0.5/lib -lnetcdff -L/glade/u/apps/ch/opt/netcdf/4.6.3/int=
+el/18.0.5//lib -Wl,--disable-new-dtags -lnetcdf -lnetcdf -L/glade/u/app=
+s/ch/opt/netcdf/4.6.3/intel/18.0.5/lib -lnetcdf
+ESMF_CXXESMFLINKLIBS: -lesmf  -lsz -lz -limf -lm -ldl -ldl -lrt -lpthre=
+ad -lifport -lifcoremt -limf -lsvml -lm -lipgo -liomp5 -lintlc -lpthrea=
+d -lsvml -ldl -lgcc -lgcc_s -lirc_s -ldl -lrt -ldl -L/glade/u/apps/ch/o=
+pt/netcdf/4.6.3/intel/18.0.5/lib -lnetcdff -L/glade/u/apps/ch/opt/netcd=
+f/4.6.3/intel/18.0.5//lib -Wl,--disable-new-dtags -lnetcdf -lnetcdf -L/=
+glade/u/apps/ch/opt/netcdf/4.6.3/intel/18.0.5/lib -lnetcdf
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    mpiicpc
+ESMF_SL_LIBOPTS:       -pthread -shared  -qopenmp
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/glade/work/svasquez/scripts_dir/daily/external_=
+demos_cheyenne/intel/esmf/lib/libO/Linux.intel.64.intelmpi.default/libe=
+smftrace_preload.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Sun Apr 5 01:52:41 MDT 2020 on r14i5n29
+Machine characteristics: Linux r14i5n29 4.12.14-95.37.1.18642.1.PTF.115=
+5508-default #1 SMP Mon Nov 4 13:03:21 UTC 2019 (9cc1377) x86_64 x86_64=
+ x86_64 GNU/Linux
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Sun Apr  5 02:24:45 MDT 2020 library build ............................=
+.PASS
+Sun Apr  5 02:25:08 MDT 2020 library install ..........................=
+.PASS
+Sun Apr  5 02:25:11 MDT 2020 library installcheck .....................=
+.PASS
+
+
+|--------------------------------- EXTERNAL DEMOS ---------------------=
+-----|
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /glade/work/svasquez/scripts_dir/daily/external_demos_cheyenne/intel/e=
+smf_logs/2004_test.
+ These tarballs contain the *Log and *stdout files only, not the execut=
+ables.
+ This directory also contains failed build output files with the naming=
+ convention of=20
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COM=
+M.
+ For example, if the build fails on longs on the 19th of the month with=
+ ESMF_BOPT=3Dg, the file=20
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:orange
+Day_of_Week:Sunday
+Test_Failures:0

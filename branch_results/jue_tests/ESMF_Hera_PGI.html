@@ -1,0 +1,794 @@
+<pre>
+Return-Path: <Silverio.Vasquez@noaa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 10 Apr 2020 23:45:02 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 7589E1E9
+	for <esmftest@cgd.ucar.edu>; Fri, 10 Apr 2020 17:44:54 -0600 (MDT)
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 3493B180027F
+	for <esmftest@cgd.ucar.edu>; Fri, 10 Apr 2020 17:44:54 -0600 (MDT)
+Received: by mail-qt1-f197.google.com with SMTP id b3so3293914qte.13
+        for <esmftest@cgd.ucar.edu>; Fri, 10 Apr 2020 16:44:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-original-authentication-results:x-gm-message-state:date:to
+         :subject:user-agent:mime-version:content-transfer-encoding
+         :message-id:from;
+        bh=BPEfkUaBJf97ORZHw6kxt8PjQoYXLC6SDiIBNBq7YgI=;
+        b=ObG7AgERjB1HYIwL2wi2q90IriCoC9N4h7pfdRx/CvrzQoVl196xD5Zvrgz629g1QE
+         p4zTpQxG5NBQJuYB+VOElpa7qrKCApLpPzFDi7L6tPublQROyHqWXr2MHZILruB0guu1
+         TPnm7Smfd+nVq7e5QDBHLHjNfEqLWu5GQ4tPIGdOHFNX3y8xI14I8Cbn7O8bKGK4V4k9
+         ZPH7iAOLcXQaE0oRLgyCB5bkVWN8vxyFAP5gpdotP3iD94bn+N7+M4hYtFW9aa1aYcOw
+         NfAz3zXON5/34npZkecPBdrYxb9Qzoi5NYtCUK5LC0XFKvJg79mtH1WIy5MbYnaM2nGM
+         c4UQ==
+X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) smtp.mailfrom=Silverio.Vasquez@noaa.gov;       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+X-Gm-Message-State: AGi0PuatoDOWO1qyXu70bxXQS8Zj0mbO82Rmni73+EbL5IOi4g3Wr2FP
+	JY6og9T5Z6CGwoornmJtZAAAwGzbMGGjB7OTzBFJgynOh6W0FKSKoWzLs+O4AMREQfJYP8XbOJb
+	L6c65N2Mi71lMuA3A
+X-Received: by 2002:ac8:7558:: with SMTP id b24mr1540852qtr.231.1586562293621;
+        Fri, 10 Apr 2020 16:44:53 -0700 (PDT)
+X-Google-Smtp-Source: APiQypKX3aSDMUGGJiA7rfuph0yTfMdGmFAsIbFLgdR4VDesG1FZjuSIdvyIA9hmlsrCTfCe9ik1
+X-Received: by 2002:ac8:7558:: with SMTP id b24mr1540816qtr.231.1586562292827;
+        Fri, 10 Apr 2020 16:44:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1586562292; cv=none;
+        d=google.com; s=arc-20160816;
+        b=v0CjMJLZ9R+y1Tgbzc65Wp5NvZEmyWMruuhhzIOIII/RJ3jAmDxtim6Uv/Ymbo6sJc
+         HZigtwudFRTGdVPu1/v3oaXGeL/2E6NkjJoYKystzLa3ZWBnZahUXqTr0xomUDbj6HU/
+         9tfKiGQIFAv/smr9wAlnBIfukml++k0ub1V26tgCSJlmJkuw9mn7ZYNdK575C8hfNfeF
+         FiNccAtXeHGS8tGm8TLzxwakB26sYZZtuKele5aDwQjiZj5NYWV5fobSY7bywX76kn4t
+         qTRziMV50zHzo8jKkcdIi+3Z8HFVutM4VBCtg/99rfYkngUfeRpxk5gxNUvOoCP31onf
+         eWDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:message-id:content-transfer-encoding:mime-version:user-agent
+         :subject:to:date;
+        bh=BPEfkUaBJf97ORZHw6kxt8PjQoYXLC6SDiIBNBq7YgI=;
+        b=mFyFDdAILay6sWkC3WNXdxtr/EvkAxILoKDhX+ysSs/N/mF31WuhOPJDV1D0qKd9kx
+         SHQzMXT8rUXehX3mkLCYGfEGPPFLPOzg3uVFkDftfQmP/DOTyPjH+WWb+kueHZ+Z4NZ7
+         xNe+advkq4AOehWJ6web7Q+HSSf3dx/jcjN74cm/IcWN98kJp9NKRgv/A+udgVvkOX1E
+         t6nlEVOFziKo6JEeqtmt83Ul7KiCJow2e7pX53mwLA7mJNn/cbBUWvzzSRpJ0g9r2HPM
+         d1HwZCI8oyBv6hhH3ueqH6KR6BPRYiOdxI90+nIamOH5jDbrSK9sEVY5t2n2iDEFvVZu
+         CbbQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) smtp.mailfrom=Silverio.Vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from relay2.fairmont.rdhpcs.noaa.gov (relay2.fairmont.rdhpcs.noaa.gov. [140.208.200.139])
+        by mx.google.com with ESMTP id a5si2158954qkn.149.2020.04.10.16.44.52
+        for <esmftest@cgd.ucar.edu>;
+        Fri, 10 Apr 2020 16:44:52 -0700 (PDT)
+Received-SPF: pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) client-ip=140.208.200.139;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) smtp.mailfrom=Silverio.Vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from hpcadm1.fairmont.rdhpcs.noaa.gov (hpcadm1.fairmont.rdhpcs.noaa.gov [140.208.192.26])
+	by relay2.fairmont.rdhpcs.noaa.gov (Postfix) with ESMTP id EE27AC0BCD4D;
+	Fri, 10 Apr 2020 23:44:51 +0000 (UTC)
+Received: from hfe08.noaa.gov (unknown [10.181.2.107])
+	by hpcadm1.fairmont.rdhpcs.noaa.gov (Postfix) with ESMTP id AED8F1201BF;
+	Fri, 10 Apr 2020 23:44:51 +0000 (UTC)
+Received: by hfe08.noaa.gov (Postfix, from userid 16117)
+	id 7D41435730959; Fri, 10 Apr 2020 23:44:51 +0000 (UTC)
+Date: Fri, 10 Apr 2020 17:44:51 -0600
+To: esmftest@cgd.ucar.edu, silverio.vasquez@noaa.gov
+Subject: ESMF_Hera_PGI
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20200410234451.7D41435730959@hfe08.noaa.gov>
+From: Silverio.Vasquez@noaa.gov
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+
+Script start time: Thu Apr  9 23:45:03 MDT 2020
+
+Script end: Fri Apr 10 17:44:51 MDT 2020
+
+
+_____________________________________ESMF TRUNK BUILD AND TEST SUMMARY_=
+__________________________
+
+
+
+                                           =20
+           BUILD  QUICK_START OS.COMPILER.COMM.ABI    UNIT TESTS   EXAM=
+PLES  SYSTEM TESTS  APPS TESTS
+_______________________________________________________________________=
+______________________________
+          PASS/FAIL PASS/FAIL                           PASS/FAIL   PAS=
+S/FAIL  PASS/FAIL   PASS/FAIL
+_______________________________________________________________________=
+______________________________
+hfe08(g)    PASS      PASS    Linux.pgi.mpiuni.64             0/0      =
+ 0/0       0/0       0/0
+hfe08(g)    PASS      PASS    Linux.pgi.mpiuni.64             0/0 Bench=
+mark      test   results
+hfe08(O)    PASS      PASS    Linux.pgi.mpiuni.64             0/0      =
+ 0/0       0/0       0/0
+hfe08(O)    PASS      PASS    Linux.pgi.mpiuni.64             0/0 Bench=
+mark      test   results
+
+_______________________________________________________________________=
+________________________
+
+
+Thu Apr  9 23:47:47 MDT 2020 on hfe08=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+=20
+--------------------------------------------------------------=20
+
+Currently Loaded Modules:
+  1) pgi/18.10
+
+=20
+
+=20
+Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+=20
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.82
+Built for x86_64-redhat-linux-gnu
+Copyright (C) 2010  Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl=
+.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+--------------------------------------------------------------
+Fortran Compiler version:
+
+pgf90 18.10-1 64-bit target on x86-64 Linux -tp skylake=20
+PGI Compilers and Tools
+Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
+
+--------------------------------------------------------------
+C++ Compiler version:
+
+pgc++ 18.10-1 64-bit target on x86-64 Linux -tp skylake=20
+PGI Compilers and Tools
+Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BENCHMARK_PREFIX=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/pgi_hera/esmf/../BENCHMARKDIR
+ESMF_BOPT=3Dg
+ESMF_COMM=3Dmpiuni
+ESMF_COMPILER=3Dpgi
+ESMF_DIR=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds=
+/pgi_hera/esmf
+ESMF_INSTALL_PREFIX=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/d=
+aily_builds/pgi_hera/esmf/../install_dir
+ESMF_MPIMPMDRUM=3Dmpirun
+ESMF_MPIRUN=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_bui=
+lds/pgi_hera/esmf/scripts/mpirun.srun
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessFieldUNI_default
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessArrayUNI_default
+ESMF_TESTMPMD=3DON
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/=
+pgi_hera/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          pgi
+ESMF_BOPT:              g
+ESMF_COMM:              mpiuni
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            OFF
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          ON
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessFieldUNI_default
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessArrayUNI_default
+ESMF_MPIRUN:            /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/pgi_hera/esmf/scripts/mpirun.srun
+ESMF_MPIMPMDRUN:       =20
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_YAMLCPP:            internal
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/pgi_hera/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod/modg/Linux.pgi.64.mpiuni.default
+ESMF_INSTALL_LIBDIR:    lib/libg/Linux.pgi.64.mpiuni.default
+ESMF_INSTALL_BINDIR:    bin/bing/Linux.pgi.64.mpiuni.default
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         /scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/pgi_hera/esmf/../BENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /apps/pgi/linux86-64/18.10/bin:/home/Silverio.Vasquez/bin:/usr=
+/lib64/qt-3.3/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/opt/ibutils/=
+bin:/apps/local/bin:/apps/local/sbin:/apps/slurm/default/tools:/apps/sl=
+urm/default/bin:/apps/slurm/default/sbin:/apps/slurm/tools/sbank/bin:/a=
+pps/slurm/default/tools:/apps/slurm/default/bin:/apps/slurm/default/sbi=
+n:/apps/slurm/tools/sbank/bin
+LD_LIBRARY_PATH: /apps/pgi/linux86-64/18.10/lib::/apps/slurm/default/li=
+b:/apps/slurm/default/lib
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /apps/pgi/linux86-64/18.10/bin/pgf90
+Location of the Fortran linker:    /apps/pgi/linux86-64/18.10/bin/pgf90
+Location of the C++ compiler:      /apps/pgi/linux86-64/18.10/bin/pgc++
+Location of the C++ linker:        /apps/pgi/linux86-64/18.10/bin/pgc++
+
+Fortran compiler flags:
+ESMF_F90COMPILER: pgf90
+ESMF_F90COMPILEOPTS: -g -fpic -Mallocatable=3D03 -lpthread
+ESMF_F90COMPILEPATHS: -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/pgi_hera/esmf/mod/modg/Linux.pgi.64.mpiuni.default -I/scr=
+atch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/pgi_hera/esmf/=
+src/include=20
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
+_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
+FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNN=
+EL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_=
+DIR=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/pgi_=
+hera/esmf -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D18 -DESMF_PGIVERSION_=
+MINOR=3D10 -DESMF_PGIVERSION_PATCH=3D1
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP: -Mfreeform
+ESMF_F90COMPILEFIXCPP: -Mpreprocess -Mnofreeform
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -lpthread -Wl,--no-as-needed
+ESMF_F90LINKPATHS: -L/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/da=
+ily_builds/pgi_hera/esmf/lib/libg/Linux.pgi.64.mpiuni.default  -L/apps/=
+pgi/linux86-64/18.10/libso
+ESMF_F90LINKRPATHS: -Wl,-rpath,/scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/pgi_hera/esmf/lib/libg/Linux.pgi.64.mpiuni.default=
+  -Wl,-rpath,/apps/pgi/linux86-64/18.10/libso
+ESMF_F90LINKLIBS:  -pgc++libs -ldl
+ESMF_F90ESMFLINKLIBS: -lesmf  -pgc++libs -ldl
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: pgc++
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -g -fpic -lpthread
+ESMF_CXXCOMPILEPATHS:  -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dir=
+s/daily_builds/pgi_hera/esmf/src/include   -I/scratch2/BMC/esmf/Silveri=
+o.Vasquez/script_dirs/daily_builds/pgi_hera/esmf/src/Infrastructure/stu=
+bs/mpiuni -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_build=
+s/pgi_hera/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
+_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
+FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNN=
+EL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_=
+DIR=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/pgi_=
+hera/esmf -D__SDIR__=3D'' -DESMF_CXXSTD=3D11 -DESMF_MPIUNI -DESMF_PGIVE=
+RSION_MAJOR=3D18 -DESMF_PGIVERSION_MINOR=3D10 -DESMF_PGIVERSION_PATCH=
+=3D1
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -lpthread -Wl,--no-as-needed
+ESMF_CXXLINKPATHS: -L/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/da=
+ily_builds/pgi_hera/esmf/lib/libg/Linux.pgi.64.mpiuni.default  -L/apps/=
+pgi/linux86-64/18.10/libso
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/pgi_hera/esmf/lib/libg/Linux.pgi.64.mpiuni.default=
+  -Wl,-rpath,/apps/pgi/linux86-64/18.10/libso
+ESMF_CXXLINKLIBS:  -pgf90libs -ldl
+ESMF_CXXESMFLINKLIBS: -lesmf  -pgf90libs -ldl
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    pgc++
+ESMF_SL_LIBOPTS:       -shared
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/=
+daily_builds/pgi_hera/esmf/lib/libg/Linux.pgi.64.mpiuni.default/libesmf=
+trace_preload.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Thu Apr 9 23:47:49 MDT 2020 on hfe08
+Machine characteristics: Linux hfe08 3.10.0-1062.9.1.el7.x86_64 #1 SMP =
+Fri Dec 6 15:49:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Fri Apr 10 00:08:52 MDT 2020 library build -j16 ...........PASS
+Builds with warnings.
+Fri Apr 10 00:09:25 MDT 2020 library install -j4 ..........PASS
+Fri Apr 10 00:09:29 MDT 2020 library installcheck -j4 .....PASS
+Fri Apr 10 00:12:08 MDT 2020 quickstart build -j4 .........PASS
+
+|------------------------ APPs TESTS --------------------------|
+Fri Apr 10 00:12:16 MDT 2020 apps build -j4 ...............PASS
+Fri Apr 10 02:12:16 MDT 2020 Queue not available **********FAIL
+
+|----------------------- SYSTEM TESTS -------------------------|
+Fri Apr 10 02:19:06 MDT 2020 build_system_tests -j4 .......PASS
+Fri Apr 10 04:19:07 MDT 2020 Queue not available **********FAIL
+
+
+|------------------------- EXAMPLES ---------------------------|
+Fri Apr 10 04:27:59 MDT 2020 build_examples -j4 ...........PASS
+Fri Apr 10 06:28:00 MDT 2020 Queue not available **********FAIL
+
+
+|-------------------- EXHAUSTIVE UNIT TESTS -------------------|
+Fri Apr 10 06:46:22 MDT 2020 build_unit_tests -j4 .........PASS
+Fri Apr 10 08:46:22 MDT 2020 Queue not available **********FAIL
+Fri Apr 10 08:46:25 MDT 2020 run_unit_tests_benchmark .....PASS
+
+
+
+Found 168 exhaustive single processor unit tests files, of those with a=
+ threshold of 500 msecs. 0 passed the 20% tolerance benchmark test, and=
+ 0 failed.
+
+Benchmark install date: cat: /scratch2/BMC/esmf/Silverio.Vasquez/script=
+_dirs/daily_builds/pgi_hera/esmf/../BENCHMARKDIR/test/testg/Linux.pgi.6=
+4.mpiuni.default/bm_timestamp: No such file or directory
+
+
+
+
+_______________________________________________________________________=
+________________________
+
+
+Fri Apr 10 08:48:49 MDT 2020 on hfe08=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+=20
+--------------------------------------------------------------=20
+
+Currently Loaded Modules:
+  1) pgi/18.10
+
+=20
+
+=20
+Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+=20
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09queue_results
+=09src/installcheck/esmc_application
+=09src/installcheck/esmc_application.o
+=09src/installcheck/esmf_application
+=09src/installcheck/esmf_application.o
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.82
+Built for x86_64-redhat-linux-gnu
+Copyright (C) 2010  Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl=
+.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+--------------------------------------------------------------
+Fortran Compiler version:
+
+pgf90 18.10-1 64-bit target on x86-64 Linux -tp skylake=20
+PGI Compilers and Tools
+Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
+
+--------------------------------------------------------------
+C++ Compiler version:
+
+pgc++ 18.10-1 64-bit target on x86-64 Linux -tp skylake=20
+PGI Compilers and Tools
+Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BENCHMARK_PREFIX=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/pgi_hera/esmf/../BENCHMARKDIR
+ESMF_BOPT=3DO
+ESMF_COMM=3Dmpiuni
+ESMF_COMPILER=3Dpgi
+ESMF_DIR=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds=
+/pgi_hera/esmf
+ESMF_INSTALL_PREFIX=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/d=
+aily_builds/pgi_hera/esmf/../install_dir
+ESMF_MPIMPMDRUM=3Dmpirun
+ESMF_MPIRUN=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_bui=
+lds/pgi_hera/esmf/scripts/mpirun.srun
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessFieldUNI_default
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessArrayUNI_default
+ESMF_TESTMPMD=3DON
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/=
+pgi_hera/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          pgi
+ESMF_BOPT:              O
+ESMF_COMM:              mpiuni
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            OFF
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          ON
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessFieldUNI_default
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessArrayUNI_default
+ESMF_MPIRUN:            /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/pgi_hera/esmf/scripts/mpirun.srun
+ESMF_MPIMPMDRUN:       =20
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_YAMLCPP:            internal
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/pgi_hera/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod/modO/Linux.pgi.64.mpiuni.default
+ESMF_INSTALL_LIBDIR:    lib/libO/Linux.pgi.64.mpiuni.default
+ESMF_INSTALL_BINDIR:    bin/binO/Linux.pgi.64.mpiuni.default
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         /scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/pgi_hera/esmf/../BENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /apps/pgi/linux86-64/18.10/bin:/home/Silverio.Vasquez/bin:/usr=
+/lib64/qt-3.3/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/opt/ibutils/=
+bin:/apps/local/bin:/apps/local/sbin:/apps/slurm/default/tools:/apps/sl=
+urm/default/bin:/apps/slurm/default/sbin:/apps/slurm/tools/sbank/bin:/a=
+pps/slurm/default/tools:/apps/slurm/default/bin:/apps/slurm/default/sbi=
+n:/apps/slurm/tools/sbank/bin
+LD_LIBRARY_PATH: /apps/pgi/linux86-64/18.10/lib::/apps/slurm/default/li=
+b:/apps/slurm/default/lib
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /apps/pgi/linux86-64/18.10/bin/pgf90
+Location of the Fortran linker:    /apps/pgi/linux86-64/18.10/bin/pgf90
+Location of the C++ compiler:      /apps/pgi/linux86-64/18.10/bin/pgc++
+Location of the C++ linker:        /apps/pgi/linux86-64/18.10/bin/pgc++
+
+Fortran compiler flags:
+ESMF_F90COMPILER: pgf90
+ESMF_F90COMPILEOPTS: -O -fpic -Mallocatable=3D03 -lpthread
+ESMF_F90COMPILEPATHS: -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/pgi_hera/esmf/mod/modO/Linux.pgi.64.mpiuni.default -I/scr=
+atch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/pgi_hera/esmf/=
+src/include=20
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
+_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
+FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNN=
+EL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_=
+DIR=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/pgi_=
+hera/esmf -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D18 -DESMF_PGIVERSION_=
+MINOR=3D10 -DESMF_PGIVERSION_PATCH=3D1
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP: -Mfreeform
+ESMF_F90COMPILEFIXCPP: -Mpreprocess -Mnofreeform
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -lpthread -Wl,--no-as-needed
+ESMF_F90LINKPATHS: -L/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/da=
+ily_builds/pgi_hera/esmf/lib/libO/Linux.pgi.64.mpiuni.default  -L/apps/=
+pgi/linux86-64/18.10/libso
+ESMF_F90LINKRPATHS: -Wl,-rpath,/scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/pgi_hera/esmf/lib/libO/Linux.pgi.64.mpiuni.default=
+  -Wl,-rpath,/apps/pgi/linux86-64/18.10/libso
+ESMF_F90LINKLIBS:  -pgc++libs -ldl
+ESMF_F90ESMFLINKLIBS: -lesmf  -pgc++libs -ldl
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: pgc++
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -O -DNDEBUG -fpic -lpthread
+ESMF_CXXCOMPILEPATHS:  -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dir=
+s/daily_builds/pgi_hera/esmf/src/include   -I/scratch2/BMC/esmf/Silveri=
+o.Vasquez/script_dirs/daily_builds/pgi_hera/esmf/src/Infrastructure/stu=
+bs/mpiuni -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_build=
+s/pgi_hera/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
+_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
+FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNN=
+EL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_=
+DIR=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/pgi_=
+hera/esmf -D__SDIR__=3D'' -DESMF_CXXSTD=3D11 -DESMF_MPIUNI -DESMF_PGIVE=
+RSION_MAJOR=3D18 -DESMF_PGIVERSION_MINOR=3D10 -DESMF_PGIVERSION_PATCH=
+=3D1
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -lpthread -Wl,--no-as-needed
+ESMF_CXXLINKPATHS: -L/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/da=
+ily_builds/pgi_hera/esmf/lib/libO/Linux.pgi.64.mpiuni.default  -L/apps/=
+pgi/linux86-64/18.10/libso
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/pgi_hera/esmf/lib/libO/Linux.pgi.64.mpiuni.default=
+  -Wl,-rpath,/apps/pgi/linux86-64/18.10/libso
+ESMF_CXXLINKLIBS:  -pgf90libs -ldl
+ESMF_CXXESMFLINKLIBS: -lesmf  -pgf90libs -ldl
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    pgc++
+ESMF_SL_LIBOPTS:       -shared
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/=
+daily_builds/pgi_hera/esmf/lib/libO/Linux.pgi.64.mpiuni.default/libesmf=
+trace_preload.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Fri Apr 10 08:48:51 MDT 2020 on hfe08
+Machine characteristics: Linux hfe08 3.10.0-1062.9.1.el7.x86_64 #1 SMP =
+Fri Dec 6 15:49:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Fri Apr 10 09:07:21 MDT 2020 library build -j16 ...........PASS
+Builds with warnings.
+Fri Apr 10 09:07:52 MDT 2020 library install -j4 ..........PASS
+Fri Apr 10 09:07:56 MDT 2020 library installcheck -j4 .....PASS
+Fri Apr 10 09:10:26 MDT 2020 quickstart build -j4 .........PASS
+
+|------------------------ APPs TESTS --------------------------|
+Fri Apr 10 09:10:34 MDT 2020 apps build -j4 ...............PASS
+Fri Apr 10 11:10:34 MDT 2020 Queue not available **********FAIL
+
+|----------------------- SYSTEM TESTS -------------------------|
+Fri Apr 10 11:17:33 MDT 2020 build_system_tests -j4 .......PASS
+Fri Apr 10 13:17:33 MDT 2020 Queue not available **********FAIL
+
+
+|------------------------- EXAMPLES ---------------------------|
+Fri Apr 10 13:26:32 MDT 2020 build_examples -j4 ...........PASS
+Fri Apr 10 15:26:32 MDT 2020 Queue not available **********FAIL
+
+
+|-------------------- EXHAUSTIVE UNIT TESTS -------------------|
+Fri Apr 10 15:44:48 MDT 2020 build_unit_tests -j4 .........PASS
+Fri Apr 10 17:44:48 MDT 2020 Queue not available **********FAIL
+Fri Apr 10 17:44:51 MDT 2020 run_unit_tests_benchmark .....PASS
+
+
+
+Found 168 exhaustive single processor unit tests files, of those with a=
+ threshold of 500 msecs. 0 passed the 20% tolerance benchmark test, and=
+ 0 failed.
+
+Benchmark install date: cat: /scratch2/BMC/esmf/Silverio.Vasquez/script=
+_dirs/daily_builds/pgi_hera/esmf/../BENCHMARKDIR/test/testO/Linux.pgi.6=
+4.mpiuni.default/bm_timestamp: No such file or directory
+
+
+
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/pgi_hera/=
+esmf_logs/2004_test.
+ These tarballs contain the *Log and *stdout files only, not the execut=
+ables.
+ This directory also contains failed build output files with the naming=
+ convention of=20
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COM=
+M.
+ For example, if the build fails on longs on the 19th of the month with=
+ ESMF_BOPT=3Dg, the file=20
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:yellow
+Day_of_Week:Thursday
+Test_Failures:0

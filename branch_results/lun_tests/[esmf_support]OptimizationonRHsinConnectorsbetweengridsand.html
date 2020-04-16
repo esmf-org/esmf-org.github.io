@@ -1,0 +1,126 @@
+<pre>
+Return-Path: <esmftester@gmail.com>
+Delivered-To: tablemesatest@gmail.com
+Received: by 2002:a02:c005:0:0:0:0:0 with SMTP id y5csp11053697jai;
+        Mon, 31 Dec 2018 10:37:54 -0800 (PST)
+X-Received: by 2002:a6b:f404:: with SMTP id i4mr1280479iog.281.1546281473990;
+        Mon, 31 Dec 2018 10:37:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1546281473; cv=none;
+        d=google.com; s=arc-20160816;
+        b=Yvnol+xEHNFIMKCse3dvmf6NXnBcPJMdpBrtdgtcF3giBzbSMsvLMSMBO2JO/pATWw
+         a0VPl+9C0H99JRWm6H5mx+SlpoXc6rrHyZTYrQXSMFpPiG+iex2XO/RuKZzxZg0yVw8F
+         DOXRa1L+qcLtQMR0hgRm8GFt9QBTP0weD3a4I4Gd7EF0n2oEbfuHyhONiu2rL0x+TIzx
+         1IKZv04Rt/23C0omGvYsEFoDCnL4y/hZewp8n5BmLJCpj/gY+3Kxj4V2HsYyUraRZFPs
+         rAxofavf9HE0+Qawr0no2kMYenzY2hIoIJTcNqVDMSjQjkzT645r++S5ev8Q9CSb4Na4
+         6Qzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=resent-to:to:cc:resent-from:resent-date:subject:date:message-id
+         :list-id:from;
+        bh=g1GjKhRlix2Qt6lGxD8KMFJMmEP7eaAwLYAApMZubMQ=;
+        b=GgdPlSz6jLQCcEfgAo2aqQ+FkeHdnRXoSwzrFQ3kN6FWd5wXLQAzcIUjm7fohOyZNq
+         gbN9b6pHGtKVU6k3YtbOyjCLvbciz3EoXeqb6KmdWPg6heic8r6c+hq2QxuneA2AvWQW
+         RhEo5bFLnF2PhwWEg/79zOtW69D8tKBezdanGvMprL5rmB/cx8RiQUfOnU0S3g4tJhku
+         fExg/Nh0duy7f5xtu1Ixk7uIg5PqLB61gvzJNTm65afNxoKF4BPNrVs/N+jbL70wkojR
+         aM1+9nbTSzgleupOsHCRqUGzwWXdjrEiWk1nrkd6ON9qdf4ydE9lfZJP9ZASrhFmBCm2
+         mYqA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: domain of esmftester@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=esmftester@gmail.com
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id t131sor57596867itb.6.2018.12.31.10.37.53
+        for <tablemesatest@gmail.com>
+        (Google Transport Security);
+        Mon, 31 Dec 2018 10:37:53 -0800 (PST)
+Received-SPF: pass (google.com: domain of esmftester@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of esmftester@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=esmftester@gmail.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:list-id:message-id:date:subject:resent-date
+         :resent-from:cc:to:resent-to;
+        bh=g1GjKhRlix2Qt6lGxD8KMFJMmEP7eaAwLYAApMZubMQ=;
+        b=m/xSm/sb9h9YJ9NvgyeXmwUhleKjDyazhoYWiqE8NnMLUHOnfH04bkS3bnjUiJWhnU
+         SD6HkaLQ2kJvOLsd3cc+YVQ4bIwkYoQETdDJ6WeT6OMZOzKp2FZEosmukkjDPxT/iJsK
+         +4DMKgZxwfQChxyDLiPx0mxhf+VO/zaXWLHpP0dKO8o2wSnn1XJmQIzYkHJ/1T1/NxGT
+         TWpvQCoTJNH/ySUu+yMwsA1zU8bbRSFB2ON0j3RyHmXrqKEhZZ/zriy4JqAvmLRPmdD6
+         b8QNQgyfiI6TziXzXfVG6Hf7fSjSl6juOyNMOR8TPRk1veWBwfO6+hMuKiagKGU1HE9m
+         /pYg==
+X-Gm-Message-State: AA+aEWa0JCSMk/5cxlZo2vxIy5VoxPsS/eDcrJtBGuOJ00hwlz102MuF
+	rG8qj+ybjF71MEGJGwfjkQ+CcKsY
+X-Google-Smtp-Source: AFSGD/WRgrX3CtsrBPtMg5Gan4PzYj1+Mpckskqv6k7ob0oB8wFkvkcYM7HdT1RKhpqSi8Dwb1brIw==
+X-Received: by 2002:a05:660c:1cc:: with SMTP id s12mr23237517itk.33.1546281473457;
+        Mon, 31 Dec 2018 10:37:53 -0800 (PST)
+Received: from ?IPv6:2601:280:4700:7dd6:a03c:48fa:436d:8101? ([2601:280:4700:7dd6:a03c:48fa:436d:8101])
+        by smtp.gmail.com with ESMTPSA id w16sm21008152ita.38.2018.12.31.10.37.53
+        for <tablemesatest@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 31 Dec 2018 10:37:53 -0800 (PST)
+From: Rocky Dunlap <dunlap@ucar.edu>
+List-Id: <esmf_support.cgd.ucar.edu>
+Message-Id: <CADtyBo5daVBaQhTDGF9S_DAyF3PjHCyPFgzDsfN4sAMDc7_rrQ@mail.gmail.com>
+X-Mailer: Apple Mail (2.3445.9.1)
+Date: Mon, 31 Dec 2018 11:33:44 -0700
+Subject: [esmf_support] Optimization on RHs in Connectors between grids and
+ meshes
+Resent-Date: Mon, 31 Dec 2018 11:37:51 -0700
+Resent-From: Silverio Vasquez <esmftester@gmail.com>
+Cc: esmf_support@ucar.edu,
+ Mariana Vertenstein <mvertens@ucar.edu>,
+ Jim Edwards <jedwards@ucar.edu>
+To: Gerhard Theurich - NOAA Affiliate <gerhard.j.theurich@noaa.gov>
+Resent-To: tablemesatest@gmail.com
+X-getmail-retrieved-from-mailbox: INBOX
+X-GMAIL-THRID: =?utf-8?q?1621393642502026139?=
+X-GMAIL-MSGID: =?utf-8?q?1621393642502026139?=
+
+--===============4009535593325439498==
+Content-Type: multipart/alternative; boundary="00000000000003f1d4057e55a896"
+
+--00000000000003f1d4057e55a896
+Content-Type: text/plain; charset="UTF-8"
+
+Gerhard,
+
+What is your priority for optimization of RHs in the Connector when one
+side is a grid and one side is a mesh?  I think you said it was relatively
+easy implementation, maybe a couple days of work? It is something we would
+benefit from in CESM in the short term since we are running into cases
+where we have a cap with a grid and a mesh in the Mediator and the init
+time is very slow.
+
+An alternative, less satisfying, implementation might be to force the
+connector to assume that the first RH generated is good in all cases.  We
+would consider such a workaround only if you think that it will take some
+time to get to the real optimization.
+
+Rocky
+
+--00000000000003f1d4057e55a896
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Gerhard,<div><br></div><div>What is your priority for opti=
+mization of RHs in the Connector when one side is a grid and one side is a =
+mesh?=C2=A0 I think you said it was relatively easy implementation, maybe a=
+ couple days of work? It is something we would benefit from in CESM in the =
+short term since we are running into cases where we have a cap with a grid =
+and a mesh in the Mediator and the init time is very slow.</div><div><br></=
+div><div>An alternative, less satisfying, implementation might be to force =
+the connector to assume that the first RH generated is good in all cases.=
+=C2=A0 We would consider such a workaround only if you think that it will t=
+ake some time to get to the real optimization.</div><div><br></div><div>Roc=
+ky</div></div>
+
+--00000000000003f1d4057e55a896--
+
+--===============4009535593325439498==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+-- 
+esmf_support mailing list
+esmf_support@ucar.edu
+http://mailman.cgd.ucar.edu/mailman/listinfo/esmf_support
+
+--===============4009535593325439498==--

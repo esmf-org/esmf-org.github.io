@@ -1,0 +1,715 @@
+<pre>
+Return-Path: <siva7831@login10.localdomain>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 16 Apr 2020 17:30:03 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id A3C371AA
+	for <esmftest@cgd.ucar.edu>; Thu, 16 Apr 2020 11:25:05 -0600 (MDT)
+Received: from mail-io1-f69.google.com (mail-io1-f69.google.com [209.85.166.69])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 9337E1805AF0
+	for <esmftest@cgd.ucar.edu>; Thu, 16 Apr 2020 11:25:05 -0600 (MDT)
+Received: by mail-io1-f69.google.com with SMTP id k4so24922925ios.7
+        for <esmftest@cgd.ucar.edu>; Thu, 16 Apr 2020 10:25:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-original-authentication-results:x-gm-message-state:date:to
+         :subject:user-agent:mime-version:content-transfer-encoding
+         :message-id:from;
+        bh=rBeBjMDHp6fe8kcGNz+qF1WH5IYCt8j153hHkMi61AY=;
+        b=Rqoa2Wpdt03zAJERFqvGGXryrJeUbib7WxLvPaavQ/6IJBpViP7ZE4ytVI3eJhDN/w
+         qfCTmJdQcKurKF+1Xp1lLm5IPz59vYzUARqCWMEEWinaWCixUHGezMXFGgM4gVtb9sdB
+         RiZ5nRAqI3kzXFahzzsyp/IsXatjiEJOR4Bv8Y8qCspgLCEDysBOYMlgIAHgTNSu77ml
+         qgFTdTRuqZX/sV1FLz6soKiDg1m7hPnA0tmhdS+NtOvFtgAQyLSWwKRXlV6WKd1kntrT
+         fVQdGyazO1Xy7nhk3DWsQgzNXc0jjv7MarwKen2CbEPoUjE+w58xldwJJmqFcMhyPWGP
+         EY+Q==
+X-Original-Authentication-Results: mx.google.com;       spf=neutral (google.com: 128.138.65.10 is neither permitted nor denied by best guess record for domain of siva7831@login10.localdomain) smtp.mailfrom=siva7831@login10.localdomain
+X-Gm-Message-State: AGi0PuZXrKta4jOuCJgeu4WWQ/CyXEulYvywz0gKv/x/ZJED5OlIqNdW
+	0yxbQoJAnbhjyUgGelP3VGAZeMXe4sQcC34ieSc4nEGCoNA4FVKUGewwT676lqPduyfp25sRKyx
+	Gni0qnT/3t2QKOQ==
+X-Received: by 2002:a02:cd91:: with SMTP id l17mr31722027jap.34.1587057905065;
+        Thu, 16 Apr 2020 10:25:05 -0700 (PDT)
+X-Google-Smtp-Source: APiQypJFQRwKhDtWph7TR7mKdbHBmbxhOcftGZWKVp6ANNFJmd1l7I165xdV0T9NHTgGnRUvdAtS
+X-Received: by 2002:a02:cd91:: with SMTP id l17mr31721902jap.34.1587057903316;
+        Thu, 16 Apr 2020 10:25:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1587057903; cv=none;
+        d=google.com; s=arc-20160816;
+        b=WekEUh811h671lToYk5hnvM8t1CGRMgsUq6gPn7sOQAdLeEGj24h/f2Yv+gSp8bGMy
+         ZkVLRXIhIgJ6uRDIHceoevliWGMSS24OBWuT/82iC7FowMvlYc+Y2S+m2ke7Io23WIiO
+         DXTuVmXO1ytCGzP09O92eLBkeYBg+ShOo34Pm1LY2NHN5iV5Ykn6OQGhhTw8LH5CdkKt
+         na/cOJUPRzRDLv3vUxMePYdhbY4M50Wh5lnDh9mKr9XPupNMts8TfCgV/3ybQIyrDhSR
+         oUe+cowyd0WkBjuc6b0rPSYp4BbwmhoqjX8sV2qTuCvMfpUL9GlJiICa/CJUz5Sl//nK
+         67JQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:message-id:content-transfer-encoding:mime-version:user-agent
+         :subject:to:date;
+        bh=rBeBjMDHp6fe8kcGNz+qF1WH5IYCt8j153hHkMi61AY=;
+        b=ANopHiyD9hCOYbhIdM86al45VLcFEHZGXVOArS5gUndJ4K/fNH6MRzG8XZcp7Yx2Ws
+         uKprgv1sMyFwJpo6RKIjssD58Cy486k5PyAtJt3lgZbAzEyvbs8QgKYadi+hXdhd2z4q
+         Hk9yGm+pYdGu/4/4CyLW0WaWqGAl5RaK9wvog0SlJXpGdocpZg6ZvHqBtic7wKDRQpeX
+         e4dei1jp9rpxwzmGBdsdfws+qZxLc6W+vqy+9WIy6xaGFQVTdI/cSgxvvDO6aYIMhcSB
+         l0XMvPCnOrp5mreipTASiWaSCZEz3GcMCI0wTaonhRo7fHNj7FJr/3UWpqSLDq7WyQna
+         Sjeg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=neutral (google.com: 128.138.65.10 is neither permitted nor denied by best guess record for domain of siva7831@login10.localdomain) smtp.mailfrom=siva7831@login10.localdomain
+Received: from login10.localdomain (login10.colorado.xsede.org. [128.138.65.10])
+        by mx.google.com with ESMTP id h19si15410250iog.43.2020.04.16.10.25.03
+        for <esmftest@cgd.ucar.edu>;
+        Thu, 16 Apr 2020 10:25:03 -0700 (PDT)
+Received-SPF: neutral (google.com: 128.138.65.10 is neither permitted nor denied by best guess record for domain of siva7831@login10.localdomain) client-ip=128.138.65.10;
+Authentication-Results: mx.google.com;
+       spf=neutral (google.com: 128.138.65.10 is neither permitted nor denied by best guess record for domain of siva7831@login10.localdomain) smtp.mailfrom=siva7831@login10.localdomain
+Received: by login10.localdomain (Postfix, from userid 202345)
+	id 214C982EFD3; Thu, 16 Apr 2020 11:25:03 -0600 (MDT)
+Date: Thu, 16 Apr 2020 11:25:03 -0600
+To: esmftest@cgd.ucar.edu
+Subject: ESMF_Summit_gfortran
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20200416172503.214C982EFD3@login10.localdomain>
+From: siva7831@login10.localdomain (Vasquez)
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+WARNING: The test experienced an abnormal termination during execution,
+         therefore the test results may be incomplete/invalid.
+
+
+Script start time: Thu Apr 16 01:25:02 MDT 2020
+
+Script end: Thu Apr 16 11:25:02 MDT 2020
+
+
+_____________________________________ESMF TRUNK BUILD AND TEST SUMMARY_=
+__________________________
+
+
+
+                                           =20
+                    INSTALL/
+           BUILD  QUICK_START OS.COMPILER.COMM.ABI    UNIT TESTS   EXAM=
+PLES  SYSTEM TESTS
+_______________________________________________________________________=
+________________________
+          PASS/FAIL PASS/FAIL                           PASS/FAIL   PAS=
+S/FAIL  PASS/FAIL
+_______________________________________________________________________=
+________________________
+
+_______________________________________________________________________=
+________________________
+
+
+Thu Apr 16 01:26:51 MDT 2020 on shas0136=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+=20
+--------------------------------------------------------------=20
+
+Currently Loaded Modules:
+  1) gcc/6.1.0   2) openmpi/2.0.1
+
+=20
+Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4
+=20
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4
+--------------------------------------------------------------
+# On branch master
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#=09tmp
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.82
+Built for x86_64-redhat-linux-gnu
+Copyright (C) 2010  Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl=
+.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+--------------------------------------------------------------
+Fortran Compiler version:
+GNU Fortran (GCC) 6.1.0
+Copyright (C) 2016 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+
+--------------------------------------------------------------
+C++ Compiler version:
+g++ (GCC) 6.1.0
+Copyright (C) 2016 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 6.1.0
+Copyright (C) 2016 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3Dg
+ESMF_COMM=3Dopenmpi
+ESMF_COMPILER=3Dgfortran
+ESMF_DIR=3D/projects/siva7831/scripts_dir/daily_builds/gfortran/esmf
+ESMF_INSTALL_PREFIX=3D/projects/siva7831/scripts_dir/daily_builds/gfort=
+ran/esmf/../install_dir
+ESMF_MPIRUN=3D/projects/siva7831/scripts_dir/daily_builds/gfortran/esmf=
+/scripts/mpirun.srun
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArray_default
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessField_default
+ESMF_TESTMPMD=3DOFF
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /projects/siva7831/scripts_dir/daily_builds/gfortran/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          gfortran
+ESMF_BOPT:              g
+ESMF_COMM:              openmpi
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            ON
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          OFF
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArray_default
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessField_default
+ESMF_MPIRUN:            /projects/siva7831/scripts_dir/daily_builds/gfo=
+rtran/esmf/scripts/mpirun.srun
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_YAMLCPP:            internal
+ESMF_PIO:                internal
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /projects/siva7831/scripts_dir/daily_builds/gfo=
+rtran/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod/modg/Linux.gfortran.64.openmpi.default
+ESMF_INSTALL_LIBDIR:    lib/libg/Linux.gfortran.64.openmpi.default
+ESMF_INSTALL_BINDIR:    bin/bing/Linux.gfortran.64.openmpi.default
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /usr/lpp/mmfs/bin:/curc/sw/openmpi/2.0.1/gcc/6.1.0/bin:/curc/s=
+w/gcc/6.1.0/bin:/home/siva7831/bin:/usr/lpp/mmfs/bin:/usr/lpp/mmfs/bin:=
+/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/dell/srvadmin/bi=
+n
+LD_LIBRARY_PATH: /curc/sw/openmpi/2.0.1/gcc/6.1.0/lib:/curc/sw/gcc/6.1.=
+0/lib64
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /curc/sw/gcc/6.1.0/bin/gcc
+Location of the Fortran compiler:  /curc/sw/openmpi/2.0.1/gcc/6.1.0/bin=
+/mpifort
+Location of the Fortran linker:    /curc/sw/openmpi/2.0.1/gcc/6.1.0/bin=
+/mpifort
+Location of the C++ compiler:      /curc/sw/openmpi/2.0.1/gcc/6.1.0/bin=
+/mpicxx
+Location of the C++ linker:        /curc/sw/openmpi/2.0.1/gcc/6.1.0/bin=
+/mpicxx
+
+Fortran compiler flags:
+ESMF_F90COMPILER: mpifort
+ESMF_F90COMPILEOPTS: -g -Wall -Wextra -Wconversion -Wno-unused -Wno-unu=
+sed-dummy-argument -fbacktrace -fimplicit-none -fcheck=3Darray-temps,bo=
+unds,do,mem,recursion -fPIC  -m64 -mcmodel=3Dsmall -pthread -ffree-line=
+-length-none  -fopenmp
+ESMF_F90COMPILEPATHS: -I/projects/siva7831/scripts_dir/daily_builds/gfo=
+rtran/esmf/mod/modg/Linux.gfortran.64.openmpi.default -I/projects/siva7=
+831/scripts_dir/daily_builds/gfortran/esmf/src/include=20
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESM=
+F_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TE=
+STCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dopen=
+mpi -DESMF_DIR=3D/projects/siva7831/scripts_dir/daily_builds/gfortran/e=
+smf
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP: -ffree-form
+ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:    -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed =
+ -fopenmp
+ESMF_F90LINKPATHS: -L/projects/siva7831/scripts_dir/daily_builds/gfortr=
+an/esmf/lib/libg/Linux.gfortran.64.openmpi.default  -L/curc/sw/gcc/6.1.=
+0/lib/gcc/x86_64-pc-linux-gnu/6.1.0/../../../../lib64/
+ESMF_F90LINKRPATHS: -Wl,-rpath,/projects/siva7831/scripts_dir/daily_bui=
+lds/gfortran/esmf/lib/libg/Linux.gfortran.64.openmpi.default  -Wl,-rpat=
+h,/curc/sw/gcc/6.1.0/lib/gcc/x86_64-pc-linux-gnu/6.1.0/../../../../lib6=
+4/
+ESMF_F90LINKLIBS:   -lrt -lstdc++ -ldl
+ESMF_F90ESMFLINKLIBS: -lesmf   -lrt -lstdc++ -ldl
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: mpicxx
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -g -Wall -Wextra -Wno-unused  -fPIC -=
+DESMF_LOWERCASE_SINGLEUNDERSCORE -m64 -mcmodel=3Dsmall -pthread  -fopen=
+mp
+ESMF_CXXCOMPILEPATHS:  -I/projects/siva7831/scripts_dir/daily_builds/gf=
+ortran/esmf/src/include   -I/projects/siva7831/scripts_dir/daily_builds=
+/gfortran/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESM=
+F_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TE=
+STCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dopen=
+mpi -DESMF_DIR=3D/projects/siva7831/scripts_dir/daily_builds/gfortran/e=
+smf -D__SDIR__=3D'' -DESMF_CXXSTD=3D11 -DESMF_NO_SIGUSR2
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed  =
+-fopenmp
+ESMF_CXXLINKPATHS: -L/projects/siva7831/scripts_dir/daily_builds/gfortr=
+an/esmf/lib/libg/Linux.gfortran.64.openmpi.default  -L/curc/sw/gcc/6.1.=
+0/lib/gcc/x86_64-pc-linux-gnu/6.1.0/../../../../lib64/
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/projects/siva7831/scripts_dir/daily_bui=
+lds/gfortran/esmf/lib/libg/Linux.gfortran.64.openmpi.default  -Wl,-rpat=
+h,/curc/sw/gcc/6.1.0/lib/gcc/x86_64-pc-linux-gnu/6.1.0/../../../../lib6=
+4/
+ESMF_CXXLINKLIBS:  -lmpi_mpifh -lrt -lgfortran -ldl
+ESMF_CXXESMFLINKLIBS: -lesmf  -lmpi_mpifh -lrt -lgfortran -ldl
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    mpicxx
+ESMF_SL_LIBOPTS:       -shared  -fopenmp
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/projects/siva7831/scripts_dir/daily_builds/gfor=
+tran/esmf/lib/libg/Linux.gfortran.64.openmpi.default/libesmftrace_prelo=
+ad.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Thu Apr 16 01:26:53 MDT 2020 on shas0136
+Machine characteristics: Linux shas0136 3.10.0-957.21.3.el7.x86_64 #1 S=
+MP Fri Jun 14 02:54:29 EDT 2019 x86_64 x86_64 x86_64 GNU/Linux
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Thu Apr 16 01:33:25 MDT 2020 library build -j16 ...........PASS
+Builds with warnings.
+Thu Apr 16 01:33:45 MDT 2020 library install -j4 ..........PASS
+Thu Apr 16 01:33:46 MDT 2020 library installcheck -j4 .....PASS
+Thu Apr 16 01:34:35 MDT 2020 quickstart build -j4 .........PASS
+
+|------------------------ APPs TESTS --------------------------|
+Thu Apr 16 01:34:38 MDT 2020 apps build -j4 ...............PASS
+
+
+Ran  applications tests,  passed and  failed.
+
+|----------------------- SYSTEM TESTS -------------------------|
+Thu Apr 16 05:31:15 MDT 2020 build_system_tests -j4 .......PASS
+Thu Apr 16 08:46:49 MDT 2020 run_system_tests .............PASS
+
+
+The following system tests passed:
+
+
+PASS: openmpi/g: src/system_tests/ESMF_ArrayBundleRedist/ESMF_ArrayBund=
+leRedistSTest.F90
+PASS: openmpi/g: src/system_tests/ESMF_ArrayBundleSparseMatMul/ESMF_Arr=
+ayBundleSparseMatMulSTest.F90
+PASS: openmpi/g: src/system_tests/ESMF_ArrayRedist/ESMF_ArrayRedistSTes=
+t.F90
+PASS: openmpi/g: src/system_tests/ESMF_ArrayRedist3D/ESMF_ArrayRedist3D=
+STest.F90
+PASS: openmpi/g: src/system_tests/ESMF_ArrayScatterGather/ESMF_ArraySca=
+tterGatherSTest.F90
+PASS: openmpi/g: src/system_tests/ESMF_ArraySparseMatMul/ESMF_ArraySpar=
+seMatMulSTest.F90
+PASS: openmpi/g: src/system_tests/ESMF_Attribute/ESMF_AttributeSTest.F9=
+0
+PASS: openmpi/g: src/system_tests/ESMF_AttributeCIM/ESMF_AttributeCIMST=
+est.F90
+PASS: openmpi/g: src/system_tests/ESMF_CompCreate/ESMF_CompCreateSTest.=
+F90
+PASS: openmpi/g: src/system_tests/ESMF_CompFortranAndC/ESMF_CompFortran=
+AndCSTest.F90
+PASS: openmpi/g: src/system_tests/ESMF_ComplianceChecker/ESMF_Complianc=
+eCheckerSTest.F90
+PASS: openmpi/g: src/system_tests/ESMF_ConcurrentComponent/ESMF_Concurr=
+entCompSTest.F90
+PASS: openmpi/g: src/system_tests/ESMF_FieldConcurrentComp/ESMF_FieldCo=
+nCompSTest.F90
+PASS: openmpi/g: src/system_tests/ESMF_FieldSparseMatMul/ESMF_FieldSpar=
+seMatMulSTest.F90
+PASS: openmpi/g: src/system_tests/ESMF_RecursiveComponent/ESMF_Recursiv=
+eComponentSTest.F90
+
+
+The following system tests failed, did not build, or did not execute:
+
+
+FAIL: openmpi/g: src/system_tests/ESMF_ArrayRedistOpenACC/ESMF_ArrayRed=
+istOpenACCSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_ArrayRedistOpenMP/ESMF_ArrayRedi=
+stOpenMPSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_ArraySharedDeSSI/ESMF_ArrayShare=
+dDeSSISTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_ConcurrentEnsemble/ESMF_Concurre=
+ntEnsembleSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_DirectCoupling/ESMF_DirectCoupli=
+ngSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldBundleLSRedistArb2Arb/ESMF_=
+FieldBundleLSRedistArb2ArbSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldBundleLSRedistArb2ArbUngrdD=
+im/ESMF_FieldBundleLSRedistArb2ArbUngrdDimSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldBundleRedistArb2Arb/ESMF_Fi=
+eldBundleRedistArb2ArbSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldBundleRedistBlk2Arb/ESMF_Fi=
+eldBundleRedistBlk2ArbSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldBundleRedistBlk2Blk/ESMF_Fi=
+eldBundleRedistBlk2BlkSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldBundleSMM/ESMF_FieldBundleS=
+MMSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldBundleSMMPacked/ESMF_FieldB=
+undleSMMPackedSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldLSRedistArb2Arb/ESMF_FieldL=
+SRedistArb2ArbSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldLSRedistArb2ArbUngrdDim/ESM=
+F_FieldLSRedistArb2ArbUngrdDimSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldLSSMM/ESMF_FieldLSSMMSTest.=
+F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldMeshSMM/ESMF_FieldMeshSMMST=
+est.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldRedist/ESMF_FieldRedistSTes=
+t.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldRedistArb2Arb/ESMF_FieldRed=
+istArb2ArbSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldRedistBlk2Arb/ESMF_FieldRed=
+istBlk2ArbSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldRedistBlk2Blk/ESMF_FieldRed=
+istBlk2BlkSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldRegrid/ESMF_FieldRegridSTes=
+t.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldRegridDisjoint/ESMF_FieldRe=
+gridDisjointSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldRegridMesh/ESMF_FieldRegrid=
+MeshSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldRegridMeshToMesh/ESMF_Field=
+RegridMeshToMeshSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_FieldRegridOverlap/ESMF_FieldReg=
+ridOverlapSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_SequentialEnsemble/ESMF_Sequenti=
+alEnsembleSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_Trace/ESMF_TraceSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_TransferGrid/ESMF_TransferGridST=
+est.F90
+FAIL: openmpi/g: src/system_tests/ESMF_TransferMesh/ESMF_TransferMeshST=
+est.F90
+FAIL: openmpi/g: src/system_tests/ESMF_XGridConcurrent/ESMF_XGridConcur=
+rentSTest.F90
+FAIL: openmpi/g: src/system_tests/ESMF_XGridSerial/ESMF_XGridSerialSTes=
+t.F90
+
+
+
+
+The stdout files for the system_tests can be found at:
+/projects/siva7831/scripts_dir/daily_builds/gfortran/esmf/test/testg/Li=
+nux.gfortran.64.openmpi.default
+
+
+Found 46 multi-processor system tests, 15 passed and 31 failed.
+
+
+
+|------------------------- EXAMPLES ---------------------------|
+Thu Apr 16 08:49:13 MDT 2020 build_examples -j4 ...........PASS
+Thu Apr 16 11:21:38 MDT 2020 run_examples .................PASS
+
+
+The following examples passed:
+
+
+PASS: openmpi/g: src/Infrastructure/LogErr/examples/ESMF_LogErrEx.F90
+PASS: openmpi/g: src/Infrastructure/Trace/examples/ESMF_TraceEx.F90
+PASS: openmpi/g: src/Infrastructure/Trace/examples/ESMF_TraceUserEx.F90
+PASS: openmpi/g: src/Infrastructure/VM/examples/ESMF_VMAllFullReduceEx.=
+F90
+PASS: openmpi/g: src/Infrastructure/VM/examples/ESMF_VMComponentEx.F90
+PASS: openmpi/g: src/Infrastructure/VM/examples/ESMF_VMDefaultBasicsEx.=
+F90
+PASS: openmpi/g: src/Infrastructure/VM/examples/ESMF_VMGetMPICommunicat=
+orEx.F90
+PASS: openmpi/g: src/Infrastructure/VM/examples/ESMF_VMHigherRankDataEx=
+.F90
+PASS: openmpi/g: src/Infrastructure/VM/examples/ESMF_VMScatterVMGatherE=
+x.F90
+PASS: openmpi/g: src/Infrastructure/VM/examples/ESMF_VMSendVMRecvEx.F90
+PASS: openmpi/g: src/Infrastructure/VM/examples/ESMF_VMUserMpiCommEx.F9=
+0
+PASS: openmpi/g: src/Infrastructure/VM/examples/ESMF_VMUserMpiCommMulti=
+Ex.F90
+PASS: openmpi/g: src/Infrastructure/VM/examples/ESMF_VMUserMpiEx.F90
+
+
+The following examples failed, did not build, or did not execute:
+
+
+FAIL: openmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayArbHaloEx.=
+F90
+FAIL: openmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayCommNBEx.F=
+90
+FAIL: openmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayEx.F90
+FAIL: openmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayFarrayEx.F=
+90
+FAIL: openmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayFarrayHalo=
+Ex.F90
+FAIL: openmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayHaloEx.F90
+FAIL: openmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayLarrayEx.F=
+90
+FAIL: openmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayRedistEx.F=
+90
+FAIL: openmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayScatterGat=
+herArbEx.F90
+FAIL: openmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayScatterGat=
+herEx.F90
+FAIL: openmpi/g: src/Infrastructure/Array/examples/ESMF_ArraySparseMatM=
+ulEx.F90
+FAIL: openmpi/g: src/Infrastructure/ArrayBundle/examples/ESMF_ArrayBund=
+leEx.F90
+FAIL: openmpi/g: src/Infrastructure/ArrayBundle/examples/ESMF_ArrayBund=
+leHaloEx.F90
+FAIL: openmpi/g: src/Infrastructure/ArraySpec/examples/ESMF_ArraySpecEx=
+.F90
+FAIL: openmpi/g: src/Infrastructure/Config/examples/ESMF_ConfigOverview=
+Ex.F90
+FAIL: openmpi/g: src/Infrastructure/DELayout/examples/ESMF_DELayoutEx.F=
+90
+FAIL: openmpi/g: src/Infrastructure/DistGrid/examples/ESMF_DistGridEx.F=
+90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldArbGridEx.=
+F90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldCommEx.F90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldCreateEx.F=
+90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldEx.F90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldHaloEx.F90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldMeshRegrid=
+Ex.F90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldRedistEx.F=
+90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldRegridEx.F=
+90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldRegridMask=
+Ex.F90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldRepDimEx.F=
+90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldSMMEx.F90
+FAIL: openmpi/g: src/Infrastructure/Field/examples/ESMF_FieldSphereRegr=
+idEx.F90
+FAIL: openmpi/g: src/Infrastructure/FieldBundle/examples/ESMF_FieldBund=
+leCreateEx.F90
+FAIL: openmpi/g: src/Infrastructure/FieldBundle/examples/ESMF_FieldBund=
+leHaloEx.F90
+FAIL: openmpi/g: src/Infrastructure/FieldBundle/examples/ESMF_FieldBund=
+leRedistEx.F90
+FAIL: openmpi/g: src/Infrastructure/FieldBundle/examples/ESMF_FieldBund=
+leSMMEx.F90
+FAIL: openmpi/g: src/Infrastructure/Grid/examples/ESMF_GridCreateRegFro=
+mDGEx.F90
+FAIL: openmpi/g: src/Infrastructure/Grid/examples/ESMF_GridUsageEx.F90
+FAIL: openmpi/g: src/Infrastructure/LocStream/examples/ESMF_LocStreamEx=
+.F90
+FAIL: openmpi/g: src/Infrastructure/Mesh/examples/ESMF_MeshEx.F90
+FAIL: openmpi/g: src/Infrastructure/Route/examples/ESMF_RHandleBitForBi=
+tEx.F90
+FAIL: openmpi/g: src/Infrastructure/Route/examples/ESMF_RHandleDynamicM=
+askingEx.F90
+FAIL: openmpi/g: src/Infrastructure/Route/examples/ESMF_RHandleFromFile=
+Ex.F90
+FAIL: openmpi/g: src/Infrastructure/Route/examples/ESMF_RHandleFromRHan=
+dleEx.F90
+FAIL: openmpi/g: src/Infrastructure/Route/examples/ESMF_RHandleReusabil=
+ityEx.F90
+FAIL: openmpi/g: src/Infrastructure/TimeMgr/examples/ESMF_AlarmEx.F90
+FAIL: openmpi/g: src/Infrastructure/TimeMgr/examples/ESMF_CalendarEx.F9=
+0
+FAIL: openmpi/g: src/Infrastructure/TimeMgr/examples/ESMF_ClockEx.F90
+FAIL: openmpi/g: src/Infrastructure/TimeMgr/examples/ESMF_TimeEx.F90
+FAIL: openmpi/g: src/Infrastructure/TimeMgr/examples/ESMF_TimeIntervalE=
+x.F90
+FAIL: openmpi/g: src/Infrastructure/XGrid/examples/ESMF_XGridEx.F90
+FAIL: openmpi/g: src/Infrastructure/XGrid/examples/ESMF_XGridSparseMatE=
+x.F90
+FAIL: openmpi/g: src/Superstructure/AttachMethods/examples/ESMF_AttachM=
+ethodsEx.F90
+FAIL: openmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_AttReadC=
+ustCplCompEx.F90
+FAIL: openmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_AttReadF=
+ieldEx.F90
+FAIL: openmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_AttReadG=
+ridCompEx.F90
+FAIL: openmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribut=
+eCIMEx.F90
+FAIL: openmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribut=
+eCustPackEx.F90
+FAIL: openmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribut=
+eEx.F90
+FAIL: openmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribut=
+eInternalInfoEx.F90
+FAIL: openmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribut=
+ePackageEx.F90
+FAIL: openmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribut=
+eUpdateEx.F90
+FAIL: openmpi/g: src/Superstructure/Component/examples/ESMF_AppMainEx.F=
+90
+FAIL: openmpi/g: src/Superstructure/Component/examples/ESMF_CompTunnelE=
+x.F90
+FAIL: openmpi/g: src/Superstructure/Component/examples/ESMF_CplEx.F90
+FAIL: openmpi/g: src/Superstructure/Component/examples/ESMF_GCompEx.F90
+FAIL: openmpi/g: src/Superstructure/Component/examples/ESMF_InternalSta=
+teEx.F90
+FAIL: openmpi/g: src/Superstructure/Component/examples/ESMF_InternalSta=
+teModEx.F90
+FAIL: openmpi/g: src/Superstructure/Component/examples/ESMF_SCompEx.F90
+FAIL: openmpi/g: src/Superstructure/State/examples/ESMF_StateEx.F90
+FAIL: openmpi/g: src/Superstructure/State/examples/ESMF_StateReadWriteE=
+x.F90
+FAIL: openmpi/g: src/Superstructure/State/examples/ESMF_StateReconcileE=
+x.F90
+FAIL: openmpi/g: src/Superstructure/WebServices/examples/ESMF_WebServic=
+esEx.F90
+FAIL: openmpi/g: src/addon/NUOPC/examples/ESMF_NUOPCAtmModelEx.F90
+FAIL: openmpi/g: src/addon/NUOPC/examples/ESMF_NUOPCBasicModelEx.F90
+
+
+
+
+The stdout files for the examples can be found at:
+/projects/siva7831/scripts_dir/daily_builds/gfortran/esmf/examples/exam=
+plesg/Linux.gfortran.64.openmpi.default
+
+
+Found 85 multi-processor examples, 13 passed and 72 failed.
+
+
+
+|-------------------- EXHAUSTIVE UNIT TESTS -------------------|
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /projects/siva7831/scripts_dir/daily_builds/gfortran/esmf_logs/2004_te=
+st.
+ These tarballs contain the *Log and *stdout files only, not the execut=
+ables.
+ This directory also contains failed build output files with the naming=
+ convention of=20
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COM=
+M.
+ For example, if the build fails on longs on the 19th of the month with=
+ ESMF_BOPT=3Dg, the file=20
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:orange
+Day_of_Week:Thursday
+Test_Failures:103

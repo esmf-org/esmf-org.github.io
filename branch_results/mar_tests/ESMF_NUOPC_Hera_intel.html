@@ -1,0 +1,118 @@
+<pre>
+Return-Path: <Silverio.Vasquez@noaa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 12 Apr 2020 01:30:02 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id CCC2CE3
+	for <esmftest@cgd.ucar.edu>; Sat, 11 Apr 2020 19:27:01 -0600 (MDT)
+Received: from mail-io1-f69.google.com (mail-io1-f69.google.com [209.85.166.69])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 83BFB1800274
+	for <esmftest@cgd.ucar.edu>; Sat, 11 Apr 2020 19:27:01 -0600 (MDT)
+Received: by mail-io1-f69.google.com with SMTP id n26so6255111iop.1
+        for <esmftest@cgd.ucar.edu>; Sat, 11 Apr 2020 18:27:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-original-authentication-results:x-gm-message-state:date:to
+         :subject:user-agent:mime-version:content-transfer-encoding
+         :message-id:from;
+        bh=ZVpNaGsTUE7g0W69rfPgT3JH7fBJWerxqtF6gyAIhpw=;
+        b=pVmDN4xxc2orP9887A0bBiU0rTzYKgNfYsXqK0KV1wIYEbfArKBTbqO0k5oZdXI0Np
+         3i2L4ihlCTTzQj+T4lRy/pQujmoHkdfuiW3su97K+Mu1XM07v+oxjVsp8RwtsD6MexHF
+         TIy261NkuyH7mMUp3UrXTnpWkWjyAtO+8yCcGabWppTQ4cpkR7Mct9PlJLiK+hfwJz/e
+         RTL3lgqvW3mHac1XcEukNulP0o6Wmjm5txEj3dacxl15NTqA/tPvgqe7iUGDPO3j5QXh
+         FnPO1HcaEcPy9/pW0Ka+zglCZAs/9nmLhN3RQR1FmlO2CYfTaK0R6OC5XoQFtOyP/HXd
+         /xUg==
+X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) smtp.mailfrom=Silverio.Vasquez@noaa.gov;       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+X-Gm-Message-State: AGi0PuZwWEFW30Tm6h0SoIDtGe1J9W0CvOJg+iUknlPi/Sz9ps3IKwHN
+	RkoxOVQ5ay5FtqzedgjiKYcov6+LEfG6e3y2W9f2zUCSej4ERxl3LWqU8P0oIfT4PsNdBvY/8XD
+	iwENpTPZC4F7xjnVM
+X-Received: by 2002:a6b:b7d8:: with SMTP id h207mr10660538iof.138.1586654821270;
+        Sat, 11 Apr 2020 18:27:01 -0700 (PDT)
+X-Google-Smtp-Source: APiQypJHYNEemtO0wAZW/RpLeIrUND4DwagJpB1skfATBBuwJK6+99R4vJDEX5qaMLBN/dbXfgb0
+X-Received: by 2002:a6b:b7d8:: with SMTP id h207mr10660527iof.138.1586654821027;
+        Sat, 11 Apr 2020 18:27:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1586654821; cv=none;
+        d=google.com; s=arc-20160816;
+        b=nqcNaiBvGwAnXvceNzvJhkmmCAoEfm2YOwlWA0Qf6+QAJBxHJ0o6SIws/d5l0kMacX
+         YWkHuBuh2EPrckLAwIMmgGV/9glxC3uULTJ6UT47u2HM8n6xRdvnQN5iS8rjeb0oULST
+         16JtyE9grx9MTH+OcSn0bvc0av/NxrPC2JiIEy9FuKVa7lJPPka7dtAsIxK906yq7BbU
+         /T7qJiqSapF5TVygrFV6ye0imfcG1LwDoiLwOdYqWW0WMJSEDcWB+FF7xSI8c6lRNw/U
+         zfcc1SRw03mQiJkF3ercGRLSctkOHpp8pPNzn6f7i+yNL4GYA4Wf3pivpcaPyTnFV+Il
+         /wBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:message-id:content-transfer-encoding:mime-version:user-agent
+         :subject:to:date;
+        bh=ZVpNaGsTUE7g0W69rfPgT3JH7fBJWerxqtF6gyAIhpw=;
+        b=um3e8t9hQ91P4yL68WhwQ8FNqgZ9zNR02OomL302Uga1N7I3IXGLi1I9BE0bgRKXpz
+         +Am3cuRfgGcm4O8oXmUf4QfeszmkNjYtFqFd6TXKqYS2KPa2Q0Iat2XmeXL2WqIilBWz
+         QIGbzoXJxLpme6H+Z6bY3JDMmNGARlbqH5bNYUXIiknf+/J4zNFsHA8ETE3rLa3MJqG+
+         efBi7av1Ck19pshAiYqeb/ziMGdJYHAAj0wAbbtXGXpwNmuYIPyKQoaYSb1Q1IJPmL3u
+         eQNQX0NtwlW+jfM3TD79IzIo32ZSPqDwCjWmCT66oi2puWDLHhnw/zCnlyU4Y8OE2uzO
+         f2hA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) smtp.mailfrom=Silverio.Vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from relay2.fairmont.rdhpcs.noaa.gov (relay2.fairmont.rdhpcs.noaa.gov. [140.208.200.139])
+        by mx.google.com with ESMTP id k5si6498462iow.73.2020.04.11.18.27.00
+        for <esmftest@cgd.ucar.edu>;
+        Sat, 11 Apr 2020 18:27:01 -0700 (PDT)
+Received-SPF: pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) client-ip=140.208.200.139;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) smtp.mailfrom=Silverio.Vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from hpcadm1.fairmont.rdhpcs.noaa.gov (hpcadm1.fairmont.rdhpcs.noaa.gov [140.208.192.26])
+	by relay2.fairmont.rdhpcs.noaa.gov (Postfix) with ESMTP id 7693BC0040BF
+	for <esmftest@cgd.ucar.edu>; Sun, 12 Apr 2020 01:27:00 +0000 (UTC)
+Received: from hfe06.noaa.gov (unknown [10.181.2.105])
+	by hpcadm1.fairmont.rdhpcs.noaa.gov (Postfix) with ESMTP id 8C787123D5F
+	for <esmftest@cgd.ucar.edu>; Sun, 12 Apr 2020 01:27:00 +0000 (UTC)
+Received: by hfe06.noaa.gov (Postfix, from userid 16117)
+	id 81C718F603F57; Sun, 12 Apr 2020 01:27:00 +0000 (UTC)
+Date: Sat, 11 Apr 2020 19:27:00 -0600
+To: esmftest@cgd.ucar.edu
+Subject: ESMF_NUOPC_Hera_intel
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-Id: <20200412012700.81C718F603F57@hfe06.noaa.gov>
+From: Silverio.Vasquez@noaa.gov
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+WARNING: The test experienced an abnormal termination during execution,
+         therefore the test results may be incomplete/invalid.
+
+
+Script end: Sat Apr 11 19:27:00 MDT 2020
+
+
+_____________________________________ESMF TRUNK NUOPC AND TEST SUMMARY___________________________
+
+
+
+                                            
+               BUILD       INSTALL    OS.COMPILER.COMM.ABI         NUOPC Tests
+_____________________________________________________________________________________________________
+               PASS/FAIL   PASS/FAIL                                 PASS/FAIL
+_____________________________________________________________________________________________________
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/nuopc_hera/intel/esmf_logs/2004_test.
+ These tarballs contain the *Log and *stdout files only, not the executables.
+ This directory also contains failed build output files with the naming convention of 
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COMM.
+ For example, if the build fails on longs on the 19th of the month with ESMF_BOPT=g, the file 
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:orange
+Day_of_Week:Tuesday
+Test_Failures:0
