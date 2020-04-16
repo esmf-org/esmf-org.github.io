@@ -52193,6 +52193,13 @@ The arguments are:
 <BR>
 <I>INTERFACE:</I>
 <PRE>       subroutine ESMF_MeshGet(mesh, parametricDim, spatialDim, &amp;
+                    nodeCount, nodeIds, nodeCoords, nodeOwners, &amp;
+                    nodeMaskIsPresent, nodeMask,&amp;
+                    elementCount, elementIds, elementTypes, &amp;
+                    elementConnCount, elementConn, &amp;
+                    elementMaskIsPresent,elementMask, &amp;
+                    elementAreaIsPresent, elementArea, &amp;
+                    elementCoordsIsPresent, elementCoords, &amp;
                     nodalDistgridIsPresent, nodalDistgrid, &amp;
                     elementDistgridIsPresent, elementDistgrid, &amp;
                     numOwnedNodes, ownedNodeCoords, &amp;
@@ -52205,6 +52212,23 @@ The arguments are:
 <PRE>     type(ESMF_Mesh),          intent(in)            :: mesh
      integer,                  intent(out), optional :: parametricDim
      integer,                  intent(out), optional :: spatialDim
+     integer,                  intent(out), optional :: nodeCount
+     integer,                  intent(out), optional :: nodeIds(:)
+     real(ESMF_KIND_R8),       intent(out), optional :: nodeCoords(:)
+     integer,                  intent(out), optional :: nodeOwners(:)
+     logical,                  intent(out), optional :: nodeMaskIsPresent
+     integer,                  intent(out), optional :: nodeMask(:)
+     integer,                  intent(out), optional :: elementCount
+     integer,                  intent(out), optional :: elementIds(:)
+     integer,                  intent(out), optional :: elementTypes(:)
+     integer,                  intent(out), optional :: elementConnCount
+     integer,                  intent(out), optional :: elementConn(:)
+     logical,                  intent(out), optional :: elementMaskIsPresent
+     integer,                  intent(out), optional :: elementMask(:)
+     logical,                  intent(out), optional :: elementAreaIsPresent
+     real(ESMF_KIND_R8),       intent(out), optional :: elementArea(:)
+     logical,                  intent(out), optional :: elementCoordsIsPresent
+     real(ESMF_KIND_R8),       intent(out), optional :: elementCoords(:)
      logical,                  intent(out), optional :: nodalDistgridIsPresent
      type(ESMF_DistGrid),      intent(out), optional :: nodalDistgrid
      logical,                  intent(out), optional :: elementDistgridIsPresent
@@ -52244,6 +52268,89 @@ The arguments are:
 <DD>The number of coordinate dimensions needed to describe the locations of the nodes
    making up the Mesh. For a manifold, the spatial dimension can be larger than the
    parametric dim (e.g. the 2D surface of a sphere in 3D space), but it can't be smaller.
+   
+</DD>
+<DT><STRONG>[nodeCount]</STRONG></DT>
+<DD>The number of local nodes in the mesh (both owned and shared with another PET).
+   
+</DD>
+<DT><STRONG>[nodeIds]</STRONG></DT>
+<DD>An array of ids for each local node in the mesh. The nodeIds array should be of size nodeCount.
+   
+</DD>
+<DT><STRONG>[nodeCoords]</STRONG></DT>
+<DD>An array of  coordinates for each local node in the mesh. The nodeCoords array should be of size (spatialDim*nodeCount).
+   
+</DD>
+<DT><STRONG>[nodeOwners]</STRONG></DT>
+<DD>An array of the PET numbers that own each local node in the mesh. The nodeOwners array should be of size nodeCount.
+   
+</DD>
+<DT><STRONG>[nodeMaskIsPresent]</STRONG></DT>
+<DD>.true. if node masking was set in mesh, .false. otherwise.
+   
+</DD>
+<DT><STRONG>[nodeMask]</STRONG></DT>
+<DD>An array of mask values for each local node in the mesh. The nodeOwners array should be of size nodeCount.
+   
+</DD>
+<DT><STRONG>[elementCount]</STRONG></DT>
+<DD>The number of local elements in the mesh (both owned and shared with another PET).
+   
+</DD>
+<DT><STRONG>[elementIds]</STRONG></DT>
+<DD>An array of ids for each local element in the mesh. The elementIds array should be of size elementCount.
+   
+</DD>
+<DT><STRONG>[elementTypes]</STRONG></DT>
+<DD>An array of types for each local element in the mesh. Please see
+   section&nbsp;<A HREF="#const:meshelemtype">33.2.1</A> for the list of options. The elementTypes array should be of size elementCount.
+   
+</DD>
+<DT><STRONG>[elementConnCount]</STRONG></DT>
+<DD>The number of entries elementConn array. Provided as a convenience.
+   
+</DD>
+<DT><STRONG>elementConn</STRONG></DT>
+<DD>An array containing the indexes of the sets of nodes to be connected together to form the
+           elements to be created on this PET. The entries in this list are NOT node global ids,
+           but rather each entry is a local index (1 based) into the list of nodes to be
+           created on this PET by this call.
+           In other words, an entry of 1 indicates that this element contains the node
+           described by <TT>nodeIds(1)</TT>, <TT>nodeCoords(1)</TT>, etc. on this PET. It is also
+           important to note that the order of the nodes in an element connectivity list
+           matters. Please see Section&nbsp;<A HREF="#const:meshelemtype">33.2.1</A> for diagrams illustrating
+           the correct order of nodes in a element. This input consists of a 1D array with
+           a total size equal to the sum of the number of nodes contained in each element on
+           this PET (also provided by elementConnCount). The number of nodes in each element 
+           is implied by its element type in
+           <TT>elementTypes</TT>. The nodes for each element
+           are in sequence in this array (e.g. the nodes for element 1 are elementConn(1),
+           elementConn(2), etc.).
+   
+</DD>
+<DT><STRONG>[elementMaskIsPresent]</STRONG></DT>
+<DD>.true. if element masking was set in mesh, .false. otherwise.
+   
+</DD>
+<DT><STRONG>[elementMask]</STRONG></DT>
+<DD>An array of mask values for each local element in the mesh. The elementMask array should be of size elementCount.
+   
+</DD>
+<DT><STRONG>[elementAreaIsPresent]</STRONG></DT>
+<DD>.true. if element areas were set in mesh, .false. otherwise.
+   
+</DD>
+<DT><STRONG>[elementArea]</STRONG></DT>
+<DD>An array of area values for each local element in the mesh. The elementArea array should be of size elementCount.
+   
+</DD>
+<DT><STRONG>[elementCoordsIsPresent]</STRONG></DT>
+<DD>.true. if element coordinates were set in mesh, .false. otherwise.
+   
+</DD>
+<DT><STRONG>[elementCoords]</STRONG></DT>
+<DD>An array of coordinate values for each local element in the mesh. The elementCoord array should be of size (spatialDim*elementCount).
    
 </DD>
 <DT><STRONG>[nodalDistgridIsPresent]</STRONG></DT>
@@ -52986,7 +53093,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="64114"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="64141"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -55105,7 +55212,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="65798"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="65825"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -55284,7 +55391,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="65450"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="65477"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -55502,7 +55609,7 @@ By definition, DistGrid connections associate an index tuple of one tile
 <BR><P></P>
 <DIV ALIGN="CENTER">
    <DIV ALIGN="CENTER">   
-   <A NAME="tab:dg_ops"></A>   <A NAME="65799"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="65826"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -55787,7 +55894,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="65563"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="65590"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -55852,7 +55959,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="65578"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="65605"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -55910,7 +56017,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="65594"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="65621"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -56159,7 +56266,7 @@ The pole connection at <IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="65801"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="65828"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -56315,7 +56422,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="65802"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="65829"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -56385,7 +56492,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="65710"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="65737"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -56494,7 +56601,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="65722"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="65749"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -56565,7 +56672,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="65733"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="65760"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -56764,7 +56871,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="65765"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="65792"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -56888,7 +56995,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="65773"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="65800"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
