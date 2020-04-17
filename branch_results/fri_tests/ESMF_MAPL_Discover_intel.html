@@ -2,88 +2,88 @@
 Return-Path: <scvasque@discover.nccs.nasa.gov>
 Delivered-To: unknown
 Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
-  with IMAP4-SSL; 03 Apr 2020 09:15:02 -0000
+  with IMAP4-SSL; 17 Apr 2020 09:15:02 -0000
 X-Original-To: esmftest@cgd.ucar.edu
 Delivered-To: esmftest@cgd.ucar.edu
 Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
-	by post2.cgd.ucar.edu (Postfix) with ESMTP id D7A18220
-	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 03:02:28 -0600 (MDT)
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by vscanx2.ucar.edu (Postfix) with ESMTPS id 87AC318019CC
-	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 03:02:28 -0600 (MDT)
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 45473E7
+	for <esmftest@cgd.ucar.edu>; Fri, 17 Apr 2020 03:02:27 -0600 (MDT)
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 6C2B11811A7D
+	for <esmftest@cgd.ucar.edu>; Fri, 17 Apr 2020 03:02:27 -0600 (MDT)
 Authentication-Results: vscanx2.ucar.edu;
-	dkim=pass (1024-bit key) header.d=nccs.nasa.gov header.i=@nccs.nasa.gov header.b="msbIX/yR"
-Received: by mail-qt1-f198.google.com with SMTP id x3so5831277qtv.10
-        for <esmftest@cgd.ucar.edu>; Fri, 03 Apr 2020 02:02:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=nccs.nasa.gov header.i=@nccs.nasa.gov header.b="ejdIRv56"
+Received: by mail-qv1-f71.google.com with SMTP id ev8so1634315qvb.7
+        for <esmftest@cgd.ucar.edu>; Fri, 17 Apr 2020 02:02:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:message-id:dkim-filter:dkim-signature:from:date
          :to:subject:user-agent:mime-version:content-transfer-encoding;
-        bh=LtILO28hBMqiiubyipufe61eUe5H4ZDhdUYByQxhBws=;
-        b=U4WEcJpGwMYFoVe2MuOUOxDnnYMpB/mAaCliQmdkYN0TBMCJ0NwZ9jzltObVq2H4VN
-         FBPRdr71g51cgUtfnu65rsboBB3hJ/aZeWMNrrUFDrEo7s7+Np+19Ddfk9CD0GmlML/F
-         4sa3fHX4zVXqb9cLkmW/h2+5ZI2G5q00JjWWCPizT7Kvd2q4q57n4fXvUhXso2ixiPRG
-         PHUz+l9pZ9DxLPHOkbqQPGBxAzOe1EIVgDk3akEqAHloMgwXHE+D/8hbx9wW0o3CNZ2V
-         +FLIhdTH5JHLxj0egDomo0sn0qbfhffIhHnJfXT6HPSYIpIkhvjbgj3DS1L4HiOhq1zY
-         lvBw==
-X-Gm-Message-State: AGi0PuZ9824ZJ8YualFk8CyEORYNfr88YJod9vFP1MsElmGI9RwT1ggP
-	Lqp1pg2lMrpOkwuez9DMH823UWBLlVtT6i7qO+lTRCMV7Pj1LJMsS9mNiYYUQXc0uv/mDqoow19
-	9tW3GDloleZObrvjC
-X-Received: by 2002:ac8:2c73:: with SMTP id e48mr6587304qta.96.1585904547833;
-        Fri, 03 Apr 2020 02:02:27 -0700 (PDT)
-X-Google-Smtp-Source: APiQypKBXiOPe6Hfp0/dqsmus/Jn13Z/VISpBjfTTCfS3IWv1nWfEo9xdC1KSgKZT4d09+iwt5ye
-X-Received: by 2002:ac8:2c73:: with SMTP id e48mr6587214qta.96.1585904546491;
-        Fri, 03 Apr 2020 02:02:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1585904546; cv=none;
+        bh=HyYyaWPSsGVlnVLN0hN5kExhP4WiD0XZVThBtyD6zxs=;
+        b=KBk/N+C+snKLUId5++cX+hIq/V6hKOhoPZqofYUKOLS7gmSuW9Krs3DB0oCFwpiOJU
+         9C3xhRjdqTOIqHH8dlN7jywMTt2g7wz1nfn3Lsuys7h6prGnubCrH0SCLch3/8zgNfBV
+         pNQ4BgQ2nVC5t7FG+YfNKXtyN9q0a9Xwo3F5NMqB4/PMwvprulMcqJlaTxl3ZO99nKvm
+         0tsLIAvyTvBUunKE8KETQpqj6SMLFOthpNEhJktj2fWD1d51Yr3BdFtutN3TG76AJLhP
+         woi91Dtv7njGfO0VGtQgerZIHTTgYA9S4n9or1OFABwRGmEy94afTw2niKcO2wxHt5k1
+         +mVQ==
+X-Gm-Message-State: AGi0PubQrPaq/0th33z/y4njW7NKWvuUa2QTE+CMW9kNFN5497B6R1Ui
+	K2IrzxYPvfOghcJm7/pCBdX3Ih2s6ntFfpGQwNsgxC3yjraU8+uhXu+mB3wzvzOg3JNMK1jSFXn
+	7LtJkHencA40LMC3m
+X-Received: by 2002:ac8:5256:: with SMTP id y22mr1762840qtn.321.1587114146694;
+        Fri, 17 Apr 2020 02:02:26 -0700 (PDT)
+X-Google-Smtp-Source: APiQypIQu8MT3TG4r/Ju3r0pX1q0zEcNM1fIHgjxpwm/8+C+EcwWYHxEVulMtzQ9xn8BVcOto/4u
+X-Received: by 2002:ac8:5256:: with SMTP id y22mr1762757qtn.321.1587114145405;
+        Fri, 17 Apr 2020 02:02:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1587114145; cv=none;
         d=google.com; s=arc-20160816;
-        b=zgCefcfNKZoUGFaRqFb6MjO5L8I3K6Qxmqnd/J9xuvbQ6s4Th3hotfb2qgJIk9lyIy
-         lyoGaOTT1Qe9XMUTSNa+ooHFgWRCSj+KLm3u84Kmmmk7hP0KC4hnDO2CqQl1A7yz24eI
-         2/H+X1+gX5htWTPrUsyadNLH36QmL50GKoKRCEW9PuHfcxYy/+jyIIWnSCc8KlMmwjZx
-         F4SLyxnm55TakO01GTobkOpmbv6W7vKhHFNIz1j6TsdGqAFG5jSld0sbUIrxX3xTNEkr
-         Vmo+wZTd84P9IjVmcpK8qCvQyGTpCPJk+DSeUUNNzgeYURX88NpGoxQu6BIa52YCLuiy
-         WrOQ==
+        b=agOnr9A9hFGODP+JcILO4o3PAo4svxuCuh1wypPpdffXH5pHqNWXpJB0NDwJ6ogIeb
+         iwzEeJZSbxQdqj+cechechXvu/ZeR8B2mjIZY5fP9G0tEAK3bJaxIDCCYaYePCqDmRDV
+         Ql8iGNb7m1DX4x4+d9fo83xLRKg5/ZwtofasC6HZul1kp/Kvs/7VfCnM0d/N0Jttw75z
+         QavdPnuUoyZuyEt76dHEUFQ976PQeDGUsHq/6zKhmsLMGMQdmppsCkW8YtVaBgnFdiZS
+         iik8DIYjCkV35A7W1yOUeXuO8ilEGQJwM18ZkiXaGNz6krdYiEPlUy+yNtiaOj6j7G/X
+         vBtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:user-agent:subject:to:date
          :from:dkim-signature:dkim-filter:message-id;
-        bh=LtILO28hBMqiiubyipufe61eUe5H4ZDhdUYByQxhBws=;
-        b=hfUyvfu/e1s9rS7uoUc/0ulrrReMLN4umW6HeK2W0N+pA79MXWGRBmdocikDjQZpAs
-         3eJ15B/zvxRSIWZbAOZ5VrzOrh4FhvSZQjTJeVzo/FXc/SF8QYXiZSp2ktadPK+093lC
-         WZgXLzqO6d5HlcOBLPfDuhJWynCxanHtn7fJkpoePQcoMFDvzRflMvQymDO5voncw+n4
-         y76p3Fpd82RYKZKKkvDcti8J74FQiugh7r50/9BrCQAbUh+uQpuhuYjzIcWFaThRtcl9
-         u4lfP83e4v3kD0+X8AO9VcpUH8iRORcclwTPQHsQIg31okMr41cFTWyFiNSZGVrzbZF/
-         gbRA==
+        bh=HyYyaWPSsGVlnVLN0hN5kExhP4WiD0XZVThBtyD6zxs=;
+        b=BHNkC3JArzhFyCvgiIRWsA+v5vFLqPVcJXqSHPaCRf4TAQF9jNqeXeNsOI4LaKMbYd
+         wzlxc9w8U9lSlQfJv7mq8+ZUIVaNfkvqYoLwgGDg8zUCtU0e4R1dKqG3h2QAozHvmBwa
+         uDA/3TZoscWDOdWy4uuAWAmZQELIyG7kG0HMT0Xk00jDBBnlqEIwEImJNd0PdJ30HtJw
+         7Jzkq88OoAkaDvKJ1JtUMcyuFnKMKh9h72MELD4I5p2VGWL2qPm+ut7RPcShGadaymkk
+         Qffelh+uWrTSp/EXuM1pcTP5CkQd17yStrKOsCRoylHsddrSlcrsgVbsP+j1LpMI0Tn0
+         PnYg==
 ARC-Authentication-Results: i=1; mx.google.com;
-       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b="msbIX/yR";
-       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=ejdIRv56;
+       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 169.154.146.140 as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
        dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
-Received: from mail1.nccs.nasa.gov (mail1.nccs.nasa.gov. [2001:4d0:2418:2800::a99a:928c])
-        by mx.google.com with ESMTP id t49si5190719qtt.129.2020.04.03.02.02.26
+Received: from mail1.nccs.nasa.gov (mail1.nccs.nasa.gov. [169.154.146.140])
+        by mx.google.com with ESMTP id u65si13203564qkh.114.2020.04.17.02.02.25
         for <esmftest@cgd.ucar.edu>;
-        Fri, 03 Apr 2020 02:02:26 -0700 (PDT)
-Received-SPF: pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) client-ip=2001:4d0:2418:2800::a99a:928c;
+        Fri, 17 Apr 2020 02:02:25 -0700 (PDT)
+Received-SPF: pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 169.154.146.140 as permitted sender) client-ip=169.154.146.140;
 Authentication-Results: mx.google.com;
-       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b="msbIX/yR";
-       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 2001:4d0:2418:2800::a99a:928c as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=ejdIRv56;
+       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 169.154.146.140 as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
        dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
-Message-ID: <5e86fba2.1c69fb81.c14e5.663bSMTPIN_ADDED_MISSING@mx.google.com>
+Message-ID: <5e9970a1.1c69fb81.1095d.7ea8SMTPIN_ADDED_MISSING@mx.google.com>
 X-Comment: SPF check N/A for local connections - client-ip=169.154.145.205; helo=borgmx1.prv.cube; envelope-from=scvasque@discover.nccs.nasa.gov; receiver=esmftest@cgd.ucar.edu 
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail1.nccs.nasa.gov 4E603552
+DKIM-Filter: OpenDKIM Filter v2.9.2 mail1.nccs.nasa.gov B7CE3749
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nccs.nasa.gov;
-	s=default; t=1585904545;
-	bh=Et4l7gfUvsbubbW8WuaOhvmTeopkBZC8RSiOFLlD/u8=;
+	s=default; t=1587114144;
+	bh=0IB1N/ODttzhoEa1SZ8f4Fec2Xq8uwXdY4GdJRf5R0g=;
 	h=From:Date:To:Subject:From;
-	b=msbIX/yRZl05b1akTEo3NQtIlruUd9ADiR8DOI7NTzdiQWeKscjY7sKOr2tf7z79b
-	 jvrrY+R8LFYgP8svREG+/9stv2LDSfnDBcoLNBfIsrYIbP4OQhIPiYff7ubw7qYQTs
-	 nwuyS2Td/SM4x8K2iT0VWAfawc/tSFdOGZCfjySk=
+	b=ejdIRv56Ca8B3MwdEMvqfQMPyIdBPMPGGJJd1ZQIXkK/zosbGdBGDe7TAH81JuVZ+
+	 g0WL3z+y42xMd67atI2MTiRq674lP8ywbyO+QBRp5UXzwoYNp8Bi9MD6SKDnODRo1O
+	 xQPsfAVrU700CFb+H3xPAKk3ge828gPvxVOZD8s0=
 Received: from borgmx1.prv.cube (borgmx1.nccs.nasa.gov [169.154.145.205])
-	by mail1.nccs.nasa.gov (Postfix) with ESMTP id 4E603552
-	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 05:02:25 -0400 (EDT)
+	by mail1.nccs.nasa.gov (Postfix) with ESMTP id B7CE3749
+	for <esmftest@cgd.ucar.edu>; Fri, 17 Apr 2020 05:02:24 -0400 (EDT)
 Received: from discover.nccs.nasa.gov (discover01.prv.cube [10.1.50.1])
-	by borgmx1.prv.cube (Postfix) with SMTP id 2EEF139E7C
-	for <esmftest@cgd.ucar.edu>; Fri,  3 Apr 2020 05:02:24 -0400 (EDT)
-Received: by discover.nccs.nasa.gov (sSMTP sendmail emulation); Fri, 03 Apr 2020 05:02:24 -0400
+	by borgmx1.prv.cube (Postfix) with SMTP id B07B239E7C
+	for <esmftest@cgd.ucar.edu>; Fri, 17 Apr 2020 05:02:23 -0400 (EDT)
+Received: by discover.nccs.nasa.gov (sSMTP sendmail emulation); Fri, 17 Apr 2020 05:02:23 -0400
 From: "Silverio   C Vasquez" <scvasque@discover.nccs.nasa.gov>
-Date: Fri, 03 Apr 2020 05:02:24 -0400
+Date: Fri, 17 Apr 2020 05:02:23 -0400
 To: esmftest@cgd.ucar.edu
 Subject: ESMF_MAPL_Discover_intel
 User-Agent: Heirloom mailx 12.5 7/5/10
@@ -98,9 +98,9 @@ X-getmail-retrieved-from-mailbox: INBOX
 
 
 
-Script start time: Fri Apr  3 03:35:02 EDT 2020
+Script start time: Fri Apr 17 03:35:03 EDT 2020
 
-Script end: Fri Apr  3 05:02:24 EDT 2020
+Script end: Fri Apr 17 05:02:23 EDT 2020
 
 
 __________________________________ESMF TRUNK MAPL BUILD AND TEST SUMMAR=
@@ -126,7 +126,7 @@ discover01(O)   PASS        PASS    Linux.intel.intelmpi.64        PASS=
 _______________________________________________________________________=
 ________________________
 
-Fri Apr  3 03:37:46 EDT 2020 on discover01=20
+Fri Apr 17 03:37:44 EDT 2020 on discover01=20
 Compiler and configuration information:
 
 --------------------------------------------------------------=20
@@ -138,14 +138,14 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
+ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4
 =20
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
+ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -336,7 +336,7 @@ ver/nobackup/scvasque/scripts_dir/daily_builds/mapl/intel/esmf/src/incl=
 ude -I/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_intel-14.0.3.=
 174_sp3/include -I/home/scvasque/proj4/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
 ESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENACC -DESMF_TES=
@@ -373,7 +373,7 @@ ibs/netcdf/4.3.3.1_intel-14.0.3.174_sp3/include -I/home/scvasque/proj4/=
 include -I/discover/nobackup/scvasque/scripts_dir/daily_builds/mapl/int=
 el/esmf/src/prologue/yaml-cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
 ESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENACC -DESMF_TES=
@@ -444,7 +444,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Fri Apr 3 03:38:00 EDT 2020 on discover01
+Compiling on Fri Apr 17 03:37:56 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -452,16 +452,16 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Fri Apr  3 04:05:02 EDT 2020 library build ................PASS
-Fri Apr  3 04:06:27 EDT 2020 library install ..............PASS
-Fri Apr  3 04:06:32 EDT 2020 library installcheck .........PASS
-Fri Apr  3 04:09:14 EDT 2020 quickstart build .............PASS
+Fri Apr 17 04:05:11 EDT 2020 library build ................PASS
+Fri Apr 17 04:06:12 EDT 2020 library install ..............PASS
+Fri Apr 17 04:06:19 EDT 2020 library installcheck .........PASS
+Fri Apr 17 04:09:21 EDT 2020 quickstart build .............PASS
 
 |--------------------------------- MAPL5_1 TESTS ----------------------=
 -----|
-Fri Apr  3 04:11:15 EDT 2020 MAPL5_1 install ..............PASS
-Fri Apr  3 04:11:26 EDT 2020 MAPL5_1 build tests ..........PASS
-Fri Apr  3 04:12:24 EDT 2020 MAPL5_1 run tests ............PASS
+Fri Apr 17 04:11:40 EDT 2020 MAPL5_1 install ..............PASS
+Fri Apr 17 04:11:55 EDT 2020 MAPL5_1 build tests ..........PASS
+Fri Apr 17 04:12:54 EDT 2020 MAPL5_1 run tests ............PASS
 
 
 
@@ -478,7 +478,7 @@ Found 1 exhaustive multi-processor mapl test, 0 passed and 0 failed.
 _______________________________________________________________________=
 ________________________
 
-Fri Apr  3 04:14:58 EDT 2020 on discover01=20
+Fri Apr 17 04:15:35 EDT 2020 on discover01=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -493,14 +493,14 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
+ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4
 =20
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_12-8-g406ff0a
+ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -1022,7 +1022,7 @@ ver/nobackup/scvasque/scripts_dir/daily_builds/mapl/intel/esmf/src/incl=
 ude -I/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_intel-14.0.3.=
 174_sp3/include -I/home/scvasque/proj4/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
 ESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENACC -DESMF_TES=
@@ -1059,7 +1059,7 @@ ibs/netcdf/4.3.3.1_intel-14.0.3.174_sp3/include -I/home/scvasque/proj4/=
 include -I/discover/nobackup/scvasque/scripts_dir/daily_builds/mapl/int=
 el/esmf/src/prologue/yaml-cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-8-g406ff0a' -DESMF_=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-8-gae2a5d4' -DESMF_=
 MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
 TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
 ESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENACC -DESMF_TES=
@@ -1130,7 +1130,7 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Fri Apr 3 04:15:08 EDT 2020 on discover01
+Compiling on Fri Apr 17 04:15:44 EDT 2020 on discover01
 Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
 MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
 x
@@ -1138,16 +1138,16 @@ x
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Fri Apr  3 04:51:56 EDT 2020 library build ................PASS
-Fri Apr  3 04:52:38 EDT 2020 library install ..............PASS
-Fri Apr  3 04:52:47 EDT 2020 library installcheck .........PASS
-Fri Apr  3 04:55:20 EDT 2020 quickstart build .............PASS
+Fri Apr 17 04:53:49 EDT 2020 library build ................PASS
+Fri Apr 17 04:54:31 EDT 2020 library install ..............PASS
+Fri Apr 17 04:54:44 EDT 2020 library installcheck .........PASS
+Fri Apr 17 04:57:30 EDT 2020 quickstart build .............PASS
 
 |--------------------------------- MAPL5_1 TESTS ----------------------=
 -----|
-Fri Apr  3 04:57:21 EDT 2020 MAPL5_1 install ..............PASS
-Fri Apr  3 04:57:28 EDT 2020 MAPL5_1 build tests ..........PASS
-Fri Apr  3 05:01:05 EDT 2020 MAPL5_1 run tests ............PASS
+Fri Apr 17 04:59:44 EDT 2020 MAPL5_1 install ..............PASS
+Fri Apr 17 04:59:56 EDT 2020 MAPL5_1 build tests ..........PASS
+Fri Apr 17 05:00:17 EDT 2020 MAPL5_1 run tests ............PASS
 
 
 
