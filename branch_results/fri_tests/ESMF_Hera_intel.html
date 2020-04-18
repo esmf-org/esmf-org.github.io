@@ -1,2 +1,3803 @@
 <pre>
-No report is available at this time.
+Return-Path: <Silverio.Vasquez@noaa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 18 Apr 2020 08:00:02 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 2C81F166
+	for <esmftest@cgd.ucar.edu>; Sat, 18 Apr 2020 01:45:44 -0600 (MDT)
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id BBC301806434
+	for <esmftest@cgd.ucar.edu>; Sat, 18 Apr 2020 01:45:43 -0600 (MDT)
+Received: by mail-qt1-f199.google.com with SMTP id y31so4812861qta.16
+        for <esmftest@cgd.ucar.edu>; Sat, 18 Apr 2020 00:45:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-original-authentication-results:x-gm-message-state:date:to
+         :subject:user-agent:mime-version:content-transfer-encoding
+         :message-id:from;
+        bh=T3nKMtdoA7e2jDmR1ENemqzNRrxndI2w1yuRheoQK7I=;
+        b=tIpXGjZTJP4kW4v8XB5k0SZ31VcsXIxvnJ3krriAJMso+cKpGW+kcV0mTe6+Ngz0Iw
+         Zv/1tJMYpFyV46RvXAUybJKKD+HFZVHLn6vaWpH6MHcXFL1bN/V9XlFyMD7+ld5o16jE
+         YAR4DbSV3wosLbccljARUBBkWBxt816KVxKpx0fldBC7jRLmYs0c2T7XeFESJVN05HxR
+         vF2dE2qtn/vHJifuTBDAvObAbgsQOR/JO2R/IgzMKjzKciHALcqQ5hkV8Qot7BhbXIA5
+         SyjTzidiq/nYkx3XtgtPymBgJmGQo68eHMcGbr1Xtqp4KmMGoK6D6VaE7HgHY8qmU+ip
+         r8kA==
+X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) smtp.mailfrom=Silverio.Vasquez@noaa.gov;       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+X-Gm-Message-State: AGi0PuaPNV3oX3uHs1I95Qaw62wqLxy97xN8yfC7Pqg75PfMj1cKoOfb
+	dqqJjG1ryscnOYzHABMwEwPQ6Ziy781+TPGPpfzDmsi5K4kDxxGV/iGpgLlRTkLUDqPk1a+A0ru
+	mGZlUd/lk94I6fXcK
+X-Received: by 2002:a05:620a:136c:: with SMTP id d12mr152610qkl.148.1587195942853;
+        Sat, 18 Apr 2020 00:45:42 -0700 (PDT)
+X-Google-Smtp-Source: APiQypJmxzE4mBAyBpgjWTFMWVfinCxQFFq6bXlml6D24KBct6kvBbA0AE8qNHfh+10ib/+3ZGfy
+X-Received: by 2002:a05:620a:136c:: with SMTP id d12mr152535qkl.148.1587195941037;
+        Sat, 18 Apr 2020 00:45:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1587195941; cv=none;
+        d=google.com; s=arc-20160816;
+        b=bn/T2XAI1v8Y0IJbzdh5j1HWuA7I6anxz90Sld1VoKEP42boDVwUyZh24Klu7peQiI
+         83SA1JloLF50viCZOVpscBbS0UK8cqpYl1EtRLVqNP+uleK0AcxHhNGHgKOvi5W4MfX0
+         rebmJpiXkvIXyvH3Q21fNF8g+N/GhwDGFoMAWk2JMhQECG4Wm5jUpP/OZDLWIvY9ghJV
+         inFrU/FfZTM55cY4pcRW3OX3Aw5ioUK+xa1NFrAPd84Yan5ITyXpfDipbA2aAe2Msygd
+         mvKd16o9u51K+a8X3LJ9O7MtYBzhaIxJ5RQ1FoNFJKDnF2hF/53lvwPj21O3z7j3FVMz
+         wg0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:message-id:content-transfer-encoding:mime-version:user-agent
+         :subject:to:date;
+        bh=T3nKMtdoA7e2jDmR1ENemqzNRrxndI2w1yuRheoQK7I=;
+        b=aOijG8MePOBhq56U4w4esVpY8FkqY3Qlea5gEZ/hOlNXKVdNhb3q+zDuhS+8s5CDH/
+         bpi5C/ZXWrfR7eabk8x1Z8rGXt8W6nlXB0/PnrSLuGQmcn5TIa0C5RHd9EsAA1KeeRew
+         iknYi7mQ7O38rH0++rIovkTiSCKkB31lzE6zeov54XSbUNGx84wphljnoOUdHRfGHyyz
+         uSnx/Gh0Chj80eYJ/fzsny3H7NZKS39PgTOh/BA+phibttGFag8xhCYABrpfBe6jNJ+E
+         KqHNFaTQVlSLUno/IoWLyeetj1i676yemJ/RlnJ2ngWM7avu3L3NAgz9rVcFHVMTwFnh
+         HGuQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) smtp.mailfrom=Silverio.Vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from relay2.fairmont.rdhpcs.noaa.gov (relay2.fairmont.rdhpcs.noaa.gov. [140.208.200.139])
+        by mx.google.com with ESMTP id dr2si5957211qvb.156.2020.04.18.00.45.40
+        for <esmftest@cgd.ucar.edu>;
+        Sat, 18 Apr 2020 00:45:41 -0700 (PDT)
+Received-SPF: pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) client-ip=140.208.200.139;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of silverio.vasquez@noaa.gov designates 140.208.200.139 as permitted sender) smtp.mailfrom=Silverio.Vasquez@noaa.gov;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=noaa.gov
+Received: from hpcadm1.fairmont.rdhpcs.noaa.gov (hpcadm1.fairmont.rdhpcs.noaa.gov [140.208.192.26])
+	by relay2.fairmont.rdhpcs.noaa.gov (Postfix) with ESMTP id 0746EC0039B7
+	for <esmftest@cgd.ucar.edu>; Sat, 18 Apr 2020 07:45:41 +0000 (UTC)
+Received: from hfe03.noaa.gov (unknown [10.181.2.102])
+	by hpcadm1.fairmont.rdhpcs.noaa.gov (Postfix) with ESMTP id 76997123F14
+	for <esmftest@cgd.ucar.edu>; Sat, 18 Apr 2020 07:45:40 +0000 (UTC)
+Received: by hfe03.noaa.gov (Postfix, from userid 16117)
+	id 74950339F338; Sat, 18 Apr 2020 07:45:40 +0000 (UTC)
+Date: Sat, 18 Apr 2020 01:45:40 -0600
+To: esmftest@cgd.ucar.edu
+Subject: ESMF_Hera_intel
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20200418074540.74950339F338@hfe03.noaa.gov>
+From: Silverio.Vasquez@noaa.gov
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+
+Script start time: Fri Apr 17 22:45:03 MDT 2020
+
+Script end: Sat Apr 18 01:45:40 MDT 2020
+
+
+_____________________________________ESMF TRUNK BUILD AND TEST SUMMARY_=
+__________________________
+
+
+
+                                           =20
+           BUILD  QUICK_START OS.COMPILER.COMM.ABI    UNIT TESTS   EXAM=
+PLES  SYSTEM TESTS  APPS TESTS
+_______________________________________________________________________=
+______________________________
+          PASS/FAIL PASS/FAIL                           PASS/FAIL   PAS=
+S/FAIL  PASS/FAIL   PASS/FAIL
+_______________________________________________________________________=
+______________________________
+hfe03(g)    PASS      PASS    Linux.intel.intelmpi.64      9082/0      =
+85/0       8/0      18/0
+hfe03(g)    PASS      PASS    Linux.intel.intelmpi.64         0/0 Bench=
+mark      test   results
+hfe03(O)    PASS      PASS    Linux.intel.intelmpi.64      9082/0      =
+85/0       8/0      18/0
+hfe03(O)    PASS      PASS    Linux.intel.intelmpi.64         0/0 Bench=
+mark      test   results
+
+_______________________________________________________________________=
+________________________
+
+
+Fri Apr 17 22:46:50 MDT 2020 on hfe03=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+=20
+--------------------------------------------------------------=20
+
+Currently Loaded Modules:
+  1) intel/18.0.5.274
+  2) impi/2018.0.4
+  3) netcdf/4.6.1
+
+=20
+
+=20
+Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+=20
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09module_list
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.82
+Built for x86_64-redhat-linux-gnu
+Copyright (C) 2010  Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl=
+.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+--------------------------------------------------------------
+Fortran Compiler version:
+mpiifort for the Intel(R) MPI Library 2018 Update 4 for Linux*
+Copyright(C) 2003-2018, Intel Corporation.  All rights reserved.
+Intel(R) Fortran Intel(R) 64 Compiler for applications running on Intel=
+(R) 64, Version 18.0.5.274 Build 20180823
+Copyright (C) 1985-2018 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+C++ Compiler version:
+mpiicpc for the Intel(R) MPI Library 2018 Update 4 for Linux*
+Copyright(C) 2003-2018, Intel Corporation.  All rights reserved.
+Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) =
+64, Version 18.0.5.274 Build 20180823
+Copyright (C) 1985-2018 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+--------------------------------------------------------------
+NetCDF library version: netCDF 4.6.1
+NetCDF Fortran version: netCDF-Fortran 4.4.4
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BENCHMARK_PREFIX=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/intel_hera/esmf/../BENCHMARKDIR
+ESMF_BOPT=3Dg
+ESMF_COMM=3Dintelmpi
+ESMF_COMPILER=3Dintel
+ESMF_DIR=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds=
+/intel_hera/esmf
+ESMF_INSTALL_PREFIX=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/d=
+aily_builds/intel_hera/esmf/../install_dir
+ESMF_MPIMPMDRUN=3Dmpirun
+ESMF_MPIRUN=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_bui=
+lds/intel_hera/esmf/scripts/mpirun.srun
+ESMF_NETCDF=3Dnc-config
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArray_2
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessField_1
+ESMF_TESTMPMD=3DON
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/=
+intel_hera/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          intel
+ESMF_BOPT:              g
+ESMF_COMM:              intelmpi
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            ON
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          ON
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArray_2
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessField_1
+ESMF_MPIRUN:            /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/intel_hera/esmf/scripts/mpirun.srun
+ESMF_MPIMPMDRUN:        mpirun
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_NETCDF:             nc-config
+ESMF_NETCDF_INCLUDE:     /apps/netcdf/4.6.1/intel/16.1.150/include
+ESMF_NETCDF_LIBS:        -L/apps/netcdf/4.6.1/intel/16.1.150/lib -lnetc=
+dff -L/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath -Wl,/apps/netcdf=
+/4.6.1/intel/16.1.150/lib -lnetcdf -lnetcdf -L/apps/netcdf/4.6.1/intel/=
+16.1.150/lib -lnetcdf
+ESMF_YAMLCPP:            internal
+ESMF_PIO:                internal
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/intel_hera/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod/modg/Linux.intel.64.intelmpi.default
+ESMF_INSTALL_LIBDIR:    lib/libg/Linux.intel.64.intelmpi.default
+ESMF_INSTALL_BINDIR:    bin/bing/Linux.intel.64.intelmpi.default
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         /scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/intel_hera/esmf/../BENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /apps/netcdf/4.6.1/intel/16.1.150/bin:/apps/intel/compilers_an=
+d_libraries_2018/linux/mpi/intel64/bin:/apps/intel/parallel_studio_xe_2=
+018.4.057/compilers_and_libraries_2018/linux/bin/intel64:/home/Silverio=
+.Vasquez/bin:/usr/lib64/qt-3.3/bin:/usr/bin:/bin:/usr/local/sbin:/usr/s=
+bin:/opt/ibutils/bin:/apps/local/bin:/apps/local/sbin:/apps/slurm/defau=
+lt/tools:/apps/slurm/default/bin:/apps/slurm/default/sbin:/apps/slurm/t=
+ools/sbank/bin:/apps/slurm/default/tools:/apps/slurm/default/bin:/apps/=
+slurm/default/sbin:/apps/slurm/tools/sbank/bin
+LD_LIBRARY_PATH: /apps/netcdf/4.6.1/intel/16.1.150/lib:/apps/intel/comp=
+ilers_and_libraries_2018/linux/mpi/intel64/lib::/apps/slurm/default/lib=
+:/apps/intel/parallel_studio_xe_2018.4.057/compilers_and_libraries_2018=
+/linux/compiler/lib/intel64:/apps/intel/parallel_studio_xe_2018.4.057/c=
+ompilers_and_libraries_2018/linux/ipp/lib/intel64:/apps/intel/parallel_=
+studio_xe_2018.4.057/compilers_and_libraries_2018/linux/compiler/lib/in=
+tel64_lin:/apps/intel/parallel_studio_xe_2018.4.057/compilers_and_libra=
+ries_2018/linux/mkl/lib/intel64_lin:/apps/intel/parallel_studio_xe_2018=
+.4.057/compilers_and_libraries_2018/linux/tbb/lib/intel64/gcc4.7:/apps/=
+intel/parallel_studio_xe_2018.4.057/debugger_2018/libipt/intel64/lib:/a=
+pps/intel/parallel_studio_xe_2018.4.057/compilers_and_libraries_2018/li=
+nux/daal/lib/intel64_lin:/apps/intel/parallel_studio_xe_2018.4.057/comp=
+ilers_and_libraries_2018/linux/daal/../tbb/lib/intel64_lin/gcc4.4:/apps=
+/slurm/default/lib
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /apps/intel/compilers_and_libraries_=
+2018/linux/mpi/intel64/bin/mpiifort
+Location of the Fortran linker:    /apps/intel/compilers_and_libraries_=
+2018/linux/mpi/intel64/bin/mpiifort
+Location of the C++ compiler:      /apps/intel/compilers_and_libraries_=
+2018/linux/mpi/intel64/bin/mpiicpc
+Location of the C++ linker:        /apps/intel/compilers_and_libraries_=
+2018/linux/mpi/intel64/bin/mpiicpc
+
+Fortran compiler flags:
+ESMF_F90COMPILER: mpiifort
+ESMF_F90COMPILEOPTS: -g -traceback -check arg_temp_created,bounds,forma=
+t,output_conversion,stack,uninit -fPIC -assume realloc_lhs -m64 -mcmode=
+l=3Dsmall -threads  -qopenmp
+ESMF_F90COMPILEPATHS: -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/intel_hera/esmf/mod/modg/Linux.intel.64.intelmpi.default =
+-I/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/intel_he=
+ra/esmf/src/include -I/apps/netcdf/4.6.1/intel/16.1.150/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
+SMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D=
+1 -DESMF_COMM=3Dintelmpi -DESMF_DIR=3D/scratch2/BMC/esmf/Silverio.Vasqu=
+ez/script_dirs/daily_builds/intel_hera/esmf
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP:=20
+ESMF_F90COMPILEFIXCPP:=20
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64 -mcmodel=3Dsmall -threads -Wl,--no-as-needed  =
+-qopenmp
+ESMF_F90LINKPATHS: -L/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/da=
+ily_builds/intel_hera/esmf/lib/libg/Linux.intel.64.intelmpi.default =20
+ESMF_F90LINKRPATHS: -Wl,-rpath,/scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/intel_hera/esmf/lib/libg/Linux.intel.64.intelmpi.d=
+efault -Wl,-rpath,/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath,/app=
+s/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath,/apps/netcdf/4.6.1/intel/1=
+6.1.150/lib
+ESMF_F90LINKLIBS:  -cxxlib -lrt -ldl -L/apps/netcdf/4.6.1/intel/16.1.15=
+0/lib -lnetcdff -L/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath -Wl,=
+/apps/netcdf/4.6.1/intel/16.1.150/lib -lnetcdf -lnetcdf -L/apps/netcdf/=
+4.6.1/intel/16.1.150/lib -lnetcdf
+ESMF_F90ESMFLINKLIBS: -lesmf  -cxxlib -lrt -ldl -L/apps/netcdf/4.6.1/in=
+tel/16.1.150/lib -lnetcdff -L/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,=
+-rpath -Wl,/apps/netcdf/4.6.1/intel/16.1.150/lib -lnetcdf -lnetcdf -L/a=
+pps/netcdf/4.6.1/intel/16.1.150/lib -lnetcdf
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: mpiicpc
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -g -traceback -Wcheck -fPIC -m64 -mcm=
+odel=3Dsmall -pthread  -qopenmp
+ESMF_CXXCOMPILEPATHS:  -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dir=
+s/daily_builds/intel_hera/esmf/src/include  -I/apps/netcdf/4.6.1/intel/=
+16.1.150/include -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/dail=
+y_builds/intel_hera/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
+SMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D=
+1 -DESMF_COMM=3Dintelmpi -DESMF_DIR=3D/scratch2/BMC/esmf/Silverio.Vasqu=
+ez/script_dirs/daily_builds/intel_hera/esmf -D__SDIR__=3D'' -DESMF_CXXS=
+TD=3D11
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed  =
+-qopenmp
+ESMF_CXXLINKPATHS: -L/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/da=
+ily_builds/intel_hera/esmf/lib/libg/Linux.intel.64.intelmpi.default  -L=
+/apps/intel/compilers_and_libraries_2018.5.274/linux/compiler/lib/intel=
+64_lin/
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/intel_hera/esmf/lib/libg/Linux.intel.64.intelmpi.d=
+efault -Wl,-rpath,/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath,/app=
+s/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath,/apps/netcdf/4.6.1/intel/1=
+6.1.150/lib -Wl,-rpath,/apps/intel/compilers_and_libraries_2018.5.274/l=
+inux/compiler/lib/intel64_lin/
+ESMF_CXXLINKLIBS:  -ldl -lrt -lpthread -lifport -lifcoremt -limf -lsvml=
+ -lm -lipgo -liomp5 -lintlc -lpthread -lsvml -ldl -lgcc -lgcc_s -lirc_s=
+ -ldl -lrt -ldl -L/apps/netcdf/4.6.1/intel/16.1.150/lib -lnetcdff -L/ap=
+ps/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath -Wl,/apps/netcdf/4.6.1/in=
+tel/16.1.150/lib -lnetcdf -lnetcdf -L/apps/netcdf/4.6.1/intel/16.1.150/=
+lib -lnetcdf
+ESMF_CXXESMFLINKLIBS: -lesmf  -ldl -lrt -lpthread -lifport -lifcoremt -=
+limf -lsvml -lm -lipgo -liomp5 -lintlc -lpthread -lsvml -ldl -lgcc -lgc=
+c_s -lirc_s -ldl -lrt -ldl -L/apps/netcdf/4.6.1/intel/16.1.150/lib -lne=
+tcdff -L/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath -Wl,/apps/netc=
+df/4.6.1/intel/16.1.150/lib -lnetcdf -lnetcdf -L/apps/netcdf/4.6.1/inte=
+l/16.1.150/lib -lnetcdf
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    mpiicpc
+ESMF_SL_LIBOPTS:       -pthread -shared  -qopenmp
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/=
+daily_builds/intel_hera/esmf/lib/libg/Linux.intel.64.intelmpi.default/l=
+ibesmftrace_preload.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Fri Apr 17 22:46:52 MDT 2020 on hfe03
+Machine characteristics: Linux hfe03 3.10.0-1062.18.1.el7.x86_64 #1 SMP=
+ Tue Mar 17 23:49:17 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Fri Apr 17 22:55:08 MDT 2020 library build -j16 ...........PASS
+Fri Apr 17 22:55:32 MDT 2020 library install -j4 ..........PASS
+Fri Apr 17 22:55:33 MDT 2020 library installcheck -j4 .....PASS
+Fri Apr 17 22:56:57 MDT 2020 quickstart build -j4 .........PASS
+
+|------------------------ APPs TESTS --------------------------|
+Fri Apr 17 22:57:07 MDT 2020 apps build -j4 ...............PASS
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:53 MDT 2020 ESMF_Regrid --help ...........PASS
+The following is the output of ESMF_Regrid --help
+
+ Usage: ESMF_Regrid
+                       --source|-s src_grid_filename
+                       --destination|-d dst_grid_filename
+                       --src_var varname1[,varname2,...]
+                       --dst_var  varname1[,varname2,...]
+                       [--srcdatafile]
+                       [--dstdatafile]
+                       [--tilefile_path tile_file_path]
+                       [--dst_loc center|corner]
+                       [--method|-m bilinear|patch|neareststod|nearestd=
+tos|conse
+ rve|conserve2nd]
+                       [--pole|-p all|none|teeth|<N>]
+                       [--ignore_unmapped|-i]
+                       [--ignore_degenerate]
+                       [-r]
+                       [--src_regional]
+                       [--dst_regional]
+                       [--check]
+                       [--no_log]
+                       [--help]
+                       [--version]
+                       [-V]
+ where
+ --source or -s - a required argument specifying the source grid file
+               name
+ --destination or -d - a required argument specifying the destination g=
+rid
+               file name
+ --src_var  - a required argument specifying the variable names to be r=
+egridded
+               in the source grid file.  If more than one, separated th=
+em with
+               comma.
+ --dst_var  - a required argument specifying the destination variable n=
+ame in
+               the destination grid file.  If more than one, separated =
+them with
+               comma.  The number of dst_vars has to be the same as the=
+ number
+               of src_var
+ --srcdatafile - If the source grid is of type MOSAIC, the data is stor=
+ed=20
+               in separated files, one per tile. srcdatafile is the pre=
+fix of
+               the source data file.  The filename is srcdatafile.tilen=
+ame.nc,
+               where tilename is the tile name defined in the source gr=
+id file
+ --dstdatafile - If the destination grid is of type MOSAIC, the data is=
+ stored
+               in separated files, one per tile. dstdatafile is the pre=
+fix of
+               the destination data file.  The filename is srcdatafile.=
+tilename.
+ nc,
+                where tilename is the tile name defined in the destinat=
+ion grid=20
+ file
+ --tilefile_path - The alternative file path for the tile files and mos=
+aic data=20
+ files
+               when either srcFile or dstFile is a GRIDSPEC MOSAIC grid=
+.  The pa
+ th
+               can be either relative or absolute.  If it is relative, =
+it is
+               relative to the working directory.  When specified, the =
+gridlocat
+ ion
+               variable defined in the Mosaic file will be ignored.
+ --method or -m - an optional argument specifying which interpolation m=
+ethod is
+               used.  The default method is bilinear
+ --pole or -p - an optional argument indicating what to do with the pol=
+e.
+               The default value is all
+ --ignore_unmapped or -i - ignore unmapped destination points. If not s=
+pecified,
+               the default is to stop with an error.
+ --ignore_degenerate - ignore degenerate cells in the input grids. If n=
+ot specif
+ ied,
+               the default is to stop with an error.
+ -r          - an optional argument specifying the source and destinati=
+on grids
+               are regional grids.  Without this argument, the grids ar=
+e assumed
+               to be global. This argument only applies to the GRIDSPEC=
+ file
+ --src_regional   - an optional argument specifying the source grid is =
+regional.
+               Without this argument, the src grids is assumed to be gl=
+obal. Thi
+ s=20
+               argument only applies to the GRIDSPEC file
+ --dst_regional   - an optional argument specifying the destination gri=
+d is regi
+ onal
+               Without this argument, the dst grids is assumed to be gl=
+obal.
+               This argument only applies to the GRIDSPEC file
+ --check    - Check the regridded fields by comparing the values with
+              a synthetic field calculated based on its coordinates.=20
+              The mean relative error between the destination field=20
+              and synthetic field is computed.  The synthetic value is =
+calculate
+ d as=20
+              data(i,j,k,l)=3D2.0+(k-1)+2*(l-1)+cos(lat(i,j))**2*cos(2*=
+lon(i,j)),=20
+ assuming
+              it is a 2D grid=20
+ --no_log    - Turn off the ESMF error log.
+ --help     - Print this help message and exit.
+ --version  - Print ESMF version and license information and exit.
+ -V        - Print ESMF version number and exit.
+=20
+ For questions, comments, or feature requests please send email to:
+ esmf_support@cgd.ucar.edu
+=20
+ Visit http://www.earthsystemmodeling.org/ to find out more about the
+ Earth System Modeling Framework.
+=20
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:53 MDT 2020 ESMF_Regrid --version ........PASS
+The following is the output of ESMF_Regrid --version
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:54 MDT 2020 ESMF_Regrid -V ...............PASS
+The following is the output of ESMF_Regrid -V
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:54 MDT 2020 ESMF_Info --help .............PASS
+The following is the output of ESMF_Info --help=20
+
+ ESMF_Info: Print information about the ESMF installation.
+ Options:
+   --help        Display this information and exit.
+   --version     Display ESMF version and license information and exit.
+   -V            Display ESMF version string and exit.
+=20
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:55 MDT 2020 ESMF_Info --version ..........PASS
+The following is the output of ESMF_Info --version=20
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:55 MDT 2020 ESMF_Info -V .................PASS
+The following is the output of ESMF_Info -V=20
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:56 MDT 2020 ESMF_InfoC --help ............PASS
+The following is the output of ESMF_InfoC --help
+
+ESMF_InfoC: Print information about the ESMF installation.
+Options:
+  --help        Display this information and exit.
+  --version     Display ESMF version and license information and exit.
+  -V            Display ESMF version string and exit.
+
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:56 MDT 2020 ESMF_InfoC --version .........PASS
+The following is the output of ESMF_InfoC --version
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:56 MDT 2020 ESMF_InfoC -V ................PASS
+The following is the output of ESMF_InfoC -V
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:57 MDT 2020 ESMF_RegridWeightGen --help ..PASS
+The following is the output of ESMF_RegridWeightGen --help
+
+ Usage: ESMF_RegridWeightGen --source|-s src_grid_filename
+                            --destination|-d dst_grid_filename
+                       --weight|-w out_weight_file=20
+                       [--method|-m bilinear|patch|neareststod|nearestd=
+tos|conse
+ rve|conserve2nd]
+                       [--pole|-p all|none|teeth|<N>]
+                       [--line_type|-l cartesian|greatcircle]
+                       [--norm_type dstarea|fracarea]
+                       [--extrap_method none|neareststod|nearestidavg|c=
+reep]
+                       [--extrap_num_src_pnts <N>]
+                       [--extrap_dist_exponent <P>]
+                       [--extrap_num_levels <L>]
+                       [--ignore_unmapped|-i]
+                       [--ignore_degenerate]
+                       [-r]
+                       [--src_regional]
+                       [--dst_regional]
+                       [--64bit_offset]
+                       [--netcdf4]
+                       [--weight_only]
+                       [--src_missingvalue src_var_name]
+                       [--dst_missingvalue dst_var_name]
+                       [--src_coordinates lon_var_name,lat_var_name]
+                       [--dst_coordinates lon_var_name,lat_var_name]
+                       [--user_areas]
+                       [--src_loc center|corner]
+                       [--dst_loc center|corner]
+                       [--tilefile_path tile_file_path]
+                       [--no_log]
+                       [--check]
+                       [--help]
+                       [--version]
+                       [-V]
+ where
+ --source or -s - a required argument specifying the source grid file
+                  name
+ --destination or -d - a required argument specifying the destination g=
+rid
+                       file name
+ --weight or -w - a required argument specifying the output regridding =
+weight
+                  file name
+ --method or -m - an optional argument specifying which interpolation m=
+ethod is
+                  used.  The default method is bilinear.
+ --pole or -p - an optional argument indicating what to do with the pol=
+e.
+                  The default value is all.
+ --line_type or -l - an optional argument indicating the type of path
+                      lines (e.g. cell edges) follow on a spherical
+                     surface. The default value depends on the regrid
+                     method. For non-conservative methods the default i=
+s
+                     cartesian. For conservative methods the default is=
+ greatcir
+ cle.
+ --norm_type - an optional argument indicating the type of normalizatio=
+n to
+               do when generating conserative weights. The default valu=
+e is dsta
+ rea.
+ --extrap_method - an optional argument specifying which extrapolation =
+method is
+                  used.  The default method is none.
+ --extrap_num_src_pnts - an optional argument specifying how many sourc=
+e points=20
+ should
+                 be used when the extrapolation method is nearestidavg.=
+ The defa
+ ult is 8.
+ --extrap_dist_exponent - an optional argument specifying the exponent =
+that the=20
+ distance should
+                 be raised to when the extrapolation method is nearesti=
+davg. The
+  default is 2.0.
+ --extrap_num_levels - an optional argument specifying how many levels =
+should
+                 be filled for level based extrapolation methods (e.g. =
+creep).
+ --ignore_unmapped or -i - ignore unmapped destination points. If not s=
+pecified,
+                           the default is to stop with an error.
+ --ignore_degenerate - ignore degenerate cells in the input grids. If n=
+ot specif
+ ied,
+                           the default is to stop with an error.
+ -r         - an optional argument specifying the source and destinatio=
+n grids
+              are regional grids.  Without this argument, the grids are=
+ assumed
+              to be global
+ --src_regional   - an optional argument specifying the source grid is =
+regional.
+              Without this argument, the src grids is assumed to be glo=
+bal.
+ --dst_regional   - an optional argument specifying the destination gri=
+d is regi
+ onal
+              Without this argument, the dst grids is assumed to be glo=
+bal.
+ --64bit_offset  - an optional argument specifying the output weight fi=
+le is in
+              NetCDF 64-bit offset format.  This option only works with=
+ NetCDF l
+ ibrary
+              version 3.6 and above
+ --netcdf4  - an optional argument specifying the output weight file is=
+ in
+              the NetCDF4 format. This option only works with NetCDF li=
+brary
+              version 4.1 and above
+ --weight_only  - an Optional argument specifying the output weight fil=
+e only co
+ ntains
+              the weights and the source and destination grid's indices=
+.
+ --src_missingvalue  - an optional argument used when the src file type=
+ is GRIDS
+ PEC
+              or UGRID. It defines the variable name whose 'missing_val=
+ue' or
+              '_FillValue' attribute will be used to construct the mask=
+ for the=20
+ source
+              grid. Without this argument,a GRIDSPEC file or a UGRID fi=
+le is not
+  masked.
+ --dst_missingvalue  - an optional argument used when the destination f=
+ile type=20
+ is
+              GRIDSPEC or UGRID. It defines the variable name whose 'mi=
+ssing_val
+ ue' or
+              '_FillValue' attribute will be used to construct the mask=
+ for the=20
+ destination
+              grid. Without this argument,a GRIDSPEC file or a UGRID fi=
+le is not
+  masked.
+ --src_coordinates  - an optional argument used when the source grid ty=
+pe is GRI
+ DSPEC.
+              It defines the longitude and latitude variable names sepa=
+rated by=20
+ comma,
+              in case there are multiple coordinate variables defined i=
+n the fil
+ e
+ --dst_coordinates  - an optional argument used when the destination gr=
+id type i
+ s GRIDSPEC.
+              It defines the longitude and latitude variable names sepa=
+rated by=20
+ comma,
+              in case there are multiple coordinate variables defined i=
+n the fil
+ e
+ --user_areas  - an optional argument specifying that the conservation =
+is adjust
+ ed to
+              hold for the user areas provided in the grid files.  If n=
+ot specif
+ ied,
+              then the conservation will hold for the ESMF calculated (=
+great cir
+ cle)
+              areas.  Whichever areas the conservation holds for are ou=
+tput to t
+ he
+              weight file.
+ --src_loc   - an optional argument specifying which location is used t=
+o do the=20
+ regridding
+             The location can be either 'center' or 'corner'.  Currentl=
+y, this a
+ rgument
+             is only required when the source grid file is an unstructu=
+red grid=20
+ defined
+             in UGRID or ESMF format and the regridding method is non-c=
+onservati
+ ve. For =20
+             all other cases, the default location is 'center'.
+ --dst_loc   - an optional argument specifying which location is used t=
+o do the=20
+ regridding
+             The location can be either 'center' or 'corner'.  Currentl=
+y, this a
+ rgument
+             is 'center'.  Currently, this argument will only be used w=
+hen the
+             is only required when the destination grid file is an unst=
+ructured=20
+ grid defined
+             in UGRID or ESMF format and the regridding method is non-c=
+onservati
+ ve. For =20
+             all other cases, the default location is 'center'.
+ --tilefile_path - the alternative file path for the tile files when th=
+e grid fi
+ le type is
+             MOSAIC.
+ --no_log    - Turn off the ESMF logs.
+ --check    - Check that the generated weights produce reasonable regri=
+dded fiel
+ ds.  This
+              is done by calling ESMF_FieldRegrid() on an analytic sour=
+ce field=20
+ using the weights
+              generated by this application.  The mean relative error b=
+etween th
+ e destination
+              and analytic field is computed, as well as the relative e=
+rror betw
+ een the mass
+              of the source and destination fields in the conservative =
+case.
+ --help or -h - Print this help message and exit.
+ --version  - Print ESMF version and license information and exit.
+ -V        - Print ESMF version number and exit.
+=20
+ For questions, comments, or feature requests please send email to:
+ esmf_support@cgd.ucar.edu
+=20
+ Visit http://www.earthsystemmodeling.org/ to find out more about the
+ Earth System Modeling Framework.
+=20
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:57 MDT 2020 ESMF_RegridWeightGen --version PASS
+The following is the output of ESMF_RegridWeightGen --version
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:58 MDT 2020 ESMF_RegridWeightGen -V ......PASS
+The following is the output of ESMF_RegridWeightGen -V
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:58 MDT 2020 ESMF_Scrip2Unstruct --help ...PASS
+The following is the output of ESMF_Scrip2Unstruct --help
+
+ESMF_Scrip2Unstruct: Convert an unstructured grid file in SCRIP format =
+into either a ESMF unstructured file or a UGRID file format.
+Usage: ESMF_Scrip2Unstruct [--help] [--version] [-V] inputfile outputfi=
+le dualflag [fileformat]
+    [--help]        Display this information and exit.
+    [--version]     Display ESMF version and license information and ex=
+it.
+    [-V]            Display ESMF version string and exit.
+    inputfile       input grid filename=20
+    outputfile      output filename=20
+    dualflag        1 to generate a dual mesh, 0 for non-dual mesh
+    [fileformat]    Either ESMF or UGRID, the default is ESMF
+
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:59 MDT 2020 ESMF_Scrip2Unstruct --version PASS
+The following is the output of ESMF_Scrip2Unstruct --version
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:59 MDT 2020 ESMF_Scrip2Unstruct -V .......PASS
+The following is the output of ESMF_Scrip2Unstruct -V
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:59 MDT 2020 ESMF_WebServController --help PASS
+The following is the output of ESMF_WebServController --help
+
+ESMF_WebServController: Run a Process Controller that provides access t=
+o an ESMF Web Service enabled Component.
+Usage: ESMF_WebServController [--help] [--version] [-V] procCtrlPort re=
+gistrarHost registrarPort
+    [--help]        Display this information and exit.
+    [--version]     Display ESMF version and license information and ex=
+it.
+    [-V]            Display ESMF version string and exit.
+    procCtrlPort    Port num for Process Controller listener.
+    registrarHost   Host name on which Registrar is running.
+    registrarPort   Port num on which Registrar is listening.
+    runScriptDir    Directory containing run script.
+    runScriptFile   File name of run script.
+
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:59 MDT 2020 ESMF_WebServController --version PASS
+The following is the output of ESMF_WebServController --version
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Fri Apr 17 23:32:59 MDT 2020 ESMF_WebServController -V ....PASS
+The following is the output of ESMF_WebServController -V
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+
+Ran 18 applications tests, 18 passed and 0 failed.
+
+|----------------------- SYSTEM TESTS -------------------------|
+Fri Apr 17 23:35:08 MDT 2020 build_system_tests -j4 .......PASS
+Sat Apr 18 00:05:35 MDT 2020 run_system_tests .............PASS
+
+
+The following system tests passed:
+
+
+PASS: intelmpi/g: src/system_tests/ESMF_ArraySharedDeSSI/ESMF_ArrayShar=
+edDeSSISTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_AttributeCIM/ESMF_AttributeCIMS=
+Test.F90
+PASS: intelmpi/g: src/system_tests/ESMF_CompCreate/ESMF_CompCreateSTest=
+.F90
+PASS: intelmpi/g: src/system_tests/ESMF_CompFortranAndC/ESMF_CompFortra=
+nAndCSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldBundleRedistArb2Arb/ESMF_F=
+ieldBundleRedistArb2ArbSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldBundleRedistBlk2Arb/ESMF_F=
+ieldBundleRedistBlk2ArbSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_FieldRedistArb2Arb/ESMF_FieldRe=
+distArb2ArbSTest.F90
+PASS: intelmpi/g: src/system_tests/ESMF_XGridSerial/ESMF_XGridSerialSTe=
+st.F90
+
+
+
+
+The stdout files for the system_tests can be found at:
+/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/intel_hera=
+/esmf/test/testg/Linux.intel.64.intelmpi.default
+
+
+Found 8 single processor system tests, 8 passed and 0 failed.
+
+
+
+|------------------------- EXAMPLES ---------------------------|
+Sat Apr 18 00:09:11 MDT 2020 build_examples -j4 ...........PASS
+Sat Apr 18 00:15:47 MDT 2020 run_examples .................PASS
+
+
+The following examples passed:
+
+
+PASS: intelmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayArbHaloEx=
+.F90
+PASS: intelmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayCommNBEx.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayEx.F90
+PASS: intelmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayFarrayEx.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayFarrayHal=
+oEx.F90
+PASS: intelmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayHaloEx.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayLarrayEx.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayRedistEx.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayScatterGa=
+therArbEx.F90
+PASS: intelmpi/g: src/Infrastructure/Array/examples/ESMF_ArrayScatterGa=
+therEx.F90
+PASS: intelmpi/g: src/Infrastructure/Array/examples/ESMF_ArraySparseMat=
+MulEx.F90
+PASS: intelmpi/g: src/Infrastructure/ArrayBundle/examples/ESMF_ArrayBun=
+dleEx.F90
+PASS: intelmpi/g: src/Infrastructure/ArrayBundle/examples/ESMF_ArrayBun=
+dleHaloEx.F90
+PASS: intelmpi/g: src/Infrastructure/ArraySpec/examples/ESMF_ArraySpecE=
+x.F90
+PASS: intelmpi/g: src/Infrastructure/Config/examples/ESMF_ConfigOvervie=
+wEx.F90
+PASS: intelmpi/g: src/Infrastructure/DELayout/examples/ESMF_DELayoutEx.=
+F90
+PASS: intelmpi/g: src/Infrastructure/DistGrid/examples/ESMF_DistGridEx.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldArbGridEx=
+.F90
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldCommEx.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldCreateEx.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldEx.F90
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldHaloEx.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldMeshRegri=
+dEx.F90
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldRedistEx.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldRegridEx.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldRegridMas=
+kEx.F90
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldRepDimEx.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldSMMEx.F90
+PASS: intelmpi/g: src/Infrastructure/Field/examples/ESMF_FieldSphereReg=
+ridEx.F90
+PASS: intelmpi/g: src/Infrastructure/FieldBundle/examples/ESMF_FieldBun=
+dleCreateEx.F90
+PASS: intelmpi/g: src/Infrastructure/FieldBundle/examples/ESMF_FieldBun=
+dleHaloEx.F90
+PASS: intelmpi/g: src/Infrastructure/FieldBundle/examples/ESMF_FieldBun=
+dleRedistEx.F90
+PASS: intelmpi/g: src/Infrastructure/FieldBundle/examples/ESMF_FieldBun=
+dleSMMEx.F90
+PASS: intelmpi/g: src/Infrastructure/Grid/examples/ESMF_GridCreateRegFr=
+omDGEx.F90
+PASS: intelmpi/g: src/Infrastructure/Grid/examples/ESMF_GridUsageEx.F90
+PASS: intelmpi/g: src/Infrastructure/LocStream/examples/ESMF_LocStreamE=
+x.F90
+PASS: intelmpi/g: src/Infrastructure/LogErr/examples/ESMF_LogErrEx.F90
+PASS: intelmpi/g: src/Infrastructure/Mesh/examples/ESMF_MeshEx.F90
+PASS: intelmpi/g: src/Infrastructure/Route/examples/ESMF_RHandleBitForB=
+itEx.F90
+PASS: intelmpi/g: src/Infrastructure/Route/examples/ESMF_RHandleDynamic=
+MaskingEx.F90
+PASS: intelmpi/g: src/Infrastructure/Route/examples/ESMF_RHandleFromFil=
+eEx.F90
+PASS: intelmpi/g: src/Infrastructure/Route/examples/ESMF_RHandleFromRHa=
+ndleEx.F90
+PASS: intelmpi/g: src/Infrastructure/Route/examples/ESMF_RHandleReusabi=
+lityEx.F90
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/examples/ESMF_AlarmEx.F90
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/examples/ESMF_CalendarEx.F=
+90
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/examples/ESMF_ClockEx.F90
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/examples/ESMF_TimeEx.F90
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/examples/ESMF_TimeInterval=
+Ex.F90
+PASS: intelmpi/g: src/Infrastructure/Trace/examples/ESMF_TraceEx.F90
+PASS: intelmpi/g: src/Infrastructure/Trace/examples/ESMF_TraceUserEx.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/VM/examples/ESMF_VMAllFullReduceEx=
+.F90
+PASS: intelmpi/g: src/Infrastructure/VM/examples/ESMF_VMComponentEx.F90
+PASS: intelmpi/g: src/Infrastructure/VM/examples/ESMF_VMDefaultBasicsEx=
+.F90
+PASS: intelmpi/g: src/Infrastructure/VM/examples/ESMF_VMGetMPICommunica=
+torEx.F90
+PASS: intelmpi/g: src/Infrastructure/VM/examples/ESMF_VMHigherRankDataE=
+x.F90
+PASS: intelmpi/g: src/Infrastructure/VM/examples/ESMF_VMScatterVMGather=
+Ex.F90
+PASS: intelmpi/g: src/Infrastructure/VM/examples/ESMF_VMSendVMRecvEx.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/VM/examples/ESMF_VMUserMpiCommEx.F=
+90
+PASS: intelmpi/g: src/Infrastructure/VM/examples/ESMF_VMUserMpiCommMult=
+iEx.F90
+PASS: intelmpi/g: src/Infrastructure/VM/examples/ESMF_VMUserMpiEx.F90
+PASS: intelmpi/g: src/Infrastructure/XGrid/examples/ESMF_XGridEx.F90
+PASS: intelmpi/g: src/Infrastructure/XGrid/examples/ESMF_XGridSparseMat=
+Ex.F90
+PASS: intelmpi/g: src/Superstructure/AttachMethods/examples/ESMF_Attach=
+MethodsEx.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_AttRead=
+CustCplCompEx.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_AttRead=
+FieldEx.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_AttRead=
+GridCompEx.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+teCIMEx.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+teCustPackEx.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+teEx.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+teInternalInfoEx.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+tePackageEx.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+teUpdateEx.F90
+PASS: intelmpi/g: src/Superstructure/Component/examples/ESMF_AppMainEx.=
+F90
+PASS: intelmpi/g: src/Superstructure/Component/examples/ESMF_CompTunnel=
+Ex.F90
+PASS: intelmpi/g: src/Superstructure/Component/examples/ESMF_CplEx.F90
+PASS: intelmpi/g: src/Superstructure/Component/examples/ESMF_GCompEx.F9=
+0
+PASS: intelmpi/g: src/Superstructure/Component/examples/ESMF_InternalSt=
+ateEx.F90
+PASS: intelmpi/g: src/Superstructure/Component/examples/ESMF_InternalSt=
+ateModEx.F90
+PASS: intelmpi/g: src/Superstructure/Component/examples/ESMF_SCompEx.F9=
+0
+PASS: intelmpi/g: src/Superstructure/State/examples/ESMF_StateEx.F90
+PASS: intelmpi/g: src/Superstructure/State/examples/ESMF_StateReadWrite=
+Ex.F90
+PASS: intelmpi/g: src/Superstructure/State/examples/ESMF_StateReconcile=
+Ex.F90
+PASS: intelmpi/g: src/Superstructure/WebServices/examples/ESMF_WebServi=
+cesEx.F90
+PASS: intelmpi/g: src/addon/NUOPC/examples/ESMF_NUOPCAtmModelEx.F90
+PASS: intelmpi/g: src/addon/NUOPC/examples/ESMF_NUOPCBasicModelEx.F90
+
+
+
+
+The stdout files for the examples can be found at:
+/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/intel_hera=
+/esmf/examples/examplesg/Linux.intel.64.intelmpi.default
+
+
+Found 85 multi-processor examples, 85 passed and 0 failed.
+
+
+
+|-------------------- EXHAUSTIVE UNIT TESTS -------------------|
+Sat Apr 18 00:24:05 MDT 2020 build_unit_tests -j4 .........PASS
+Sat Apr 18 00:50:35 MDT 2020 run_unit_tests ...............PASS
+
+
+
+
+The unit tests in the following files all pass:
+
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMC_ArrayUTest.C
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMF_ArrayArbIdxSMMUTe=
+st.F90
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMF_ArrayCreateGetUTe=
+st.F90
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMF_ArrayDataUTest.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMF_ArrayGatherUTest.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMF_ArrayHaloUTest.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMF_ArrayIOUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMF_ArrayRedistPerfUT=
+est.F90
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMF_ArrayRedistUTest.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMF_ArraySMMFromFileU=
+Test.F90
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMF_ArraySMMUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Array/tests/ESMF_ArrayScatterUTest=
+.F90
+PASS: intelmpi/g: src/Infrastructure/ArrayBundle/tests/ESMF_ArrayBundle=
+CreateUTest.F90
+PASS: intelmpi/g: src/Infrastructure/ArrayBundle/tests/ESMF_ArrayBundle=
+IOUTest.F90
+PASS: intelmpi/g: src/Infrastructure/ArrayBundle/tests/ESMF_ArrayBundle=
+RedistUTest.F90
+PASS: intelmpi/g: src/Infrastructure/ArraySpec/tests/ESMC_ArraySpecUTes=
+t.C
+PASS: intelmpi/g: src/Infrastructure/ArraySpec/tests/ESMF_ArraySpecUTes=
+t.F90
+PASS: intelmpi/g: src/Infrastructure/Base/tests/ESMC_BaseUTest.C
+PASS: intelmpi/g: src/Infrastructure/Base/tests/ESMF_BaseUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Config/tests/ESMC_ConfigUTest.C
+PASS: intelmpi/g: src/Infrastructure/Config/tests/ESMF_ConfigUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Container/tests/ESMF_ContainerUTes=
+t.F90
+PASS: intelmpi/g: src/Infrastructure/DELayout/tests/ESMF_DELayoutUTest.=
+F90
+PASS: intelmpi/g: src/Infrastructure/DELayout/tests/ESMF_DELayoutWorkQu=
+eueUTest.F90
+PASS: intelmpi/g: src/Infrastructure/DistGrid/tests/ESMC_DistGridUTest.=
+C
+PASS: intelmpi/g: src/Infrastructure/DistGrid/tests/ESMF_DistGridCreate=
+GetUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMC_FieldGridGridRegr=
+idCsrvUTest.C
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMC_FieldGridGridRegr=
+idUTest.C
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMC_FieldGridRegrid2U=
+Test.C
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMC_FieldGridRegridCs=
+rv2UTest.C
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMC_FieldGridRegridCs=
+rvUTest.C
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMC_FieldGridRegridPa=
+rUTest.C
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMC_FieldGridRegridUT=
+est.C
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMC_FieldRegridCsrvUT=
+est.C
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMC_FieldRegridUTest.=
+C
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMC_FieldSMMFromFileU=
+Test.C
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMC_FieldUTest.C
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldArbGridUTest=
+.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldCreateGetUTe=
+st.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldGatherUTest.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldHaloUTest.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldIOUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldLSSMMUTest.F=
+90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldRedistArbUTe=
+st.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldRedistUTest.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldRegridCSUTes=
+t.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldRegridCsrv2n=
+dUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldRegridCsrvUT=
+est.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldRegridUTest.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldRegridXGSMMU=
+Test.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldRegridXGUTes=
+t.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldSMMFromFileU=
+Test.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldSMMUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldStressUTest.=
+F90
+PASS: intelmpi/g: src/Infrastructure/Field/tests/ESMF_FieldUTest.F90
+PASS: intelmpi/g: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+CrGetUTest.F90
+PASS: intelmpi/g: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+IOUTest.F90
+PASS: intelmpi/g: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+RedistUTest.F90
+PASS: intelmpi/g: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+RegridUTest.F90
+PASS: intelmpi/g: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+SMMUTest.F90
+PASS: intelmpi/g: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+UTest.F90
+PASS: intelmpi/g: src/Infrastructure/Grid/tests/ESMC_GridUTest.C
+PASS: intelmpi/g: src/Infrastructure/Grid/tests/ESMF_GridArbitraryUTest=
+.F90
+PASS: intelmpi/g: src/Infrastructure/Grid/tests/ESMF_GridCoordUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Grid/tests/ESMF_GridCreateUTest.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/Grid/tests/ESMF_GridItemUTest.F90
+PASS: intelmpi/g: src/Infrastructure/GridUtil/tests/ESMF_GridToMeshUTes=
+t.F90
+PASS: intelmpi/g: src/Infrastructure/IO/tests/ESMCI_IO_NetCDFUTest.C
+PASS: intelmpi/g: src/Infrastructure/IO/tests/ESMCI_IO_PIOUTest.C
+PASS: intelmpi/g: src/Infrastructure/IO/tests/ESMC_IO_InqUTest.C
+PASS: intelmpi/g: src/Infrastructure/IO/tests/ESMF_IOUTest.F90
+PASS: intelmpi/g: src/Infrastructure/IO/tests/ESMF_IO_PIOUTest.F90
+PASS: intelmpi/g: src/Infrastructure/IO/tests/ESMF_IO_YAMLUTest.F90
+PASS: intelmpi/g: src/Infrastructure/LocStream/tests/ESMC_LocStreamUTes=
+t.C
+PASS: intelmpi/g: src/Infrastructure/LocStream/tests/ESMF_LocStreamUTes=
+t.F90
+PASS: intelmpi/g: src/Infrastructure/LocalArray/tests/ESMF_LocalArrayDa=
+taUTest.F90
+PASS: intelmpi/g: src/Infrastructure/LocalArray/tests/ESMF_LocalArrayUT=
+est.F90
+PASS: intelmpi/g: src/Infrastructure/LogErr/tests/ESMC_LogErrPerfUTest.=
+C
+PASS: intelmpi/g: src/Infrastructure/LogErr/tests/ESMC_LogErrUTest.C
+PASS: intelmpi/g: src/Infrastructure/LogErr/tests/ESMF_LogErrPerfUTest.=
+F90
+PASS: intelmpi/g: src/Infrastructure/LogErr/tests/ESMF_LogErrUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MBMesh_BilinearPar=
+UTest.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MBMesh_BilinearSin=
+gleElemUTest.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MBMesh_BilinearUTe=
+st.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MBMesh_CreateParUT=
+est.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MBMesh_CreateUTest=
+.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MBMesh_SearchUTest=
+.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MBMesh_SerializeUT=
+est.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MBMesh_UtilParUTes=
+t.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MBMesh_UtilUTest.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MeshMOABUTest.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MeshUTest.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_MeshVTKUTest.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMC_Proj4UTest.C
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMF_MeshOpUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Mesh/tests/ESMF_MeshUTest.F90
+PASS: intelmpi/g: src/Infrastructure/PointList/tests/ESMF_PointListUTes=
+t.F90
+PASS: intelmpi/g: src/Infrastructure/Route/tests/ESMF_RouteHandleAdvanc=
+edUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Route/tests/ESMF_RouteHandleUTest.=
+F90
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/tests/ESMC_CalendarUTest.C
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/tests/ESMC_ClockUTest.C
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/tests/ESMC_TimeIntervalUTe=
+st.C
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/tests/ESMC_TimeUTest.C
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/tests/ESMF_AlarmUTest.F90
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/tests/ESMF_CalRangeUTest.F=
+90
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/tests/ESMF_CalendarUTest.F=
+90
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/tests/ESMF_ClockUTest.F90
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/tests/ESMF_TimeIntervalUTe=
+st.F90
+PASS: intelmpi/g: src/Infrastructure/TimeMgr/tests/ESMF_TimeUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Trace/tests/ESMC_TraceRegionUTest.=
+C
+PASS: intelmpi/g: src/Infrastructure/Trace/tests/ESMF_ProfileUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Trace/tests/ESMF_TraceClkMonoSyncU=
+Test.F90
+PASS: intelmpi/g: src/Infrastructure/Trace/tests/ESMF_TraceClkMonoUTest=
+.F90
+PASS: intelmpi/g: src/Infrastructure/Trace/tests/ESMF_TraceIOUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Trace/tests/ESMF_TraceMPIUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Trace/tests/ESMF_TraceUTest.F90
+PASS: intelmpi/g: src/Infrastructure/Util/tests/ESMF_FortranWordsizeUTe=
+st.F90
+PASS: intelmpi/g: src/Infrastructure/Util/tests/ESMF_InitMacrosUTest.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/Util/tests/ESMF_TypeKindGetUTest.F=
+90
+PASS: intelmpi/g: src/Infrastructure/Util/tests/ESMF_UtilUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMC_VMUTest.C
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMAccUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMAllGatherUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMAllGatherVUTest.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMAllToAllUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMAllToAllVUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMBarrierUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMBroadcastUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMComponentUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMGatherUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMOpenMPUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMScatterUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMSendNbVMRecvNbUTes=
+t.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMSendRecvNbUTest.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMSendRecvUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMSendVMRecvUTest.F9=
+0
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMUTest.F90
+PASS: intelmpi/g: src/Infrastructure/VM/tests/ESMF_VMUserMpiInitUTest.F=
+90
+PASS: intelmpi/g: src/Infrastructure/XGrid/tests/ESMC_XGridUTest.C
+PASS: intelmpi/g: src/Infrastructure/XGrid/tests/ESMF_XGridMaskingUTest=
+.F90
+PASS: intelmpi/g: src/Infrastructure/XGrid/tests/ESMF_XGridUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttInterna=
+lGridUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttPackABu=
+ndleUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttPackArr=
+ayUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttPackCpl=
+CompUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttPackDis=
+tGridUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttPackFBu=
+ndleUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttPackFie=
+ldUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttPackGri=
+dCompUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttPackGri=
+dUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttPackLoc=
+StreamUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttPackSci=
+CompUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttPackSta=
+teUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttReadCpl=
+CompUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttReadFie=
+ldUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttReadGri=
+dCompUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeA=
+BundleUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeA=
+rrayUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeA=
+utoLinkUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeC=
+plCompUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeD=
+istGridUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeF=
+BundleUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeF=
+ieldUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeG=
+ridCompUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeG=
+ridUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeJ=
+SONUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeL=
+ocStreamUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeS=
+ciCompUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeS=
+tateUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateCIMRespPartyUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateClosedLoopTreesUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateComponentUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateContainerStressUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateMultiReconcileUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateReconcileUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateRemoveOnlyUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeW=
+riteInternalUTest.F90
+PASS: intelmpi/g: src/Superstructure/AttributeAPI/tests/ESMF_AttributeX=
+MLUTest.F90
+PASS: intelmpi/g: src/Superstructure/Component/tests/ESMC_ComponentUTes=
+t.C
+PASS: intelmpi/g: src/Superstructure/Component/tests/ESMF_CompSetServUT=
+est.F90
+PASS: intelmpi/g: src/Superstructure/Component/tests/ESMF_CompTunnelUTe=
+st.F90
+PASS: intelmpi/g: src/Superstructure/Component/tests/ESMF_ComponentUTes=
+t.F90
+PASS: intelmpi/g: src/Superstructure/Component/tests/ESMF_CplCompCreate=
+UTest.F90
+PASS: intelmpi/g: src/Superstructure/Component/tests/ESMF_GridCompCreat=
+eUTest.F90
+PASS: intelmpi/g: src/Superstructure/Component/tests/ESMF_SciCompCreate=
+UTest.F90
+PASS: intelmpi/g: src/Superstructure/Component/tests/ESMF_StdCompMethod=
+sUTest.F90
+PASS: intelmpi/g: src/Superstructure/ESMFMod/tests/ESMF_FrameworkUTest.=
+F90
+PASS: intelmpi/g: src/Superstructure/IOAPI/tests/ESMF_IOCompUTest.F90
+PASS: intelmpi/g: src/Superstructure/PreESMFMod/tests/ESMF_FileRegridUT=
+est.F90
+PASS: intelmpi/g: src/Superstructure/PreESMFMod/tests/ESMF_RegridWeight=
+GenUTest.F90
+PASS: intelmpi/g: src/Superstructure/State/tests/ESMC_StateUTest.C
+PASS: intelmpi/g: src/Superstructure/State/tests/ESMF_StateCreateUTest.=
+F90
+PASS: intelmpi/g: src/Superstructure/State/tests/ESMF_StateReadWriteUTe=
+st.F90
+PASS: intelmpi/g: src/Superstructure/State/tests/ESMF_StateReconcileUTe=
+st.F90
+PASS: intelmpi/g: src/Superstructure/State/tests/ESMF_StateUTest.F90
+PASS: intelmpi/g: src/addon/NUOPC/tests/ESMF_NUOPC_UTest.F90
+PASS: intelmpi/g: src/epilogue/tests/ESMCI_TestUTest.C
+PASS: intelmpi/g: src/epilogue/tests/ESMC_TestUTest.C
+PASS: intelmpi/g: src/epilogue/tests/ESMF_TestUTest.F90
+PASS: intelmpi/g: src/prologue/tests/ESMCI_ExceptionsUTest.C
+PASS: intelmpi/g: src/prologue/tests/ESMCI_FeatureUTest.C
+PASS: intelmpi/g: src/prologue/tests/ESMF_F90ArrayPtrUTest.F90
+PASS: intelmpi/g: src/prologue/tests/ESMF_FeatureUTest.F90
+PASS: intelmpi/g: src/prologue/tests/ESMF_LAPACKUTest.F90
+PASS: intelmpi/g: src/prologue/tests/ESMF_StringUTest.F90
+PASS: intelmpi/g: src/prologue/tests/ESMF_WordsizeUTest.F90
+
+
+The following test harness unit tests pass:
+PASS: intelmpi/g: ESMF_array_2_NP4UTest
+PASS: intelmpi/g: ESMF_field_1_NP4UTest
+
+
+The log and stdout files for the unit tests can be found at:
+/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/intel_hera=
+/esmf/test/testg/Linux.intel.64.intelmpi.default
+
+
+Found 9082 exhaustive multi-processor unit tests, 9082 passed and 0 fai=
+led.
+
+Sat Apr 18 00:50:40 MDT 2020 run_unit_tests_benchmark .....PASS
+
+
+
+Found 208 exhaustive multi-processor unit tests files, of those with a =
+threshold of 500 msecs. 0 passed the 20% tolerance benchmark test, and =
+0 failed.
+
+Benchmark install date: cat: /scratch2/BMC/esmf/Silverio.Vasquez/script=
+_dirs/daily_builds/intel_hera/esmf/../BENCHMARKDIR/test/testg/Linux.int=
+el.64.intelmpi.default/bm_timestamp: No such file or directory
+
+
+
+
+_______________________________________________________________________=
+________________________
+
+
+Sat Apr 18 00:52:06 MDT 2020 on hfe03=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+=20
+--------------------------------------------------------------=20
+
+Currently Loaded Modules:
+  1) intel/18.0.5.274
+  2) impi/2018.0.4
+  3) netcdf/4.6.1
+
+=20
+
+=20
+Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+=20
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09module_list
+=09queue_results
+=09src/installcheck/esmc_application
+=09src/installcheck/esmc_application.o
+=09src/installcheck/esmf_application
+=09src/installcheck/esmf_application.o
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.82
+Built for x86_64-redhat-linux-gnu
+Copyright (C) 2010  Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl=
+.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+--------------------------------------------------------------
+Fortran Compiler version:
+mpiifort for the Intel(R) MPI Library 2018 Update 4 for Linux*
+Copyright(C) 2003-2018, Intel Corporation.  All rights reserved.
+Intel(R) Fortran Intel(R) 64 Compiler for applications running on Intel=
+(R) 64, Version 18.0.5.274 Build 20180823
+Copyright (C) 1985-2018 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+C++ Compiler version:
+mpiicpc for the Intel(R) MPI Library 2018 Update 4 for Linux*
+Copyright(C) 2003-2018, Intel Corporation.  All rights reserved.
+Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) =
+64, Version 18.0.5.274 Build 20180823
+Copyright (C) 1985-2018 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+--------------------------------------------------------------
+NetCDF library version: netCDF 4.6.1
+NetCDF Fortran version: netCDF-Fortran 4.4.4
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BENCHMARK_PREFIX=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/intel_hera/esmf/../BENCHMARKDIR
+ESMF_BOPT=3DO
+ESMF_COMM=3Dintelmpi
+ESMF_COMPILER=3Dintel
+ESMF_DIR=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds=
+/intel_hera/esmf
+ESMF_INSTALL_PREFIX=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/d=
+aily_builds/intel_hera/esmf/../install_dir
+ESMF_MPIMPMDRUN=3Dmpirun
+ESMF_MPIRUN=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_bui=
+lds/intel_hera/esmf/scripts/mpirun.srun
+ESMF_NETCDF=3Dnc-config
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArray_2
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessField_1
+ESMF_TESTMPMD=3DON
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/=
+intel_hera/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          intel
+ESMF_BOPT:              O
+ESMF_COMM:              intelmpi
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            ON
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          ON
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArray_2
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessField_1
+ESMF_MPIRUN:            /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/intel_hera/esmf/scripts/mpirun.srun
+ESMF_MPIMPMDRUN:        mpirun
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_NETCDF:             nc-config
+ESMF_NETCDF_INCLUDE:     /apps/netcdf/4.6.1/intel/16.1.150/include
+ESMF_NETCDF_LIBS:        -L/apps/netcdf/4.6.1/intel/16.1.150/lib -lnetc=
+dff -L/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath -Wl,/apps/netcdf=
+/4.6.1/intel/16.1.150/lib -lnetcdf -lnetcdf -L/apps/netcdf/4.6.1/intel/=
+16.1.150/lib -lnetcdf
+ESMF_YAMLCPP:            internal
+ESMF_PIO:                internal
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/intel_hera/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod/modO/Linux.intel.64.intelmpi.default
+ESMF_INSTALL_LIBDIR:    lib/libO/Linux.intel.64.intelmpi.default
+ESMF_INSTALL_BINDIR:    bin/binO/Linux.intel.64.intelmpi.default
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         /scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/intel_hera/esmf/../BENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /apps/netcdf/4.6.1/intel/16.1.150/bin:/apps/intel/compilers_an=
+d_libraries_2018/linux/mpi/intel64/bin:/apps/intel/parallel_studio_xe_2=
+018.4.057/compilers_and_libraries_2018/linux/bin/intel64:/home/Silverio=
+.Vasquez/bin:/usr/lib64/qt-3.3/bin:/usr/bin:/bin:/usr/local/sbin:/usr/s=
+bin:/opt/ibutils/bin:/apps/local/bin:/apps/local/sbin:/apps/slurm/defau=
+lt/tools:/apps/slurm/default/bin:/apps/slurm/default/sbin:/apps/slurm/t=
+ools/sbank/bin:/apps/slurm/default/tools:/apps/slurm/default/bin:/apps/=
+slurm/default/sbin:/apps/slurm/tools/sbank/bin
+LD_LIBRARY_PATH: /apps/netcdf/4.6.1/intel/16.1.150/lib:/apps/intel/comp=
+ilers_and_libraries_2018/linux/mpi/intel64/lib::/apps/slurm/default/lib=
+:/apps/intel/parallel_studio_xe_2018.4.057/compilers_and_libraries_2018=
+/linux/compiler/lib/intel64:/apps/intel/parallel_studio_xe_2018.4.057/c=
+ompilers_and_libraries_2018/linux/ipp/lib/intel64:/apps/intel/parallel_=
+studio_xe_2018.4.057/compilers_and_libraries_2018/linux/compiler/lib/in=
+tel64_lin:/apps/intel/parallel_studio_xe_2018.4.057/compilers_and_libra=
+ries_2018/linux/mkl/lib/intel64_lin:/apps/intel/parallel_studio_xe_2018=
+.4.057/compilers_and_libraries_2018/linux/tbb/lib/intel64/gcc4.7:/apps/=
+intel/parallel_studio_xe_2018.4.057/debugger_2018/libipt/intel64/lib:/a=
+pps/intel/parallel_studio_xe_2018.4.057/compilers_and_libraries_2018/li=
+nux/daal/lib/intel64_lin:/apps/intel/parallel_studio_xe_2018.4.057/comp=
+ilers_and_libraries_2018/linux/daal/../tbb/lib/intel64_lin/gcc4.4:/apps=
+/slurm/default/lib
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/bin/gcc
+Location of the Fortran compiler:  /apps/intel/compilers_and_libraries_=
+2018/linux/mpi/intel64/bin/mpiifort
+Location of the Fortran linker:    /apps/intel/compilers_and_libraries_=
+2018/linux/mpi/intel64/bin/mpiifort
+Location of the C++ compiler:      /apps/intel/compilers_and_libraries_=
+2018/linux/mpi/intel64/bin/mpiicpc
+Location of the C++ linker:        /apps/intel/compilers_and_libraries_=
+2018/linux/mpi/intel64/bin/mpiicpc
+
+Fortran compiler flags:
+ESMF_F90COMPILER: mpiifort
+ESMF_F90COMPILEOPTS: -O -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall=
+ -threads  -qopenmp
+ESMF_F90COMPILEPATHS: -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs=
+/daily_builds/intel_hera/esmf/mod/modO/Linux.intel.64.intelmpi.default =
+-I/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/intel_he=
+ra/esmf/src/include -I/apps/netcdf/4.6.1/intel/16.1.150/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
+SMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D=
+1 -DESMF_COMM=3Dintelmpi -DESMF_DIR=3D/scratch2/BMC/esmf/Silverio.Vasqu=
+ez/script_dirs/daily_builds/intel_hera/esmf
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP:=20
+ESMF_F90COMPILEFIXCPP:=20
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64 -mcmodel=3Dsmall -threads -Wl,--no-as-needed  =
+-qopenmp
+ESMF_F90LINKPATHS: -L/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/da=
+ily_builds/intel_hera/esmf/lib/libO/Linux.intel.64.intelmpi.default =20
+ESMF_F90LINKRPATHS: -Wl,-rpath,/scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/intel_hera/esmf/lib/libO/Linux.intel.64.intelmpi.d=
+efault -Wl,-rpath,/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath,/app=
+s/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath,/apps/netcdf/4.6.1/intel/1=
+6.1.150/lib
+ESMF_F90LINKLIBS:  -cxxlib -lrt -ldl -L/apps/netcdf/4.6.1/intel/16.1.15=
+0/lib -lnetcdff -L/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath -Wl,=
+/apps/netcdf/4.6.1/intel/16.1.150/lib -lnetcdf -lnetcdf -L/apps/netcdf/=
+4.6.1/intel/16.1.150/lib -lnetcdf
+ESMF_F90ESMFLINKLIBS: -lesmf  -cxxlib -lrt -ldl -L/apps/netcdf/4.6.1/in=
+tel/16.1.150/lib -lnetcdff -L/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,=
+-rpath -Wl,/apps/netcdf/4.6.1/intel/16.1.150/lib -lnetcdf -lnetcdf -L/a=
+pps/netcdf/4.6.1/intel/16.1.150/lib -lnetcdf
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: mpiicpc
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -O -DNDEBUG -fPIC -m64 -mcmodel=3Dsma=
+ll -pthread  -qopenmp
+ESMF_CXXCOMPILEPATHS:  -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dir=
+s/daily_builds/intel_hera/esmf/src/include  -I/apps/netcdf/4.6.1/intel/=
+16.1.150/include -I/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/dail=
+y_builds/intel_hera/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
+SMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D=
+1 -DESMF_COMM=3Dintelmpi -DESMF_DIR=3D/scratch2/BMC/esmf/Silverio.Vasqu=
+ez/script_dirs/daily_builds/intel_hera/esmf -D__SDIR__=3D'' -DESMF_CXXS=
+TD=3D11
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed  =
+-qopenmp
+ESMF_CXXLINKPATHS: -L/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/da=
+ily_builds/intel_hera/esmf/lib/libO/Linux.intel.64.intelmpi.default  -L=
+/apps/intel/compilers_and_libraries_2018.5.274/linux/compiler/lib/intel=
+64_lin/
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/scratch2/BMC/esmf/Silverio.Vasquez/scri=
+pt_dirs/daily_builds/intel_hera/esmf/lib/libO/Linux.intel.64.intelmpi.d=
+efault -Wl,-rpath,/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath,/app=
+s/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath,/apps/netcdf/4.6.1/intel/1=
+6.1.150/lib -Wl,-rpath,/apps/intel/compilers_and_libraries_2018.5.274/l=
+inux/compiler/lib/intel64_lin/
+ESMF_CXXLINKLIBS:  -ldl -lrt -lpthread -lifport -lifcoremt -limf -lsvml=
+ -lm -lipgo -liomp5 -lintlc -lpthread -lsvml -lgcc -lgcc_s -lirc_s -ldl=
+ -lrt -ldl -L/apps/netcdf/4.6.1/intel/16.1.150/lib -lnetcdff -L/apps/ne=
+tcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath -Wl,/apps/netcdf/4.6.1/intel/1=
+6.1.150/lib -lnetcdf -lnetcdf -L/apps/netcdf/4.6.1/intel/16.1.150/lib -=
+lnetcdf
+ESMF_CXXESMFLINKLIBS: -lesmf  -ldl -lrt -lpthread -lifport -lifcoremt -=
+limf -lsvml -lm -lipgo -liomp5 -lintlc -lpthread -lsvml -lgcc -lgcc_s -=
+lirc_s -ldl -lrt -ldl -L/apps/netcdf/4.6.1/intel/16.1.150/lib -lnetcdff=
+ -L/apps/netcdf/4.6.1/intel/16.1.150/lib -Wl,-rpath -Wl,/apps/netcdf/4.=
+6.1/intel/16.1.150/lib -lnetcdf -lnetcdf -L/apps/netcdf/4.6.1/intel/16.=
+1.150/lib -lnetcdf
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    mpiicpc
+ESMF_SL_LIBOPTS:       -pthread -shared  -qopenmp
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/=
+daily_builds/intel_hera/esmf/lib/libO/Linux.intel.64.intelmpi.default/l=
+ibesmftrace_preload.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Sat Apr 18 00:52:08 MDT 2020 on hfe03
+Machine characteristics: Linux hfe03 3.10.0-1062.18.1.el7.x86_64 #1 SMP=
+ Tue Mar 17 23:49:17 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Sat Apr 18 01:05:11 MDT 2020 library build -j16 ...........PASS
+Sat Apr 18 01:05:29 MDT 2020 library install -j4 ..........PASS
+Sat Apr 18 01:05:30 MDT 2020 library installcheck -j4 .....PASS
+Sat Apr 18 01:06:52 MDT 2020 quickstart build -j4 .........PASS
+
+|------------------------ APPs TESTS --------------------------|
+Sat Apr 18 01:07:00 MDT 2020 apps build -j4 ...............PASS
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:05 MDT 2020 ESMF_Regrid --help ...........PASS
+The following is the output of ESMF_Regrid --help
+
+ Usage: ESMF_Regrid
+                       --source|-s src_grid_filename
+                       --destination|-d dst_grid_filename
+                       --src_var varname1[,varname2,...]
+                       --dst_var  varname1[,varname2,...]
+                       [--srcdatafile]
+                       [--dstdatafile]
+                       [--tilefile_path tile_file_path]
+                       [--dst_loc center|corner]
+                       [--method|-m bilinear|patch|neareststod|nearestd=
+tos|conse
+ rve|conserve2nd]
+                       [--pole|-p all|none|teeth|<N>]
+                       [--ignore_unmapped|-i]
+                       [--ignore_degenerate]
+                       [-r]
+                       [--src_regional]
+                       [--dst_regional]
+                       [--check]
+                       [--no_log]
+                       [--help]
+                       [--version]
+                       [-V]
+ where
+ --source or -s - a required argument specifying the source grid file
+               name
+ --destination or -d - a required argument specifying the destination g=
+rid
+               file name
+ --src_var  - a required argument specifying the variable names to be r=
+egridded
+               in the source grid file.  If more than one, separated th=
+em with
+               comma.
+ --dst_var  - a required argument specifying the destination variable n=
+ame in
+               the destination grid file.  If more than one, separated =
+them with
+               comma.  The number of dst_vars has to be the same as the=
+ number
+               of src_var
+ --srcdatafile - If the source grid is of type MOSAIC, the data is stor=
+ed=20
+               in separated files, one per tile. srcdatafile is the pre=
+fix of
+               the source data file.  The filename is srcdatafile.tilen=
+ame.nc,
+               where tilename is the tile name defined in the source gr=
+id file
+ --dstdatafile - If the destination grid is of type MOSAIC, the data is=
+ stored
+               in separated files, one per tile. dstdatafile is the pre=
+fix of
+               the destination data file.  The filename is srcdatafile.=
+tilename.
+ nc,
+                where tilename is the tile name defined in the destinat=
+ion grid=20
+ file
+ --tilefile_path - The alternative file path for the tile files and mos=
+aic data=20
+ files
+               when either srcFile or dstFile is a GRIDSPEC MOSAIC grid=
+.  The pa
+ th
+               can be either relative or absolute.  If it is relative, =
+it is
+               relative to the working directory.  When specified, the =
+gridlocat
+ ion
+               variable defined in the Mosaic file will be ignored.
+ --method or -m - an optional argument specifying which interpolation m=
+ethod is
+               used.  The default method is bilinear
+ --pole or -p - an optional argument indicating what to do with the pol=
+e.
+               The default value is all
+ --ignore_unmapped or -i - ignore unmapped destination points. If not s=
+pecified,
+               the default is to stop with an error.
+ --ignore_degenerate - ignore degenerate cells in the input grids. If n=
+ot specif
+ ied,
+               the default is to stop with an error.
+ -r          - an optional argument specifying the source and destinati=
+on grids
+               are regional grids.  Without this argument, the grids ar=
+e assumed
+               to be global. This argument only applies to the GRIDSPEC=
+ file
+ --src_regional   - an optional argument specifying the source grid is =
+regional.
+               Without this argument, the src grids is assumed to be gl=
+obal. Thi
+ s=20
+               argument only applies to the GRIDSPEC file
+ --dst_regional   - an optional argument specifying the destination gri=
+d is regi
+ onal
+               Without this argument, the dst grids is assumed to be gl=
+obal.
+               This argument only applies to the GRIDSPEC file
+ --check    - Check the regridded fields by comparing the values with
+              a synthetic field calculated based on its coordinates.=20
+              The mean relative error between the destination field=20
+              and synthetic field is computed.  The synthetic value is =
+calculate
+ d as=20
+              data(i,j,k,l)=3D2.0+(k-1)+2*(l-1)+cos(lat(i,j))**2*cos(2*=
+lon(i,j)),=20
+ assuming
+              it is a 2D grid=20
+ --no_log    - Turn off the ESMF error log.
+ --help     - Print this help message and exit.
+ --version  - Print ESMF version and license information and exit.
+ -V        - Print ESMF version number and exit.
+=20
+ For questions, comments, or feature requests please send email to:
+ esmf_support@cgd.ucar.edu
+=20
+ Visit http://www.earthsystemmodeling.org/ to find out more about the
+ Earth System Modeling Framework.
+=20
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:05 MDT 2020 ESMF_Regrid --version ........PASS
+The following is the output of ESMF_Regrid --version
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:06 MDT 2020 ESMF_Regrid -V ...............PASS
+The following is the output of ESMF_Regrid -V
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:06 MDT 2020 ESMF_Info --help .............PASS
+The following is the output of ESMF_Info --help=20
+
+ ESMF_Info: Print information about the ESMF installation.
+ Options:
+   --help        Display this information and exit.
+   --version     Display ESMF version and license information and exit.
+   -V            Display ESMF version string and exit.
+=20
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:07 MDT 2020 ESMF_Info --version ..........PASS
+The following is the output of ESMF_Info --version=20
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:07 MDT 2020 ESMF_Info -V .................PASS
+The following is the output of ESMF_Info -V=20
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:07 MDT 2020 ESMF_InfoC --help ............PASS
+The following is the output of ESMF_InfoC --help
+
+ESMF_InfoC: Print information about the ESMF installation.
+Options:
+  --help        Display this information and exit.
+  --version     Display ESMF version and license information and exit.
+  -V            Display ESMF version string and exit.
+
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:08 MDT 2020 ESMF_InfoC --version .........PASS
+The following is the output of ESMF_InfoC --version
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:08 MDT 2020 ESMF_InfoC -V ................PASS
+The following is the output of ESMF_InfoC -V
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:09 MDT 2020 ESMF_RegridWeightGen --help ..PASS
+The following is the output of ESMF_RegridWeightGen --help
+
+ Usage: ESMF_RegridWeightGen --source|-s src_grid_filename
+                            --destination|-d dst_grid_filename
+                       --weight|-w out_weight_file=20
+                       [--method|-m bilinear|patch|neareststod|nearestd=
+tos|conse
+ rve|conserve2nd]
+                       [--pole|-p all|none|teeth|<N>]
+                       [--line_type|-l cartesian|greatcircle]
+                       [--norm_type dstarea|fracarea]
+                       [--extrap_method none|neareststod|nearestidavg|c=
+reep]
+                       [--extrap_num_src_pnts <N>]
+                       [--extrap_dist_exponent <P>]
+                       [--extrap_num_levels <L>]
+                       [--ignore_unmapped|-i]
+                       [--ignore_degenerate]
+                       [-r]
+                       [--src_regional]
+                       [--dst_regional]
+                       [--64bit_offset]
+                       [--netcdf4]
+                       [--weight_only]
+                       [--src_missingvalue src_var_name]
+                       [--dst_missingvalue dst_var_name]
+                       [--src_coordinates lon_var_name,lat_var_name]
+                       [--dst_coordinates lon_var_name,lat_var_name]
+                       [--user_areas]
+                       [--src_loc center|corner]
+                       [--dst_loc center|corner]
+                       [--tilefile_path tile_file_path]
+                       [--no_log]
+                       [--check]
+                       [--help]
+                       [--version]
+                       [-V]
+ where
+ --source or -s - a required argument specifying the source grid file
+                  name
+ --destination or -d - a required argument specifying the destination g=
+rid
+                       file name
+ --weight or -w - a required argument specifying the output regridding =
+weight
+                  file name
+ --method or -m - an optional argument specifying which interpolation m=
+ethod is
+                  used.  The default method is bilinear.
+ --pole or -p - an optional argument indicating what to do with the pol=
+e.
+                  The default value is all.
+ --line_type or -l - an optional argument indicating the type of path
+                      lines (e.g. cell edges) follow on a spherical
+                     surface. The default value depends on the regrid
+                     method. For non-conservative methods the default i=
+s
+                     cartesian. For conservative methods the default is=
+ greatcir
+ cle.
+ --norm_type - an optional argument indicating the type of normalizatio=
+n to
+               do when generating conserative weights. The default valu=
+e is dsta
+ rea.
+ --extrap_method - an optional argument specifying which extrapolation =
+method is
+                  used.  The default method is none.
+ --extrap_num_src_pnts - an optional argument specifying how many sourc=
+e points=20
+ should
+                 be used when the extrapolation method is nearestidavg.=
+ The defa
+ ult is 8.
+ --extrap_dist_exponent - an optional argument specifying the exponent =
+that the=20
+ distance should
+                 be raised to when the extrapolation method is nearesti=
+davg. The
+  default is 2.0.
+ --extrap_num_levels - an optional argument specifying how many levels =
+should
+                 be filled for level based extrapolation methods (e.g. =
+creep).
+ --ignore_unmapped or -i - ignore unmapped destination points. If not s=
+pecified,
+                           the default is to stop with an error.
+ --ignore_degenerate - ignore degenerate cells in the input grids. If n=
+ot specif
+ ied,
+                           the default is to stop with an error.
+ -r         - an optional argument specifying the source and destinatio=
+n grids
+              are regional grids.  Without this argument, the grids are=
+ assumed
+              to be global
+ --src_regional   - an optional argument specifying the source grid is =
+regional.
+              Without this argument, the src grids is assumed to be glo=
+bal.
+ --dst_regional   - an optional argument specifying the destination gri=
+d is regi
+ onal
+              Without this argument, the dst grids is assumed to be glo=
+bal.
+ --64bit_offset  - an optional argument specifying the output weight fi=
+le is in
+              NetCDF 64-bit offset format.  This option only works with=
+ NetCDF l
+ ibrary
+              version 3.6 and above
+ --netcdf4  - an optional argument specifying the output weight file is=
+ in
+              the NetCDF4 format. This option only works with NetCDF li=
+brary
+              version 4.1 and above
+ --weight_only  - an Optional argument specifying the output weight fil=
+e only co
+ ntains
+              the weights and the source and destination grid's indices=
+.
+ --src_missingvalue  - an optional argument used when the src file type=
+ is GRIDS
+ PEC
+              or UGRID. It defines the variable name whose 'missing_val=
+ue' or
+              '_FillValue' attribute will be used to construct the mask=
+ for the=20
+ source
+              grid. Without this argument,a GRIDSPEC file or a UGRID fi=
+le is not
+  masked.
+ --dst_missingvalue  - an optional argument used when the destination f=
+ile type=20
+ is
+              GRIDSPEC or UGRID. It defines the variable name whose 'mi=
+ssing_val
+ ue' or
+              '_FillValue' attribute will be used to construct the mask=
+ for the=20
+ destination
+              grid. Without this argument,a GRIDSPEC file or a UGRID fi=
+le is not
+  masked.
+ --src_coordinates  - an optional argument used when the source grid ty=
+pe is GRI
+ DSPEC.
+              It defines the longitude and latitude variable names sepa=
+rated by=20
+ comma,
+              in case there are multiple coordinate variables defined i=
+n the fil
+ e
+ --dst_coordinates  - an optional argument used when the destination gr=
+id type i
+ s GRIDSPEC.
+              It defines the longitude and latitude variable names sepa=
+rated by=20
+ comma,
+              in case there are multiple coordinate variables defined i=
+n the fil
+ e
+ --user_areas  - an optional argument specifying that the conservation =
+is adjust
+ ed to
+              hold for the user areas provided in the grid files.  If n=
+ot specif
+ ied,
+              then the conservation will hold for the ESMF calculated (=
+great cir
+ cle)
+              areas.  Whichever areas the conservation holds for are ou=
+tput to t
+ he
+              weight file.
+ --src_loc   - an optional argument specifying which location is used t=
+o do the=20
+ regridding
+             The location can be either 'center' or 'corner'.  Currentl=
+y, this a
+ rgument
+             is only required when the source grid file is an unstructu=
+red grid=20
+ defined
+             in UGRID or ESMF format and the regridding method is non-c=
+onservati
+ ve. For =20
+             all other cases, the default location is 'center'.
+ --dst_loc   - an optional argument specifying which location is used t=
+o do the=20
+ regridding
+             The location can be either 'center' or 'corner'.  Currentl=
+y, this a
+ rgument
+             is 'center'.  Currently, this argument will only be used w=
+hen the
+             is only required when the destination grid file is an unst=
+ructured=20
+ grid defined
+             in UGRID or ESMF format and the regridding method is non-c=
+onservati
+ ve. For =20
+             all other cases, the default location is 'center'.
+ --tilefile_path - the alternative file path for the tile files when th=
+e grid fi
+ le type is
+             MOSAIC.
+ --no_log    - Turn off the ESMF logs.
+ --check    - Check that the generated weights produce reasonable regri=
+dded fiel
+ ds.  This
+              is done by calling ESMF_FieldRegrid() on an analytic sour=
+ce field=20
+ using the weights
+              generated by this application.  The mean relative error b=
+etween th
+ e destination
+              and analytic field is computed, as well as the relative e=
+rror betw
+ een the mass
+              of the source and destination fields in the conservative =
+case.
+ --help or -h - Print this help message and exit.
+ --version  - Print ESMF version and license information and exit.
+ -V        - Print ESMF version number and exit.
+=20
+ For questions, comments, or feature requests please send email to:
+ esmf_support@cgd.ucar.edu
+=20
+ Visit http://www.earthsystemmodeling.org/ to find out more about the
+ Earth System Modeling Framework.
+=20
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:09 MDT 2020 ESMF_RegridWeightGen --version PASS
+The following is the output of ESMF_RegridWeightGen --version
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:10 MDT 2020 ESMF_RegridWeightGen -V ......PASS
+The following is the output of ESMF_RegridWeightGen -V
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:11 MDT 2020 ESMF_Scrip2Unstruct --help ...PASS
+The following is the output of ESMF_Scrip2Unstruct --help
+
+ESMF_Scrip2Unstruct: Convert an unstructured grid file in SCRIP format =
+into either a ESMF unstructured file or a UGRID file format.
+Usage: ESMF_Scrip2Unstruct [--help] [--version] [-V] inputfile outputfi=
+le dualflag [fileformat]
+    [--help]        Display this information and exit.
+    [--version]     Display ESMF version and license information and ex=
+it.
+    [-V]            Display ESMF version string and exit.
+    inputfile       input grid filename=20
+    outputfile      output filename=20
+    dualflag        1 to generate a dual mesh, 0 for non-dual mesh
+    [fileformat]    Either ESMF or UGRID, the default is ESMF
+
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:11 MDT 2020 ESMF_Scrip2Unstruct --version PASS
+The following is the output of ESMF_Scrip2Unstruct --version
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:11 MDT 2020 ESMF_Scrip2Unstruct -V .......PASS
+The following is the output of ESMF_Scrip2Unstruct -V
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:12 MDT 2020 ESMF_WebServController --help PASS
+The following is the output of ESMF_WebServController --help
+
+ESMF_WebServController: Run a Process Controller that provides access t=
+o an ESMF Web Service enabled Component.
+Usage: ESMF_WebServController [--help] [--version] [-V] procCtrlPort re=
+gistrarHost registrarPort
+    [--help]        Display this information and exit.
+    [--version]     Display ESMF version and license information and ex=
+it.
+    [-V]            Display ESMF version string and exit.
+    procCtrlPort    Port num for Process Controller listener.
+    registrarHost   Host name on which Registrar is running.
+    registrarPort   Port num on which Registrar is listening.
+    runScriptDir    Directory containing run script.
+    runScriptFile   File name of run script.
+
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:12 MDT 2020 ESMF_WebServController --version PASS
+The following is the output of ESMF_WebServController --version
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+   ESMF_VERSION_MAJOR:                   8
+   ESMF_VERSION_MINOR:                   1
+   ESMF_VERSION_REVISION:                0
+   ESMF_VERSION_PATCHLEVEL:              0
+   ESMF_VERSION_PUBLIC:        F
+   ESMF_VERSION_BETASNAPSHOT:  T
+=20
+ Earth System Modeling Framework
+=20
+ Copyright (c) 2002-2020 University Corporation for Atmospheric Researc=
+h,
+ Massachusetts Institute of Technology, Geophysical Fluid Dynamics Labo=
+ratory,
+ University of Michigan, National Centers for Environmental Prediction,
+ Los Alamos National Laboratory, Argonne National Laboratory,
+ NASA Goddard Space Flight Center.
+ All rights reserved.
+=20
+ Permission is hereby granted, free of charge, to any person obtaining =
+a copy
+ of this software and associated documentation files (the 'Software'), =
+to
+ deal with the Software without restriction, including without limitati=
+on the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, a=
+nd/or
+ sell copies of the Software, and to permit persons to whom the Softwar=
+e is
+ furnished to do so, subject to the following conditions:
+    1. Redistributions of source code must retain the above copyright n=
+otice,
+       this list of conditions and the following disclaimers.
+    2. Redistributions in binary form must reproduce the above copyrigh=
+t
+       notice, this list of conditions and the following disclaimers in=
+ the
+       documentation and/or other materials provided with the distribut=
+ion.
+    3. Neither the names of the organizations developing this software,=
+ nor
+       the names of its contributors may be used to endorse or promote =
+products
+       derived from this Software without specific prior written permis=
+sion.
+=20
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRES=
+S OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILIT=
+Y,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHAL=
+L THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
+OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISIN=
+G
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DE=
+ALINGS
+ WITH THE SOFTWARE.
+
+
+
+|--------------------------------------------------------------|
+Sat Apr 18 01:14:12 MDT 2020 ESMF_WebServController -V ....PASS
+The following is the output of ESMF_WebServController -V
+
+   ESMF_VERSION_STRING:       8.1.0 beta snapshot
+
+
+
+
+Ran 18 applications tests, 18 passed and 0 failed.
+
+|----------------------- SYSTEM TESTS -------------------------|
+Sat Apr 18 01:16:10 MDT 2020 build_system_tests -j4 .......PASS
+Sat Apr 18 01:18:53 MDT 2020 run_system_tests .............PASS
+
+
+The following system tests passed:
+
+
+PASS: intelmpi/O: src/system_tests/ESMF_ArraySharedDeSSI/ESMF_ArrayShar=
+edDeSSISTest.F90
+PASS: intelmpi/O: src/system_tests/ESMF_AttributeCIM/ESMF_AttributeCIMS=
+Test.F90
+PASS: intelmpi/O: src/system_tests/ESMF_CompCreate/ESMF_CompCreateSTest=
+.F90
+PASS: intelmpi/O: src/system_tests/ESMF_CompFortranAndC/ESMF_CompFortra=
+nAndCSTest.F90
+PASS: intelmpi/O: src/system_tests/ESMF_FieldBundleRedistArb2Arb/ESMF_F=
+ieldBundleRedistArb2ArbSTest.F90
+PASS: intelmpi/O: src/system_tests/ESMF_FieldBundleRedistBlk2Arb/ESMF_F=
+ieldBundleRedistBlk2ArbSTest.F90
+PASS: intelmpi/O: src/system_tests/ESMF_FieldRedistArb2Arb/ESMF_FieldRe=
+distArb2ArbSTest.F90
+PASS: intelmpi/O: src/system_tests/ESMF_XGridSerial/ESMF_XGridSerialSTe=
+st.F90
+
+
+
+
+The stdout files for the system_tests can be found at:
+/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/intel_hera=
+/esmf/test/testO/Linux.intel.64.intelmpi.default
+
+
+Found 8 single processor system tests, 8 passed and 0 failed.
+
+
+
+|------------------------- EXAMPLES ---------------------------|
+Sat Apr 18 01:22:21 MDT 2020 build_examples -j4 ...........PASS
+Sat Apr 18 01:25:18 MDT 2020 run_examples .................PASS
+
+
+The following examples passed:
+
+
+PASS: intelmpi/O: src/Infrastructure/Array/examples/ESMF_ArrayArbHaloEx=
+.F90
+PASS: intelmpi/O: src/Infrastructure/Array/examples/ESMF_ArrayCommNBEx.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Array/examples/ESMF_ArrayEx.F90
+PASS: intelmpi/O: src/Infrastructure/Array/examples/ESMF_ArrayFarrayEx.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Array/examples/ESMF_ArrayFarrayHal=
+oEx.F90
+PASS: intelmpi/O: src/Infrastructure/Array/examples/ESMF_ArrayHaloEx.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/Array/examples/ESMF_ArrayLarrayEx.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Array/examples/ESMF_ArrayRedistEx.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Array/examples/ESMF_ArrayScatterGa=
+therArbEx.F90
+PASS: intelmpi/O: src/Infrastructure/Array/examples/ESMF_ArrayScatterGa=
+therEx.F90
+PASS: intelmpi/O: src/Infrastructure/Array/examples/ESMF_ArraySparseMat=
+MulEx.F90
+PASS: intelmpi/O: src/Infrastructure/ArrayBundle/examples/ESMF_ArrayBun=
+dleEx.F90
+PASS: intelmpi/O: src/Infrastructure/ArrayBundle/examples/ESMF_ArrayBun=
+dleHaloEx.F90
+PASS: intelmpi/O: src/Infrastructure/ArraySpec/examples/ESMF_ArraySpecE=
+x.F90
+PASS: intelmpi/O: src/Infrastructure/Config/examples/ESMF_ConfigOvervie=
+wEx.F90
+PASS: intelmpi/O: src/Infrastructure/DELayout/examples/ESMF_DELayoutEx.=
+F90
+PASS: intelmpi/O: src/Infrastructure/DistGrid/examples/ESMF_DistGridEx.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldArbGridEx=
+.F90
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldCommEx.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldCreateEx.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldEx.F90
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldHaloEx.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldMeshRegri=
+dEx.F90
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldRedistEx.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldRegridEx.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldRegridMas=
+kEx.F90
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldRepDimEx.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldSMMEx.F90
+PASS: intelmpi/O: src/Infrastructure/Field/examples/ESMF_FieldSphereReg=
+ridEx.F90
+PASS: intelmpi/O: src/Infrastructure/FieldBundle/examples/ESMF_FieldBun=
+dleCreateEx.F90
+PASS: intelmpi/O: src/Infrastructure/FieldBundle/examples/ESMF_FieldBun=
+dleHaloEx.F90
+PASS: intelmpi/O: src/Infrastructure/FieldBundle/examples/ESMF_FieldBun=
+dleRedistEx.F90
+PASS: intelmpi/O: src/Infrastructure/FieldBundle/examples/ESMF_FieldBun=
+dleSMMEx.F90
+PASS: intelmpi/O: src/Infrastructure/Grid/examples/ESMF_GridCreateRegFr=
+omDGEx.F90
+PASS: intelmpi/O: src/Infrastructure/Grid/examples/ESMF_GridUsageEx.F90
+PASS: intelmpi/O: src/Infrastructure/LocStream/examples/ESMF_LocStreamE=
+x.F90
+PASS: intelmpi/O: src/Infrastructure/LogErr/examples/ESMF_LogErrEx.F90
+PASS: intelmpi/O: src/Infrastructure/Mesh/examples/ESMF_MeshEx.F90
+PASS: intelmpi/O: src/Infrastructure/Route/examples/ESMF_RHandleBitForB=
+itEx.F90
+PASS: intelmpi/O: src/Infrastructure/Route/examples/ESMF_RHandleDynamic=
+MaskingEx.F90
+PASS: intelmpi/O: src/Infrastructure/Route/examples/ESMF_RHandleFromFil=
+eEx.F90
+PASS: intelmpi/O: src/Infrastructure/Route/examples/ESMF_RHandleFromRHa=
+ndleEx.F90
+PASS: intelmpi/O: src/Infrastructure/Route/examples/ESMF_RHandleReusabi=
+lityEx.F90
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/examples/ESMF_AlarmEx.F90
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/examples/ESMF_CalendarEx.F=
+90
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/examples/ESMF_ClockEx.F90
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/examples/ESMF_TimeEx.F90
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/examples/ESMF_TimeInterval=
+Ex.F90
+PASS: intelmpi/O: src/Infrastructure/Trace/examples/ESMF_TraceEx.F90
+PASS: intelmpi/O: src/Infrastructure/Trace/examples/ESMF_TraceUserEx.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/VM/examples/ESMF_VMAllFullReduceEx=
+.F90
+PASS: intelmpi/O: src/Infrastructure/VM/examples/ESMF_VMComponentEx.F90
+PASS: intelmpi/O: src/Infrastructure/VM/examples/ESMF_VMDefaultBasicsEx=
+.F90
+PASS: intelmpi/O: src/Infrastructure/VM/examples/ESMF_VMGetMPICommunica=
+torEx.F90
+PASS: intelmpi/O: src/Infrastructure/VM/examples/ESMF_VMHigherRankDataE=
+x.F90
+PASS: intelmpi/O: src/Infrastructure/VM/examples/ESMF_VMScatterVMGather=
+Ex.F90
+PASS: intelmpi/O: src/Infrastructure/VM/examples/ESMF_VMSendVMRecvEx.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/VM/examples/ESMF_VMUserMpiCommEx.F=
+90
+PASS: intelmpi/O: src/Infrastructure/VM/examples/ESMF_VMUserMpiCommMult=
+iEx.F90
+PASS: intelmpi/O: src/Infrastructure/VM/examples/ESMF_VMUserMpiEx.F90
+PASS: intelmpi/O: src/Infrastructure/XGrid/examples/ESMF_XGridEx.F90
+PASS: intelmpi/O: src/Infrastructure/XGrid/examples/ESMF_XGridSparseMat=
+Ex.F90
+PASS: intelmpi/O: src/Superstructure/AttachMethods/examples/ESMF_Attach=
+MethodsEx.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/examples/ESMF_AttRead=
+CustCplCompEx.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/examples/ESMF_AttRead=
+FieldEx.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/examples/ESMF_AttRead=
+GridCompEx.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+teCIMEx.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+teCustPackEx.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+teEx.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+teInternalInfoEx.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+tePackageEx.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/examples/ESMF_Attribu=
+teUpdateEx.F90
+PASS: intelmpi/O: src/Superstructure/Component/examples/ESMF_AppMainEx.=
+F90
+PASS: intelmpi/O: src/Superstructure/Component/examples/ESMF_CompTunnel=
+Ex.F90
+PASS: intelmpi/O: src/Superstructure/Component/examples/ESMF_CplEx.F90
+PASS: intelmpi/O: src/Superstructure/Component/examples/ESMF_GCompEx.F9=
+0
+PASS: intelmpi/O: src/Superstructure/Component/examples/ESMF_InternalSt=
+ateEx.F90
+PASS: intelmpi/O: src/Superstructure/Component/examples/ESMF_InternalSt=
+ateModEx.F90
+PASS: intelmpi/O: src/Superstructure/Component/examples/ESMF_SCompEx.F9=
+0
+PASS: intelmpi/O: src/Superstructure/State/examples/ESMF_StateEx.F90
+PASS: intelmpi/O: src/Superstructure/State/examples/ESMF_StateReadWrite=
+Ex.F90
+PASS: intelmpi/O: src/Superstructure/State/examples/ESMF_StateReconcile=
+Ex.F90
+PASS: intelmpi/O: src/Superstructure/WebServices/examples/ESMF_WebServi=
+cesEx.F90
+PASS: intelmpi/O: src/addon/NUOPC/examples/ESMF_NUOPCAtmModelEx.F90
+PASS: intelmpi/O: src/addon/NUOPC/examples/ESMF_NUOPCBasicModelEx.F90
+
+
+
+
+The stdout files for the examples can be found at:
+/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/intel_hera=
+/esmf/examples/examplesO/Linux.intel.64.intelmpi.default
+
+
+Found 85 multi-processor examples, 85 passed and 0 failed.
+
+
+
+|-------------------- EXHAUSTIVE UNIT TESTS -------------------|
+Sat Apr 18 01:34:48 MDT 2020 build_unit_tests -j4 .........PASS
+Sat Apr 18 01:45:36 MDT 2020 run_unit_tests ...............PASS
+
+
+
+
+The unit tests in the following files all pass:
+
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMC_ArrayUTest.C
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMF_ArrayArbIdxSMMUTe=
+st.F90
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMF_ArrayCreateGetUTe=
+st.F90
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMF_ArrayDataUTest.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMF_ArrayGatherUTest.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMF_ArrayHaloUTest.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMF_ArrayIOUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMF_ArrayRedistPerfUT=
+est.F90
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMF_ArrayRedistUTest.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMF_ArraySMMFromFileU=
+Test.F90
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMF_ArraySMMUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Array/tests/ESMF_ArrayScatterUTest=
+.F90
+PASS: intelmpi/O: src/Infrastructure/ArrayBundle/tests/ESMF_ArrayBundle=
+CreateUTest.F90
+PASS: intelmpi/O: src/Infrastructure/ArrayBundle/tests/ESMF_ArrayBundle=
+IOUTest.F90
+PASS: intelmpi/O: src/Infrastructure/ArrayBundle/tests/ESMF_ArrayBundle=
+RedistUTest.F90
+PASS: intelmpi/O: src/Infrastructure/ArraySpec/tests/ESMC_ArraySpecUTes=
+t.C
+PASS: intelmpi/O: src/Infrastructure/ArraySpec/tests/ESMF_ArraySpecUTes=
+t.F90
+PASS: intelmpi/O: src/Infrastructure/Base/tests/ESMC_BaseUTest.C
+PASS: intelmpi/O: src/Infrastructure/Base/tests/ESMF_BaseUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Config/tests/ESMC_ConfigUTest.C
+PASS: intelmpi/O: src/Infrastructure/Config/tests/ESMF_ConfigUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Container/tests/ESMF_ContainerUTes=
+t.F90
+PASS: intelmpi/O: src/Infrastructure/DELayout/tests/ESMF_DELayoutUTest.=
+F90
+PASS: intelmpi/O: src/Infrastructure/DELayout/tests/ESMF_DELayoutWorkQu=
+eueUTest.F90
+PASS: intelmpi/O: src/Infrastructure/DistGrid/tests/ESMC_DistGridUTest.=
+C
+PASS: intelmpi/O: src/Infrastructure/DistGrid/tests/ESMF_DistGridCreate=
+GetUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMC_FieldGridGridRegr=
+idCsrvUTest.C
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMC_FieldGridGridRegr=
+idUTest.C
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMC_FieldGridRegrid2U=
+Test.C
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMC_FieldGridRegridCs=
+rv2UTest.C
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMC_FieldGridRegridCs=
+rvUTest.C
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMC_FieldGridRegridPa=
+rUTest.C
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMC_FieldGridRegridUT=
+est.C
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMC_FieldRegridCsrvUT=
+est.C
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMC_FieldRegridUTest.=
+C
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMC_FieldSMMFromFileU=
+Test.C
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMC_FieldUTest.C
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldArbGridUTest=
+.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldCreateGetUTe=
+st.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldGatherUTest.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldHaloUTest.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldIOUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldLSSMMUTest.F=
+90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldRedistArbUTe=
+st.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldRedistUTest.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldRegridCSUTes=
+t.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldRegridCsrv2n=
+dUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldRegridCsrvUT=
+est.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldRegridUTest.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldRegridXGSMMU=
+Test.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldRegridXGUTes=
+t.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldSMMFromFileU=
+Test.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldSMMUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldStressUTest.=
+F90
+PASS: intelmpi/O: src/Infrastructure/Field/tests/ESMF_FieldUTest.F90
+PASS: intelmpi/O: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+CrGetUTest.F90
+PASS: intelmpi/O: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+IOUTest.F90
+PASS: intelmpi/O: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+RedistUTest.F90
+PASS: intelmpi/O: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+RegridUTest.F90
+PASS: intelmpi/O: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+SMMUTest.F90
+PASS: intelmpi/O: src/Infrastructure/FieldBundle/tests/ESMF_FieldBundle=
+UTest.F90
+PASS: intelmpi/O: src/Infrastructure/Grid/tests/ESMC_GridUTest.C
+PASS: intelmpi/O: src/Infrastructure/Grid/tests/ESMF_GridArbitraryUTest=
+.F90
+PASS: intelmpi/O: src/Infrastructure/Grid/tests/ESMF_GridCoordUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Grid/tests/ESMF_GridCreateUTest.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/Grid/tests/ESMF_GridItemUTest.F90
+PASS: intelmpi/O: src/Infrastructure/GridUtil/tests/ESMF_GridToMeshUTes=
+t.F90
+PASS: intelmpi/O: src/Infrastructure/IO/tests/ESMCI_IO_NetCDFUTest.C
+PASS: intelmpi/O: src/Infrastructure/IO/tests/ESMCI_IO_PIOUTest.C
+PASS: intelmpi/O: src/Infrastructure/IO/tests/ESMC_IO_InqUTest.C
+PASS: intelmpi/O: src/Infrastructure/IO/tests/ESMF_IOUTest.F90
+PASS: intelmpi/O: src/Infrastructure/IO/tests/ESMF_IO_PIOUTest.F90
+PASS: intelmpi/O: src/Infrastructure/IO/tests/ESMF_IO_YAMLUTest.F90
+PASS: intelmpi/O: src/Infrastructure/LocStream/tests/ESMC_LocStreamUTes=
+t.C
+PASS: intelmpi/O: src/Infrastructure/LocStream/tests/ESMF_LocStreamUTes=
+t.F90
+PASS: intelmpi/O: src/Infrastructure/LocalArray/tests/ESMF_LocalArrayDa=
+taUTest.F90
+PASS: intelmpi/O: src/Infrastructure/LocalArray/tests/ESMF_LocalArrayUT=
+est.F90
+PASS: intelmpi/O: src/Infrastructure/LogErr/tests/ESMC_LogErrPerfUTest.=
+C
+PASS: intelmpi/O: src/Infrastructure/LogErr/tests/ESMC_LogErrUTest.C
+PASS: intelmpi/O: src/Infrastructure/LogErr/tests/ESMF_LogErrPerfUTest.=
+F90
+PASS: intelmpi/O: src/Infrastructure/LogErr/tests/ESMF_LogErrUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MBMesh_BilinearPar=
+UTest.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MBMesh_BilinearSin=
+gleElemUTest.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MBMesh_BilinearUTe=
+st.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MBMesh_CreateParUT=
+est.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MBMesh_CreateUTest=
+.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MBMesh_SearchUTest=
+.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MBMesh_SerializeUT=
+est.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MBMesh_UtilParUTes=
+t.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MBMesh_UtilUTest.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MeshMOABUTest.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MeshUTest.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_MeshVTKUTest.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMC_Proj4UTest.C
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMF_MeshOpUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Mesh/tests/ESMF_MeshUTest.F90
+PASS: intelmpi/O: src/Infrastructure/PointList/tests/ESMF_PointListUTes=
+t.F90
+PASS: intelmpi/O: src/Infrastructure/Route/tests/ESMF_RouteHandleAdvanc=
+edUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Route/tests/ESMF_RouteHandleUTest.=
+F90
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/tests/ESMC_CalendarUTest.C
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/tests/ESMC_ClockUTest.C
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/tests/ESMC_TimeIntervalUTe=
+st.C
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/tests/ESMC_TimeUTest.C
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/tests/ESMF_AlarmUTest.F90
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/tests/ESMF_CalRangeUTest.F=
+90
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/tests/ESMF_CalendarUTest.F=
+90
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/tests/ESMF_ClockUTest.F90
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/tests/ESMF_TimeIntervalUTe=
+st.F90
+PASS: intelmpi/O: src/Infrastructure/TimeMgr/tests/ESMF_TimeUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Trace/tests/ESMC_TraceRegionUTest.=
+C
+PASS: intelmpi/O: src/Infrastructure/Trace/tests/ESMF_ProfileUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Trace/tests/ESMF_TraceClkMonoSyncU=
+Test.F90
+PASS: intelmpi/O: src/Infrastructure/Trace/tests/ESMF_TraceClkMonoUTest=
+.F90
+PASS: intelmpi/O: src/Infrastructure/Trace/tests/ESMF_TraceIOUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Trace/tests/ESMF_TraceMPIUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Trace/tests/ESMF_TraceUTest.F90
+PASS: intelmpi/O: src/Infrastructure/Util/tests/ESMF_FortranWordsizeUTe=
+st.F90
+PASS: intelmpi/O: src/Infrastructure/Util/tests/ESMF_InitMacrosUTest.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/Util/tests/ESMF_TypeKindGetUTest.F=
+90
+PASS: intelmpi/O: src/Infrastructure/Util/tests/ESMF_UtilUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMC_VMUTest.C
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMAccUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMAllGatherUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMAllGatherVUTest.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMAllToAllUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMAllToAllVUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMBarrierUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMBroadcastUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMComponentUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMGatherUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMOpenMPUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMScatterUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMSendNbVMRecvNbUTes=
+t.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMSendRecvNbUTest.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMSendRecvUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMSendVMRecvUTest.F9=
+0
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMUTest.F90
+PASS: intelmpi/O: src/Infrastructure/VM/tests/ESMF_VMUserMpiInitUTest.F=
+90
+PASS: intelmpi/O: src/Infrastructure/XGrid/tests/ESMC_XGridUTest.C
+PASS: intelmpi/O: src/Infrastructure/XGrid/tests/ESMF_XGridMaskingUTest=
+.F90
+PASS: intelmpi/O: src/Infrastructure/XGrid/tests/ESMF_XGridUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttInterna=
+lGridUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttPackABu=
+ndleUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttPackArr=
+ayUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttPackCpl=
+CompUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttPackDis=
+tGridUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttPackFBu=
+ndleUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttPackFie=
+ldUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttPackGri=
+dCompUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttPackGri=
+dUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttPackLoc=
+StreamUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttPackSci=
+CompUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttPackSta=
+teUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttReadCpl=
+CompUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttReadFie=
+ldUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttReadGri=
+dCompUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeA=
+BundleUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeA=
+rrayUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeA=
+utoLinkUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeC=
+plCompUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeD=
+istGridUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeF=
+BundleUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeF=
+ieldUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeG=
+ridCompUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeG=
+ridUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeJ=
+SONUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeL=
+ocStreamUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeS=
+ciCompUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeS=
+tateUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateCIMRespPartyUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateClosedLoopTreesUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateComponentUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateContainerStressUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateMultiReconcileUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateReconcileUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateRemoveOnlyUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeU=
+pdateUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeW=
+riteInternalUTest.F90
+PASS: intelmpi/O: src/Superstructure/AttributeAPI/tests/ESMF_AttributeX=
+MLUTest.F90
+PASS: intelmpi/O: src/Superstructure/Component/tests/ESMC_ComponentUTes=
+t.C
+PASS: intelmpi/O: src/Superstructure/Component/tests/ESMF_CompSetServUT=
+est.F90
+PASS: intelmpi/O: src/Superstructure/Component/tests/ESMF_CompTunnelUTe=
+st.F90
+PASS: intelmpi/O: src/Superstructure/Component/tests/ESMF_ComponentUTes=
+t.F90
+PASS: intelmpi/O: src/Superstructure/Component/tests/ESMF_CplCompCreate=
+UTest.F90
+PASS: intelmpi/O: src/Superstructure/Component/tests/ESMF_GridCompCreat=
+eUTest.F90
+PASS: intelmpi/O: src/Superstructure/Component/tests/ESMF_SciCompCreate=
+UTest.F90
+PASS: intelmpi/O: src/Superstructure/Component/tests/ESMF_StdCompMethod=
+sUTest.F90
+PASS: intelmpi/O: src/Superstructure/ESMFMod/tests/ESMF_FrameworkUTest.=
+F90
+PASS: intelmpi/O: src/Superstructure/IOAPI/tests/ESMF_IOCompUTest.F90
+PASS: intelmpi/O: src/Superstructure/PreESMFMod/tests/ESMF_FileRegridUT=
+est.F90
+PASS: intelmpi/O: src/Superstructure/PreESMFMod/tests/ESMF_RegridWeight=
+GenUTest.F90
+PASS: intelmpi/O: src/Superstructure/State/tests/ESMC_StateUTest.C
+PASS: intelmpi/O: src/Superstructure/State/tests/ESMF_StateCreateUTest.=
+F90
+PASS: intelmpi/O: src/Superstructure/State/tests/ESMF_StateReadWriteUTe=
+st.F90
+PASS: intelmpi/O: src/Superstructure/State/tests/ESMF_StateReconcileUTe=
+st.F90
+PASS: intelmpi/O: src/Superstructure/State/tests/ESMF_StateUTest.F90
+PASS: intelmpi/O: src/addon/NUOPC/tests/ESMF_NUOPC_UTest.F90
+PASS: intelmpi/O: src/epilogue/tests/ESMCI_TestUTest.C
+PASS: intelmpi/O: src/epilogue/tests/ESMC_TestUTest.C
+PASS: intelmpi/O: src/epilogue/tests/ESMF_TestUTest.F90
+PASS: intelmpi/O: src/prologue/tests/ESMCI_ExceptionsUTest.C
+PASS: intelmpi/O: src/prologue/tests/ESMCI_FeatureUTest.C
+PASS: intelmpi/O: src/prologue/tests/ESMF_F90ArrayPtrUTest.F90
+PASS: intelmpi/O: src/prologue/tests/ESMF_FeatureUTest.F90
+PASS: intelmpi/O: src/prologue/tests/ESMF_LAPACKUTest.F90
+PASS: intelmpi/O: src/prologue/tests/ESMF_StringUTest.F90
+PASS: intelmpi/O: src/prologue/tests/ESMF_WordsizeUTest.F90
+
+
+The following test harness unit tests pass:
+PASS: intelmpi/O: ESMF_array_2_NP4UTest
+PASS: intelmpi/O: ESMF_field_1_NP4UTest
+
+
+The log and stdout files for the unit tests can be found at:
+/scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/intel_hera=
+/esmf/test/testO/Linux.intel.64.intelmpi.default
+
+
+Found 9082 exhaustive multi-processor unit tests, 9082 passed and 0 fai=
+led.
+
+Sat Apr 18 01:45:40 MDT 2020 run_unit_tests_benchmark .....PASS
+
+
+
+Found 208 exhaustive multi-processor unit tests files, of those with a =
+threshold of 500 msecs. 0 passed the 20% tolerance benchmark test, and =
+0 failed.
+
+Benchmark install date: cat: /scratch2/BMC/esmf/Silverio.Vasquez/script=
+_dirs/daily_builds/intel_hera/esmf/../BENCHMARKDIR/test/testO/Linux.int=
+el.64.intelmpi.default/bm_timestamp: No such file or directory
+
+
+
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /scratch2/BMC/esmf/Silverio.Vasquez/script_dirs/daily_builds/intel_her=
+a/esmf_logs/2004_test.
+ These tarballs contain the *Log and *stdout files only, not the execut=
+ables.
+ This directory also contains failed build output files with the naming=
+ convention of=20
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COM=
+M.
+ For example, if the build fails on longs on the 19th of the month with=
+ ESMF_BOPT=3Dg, the file=20
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:green
+Day_of_Week:Friday
+Test_Failures:0
