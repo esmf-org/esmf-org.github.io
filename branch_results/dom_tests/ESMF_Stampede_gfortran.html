@@ -2,97 +2,111 @@
 Return-Path: <vasquez@login3.stampede2.tacc.utexas.edu>
 Delivered-To: unknown
 Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
-  with IMAP4-SSL; 05 Apr 2020 15:15:02 -0000
+  with IMAP4-SSL; 19 Apr 2020 15:15:03 -0000
 X-Original-To: esmftest@cgd.ucar.edu
 Delivered-To: esmftest@cgd.ucar.edu
 Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
-	by post2.cgd.ucar.edu (Postfix) with ESMTP id C13D738B
-	for <esmftest@cgd.ucar.edu>; Sun,  5 Apr 2020 09:02:27 -0600 (MDT)
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by vscanx2.ucar.edu (Postfix) with ESMTPS id 6C08F180027D
-	for <esmftest@cgd.ucar.edu>; Sun,  5 Apr 2020 09:02:27 -0600 (MDT)
-Received: by mail-pg1-f197.google.com with SMTP id k67so10743330pga.2
-        for <esmftest@cgd.ucar.edu>; Sun, 05 Apr 2020 08:02:27 -0700 (PDT)
-X-Gm-Message-State: AGi0PuauK4ExYoKpgCRsyHqllVUnbZzhNy3y1iEWAYCJ9nzVdKGMdKay
-	OourNpD+H83WjXROjNRWSqA9EQXBROr/G/f+5d8Bj1i/M7FvNEAGqMWZxn59SUf+Hg2jD0Y0G4k
-	gayNys5B3tR6sIQ==
-X-Received: by 2002:a63:dd09:: with SMTP id t9mr16535234pgg.432.1586098946528;
-        Sun, 05 Apr 2020 08:02:26 -0700 (PDT)
-X-Google-Smtp-Source: APiQypJP0gDWbcKr1izKRzx9TAKZZcP3/AmA/l+0olzsDDUbTotXTy/4hmUhmrbw+DQMgNjvZW5L
-X-Received: by 2002:a63:dd09:: with SMTP id t9mr16535079pgg.432.1586098944575;
-        Sun, 05 Apr 2020 08:02:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1586098944; cv=none;
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id B58EB2C7
+	for <esmftest@cgd.ucar.edu>; Sun, 19 Apr 2020 09:04:03 -0600 (MDT)
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id AD572180024B
+	for <esmftest@cgd.ucar.edu>; Sun, 19 Apr 2020 09:04:02 -0600 (MDT)
+Received: by mail-ej1-f70.google.com with SMTP id c22so4235290ejm.2
+        for <esmftest@cgd.ucar.edu>; Sun, 19 Apr 2020 08:04:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-original-authentication-results:x-gm-message-state:ironport-sdr
+         :date:to:subject:user-agent:mime-version:content-transfer-encoding
+         :message-id:from;
+        bh=S7HUNpiRRAlsnpfH5mj/K3WXhgRn0lJKUbpGVbUo1Q8=;
+        b=mjzEAK4MkdLZZrKLWaAq4cuaXmdICwMO0Bmczikprd3OxzfTl3x0gYcTRxKXMZfWtg
+         NsjpbWnb6YRoVIOgCDppGSibYaKxG29zC/Zb7f3911AFMmk+vZ2h2Y1TaFIPxdVnC/Ld
+         B80wXzxS5G39JvpOlAVnN3tGV1gkCcG5vn6znREAQhhBI/RXBHMZmozP0sTcz/2a/QYG
+         wQQ43RJFpwFAYiDKAjUOTlijhVld6/gZafCX3cBNLUiVrj9XIibmUHXWstoGEIWMB6lX
+         zcOpvpS1Aezartha67bjOkt4Nxkp0uEBrHBvjbFa574tO8qmG9jqQJZ1jLiAiD+wJWTC
+         M9GA==
+X-Original-Authentication-Results: mx.google.com;       spf=neutral (google.com: 216.71.154.221 is neither permitted nor denied by best guess record for domain of vasquez@login3.stampede2.tacc.utexas.edu) smtp.mailfrom=vasquez@login3.stampede2.tacc.utexas.edu
+X-Gm-Message-State: AGi0PuYWxqNi3cjImo1wQe0IzrM43V4iAeuCVPU+6YDMzL/I4xu3qPEQ
+	YGP/ZrvwZNlezekTM7ZbeYVjMliLJxha2Y5SWEt36km9PoNu8To3Z20O0Zsi4W97rjb1jeTuL+D
+	Z/lrZaXXXh7FwTA==
+X-Received: by 2002:a05:6402:3056:: with SMTP id bu22mr7550422edb.192.1587308641192;
+        Sun, 19 Apr 2020 08:04:01 -0700 (PDT)
+X-Google-Smtp-Source: APiQypJwBw7UfiuOuPVOu6j9ZCcguet3tLEV4YG27ST9s/jkaqcUuzLN3d6bwwC+9LvAn0guVHQN
+X-Received: by 2002:a05:6402:3056:: with SMTP id bu22mr7550285edb.192.1587308639454;
+        Sun, 19 Apr 2020 08:03:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1587308639; cv=none;
         d=google.com; s=arc-20160816;
-        b=f8OMHXxNiAVo20mPq4TQXzQz1Yj0VUOW90NbSvl15HZ5OOkvlUwdOim51QDKpeTRn6
-         aj2obHZWsCxJ5t83A5gLDN8sF1ezkbzFWaZz/345sLEmviKpTxkGRkzFkmp8QyKlBqiJ
-         uyIsGWq0Ht/efhgSeYEk9HbuUPPA6NMfBKv0uxpuzAMTIp/1nPbo9FuHK6viGL4figSG
-         EAgJC2juaHgD0AclCPhRtNqBxpK/vDM8ie2fN5PpF0ZBf42CFKwksnyJKc5Kt588ZRXY
-         5fB2wPGIt9OgY+AAH0Wvv6b+HK6H88Wgr3KhtIoC3HEVrkDhRmle/2zsDbvZcdgV76ST
-         p1pw==
+        b=sY+EVPny9UzmJ4uDN1fKHhE8WyvM8XUAsPm68Pujvx/w4SYXtxzPyd9C4KB0361tVm
+         HvBXG7kBIKtgBC2AUeyqD/L+zLoOUfu1aQiBtPihQ66hUZrFf8AukL/lzBHk6TEb/HQz
+         z9GxZDzPkO2GMxwfxlw8t5r1CdsUkK4uDZj9SKOvxoFh9Onnf1/A6iqxCwA4bBpLnA7i
+         UiodqHXq7AXlJEiht9cxirsiQopYuxoXMF/gnh2rX8V3mhz/W3pYaw0RWpfFrgCup0lR
+         KZnI8SGILE4IG2EMqZk9FWKByTYbZ5it32IJr63W8VO3dXZl4IO383LSk0tEVjkjTxFu
+         lIyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=from:message-id:content-transfer-encoding:mime-version:user-agent
          :subject:to:date:ironport-sdr;
-        bh=egm6gQAYwYa/wBn2zazMJEHv12/O7tWsM1R4oRr+S/A=;
-        b=pk92YC4Ci09eL3pGApOck4UKLZXZ9xhOhq59T0KG7aJQsKKf9CfxSFkMk+FsLSVgRs
-         Lqwu5s+F4pbL+IakLj963lqiLgj5CquwA4InPLFHfzA3Qw4/ijyzdIy/vRktX9yUZvcg
-         ZIDgmN25tfKVNgRLjWMhsfYygKaCLQKk5vxVq67dIkmB5coRTRn8aj4ec2ucQJb5GET5
-         VGVW/C0oVFpmrkOUiVfZmd60sT/7zHX4KzFwh83/3tTcwKFggvK1XoCTo6N0G3tGwQJV
-         4oyOCcd9vvaP5uWJCL6bLCzkgp9k7VL7REZr/ppzcrmW1R5iA9gqliQiejVjtsFTcN74
-         2z6Q==
+        bh=S7HUNpiRRAlsnpfH5mj/K3WXhgRn0lJKUbpGVbUo1Q8=;
+        b=qTaGR/cY9ZJPHTAxS+wKFR+C12tYsGlXMo4EzKodXZMwCxsJybyNPNSrUjU8KS5TcL
+         /0T83sSxioN2fbpFLpNhfQTIejyQzcDkHI7SK2L9BW+gMwtiLbhuxtlPw1kAwVGp7oSP
+         7wcl3HetC1YD3xBaMSlssVO29l1Pz3jvBHBAg14QxtL+x08i5s/1tcHtaLLH1lb+dXKq
+         tZVyr5XHMyaKOtDdGbaCnN/ddPa3A8kobPoGc/bx9vDZRu2D5vBmjGznJxN/sHB+6uZd
+         HHQzoLkyA77CN0MTT5dP4k5Z2sqSTBGgHcRr9SZ3gneKAR7iqJc3PohhxirFahhjRnDZ
+         6AVg==
 ARC-Authentication-Results: i=1; mx.google.com;
-       spf=neutral (google.com: 216.71.150.156 is neither permitted nor denied by best guess record for domain of vasquez@login3.stampede2.tacc.utexas.edu) smtp.mailfrom=vasquez@login3.stampede2.tacc.utexas.edu
-Received: from esa10.utexas.iphmx.com (esa10.utexas.iphmx.com. [216.71.150.156])
-        by mx.google.com with ESMTPS id ay6si10549029plb.149.2020.04.05.08.02.24
+       spf=neutral (google.com: 216.71.154.221 is neither permitted nor denied by best guess record for domain of vasquez@login3.stampede2.tacc.utexas.edu) smtp.mailfrom=vasquez@login3.stampede2.tacc.utexas.edu
+Received: from esa12.utexas.iphmx.com (esa12.utexas.iphmx.com. [216.71.154.221])
+        by mx.google.com with ESMTPS id do8si22018106ejc.149.2020.04.19.08.03.57
         for <esmftest@cgd.ucar.edu>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 05 Apr 2020 08:02:24 -0700 (PDT)
-Received-SPF: neutral (google.com: 216.71.150.156 is neither permitted nor denied by best guess record for domain of vasquez@login3.stampede2.tacc.utexas.edu) client-ip=216.71.150.156;
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 19 Apr 2020 08:03:58 -0700 (PDT)
+Received-SPF: neutral (google.com: 216.71.154.221 is neither permitted nor denied by best guess record for domain of vasquez@login3.stampede2.tacc.utexas.edu) client-ip=216.71.154.221;
 Authentication-Results: mx.google.com;
-       spf=neutral (google.com: 216.71.150.156 is neither permitted nor denied by best guess record for domain of vasquez@login3.stampede2.tacc.utexas.edu) smtp.mailfrom=vasquez@login3.stampede2.tacc.utexas.edu
-IronPort-SDR: aPsLk+77lyctY7WtB8IPHGy30TtHJ6IZswlUuXmz/YIb9WrsLHisOcYUD7G5DRHnfTCpM+rBb9
- sHVN7/dKj94cW2EcWSC9TuktlVjn4+hrmTQXXIwrSlRd4+/Y6HF27LU1jFq/JTpq7bDjl0+vgI
- Ee70eED1cac0cf1GQ7c9jly88s4LFrnyLmrmi+ktyuCAsy6+VSPpw545GZWdQqA3xdK/KQy86t
- qTW3T+ZAJMt40mln7dLEykAn9w+6TOis0bdYnODdn1RdWh1U8px3Hzv/4ryhrXh4/jzR3GyJX+
- Hew=
+       spf=neutral (google.com: 216.71.154.221 is neither permitted nor denied by best guess record for domain of vasquez@login3.stampede2.tacc.utexas.edu) smtp.mailfrom=vasquez@login3.stampede2.tacc.utexas.edu
+IronPort-SDR: fWwMjdslasbyKaqRtT8hKzfj/f3B++1UEmaNTfg5teuCZpTXHBa/PO36bEA2qzGbEi5KyG6VJs
+ +U2ddxZ/wjlri7hrSgoAyxmA+QPk0TVFnxdNSpW7SkkA8H1WtSTStna6/6ft6wx6lZTxXd2mb4
+ q06Xj+Sk6JtpxthGbYdPvPHkmBUn8ZhC7snxA4TbZBi/lH0Gd3PhIo6wESfNBgYiniD3mPawug
+ sHpdhwPaTfIg3mZAbAzC0lqS+TyYs1OU5I+1nP12Q3rkyaZd0MjRUx8B8mOT96Xz1m+hOP3uMJ
+ RvA=
 X-Utexas-Sender-Group: RELAYLIST-SCAN
-X-IronPort-MID: 188611222
+X-IronPort-MID: 182812974
 X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FDAgAO8olemAJjcoFmDg4BAQEBAQc?=
- =?us-ascii?q?BAREBBAQBAYF7gXgFH3lWMSqHY4szgWyUSYU8gSs8AggBAQEBAQEBAQErCAQ?=
- =?us-ascii?q?EAQECgQJMgnSCSSQ4EwIDAQwBAQYBAQEBAQUEAgIQAQEBAQEICwsGKYVdDIJ?=
- =?us-ascii?q?2XX0BAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQESAggFTwUmIwEBNggBH4FMGio?=
- =?us-ascii?q?igjlLAYJ8D6FIAYEoPgIjAT8BDIEFizKDfTgBgRaDRIFMgTiMMxqCAIERM4Y?=
- =?us-ascii?q?CAgGBJwgBCwcBTYMYgiwEjX4KIIkAJYEdgQCWOhFpgkeHcIofhQ8MHYJOM4g?=
- =?us-ascii?q?FhF2MHy2YMI5bHIYZWTFwck6CaQkWMRgNjikOCYNQaoNvO4UEWyQyAgGND4J?=
- =?us-ascii?q?DAQE?=
-X-IPAS-Result: =?us-ascii?q?A2FDAgAO8olemAJjcoFmDg4BAQEBAQcBAREBBAQBAYF7g?=
- =?us-ascii?q?XgFH3lWMSqHY4szgWyUSYU8gSs8AggBAQEBAQEBAQErCAQEAQECgQJMgnSCS?=
- =?us-ascii?q?SQ4EwIDAQwBAQYBAQEBAQUEAgIQAQEBAQEICwsGKYVdDIJ2XX0BAQEBAQEBA?=
- =?us-ascii?q?QEBAQEBAQEBAQEBAQEBAQESAggFTwUmIwEBNggBH4FMGioigjlLAYJ8D6FIA?=
- =?us-ascii?q?YEoPgIjAT8BDIEFizKDfTgBgRaDRIFMgTiMMxqCAIERM4YCAgGBJwgBCwcBT?=
- =?us-ascii?q?YMYgiwEjX4KIIkAJYEdgQCWOhFpgkeHcIofhQ8MHYJOM4gFhF2MHy2YMI5bH?=
- =?us-ascii?q?IYZWTFwck6CaQkWMRgNjikOCYNQaoNvO4UEWyQyAgGND4JDAQE?=
-X-IronPort-AV: E=Sophos;i="5.72,348,1580796000"; 
-   d="scan'208";a="188611222"
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2G2AAAAaJxemAJjcoFmDg0BAQEBAQE?=
+ =?us-ascii?q?BBQEBAREBAQMDAQEBgXuBeAWBGFYxKodmizSBbJRQhTyBKzwCCAEBAQEBAQE?=
+ =?us-ascii?q?BASsIBAQBAQKBAkyCdIISJDgTAgMBAQEDAgUBAQYBAQEBAQEEBAICEAEBAQE?=
+ =?us-ascii?q?BCAsLBikLAQEHCgIBhE4hBAEBBQoBNwyCdl59AQEBAQEBAQEBAQEBAQEBAQE?=
+ =?us-ascii?q?BAQEBAQEBEgIIBU8FJiMBATYIAR+BTBoqIoI5SwGCfA+hNAGBKD4CIwE/AQy?=
+ =?us-ascii?q?BBYsyhAE4AYEWg1OBTYE4jDkaggCBETOGAgIBgScIAQsHAU2DGIItBI4aCiC?=
+ =?us-ascii?q?JGCaBKIEAllsRa4JOiAaKPoUbDB2CVjOIG4RxjD0tmH6PARyGIVkxcHJOgmk?=
+ =?us-ascii?q?JFjEYDZFkDgmDUGqDbzuFBFskMgIBjQyCRQEB?=
+X-IPAS-Result: =?us-ascii?q?A2G2AAAAaJxemAJjcoFmDg0BAQEBAQEBBQEBAREBAQMDA?=
+ =?us-ascii?q?QEBgXuBeAWBGFYxKodmizSBbJRQhTyBKzwCCAEBAQEBAQEBASsIBAQBAQKBA?=
+ =?us-ascii?q?kyCdIISJDgTAgMBAQEDAgUBAQYBAQEBAQEEBAICEAEBAQEBCAsLBikLAQEHC?=
+ =?us-ascii?q?gIBhE4hBAEBBQoBNwyCdl59AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBEgIIB?=
+ =?us-ascii?q?U8FJiMBATYIAR+BTBoqIoI5SwGCfA+hNAGBKD4CIwE/AQyBBYsyhAE4AYEWg?=
+ =?us-ascii?q?1OBTYE4jDkaggCBETOGAgIBgScIAQsHAU2DGIItBI4aCiCJGCaBKIEAllsRa?=
+ =?us-ascii?q?4JOiAaKPoUbDB2CVjOIG4RxjD0tmH6PARyGIVkxcHJOgmkJFjEYDZFkDgmDU?=
+ =?us-ascii?q?GqDbzuFBFskMgIBjQyCRQEB?=
+X-IronPort-AV: E=Sophos;i="5.72,403,1580796000"; 
+   d="scan'208";a="182812974"
 X-Utexas-Seen-Outbound: true
 Received: from relay02.tacc.utexas.edu ([129.114.99.2])
-  by esa10.utexas.iphmx.com with ESMTP; 05 Apr 2020 10:02:22 -0500
+  by esa12.utexas.iphmx.com with ESMTP; 19 Apr 2020 10:03:53 -0500
 Received: from master.stampede2.tacc.utexas.edu (master.stampede2.tacc.utexas.edu [206.76.192.1])
-	by relay02.tacc.utexas.edu (Postfix) with ESMTP id 3057D2006F3
-	for <esmftest@cgd.ucar.edu>; Sun,  5 Apr 2020 10:02:21 -0500 (CDT)
+	by relay02.tacc.utexas.edu (Postfix) with ESMTP id A78312006DB
+	for <esmftest@cgd.ucar.edu>; Sun, 19 Apr 2020 10:03:53 -0500 (CDT)
 Received: from login3.stampede2.tacc.utexas.edu (login3.stampede2.tacc.utexas.edu [206.76.192.53])
-	by master.stampede2.tacc.utexas.edu (Postfix) with ESMTP id 2D001603F3
-	for <esmftest@cgd.ucar.edu>; Sun,  5 Apr 2020 10:02:21 -0500 (CDT)
+	by master.stampede2.tacc.utexas.edu (Postfix) with ESMTP id A05F9603F5
+	for <esmftest@cgd.ucar.edu>; Sun, 19 Apr 2020 10:03:53 -0500 (CDT)
 Received: by login3.stampede2.tacc.utexas.edu (Postfix, from userid 838286)
-	id 232D480095; Sun,  5 Apr 2020 10:02:21 -0500 (CDT)
-Date: Sun, 05 Apr 2020 10:02:21 -0500
+	id 9EBA580097; Sun, 19 Apr 2020 10:03:53 -0500 (CDT)
+Date: Sun, 19 Apr 2020 10:03:53 -0500
 To: esmftest@cgd.ucar.edu
 Subject: ESMF_Stampede_gfortran
 User-Agent: Heirloom mailx 12.5 7/5/10
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20200405150221.232D480095@login3.stampede2.tacc.utexas.edu>
+Message-Id: <20200419150353.9EBA580097@login3.stampede2.tacc.utexas.edu>
 From: vasquez@login3.stampede2.tacc.utexas.edu (Silverio Vasquez)
 X-Gm-Spam: 1
 X-Gm-Phishy: 0
@@ -102,9 +116,9 @@ X-getmail-retrieved-from-mailbox: INBOX
 
 
 
-Script start time: Sun Apr  5 04:16:03 CDT 2020
+Script start time: Sun Apr 19 04:15:57 CDT 2020
 
-Script end: Sun Apr  5 10:02:20 CDT 2020
+Script end: Sun Apr 19 10:03:53 CDT 2020
 
 
 _____________________________________ESMF TRUNK  BUILD AND TEST SUMMARY=
@@ -122,15 +136,15 @@ ______________________________
 S/FAIL  PASS/FAIL   PASS/FAIL
 _______________________________________________________________________=
 ______________________________
-c403-051(g) PASS      PASS    Linux.gfortran.mpiuni.64     7601/0      =
+c407-023(g) PASS      PASS    Linux.gfortran.mpiuni.64     7602/0      =
 50/0       8/0      18/0
-c403-051(O) PASS      PASS    Linux.gfortran.mpiuni.64     7601/0      =
+c407-023(O) PASS      PASS    Linux.gfortran.mpiuni.64     7602/0      =
 50/0       8/0      18/0
 
 _______________________________________________________________________=
 ________________________
 
-Sun Apr  5 04:19:57 CDT 2020 on c403-051.stampede2.tacc.utexas.edu=20
+Sun Apr 19 04:19:53 CDT 2020 on c407-023.stampede2.tacc.utexas.edu=20
 
 ESMF Checkout Source: git://git.code.sf.net/p/esmf/esmf
 
@@ -148,13 +162,13 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -302,7 +316,7 @@ ESMF_F90COMPILEPATHS: -I/scratch/04529/vasquez/trunk/gfortran/esmf/mod/=
 modg/Linux.gfortran.64.mpiuni.default -I/scratch/04529/vasquez/trunk/gf=
 ortran/esmf/src/include=20
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7' -DESMF=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b' -DESMF=
 _MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
 FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_NO_OPENACC -=
 DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_smal=
@@ -335,7 +349,7 @@ ESMF_CXXCOMPILEPATHS:  -I/scratch/04529/vasquez/trunk/gfortran/esmf/src=
 ure/stubs/mpiuni -I/scratch/04529/vasquez/trunk/gfortran/esmf/src/prolo=
 gue/yaml-cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7' -DESMF=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b' -DESMF=
 _MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
 FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_NO_OPENACC -=
 DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_smal=
@@ -395,26 +409,26 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Sun Apr 5 04:20:01 CDT 2020 on c403-051.stampede2.tacc.ute=
-xas.edu
-Machine characteristics: Linux c403-051.stampede2.tacc.utexas.edu 3.10.=
+Compiling on Sun Apr 19 04:19:57 CDT 2020 on c407-023.stampede2.tacc.ut=
+exas.edu
+Machine characteristics: Linux c407-023.stampede2.tacc.utexas.edu 3.10.=
 0-957.5.1.el7.x86_64 #1 SMP Fri Feb 1 14:54:57 UTC 2019 x86_64 x86_64 x=
 86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Sun Apr  5 05:26:43 CDT 2020 library build ................PASS
+Sun Apr 19 05:26:46 CDT 2020 library build ................PASS
 Builds with warnings.
-Sun Apr  5 05:27:34 CDT 2020 library install ..............PASS
-Sun Apr  5 05:27:40 CDT 2020 library installcheck .........PASS
-Sun Apr  5 05:30:55 CDT 2020 quickstart build .............PASS
+Sun Apr 19 05:27:36 CDT 2020 library install ..............PASS
+Sun Apr 19 05:27:42 CDT 2020 library installcheck .........PASS
+Sun Apr 19 05:30:53 CDT 2020 quickstart build .............PASS
 
 |------------------------ APPs TESTS --------------------------|
-Sun Apr  5 05:31:09 CDT 2020 apps build ...................PASS
+Sun Apr 19 05:31:06 CDT 2020 apps build ...................PASS
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:09 CDT 2020 ESMF_Regrid --help ...........PASS
+Sun Apr 19 05:31:06 CDT 2020 ESMF_Regrid --help ...........PASS
 The following is the output of ESMF_Regrid --help
 
  Usage: ESMF_Regrid
@@ -533,7 +547,7 @@ lon(i,j)), assuming
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:09 CDT 2020 ESMF_Regrid --version ........PASS
+Sun Apr 19 05:31:06 CDT 2020 ESMF_Regrid --version ........PASS
 The following is the output of ESMF_Regrid --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -599,7 +613,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:09 CDT 2020 ESMF_Regrid -V ...............PASS
+Sun Apr 19 05:31:06 CDT 2020 ESMF_Regrid -V ...............PASS
 The following is the output of ESMF_Regrid -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -607,7 +621,7 @@ The following is the output of ESMF_Regrid -V
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:10 CDT 2020 ESMF_Info --help .............PASS
+Sun Apr 19 05:31:07 CDT 2020 ESMF_Info --help .............PASS
 The following is the output of ESMF_Info --help=20
 
  ESMF_Info: Print information about the ESMF installation.
@@ -620,7 +634,7 @@ The following is the output of ESMF_Info --help=20
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:10 CDT 2020 ESMF_Info --version ..........PASS
+Sun Apr 19 05:31:07 CDT 2020 ESMF_Info --version ..........PASS
 The following is the output of ESMF_Info --version=20
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -686,7 +700,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:10 CDT 2020 ESMF_Info -V .................PASS
+Sun Apr 19 05:31:07 CDT 2020 ESMF_Info -V .................PASS
 The following is the output of ESMF_Info -V=20
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -694,7 +708,7 @@ The following is the output of ESMF_Info -V=20
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:10 CDT 2020 ESMF_InfoC --help ............PASS
+Sun Apr 19 05:31:07 CDT 2020 ESMF_InfoC --help ............PASS
 The following is the output of ESMF_InfoC --help
 
 ESMF_InfoC: Print information about the ESMF installation.
@@ -707,7 +721,7 @@ Options:
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:10 CDT 2020 ESMF_InfoC --version .........PASS
+Sun Apr 19 05:31:07 CDT 2020 ESMF_InfoC --version .........PASS
 The following is the output of ESMF_InfoC --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -773,7 +787,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:10 CDT 2020 ESMF_InfoC -V ................PASS
+Sun Apr 19 05:31:07 CDT 2020 ESMF_InfoC -V ................PASS
 The following is the output of ESMF_InfoC -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -781,13 +795,12 @@ The following is the output of ESMF_InfoC -V
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:10 CDT 2020 ESMF_RegridWeightGen --help ..PASS
+Sun Apr 19 05:31:07 CDT 2020 ESMF_RegridWeightGen --help ..PASS
 The following is the output of ESMF_RegridWeightGen --help
 
  Usage: ESMF_RegridWeightGen --source|-s src_grid_filename
                             --destination|-d dst_grid_filename
                        --weight|-w out_weight_file=20
-                       [--rhfile|-rh out_routehandle_file]
                        [--method|-m bilinear|patch|neareststod|nearestd=
 tos|conserve|conserve2nd]
                        [--pole|-p all|none|teeth|<N>]
@@ -827,9 +840,6 @@ rid
                        file name
  --weight or -w - a required argument specifying the output regridding =
 weight
-                  file name
- --rhfile or -rh - an optional argument specifying the output routehand=
-le
                   file name
  --method or -m - an optional argument specifying which interpolation m=
 ethod is
@@ -967,7 +977,7 @@ etween the destination
 rror between the mass
               of the source and destination fields in the conservative =
 case.
- --help     - Print this help message and exit.
+ --help or -h - Print this help message and exit.
  --version  - Print ESMF version and license information and exit.
  -V        - Print ESMF version number and exit.
 =20
@@ -981,7 +991,7 @@ case.
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:10 CDT 2020 ESMF_RegridWeightGen --version PASS
+Sun Apr 19 05:31:07 CDT 2020 ESMF_RegridWeightGen --version PASS
 The following is the output of ESMF_RegridWeightGen --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1047,7 +1057,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:10 CDT 2020 ESMF_RegridWeightGen -V ......PASS
+Sun Apr 19 05:31:07 CDT 2020 ESMF_RegridWeightGen -V ......PASS
 The following is the output of ESMF_RegridWeightGen -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1055,7 +1065,7 @@ The following is the output of ESMF_RegridWeightGen -V
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:10 CDT 2020 ESMF_Scrip2Unstruct --help ...PASS
+Sun Apr 19 05:31:07 CDT 2020 ESMF_Scrip2Unstruct --help ...PASS
 The following is the output of ESMF_Scrip2Unstruct --help
 
 ESMF_Scrip2Unstruct: Convert an unstructured grid file in SCRIP format =
@@ -1075,7 +1085,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:11 CDT 2020 ESMF_Scrip2Unstruct --version PASS
+Sun Apr 19 05:31:08 CDT 2020 ESMF_Scrip2Unstruct --version PASS
 The following is the output of ESMF_Scrip2Unstruct --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1141,7 +1151,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:11 CDT 2020 ESMF_Scrip2Unstruct -V .......PASS
+Sun Apr 19 05:31:08 CDT 2020 ESMF_Scrip2Unstruct -V .......PASS
 The following is the output of ESMF_Scrip2Unstruct -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1149,7 +1159,7 @@ The following is the output of ESMF_Scrip2Unstruct -V
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:11 CDT 2020 ESMF_WebServController --help PASS
+Sun Apr 19 05:31:08 CDT 2020 ESMF_WebServController --help PASS
 The following is the output of ESMF_WebServController --help
 
 ESMF_WebServController: Run a Process Controller that provides access t=
@@ -1170,7 +1180,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:11 CDT 2020 ESMF_WebServController --version PASS
+Sun Apr 19 05:31:08 CDT 2020 ESMF_WebServController --version PASS
 The following is the output of ESMF_WebServController --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1236,7 +1246,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 05:31:11 CDT 2020 ESMF_WebServController -V ....PASS
+Sun Apr 19 05:31:08 CDT 2020 ESMF_WebServController -V ....PASS
 The following is the output of ESMF_WebServController -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -1247,8 +1257,8 @@ The following is the output of ESMF_WebServController -V
 Ran 18 applications tests, 18 passed and 0 failed.
 
 |----------------------- SYSTEM TESTS -------------------------|
-Sun Apr  5 05:45:27 CDT 2020 build_system_tests ...........PASS
-Sun Apr  5 05:49:56 CDT 2020 run_system_tests_uni .........PASS
+Sun Apr 19 05:45:22 CDT 2020 build_system_tests ...........PASS
+Sun Apr 19 05:49:48 CDT 2020 run_system_tests_uni .........PASS
 
 
 The following system tests passed:
@@ -1284,8 +1294,8 @@ Found 8 single processor system tests, 8 passed and 0 failed.
 
 
 |------------------------- EXAMPLES ---------------------------|
-Sun Apr  5 06:01:14 CDT 2020 build_examples ...............PASS
-Sun Apr  5 06:08:14 CDT 2020 run_examples_uni .............PASS
+Sun Apr 19 06:01:04 CDT 2020 build_examples ...............PASS
+Sun Apr 19 06:07:47 CDT 2020 run_examples_uni .............PASS
 
 
 The following examples passed:
@@ -1387,8 +1397,8 @@ Found 50 single processor examples, 50 passed and 0 failed.
 
 
 |-------------------- EXHAUSTIVE UNIT TESTS -------------------|
-Sun Apr  5 06:35:30 CDT 2020 build_unit_tests .............PASS
-Sun Apr  5 07:21:34 CDT 2020 run_unit_tests_uni ...........PASS
+Sun Apr 19 06:35:09 CDT 2020 build_unit_tests .............PASS
+Sun Apr 19 07:20:31 CDT 2020 run_unit_tests_uni ...........PASS
 
 
 
@@ -1662,7 +1672,7 @@ The log and stdout files for the unit tests can be found at:
 .mpiuni.default
 
 
-Found 7601 exhaustive single processor unit tests, 7601 passed and 0 fa=
+Found 7602 exhaustive single processor unit tests, 7602 passed and 0 fa=
 iled.
 
 
@@ -1670,7 +1680,7 @@ iled.
 _______________________________________________________________________=
 ________________________
 
-Sun Apr  5 07:24:44 CDT 2020 on c403-051.stampede2.tacc.utexas.edu=20
+Sun Apr 19 07:23:44 CDT 2020 on c407-023.stampede2.tacc.utexas.edu=20
 
 ESMF Checkout Source: git://git.code.sf.net/p/esmf/esmf
 
@@ -1688,13 +1698,13 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -1844,7 +1854,7 @@ ESMF_F90COMPILEPATHS: -I/scratch/04529/vasquez/trunk/gfortran/esmf/mod/=
 modO/Linux.gfortran.64.mpiuni.default -I/scratch/04529/vasquez/trunk/gf=
 ortran/esmf/src/include=20
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7' -DESMF=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b' -DESMF=
 _MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
 FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_NO_OPENACC -=
 DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_smal=
@@ -1876,7 +1886,7 @@ ESMF_CXXCOMPILEPATHS:  -I/scratch/04529/vasquez/trunk/gfortran/esmf/src=
 ure/stubs/mpiuni -I/scratch/04529/vasquez/trunk/gfortran/esmf/src/prolo=
 gue/yaml-cpp/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_12-11-g5ec5bb7' -DESMF=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b' -DESMF=
 _MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
 FTWARE_STACK=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_NO_OPENACC -=
 DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_smal=
@@ -1936,26 +1946,26 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Sun Apr 5 07:24:50 CDT 2020 on c403-051.stampede2.tacc.ute=
-xas.edu
-Machine characteristics: Linux c403-051.stampede2.tacc.utexas.edu 3.10.=
+Compiling on Sun Apr 19 07:23:50 CDT 2020 on c407-023.stampede2.tacc.ut=
+exas.edu
+Machine characteristics: Linux c407-023.stampede2.tacc.utexas.edu 3.10.=
 0-957.5.1.el7.x86_64 #1 SMP Fri Feb 1 14:54:57 UTC 2019 x86_64 x86_64 x=
 86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Sun Apr  5 08:31:22 CDT 2020 library build ................PASS
+Sun Apr 19 08:29:56 CDT 2020 library build ................PASS
 Builds with warnings.
-Sun Apr  5 08:32:04 CDT 2020 library install ..............PASS
-Sun Apr  5 08:32:09 CDT 2020 library installcheck .........PASS
-Sun Apr  5 08:35:16 CDT 2020 quickstart build .............PASS
+Sun Apr 19 08:30:37 CDT 2020 library install ..............PASS
+Sun Apr 19 08:30:42 CDT 2020 library installcheck .........PASS
+Sun Apr 19 08:33:57 CDT 2020 quickstart build .............PASS
 
 |------------------------ APPs TESTS --------------------------|
-Sun Apr  5 08:35:27 CDT 2020 apps build ...................PASS
+Sun Apr 19 08:34:08 CDT 2020 apps build ...................PASS
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:27 CDT 2020 ESMF_Regrid --help ...........PASS
+Sun Apr 19 08:34:08 CDT 2020 ESMF_Regrid --help ...........PASS
 The following is the output of ESMF_Regrid --help
 
  Usage: ESMF_Regrid
@@ -2074,7 +2084,7 @@ lon(i,j)), assuming
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:27 CDT 2020 ESMF_Regrid --version ........PASS
+Sun Apr 19 08:34:08 CDT 2020 ESMF_Regrid --version ........PASS
 The following is the output of ESMF_Regrid --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2140,7 +2150,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:27 CDT 2020 ESMF_Regrid -V ...............PASS
+Sun Apr 19 08:34:08 CDT 2020 ESMF_Regrid -V ...............PASS
 The following is the output of ESMF_Regrid -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2148,7 +2158,7 @@ The following is the output of ESMF_Regrid -V
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:27 CDT 2020 ESMF_Info --help .............PASS
+Sun Apr 19 08:34:08 CDT 2020 ESMF_Info --help .............PASS
 The following is the output of ESMF_Info --help=20
 
  ESMF_Info: Print information about the ESMF installation.
@@ -2161,7 +2171,7 @@ The following is the output of ESMF_Info --help=20
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:27 CDT 2020 ESMF_Info --version ..........PASS
+Sun Apr 19 08:34:08 CDT 2020 ESMF_Info --version ..........PASS
 The following is the output of ESMF_Info --version=20
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2227,7 +2237,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:27 CDT 2020 ESMF_Info -V .................PASS
+Sun Apr 19 08:34:08 CDT 2020 ESMF_Info -V .................PASS
 The following is the output of ESMF_Info -V=20
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2235,7 +2245,7 @@ The following is the output of ESMF_Info -V=20
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_InfoC --help ............PASS
+Sun Apr 19 08:34:08 CDT 2020 ESMF_InfoC --help ............PASS
 The following is the output of ESMF_InfoC --help
 
 ESMF_InfoC: Print information about the ESMF installation.
@@ -2248,7 +2258,7 @@ Options:
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_InfoC --version .........PASS
+Sun Apr 19 08:34:08 CDT 2020 ESMF_InfoC --version .........PASS
 The following is the output of ESMF_InfoC --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2314,7 +2324,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_InfoC -V ................PASS
+Sun Apr 19 08:34:08 CDT 2020 ESMF_InfoC -V ................PASS
 The following is the output of ESMF_InfoC -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2322,13 +2332,12 @@ The following is the output of ESMF_InfoC -V
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_RegridWeightGen --help ..PASS
+Sun Apr 19 08:34:09 CDT 2020 ESMF_RegridWeightGen --help ..PASS
 The following is the output of ESMF_RegridWeightGen --help
 
  Usage: ESMF_RegridWeightGen --source|-s src_grid_filename
                             --destination|-d dst_grid_filename
                        --weight|-w out_weight_file=20
-                       [--rhfile|-rh out_routehandle_file]
                        [--method|-m bilinear|patch|neareststod|nearestd=
 tos|conserve|conserve2nd]
                        [--pole|-p all|none|teeth|<N>]
@@ -2368,9 +2377,6 @@ rid
                        file name
  --weight or -w - a required argument specifying the output regridding =
 weight
-                  file name
- --rhfile or -rh - an optional argument specifying the output routehand=
-le
                   file name
  --method or -m - an optional argument specifying which interpolation m=
 ethod is
@@ -2508,7 +2514,7 @@ etween the destination
 rror between the mass
               of the source and destination fields in the conservative =
 case.
- --help     - Print this help message and exit.
+ --help or -h - Print this help message and exit.
  --version  - Print ESMF version and license information and exit.
  -V        - Print ESMF version number and exit.
 =20
@@ -2522,7 +2528,7 @@ case.
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_RegridWeightGen --version PASS
+Sun Apr 19 08:34:09 CDT 2020 ESMF_RegridWeightGen --version PASS
 The following is the output of ESMF_RegridWeightGen --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2588,7 +2594,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_RegridWeightGen -V ......PASS
+Sun Apr 19 08:34:09 CDT 2020 ESMF_RegridWeightGen -V ......PASS
 The following is the output of ESMF_RegridWeightGen -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2596,7 +2602,7 @@ The following is the output of ESMF_RegridWeightGen -V
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_Scrip2Unstruct --help ...PASS
+Sun Apr 19 08:34:09 CDT 2020 ESMF_Scrip2Unstruct --help ...PASS
 The following is the output of ESMF_Scrip2Unstruct --help
 
 ESMF_Scrip2Unstruct: Convert an unstructured grid file in SCRIP format =
@@ -2616,7 +2622,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_Scrip2Unstruct --version PASS
+Sun Apr 19 08:34:09 CDT 2020 ESMF_Scrip2Unstruct --version PASS
 The following is the output of ESMF_Scrip2Unstruct --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2682,7 +2688,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_Scrip2Unstruct -V .......PASS
+Sun Apr 19 08:34:09 CDT 2020 ESMF_Scrip2Unstruct -V .......PASS
 The following is the output of ESMF_Scrip2Unstruct -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2690,7 +2696,7 @@ The following is the output of ESMF_Scrip2Unstruct -V
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_WebServController --help PASS
+Sun Apr 19 08:34:09 CDT 2020 ESMF_WebServController --help PASS
 The following is the output of ESMF_WebServController --help
 
 ESMF_WebServController: Run a Process Controller that provides access t=
@@ -2711,7 +2717,7 @@ it.
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_WebServController --version PASS
+Sun Apr 19 08:34:09 CDT 2020 ESMF_WebServController --version PASS
 The following is the output of ESMF_WebServController --version
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2777,7 +2783,7 @@ ALINGS
 
 
 |--------------------------------------------------------------|
-Sun Apr  5 08:35:28 CDT 2020 ESMF_WebServController -V ....PASS
+Sun Apr 19 08:34:09 CDT 2020 ESMF_WebServController -V ....PASS
 The following is the output of ESMF_WebServController -V
 
    ESMF_VERSION_STRING:       8.1.0 beta snapshot
@@ -2788,8 +2794,8 @@ The following is the output of ESMF_WebServController -V
 Ran 18 applications tests, 18 passed and 0 failed.
 
 |----------------------- SYSTEM TESTS -------------------------|
-Sun Apr  5 08:49:40 CDT 2020 build_system_tests ...........PASS
-Sun Apr  5 08:52:06 CDT 2020 run_system_tests_uni .........PASS
+Sun Apr 19 08:48:39 CDT 2020 build_system_tests ...........PASS
+Sun Apr 19 08:51:09 CDT 2020 run_system_tests_uni .........PASS
 
 
 The following system tests passed:
@@ -2825,8 +2831,8 @@ Found 8 single processor system tests, 8 passed and 0 failed.
 
 
 |------------------------- EXAMPLES ---------------------------|
-Sun Apr  5 09:03:07 CDT 2020 build_examples ...............PASS
-Sun Apr  5 09:09:43 CDT 2020 run_examples_uni .............PASS
+Sun Apr 19 09:02:37 CDT 2020 build_examples ...............PASS
+Sun Apr 19 09:09:34 CDT 2020 run_examples_uni .............PASS
 
 
 The following examples passed:
@@ -2928,8 +2934,8 @@ Found 50 single processor examples, 50 passed and 0 failed.
 
 
 |-------------------- EXHAUSTIVE UNIT TESTS -------------------|
-Sun Apr  5 09:38:31 CDT 2020 build_unit_tests .............PASS
-Sun Apr  5 10:02:14 CDT 2020 run_unit_tests_uni ...........PASS
+Sun Apr 19 09:39:12 CDT 2020 build_unit_tests .............PASS
+Sun Apr 19 10:03:46 CDT 2020 run_unit_tests_uni ...........PASS
 
 
 
@@ -3203,7 +3209,7 @@ The log and stdout files for the unit tests can be found at:
 .mpiuni.default
 
 
-Found 7601 exhaustive single processor unit tests, 7601 passed and 0 fa=
+Found 7602 exhaustive single processor unit tests, 7602 passed and 0 fa=
 iled.
 
 
