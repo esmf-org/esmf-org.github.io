@@ -1,2 +1,2532 @@
 <pre>
-No report is available at this time.
+Return-Path: <scvasque@discover.nccs.nasa.gov>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 20 Apr 2020 07:45:03 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 09DCB3AE
+	for <esmftest@cgd.ucar.edu>; Mon, 20 Apr 2020 01:39:33 -0600 (MDT)
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id EE3D01800246
+	for <esmftest@cgd.ucar.edu>; Mon, 20 Apr 2020 01:39:32 -0600 (MDT)
+Authentication-Results: vscanx2.ucar.edu;
+	dkim=pass (1024-bit key) header.d=nccs.nasa.gov header.i=@nccs.nasa.gov header.b="Bne2Gl10"
+Received: by mail-qk1-f200.google.com with SMTP id f187so9402432qkd.11
+        for <esmftest@cgd.ucar.edu>; Mon, 20 Apr 2020 00:39:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:message-id:dkim-filter:dkim-signature:from:date
+         :to:subject:user-agent:mime-version:content-transfer-encoding;
+        bh=okdvR01T3DnXGYt/nS1ogpRIWZUi+GBUcM7YT3nhARo=;
+        b=Z8qAY64XdsJPA67DwsKiF3c4frNuOTifpct4N6eRSM5YEPNKdWsUwtVP4SIvBnDz3I
+         lPbOYplKUm2lK7V6EhmwoJzyqbBD0oJpZMEub9TjG8HD+gyADgf9pbS3rbrtKxp24R7u
+         hh23jTB6nL65gwk1xtOaDQjyv+xOfLz+nbC2ehvQDFF388LVcnc5hLst5qfEECthnjmD
+         VZhM+Q+MuJnnfzoEZ+colGMR2UX78aIsZeeFEl4yF9PMcInmnp5R9PPASkEEVAbVoR4+
+         W/cDklBKM90+lrSkN444Cfe8t+E0OHdhzTFCfc93+FjDpHENdL3TlAG1T2kLQFylZ8J0
+         hYUA==
+X-Gm-Message-State: AGi0PuaXMtwyosEVX8/qh8zwjg6FBV8w3/mpdHD5lXvyPh0TLevrpe/X
+	tQjDn5yxO6Glg0eoPkST9h1H4mo5lJutj8GVKFC2r+kLVJtMkW1B/FUascWGjLQwnui1GNDkHtr
+	KzNSbqo5x8qnpqq4V
+X-Received: by 2002:a05:620a:70f:: with SMTP id 15mr14630507qkc.68.1587368372230;
+        Mon, 20 Apr 2020 00:39:32 -0700 (PDT)
+X-Google-Smtp-Source: APiQypIVW1jTL7QYVtMYgKol4UUqfuaiCLlyJItE8lJjMP2OFqcAAlJVqkyBivgUJpVAXEzMddBF
+X-Received: by 2002:a05:620a:70f:: with SMTP id 15mr14630438qkc.68.1587368370642;
+        Mon, 20 Apr 2020 00:39:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1587368370; cv=none;
+        d=google.com; s=arc-20160816;
+        b=rBTZ4TplJSgMAOZHrWaySKTJyzB+jYL/4w+BRCKFk1anePQJESQSpZLC8Y3suTVp2R
+         QKF0ySLkDwXOVDbxJEWkn1m89keE4hm2Cqai7WNzySaEU1AbmOPiVmTWX9iv4CRmwgAW
+         NIaXfISvPaTMBoROdzp3fUnNdyIC6/UnZfl4Qdo8IMTBIxof/FUNdbpAwtQ5WMVG+AWa
+         twHjXc6CJO2HLOZTVz4Zo9P6wbJLYIHX8zaPHPiTnFSIM7b6jPCfqidKe3n0Ks60Tcmj
+         M/iupHCAT+bSneaYsUkHrXjn2Q/rUXGJnAVB4mdaN3RotiEifkLVvHRHGLrQnSbhvL6W
+         cg9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:mime-version:user-agent:subject:to:date
+         :from:dkim-signature:dkim-filter:message-id;
+        bh=okdvR01T3DnXGYt/nS1ogpRIWZUi+GBUcM7YT3nhARo=;
+        b=PV3UAk0EDraDjiJCxRRgSiUXodfRZ2mfL7JBelA02wW3MtcaP12VBmflKqnkrqp45c
+         aXjlS5gfCEmocBccYJ7b2ev7v4qhFUCEDiJSFOIZ0mYf94m/hRpctB8nWdODqgrC7/tG
+         FMT71yP0n9Wn/bfUsES+fuDqIbdMXlzbvw2w84gZDKQ9X8AER6wc4gx3/1P62acte7N0
+         M/x13NNruDqrjc2bntMLkcWYYc6T9UKbPnIWiQOMQUfvmi7IR/O4CuI1lctntGFvXS3b
+         CmiDqe3zewrZY507eND61gCZhb7AFCUTTQx9HAv72cDAbWmmau4gGbwjKt0Gjka4LJVd
+         LYKQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=Bne2Gl10;
+       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 169.154.146.140 as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
+Received: from mail1.nccs.nasa.gov (mail1.nccs.nasa.gov. [169.154.146.140])
+        by mx.google.com with ESMTP id x188si118342qka.54.2020.04.20.00.39.30
+        for <esmftest@cgd.ucar.edu>;
+        Mon, 20 Apr 2020 00:39:30 -0700 (PDT)
+Received-SPF: pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 169.154.146.140 as permitted sender) client-ip=169.154.146.140;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@nccs.nasa.gov header.s=default header.b=Bne2Gl10;
+       spf=pass (google.com: domain of scvasque@discover.nccs.nasa.gov designates 169.154.146.140 as permitted sender) smtp.mailfrom=scvasque@discover.nccs.nasa.gov;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=nasa.gov
+Message-ID: <5e9d51b2.1c69fb81.4638d.53f0SMTPIN_ADDED_MISSING@mx.google.com>
+X-Comment: SPF check N/A for local connections - client-ip=169.154.145.205; helo=borgmx1.prv.cube; envelope-from=scvasque@discover.nccs.nasa.gov; receiver=esmftest@cgd.ucar.edu 
+DKIM-Filter: OpenDKIM Filter v2.9.2 mail1.nccs.nasa.gov 918DA179
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nccs.nasa.gov;
+	s=default; t=1587368369;
+	bh=DoajpssuSPX74LfzoYD2frBdr4tl2+rTdOy3pKiX+yM=;
+	h=From:Date:To:Subject:From;
+	b=Bne2Gl103Z7kboHqefBlB0my46MVlMYjFDKrx144z1ML3PrfHnoBDQbkXuiOQ4+pF
+	 VZIf7ggRbb5uEAD1tkRs+UstwlTba1Wr5V+l6kteAA1nb8ct6z+H4/xhwDFmkKG6A0
+	 ZJdIpM2STu2sFgJUfwRIcFAHvGimowrce/AxC9o4=
+Received: from borgmx1.prv.cube (borgmx1.nccs.nasa.gov [169.154.145.205])
+	by mail1.nccs.nasa.gov (Postfix) with ESMTP id 918DA179
+	for <esmftest@cgd.ucar.edu>; Mon, 20 Apr 2020 03:39:29 -0400 (EDT)
+Received: from discover.nccs.nasa.gov (discover01.prv.cube [10.1.50.1])
+	by borgmx1.prv.cube (Postfix) with SMTP id 83D4939E79
+	for <esmftest@cgd.ucar.edu>; Mon, 20 Apr 2020 03:39:28 -0400 (EDT)
+Received: by discover.nccs.nasa.gov (sSMTP sendmail emulation); Mon, 20 Apr 2020 03:39:28 -0400
+From: "Silverio   C Vasquez" <scvasque@discover.nccs.nasa.gov>
+Date: Mon, 20 Apr 2020 03:39:28 -0400
+To: esmftest@cgd.ucar.edu
+Subject: ESMF_ESMPy_Discover_intel
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+
+Script start time: Mon Apr 20 03:15:03 EDT 2020
+
+Script end: Mon Apr 20 03:39:28 EDT 2020
+
+
+___________________________________ ESMPy Trunk BUILD AND TEST SUMMARY_=
+________________________________________
+
+
+
+                        Python Build
+                                                                       =
+                         Regrid from    =20
+               BUILD       INSTALL    OS.COMPILER.COMM.ABI      unit te=
+sts        examples       file tests   =20
+_______________________________________________________________________=
+_____________________________________________________
+               PASS/FAIL   PASS/FAIL                           PASS/FAI=
+L/SKIP     PASS/FAIL/SKIP    PASS/FAIL/SKIP=20
+_______________________________________________________________________=
+_____________________________________________________
+_______________________________________________________________________=
+____________________________________________________
+discover01(g)**FAIL**            Linux.intel.mpiuni.64
+discover01(O)**FAIL**            Linux.intel.mpiuni.64
+discover01(g)**FAIL**            Linux.intel.mvapich2.64
+discover01(O)**FAIL**            Linux.intel.mvapich2.64
+
+_______________________________________________________________________=
+______________________________________
+
+Mon Apr 20 03:18:43 EDT 2020 on discover01=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+--------------------------------------------------------------=20
+Currently Loaded Modulefiles:
+  1) other/git-2.21.0
+  2) other/SSSO_Ana-PyD/SApd_4.2.0_py3.5
+  3) comp/intel-17.0.4.196
+  4) other/comp/gcc-4.8.1
+
+
+=20
+ESMF Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for x86_64-unknown-linux-gnu
+
+--------------------------------------------------------------
+Fortran Compiler version:
+Intel(R) Fortran Intel(R) 64 Compiler for applications running on Intel=
+(R) 64, Version 17.0.4.196 Build 20170411
+Copyright (C) 1985-2017 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+C++ Compiler version:
+Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) =
+64, Version 17.0.4.196 Build 20170411
+Copyright (C) 1985-2017 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 4.8.1
+Copyright (C) 2013 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3Dg
+ESMF_COMM=3Dmpiuni
+ESMF_COMPILER=3Dintel
+ESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/i=
+ntel/esmf
+ESMF_INSTALL_BINDIR=3Dbin
+ESMF_INSTALL_LIBDIR=3Dlib
+ESMF_INSTALL_MODDIR=3Dmod
+ESMF_INSTALL_PREFIX=3D/discover/nobackup/scvasque/scripts_dir/daily_bui=
+lds/esmpy/intel/esmf/../install_dir
+ESMF_NETCDF_INCLUDE=3D/discover/nobackup/projects/lis/libs/netcdf/4.3.3=
+.1_gcc-4.9.2_sp3/include
+ESMF_NETCDF_LIBPATH=3D/discover/nobackup/projects/lis/libs/netcdf/4.3.3=
+.1_gcc-4.9.2_sp3/lib
+ESMF_NETCDF=3Dsplit
+ESMF_OPENMP=3DOFF
+ESMF_OS=3DLinux
+ESMF_PROJ4=3Dexternal
+ESMF_PROJ4_INCLUDE=3D/home/scvasque/proj4/include
+ESMF_PROJ4_LIBPATH=3D/home/scvasque/proj4/lib
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArrayUNI_default
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessFieldUNI_default
+ESMF_TESTMPMD=3DOFF
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          intel
+ESMF_BOPT:              g
+ESMF_COMM:              mpiuni
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            OFF
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          OFF
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArrayUNI_default
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessFieldUNI_default
+ESMF_MPIRUN:            /discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/src/Infrastructure/stubs/mpiuni/mpirun
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_NETCDF:             split
+ESMF_NETCDF_INCLUDE:     /discover/nobackup/projects/lis/libs/netcdf/4.=
+3.3.1_gcc-4.9.2_sp3/include
+ESMF_NETCDF_LIBS:        -lnetcdff -lnetcdf
+ESMF_NETCDF_LIBPATH:     /discover/nobackup/projects/lis/libs/netcdf/4.=
+3.3.1_gcc-4.9.2_sp3/lib
+ESMF_YAMLCPP:            internal
+ESMF_PROJ4:                external
+ESMF_PROJ4_INCLUDE:        /home/scvasque/proj4/include
+ESMF_PROJ4_LIBS:           -lproj
+ESMF_PROJ4_LIBPATH:        /home/scvasque/proj4/lib
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod
+ESMF_INSTALL_LIBDIR:    lib
+ESMF_INSTALL_BINDIR:    bin
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_=
+sp3/:/usr/local/other/SLES11.1/gcc/4.8.1/bin:/usr/local/intel/2017/comp=
+ilers_and_libraries_2017.4.196/linux/bin/intel64:/usr/local/intel/2017/=
+compilers_and_libraries_2017.4.196/linux/bin/intel64_mic:/usr/local/int=
+el/2017/debugger_2017/gdb/intel64/bin:/usr/local/intel/2017/debugger_20=
+17/gdb/intel64_mic/bin:/usr/local/other/SSSO_Ana-PyD/4.2.0_py3.5/bin:/g=
+pfsm/dulocal/sles11/other/SLES11.3/git/2.21.0/libexec/git-core:/gpfsm/d=
+ulocal/sles11/other/SLES11.3/git/2.21.0/bin:/home/scvasque/bin:/opt/cwx=
+/bin:/usr/local/bin:/usr/bin:/usr/X11R6/bin:/bin:/usr/lib/java/bin:/usr=
+/pbs/bin:/usr/slurm/bin
+LD_LIBRARY_PATH: /usr/local/other/SLES11.1/gcc/4.8.1/lib64:/usr/local/i=
+ntel/2017/compilers_and_libraries_2017.4.196/linux/compiler/lib/intel64=
+:/opt/intel/mic/coi/host-linux-release/lib:/opt/intel/mic/myo/lib:/usr/=
+local/intel/2017/compilers_and_libraries_2017.4.196/linux/ipp/lib/intel=
+64:/usr/local/intel/2017/compilers_and_libraries_2017.4.196/linux/mkl/l=
+ib/intel64:/usr/local/intel/2017/compilers_and_libraries_2017.4.196/lin=
+ux/tbb/lib/intel64/gcc4.1:/usr/local/intel/2017/debugger_2017/libipt/in=
+tel64/lib:/gpfsm/dulocal/sles11/other/SLES11.3/git/2.21.0/lib
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/local/other/SLES11.1/gcc/4.8.1/=
+bin/gcc
+Location of the Fortran compiler:  /usr/local/intel/2017/compilers_and_=
+libraries_2017.4.196/linux/bin/intel64/ifort
+Location of the Fortran linker:    /usr/local/intel/2017/compilers_and_=
+libraries_2017.4.196/linux/bin/intel64/ifort
+Location of the C++ compiler:      /usr/local/intel/2017/compilers_and_=
+libraries_2017.4.196/linux/bin/intel64/icpc
+Location of the C++ linker:        /usr/local/intel/2017/compilers_and_=
+libraries_2017.4.196/linux/bin/intel64/icpc
+
+Fortran compiler flags:
+ESMF_F90COMPILER: ifort
+ESMF_F90COMPILEOPTS: -g -traceback -check arg_temp_created,bounds,forma=
+t,output_conversion,stack,uninit -fPIC -assume realloc_lhs -m64 -mcmode=
+l=3Dsmall -threads
+ESMF_F90COMPILEPATHS: -I/discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default -I/discov=
+er/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/incl=
+ude -I/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3=
+/include -I/home/scvasque/proj4/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTI=
+VE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Li=
+nux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/s=
+cripts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP:=20
+ESMF_F90COMPILEFIXCPP:=20
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64 -mcmodel=3Dsmall -threads -Wl,--no-as-needed
+ESMF_F90LINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/daily_buil=
+ds/esmpy/intel/esmf/lib/libg/Linux.intel.64.mpiuni.default -L/discover/=
+nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/lib -L/home/scv=
+asque/proj4/lib=20
+ESMF_F90LINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+daily_builds/esmpy/intel/esmf/lib/libg/Linux.intel.64.mpiuni.default  -=
+Wl,-rpath,/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2=
+_sp3/lib  -Wl,-rpath,/home/scvasque/proj4/lib
+ESMF_F90LINKLIBS:  -cxxlib -lrt -ldl -lnetcdff -lnetcdf -lproj
+ESMF_F90ESMFLINKLIBS: -lesmf  -cxxlib -lrt -ldl -lnetcdff -lnetcdf -lpr=
+oj
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: icpc
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -g -traceback -Wcheck -fPIC -m64 -mcm=
+odel=3Dsmall -pthread
+ESMF_CXXCOMPILEPATHS:  -I/discover/nobackup/scvasque/scripts_dir/daily_=
+builds/esmpy/intel/esmf/src/include  -I/discover/nobackup/projects/lis/=
+libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasque/proj4/includ=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/src/Infrastructure/stubs/mpiuni -I/discover/nobackup/scvasque/script=
+s_dir/daily_builds/esmpy/intel/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTI=
+VE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Li=
+nux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/s=
+cripts_dir/daily_builds/esmpy/intel/esmf -D__SDIR__=3D'' -DESMF_CXXSTD=
+=3D11 -DESMF_MPIUNI
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed
+ESMF_CXXLINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/daily_buil=
+ds/esmpy/intel/esmf/lib/libg/Linux.intel.64.mpiuni.default -L/discover/=
+nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/lib -L/home/scv=
+asque/proj4/lib -L/gpfsm/dulocal/sles11/intel/2017/compilers_and_librar=
+ies_2017.4.196/linux/compiler/lib/intel64_lin/
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+daily_builds/esmpy/intel/esmf/lib/libg/Linux.intel.64.mpiuni.default  -=
+Wl,-rpath,/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2=
+_sp3/lib  -Wl,-rpath,/home/scvasque/proj4/lib -Wl,-rpath,/gpfsm/dulocal=
+/sles11/intel/2017/compilers_and_libraries_2017.4.196/linux/compiler/li=
+b/intel64_lin/
+ESMF_CXXLINKLIBS:  -lifport -lifcoremt -limf -lsvml -lm -lipgo -lintlc =
+-lpthread -lsvml -ldl -lgcc -lgcc_s -lirc_s -ldl -lrt -ldl -lnetcdff -l=
+netcdf -lproj
+ESMF_CXXESMFLINKLIBS: -lesmf  -lifport -lifcoremt -limf -lsvml -lm -lip=
+go -lintlc -lpthread -lsvml -ldl -lgcc -lgcc_s -lirc_s -ldl -lrt -ldl -=
+lnetcdff -lnetcdf -lproj
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    icpc
+ESMF_SL_LIBOPTS:       -pthread -shared
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/discover/nobackup/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/lib/libg/Linux.intel.64.mpiuni.default/libesmftra=
+ce_preload.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Mon Apr 20 03:18:59 EDT 2020 on discover01
+Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
+MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
+x
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Mon Apr 20 03:23:39 EDT 2020 library build -j4 ************FAIL
+
+
+The following is the 'tail' of the build failure
+
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/daily_builds/es=
+mpy/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default; gmake -f ${dir}/=
+makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[7]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default'
+gcc -E -P -x c -C -nostdinc -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/include /discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESM=
+F_FortranWordsize.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' >=
+ /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+src/Infrastructure/Util/src/ESMF_FortranWordsize.F90
+gcc -E -P -x c -C -nostdinc -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/include /discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESM=
+F_TypeKindGet.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /di=
+scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/=
+Infrastructure/Util/src/ESMF_TypeKindGet.F90
+gcc -E -P -x c -C -nostdinc -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/include /discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESM=
+F_UtilSort.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /disco=
+ver/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Inf=
+rastructure/Util/src/ESMF_UtilSort.F90
+gmake[8]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default'
+icpc -c -std=3Dc++11 -g -traceback -Wcheck -fPIC -m64 -mcmodel=3Dsmall =
+-pthread -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/i=
+ntel/esmf/src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../i=
+nclude -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/int=
+el/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque/=
+scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discove=
+r/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Super=
+structure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/=
+intel/esmf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvas=
+que/scripts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/=
+nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home=
+/scvasque/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily=
+_builds/esmpy/intel/esmf/src/Infrastructure/stubs/mpiuni -I/discover/no=
+backup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/prologue/=
+yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DES=
+MFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_MOAB=
+=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWAR=
+E_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF=
+_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
+SMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D=
+1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scripts=
+_dir/daily_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Ut=
+il/src"' -DESMF_CXXSTD=3D11 -DESMF_MPIUNI /discover/nobackup/scvasque/s=
+cripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ES=
+MCI_Util.C -o /discover/nobackup/scvasque/scripts_dir/daily_builds/esmp=
+y/intel/esmf/obj/objg/Linux.intel.64.mpiuni.default/ESMCI_Util.o
+icpc -c -std=3Dc++11 -g -traceback -Wcheck -fPIC -m64 -mcmodel=3Dsmall =
+-pthread -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/i=
+ntel/esmf/src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../i=
+nclude -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/int=
+el/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque/=
+scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discove=
+r/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Super=
+structure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/=
+intel/esmf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvas=
+que/scripts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/=
+nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home=
+/scvasque/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily=
+_builds/esmpy/intel/esmf/src/Infrastructure/stubs/mpiuni -I/discover/no=
+backup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/prologue/=
+yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DES=
+MFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_MOAB=
+=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWAR=
+E_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF=
+_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
+SMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D=
+1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scripts=
+_dir/daily_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Ut=
+il/src"' -DESMF_CXXSTD=3D11 -DESMF_MPIUNI /discover/nobackup/scvasque/s=
+cripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ES=
+MCI_Fraction.C -o /discover/nobackup/scvasque/scripts_dir/daily_builds/=
+esmpy/intel/esmf/obj/objg/Linux.intel.64.mpiuni.default/ESMCI_Fraction.=
+o
+icpc -c -std=3Dc++11 -g -traceback -Wcheck -fPIC -m64 -mcmodel=3Dsmall =
+-pthread -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/i=
+ntel/esmf/src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../i=
+nclude -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/int=
+el/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque/=
+scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discove=
+r/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Super=
+structure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/=
+intel/esmf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvas=
+que/scripts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/=
+nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home=
+/scvasque/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily=
+_builds/esmpy/intel/esmf/src/Infrastructure/stubs/mpiuni -I/discover/no=
+backup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/prologue/=
+yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DES=
+MFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_MOAB=
+=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWAR=
+E_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF=
+_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
+SMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D=
+1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scripts=
+_dir/daily_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Ut=
+il/src"' -DESMF_CXXSTD=3D11 -DESMF_MPIUNI /discover/nobackup/scvasque/s=
+cripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ES=
+MCI_F90Interface.C -o /discover/nobackup/scvasque/scripts_dir/daily_bui=
+lds/esmpy/intel/esmf/obj/objg/Linux.intel.64.mpiuni.default/ESMCI_F90In=
+terface.o
+icpc -c -std=3Dc++11 -g -traceback -Wcheck -fPIC -m64 -mcmodel=3Dsmall =
+-pthread -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/i=
+ntel/esmf/src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../i=
+nclude -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/int=
+el/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque/=
+scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discove=
+r/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Super=
+structure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/=
+intel/esmf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvas=
+que/scripts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/=
+nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home=
+/scvasque/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily=
+_builds/esmpy/intel/esmf/src/Infrastructure/stubs/mpiuni -I/discover/no=
+backup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/prologue/=
+yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DES=
+MFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_MOAB=
+=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWAR=
+E_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF=
+_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
+SMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D=
+1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scripts=
+_dir/daily_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Ut=
+il/src"' -DESMF_CXXSTD=3D11 -DESMF_MPIUNI /discover/nobackup/scvasque/s=
+cripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ES=
+MCI_CoordSys.C -o /discover/nobackup/scvasque/scripts_dir/daily_builds/=
+esmpy/intel/esmf/obj/objg/Linux.intel.64.mpiuni.default/ESMCI_CoordSys.=
+o
+gmake[8]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default'
+gmake[8]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default'
+ifort -c -g -traceback -check arg_temp_created,bounds,format,output_con=
+version,stack,uninit -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -t=
+hreads  -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque=
+/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discov=
+er/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Supe=
+rstructure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy=
+/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default -I/discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/disc=
+over/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I=
+/home/scvasque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGE=
+R_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"=
+' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_N=
+O_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YA=
+ML=3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESM=
+F_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scv=
+asque/scripts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI /discover=
+/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infras=
+tructure/Util/src/ESMF_UtilTypes.F90 -o /discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf/obj/objg/Linux.intel.64.mpiuni.d=
+efault/ESMF_UtilTypes.o
+ifort -c -g -traceback -check arg_temp_created,bounds,format,output_con=
+version,stack,uninit -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -t=
+hreads  -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque=
+/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discov=
+er/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Supe=
+rstructure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy=
+/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default -I/discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/disc=
+over/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I=
+/home/scvasque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGE=
+R_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"=
+' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_N=
+O_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YA=
+ML=3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESM=
+F_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scv=
+asque/scripts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI /discover=
+/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infras=
+tructure/Util/src/ESMF_UtilString.F90 -o /discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/obj/objg/Linux.intel.64.mpiuni.=
+default/ESMF_UtilString.o
+ifort -c -g -traceback -check arg_temp_created,bounds,format,output_con=
+version,stack,uninit -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -t=
+hreads  -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque=
+/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discov=
+er/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Supe=
+rstructure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy=
+/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default -I/discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/disc=
+over/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I=
+/home/scvasque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGE=
+R_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"=
+' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_N=
+O_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YA=
+ML=3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESM=
+F_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scv=
+asque/scripts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI /discover=
+/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infras=
+tructure/Util/src/ESMF_IOUtil.F90 -o /discover/nobackup/scvasque/script=
+s_dir/daily_builds/esmpy/intel/esmf/obj/objg/Linux.intel.64.mpiuni.defa=
+ult/ESMF_IOUtil.o
+ifort -c -g -traceback -check arg_temp_created,bounds,format,output_con=
+version,stack,uninit -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -t=
+hreads  -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque=
+/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discov=
+er/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Supe=
+rstructure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy=
+/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default -I/discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/disc=
+over/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I=
+/home/scvasque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGE=
+R_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"=
+' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_N=
+O_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YA=
+ML=3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESM=
+F_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scv=
+asque/scripts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI /discover=
+/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infras=
+tructure/Util/src/ESMF_UtilSort.F90 -o /discover/nobackup/scvasque/scri=
+pts_dir/daily_builds/esmpy/intel/esmf/obj/objg/Linux.intel.64.mpiuni.de=
+fault/ESMF_UtilSort.o
+ifort -c -g -traceback -check arg_temp_created,bounds,format,output_con=
+version,stack,uninit -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -t=
+hreads  -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque=
+/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discov=
+er/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Supe=
+rstructure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy=
+/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default -I/discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/disc=
+over/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I=
+/home/scvasque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGE=
+R_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"=
+' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_N=
+O_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YA=
+ML=3D1 -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESM=
+F_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scv=
+asque/scripts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI /discover=
+/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infras=
+tructure/Util/src/ESMF_LogErr.F90 -o /discover/nobackup/scvasque/script=
+s_dir/daily_builds/esmpy/intel/esmf/obj/objg/Linux.intel.64.mpiuni.defa=
+ult/ESMF_LogErr.o
+/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/s=
+rc/Infrastructure/Util/src/ESMF_LogErr.F90(131): warning #6379: The str=
+ucture contains one or more misaligned fields.   [ESMF_LOGENTRY]
+type ESMF_LogEntry
+-----^
+/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/s=
+rc/Infrastructure/Util/src/ESMF_LogErr.F90(151): warning #6379: The str=
+ucture contains one or more misaligned fields.   [ESMF_LOG]
+type ESMF_Log
+-----^
+/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/s=
+rc/Infrastructure/Util/src/ESMF_LogErr.F90(1396): error #7013: This mod=
+ule file was not generated by any release of this compiler.   [NETCDF]
+  use netcdf
+------^
+/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/s=
+rc/Infrastructure/Util/src/ESMF_LogErr.F90(1485): error #6404: This nam=
+e does not have a type, and must have an explicit type.   [NF90_STRERRO=
+R]
+    ncMsg =3D nf90_strerror(ncerrToCheck)
+------------^
+/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/s=
+rc/Infrastructure/Util/src/ESMF_LogErr.F90(1485): error #6054: A CHARAC=
+TER data type is required in this context.   [NF90_STRERROR]
+    ncMsg =3D nf90_strerror(ncerrToCheck)
+------------^
+compilation aborted for /discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESMF_LogErr.F90 (cod=
+e 1)
+gmake[8]: *** [/discover/nobackup/scvasque/scripts_dir/daily_builds/esm=
+py/intel/esmf/obj/objg/Linux.intel.64.mpiuni.default/ESMF_LogErr.o] Err=
+or 1
+gmake[8]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default'
+gmake[7]: *** [esmflib] Error 2
+gmake[7]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mpiuni.default'
+gmake[6]: *** [tree_lib] Error 2
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/Infrastructure/Util/src'
+gmake[5]: *** [tree] Error 1
+gmake[5]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/Infrastructure/Util'
+gmake[4]: *** [tree] Error 1
+gmake[4]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/Infrastructure'
+gmake[3]: *** [tree] Error 1
+gmake[3]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src'
+gmake[2]: *** [tree] Error 1
+gmake[2]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf'
+gmake[1]: *** [build_libs] Error 2
+gmake[1]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf'
+gmake: *** [lib] Error 2
+
+
+_______________________________________________________________________=
+______________________________________
+
+Mon Apr 20 03:27:08 EDT 2020 on discover01=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+--------------------------------------------------------------=20
+Currently Loaded Modulefiles:
+  1) other/git-2.21.0
+  2) other/SSSO_Ana-PyD/SApd_4.2.0_py3.5
+  3) comp/intel-17.0.4.196
+  4) other/comp/gcc-4.8.1
+
+
+=20
+ESMF Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for x86_64-unknown-linux-gnu
+
+--------------------------------------------------------------
+Fortran Compiler version:
+Intel(R) Fortran Intel(R) 64 Compiler for applications running on Intel=
+(R) 64, Version 17.0.4.196 Build 20170411
+Copyright (C) 1985-2017 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+C++ Compiler version:
+Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) =
+64, Version 17.0.4.196 Build 20170411
+Copyright (C) 1985-2017 Intel Corporation.  All rights reserved.
+
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 4.8.1
+Copyright (C) 2013 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3DO
+ESMF_COMM=3Dmpiuni
+ESMF_COMPILER=3Dintel
+ESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/i=
+ntel/esmf
+ESMF_INSTALL_BINDIR=3Dbin
+ESMF_INSTALL_LIBDIR=3Dlib
+ESMF_INSTALL_MODDIR=3Dmod
+ESMF_INSTALL_PREFIX=3D/discover/nobackup/scvasque/scripts_dir/daily_bui=
+lds/esmpy/intel/esmf/../install_dir
+ESMF_NETCDF_INCLUDE=3D/discover/nobackup/projects/lis/libs/netcdf/4.3.3=
+.1_gcc-4.9.2_sp3/include
+ESMF_NETCDF_LIBPATH=3D/discover/nobackup/projects/lis/libs/netcdf/4.3.3=
+.1_gcc-4.9.2_sp3/lib
+ESMF_NETCDF=3Dsplit
+ESMF_OPENMP=3DOFF
+ESMF_OS=3DLinux
+ESMF_PROJ4=3Dexternal
+ESMF_PROJ4_INCLUDE=3D/home/scvasque/proj4/include
+ESMF_PROJ4_LIBPATH=3D/home/scvasque/proj4/lib
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArrayUNI_default
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessFieldUNI_default
+ESMF_TESTMPMD=3DOFF
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          intel
+ESMF_BOPT:              O
+ESMF_COMM:              mpiuni
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            OFF
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          OFF
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArrayUNI_default
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessFieldUNI_default
+ESMF_MPIRUN:            /discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/src/Infrastructure/stubs/mpiuni/mpirun
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_NETCDF:             split
+ESMF_NETCDF_INCLUDE:     /discover/nobackup/projects/lis/libs/netcdf/4.=
+3.3.1_gcc-4.9.2_sp3/include
+ESMF_NETCDF_LIBS:        -lnetcdff -lnetcdf
+ESMF_NETCDF_LIBPATH:     /discover/nobackup/projects/lis/libs/netcdf/4.=
+3.3.1_gcc-4.9.2_sp3/lib
+ESMF_YAMLCPP:            internal
+ESMF_PROJ4:                external
+ESMF_PROJ4_INCLUDE:        /home/scvasque/proj4/include
+ESMF_PROJ4_LIBS:           -lproj
+ESMF_PROJ4_LIBPATH:        /home/scvasque/proj4/lib
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod
+ESMF_INSTALL_LIBDIR:    lib
+ESMF_INSTALL_BINDIR:    bin
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_=
+sp3/:/usr/local/other/SLES11.1/gcc/4.8.1/bin:/usr/local/intel/2017/comp=
+ilers_and_libraries_2017.4.196/linux/bin/intel64:/usr/local/intel/2017/=
+compilers_and_libraries_2017.4.196/linux/bin/intel64_mic:/usr/local/int=
+el/2017/debugger_2017/gdb/intel64/bin:/usr/local/intel/2017/debugger_20=
+17/gdb/intel64_mic/bin:/usr/local/other/SSSO_Ana-PyD/4.2.0_py3.5/bin:/g=
+pfsm/dulocal/sles11/other/SLES11.3/git/2.21.0/libexec/git-core:/gpfsm/d=
+ulocal/sles11/other/SLES11.3/git/2.21.0/bin:/home/scvasque/bin:/opt/cwx=
+/bin:/usr/local/bin:/usr/bin:/usr/X11R6/bin:/bin:/usr/lib/java/bin:/usr=
+/pbs/bin:/usr/slurm/bin
+LD_LIBRARY_PATH: /usr/local/other/SLES11.1/gcc/4.8.1/lib64:/usr/local/i=
+ntel/2017/compilers_and_libraries_2017.4.196/linux/compiler/lib/intel64=
+:/opt/intel/mic/coi/host-linux-release/lib:/opt/intel/mic/myo/lib:/usr/=
+local/intel/2017/compilers_and_libraries_2017.4.196/linux/ipp/lib/intel=
+64:/usr/local/intel/2017/compilers_and_libraries_2017.4.196/linux/mkl/l=
+ib/intel64:/usr/local/intel/2017/compilers_and_libraries_2017.4.196/lin=
+ux/tbb/lib/intel64/gcc4.1:/usr/local/intel/2017/debugger_2017/libipt/in=
+tel64/lib:/gpfsm/dulocal/sles11/other/SLES11.3/git/2.21.0/lib
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/local/other/SLES11.1/gcc/4.8.1/=
+bin/gcc
+Location of the Fortran compiler:  /usr/local/intel/2017/compilers_and_=
+libraries_2017.4.196/linux/bin/intel64/ifort
+Location of the Fortran linker:    /usr/local/intel/2017/compilers_and_=
+libraries_2017.4.196/linux/bin/intel64/ifort
+Location of the C++ compiler:      /usr/local/intel/2017/compilers_and_=
+libraries_2017.4.196/linux/bin/intel64/icpc
+Location of the C++ linker:        /usr/local/intel/2017/compilers_and_=
+libraries_2017.4.196/linux/bin/intel64/icpc
+
+Fortran compiler flags:
+ESMF_F90COMPILER: ifort
+ESMF_F90COMPILEOPTS: -O -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall=
+ -threads
+ESMF_F90COMPILEPATHS: -I/discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mpiuni.default -I/discov=
+er/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/incl=
+ude -I/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3=
+/include -I/home/scvasque/proj4/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTI=
+VE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Li=
+nux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/s=
+cripts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP:=20
+ESMF_F90COMPILEFIXCPP:=20
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64 -mcmodel=3Dsmall -threads -Wl,--no-as-needed
+ESMF_F90LINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/daily_buil=
+ds/esmpy/intel/esmf/lib/libO/Linux.intel.64.mpiuni.default -L/discover/=
+nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/lib -L/home/scv=
+asque/proj4/lib=20
+ESMF_F90LINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+daily_builds/esmpy/intel/esmf/lib/libO/Linux.intel.64.mpiuni.default  -=
+Wl,-rpath,/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2=
+_sp3/lib  -Wl,-rpath,/home/scvasque/proj4/lib
+ESMF_F90LINKLIBS:  -cxxlib -lrt -ldl -lnetcdff -lnetcdf -lproj
+ESMF_F90ESMFLINKLIBS: -lesmf  -cxxlib -lrt -ldl -lnetcdff -lnetcdf -lpr=
+oj
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: icpc
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -O -DNDEBUG -fPIC -m64 -mcmodel=3Dsma=
+ll -pthread
+ESMF_CXXCOMPILEPATHS:  -I/discover/nobackup/scvasque/scripts_dir/daily_=
+builds/esmpy/intel/esmf/src/include  -I/discover/nobackup/projects/lis/=
+libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasque/proj4/includ=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/src/Infrastructure/stubs/mpiuni -I/discover/nobackup/scvasque/script=
+s_dir/daily_builds/esmpy/intel/esmf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTI=
+VE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Li=
+nux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/s=
+cripts_dir/daily_builds/esmpy/intel/esmf -D__SDIR__=3D'' -DESMF_CXXSTD=
+=3D11 -DESMF_MPIUNI
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed
+ESMF_CXXLINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/daily_buil=
+ds/esmpy/intel/esmf/lib/libO/Linux.intel.64.mpiuni.default -L/discover/=
+nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/lib -L/home/scv=
+asque/proj4/lib -L/gpfsm/dulocal/sles11/intel/2017/compilers_and_librar=
+ies_2017.4.196/linux/compiler/lib/intel64_lin/
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+daily_builds/esmpy/intel/esmf/lib/libO/Linux.intel.64.mpiuni.default  -=
+Wl,-rpath,/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2=
+_sp3/lib  -Wl,-rpath,/home/scvasque/proj4/lib -Wl,-rpath,/gpfsm/dulocal=
+/sles11/intel/2017/compilers_and_libraries_2017.4.196/linux/compiler/li=
+b/intel64_lin/
+ESMF_CXXLINKLIBS:  -lifport -lifcoremt -limf -lsvml -lm -lipgo -lintlc =
+-lpthread -lsvml -lgcc -lgcc_s -lirc_s -ldl -lrt -ldl -lnetcdff -lnetcd=
+f -lproj
+ESMF_CXXESMFLINKLIBS: -lesmf  -lifport -lifcoremt -limf -lsvml -lm -lip=
+go -lintlc -lpthread -lsvml -lgcc -lgcc_s -lirc_s -ldl -lrt -ldl -lnetc=
+dff -lnetcdf -lproj
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    icpc
+ESMF_SL_LIBOPTS:       -pthread -shared
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/discover/nobackup/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/lib/libO/Linux.intel.64.mpiuni.default/libesmftra=
+ce_preload.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Mon Apr 20 03:27:12 EDT 2020 on discover01
+Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
+MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
+x
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Mon Apr 20 03:31:45 EDT 2020 library build -j4 ************FAIL
+
+
+The following is the 'tail' of the build failure
+
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/daily_builds/es=
+mpy/intel/esmf/mod/modO/Linux.intel.64.mpiuni.default; gmake -f ${dir}/=
+makefile MAKEFILE=3D${dir}/makefile esmflib
+gmake[7]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mpiuni.default'
+gcc -E -P -x c -C -nostdinc -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/include /discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESM=
+F_FortranWordsize.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' >=
+ /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+src/Infrastructure/Util/src/ESMF_FortranWordsize.F90
+gcc -E -P -x c -C -nostdinc -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/include /discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESM=
+F_TypeKindGet.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /di=
+scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/=
+Infrastructure/Util/src/ESMF_TypeKindGet.F90
+gcc -E -P -x c -C -nostdinc -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/include /discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESM=
+F_UtilSort.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /disco=
+ver/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Inf=
+rastructure/Util/src/ESMF_UtilSort.F90
+gmake[8]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mpiuni.default'
+icpc -c -std=3Dc++11 -O -DNDEBUG -fPIC -m64 -mcmodel=3Dsmall -pthread -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../include -I/=
+discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/bu=
+ild_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_di=
+r/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructure =
+-I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf=
+/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasque/script=
+s_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/nobackup/p=
+rojects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasque/=
+proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_builds/es=
+mpy/intel/esmf/src/Infrastructure/stubs/mpiuni -I/discover/nobackup/scv=
+asque/scripts_dir/daily_builds/esmpy/intel/esmf/src/prologue/yaml-cpp/i=
+nclude -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONG=
+IT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESM=
+F_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D=
+1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PROJ4=3D1=
+ -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O=
+ -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_C=
+OMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily=
+_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Util/src"' -=
+DESMF_CXXSTD=3D11 -DESMF_MPIUNI /discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESMCI_Util.C=
+ -o /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/obj/objO/Linux.intel.64.mpiuni.default/ESMCI_Util.o
+icpc -c -std=3Dc++11 -O -DNDEBUG -fPIC -m64 -mcmodel=3Dsmall -pthread -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../include -I/=
+discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/bu=
+ild_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_di=
+r/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructure =
+-I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf=
+/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasque/script=
+s_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/nobackup/p=
+rojects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasque/=
+proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_builds/es=
+mpy/intel/esmf/src/Infrastructure/stubs/mpiuni -I/discover/nobackup/scv=
+asque/scripts_dir/daily_builds/esmpy/intel/esmf/src/prologue/yaml-cpp/i=
+nclude -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONG=
+IT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESM=
+F_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D=
+1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PROJ4=3D1=
+ -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O=
+ -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_C=
+OMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily=
+_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Util/src"' -=
+DESMF_CXXSTD=3D11 -DESMF_MPIUNI /discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESMCI_Fracti=
+on.C -o /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/inte=
+l/esmf/obj/objO/Linux.intel.64.mpiuni.default/ESMCI_Fraction.o
+icpc -c -std=3Dc++11 -O -DNDEBUG -fPIC -m64 -mcmodel=3Dsmall -pthread -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../include -I/=
+discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/bu=
+ild_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_di=
+r/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructure =
+-I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf=
+/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasque/script=
+s_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/nobackup/p=
+rojects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasque/=
+proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_builds/es=
+mpy/intel/esmf/src/Infrastructure/stubs/mpiuni -I/discover/nobackup/scv=
+asque/scripts_dir/daily_builds/esmpy/intel/esmf/src/prologue/yaml-cpp/i=
+nclude -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONG=
+IT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESM=
+F_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D=
+1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PROJ4=3D1=
+ -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O=
+ -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_C=
+OMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily=
+_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Util/src"' -=
+DESMF_CXXSTD=3D11 -DESMF_MPIUNI /discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESMCI_F90Int=
+erface.C -o /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/=
+intel/esmf/obj/objO/Linux.intel.64.mpiuni.default/ESMCI_F90Interface.o
+icpc -c -std=3Dc++11 -O -DNDEBUG -fPIC -m64 -mcmodel=3Dsmall -pthread -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../include -I/=
+discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/bu=
+ild_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_di=
+r/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructure =
+-I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf=
+/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasque/script=
+s_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/nobackup/p=
+rojects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasque/=
+proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_builds/es=
+mpy/intel/esmf/src/Infrastructure/stubs/mpiuni -I/discover/nobackup/scv=
+asque/scripts_dir/daily_builds/esmpy/intel/esmf/src/prologue/yaml-cpp/i=
+nclude -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONG=
+IT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESM=
+F_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D=
+1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PROJ4=3D1=
+ -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O=
+ -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_C=
+OMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily=
+_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Util/src"' -=
+DESMF_CXXSTD=3D11 -DESMF_MPIUNI /discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESMCI_CoordS=
+ys.C -o /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/inte=
+l/esmf/obj/objO/Linux.intel.64.mpiuni.default/ESMCI_CoordSys.o
+gmake[8]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mpiuni.default'
+gmake[8]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mpiuni.default'
+ifort -c -O -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -threads  -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+build_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_=
+dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/noback=
+up/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructur=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/mod/modO/Linux.intel.64.mpiuni.default -I/discover/nobackup/scvasque=
+/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/discover/noba=
+ckup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scv=
+asque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE =
+-DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
+ESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE=
+ -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linu=
+x=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI /discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/=
+Util/src/ESMF_UtilTypes.F90 -o /discover/nobackup/scvasque/scripts_dir/=
+daily_builds/esmpy/intel/esmf/obj/objO/Linux.intel.64.mpiuni.default/ES=
+MF_UtilTypes.o
+ifort -c -O -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -threads  -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+build_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_=
+dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/noback=
+up/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructur=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/mod/modO/Linux.intel.64.mpiuni.default -I/discover/nobackup/scvasque=
+/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/discover/noba=
+ckup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scv=
+asque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE =
+-DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
+ESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE=
+ -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linu=
+x=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI /discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/=
+Util/src/ESMF_UtilString.F90 -o /discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf/obj/objO/Linux.intel.64.mpiuni.default/E=
+SMF_UtilString.o
+ifort -c -O -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -threads  -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+build_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_=
+dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/noback=
+up/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructur=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/mod/modO/Linux.intel.64.mpiuni.default -I/discover/nobackup/scvasque=
+/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/discover/noba=
+ckup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scv=
+asque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE =
+-DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
+ESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE=
+ -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linu=
+x=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI /discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/=
+Util/src/ESMF_IOUtil.F90 -o /discover/nobackup/scvasque/scripts_dir/dai=
+ly_builds/esmpy/intel/esmf/obj/objO/Linux.intel.64.mpiuni.default/ESMF_=
+IOUtil.o
+ifort -c -O -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -threads  -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+build_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_=
+dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/noback=
+up/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructur=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/mod/modO/Linux.intel.64.mpiuni.default -I/discover/nobackup/scvasque=
+/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/discover/noba=
+ckup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scv=
+asque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE =
+-DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
+ESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE=
+ -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linu=
+x=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI /discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/=
+Util/src/ESMF_UtilSort.F90 -o /discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/obj/objO/Linux.intel.64.mpiuni.default/ESM=
+F_UtilSort.o
+ifort -c -O -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -threads  -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+build_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_=
+dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/noback=
+up/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructur=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/mod/modO/Linux.intel.64.mpiuni.default -I/discover/nobackup/scvasque=
+/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/discover/noba=
+ckup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scv=
+asque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE =
+-DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -D=
+ESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE=
+ -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linu=
+x=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf -DESMF_MPIUNI /discover/nobackup=
+/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/=
+Util/src/ESMF_LogErr.F90 -o /discover/nobackup/scvasque/scripts_dir/dai=
+ly_builds/esmpy/intel/esmf/obj/objO/Linux.intel.64.mpiuni.default/ESMF_=
+LogErr.o
+/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/s=
+rc/Infrastructure/Util/src/ESMF_LogErr.F90(131): warning #6379: The str=
+ucture contains one or more misaligned fields.   [ESMF_LOGENTRY]
+type ESMF_LogEntry
+-----^
+/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/s=
+rc/Infrastructure/Util/src/ESMF_LogErr.F90(151): warning #6379: The str=
+ucture contains one or more misaligned fields.   [ESMF_LOG]
+type ESMF_Log
+-----^
+/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/s=
+rc/Infrastructure/Util/src/ESMF_LogErr.F90(1396): error #7013: This mod=
+ule file was not generated by any release of this compiler.   [NETCDF]
+  use netcdf
+------^
+/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/s=
+rc/Infrastructure/Util/src/ESMF_LogErr.F90(1485): error #6404: This nam=
+e does not have a type, and must have an explicit type.   [NF90_STRERRO=
+R]
+    ncMsg =3D nf90_strerror(ncerrToCheck)
+------------^
+/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/s=
+rc/Infrastructure/Util/src/ESMF_LogErr.F90(1485): error #6054: A CHARAC=
+TER data type is required in this context.   [NF90_STRERROR]
+    ncMsg =3D nf90_strerror(ncerrToCheck)
+------------^
+compilation aborted for /discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESMF_LogErr.F90 (cod=
+e 1)
+gmake[8]: *** [/discover/nobackup/scvasque/scripts_dir/daily_builds/esm=
+py/intel/esmf/obj/objO/Linux.intel.64.mpiuni.default/ESMF_LogErr.o] Err=
+or 1
+gmake[8]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mpiuni.default'
+gmake[7]: *** [esmflib] Error 2
+gmake[7]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mpiuni.default'
+gmake[6]: *** [tree_lib] Error 2
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/Infrastructure/Util/src'
+gmake[5]: *** [tree] Error 1
+gmake[5]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/Infrastructure/Util'
+gmake[4]: *** [tree] Error 1
+gmake[4]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/Infrastructure'
+gmake[3]: *** [tree] Error 1
+gmake[3]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src'
+gmake[2]: *** [tree] Error 1
+gmake[2]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf'
+gmake[1]: *** [build_libs] Error 2
+gmake[1]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf'
+gmake: *** [lib] Error 2
+
+
+_______________________________________________________________________=
+______________________________________
+
+Mon Apr 20 03:33:07 EDT 2020 on discover01=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+--------------------------------------------------------------=20
+Currently Loaded Modulefiles:
+  1) other/git-2.21.0
+  2) other/comp/gcc-4.9.2-sp3
+  3) lib/mkl-15.0.2.164
+  4) other/mpi/mvapich2-2.1/gcc-4.9.2-sp3
+  5) other/SIVO-PyD/spd_1.24.0_gcc-4.9.2-sp3_mkl-15.0.2.164_mvapich2-2.=
+1
+
+
+=20
+ESMF Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+=20
+/bin/sh: line 0: [: -ge: unary operator expected
+/bin/sh: line 0: [: -ge: unary operator expected
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for x86_64-unknown-linux-gnu
+
+--------------------------------------------------------------
+Fortran Compiler version:
+mpifort for MVAPICH2 version 2.1
+Using built-in specs.
+COLLECT_GCC=3Dgfortran
+gfortran: error: unrecognized command line option =E2=80=98-V=E2=80=99
+Target: x86_64-unknown-linux-gnu
+Configured with: /gpfsm/dnbsrc/other/GCC/SLES11/4.9.2/gcc-4.9.2/configu=
+re --prefix=3D/usr/local/other/SLES11.3/gcc/4.9.2 --enable-languages=3D=
+all --enable-bootstrap
+Thread model: posix
+gcc version 4.9.2 (GCC)=20
+
+--------------------------------------------------------------
+C++ Compiler version:
+mpicxx for MVAPICH2 version 2.1
+Using built-in specs.
+COLLECT_GCC=3Dg++
+g++: error: unrecognized command line option =E2=80=98-V=E2=80=99
+Target: x86_64-unknown-linux-gnu
+Configured with: /gpfsm/dnbsrc/other/GCC/SLES11/4.9.2/gcc-4.9.2/configu=
+re --prefix=3D/usr/local/other/SLES11.3/gcc/4.9.2 --enable-languages=3D=
+all --enable-bootstrap
+Thread model: posix
+gcc version 4.9.2 (GCC)=20
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 4.9.2
+Copyright (C) 2014 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3Dg
+ESMF_COMM=3Dmvapich2
+ESMF_COMPILER=3Dintel
+ESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/i=
+ntel/esmf
+ESMF_INSTALL_BINDIR=3Dbin
+ESMF_INSTALL_LIBDIR=3Dlib
+ESMF_INSTALL_MODDIR=3Dmod
+ESMF_INSTALL_PREFIX=3D/discover/nobackup/scvasque/scripts_dir/daily_bui=
+lds/esmpy/intel/esmf/../install_dir
+ESMF_NETCDF_INCLUDE=3D/discover/nobackup/projects/lis/libs/netcdf/4.3.3=
+.1_gcc-4.9.2_sp3/include
+ESMF_NETCDF_LIBPATH=3D/discover/nobackup/projects/lis/libs/netcdf/4.3.3=
+.1_gcc-4.9.2_sp3/lib
+ESMF_NETCDF=3Dsplit
+ESMF_OPENMP=3DOFF
+ESMF_OS=3DLinux
+ESMF_PROJ4=3Dexternal
+ESMF_PROJ4_INCLUDE=3D/home/scvasque/proj4/include
+ESMF_PROJ4_LIBPATH=3D/home/scvasque/proj4/lib
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArray_default
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessField_default
+ESMF_TESTMPMD=3DOFF
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          intel
+ESMF_BOPT:              g
+ESMF_COMM:              mvapich2
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            OFF
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          OFF
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArray_default
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessField_default
+ESMF_MPIRUN:            mpirun=20
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_NETCDF:             split
+ESMF_NETCDF_INCLUDE:     /discover/nobackup/projects/lis/libs/netcdf/4.=
+3.3.1_gcc-4.9.2_sp3/include
+ESMF_NETCDF_LIBS:        -lnetcdff -lnetcdf
+ESMF_NETCDF_LIBPATH:     /discover/nobackup/projects/lis/libs/netcdf/4.=
+3.3.1_gcc-4.9.2_sp3/lib
+ESMF_YAMLCPP:            internal
+ESMF_PIO:                internal
+ESMF_PROJ4:                external
+ESMF_PROJ4_INCLUDE:        /home/scvasque/proj4/include
+ESMF_PROJ4_LIBS:           -lproj
+ESMF_PROJ4_LIBPATH:        /home/scvasque/proj4/lib
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod
+ESMF_INSTALL_LIBDIR:    lib
+ESMF_INSTALL_BINDIR:    bin
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_=
+sp3/:/usr/local/other/SLES11.3/SIVO-PyD/1.24.0_gcc4.9.2-sp3_mkl15.0.2.1=
+64_mvapich2-2.1/bin:/usr/local/other/SLES11.3/mvapich2/2.1/gcc-4.9.2/bi=
+n:/usr/local/other/SLES11.3/gcc/4.9.2/bin:/gpfsm/dulocal/sles11/other/S=
+LES11.3/git/2.21.0/libexec/git-core:/gpfsm/dulocal/sles11/other/SLES11.=
+3/git/2.21.0/bin:/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gc=
+c-4.9.2_sp3/:/home/scvasque/bin:/opt/cwx/bin:/usr/local/bin:/usr/bin:/u=
+sr/X11R6/bin:/bin:/usr/lib/java/bin:/usr/pbs/bin:/usr/slurm/bin
+LD_LIBRARY_PATH: /usr/local/other/SLES11.3/SIVO-PyD/1.24.0_gcc4.9.2-sp3=
+_mkl15.0.2.164_mvapich2-2.1/lib:/usr/local/other/SLES11.3/mvapich2/2.1/=
+gcc-4.9.2/lib:/usr/local/intel/Composer/composer_xe_2015.2.164/mkl/lib/=
+intel64:/usr/local/other/SLES11.3/gcc/4.9.2/lib64:/gpfsm/dulocal/sles11=
+/other/SLES11.3/git/2.21.0/lib
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/local/other/SLES11.3/gcc/4.9.2/=
+bin/gcc
+Location of the Fortran compiler:  /usr/local/other/SLES11.3/mvapich2/2=
+.1/gcc-4.9.2/bin/mpif90
+Location of the Fortran linker:    /usr/local/other/SLES11.3/mvapich2/2=
+.1/gcc-4.9.2/bin/mpif90
+Location of the C++ compiler:      /usr/local/other/SLES11.3/mvapich2/2=
+.1/gcc-4.9.2/bin/mpicxx
+Location of the C++ linker:        /usr/local/other/SLES11.3/mvapich2/2=
+.1/gcc-4.9.2/bin/mpicxx
+
+Fortran compiler flags:
+ESMF_F90COMPILER: mpif90
+ESMF_F90COMPILEOPTS: -g -traceback -check arg_temp_created,bounds,forma=
+t,output_conversion,stack,uninit -fPIC -assume realloc_lhs -m64 -mcmode=
+l=3Dsmall -threads
+ESMF_F90COMPILEPATHS: -I/discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mvapich2.default -I/disc=
+over/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/in=
+clude -I/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_s=
+p3/include -I/home/scvasque/proj4/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO=
+_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx=
+86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=
+=3D/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esm=
+f
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP:=20
+ESMF_F90COMPILEFIXCPP:=20
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64 -mcmodel=3Dsmall -threads -Wl,--no-as-needed
+ESMF_F90LINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/daily_buil=
+ds/esmpy/intel/esmf/lib/libg/Linux.intel.64.mvapich2.default -L/discove=
+r/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/lib -L/home/s=
+cvasque/proj4/lib=20
+ESMF_F90LINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+daily_builds/esmpy/intel/esmf/lib/libg/Linux.intel.64.mvapich2.default =
+ -Wl,-rpath,/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9=
+.2_sp3/lib  -Wl,-rpath,/home/scvasque/proj4/lib
+ESMF_F90LINKLIBS:  -cxxlib -lrt -ldl -lnetcdff -lnetcdf -lproj
+ESMF_F90ESMFLINKLIBS: -lesmf  -cxxlib -lrt -ldl -lnetcdff -lnetcdf -lpr=
+oj
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: mpicxx
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -g -traceback -Wcheck -fPIC -m64 -mcm=
+odel=3Dsmall -pthread
+ESMF_CXXCOMPILEPATHS:  -I/discover/nobackup/scvasque/scripts_dir/daily_=
+builds/esmpy/intel/esmf/src/include  -I/discover/nobackup/projects/lis/=
+libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasque/proj4/includ=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO=
+_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx=
+86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=
+=3D/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esm=
+f -D__SDIR__=3D'' -DESMF_CXXSTD=3D11
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed
+ESMF_CXXLINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/daily_buil=
+ds/esmpy/intel/esmf/lib/libg/Linux.intel.64.mvapich2.default -L/discove=
+r/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/lib -L/home/s=
+cvasque/proj4/lib -L
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+daily_builds/esmpy/intel/esmf/lib/libg/Linux.intel.64.mvapich2.default =
+ -Wl,-rpath,/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9=
+.2_sp3/lib  -Wl,-rpath,/home/scvasque/proj4/lib -Wl,-rpath,
+ESMF_CXXLINKLIBS:  -lmpifort  -lrt -ldl -lnetcdff -lnetcdf -lproj
+ESMF_CXXESMFLINKLIBS: -lesmf  -lmpifort  -lrt -ldl -lnetcdff -lnetcdf -=
+lproj
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    mpicxx
+ESMF_SL_LIBOPTS:       -pthread -shared
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/discover/nobackup/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/lib/libg/Linux.intel.64.mvapich2.default/libesmft=
+race_preload.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Mon Apr 20 03:33:10 EDT 2020 on discover01
+Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
+MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
+x
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Mon Apr 20 03:35:11 EDT 2020 library build -j4 ************FAIL
+
+
+The following is the 'tail' of the build failure
+
+/bin/sh: line 0: [: -ge: unary operator expected
+gmake[5]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/src/prologue/yaml-cpp'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/daily_builds/es=
+mpy/intel/esmf/mod/modg/Linux.intel.64.mvapich2.default; gmake -f ${dir=
+}/makefile MAKEFILE=3D${dir}/makefile esmflib
+/bin/sh: line 0: [: -ge: unary operator expected
+/bin/sh: line 0: [: -ge: unary operator expected
+gmake[6]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mvapich2.default'
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mvapich2.default'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy=
+/intel/esmf/src/prologue/yaml-cpp/src
+/bin/sh: line 0: [: -ge: unary operator expected
+/bin/sh: line 0: [: -ge: unary operator expected
+gmake[6]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/src/prologue/yaml-cpp/src'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/daily_builds/es=
+mpy/intel/esmf/mod/modg/Linux.intel.64.mvapich2.default; gmake -f ${dir=
+}/makefile MAKEFILE=3D${dir}/makefile esmflib
+/bin/sh: line 0: [: -ge: unary operator expected
+/bin/sh: line 0: [: -ge: unary operator expected
+gmake[7]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mvapich2.default'
+/bin/sh: line 0: [: -ge: unary operator expected
+/bin/sh: line 0: [: -ge: unary operator expected
+gmake[8]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mvapich2.default'
+mpicxx -c -std=3Dc++11 -g -traceback -Wcheck -fPIC -m64 -mcmodel=3Dsmal=
+l -pthread -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy=
+/intel/esmf/src/prologue/yaml-cpp/src -I/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf/src/prologue/yaml-cpp/src/../inc=
+lude -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel=
+/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/=
+nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superst=
+ructure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasqu=
+e/scripts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/no=
+backup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/s=
+cvasque/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_=
+1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_sn=
+apshot_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPAC=
+K_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESM=
+F_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=
+=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BO=
+PT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DES=
+MF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/prologue/yaml-cpp/src=
+"' -DESMF_CXXSTD=3D11 /discover/nobackup/scvasque/scripts_dir/daily_bui=
+lds/esmpy/intel/esmf/src/prologue/yaml-cpp/src/binary.cpp -o /discover/=
+nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/obj/objg/Li=
+nux.intel.64.mvapich2.default/binary.o
+mpicxx -c -std=3Dc++11 -g -traceback -Wcheck -fPIC -m64 -mcmodel=3Dsmal=
+l -pthread -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy=
+/intel/esmf/src/prologue/yaml-cpp/src -I/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf/src/prologue/yaml-cpp/src/../inc=
+lude -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel=
+/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/=
+nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superst=
+ructure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasqu=
+e/scripts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/no=
+backup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/s=
+cvasque/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_=
+1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_sn=
+apshot_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPAC=
+K_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESM=
+F_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=
+=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BO=
+PT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DES=
+MF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/prologue/yaml-cpp/src=
+"' -DESMF_CXXSTD=3D11 /discover/nobackup/scvasque/scripts_dir/daily_bui=
+lds/esmpy/intel/esmf/src/prologue/yaml-cpp/src/emitterutils.cpp -o /dis=
+cover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/obj/o=
+bjg/Linux.intel.64.mvapich2.default/emitterutils.o
+mpicxx -c -std=3Dc++11 -g -traceback -Wcheck -fPIC -m64 -mcmodel=3Dsmal=
+l -pthread -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy=
+/intel/esmf/src/prologue/yaml-cpp/src -I/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf/src/prologue/yaml-cpp/src/../inc=
+lude -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel=
+/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/=
+nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superst=
+ructure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasqu=
+e/scripts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/no=
+backup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/s=
+cvasque/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_=
+1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_sn=
+apshot_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPAC=
+K_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESM=
+F_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=
+=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BO=
+PT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DES=
+MF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/prologue/yaml-cpp/src=
+"' -DESMF_CXXSTD=3D11 /discover/nobackup/scvasque/scripts_dir/daily_bui=
+lds/esmpy/intel/esmf/src/prologue/yaml-cpp/src/nodeevents.cpp -o /disco=
+ver/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/obj/obj=
+g/Linux.intel.64.mvapich2.default/nodeevents.o
+mpicxx -c -std=3Dc++11 -g -traceback -Wcheck -fPIC -m64 -mcmodel=3Dsmal=
+l -pthread -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy=
+/intel/esmf/src/prologue/yaml-cpp/src -I/discover/nobackup/scvasque/scr=
+ipts_dir/daily_builds/esmpy/intel/esmf/src/prologue/yaml-cpp/src/../inc=
+lude -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel=
+/esmf/build_config/Linux.intel.default -I/discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/=
+nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superst=
+ructure -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasqu=
+e/scripts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/no=
+backup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/s=
+cvasque/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_=
+1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_sn=
+apshot_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPAC=
+K_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESM=
+F_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=
+=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BO=
+PT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DES=
+MF_COMM=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf -D__SDIR__=3D'"src/prologue/yaml-cpp/src=
+"' -DESMF_CXXSTD=3D11 /discover/nobackup/scvasque/scripts_dir/daily_bui=
+lds/esmpy/intel/esmf/src/prologue/yaml-cpp/src/scanscalar.cpp -o /disco=
+ver/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/obj/obj=
+g/Linux.intel.64.mvapich2.default/scanscalar.o
+g++: error: unrecognized command line option =E2=80=98-traceback=E2=80=
+=99
+g++: error: unrecognized command line option =E2=80=98-Wcheck=E2=80=99
+gmake[8]: *** [/discover/nobackup/scvasque/scripts_dir/daily_builds/esm=
+py/intel/esmf/obj/objg/Linux.intel.64.mvapich2.default/binary.o] Error =
+1
+gmake[8]: *** Waiting for unfinished jobs....
+g++: error: unrecognized command line option =E2=80=98-traceback=E2=80=
+=99
+g++: error: unrecognized command line option =E2=80=98-traceback=E2=80=
+=99
+g++: error: unrecognized command line option =E2=80=98-Wcheck=E2=80=99
+gmake[8]: *** [/discover/nobackup/scvasque/scripts_dir/daily_builds/esm=
+py/intel/esmf/obj/objg/Linux.intel.64.mvapich2.default/emitterutils.o] =
+Error 1
+gmake[8]: *** [/discover/nobackup/scvasque/scripts_dir/daily_builds/esm=
+py/intel/esmf/obj/objg/Linux.intel.64.mvapich2.default/nodeevents.o] Er=
+ror 1
+g++: error: unrecognized command line option =E2=80=98-traceback=E2=80=
+=99
+g++: error: unrecognized command line option =E2=80=98-Wcheck=E2=80=99
+gmake[8]: *** [/discover/nobackup/scvasque/scripts_dir/daily_builds/esm=
+py/intel/esmf/obj/objg/Linux.intel.64.mvapich2.default/scanscalar.o] Er=
+ror 1
+gmake[8]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mvapich2.default'
+gmake[7]: *** [esmflib] Error 2
+gmake[7]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modg/Linux.intel.64.mvapich2.default'
+gmake[6]: *** [tree_lib] Error 2
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/prologue/yaml-cpp/src'
+gmake[5]: *** [tree] Error 1
+gmake[5]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/prologue/yaml-cpp'
+gmake[4]: *** [tree] Error 1
+gmake[4]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/prologue'
+gmake[3]: *** [tree] Error 1
+gmake[3]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src'
+gmake[2]: *** [tree] Error 1
+gmake[2]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf'
+gmake[1]: *** [build_libs] Error 2
+gmake[1]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf'
+gmake: *** [lib] Error 2
+
+
+_______________________________________________________________________=
+______________________________________
+
+Mon Apr 20 03:36:26 EDT 2020 on discover01=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+--------------------------------------------------------------=20
+Currently Loaded Modulefiles:
+  1) other/git-2.21.0
+  2) other/comp/gcc-4.9.2-sp3
+  3) lib/mkl-15.0.2.164
+  4) other/mpi/mvapich2-2.1/gcc-4.9.2-sp3
+  5) other/SIVO-PyD/spd_1.24.0_gcc-4.9.2-sp3_mkl-15.0.2.164_mvapich2-2.=
+1
+
+
+=20
+ESMF Repository:
+origin=09https://github.com/esmf-org/esmf (fetch)
+origin=09https://github.com/esmf-org/esmf (push)
+=20
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+=20
+/bin/sh: line 0: [: -ge: unary operator expected
+/bin/sh: line 0: [: -ge: unary operator expected
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.1.0 beta snapshot
+ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5
+--------------------------------------------------------------
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for x86_64-unknown-linux-gnu
+
+--------------------------------------------------------------
+Fortran Compiler version:
+mpifort for MVAPICH2 version 2.1
+Using built-in specs.
+COLLECT_GCC=3Dgfortran
+gfortran: error: unrecognized command line option =E2=80=98-V=E2=80=99
+Target: x86_64-unknown-linux-gnu
+Configured with: /gpfsm/dnbsrc/other/GCC/SLES11/4.9.2/gcc-4.9.2/configu=
+re --prefix=3D/usr/local/other/SLES11.3/gcc/4.9.2 --enable-languages=3D=
+all --enable-bootstrap
+Thread model: posix
+gcc version 4.9.2 (GCC)=20
+
+--------------------------------------------------------------
+C++ Compiler version:
+mpicxx for MVAPICH2 version 2.1
+Using built-in specs.
+COLLECT_GCC=3Dg++
+g++: error: unrecognized command line option =E2=80=98-V=E2=80=99
+Target: x86_64-unknown-linux-gnu
+Configured with: /gpfsm/dnbsrc/other/GCC/SLES11/4.9.2/gcc-4.9.2/configu=
+re --prefix=3D/usr/local/other/SLES11.3/gcc/4.9.2 --enable-languages=3D=
+all --enable-bootstrap
+Thread model: posix
+gcc version 4.9.2 (GCC)=20
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (GCC) 4.9.2
+Copyright (C) 2014 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3DO
+ESMF_COMM=3Dmvapich2
+ESMF_COMPILER=3Dintel
+ESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/i=
+ntel/esmf
+ESMF_INSTALL_BINDIR=3Dbin
+ESMF_INSTALL_LIBDIR=3Dlib
+ESMF_INSTALL_MODDIR=3Dmod
+ESMF_INSTALL_PREFIX=3D/discover/nobackup/scvasque/scripts_dir/daily_bui=
+lds/esmpy/intel/esmf/../install_dir
+ESMF_NETCDF_INCLUDE=3D/discover/nobackup/projects/lis/libs/netcdf/4.3.3=
+.1_gcc-4.9.2_sp3/include
+ESMF_NETCDF_LIBPATH=3D/discover/nobackup/projects/lis/libs/netcdf/4.3.3=
+.1_gcc-4.9.2_sp3/lib
+ESMF_NETCDF=3Dsplit
+ESMF_OPENMP=3DOFF
+ESMF_OS=3DLinux
+ESMF_PROJ4=3Dexternal
+ESMF_PROJ4_INCLUDE=3D/home/scvasque/proj4/include
+ESMF_PROJ4_LIBPATH=3D/home/scvasque/proj4/lib
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTHARNESS_ARRAY=3DRUN_ESMF_TestHarnessArray_default
+ESMF_TESTHARNESS_FIELD=3DRUN_ESMF_TestHarnessField_default
+ESMF_TESTMPMD=3DOFF
+ESMF_TESTWITHTHREADS=3DOFF
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/in=
+tel/esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          intel
+ESMF_BOPT:              O
+ESMF_COMM:              mvapich2
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            OFF
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          OFF
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: RUN_ESMF_TestHarnessArray_default
+ESMF_TESTHARNESS_FIELD: RUN_ESMF_TestHarnessField_default
+ESMF_MPIRUN:            mpirun=20
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_NETCDF:             split
+ESMF_NETCDF_INCLUDE:     /discover/nobackup/projects/lis/libs/netcdf/4.=
+3.3.1_gcc-4.9.2_sp3/include
+ESMF_NETCDF_LIBS:        -lnetcdff -lnetcdf
+ESMF_NETCDF_LIBPATH:     /discover/nobackup/projects/lis/libs/netcdf/4.=
+3.3.1_gcc-4.9.2_sp3/lib
+ESMF_YAMLCPP:            internal
+ESMF_PIO:                internal
+ESMF_PROJ4:                external
+ESMF_PROJ4_INCLUDE:        /home/scvasque/proj4/include
+ESMF_PROJ4_LIBS:           -lproj
+ESMF_PROJ4_LIBPATH:        /home/scvasque/proj4/lib
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    mod
+ESMF_INSTALL_LIBDIR:    lib
+ESMF_INSTALL_BINDIR:    bin
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_=
+sp3/:/usr/local/other/SLES11.3/SIVO-PyD/1.24.0_gcc4.9.2-sp3_mkl15.0.2.1=
+64_mvapich2-2.1/bin:/usr/local/other/SLES11.3/mvapich2/2.1/gcc-4.9.2/bi=
+n:/usr/local/other/SLES11.3/gcc/4.9.2/bin:/gpfsm/dulocal/sles11/other/S=
+LES11.3/git/2.21.0/libexec/git-core:/gpfsm/dulocal/sles11/other/SLES11.=
+3/git/2.21.0/bin:/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gc=
+c-4.9.2_sp3/:/home/scvasque/bin:/opt/cwx/bin:/usr/local/bin:/usr/bin:/u=
+sr/X11R6/bin:/bin:/usr/lib/java/bin:/usr/pbs/bin:/usr/slurm/bin
+LD_LIBRARY_PATH: /usr/local/other/SLES11.3/SIVO-PyD/1.24.0_gcc4.9.2-sp3=
+_mkl15.0.2.164_mvapich2-2.1/lib:/usr/local/other/SLES11.3/mvapich2/2.1/=
+gcc-4.9.2/lib:/usr/local/intel/Composer/composer_xe_2015.2.164/mkl/lib/=
+intel64:/usr/local/other/SLES11.3/gcc/4.9.2/lib64:/gpfsm/dulocal/sles11=
+/other/SLES11.3/git/2.21.0/lib
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /usr/local/other/SLES11.3/gcc/4.9.2/=
+bin/gcc
+Location of the Fortran compiler:  /usr/local/other/SLES11.3/mvapich2/2=
+.1/gcc-4.9.2/bin/mpif90
+Location of the Fortran linker:    /usr/local/other/SLES11.3/mvapich2/2=
+.1/gcc-4.9.2/bin/mpif90
+Location of the C++ compiler:      /usr/local/other/SLES11.3/mvapich2/2=
+.1/gcc-4.9.2/bin/mpicxx
+Location of the C++ linker:        /usr/local/other/SLES11.3/mvapich2/2=
+.1/gcc-4.9.2/bin/mpicxx
+
+Fortran compiler flags:
+ESMF_F90COMPILER: mpif90
+ESMF_F90COMPILEOPTS: -O -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall=
+ -threads
+ESMF_F90COMPILEPATHS: -I/discover/nobackup/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mvapich2.default -I/disc=
+over/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/in=
+clude -I/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_s=
+p3/include -I/home/scvasque/proj4/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO=
+_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx=
+86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=
+=3D/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esm=
+f
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP:=20
+ESMF_F90COMPILEFIXCPP:=20
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64 -mcmodel=3Dsmall -threads -Wl,--no-as-needed
+ESMF_F90LINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/daily_buil=
+ds/esmpy/intel/esmf/lib/libO/Linux.intel.64.mvapich2.default -L/discove=
+r/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/lib -L/home/s=
+cvasque/proj4/lib=20
+ESMF_F90LINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+daily_builds/esmpy/intel/esmf/lib/libO/Linux.intel.64.mvapich2.default =
+ -Wl,-rpath,/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9=
+.2_sp3/lib  -Wl,-rpath,/home/scvasque/proj4/lib
+ESMF_F90LINKLIBS:  -cxxlib -lrt -ldl -lnetcdff -lnetcdf -lproj
+ESMF_F90ESMFLINKLIBS: -lesmf  -cxxlib -lrt -ldl -lnetcdff -lnetcdf -lpr=
+oj
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: mpicxx
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -O -DNDEBUG -fPIC -m64 -mcmodel=3Dsma=
+ll -pthread
+ESMF_CXXCOMPILEPATHS:  -I/discover/nobackup/scvasque/scripts_dir/daily_=
+builds/esmpy/intel/esmf/src/include  -I/discover/nobackup/projects/lis/=
+libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasque/proj4/includ=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/src/prologue/yaml-cpp/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5' -DESM=
+F_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_S=
+OFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 =
+-DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_NO=
+_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx=
+86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=
+=3D/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esm=
+f -D__SDIR__=3D'' -DESMF_CXXSTD=3D11
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed
+ESMF_CXXLINKPATHS: -L/discover/nobackup/scvasque/scripts_dir/daily_buil=
+ds/esmpy/intel/esmf/lib/libO/Linux.intel.64.mvapich2.default -L/discove=
+r/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/lib -L/home/s=
+cvasque/proj4/lib -L
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/discover/nobackup/scvasque/scripts_dir/=
+daily_builds/esmpy/intel/esmf/lib/libO/Linux.intel.64.mvapich2.default =
+ -Wl,-rpath,/discover/nobackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9=
+.2_sp3/lib  -Wl,-rpath,/home/scvasque/proj4/lib -Wl,-rpath,
+ESMF_CXXLINKLIBS:  -lmpifort  -lrt -ldl -lnetcdff -lnetcdf -lproj
+ESMF_CXXESMFLINKLIBS: -lesmf  -lmpifort  -lrt -ldl -lnetcdff -lnetcdf -=
+lproj
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    mpicxx
+ESMF_SL_LIBOPTS:       -pthread -shared
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/discover/nobackup/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/lib/libO/Linux.intel.64.mvapich2.default/libesmft=
+race_preload.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Mon Apr 20 03:36:28 EDT 2020 on discover01
+Machine characteristics: Linux discover01 3.0.101-0.47.105-default #1 S=
+MP Thu Jun 22 17:13:58 UTC 2017 (e1c7e3b) x86_64 x86_64 x86_64 GNU/Linu=
+x
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Mon Apr 20 03:38:25 EDT 2020 library build -j4 ************FAIL
+
+
+The following is the 'tail' of the build failure
+
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mvapich2.default'
+tree_lib in: /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy=
+/intel/esmf/src/Infrastructure/Util/src
+/bin/sh: line 0: [: -ge: unary operator expected
+/bin/sh: line 0: [: -ge: unary operator expected
+gmake[6]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/src/Infrastructure/Util/src'
+dir=3D`pwd`; cd /discover/nobackup/scvasque/scripts_dir/daily_builds/es=
+mpy/intel/esmf/mod/modO/Linux.intel.64.mvapich2.default; gmake -f ${dir=
+}/makefile MAKEFILE=3D${dir}/makefile esmflib
+/bin/sh: line 0: [: -ge: unary operator expected
+/bin/sh: line 0: [: -ge: unary operator expected
+gmake[7]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mvapich2.default'
+gcc -E -P -x c -C -nostdinc -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/include /discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESM=
+F_FortranWordsize.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' >=
+ /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+src/Infrastructure/Util/src/ESMF_FortranWordsize.F90
+gcc -E -P -x c -C -nostdinc -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/include /discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESM=
+F_TypeKindGet.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /di=
+scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/=
+Infrastructure/Util/src/ESMF_TypeKindGet.F90
+gcc -E -P -x c -C -nostdinc -I/discover/nobackup/scvasque/scripts_dir/d=
+aily_builds/esmpy/intel/esmf/src/include /discover/nobackup/scvasque/sc=
+ripts_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/ESM=
+F_UtilSort.cppF90 | tr "@^|" "\n#'" | sed -e '/^#pragma GCC/d' > /disco=
+ver/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Inf=
+rastructure/Util/src/ESMF_UtilSort.F90
+/bin/sh: line 0: [: -ge: unary operator expected
+/bin/sh: line 0: [: -ge: unary operator expected
+gmake[8]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mvapich2.default'
+mpicxx -c -std=3Dc++11 -O -DNDEBUG -fPIC -m64 -mcmodel=3Dsmall -pthread=
+ -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esm=
+f/src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../include -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+build_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_=
+dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/noback=
+up/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructur=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasque/scri=
+pts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/nobackup=
+/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasqu=
+e/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
+esmpy/intel/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE=
+ -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot=
+_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTE=
+RNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAML=
+CPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -D=
+ESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -D=
+ESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=
+=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily_=
+builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Util/src"' -D=
+ESMF_CXXSTD=3D11 /discover/nobackup/scvasque/scripts_dir/daily_builds/e=
+smpy/intel/esmf/src/Infrastructure/Util/src/ESMCI_Util.C -o /discover/n=
+obackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/obj/objO/Lin=
+ux.intel.64.mvapich2.default/ESMCI_Util.o
+mpicxx -c -std=3Dc++11 -O -DNDEBUG -fPIC -m64 -mcmodel=3Dsmall -pthread=
+ -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esm=
+f/src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../include -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+build_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_=
+dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/noback=
+up/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructur=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasque/scri=
+pts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/nobackup=
+/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasqu=
+e/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
+esmpy/intel/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE=
+ -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot=
+_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTE=
+RNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAML=
+CPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -D=
+ESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -D=
+ESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=
+=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily_=
+builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Util/src"' -D=
+ESMF_CXXSTD=3D11 /discover/nobackup/scvasque/scripts_dir/daily_builds/e=
+smpy/intel/esmf/src/Infrastructure/Util/src/ESMCI_Fraction.C -o /discov=
+er/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/obj/objO=
+/Linux.intel.64.mvapich2.default/ESMCI_Fraction.o
+mpicxx -c -std=3Dc++11 -O -DNDEBUG -fPIC -m64 -mcmodel=3Dsmall -pthread=
+ -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esm=
+f/src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../include -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+build_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_=
+dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/noback=
+up/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructur=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasque/scri=
+pts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/nobackup=
+/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasqu=
+e/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
+esmpy/intel/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE=
+ -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot=
+_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTE=
+RNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAML=
+CPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -D=
+ESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -D=
+ESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=
+=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily_=
+builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Util/src"' -D=
+ESMF_CXXSTD=3D11 /discover/nobackup/scvasque/scripts_dir/daily_builds/e=
+smpy/intel/esmf/src/Infrastructure/Util/src/ESMCI_F90Interface.C -o /di=
+scover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/obj/=
+objO/Linux.intel.64.mvapich2.default/ESMCI_F90Interface.o
+mpicxx -c -std=3Dc++11 -O -DNDEBUG -fPIC -m64 -mcmodel=3Dsmall -pthread=
+ -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esm=
+f/src/Infrastructure/Util/src -I/discover/nobackup/scvasque/scripts_dir=
+/daily_builds/esmpy/intel/esmf/src/Infrastructure/Util/src/../include -=
+I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/=
+build_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts_=
+dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/noback=
+up/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructur=
+e -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/es=
+mf/src/Infrastructure/stubs/pthread  -I/discover/nobackup/scvasque/scri=
+pts_dir/daily_builds/esmpy/intel/esmf/src/include  -I/discover/nobackup=
+/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/scvasqu=
+e/proj4/include -I/discover/nobackup/scvasque/scripts_dir/daily_builds/=
+esmpy/intel/esmf/src/prologue/yaml-cpp/include -DESMF_NO_INTEGER_1_BYTE=
+ -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot=
+_14-10-gd7b1f4b5"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTE=
+RNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAML=
+CPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -D=
+ESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -D=
+ESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=
+=3Dmvapich2 -DESMF_DIR=3D/discover/nobackup/scvasque/scripts_dir/daily_=
+builds/esmpy/intel/esmf -D__SDIR__=3D'"src/Infrastructure/Util/src"' -D=
+ESMF_CXXSTD=3D11 /discover/nobackup/scvasque/scripts_dir/daily_builds/e=
+smpy/intel/esmf/src/Infrastructure/Util/src/ESMCI_CoordSys.C -o /discov=
+er/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/obj/objO=
+/Linux.intel.64.mvapich2.default/ESMCI_CoordSys.o
+gmake[8]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mvapich2.default'
+/bin/sh: line 0: [: -ge: unary operator expected
+/bin/sh: line 0: [: -ge: unary operator expected
+gmake[8]: Entering directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_b=
+uilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mvapich2.default'
+mpif90 -c -O -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -threads  =
+-I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf=
+/build_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts=
+_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/nobac=
+kup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructu=
+re -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/e=
+smf/mod/modO/Linux.intel.64.mvapich2.default -I/discover/nobackup/scvas=
+que/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/discover/n=
+obackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/=
+scvasque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BY=
+TE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DES=
+MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
+SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
+ -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_N=
+O_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS=
+x86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=
+=3D/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esm=
+f /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf=
+/src/Infrastructure/Util/src/ESMF_UtilTypes.F90 -o /discover/nobackup/s=
+cvasque/scripts_dir/daily_builds/esmpy/intel/esmf/obj/objO/Linux.intel.=
+64.mvapich2.default/ESMF_UtilTypes.o
+mpif90 -c -O -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall -threads  =
+-I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf=
+/build_config/Linux.intel.default -I/discover/nobackup/scvasque/scripts=
+_dir/daily_builds/esmpy/intel/esmf/src/Infrastructure -I/discover/nobac=
+kup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/src/Superstructu=
+re -I/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/e=
+smf/mod/modO/Linux.intel.64.mvapich2.default -I/discover/nobackup/scvas=
+que/scripts_dir/daily_builds/esmpy/intel/esmf/src/include -I/discover/n=
+obackup/projects/lis/libs/netcdf/4.3.3.1_gcc-4.9.2_sp3/include -I/home/=
+scvasque/proj4/include  -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BY=
+TE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b5"' -DES=
+MF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_=
+SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
+ -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_PROJ4=3D1 -DESMF_NO_OPENMP -DESMF_N=
+O_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS=
+x86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmvapich2 -DESMF_DIR=
+=3D/discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esm=
+f /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf=
+/src/Infrastructure/Util/src/ESMF_UtilString.F90 -o /discover/nobackup/=
+scvasque/scripts_dir/daily_builds/esmpy/intel/esmf/obj/objO/Linux.intel=
+.64.mvapich2.default/ESMF_UtilString.o
+gfortran: error: realloc_lhs: No such file or directory
+gfortran: error: unrecognized command line option =E2=80=98-assume=E2=
+=80=99
+gfortran: error: unrecognized command line option =E2=80=98-threads=E2=
+=80=99
+gmake[8]: *** [/discover/nobackup/scvasque/scripts_dir/daily_builds/esm=
+py/intel/esmf/obj/objO/Linux.intel.64.mvapich2.default/ESMF_UtilTypes.o=
+] Error 1
+gmake[8]: *** Waiting for unfinished jobs....
+gfortran: error: realloc_lhs: No such file or directory
+gfortran: error: unrecognized command line option =E2=80=98-assume=E2=
+=80=99
+gfortran: error: unrecognized command line option =E2=80=98-threads=E2=
+=80=99
+gmake[8]: *** [/discover/nobackup/scvasque/scripts_dir/daily_builds/esm=
+py/intel/esmf/obj/objO/Linux.intel.64.mvapich2.default/ESMF_UtilString.=
+o] Error 1
+gmake[8]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mvapich2.default'
+gmake[7]: *** [esmflib] Error 2
+gmake[7]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/mod/modO/Linux.intel.64.mvapich2.default'
+gmake[6]: *** [tree_lib] Error 2
+gmake[6]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/Infrastructure/Util/src'
+gmake[5]: *** [tree] Error 1
+gmake[5]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/Infrastructure/Util'
+gmake[4]: *** [tree] Error 1
+gmake[4]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src/Infrastructure'
+gmake[3]: *** [tree] Error 1
+gmake[3]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf/src'
+gmake[2]: *** [tree] Error 1
+gmake[2]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf'
+gmake[1]: *** [build_libs] Error 2
+gmake[1]: Leaving directory `/gpfsm/dnb31/scvasque/scripts_dir/daily_bu=
+ilds/esmpy/intel/esmf'
+gmake: *** [lib] Error 2
+
+
+
+
+ The tarballs of the tests and examples directories can be found at:
+ /discover/nobackup/scvasque/scripts_dir/daily_builds/esmpy/intel/esmf_=
+logs/2004_test.
+ These tarballs contain the *Log and *stdout files only, not the execut=
+ables.
+ This directory also contains failed build output files with the naming=
+ convention of=20
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COM=
+M.
+ For example, if the build fails on longs on the 19th of the month with=
+ ESMF_BOPT=3Dg, the file=20
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:red
+Day_of_Week:Monday
+Test_Failures:0
