@@ -2,97 +2,86 @@
 Return-Path: <svasquez@service8.cheyenne.ucar.edu>
 Delivered-To: unknown
 Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
-  with IMAP4-SSL; 08 Apr 2020 09:00:02 -0000
+  with IMAP4-SSL; 22 Apr 2020 09:00:03 -0000
 X-Original-To: esmftest@cgd.ucar.edu
 Delivered-To: esmftest@cgd.ucar.edu
 Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
-	by post2.cgd.ucar.edu (Postfix) with ESMTP id 8DB3828F
-	for <esmftest@cgd.ucar.edu>; Wed,  8 Apr 2020 02:56:00 -0600 (MDT)
-Received: from mail-il1-f200.google.com (mail-il1-f200.google.com [209.85.166.200])
-	by vscanx2.ucar.edu (Postfix) with ESMTPS id 474E11800258
-	for <esmftest@cgd.ucar.edu>; Wed,  8 Apr 2020 02:56:00 -0600 (MDT)
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 686D0257
+	for <esmftest@cgd.ucar.edu>; Wed, 22 Apr 2020 02:54:53 -0600 (MDT)
+Received: from mail-io1-f71.google.com (mail-io1-f71.google.com [209.85.166.71])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 0ACFF1800278
+	for <esmftest@cgd.ucar.edu>; Wed, 22 Apr 2020 02:54:53 -0600 (MDT)
 Authentication-Results: vscanx2.ucar.edu;
-	dkim=pass (2048-bit key) header.d=ucar.edu header.i=@ucar.edu header.b="j3Qgc6hN"
-Received: by mail-il1-f200.google.com with SMTP id b14so6109592ilb.1
-        for <esmftest@cgd.ucar.edu>; Wed, 08 Apr 2020 01:56:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:dkim-signature:date:to:subject:user-agent
-         :mime-version:content-transfer-encoding:message-id:from;
-        bh=85crrpRGlcUWvSVv0e9xzh3h4dWexGocJDrcdy3gWzs=;
-        b=UAd62l8Eas0g+02wtrvN1LU4IS/9PFRmBs9wFXJUsf64pjnSpWtKQwYeZ375vmj0N7
-         qxPaWXIW6XTVFaYOd+d4SqmXjiIm00avHRv/WqVbT4tw0pmmvHvHcKp80Swind32wSY/
-         LUEErG1fnacEyZX/RdFEItDd3lJm1lUr12vDdXZ8AKNKrS6rXv02VtOH4xHhBnCriGlW
-         RWgX6YANomcerV62RSeV5Pa+YBiA483RjYgqdalEiDHHyN3A5qozKCF3l5TJoq8p5/3M
-         fOuLkz1V5p0gJzGjIY43gWpefKZ1QG+V9ubwqF+YzHFcPcyV634Qm+sVgrcTPkeolAMm
-         y/rA==
-X-Gm-Message-State: AGi0PuYtkzjzDAxs8xfBDZ0udFmoqFsZl4ioIBrcTSs6mQuIGn98Q1n5
-	sISCSfO2QUg3TjK3J/A1MM0EgeB6XliOOFKTDiCCPA1xW0bAefSd5DVn4HzeB8xzeXZatMVHZef
-	f5DEcUhPxREqsVoj93wY=
-X-Received: by 2002:a92:86d1:: with SMTP id l78mr6783914ilh.172.1586336159901;
-        Wed, 08 Apr 2020 01:55:59 -0700 (PDT)
-X-Google-Smtp-Source: APiQypJm92xRnoZDWZvIHtAgWVBXS/mQlcM7JiaXZ2rXfmPofF9lUu+BLsE5edSSwKgij7RBVh4r
-X-Received: by 2002:a92:86d1:: with SMTP id l78mr6783879ilh.172.1586336158923;
-        Wed, 08 Apr 2020 01:55:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1586336158; cv=none;
+	dkim=pass (2048-bit key) header.d=ucar.edu header.i=@ucar.edu header.b="JMiAN0Da"
+Received: by mail-io1-f71.google.com with SMTP id a12so1370693ioe.17
+        for <esmftest@cgd.ucar.edu>; Wed, 22 Apr 2020 01:54:53 -0700 (PDT)
+X-Gm-Message-State: AGi0PuZxXohGqQrxRzJYbUnRMGHtr3BxEk5O3X2S5SKA+Egxc5SSodQY
+	Bs7V+NC6Qvw/D5L586teYrRcFy74YrzFyTr5pDzylxrFbetrex/Yq9pA24E9Z2gcFIzP4qS5xFC
+	NB0M8UcaTEFWJ8wSpJTM=
+X-Received: by 2002:a05:6638:103c:: with SMTP id n28mr23259022jan.114.1587545692590;
+        Wed, 22 Apr 2020 01:54:52 -0700 (PDT)
+X-Google-Smtp-Source: APiQypJOpixXZArzXNlejeUdQUFdptFo/DpN6yaOwZ1qdyO635Lt50XokeD6EJh3Vjna4EIC43gA
+X-Received: by 2002:a05:6638:103c:: with SMTP id n28mr23258922jan.114.1587545689822;
+        Wed, 22 Apr 2020 01:54:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1587545689; cv=none;
         d=google.com; s=arc-20160816;
-        b=L+DZHDjUrsTX7GsQAqmju3SdD2SNatlDot/FI5oW7coSA1hn9uPoQ5qPErcv5W7wB4
-         I3tYPYImh1mtlm5VjyFilrOR8kN/6YSCfn5ZvxBJ0S/OMdpoTSQVvVWjk1+/87AoFX7o
-         vNAnztDyBrKaFB4JXV6SW3p/SWh3loQneEURZbDA+0bBkAgS9ogAIf8d3QUx4uRkj0jL
-         HGBPZTGZs75KjeadZTy8axn+nVgc7ZXMvienDbBUDAWXIqy0sv1hL4rYvBwCtqDsTSxu
-         gzX/uMaISDZZ5RTqsLk21oQYv+ZdJcGhUdOakrJrXqHi00PgSe+ySFpO8Ksp7/xqU5Nl
-         je3g==
+        b=VKBhJVsrnOa5gp6VIpzbSS5T0UOAoR4I168qZPC0RS9hdR+hZAdZ+IRuMcJ8NxflF5
+         CQOnKZYS/LZACByGOEEPnvG1rhDn66z6y4K4qbCunCh1bFE7+w8EUp2Tnm+lDuB0YDXa
+         Du6EWK5AKDMYKdt5mcN0JoTnYtBgRL39V8v/UUpUxYwzn/0cdJZXIzd0mv0PDMcowDOd
+         iCZiThIrBMmYUVIOtak5IU4C+ViqrE0zdbyCmAzIuOxXZKBTPmAnBfimziFssovbT1Ue
+         IsKX3q2pqtOIZ16s3ev/B04gl6ee4QXNPZasfaCBmWaZGAcCyvMU+1fCKnxnnRetMFZM
+         ibHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=from:message-id:content-transfer-encoding:mime-version:user-agent
          :subject:to:date:dkim-signature;
-        bh=85crrpRGlcUWvSVv0e9xzh3h4dWexGocJDrcdy3gWzs=;
-        b=ti2drh860KYaUW1D0Xtx0C4xZb1FFiB6UqIzS74oJnHwhZw9NQ8un7Zly1XR9i5SjS
-         jajl8iXmgXOx56ssbzRWep1NtL6mHDoDIB39bfQg7jmKbY2rXHc9VwXrf7S1sLaVpMbq
-         SEptTo0GS0s4Pams2qESx93OPsFZriTiLVefE0fguY77kT/35/CsMnqvKcVEGXgUBNZ5
-         lKMA3ZfAJ6+mlQTlk3SRsc+G03G7x/MlJf1hy10xT4mav94ojonAdHq72SyanPhxSYHa
-         1yL91RdVPXCtHPQC/yX7DgREkHr/PZGDDbuqMhN6pePufbGaket93Z5k+FFDIL2qhBYX
-         AEeQ==
+        bh=OCJjcH0wCcIis9mzLgy/lS1zEM+OjAwZFmYoCpKqWIE=;
+        b=D1WqWdjdlks7Ebxml2cxUtAaaot4YKtjHjVV+RyASNGVcfcl/bIKuWDRw0VB6uDTcO
+         OMO/OhcQIhLgMgSYWof/h6mcwr5H2YvvdLpdiDel7ZKyYnEOatSD09Q2M8snK4JQKUal
+         AZwoBUhliiKdDl4dtAQHyNmDQlqnmnthVFu74aTBCx10oeCG9WRrqUGA6Yy26+q6RKXz
+         RJo1e/lslbYk83kucbgM2kt8C9gIVxilq42UhQj758VaVzb/x+3Vy5nm4gTgqnkxPEef
+         kDByunUjZBX9Dua93IdS9IMNaiL8n2rN1RCy4FuFIqu8ZvaWCURTSCNqvX1mGyxtI0nK
+         fOpg==
 ARC-Authentication-Results: i=1; mx.google.com;
-       dkim=pass header.i=@ucar.edu header.s=mail header.b=j3Qgc6hN;
+       dkim=pass header.i=@ucar.edu header.s=mail header.b=JMiAN0Da;
        spf=pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) smtp.mailfrom=svasquez@service8.cheyenne.ucar.edu;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ucar.edu
 Received: from vscani1.ucar.edu (vscani1.ucar.edu. [192.43.244.84])
-        by mx.google.com with ESMTPS id r23si4443765jan.55.2020.04.08.01.55.58
+        by mx.google.com with ESMTPS id q11si5242618ill.54.2020.04.22.01.54.49
         for <esmftest@cgd.ucar.edu>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 08 Apr 2020 01:55:58 -0700 (PDT)
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 22 Apr 2020 01:54:49 -0700 (PDT)
 Received-SPF: pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) client-ip=192.43.244.84;
 Authentication-Results: mx.google.com;
-       dkim=pass header.i=@ucar.edu header.s=mail header.b=j3Qgc6hN;
+       dkim=pass header.i=@ucar.edu header.s=mail header.b=JMiAN0Da;
        spf=pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) smtp.mailfrom=svasquez@service8.cheyenne.ucar.edu;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ucar.edu
 Received: from cheyenne.ucar.edu (chmgt.ucar.edu [128.117.183.158])
-	by vscani1.ucar.edu (Postfix) with ESMTP id 93BE918063E0
-	for <esmftest@cgd.ucar.edu>; Wed,  8 Apr 2020 02:55:28 -0600 (MDT)
+	by vscani1.ucar.edu (Postfix) with ESMTP id 8C5B11804559
+	for <esmftest@cgd.ucar.edu>; Wed, 22 Apr 2020 02:54:49 -0600 (MDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ucar.edu; s=mail;
-	t=1586336128; bh=bvCOw3AYWzLg4A1Q2tLJ5bT6nImtBUxM2wzSIsYXH9o=;
+	t=1587545689; bh=k/p4gLLI5vYoyB11ovN5EWRP64EGiyihzwdLCRdIZ9o=;
 	h=Date:To:Subject:From;
-	b=j3Qgc6hNMpnuH6epu8dL6E3iKHSVr2iyYPXaLhMxURaKOht7aXJXCxBEUnx3yXagZ
-	 2KWo807CL8CSC17PW9LB6cmlSrb1jYKM5g5cfwZR7TqUncDphpZI6i/Rm/aZbgr0jm
-	 q51HRT/oK47XJvZh+fycve4E2vNH5iaqBHBK+KPHlEEH4uYcRO6Je5TfGb/xNOaRCY
-	 CtIM6F29eLWUALwznIBjp9RJSC3ClvJ6m9HcHEQQeYvv+CUyDJomc9jsKY9KRRHwIj
-	 rOGk9AKv1H3jgv7PlZvtSW//gsDWoBKBQs7aZ5ZmlQgUiS+9oU+ZxyZS4fZDouBEtQ
-	 euo8mt0qapB0A==
+	b=JMiAN0Da4oWwQwAyv5d+LTp0qL6ugNNtaebt+uHWvMTgrWnJ2Ni9KyAwWTKeWfX/w
+	 fOYsDz7x7jHB6KL2e/TKKanelui4KgOFYxcv2Ax1yAW0HY+PghJIntqfn2rFOj997j
+	 Ad1I2t5csqqrXWA1QWtuazvJj5pxeECK6fnRU43wTQIbmU9Im5bWfALniwMQQRVrHl
+	 8t0sDbPbayBr7vLkm9H4KGEEA26lhpyAe2GggtPPsG5nT/EUqxvTtsVICJdAjny59w
+	 pTN9PK/Fc95Tqazm6ulPmWSNwmARUFGHx8hWMdDJlYlxy2+JY9/e6VJcnTP3Svi2xf
+	 sUvsMv7EQtEIg==
 Received: from service8.cheyenne.ucar.edu (chadmin3.head.cheyenne.ucar.edu [172.23.0.10])
-	by cheyenne.ucar.edu (Postfix) with ESMTP id 8AADE941DA3
-	for <esmftest@cgd.ucar.edu>; Wed,  8 Apr 2020 02:55:28 -0600 (MDT)
+	by cheyenne.ucar.edu (Postfix) with ESMTP id 83019941DFB
+	for <esmftest@cgd.ucar.edu>; Wed, 22 Apr 2020 02:54:49 -0600 (MDT)
 Received: by service8.cheyenne.ucar.edu (Postfix, from userid 2835)
-	id 852271A808D3; Wed,  8 Apr 2020 02:55:28 -0600 (MDT)
-Date: Wed, 08 Apr 2020 02:55:28 -0600
+	id 7AB571A808AA; Wed, 22 Apr 2020 02:54:49 -0600 (MDT)
+Date: Wed, 22 Apr 2020 02:54:49 -0600
 To: esmftest@cgd.ucar.edu
 Subject: ESMF_NUOPC_Cheyenne_intel
 User-Agent: Heirloom mailx 12.5 7/5/10
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20200408085528.852271A808D3@service8.cheyenne.ucar.edu>
+Message-Id: <20200422085449.7AB571A808AA@service8.cheyenne.ucar.edu>
 From: svasquez@service8.cheyenne.ucar.edu (Silverio Vasquez)
-X-Gm-Spam: 0
+X-Gm-Spam: 1
 X-Gm-Phishy: 0
 X-getmail-retrieved-from-mailbox: INBOX
 
@@ -100,9 +89,9 @@ X-getmail-retrieved-from-mailbox: INBOX
 
 
 
-Script start time: Wed Apr  8 01:50:16 MDT 2020
+Script start time: Wed Apr 22 01:50:10 MDT 2020
 
-Script end: Wed Apr  8 02:55:28 MDT 2020
+Script end: Wed Apr 22 02:54:49 MDT 2020
 
 
 ______________________ESMF TRUNK NUOPC_BUILD_AND_TEST_SUMMARY__________=
@@ -119,15 +108,15 @@ _________________
 SS/FAIL
 _______________________________________________________________________=
 __________________
-r7i7n9(g)       PASS        PASS    Linux.intel.mpt.64                4=
+r5i6n32(g)      PASS        PASS    Linux.intel.mpt.64                4=
 7/0
-r7i7n9(O)       PASS        PASS    Linux.intel.mpt.64                4=
+r5i6n32(O)      PASS        PASS    Linux.intel.mpt.64                4=
 7/0
 
 _______________________________________________________________________=
 _________________
 
-Wed Apr  8 01:53:14 MDT 2020 on r7i7n9=20
+Wed Apr 22 01:53:02 MDT 2020 on r5i6n32=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -149,7 +138,7 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_13
+ESMF_8_1_0_beta_snapshot_15
 =20
 =20
 NUOPC Repository:
@@ -161,7 +150,7 @@ URL: svn://svn.code.sf.net/p/esmfcontrib/svn/NUOPC/trunk
 Relative URL: ^/NUOPC/trunk
 Repository Root: svn://svn.code.sf.net/p/esmfcontrib/svn
 Repository UUID: c3fc86fe-82d8-4841-a663-0ee342cebea3
-Revision: 996
+Revision: 997
 Node Kind: directory
 Schedule: normal
 Last Changed Author: theurich
@@ -172,7 +161,7 @@ Last Changed Date: 2020-02-10 13:22:44 -0700 (Mon, 10 Feb 2020)
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_13
+ESMF_8_1_0_beta_snapshot_15
 --------------------------------------------------------------
 On branch master
 Your branch is up-to-date with 'origin/master'.
@@ -372,7 +361,7 @@ squez/scripts_dir/daily/nuopc_cheyenne/intel/esmf/src/include -I/glade/=
 u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5/include -I/glade/u/home/svasque=
 z/bin/yaml0.6.2/intel15.1.133/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_13' -DESMF_MOAB=3D1 -D=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
 ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
 =3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
 1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -D=
@@ -415,7 +404,7 @@ heyenne/intel/esmf/src/include  -I/glade/u/apps/ch/opt/netcdf/4.7.3/int=
 el/18.0.5/include -I/glade/u/home/svasquez/bin/yaml0.6.2/intel15.1.133/=
 include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_13' -DESMF_MOAB=3D1 -D=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
 ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
 =3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
 1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -D=
@@ -492,281 +481,281 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Wed Apr 8 01:53:18 MDT 2020 on r7i7n9
-Machine characteristics: Linux r7i7n9 4.12.14-95.37.1.18642.1.PTF.11555=
-08-default #1 SMP Mon Nov 4 13:03:21 UTC 2019 (9cc1377) x86_64 x86_64 x=
-86_64 GNU/Linux
+Compiling on Wed Apr 22 01:53:04 MDT 2020 on r5i6n32
+Machine characteristics: Linux r5i6n32 4.12.14-95.37.1.18642.1.PTF.1155=
+508-default #1 SMP Mon Nov 4 13:03:21 UTC 2019 (9cc1377) x86_64 x86_64 =
+x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Wed Apr  8 02:09:31 MDT 2020 library build -j4 ........................=
+Wed Apr 22 02:09:05 MDT 2020 library build -j4 ........................=
 .PASSED
-Wed Apr  8 02:10:06 MDT 2020 library install ..........................=
+Wed Apr 22 02:09:39 MDT 2020 library install ..........................=
 .PASSED
-Wed Apr  8 02:10:10 MDT 2020 library installcheck .....................=
+Wed Apr 22 02:09:43 MDT 2020 library installcheck .....................=
 .PASSED
 
 
 |---------------------------------- NUOPC TESTS -----------------------=
 -----|
 
-Wed Apr  8 02:10:14 MDT 2020 Build SingleModelProto ...................=
+Wed Apr 22 02:09:48 MDT 2020 Build SingleModelProto ...................=
 ..PASSED
-Wed Apr  8 02:10:15 MDT 2020 Run SingleModelProto .....................=
-..PASSED
-
-Wed Apr  8 02:10:24 MDT 2020 Build AtmOcnLndProto .....................=
-..PASSED
-Wed Apr  8 02:10:24 MDT 2020 Run AtmOcnLndProto .......................=
+Wed Apr 22 02:09:48 MDT 2020 Run SingleModelProto .....................=
 ..PASSED
 
-Wed Apr  8 02:10:33 MDT 2020 Build AtmOcnMedPetListProto ..............=
+Wed Apr 22 02:09:57 MDT 2020 Build AtmOcnLndProto .....................=
 ..PASSED
-Wed Apr  8 02:10:35 MDT 2020 Run AtmOcnMedPetListProto ................=
+Wed Apr 22 02:09:58 MDT 2020 Run AtmOcnLndProto .......................=
 ..PASSED
 
-Wed Apr  8 02:10:44 MDT 2020 Build AtmOcnMedPetListTimescalesProto ....=
+Wed Apr 22 02:10:07 MDT 2020 Build AtmOcnMedPetListProto ..............=
+..PASSED
+Wed Apr 22 02:10:08 MDT 2020 Run AtmOcnMedPetListProto ................=
+..PASSED
+
+Wed Apr 22 02:10:18 MDT 2020 Build AtmOcnMedPetListTimescalesProto ....=
 ..PASS
-Wed Apr  8 02:10:46 MDT 2020 Run AtmOcnMedPetListTimescalesProto ......=
+Wed Apr 22 02:10:19 MDT 2020 Run AtmOcnMedPetListTimescalesProto ......=
 ..PASSED
 
-Wed Apr  8 02:10:55 MDT 2020 Build AtmOcnMedPetListTimescalesSplitFastP=
+Wed Apr 22 02:10:29 MDT 2020 Build AtmOcnMedPetListTimescalesSplitFastP=
 roto.PASSED
-Wed Apr  8 02:10:57 MDT 2020 Run AtmOcnMedPetListTimescalesSplitFastPro=
+Wed Apr 22 02:10:30 MDT 2020 Run AtmOcnMedPetListTimescalesSplitFastPro=
 to...PASSED
 
-Wed Apr  8 02:11:04 MDT 2020 Build AtmOcnProto ........................=
+Wed Apr 22 02:10:38 MDT 2020 Build AtmOcnProto ........................=
 ..PASSED
-Wed Apr  8 02:11:05 MDT 2020 Run AtmOcnProto ..........................=
-..PASSED
-
-Wed Apr  8 02:11:17 MDT 2020 Build AtmOcnTransferGridProto ............=
-..PASSED
-Wed Apr  8 02:11:32 MDT 2020 Run AtmOcnTransferGridProto ..............=
+Wed Apr 22 02:10:38 MDT 2020 Run AtmOcnProto ..........................=
 ..PASSED
 
-Wed Apr  8 02:11:40 MDT 2020 Build AtmOcnTransferLocStreamProto .......=
+Wed Apr 22 02:10:51 MDT 2020 Build AtmOcnTransferGridProto ............=
 ..PASSED
-Wed Apr  8 02:11:40 MDT 2020 Run AtmOcnTransferLocStreamProto .........=
-..PASSED
-
-Wed Apr  8 02:11:47 MDT 2020 Build NamespaceProto .....................=
-..PASSED
-Wed Apr  8 02:11:47 MDT 2020 Run NamespaceProto .......................=
+Wed Apr 22 02:11:06 MDT 2020 Run AtmOcnTransferGridProto ..............=
 ..PASSED
 
-Wed Apr  8 02:11:55 MDT 2020 Build AtmOcnCplListProto .................=
+Wed Apr 22 02:11:14 MDT 2020 Build AtmOcnTransferLocStreamProto .......=
 ..PASSED
-Wed Apr  8 02:11:57 MDT 2020 Run AtmOcnCplListProto ...................=
-..PASSED
-
-Wed Apr  8 02:12:05 MDT 2020 Build DriverInDriverProto ................=
-..PASSED
-Wed Apr  8 02:12:05 MDT 2020 Run DriverInDriverProto ..................=
+Wed Apr 22 02:11:14 MDT 2020 Run AtmOcnTransferLocStreamProto .........=
 ..PASSED
 
-Wed Apr  8 02:12:15 MDT 2020 Build AtmOcnRtmTwoTimescalesProto ........=
+Wed Apr 22 02:11:21 MDT 2020 Build NamespaceProto .....................=
 ..PASSED
-Wed Apr  8 02:12:15 MDT 2020 Run AtmOcnRtmTwoTimescalesProto ..........=
-..PASSED
-
-Wed Apr  8 02:12:23 MDT 2020 Build AsyncIOBlockingProto ...............=
-..PASSED
-Wed Apr  8 02:12:25 MDT 2020 Run AsyncIOBlockingProto .................=
+Wed Apr 22 02:11:22 MDT 2020 Run NamespaceProto .......................=
 ..PASSED
 
-Wed Apr  8 02:12:33 MDT 2020 Build AsyncIONonblockingProto ............=
+Wed Apr 22 02:11:30 MDT 2020 Build AtmOcnCplListProto .................=
 ..PASSED
-Wed Apr  8 02:12:39 MDT 2020 Run AsyncIONonblockingProto ..............=
-..PASSED
-
-Wed Apr  8 02:12:47 MDT 2020 Build AtmOcnConProto .....................=
-..PASSED
-Wed Apr  8 02:12:49 MDT 2020 Run AtmOcnConProto .......................=
+Wed Apr 22 02:11:31 MDT 2020 Run AtmOcnCplListProto ...................=
 ..PASSED
 
-Wed Apr  8 02:12:56 MDT 2020 Build AtmOcnFDSynoProto ..................=
+Wed Apr 22 02:11:39 MDT 2020 Build DriverInDriverProto ................=
 ..PASSED
-Wed Apr  8 02:12:57 MDT 2020 Run AtmOcnFDSynoProto ....................=
-..PASSED
-
-Wed Apr  8 02:13:04 MDT 2020 Build AtmOcnImplicitProto ................=
-..PASSED
-Wed Apr  8 02:13:05 MDT 2020 Run AtmOcnImplicitProto ..................=
+Wed Apr 22 02:11:40 MDT 2020 Run DriverInDriverProto ..................=
 ..PASSED
 
-Wed Apr  8 02:13:14 MDT 2020 Build AtmOcnMedProto .....................=
+Wed Apr 22 02:11:49 MDT 2020 Build AtmOcnRtmTwoTimescalesProto ........=
 ..PASSED
-Wed Apr  8 02:13:15 MDT 2020 Run AtmOcnMedProto .......................=
+Wed Apr 22 02:11:50 MDT 2020 Run AtmOcnRtmTwoTimescalesProto ..........=
 ..PASSED
 
-Wed Apr  8 02:13:26 MDT 2020 Build AtmOcnPetListProto .................=
+Wed Apr 22 02:11:57 MDT 2020 Build AsyncIOBlockingProto ...............=
 ..PASSED
-Wed Apr  8 02:13:28 MDT 2020 Run AtmOcnPetListProto ...................=
+Wed Apr 22 02:12:00 MDT 2020 Run AsyncIOBlockingProto .................=
+..PASSED
+
+Wed Apr 22 02:12:07 MDT 2020 Build AsyncIONonblockingProto ............=
+..PASSED
+Wed Apr 22 02:12:13 MDT 2020 Run AsyncIONonblockingProto ..............=
+..PASSED
+
+Wed Apr 22 02:12:22 MDT 2020 Build AtmOcnConProto .....................=
+..PASSED
+Wed Apr 22 02:12:23 MDT 2020 Run AtmOcnConProto .......................=
+..PASSED
+
+Wed Apr 22 02:12:31 MDT 2020 Build AtmOcnFDSynoProto ..................=
+..PASSED
+Wed Apr 22 02:12:31 MDT 2020 Run AtmOcnFDSynoProto ....................=
+..PASSED
+
+Wed Apr 22 02:12:39 MDT 2020 Build AtmOcnImplicitProto ................=
+..PASSED
+Wed Apr 22 02:12:40 MDT 2020 Run AtmOcnImplicitProto ..................=
+..PASSED
+
+Wed Apr 22 02:12:49 MDT 2020 Build AtmOcnMedProto .....................=
+..PASSED
+Wed Apr 22 02:12:50 MDT 2020 Run AtmOcnMedProto .......................=
+..PASSED
+
+Wed Apr 22 02:13:01 MDT 2020 Build AtmOcnPetListProto .................=
+..PASSED
+Wed Apr 22 02:13:03 MDT 2020 Run AtmOcnPetListProto ...................=
 ..PASSED
 
 |-------------------------------- ATM=3DA OCN=3DA,B,C -----------------=
 ---------|
-Wed Apr  8 02:13:59 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+Wed Apr 22 02:13:35 MDT 2020 Build AtmOcnSelectExternalProto ..........=
 ..PASSED
-Wed Apr  8 02:14:00 MDT 2020 Run AtmOcnSelectExternalProto ............=
+Wed Apr 22 02:13:35 MDT 2020 Run AtmOcnSelectExternalProto ............=
 ..PASSED
 
 |-------------------------------- ATM=3DB OCN=3DA,B,C -----------------=
 ---------|
-Wed Apr  8 02:14:28 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+Wed Apr 22 02:14:04 MDT 2020 Build AtmOcnSelectExternalProto ..........=
 ..PASSED
-Wed Apr  8 02:14:28 MDT 2020 Run AtmOcnSelectExternalProto ............=
+Wed Apr 22 02:14:04 MDT 2020 Run AtmOcnSelectExternalProto ............=
 ..PASSED
 
 |-------------------------------- ATM=3DC OCN=3DA,B,C -----------------=
 ---------|
-Wed Apr  8 02:14:58 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+Wed Apr 22 02:14:33 MDT 2020 Build AtmOcnSelectExternalProto ..........=
 ..PASSED
-Wed Apr  8 02:14:58 MDT 2020 Run AtmOcnSelectExternalProto ............=
+Wed Apr 22 02:14:33 MDT 2020 Run AtmOcnSelectExternalProto ............=
 ..PASSED
 
 |-------------------------------- ATM=3DD OCN=3DA,B,C -----------------=
 ---------|
-Wed Apr  8 02:15:26 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+Wed Apr 22 02:15:02 MDT 2020 Build AtmOcnSelectExternalProto ..........=
 ..PASSED
-Wed Apr  8 02:15:26 MDT 2020 Run AtmOcnSelectExternalProto ............=
+Wed Apr 22 02:15:03 MDT 2020 Run AtmOcnSelectExternalProto ............=
 ..PASSED
 
 |-------------------------------- ATM=3DE OCN=3DA,B,C -----------------=
 ---------|
-Wed Apr  8 02:15:55 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+Wed Apr 22 02:15:31 MDT 2020 Build AtmOcnSelectExternalProto ..........=
 ..PASSED
-Wed Apr  8 02:15:56 MDT 2020 Run AtmOcnSelectExternalProto ............=
+Wed Apr 22 02:15:32 MDT 2020 Run AtmOcnSelectExternalProto ............=
 ..PASSED
 
 |-------------------------------- ATM=3DA OCN=3DA,B -------------------=
 ---------|
-Wed Apr  8 02:16:08 MDT 2020 Build AtmOcnSelectProto ..................=
+Wed Apr 22 02:15:45 MDT 2020 Build AtmOcnSelectProto ..................=
 ..PASSED
-Wed Apr  8 02:16:08 MDT 2020 Run AtmOcnSelectProto ....................=
+Wed Apr 22 02:15:45 MDT 2020 Run AtmOcnSelectProto ....................=
 ..PASSED
 
 |-------------------------------- ATM=3DB OCN=3DA,B -------------------=
 ---------|
-Wed Apr  8 02:16:20 MDT 2020 Build AtmOcnSelectProto ..................=
+Wed Apr 22 02:15:57 MDT 2020 Build AtmOcnSelectProto ..................=
 ..PASSED
-Wed Apr  8 02:16:21 MDT 2020 Run AtmOcnSelectProto ....................=
+Wed Apr 22 02:15:58 MDT 2020 Run AtmOcnSelectProto ....................=
 ..PASSED
 
 |-------------------------------- ATM=3DA OCN=3DB ---------------------=
 ---------|
-Wed Apr  8 02:16:33 MDT 2020 Build AtmOcnSelectProto ..................=
+Wed Apr 22 02:16:10 MDT 2020 Build AtmOcnSelectProto ..................=
 ..PASSED
-Wed Apr  8 02:16:33 MDT 2020 Run AtmOcnSelectProto ....................=
-..PASSED
-
-Wed Apr  8 02:16:41 MDT 2020 Build AtmOcnSimpleImplicitProto ..........=
-..PASSED
-Wed Apr  8 02:16:41 MDT 2020 Run AtmOcnSimpleImplicitProto ............=
+Wed Apr 22 02:16:10 MDT 2020 Run AtmOcnSelectProto ....................=
 ..PASSED
 
-Wed Apr  8 02:16:50 MDT 2020 Build GenericMediatorProto ...............=
+Wed Apr 22 02:16:18 MDT 2020 Build AtmOcnSimpleImplicitProto ..........=
 ..PASSED
-Wed Apr  8 02:16:51 MDT 2020 Run GenericMediatorProto .................=
-..PASSED
-
-Wed Apr  8 02:16:57 MDT 2020 Build NestingMultipleProto ...............=
-..PASSED
-Wed Apr  8 02:17:03 MDT 2020 Run NestingMultipleProto .................=
+Wed Apr 22 02:16:19 MDT 2020 Run AtmOcnSimpleImplicitProto ............=
 ..PASSED
 
-Wed Apr  8 02:17:09 MDT 2020 Build NestingSingleProto .................=
+Wed Apr 22 02:16:27 MDT 2020 Build GenericMediatorProto ...............=
 ..PASSED
-Wed Apr  8 02:17:14 MDT 2020 Run NestingSingleProto ...................=
-..PASSED
-
-Wed Apr  8 02:17:20 MDT 2020 Build NestingTelescopeMultipleProto ......=
-..PASSED
-Wed Apr  8 02:17:36 MDT 2020 Run NestingTelescopeMultipleProto ........=
+Wed Apr 22 02:16:29 MDT 2020 Run GenericMediatorProto .................=
 ..PASSED
 
-Wed Apr  8 02:17:46 MDT 2020 Build AtmOcnMedIngestFromConfigProto .....=
+Wed Apr 22 02:16:35 MDT 2020 Build NestingMultipleProto ...............=
 ..PASSED
-Wed Apr  8 02:17:48 MDT 2020 Run AtmOcnMedIngestFromConfigProto .......=
-..PASSED
-
-Wed Apr  8 02:17:56 MDT 2020 Build DriverInDriverProtoIPDv02 ..........=
-..PASSED
-Wed Apr  8 02:18:00 MDT 2020 Run DriverInDriverProtoIPDv02 ............=
+Wed Apr 22 02:16:41 MDT 2020 Run NestingMultipleProto .................=
 ..PASSED
 
-Wed Apr  8 02:18:08 MDT 2020 Build AtmOcnScalarProto ..................=
+Wed Apr 22 02:16:47 MDT 2020 Build NestingSingleProto .................=
 ..PASSED
-Wed Apr  8 02:18:08 MDT 2020 Run AtmOcnScalarProto ....................=
-..PASSED
-
-Wed Apr  8 02:18:21 MDT 2020 Build HierarchyProto .....................=
-..PASSED
-Wed Apr  8 02:18:30 MDT 2020 Run HierarchyProto .......................=
+Wed Apr 22 02:16:51 MDT 2020 Run NestingSingleProto ...................=
 ..PASSED
 
-Wed Apr  8 02:18:40 MDT 2020 Build AtmOcnMedIngestFromInternalProto ...=
+Wed Apr 22 02:16:57 MDT 2020 Build NestingTelescopeMultipleProto ......=
 ..PASSED
-Wed Apr  8 02:18:41 MDT 2020 Run AtmOcnMedIngestFromInternalProto .....=
-..PASSED
-
-Wed Apr  8 02:18:49 MDT 2020 Build AtmOcnLogNoneProto .................=
-..PASSED
-Wed Apr  8 02:18:49 MDT 2020 Run AtmOcnLogNoneProto ...................=
+Wed Apr 22 02:17:13 MDT 2020 Run NestingTelescopeMultipleProto ........=
 ..PASSED
 
-Wed Apr  8 02:18:59 MDT 2020 Build AtmOcnIceSimpleImplicitProto .......=
+Wed Apr 22 02:17:23 MDT 2020 Build AtmOcnMedIngestFromConfigProto .....=
 ..PASSED
-Wed Apr  8 02:19:02 MDT 2020 Run AtmOcnIceSimpleImplicitProto .........=
-..PASSED
-
-Wed Apr  8 02:19:10 MDT 2020 Build DynPhyProto ........................=
-..PASSED
-Wed Apr  8 02:19:11 MDT 2020 Run DynPhyProto ..........................=
+Wed Apr 22 02:17:25 MDT 2020 Run AtmOcnMedIngestFromConfigProto .......=
 ..PASSED
 
-Wed Apr  8 02:19:18 MDT 2020 Build AtmOcnCplSetProto ..................=
+Wed Apr 22 02:17:34 MDT 2020 Build DriverInDriverProtoIPDv02 ..........=
 ..PASSED
-Wed Apr  8 02:19:19 MDT 2020 Run AtmOcnCplSetProto  ...................=
+Wed Apr 22 02:17:37 MDT 2020 Run DriverInDriverProtoIPDv02 ............=
 ..PASSED
 
-Wed Apr  8 02:19:27 MDT 2020 Build AtmOcnTransferMeshProto ............=
+Wed Apr 22 02:17:45 MDT 2020 Build AtmOcnScalarProto ..................=
+..PASSED
+Wed Apr 22 02:17:46 MDT 2020 Run AtmOcnScalarProto ....................=
+..PASSED
+
+Wed Apr 22 02:17:59 MDT 2020 Build HierarchyProto .....................=
+..PASSED
+Wed Apr 22 02:18:08 MDT 2020 Run HierarchyProto .......................=
+..PASSED
+
+Wed Apr 22 02:18:18 MDT 2020 Build AtmOcnMedIngestFromInternalProto ...=
+..PASSED
+Wed Apr 22 02:18:19 MDT 2020 Run AtmOcnMedIngestFromInternalProto .....=
+..PASSED
+
+Wed Apr 22 02:18:26 MDT 2020 Build AtmOcnLogNoneProto .................=
+..PASSED
+Wed Apr 22 02:18:27 MDT 2020 Run AtmOcnLogNoneProto ...................=
+..PASSED
+
+Wed Apr 22 02:18:37 MDT 2020 Build AtmOcnIceSimpleImplicitProto .......=
+..PASSED
+Wed Apr 22 02:18:39 MDT 2020 Run AtmOcnIceSimpleImplicitProto .........=
+..PASSED
+
+Wed Apr 22 02:18:48 MDT 2020 Build DynPhyProto ........................=
+..PASSED
+Wed Apr 22 02:18:49 MDT 2020 Run DynPhyProto ..........................=
+..PASSED
+
+Wed Apr 22 02:18:56 MDT 2020 Build AtmOcnCplSetProto ..................=
+..PASSED
+Wed Apr 22 02:18:57 MDT 2020 Run AtmOcnCplSetProto  ...................=
+..PASSED
+
+Wed Apr 22 02:19:05 MDT 2020 Build AtmOcnTransferMeshProto ............=
 .PASSED
-Wed Apr  8 02:19:31 MDT 2020 Run AtmOcnTransferMeshProto ..............=
+Wed Apr 22 02:19:09 MDT 2020 Run AtmOcnTransferMeshProto ..............=
 .PASSED
 
-Wed Apr  8 02:19:36 MDT 2020 Build CustomFieldDictionaryProto .........=
+Wed Apr 22 02:19:14 MDT 2020 Build CustomFieldDictionaryProto .........=
 .PASSED
-Wed Apr  8 02:20:14 MDT 2020 Run CustomFieldDictionaryProto ...........=
+Wed Apr 22 02:19:52 MDT 2020 Run CustomFieldDictionaryProto ...........=
 .PASS
 
-Wed Apr  8 02:20:26 MDT 2020 Build AtmOcnMirrorFieldsProto ............=
+Wed Apr 22 02:20:04 MDT 2020 Build AtmOcnMirrorFieldsProto ............=
 .PASSED
-Wed Apr  8 02:20:28 MDT 2020 Run AtmOcnMirrorFieldsProto ..............=
-.PASSED
-
-Wed Apr  8 02:20:36 MDT 2020 Build ExternalDriverAPIProto .............=
-.PASSED
-Wed Apr  8 02:20:38 MDT 2020 Run ExternalDriverAPIProto ...............=
+Wed Apr 22 02:20:05 MDT 2020 Run AtmOcnMirrorFieldsProto ..............=
 .PASSED
 
-Wed Apr  8 02:20:43 MDT 2020 Build SingleModelOpenMPProto .............=
+Wed Apr 22 02:20:14 MDT 2020 Build ExternalDriverAPIProto .............=
 .PASSED
-Wed Apr  8 02:20:43 MDT 2020 Run SingleModelOpenMPProto ...............=
+Wed Apr 22 02:20:15 MDT 2020 Run ExternalDriverAPIProto ...............=
 .PASSED
 
-Wed Apr  8 02:20:47 MDT 2020 Build ComponentExplorer ..................=
+Wed Apr 22 02:20:21 MDT 2020 Build SingleModelOpenMPProto .............=
 .PASSED
-Wed Apr  8 02:20:47 MDT 2020 Run ComponentExplorer ....................=
+Wed Apr 22 02:20:21 MDT 2020 Run SingleModelOpenMPProto ...............=
+.PASSED
+
+Wed Apr 22 02:20:24 MDT 2020 Build ComponentExplorer ..................=
+.PASSED
+Wed Apr 22 02:20:24 MDT 2020 Run ComponentExplorer ....................=
 .PASSED
 
 
 _______________________________________________________________________=
 _________________
 
-Wed Apr  8 02:23:40 MDT 2020 on r7i7n9=20
+Wed Apr 22 02:23:14 MDT 2020 on r5i6n32=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -788,7 +777,7 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_13
+ESMF_8_1_0_beta_snapshot_15
 =20
 =20
 NUOPC Repository:
@@ -800,7 +789,7 @@ URL: svn://svn.code.sf.net/p/esmfcontrib/svn/NUOPC/trunk
 Relative URL: ^/NUOPC/trunk
 Repository Root: svn://svn.code.sf.net/p/esmfcontrib/svn
 Repository UUID: c3fc86fe-82d8-4841-a663-0ee342cebea3
-Revision: 996
+Revision: 997
 Node Kind: directory
 Schedule: normal
 Last Changed Author: theurich
@@ -811,7 +800,7 @@ Last Changed Date: 2020-02-10 13:22:44 -0700 (Mon, 10 Feb 2020)
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_13
+ESMF_8_1_0_beta_snapshot_15
 --------------------------------------------------------------
 On branch master
 Your branch is up-to-date with 'origin/master'.
@@ -1014,7 +1003,7 @@ squez/scripts_dir/daily/nuopc_cheyenne/intel/esmf/src/include -I/glade/=
 u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5/include -I/glade/u/home/svasque=
 z/bin/yaml0.6.2/intel15.1.133/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_13' -DESMF_MOAB=3D1 -D=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
 ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
 =3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
 1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -D=
@@ -1057,7 +1046,7 @@ heyenne/intel/esmf/src/include  -I/glade/u/apps/ch/opt/netcdf/4.7.3/int=
 el/18.0.5/include -I/glade/u/home/svasquez/bin/yaml0.6.2/intel15.1.133/=
 include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_13' -DESMF_MOAB=3D1 -D=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
 ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
 =3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1 -DESMF_PIO=3D=
 1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -D=
@@ -1133,274 +1122,274 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Wed Apr 8 02:23:41 MDT 2020 on r7i7n9
-Machine characteristics: Linux r7i7n9 4.12.14-95.37.1.18642.1.PTF.11555=
-08-default #1 SMP Mon Nov 4 13:03:21 UTC 2019 (9cc1377) x86_64 x86_64 x=
-86_64 GNU/Linux
+Compiling on Wed Apr 22 02:23:16 MDT 2020 on r5i6n32
+Machine characteristics: Linux r5i6n32 4.12.14-95.37.1.18642.1.PTF.1155=
+508-default #1 SMP Mon Nov 4 13:03:21 UTC 2019 (9cc1377) x86_64 x86_64 =
+x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Wed Apr  8 02:45:55 MDT 2020 library build -j4 ........................=
+Wed Apr 22 02:45:11 MDT 2020 library build -j4 ........................=
 .PASSED
-Wed Apr  8 02:46:24 MDT 2020 library install ..........................=
+Wed Apr 22 02:45:40 MDT 2020 library install ..........................=
 .PASSED
-Wed Apr  8 02:46:28 MDT 2020 library installcheck .....................=
+Wed Apr 22 02:45:44 MDT 2020 library installcheck .....................=
 .PASSED
 
 
 |---------------------------------- NUOPC TESTS -----------------------=
 -----|
 
-Wed Apr  8 02:46:33 MDT 2020 Build SingleModelProto ...................=
+Wed Apr 22 02:45:48 MDT 2020 Build SingleModelProto ...................=
 ..PASSED
-Wed Apr  8 02:46:33 MDT 2020 Run SingleModelProto .....................=
-..PASSED
-
-Wed Apr  8 02:46:42 MDT 2020 Build AtmOcnLndProto .....................=
-..PASSED
-Wed Apr  8 02:46:42 MDT 2020 Run AtmOcnLndProto .......................=
+Wed Apr 22 02:45:48 MDT 2020 Run SingleModelProto .....................=
 ..PASSED
 
-Wed Apr  8 02:46:51 MDT 2020 Build AtmOcnMedPetListProto ..............=
+Wed Apr 22 02:45:57 MDT 2020 Build AtmOcnLndProto .....................=
 ..PASSED
-Wed Apr  8 02:46:51 MDT 2020 Run AtmOcnMedPetListProto ................=
+Wed Apr 22 02:45:57 MDT 2020 Run AtmOcnLndProto .......................=
 ..PASSED
 
-Wed Apr  8 02:47:00 MDT 2020 Build AtmOcnMedPetListTimescalesProto ....=
+Wed Apr 22 02:46:06 MDT 2020 Build AtmOcnMedPetListProto ..............=
+..PASSED
+Wed Apr 22 02:46:07 MDT 2020 Run AtmOcnMedPetListProto ................=
+..PASSED
+
+Wed Apr 22 02:46:16 MDT 2020 Build AtmOcnMedPetListTimescalesProto ....=
 ..PASS
-Wed Apr  8 02:47:01 MDT 2020 Run AtmOcnMedPetListTimescalesProto ......=
+Wed Apr 22 02:46:17 MDT 2020 Run AtmOcnMedPetListTimescalesProto ......=
 ..PASSED
 
-Wed Apr  8 02:47:10 MDT 2020 Build AtmOcnMedPetListTimescalesSplitFastP=
+Wed Apr 22 02:46:26 MDT 2020 Build AtmOcnMedPetListTimescalesSplitFastP=
 roto.PASSED
-Wed Apr  8 02:47:10 MDT 2020 Run AtmOcnMedPetListTimescalesSplitFastPro=
+Wed Apr 22 02:46:27 MDT 2020 Run AtmOcnMedPetListTimescalesSplitFastPro=
 to...PASSED
 
-Wed Apr  8 02:47:18 MDT 2020 Build AtmOcnProto ........................=
+Wed Apr 22 02:46:35 MDT 2020 Build AtmOcnProto ........................=
 ..PASSED
-Wed Apr  8 02:47:18 MDT 2020 Run AtmOcnProto ..........................=
-..PASSED
-
-Wed Apr  8 02:47:31 MDT 2020 Build AtmOcnTransferGridProto ............=
-..PASSED
-Wed Apr  8 02:47:34 MDT 2020 Run AtmOcnTransferGridProto ..............=
+Wed Apr 22 02:46:35 MDT 2020 Run AtmOcnProto ..........................=
 ..PASSED
 
-Wed Apr  8 02:47:42 MDT 2020 Build AtmOcnTransferLocStreamProto .......=
+Wed Apr 22 02:46:48 MDT 2020 Build AtmOcnTransferGridProto ............=
 ..PASSED
-Wed Apr  8 02:47:42 MDT 2020 Run AtmOcnTransferLocStreamProto .........=
-..PASSED
-
-Wed Apr  8 02:47:49 MDT 2020 Build NamespaceProto .....................=
-..PASSED
-Wed Apr  8 02:47:49 MDT 2020 Run NamespaceProto .......................=
+Wed Apr 22 02:46:51 MDT 2020 Run AtmOcnTransferGridProto ..............=
 ..PASSED
 
-Wed Apr  8 02:47:57 MDT 2020 Build AtmOcnCplListProto .................=
+Wed Apr 22 02:46:59 MDT 2020 Build AtmOcnTransferLocStreamProto .......=
 ..PASSED
-Wed Apr  8 02:47:57 MDT 2020 Run AtmOcnCplListProto ...................=
-..PASSED
-
-Wed Apr  8 02:48:05 MDT 2020 Build DriverInDriverProto ................=
-..PASSED
-Wed Apr  8 02:48:05 MDT 2020 Run DriverInDriverProto ..................=
+Wed Apr 22 02:46:59 MDT 2020 Run AtmOcnTransferLocStreamProto .........=
 ..PASSED
 
-Wed Apr  8 02:48:15 MDT 2020 Build AtmOcnRtmTwoTimescalesProto ........=
+Wed Apr 22 02:47:05 MDT 2020 Build NamespaceProto .....................=
 ..PASSED
-Wed Apr  8 02:48:15 MDT 2020 Run AtmOcnRtmTwoTimescalesProto ..........=
-..PASSED
-
-Wed Apr  8 02:48:22 MDT 2020 Build AsyncIOBlockingProto ...............=
-..PASSED
-Wed Apr  8 02:48:23 MDT 2020 Run AsyncIOBlockingProto .................=
+Wed Apr 22 02:47:06 MDT 2020 Run NamespaceProto .......................=
 ..PASSED
 
-Wed Apr  8 02:48:31 MDT 2020 Build AsyncIONonblockingProto ............=
+Wed Apr 22 02:47:13 MDT 2020 Build AtmOcnCplListProto .................=
 ..PASSED
-Wed Apr  8 02:48:33 MDT 2020 Run AsyncIONonblockingProto ..............=
-..PASSED
-
-Wed Apr  8 02:48:41 MDT 2020 Build AtmOcnConProto .....................=
-..PASSED
-Wed Apr  8 02:48:41 MDT 2020 Run AtmOcnConProto .......................=
+Wed Apr 22 02:47:14 MDT 2020 Run AtmOcnCplListProto ...................=
 ..PASSED
 
-Wed Apr  8 02:48:49 MDT 2020 Build AtmOcnFDSynoProto ..................=
+Wed Apr 22 02:47:22 MDT 2020 Build DriverInDriverProto ................=
 ..PASSED
-Wed Apr  8 02:48:49 MDT 2020 Run AtmOcnFDSynoProto ....................=
-..PASSED
-
-Wed Apr  8 02:48:57 MDT 2020 Build AtmOcnImplicitProto ................=
-..PASSED
-Wed Apr  8 02:48:57 MDT 2020 Run AtmOcnImplicitProto ..................=
+Wed Apr 22 02:47:22 MDT 2020 Run DriverInDriverProto ..................=
 ..PASSED
 
-Wed Apr  8 02:49:06 MDT 2020 Build AtmOcnMedProto .....................=
+Wed Apr 22 02:47:32 MDT 2020 Build AtmOcnRtmTwoTimescalesProto ........=
 ..PASSED
-Wed Apr  8 02:49:06 MDT 2020 Run AtmOcnMedProto .......................=
+Wed Apr 22 02:47:32 MDT 2020 Run AtmOcnRtmTwoTimescalesProto ..........=
 ..PASSED
 
-Wed Apr  8 02:49:18 MDT 2020 Build AtmOcnPetListProto .................=
+Wed Apr 22 02:47:39 MDT 2020 Build AsyncIOBlockingProto ...............=
 ..PASSED
-Wed Apr  8 02:49:18 MDT 2020 Run AtmOcnPetListProto ...................=
+Wed Apr 22 02:47:40 MDT 2020 Run AsyncIOBlockingProto .................=
+..PASSED
+
+Wed Apr 22 02:47:48 MDT 2020 Build AsyncIONonblockingProto ............=
+..PASSED
+Wed Apr 22 02:47:50 MDT 2020 Run AsyncIONonblockingProto ..............=
+..PASSED
+
+Wed Apr 22 02:47:59 MDT 2020 Build AtmOcnConProto .....................=
+..PASSED
+Wed Apr 22 02:47:59 MDT 2020 Run AtmOcnConProto .......................=
+..PASSED
+
+Wed Apr 22 02:48:06 MDT 2020 Build AtmOcnFDSynoProto ..................=
+..PASSED
+Wed Apr 22 02:48:07 MDT 2020 Run AtmOcnFDSynoProto ....................=
+..PASSED
+
+Wed Apr 22 02:48:14 MDT 2020 Build AtmOcnImplicitProto ................=
+..PASSED
+Wed Apr 22 02:48:15 MDT 2020 Run AtmOcnImplicitProto ..................=
+..PASSED
+
+Wed Apr 22 02:48:24 MDT 2020 Build AtmOcnMedProto .....................=
+..PASSED
+Wed Apr 22 02:48:24 MDT 2020 Run AtmOcnMedProto .......................=
+..PASSED
+
+Wed Apr 22 02:48:35 MDT 2020 Build AtmOcnPetListProto .................=
+..PASSED
+Wed Apr 22 02:48:36 MDT 2020 Run AtmOcnPetListProto ...................=
 ..PASSED
 
 |-------------------------------- ATM=3DA OCN=3DA,B,C -----------------=
 ---------|
-Wed Apr  8 02:49:47 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+Wed Apr 22 02:49:05 MDT 2020 Build AtmOcnSelectExternalProto ..........=
 ..PASSED
-Wed Apr  8 02:49:47 MDT 2020 Run AtmOcnSelectExternalProto ............=
+Wed Apr 22 02:49:05 MDT 2020 Run AtmOcnSelectExternalProto ............=
 ..PASSED
 
 |-------------------------------- ATM=3DB OCN=3DA,B,C -----------------=
 ---------|
-Wed Apr  8 02:50:15 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+Wed Apr 22 02:49:34 MDT 2020 Build AtmOcnSelectExternalProto ..........=
 ..PASSED
-Wed Apr  8 02:50:15 MDT 2020 Run AtmOcnSelectExternalProto ............=
+Wed Apr 22 02:49:34 MDT 2020 Run AtmOcnSelectExternalProto ............=
 ..PASSED
 
 |-------------------------------- ATM=3DC OCN=3DA,B,C -----------------=
 ---------|
-Wed Apr  8 02:50:44 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+Wed Apr 22 02:50:03 MDT 2020 Build AtmOcnSelectExternalProto ..........=
 ..PASSED
-Wed Apr  8 02:50:44 MDT 2020 Run AtmOcnSelectExternalProto ............=
+Wed Apr 22 02:50:03 MDT 2020 Run AtmOcnSelectExternalProto ............=
 ..PASSED
 
 |-------------------------------- ATM=3DD OCN=3DA,B,C -----------------=
 ---------|
-Wed Apr  8 02:51:13 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+Wed Apr 22 02:50:32 MDT 2020 Build AtmOcnSelectExternalProto ..........=
 ..PASSED
-Wed Apr  8 02:51:13 MDT 2020 Run AtmOcnSelectExternalProto ............=
+Wed Apr 22 02:50:32 MDT 2020 Run AtmOcnSelectExternalProto ............=
 ..PASSED
 
 |-------------------------------- ATM=3DE OCN=3DA,B,C -----------------=
 ---------|
-Wed Apr  8 02:51:42 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+Wed Apr 22 02:51:01 MDT 2020 Build AtmOcnSelectExternalProto ..........=
 ..PASSED
-Wed Apr  8 02:51:42 MDT 2020 Run AtmOcnSelectExternalProto ............=
+Wed Apr 22 02:51:01 MDT 2020 Run AtmOcnSelectExternalProto ............=
 ..PASSED
 
 |-------------------------------- ATM=3DA OCN=3DA,B -------------------=
 ---------|
-Wed Apr  8 02:51:54 MDT 2020 Build AtmOcnSelectProto ..................=
+Wed Apr 22 02:51:14 MDT 2020 Build AtmOcnSelectProto ..................=
 ..PASSED
-Wed Apr  8 02:51:54 MDT 2020 Run AtmOcnSelectProto ....................=
+Wed Apr 22 02:51:14 MDT 2020 Run AtmOcnSelectProto ....................=
 ..PASSED
 
 |-------------------------------- ATM=3DB OCN=3DA,B -------------------=
 ---------|
-Wed Apr  8 02:52:06 MDT 2020 Build AtmOcnSelectProto ..................=
+Wed Apr 22 02:51:26 MDT 2020 Build AtmOcnSelectProto ..................=
 ..PASSED
-Wed Apr  8 02:52:06 MDT 2020 Run AtmOcnSelectProto ....................=
+Wed Apr 22 02:51:26 MDT 2020 Run AtmOcnSelectProto ....................=
 ..PASSED
 
 |-------------------------------- ATM=3DA OCN=3DB ---------------------=
 ---------|
-Wed Apr  8 02:52:18 MDT 2020 Build AtmOcnSelectProto ..................=
+Wed Apr 22 02:51:38 MDT 2020 Build AtmOcnSelectProto ..................=
 ..PASSED
-Wed Apr  8 02:52:18 MDT 2020 Run AtmOcnSelectProto ....................=
-..PASSED
-
-Wed Apr  8 02:52:26 MDT 2020 Build AtmOcnSimpleImplicitProto ..........=
-..PASSED
-Wed Apr  8 02:52:26 MDT 2020 Run AtmOcnSimpleImplicitProto ............=
+Wed Apr 22 02:51:39 MDT 2020 Run AtmOcnSelectProto ....................=
 ..PASSED
 
-Wed Apr  8 02:52:35 MDT 2020 Build GenericMediatorProto ...............=
+Wed Apr 22 02:51:46 MDT 2020 Build AtmOcnSimpleImplicitProto ..........=
 ..PASSED
-Wed Apr  8 02:52:35 MDT 2020 Run GenericMediatorProto .................=
-..PASSED
-
-Wed Apr  8 02:52:41 MDT 2020 Build NestingMultipleProto ...............=
-..PASSED
-Wed Apr  8 02:52:43 MDT 2020 Run NestingMultipleProto .................=
+Wed Apr 22 02:51:46 MDT 2020 Run AtmOcnSimpleImplicitProto ............=
 ..PASSED
 
-Wed Apr  8 02:52:49 MDT 2020 Build NestingSingleProto .................=
+Wed Apr 22 02:51:55 MDT 2020 Build GenericMediatorProto ...............=
 ..PASSED
-Wed Apr  8 02:52:51 MDT 2020 Run NestingSingleProto ...................=
-..PASSED
-
-Wed Apr  8 02:52:58 MDT 2020 Build NestingTelescopeMultipleProto ......=
-..PASSED
-Wed Apr  8 02:53:05 MDT 2020 Run NestingTelescopeMultipleProto ........=
+Wed Apr 22 02:51:55 MDT 2020 Run GenericMediatorProto .................=
 ..PASSED
 
-Wed Apr  8 02:53:15 MDT 2020 Build AtmOcnMedIngestFromConfigProto .....=
+Wed Apr 22 02:52:01 MDT 2020 Build NestingMultipleProto ...............=
 ..PASSED
-Wed Apr  8 02:53:15 MDT 2020 Run AtmOcnMedIngestFromConfigProto .......=
-..PASSED
-
-Wed Apr  8 02:53:23 MDT 2020 Build DriverInDriverProtoIPDv02 ..........=
-..PASSED
-Wed Apr  8 02:53:24 MDT 2020 Run DriverInDriverProtoIPDv02 ............=
+Wed Apr 22 02:52:04 MDT 2020 Run NestingMultipleProto .................=
 ..PASSED
 
-Wed Apr  8 02:53:32 MDT 2020 Build AtmOcnScalarProto ..................=
+Wed Apr 22 02:52:10 MDT 2020 Build NestingSingleProto .................=
 ..PASSED
-Wed Apr  8 02:53:32 MDT 2020 Run AtmOcnScalarProto ....................=
-..PASSED
-
-Wed Apr  8 02:53:44 MDT 2020 Build HierarchyProto .....................=
-..PASSED
-Wed Apr  8 02:53:46 MDT 2020 Run HierarchyProto .......................=
+Wed Apr 22 02:52:12 MDT 2020 Run NestingSingleProto ...................=
 ..PASSED
 
-Wed Apr  8 02:53:55 MDT 2020 Build AtmOcnMedIngestFromInternalProto ...=
+Wed Apr 22 02:52:19 MDT 2020 Build NestingTelescopeMultipleProto ......=
 ..PASSED
-Wed Apr  8 02:53:56 MDT 2020 Run AtmOcnMedIngestFromInternalProto .....=
-..PASSED
-
-Wed Apr  8 02:54:03 MDT 2020 Build AtmOcnLogNoneProto .................=
-..PASSED
-Wed Apr  8 02:54:03 MDT 2020 Run AtmOcnLogNoneProto ...................=
+Wed Apr 22 02:52:25 MDT 2020 Run NestingTelescopeMultipleProto ........=
 ..PASSED
 
-Wed Apr  8 02:54:14 MDT 2020 Build AtmOcnIceSimpleImplicitProto .......=
+Wed Apr 22 02:52:35 MDT 2020 Build AtmOcnMedIngestFromConfigProto .....=
 ..PASSED
-Wed Apr  8 02:54:14 MDT 2020 Run AtmOcnIceSimpleImplicitProto .........=
-..PASSED
-
-Wed Apr  8 02:54:22 MDT 2020 Build DynPhyProto ........................=
-..PASSED
-Wed Apr  8 02:54:22 MDT 2020 Run DynPhyProto ..........................=
+Wed Apr 22 02:52:35 MDT 2020 Run AtmOcnMedIngestFromConfigProto .......=
 ..PASSED
 
-Wed Apr  8 02:54:30 MDT 2020 Build AtmOcnCplSetProto ..................=
+Wed Apr 22 02:52:44 MDT 2020 Build DriverInDriverProtoIPDv02 ..........=
 ..PASSED
-Wed Apr  8 02:54:30 MDT 2020 Run AtmOcnCplSetProto  ...................=
+Wed Apr 22 02:52:44 MDT 2020 Run DriverInDriverProtoIPDv02 ............=
 ..PASSED
 
-Wed Apr  8 02:54:38 MDT 2020 Build AtmOcnTransferMeshProto ............=
+Wed Apr 22 02:52:52 MDT 2020 Build AtmOcnScalarProto ..................=
+..PASSED
+Wed Apr 22 02:52:52 MDT 2020 Run AtmOcnScalarProto ....................=
+..PASSED
+
+Wed Apr 22 02:53:05 MDT 2020 Build HierarchyProto .....................=
+..PASSED
+Wed Apr 22 02:53:06 MDT 2020 Run HierarchyProto .......................=
+..PASSED
+
+Wed Apr 22 02:53:16 MDT 2020 Build AtmOcnMedIngestFromInternalProto ...=
+..PASSED
+Wed Apr 22 02:53:17 MDT 2020 Run AtmOcnMedIngestFromInternalProto .....=
+..PASSED
+
+Wed Apr 22 02:53:24 MDT 2020 Build AtmOcnLogNoneProto .................=
+..PASSED
+Wed Apr 22 02:53:25 MDT 2020 Run AtmOcnLogNoneProto ...................=
+..PASSED
+
+Wed Apr 22 02:53:35 MDT 2020 Build AtmOcnIceSimpleImplicitProto .......=
+..PASSED
+Wed Apr 22 02:53:35 MDT 2020 Run AtmOcnIceSimpleImplicitProto .........=
+..PASSED
+
+Wed Apr 22 02:53:43 MDT 2020 Build DynPhyProto ........................=
+..PASSED
+Wed Apr 22 02:53:44 MDT 2020 Run DynPhyProto ..........................=
+..PASSED
+
+Wed Apr 22 02:53:52 MDT 2020 Build AtmOcnCplSetProto ..................=
+..PASSED
+Wed Apr 22 02:53:52 MDT 2020 Run AtmOcnCplSetProto  ...................=
+..PASSED
+
+Wed Apr 22 02:54:00 MDT 2020 Build AtmOcnTransferMeshProto ............=
 .PASSED
-Wed Apr  8 02:54:39 MDT 2020 Run AtmOcnTransferMeshProto ..............=
+Wed Apr 22 02:54:01 MDT 2020 Run AtmOcnTransferMeshProto ..............=
 .PASSED
 
-Wed Apr  8 02:54:44 MDT 2020 Build CustomFieldDictionaryProto .........=
+Wed Apr 22 02:54:06 MDT 2020 Build CustomFieldDictionaryProto .........=
 .PASSED
-Wed Apr  8 02:54:57 MDT 2020 Run CustomFieldDictionaryProto ...........=
+Wed Apr 22 02:54:19 MDT 2020 Run CustomFieldDictionaryProto ...........=
 .PASS
 
-Wed Apr  8 02:55:08 MDT 2020 Build AtmOcnMirrorFieldsProto ............=
+Wed Apr 22 02:54:30 MDT 2020 Build AtmOcnMirrorFieldsProto ............=
 .PASSED
-Wed Apr  8 02:55:09 MDT 2020 Run AtmOcnMirrorFieldsProto ..............=
-.PASSED
-
-Wed Apr  8 02:55:17 MDT 2020 Build ExternalDriverAPIProto .............=
-.PASSED
-Wed Apr  8 02:55:17 MDT 2020 Run ExternalDriverAPIProto ...............=
+Wed Apr 22 02:54:31 MDT 2020 Run AtmOcnMirrorFieldsProto ..............=
 .PASSED
 
-Wed Apr  8 02:55:22 MDT 2020 Build SingleModelOpenMPProto .............=
+Wed Apr 22 02:54:39 MDT 2020 Build ExternalDriverAPIProto .............=
 .PASSED
-Wed Apr  8 02:55:22 MDT 2020 Run SingleModelOpenMPProto ...............=
+Wed Apr 22 02:54:39 MDT 2020 Run ExternalDriverAPIProto ...............=
 .PASSED
 
-Wed Apr  8 02:55:27 MDT 2020 Build ComponentExplorer ..................=
+Wed Apr 22 02:54:45 MDT 2020 Build SingleModelOpenMPProto .............=
 .PASSED
-Wed Apr  8 02:55:28 MDT 2020 Run ComponentExplorer ....................=
+Wed Apr 22 02:54:45 MDT 2020 Run SingleModelOpenMPProto ...............=
+.PASSED
+
+Wed Apr 22 02:54:48 MDT 2020 Build ComponentExplorer ..................=
+.PASSED
+Wed Apr 22 02:54:49 MDT 2020 Run ComponentExplorer ....................=
 .PASSED
 
 
