@@ -1,2 +1,1396 @@
 <pre>
-No report is available at this time.
+Return-Path: <svasquez@service8.cheyenne.ucar.edu>
+Delivered-To: unknown
+Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
+  with IMAP4-SSL; 27 Apr 2020 11:15:01 -0000
+X-Original-To: esmftest@cgd.ucar.edu
+Delivered-To: esmftest@cgd.ucar.edu
+Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id B1AB61B3
+	for <esmftest@cgd.ucar.edu>; Mon, 27 Apr 2020 05:11:58 -0600 (MDT)
+Received: from mail-il1-f197.google.com (mail-il1-f197.google.com [209.85.166.197])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 6009E1800249
+	for <esmftest@cgd.ucar.edu>; Mon, 27 Apr 2020 05:11:58 -0600 (MDT)
+Authentication-Results: vscanx2.ucar.edu;
+	dkim=pass (2048-bit key) header.d=ucar.edu header.i=@ucar.edu header.b="PXfXkaBT"
+Received: by mail-il1-f197.google.com with SMTP id l16so18948628ilf.9
+        for <esmftest@cgd.ucar.edu>; Mon, 27 Apr 2020 04:11:58 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:dkim-signature:date:to:subject:user-agent
+         :mime-version:content-transfer-encoding:message-id:from;
+        bh=9tKDlky3j0dVCzf/0e4tJrvHe58EeNkliKW5fZuSio0=;
+        b=bqCNu8eEiDeLZH2SNgiwUQYjd/pbBpGY7gMvFgzP/voSimI2gEEZX/IDD4RrAatodr
+         H0kifFCU8LLEFDS3YhDzNWGPu+5UZkX9aWNrd26VGkhiuBAg9VCSaIiXGoQV6QYmy/iC
+         KYjfzvHBunJaX0wYEWGsDRDC8JprHzSmRZt5GAZUxuyjrGCFdTcTrdkirPry2h9jeU6W
+         XqzmANouHmTbrNqyqUgmHTY9Vt72zjPR+i5bEdUl4N2YlLxV2/Du404GE3pQJLn1fSEj
+         4WETNzZuHSztz1/2eyG24RKck6T1QocXLrwuF2+fb2yiD5ZjFXiiRLV8fjn/GQ5eQ3rd
+         gkAQ==
+X-Gm-Message-State: AGi0PuZ1asdkpiIpcg9MIL1yAFjGfmlkdtLY7Azv+Cgix0/wTsS1A2pc
+	TgxvMP2S+2Rnoy+3wIPR7SC88ePxNuhzwbAWLzxPMOBjEdnTgpyLGUJEP6nCp7WyTWSGHzPjqRT
+	oj4/+SkDRPmDQA7WheKY=
+X-Received: by 2002:a5d:8b8e:: with SMTP id p14mr20139853iol.110.1587985917943;
+        Mon, 27 Apr 2020 04:11:57 -0700 (PDT)
+X-Google-Smtp-Source: APiQypIxlSfX3dYMrVouKhqOvZcHlKE9899aq5GrSZ1+yMnx0dNM7QQCfV/NO5XGbFsP9uAzdbdP
+X-Received: by 2002:a5d:8b8e:: with SMTP id p14mr20139788iol.110.1587985916976;
+        Mon, 27 Apr 2020 04:11:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1587985916; cv=none;
+        d=google.com; s=arc-20160816;
+        b=iabM+uThGO5DkDh/z3vU9Izx7EZZede81QWpKJoMq0vEYlnkXr5s8oUZQDA4WzrLaR
+         fnpxPaeAxOW0/LdaootHH1TTDhUlxipm8YQx8DjX5CPWyp0DDw+PGEnGIueuegBFg/0V
+         BqftjlJ28NG6Zny/tVIJaw6XrrX2zMsfDaYhPZfqisPWezg/Sln4D9HzG7kw6raM61Hu
+         nMHe2OLUQ3fDkgzOvyQDnfMtJ8vmCmuJPAXsNR2dMvm4xCdIxZStQvpqUNNqweJHIJ8A
+         efDG7Rm23lsBuV4B2OINkIKaY1WSNKz/MNrSbmTYonErr0lU8qC+gs0SWaSFmYBDF+0s
+         HcCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:message-id:content-transfer-encoding:mime-version:user-agent
+         :subject:to:date:dkim-signature;
+        bh=9tKDlky3j0dVCzf/0e4tJrvHe58EeNkliKW5fZuSio0=;
+        b=SIfSgfBZnrWoFjkRCGbrEHZ3EW1c7YcqqRdGzCD+rqfPqGktk8a5uu6lzwuEX6/GwT
+         5SGKuo8TBG1mV6H3HxTlnIVezg9ExkOWOM6gnuOcM838fnYJm83N0aslBNaOyF9ejxyo
+         B6dwvbrLLcEtUQnA/sBhDphiTN2mT01XgJilXQZSukAQzwtl+0dmaDYRWE9LeIVsJlGa
+         Ve97oBcvznZktKeEyCBirhwfoa5/rgnwnaqewr4jaupNjYElqsKnyYpk8+Q2mneiUHyN
+         pvFoPdrm0MuKXTscSFPsJvKgcuDKIeushZroNO0E29kef35jbyf0DwZJAdaW1o9jVrol
+         DbvQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@ucar.edu header.s=mail header.b=PXfXkaBT;
+       spf=pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) smtp.mailfrom=svasquez@service8.cheyenne.ucar.edu;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ucar.edu
+Received: from vscani1.ucar.edu (vscani1.ucar.edu. [192.43.244.84])
+        by mx.google.com with ESMTPS id s202si2300821ios.51.2020.04.27.04.11.56
+        for <esmftest@cgd.ucar.edu>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 27 Apr 2020 04:11:56 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) client-ip=192.43.244.84;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@ucar.edu header.s=mail header.b=PXfXkaBT;
+       spf=pass (google.com: best guess record for domain of svasquez@service8.cheyenne.ucar.edu designates 192.43.244.84 as permitted sender) smtp.mailfrom=svasquez@service8.cheyenne.ucar.edu;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ucar.edu
+Received: from cheyenne.ucar.edu (chmgt.ucar.edu [128.117.183.158])
+	by vscani1.ucar.edu (Postfix) with ESMTP id AA7E81807277
+	for <esmftest@cgd.ucar.edu>; Mon, 27 Apr 2020 05:11:26 -0600 (MDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ucar.edu; s=mail;
+	t=1587985886; bh=M8T2cd5eUB5VrQ63H/ynuRJwx6dphLUooOM7zOSxXQM=;
+	h=Date:To:Subject:From;
+	b=PXfXkaBTI0x3/546wLI4fmglZMLtCs92A668+lL/pGIgIKZl4uO0xDjyPzy6JKW51
+	 h5XTU6pX1auG7PC6lJRC2KFgqGwdU3lLcMWs1slKis/BvuIIcCQdFAYYzyEHozw4p+
+	 9kNs4V4gyLBDG1Wr2+WKKQTH9D+tnpQVptPhqVBgQWFSbDKlinrjjQ7YMCNnfgv1fI
+	 ZkCD1al51Wri/oSJCVklJecdZ4uOgkrMphmotLCIrNOfQPcDLYCdO5C6u3UTWjgBKk
+	 kRHWru4hS/Pcox0M94Gwz0FtPZsW1PeEvF6xseCBLM7WHNm9n2zVagi5sHHLxNsAW4
+	 eiEZqJq2ZY+yQ==
+Received: from service8.cheyenne.ucar.edu (chadmin3.head.cheyenne.ucar.edu [172.23.0.10])
+	by cheyenne.ucar.edu (Postfix) with ESMTP id 9EFB6941E1F
+	for <esmftest@cgd.ucar.edu>; Mon, 27 Apr 2020 05:11:26 -0600 (MDT)
+Received: by service8.cheyenne.ucar.edu (Postfix, from userid 2835)
+	id 9A8011A808D9; Mon, 27 Apr 2020 05:11:26 -0600 (MDT)
+Date: Mon, 27 Apr 2020 05:11:26 -0600
+To: esmftest@cgd.ucar.edu
+Subject: Branch_NUOPC_Cheyenne_intel
+User-Agent: Heirloom mailx 12.5 7/5/10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20200427111126.9A8011A808D9@service8.cheyenne.ucar.edu>
+From: svasquez@service8.cheyenne.ucar.edu (Silverio Vasquez)
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
+X-getmail-retrieved-from-mailbox: INBOX
+
+
+
+
+
+Script start time: Mon Apr 27 04:05:14 MDT 2020
+
+Script end: Mon Apr 27 05:11:26 MDT 2020
+
+
+_______________________ESMF_8_0_1branch NUOPC_BUILD_AND_TEST_SUMMARY___=
+_________________________
+
+
+
+                                           =20
+               BUILD       INSTALL    OS.COMPILER.COMM.ABI         NUOP=
+C Tests
+_______________________________________________________________________=
+_________________
+               PASS/FAIL   PASS/FAIL                                 PA=
+SS/FAIL
+_______________________________________________________________________=
+__________________
+r2i3n23(g)      PASS        PASS    Linux.intel.mpt.64                4=
+7/0
+r2i3n23(O)      PASS        PASS    Linux.intel.mpt.64                4=
+7/0
+
+_______________________________________________________________________=
+_________________
+
+Mon Apr 27 04:08:25 MDT 2020 on r2i3n23=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+--------------------------------------------------------------=20
+
+Currently Loaded Modules:
+  1) ncarenv/1.3
+  2) intel/18.0.5
+  3) ncarcompilers/0.5.0
+  4) mpt/2.19
+  5) netcdf/4.7.3
+
+=20
+
+
+ESMF Repository:
+origin=09git://git.code.sf.net/p/esmf/esmf (fetch)
+origin=09git://git.code.sf.net/p/esmf/esmf (push)
+=20
+ESMF_8_0_1_beta_snapshot_02-2-g1d30a92c49
+=20
+=20
+NUOPC Repository:
+=20
+Path: .
+Working Copy Root Path: /glade/work/svasquez/scripts_dir/branch/nuopc_c=
+heyenne/intel/NUOPC-Protos
+URL: https://svn.code.sf.net/p/esmfcontrib/svn/NUOPC/tags/ESMF_8_0_0
+Relative URL: ^/NUOPC/tags/ESMF_8_0_0
+Repository Root: https://svn.code.sf.net/p/esmfcontrib/svn
+Repository UUID: c3fc86fe-82d8-4841-a663-0ee342cebea3
+Revision: 999
+Node Kind: directory
+Schedule: normal
+Last Changed Author: theurich
+Last Changed Rev: 981
+Last Changed Date: 2019-10-03 11:52:54 -0600 (Thu, 03 Oct 2019)
+
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.0.1 beta snapshot
+ESMF_8_0_1_beta_snapshot_02-2-g1d30a92c49
+--------------------------------------------------------------
+HEAD detached at origin/ESMF_8_0_1branch
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 4.0
+Built for x86_64-unknown-linux-gnu
+Copyright (C) 1988-2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl=
+.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+--------------------------------------------------------------
+Fortran Compiler version:
+Intel(R) Fortran Intel(R) 64 Compiler for applications running on Intel=
+(R) 64, Version 18.0.5.274 Build 20180823
+Copyright (C) 1985-2018 Intel Corporation.  All rights reserved.
+ifort: warning #10315: specifying -lm before files may supersede the In=
+tel(R) math library and affect performance
+
+ifort version 18.0.5
+
+--------------------------------------------------------------
+C++ Compiler version:
+Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) =
+64, Version 18.0.5.274 Build 20180823
+Copyright (C) 1985-2018 Intel Corporation.  All rights reserved.
+icpc: warning #10315: specifying -lm before files may supersede the Int=
+el(R) math library and affect performance
+
+icpc version 18.0.5 (gcc version 4.8.0 compatibility)
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (SUSE Linux) 4.8.5
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+--------------------------------------------------------------
+NetCDF library version: netCDF 4.7.3
+NetCDF Fortran version: netCDF-Fortran 4.5.2
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3Dg
+ESMF_COMM=3Dmpt
+ESMF_COMPILER=3Dintel
+ESMF_DIR=3D/glade/work/svasquez/scripts_dir/branch/nuopc_cheyenne/intel=
+/esmf
+ESMF_INSTALL_BINDIR=3Dbin
+ESMF_INSTALL_HEADERDIR=3Dinclude
+ESMF_INSTALL_LIBDIR=3Dlib
+ESMF_INSTALL_MODDIR=3Dinclude
+ESMF_INSTALL_PREFIX=3D/glade/work/svasquez/scripts_dir/branch/nuopc_che=
+yenne/intel/esmf/../install_dir
+ESMF_MPIRUN=3Dmpirun
+ESMF_NETCDF=3Dnc-config
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTMPMD=3DOFF
+ESMF_TESTWITHTHREADS=3DOFF
+ESMF_YAMLCPP_INCLUDE=3D/glade/u/home/svasquez/bin/yaml0.6.2/intel15.1.1=
+33/include
+ESMF_YAMLCPP_LIBPATH=3D/glade/u/home/svasquez/bin/yaml0.6.2/intel15.1.1=
+33/lib
+ESMF_YAMLCPP=3Dstandard
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /glade/work/svasquez/scripts_dir/branch/nuopc_cheyenne/intel/=
+esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          intel
+ESMF_BOPT:              g
+ESMF_COMM:              mpt
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            ON
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          OFF
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: default
+ESMF_TESTHARNESS_FIELD: default
+ESMF_MPIRUN:            mpirun
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_NETCDF:             nc-config
+ESMF_NETCDF_INCLUDE:     /glade/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5=
+/include
+ESMF_NETCDF_LIBS:        -lnetcdff -lnetcdf
+ESMF_NETCDF_LIBPATH:     /glade/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5=
+/lib
+ESMF_YAMLCPP:            standard
+ESMF_YAMLCPP_INCLUDE:    /glade/u/home/svasquez/bin/yaml0.6.2/intel15.1=
+.133/include
+ESMF_YAMLCPP_LIBS:       -lyaml-cpp
+ESMF_YAMLCPP_LIBPATH:    /glade/u/home/svasquez/bin/yaml0.6.2/intel15.1=
+.133/lib
+ESMF_PIO:                internal
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /glade/work/svasquez/scripts_dir/branch/nuopc_c=
+heyenne/intel/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    include
+ESMF_INSTALL_LIBDIR:    lib
+ESMF_INSTALL_BINDIR:    bin
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /glade/u/apps/ch/opt/lmod/8.1.7/bin:/glade/u/home/svasquez/bin=
+:/ncar/opt/slurm/latest//bin:/opt/clmgr/sbin:/opt/clmgr/bin:/opt/sgi/sb=
+in:/opt/sgi/bin:/glade/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5/bin:/gla=
+de/u/apps/ch/opt/ncarcompilers/0.5.0/intel/18.0.5/mpi:/glade/u/apps/ch/=
+opt/mpt/2.19/bin:/glade/u/apps/ch/opt/ncarcompilers/0.5.0/intel/18.0.5:=
+/glade/u/apps/opt/intel/2018u4/vtune_amplifier/bin64:/glade/u/apps/opt/=
+intel/2018u4/inspector/bin64:/glade/u/apps/opt/intel/2018u4/advisor/bin=
+64:/glade/u/apps/opt/intel/2018u4/compilers_and_libraries/linux/bin/int=
+el64:/glade/u/apps/opt/vncmgr:/glade/u/apps/opt/globus-utils:/glade/u/a=
+pps/ch/opt/usr/bin:/glade/u/apps/ch/opt/lmod/8.1.7/bin:/glade/u/home/sv=
+asquez/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/opt/ib=
+utils/bin:/usr/lib/mit/bin:/glade/u/apps/opt/hpss/hpss-client.5.0.2.p5/=
+bin:/glade/u/apps/ch/os/usr/bin:/opt/pbs/bin:/sbin:/bin:/glade/work/sva=
+squez/scripts_dir/branch/nuopc_cheyenne/intel/esmf/../install_dir/bin
+LD_LIBRARY_PATH: /ncar/opt/slurm/latest//lib:/glade/u/apps/ch/opt/mpt_f=
+mods/2.19/intel/18.0.5:/glade/u/apps/ch/opt/mpt/2.19/lib:/glade/u/apps/=
+opt/intel/2018u4/compilers_and_libraries/linux/lib/intel64:/glade/u/app=
+s/ch/os/usr/lib64:/glade/u/apps/ch/os/usr/lib:/glade/u/apps/ch/os/lib64=
+:/glade/u/apps/ch/os/lib
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/gcc
+Location of the Fortran compiler:  /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/mpi/mpif90
+Location of the Fortran linker:    /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/mpi/mpif90
+Location of the C++ compiler:      /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/mpi/mpicxx
+Location of the C++ linker:        /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/mpi/mpicxx
+
+Fortran compiler flags:
+ESMF_F90COMPILER: mpif90
+ESMF_F90COMPILEOPTS: -g -traceback -check arg_temp_created,bounds,forma=
+t,output_conversion,stack,uninit -fPIC -assume realloc_lhs -m64 -mcmode=
+l=3Dsmall -threads  -qopenmp
+ESMF_F90COMPILEPATHS: -I/glade/work/svasquez/scripts_dir/branch/nuopc_c=
+heyenne/intel/esmf/mod/modg/Linux.intel.64.mpt.default -I/glade/work/sv=
+asquez/scripts_dir/branch/nuopc_cheyenne/intel/esmf/src/include -I/glad=
+e/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5/include -I/glade/u/home/svasq=
+uez/bin/yaml0.6.2/intel15.1.133/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_02-2-g1d30a92c49' -DES=
+MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
+SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
+ -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -D=
+ESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
+=3D1 -DESMF_COMM=3Dmpt -DESMF_DIR=3D/glade/work/svasquez/scripts_dir/br=
+anch/nuopc_cheyenne/intel/esmf
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP:=20
+ESMF_F90COMPILEFIXCPP:=20
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64 -mcmodel=3Dsmall -threads -Wl,--no-as-needed  =
+-qopenmp
+ESMF_F90LINKPATHS: -L/glade/work/svasquez/scripts_dir/branch/nuopc_chey=
+enne/intel/esmf/lib/libg/Linux.intel.64.mpt.default -L/glade/u/apps/ch/=
+opt/netcdf/4.7.3/intel/18.0.5/lib -L/glade/u/home/svasquez/bin/yaml0.6.=
+2/intel15.1.133/lib=20
+ESMF_F90LINKRPATHS: -Wl,-rpath,/glade/work/svasquez/scripts_dir/branch/=
+nuopc_cheyenne/intel/esmf/lib/libg/Linux.intel.64.mpt.default  -Wl,-rpa=
+th,/glade/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5/lib  -Wl,-rpath,/glad=
+e/u/home/svasquez/bin/yaml0.6.2/intel15.1.133/lib
+ESMF_F90LINKLIBS:  -lmpi++ -cxxlib -lrt -ldl -lnetcdff -lnetcdf -lyaml-=
+cpp
+ESMF_F90ESMFLINKLIBS: -lesmf  -lmpi++ -cxxlib -lrt -ldl -lnetcdff -lnet=
+cdf -lyaml-cpp
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: mpicxx
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -g -traceback -Wcheck -fPIC -DMUST_NO=
+TUSE_MALLOC_TRIM -m64 -mcmodel=3Dsmall -pthread  -qopenmp
+ESMF_CXXCOMPILEPATHS:  -I/glade/work/svasquez/scripts_dir/branch/nuopc_=
+cheyenne/intel/esmf/src/include  -I/glade/u/apps/ch/opt/netcdf/4.7.3/in=
+tel/18.0.5/include -I/glade/u/home/svasquez/bin/yaml0.6.2/intel15.1.133=
+/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_02-2-g1d30a92c49' -DES=
+MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
+SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
+ -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE  -=
+DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
+=3D1 -DESMF_COMM=3Dmpt -DESMF_DIR=3D/glade/work/svasquez/scripts_dir/br=
+anch/nuopc_cheyenne/intel/esmf -D__SDIR__=3D'' -DESMF_CXXSTD=3D11
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed  =
+-qopenmp
+ESMF_CXXLINKPATHS: -L/glade/work/svasquez/scripts_dir/branch/nuopc_chey=
+enne/intel/esmf/lib/libg/Linux.intel.64.mpt.default -L/glade/u/apps/ch/=
+opt/netcdf/4.7.3/intel/18.0.5/lib -L/glade/u/home/svasquez/bin/yaml0.6.=
+2/intel15.1.133/lib -L/glade/u/apps/opt/intel/2018u4/compilers_and_libr=
+aries_2018.5.274/linux/compiler/lib/intel64_lin/
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/glade/work/svasquez/scripts_dir/branch/=
+nuopc_cheyenne/intel/esmf/lib/libg/Linux.intel.64.mpt.default  -Wl,-rpa=
+th,/glade/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5/lib  -Wl,-rpath,/glad=
+e/u/home/svasquez/bin/yaml0.6.2/intel15.1.133/lib -Wl,-rpath,/glade/u/a=
+pps/opt/intel/2018u4/compilers_and_libraries_2018.5.274/linux/compiler/=
+lib/intel64_lin/
+ESMF_CXXLINKLIBS:  -lsz -lz -limf -lm -ldl -lrt -ldl -lpthread -lifport=
+ -lifcoremt -limf -lsvml -lm -lipgo -liomp5 -lintlc -lpthread -lsvml -l=
+dl -lgcc -lgcc_s -lirc_s -ldl -lrt -ldl -lnetcdff -lnetcdf -lyaml-cpp
+ESMF_CXXESMFLINKLIBS: -lesmf  -lsz -lz -limf -lm -ldl -lrt -ldl -lpthre=
+ad -lifport -lifcoremt -limf -lsvml -lm -lipgo -liomp5 -lintlc -lpthrea=
+d -lsvml -ldl -lgcc -lgcc_s -lirc_s -ldl -lrt -ldl -lnetcdff -lnetcdf -=
+lyaml-cpp
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    mpicxx
+ESMF_SL_LIBOPTS:       -pthread -shared  -qopenmp
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/glade/work/svasquez/scripts_dir/branch/nuopc_ch=
+eyenne/intel/esmf/lib/libg/Linux.intel.64.mpt.default/libesmftrace_prel=
+oad.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Mon Apr 27 04:08:29 MDT 2020 on r2i3n23
+Machine characteristics: Linux r2i3n23 4.12.14-95.37.1.18642.1.PTF.1155=
+508-default #1 SMP Mon Nov 4 13:03:21 UTC 2019 (9cc1377) x86_64 x86_64 =
+x86_64 GNU/Linux
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Mon Apr 27 04:25:21 MDT 2020 library build -j4 ........................=
+.PASSED
+Mon Apr 27 04:25:57 MDT 2020 library install ..........................=
+.PASSED
+Mon Apr 27 04:26:01 MDT 2020 library installcheck .....................=
+.PASSED
+
+
+|---------------------------------- NUOPC TESTS -----------------------=
+-----|
+
+Mon Apr 27 04:26:06 MDT 2020 Build SingleModelProto ...................=
+..PASSED
+Mon Apr 27 04:26:06 MDT 2020 Run SingleModelProto .....................=
+..PASSED
+
+Mon Apr 27 04:26:15 MDT 2020 Build AtmOcnLndProto .....................=
+..PASSED
+Mon Apr 27 04:26:15 MDT 2020 Run AtmOcnLndProto .......................=
+..PASSED
+
+Mon Apr 27 04:26:24 MDT 2020 Build AtmOcnMedPetListProto ..............=
+..PASSED
+Mon Apr 27 04:26:25 MDT 2020 Run AtmOcnMedPetListProto ................=
+..PASSED
+
+Mon Apr 27 04:26:35 MDT 2020 Build AtmOcnMedPetListTimescalesProto ....=
+..PASS
+Mon Apr 27 04:26:36 MDT 2020 Run AtmOcnMedPetListTimescalesProto ......=
+..PASSED
+
+Mon Apr 27 04:26:46 MDT 2020 Build AtmOcnMedPetListTimescalesSplitFastP=
+roto.PASSED
+Mon Apr 27 04:26:47 MDT 2020 Run AtmOcnMedPetListTimescalesSplitFastPro=
+to...PASSED
+
+Mon Apr 27 04:26:54 MDT 2020 Build AtmOcnProto ........................=
+..PASSED
+Mon Apr 27 04:26:55 MDT 2020 Run AtmOcnProto ..........................=
+..PASSED
+
+Mon Apr 27 04:27:07 MDT 2020 Build AtmOcnTransferGridProto ............=
+..PASSED
+Mon Apr 27 04:27:22 MDT 2020 Run AtmOcnTransferGridProto ..............=
+..PASSED
+
+Mon Apr 27 04:27:30 MDT 2020 Build AtmOcnTransferLocStreamProto .......=
+..PASSED
+Mon Apr 27 04:27:30 MDT 2020 Run AtmOcnTransferLocStreamProto .........=
+..PASSED
+
+Mon Apr 27 04:27:36 MDT 2020 Build NamespaceProto .....................=
+..PASSED
+Mon Apr 27 04:27:37 MDT 2020 Run NamespaceProto .......................=
+..PASSED
+
+Mon Apr 27 04:27:45 MDT 2020 Build AtmOcnCplListProto .................=
+..PASSED
+Mon Apr 27 04:27:46 MDT 2020 Run AtmOcnCplListProto ...................=
+..PASSED
+
+Mon Apr 27 04:27:54 MDT 2020 Build DriverInDriverProto ................=
+..PASSED
+Mon Apr 27 04:27:54 MDT 2020 Run DriverInDriverProto ..................=
+..PASSED
+
+Mon Apr 27 04:28:04 MDT 2020 Build AtmOcnRtmTwoTimescalesProto ........=
+..PASSED
+Mon Apr 27 04:28:04 MDT 2020 Run AtmOcnRtmTwoTimescalesProto ..........=
+..PASSED
+
+Mon Apr 27 04:28:11 MDT 2020 Build AsyncIOBlockingProto ...............=
+..PASSED
+Mon Apr 27 04:28:14 MDT 2020 Run AsyncIOBlockingProto .................=
+..PASSED
+
+Mon Apr 27 04:28:21 MDT 2020 Build AsyncIONonblockingProto ............=
+..PASSED
+Mon Apr 27 04:28:27 MDT 2020 Run AsyncIONonblockingProto ..............=
+..PASSED
+
+Mon Apr 27 04:28:36 MDT 2020 Build AtmOcnConProto .....................=
+..PASSED
+Mon Apr 27 04:28:36 MDT 2020 Run AtmOcnConProto .......................=
+..PASSED
+
+Mon Apr 27 04:28:44 MDT 2020 Build AtmOcnFDSynoProto ..................=
+..PASSED
+Mon Apr 27 04:28:44 MDT 2020 Run AtmOcnFDSynoProto ....................=
+..PASSED
+
+Mon Apr 27 04:28:52 MDT 2020 Build AtmOcnImplicitProto ................=
+..PASSED
+Mon Apr 27 04:28:52 MDT 2020 Run AtmOcnImplicitProto ..................=
+..PASSED
+
+Mon Apr 27 04:29:01 MDT 2020 Build AtmOcnMedProto .....................=
+..PASSED
+Mon Apr 27 04:29:02 MDT 2020 Run AtmOcnMedProto .......................=
+..PASSED
+
+Mon Apr 27 04:29:13 MDT 2020 Build AtmOcnPetListProto .................=
+..PASSED
+Mon Apr 27 04:29:14 MDT 2020 Run AtmOcnPetListProto ...................=
+..PASSED
+
+|-------------------------------- ATM=3DA OCN=3DA,B,C -----------------=
+---------|
+Mon Apr 27 04:29:45 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+..PASSED
+Mon Apr 27 04:29:45 MDT 2020 Run AtmOcnSelectExternalProto ............=
+..PASSED
+
+|-------------------------------- ATM=3DB OCN=3DA,B,C -----------------=
+---------|
+Mon Apr 27 04:30:13 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+..PASSED
+Mon Apr 27 04:30:13 MDT 2020 Run AtmOcnSelectExternalProto ............=
+..PASSED
+
+|-------------------------------- ATM=3DC OCN=3DA,B,C -----------------=
+---------|
+Mon Apr 27 04:30:41 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+..PASSED
+Mon Apr 27 04:30:42 MDT 2020 Run AtmOcnSelectExternalProto ............=
+..PASSED
+
+|-------------------------------- ATM=3DD OCN=3DA,B,C -----------------=
+---------|
+Mon Apr 27 04:31:09 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+..PASSED
+Mon Apr 27 04:31:10 MDT 2020 Run AtmOcnSelectExternalProto ............=
+..PASSED
+
+|-------------------------------- ATM=3DE OCN=3DA,B,C -----------------=
+---------|
+Mon Apr 27 04:31:38 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+..PASSED
+Mon Apr 27 04:31:38 MDT 2020 Run AtmOcnSelectExternalProto ............=
+..PASSED
+
+|-------------------------------- ATM=3DA OCN=3DA,B -------------------=
+---------|
+Mon Apr 27 04:31:50 MDT 2020 Build AtmOcnSelectProto ..................=
+..PASSED
+Mon Apr 27 04:31:51 MDT 2020 Run AtmOcnSelectProto ....................=
+..PASSED
+
+|-------------------------------- ATM=3DB OCN=3DA,B -------------------=
+---------|
+Mon Apr 27 04:32:03 MDT 2020 Build AtmOcnSelectProto ..................=
+..PASSED
+Mon Apr 27 04:32:03 MDT 2020 Run AtmOcnSelectProto ....................=
+..PASSED
+
+|-------------------------------- ATM=3DA OCN=3DB ---------------------=
+---------|
+Mon Apr 27 04:32:15 MDT 2020 Build AtmOcnSelectProto ..................=
+..PASSED
+Mon Apr 27 04:32:15 MDT 2020 Run AtmOcnSelectProto ....................=
+..PASSED
+
+Mon Apr 27 04:32:23 MDT 2020 Build AtmOcnSimpleImplicitProto ..........=
+..PASSED
+Mon Apr 27 04:32:23 MDT 2020 Run AtmOcnSimpleImplicitProto ............=
+..PASSED
+
+Mon Apr 27 04:32:31 MDT 2020 Build GenericMediatorProto ...............=
+..PASSED
+Mon Apr 27 04:32:34 MDT 2020 Run GenericMediatorProto .................=
+..PASSED
+
+Mon Apr 27 04:32:40 MDT 2020 Build NestingMultipleProto ...............=
+..PASSED
+Mon Apr 27 04:32:45 MDT 2020 Run NestingMultipleProto .................=
+..PASSED
+
+Mon Apr 27 04:32:51 MDT 2020 Build NestingSingleProto .................=
+..PASSED
+Mon Apr 27 04:32:55 MDT 2020 Run NestingSingleProto ...................=
+..PASSED
+
+Mon Apr 27 04:33:01 MDT 2020 Build NestingTelescopeMultipleProto ......=
+..PASSED
+Mon Apr 27 04:33:16 MDT 2020 Run NestingTelescopeMultipleProto ........=
+..PASSED
+
+Mon Apr 27 04:33:26 MDT 2020 Build AtmOcnMedIngestFromConfigProto .....=
+..PASSED
+Mon Apr 27 04:33:27 MDT 2020 Run AtmOcnMedIngestFromConfigProto .......=
+..PASSED
+
+Mon Apr 27 04:33:36 MDT 2020 Build DriverInDriverProtoIPDv02 ..........=
+..PASSED
+Mon Apr 27 04:33:39 MDT 2020 Run DriverInDriverProtoIPDv02 ............=
+..PASSED
+
+Mon Apr 27 04:33:47 MDT 2020 Build AtmOcnScalarProto ..................=
+..PASSED
+Mon Apr 27 04:33:47 MDT 2020 Run AtmOcnScalarProto ....................=
+..PASSED
+
+Mon Apr 27 04:34:00 MDT 2020 Build HierarchyProto .....................=
+..PASSED
+Mon Apr 27 04:34:06 MDT 2020 Run HierarchyProto .......................=
+..PASSED
+
+Mon Apr 27 04:34:16 MDT 2020 Build AtmOcnMedIngestFromInternalProto ...=
+..PASSED
+Mon Apr 27 04:34:17 MDT 2020 Run AtmOcnMedIngestFromInternalProto .....=
+..PASSED
+
+Mon Apr 27 04:34:24 MDT 2020 Build AtmOcnLogNoneProto .................=
+..PASSED
+Mon Apr 27 04:34:25 MDT 2020 Run AtmOcnLogNoneProto ...................=
+..PASSED
+
+Mon Apr 27 04:34:35 MDT 2020 Build AtmOcnIceSimpleImplicitProto .......=
+..PASSED
+Mon Apr 27 04:34:36 MDT 2020 Run AtmOcnIceSimpleImplicitProto .........=
+..PASSED
+
+Mon Apr 27 04:34:44 MDT 2020 Build DynPhyProto ........................=
+..PASSED
+Mon Apr 27 04:34:45 MDT 2020 Run DynPhyProto ..........................=
+..PASSED
+
+Mon Apr 27 04:34:52 MDT 2020 Build AtmOcnCplSetProto ..................=
+..PASSED
+Mon Apr 27 04:34:52 MDT 2020 Run AtmOcnCplSetProto  ...................=
+..PASSED
+
+Mon Apr 27 04:35:00 MDT 2020 Build AtmOcnTransferMeshProto ............=
+.PASSED
+Mon Apr 27 04:35:04 MDT 2020 Run AtmOcnTransferMeshProto ..............=
+.PASSED
+
+Mon Apr 27 04:35:09 MDT 2020 Build CustomFieldDictionaryProto .........=
+.PASSED
+Mon Apr 27 04:35:47 MDT 2020 Run CustomFieldDictionaryProto ...........=
+.PASS
+
+Mon Apr 27 04:35:58 MDT 2020 Build AtmOcnMirrorFieldsProto ............=
+.PASSED
+Mon Apr 27 04:36:00 MDT 2020 Run AtmOcnMirrorFieldsProto ..............=
+.PASSED
+
+Mon Apr 27 04:36:08 MDT 2020 Build ExternalDriverAPIProto .............=
+.PASSED
+Mon Apr 27 04:36:09 MDT 2020 Run ExternalDriverAPIProto ...............=
+.PASSED
+
+Mon Apr 27 04:36:14 MDT 2020 Build SingleModelOpenMPProto .............=
+.PASSED
+Mon Apr 27 04:36:14 MDT 2020 Run SingleModelOpenMPProto ...............=
+.PASSED
+
+Mon Apr 27 04:36:17 MDT 2020 Build ComponentExplorer ..................=
+.PASSED
+Mon Apr 27 04:36:18 MDT 2020 Run ComponentExplorer ....................=
+.PASSED
+
+
+_______________________________________________________________________=
+_________________
+
+Mon Apr 27 04:39:23 MDT 2020 on r2i3n23=20
+
+ESMF Checkout Source: https://github.com/esmf-org/esmf
+
+Compiler and configuration information:
+
+--------------------------------------------------------------=20
+
+Currently Loaded Modules:
+  1) ncarenv/1.3
+  2) intel/18.0.5
+  3) ncarcompilers/0.5.0
+  4) mpt/2.19
+  5) netcdf/4.7.3
+
+=20
+
+
+ESMF Repository:
+origin=09git://git.code.sf.net/p/esmf/esmf (fetch)
+origin=09git://git.code.sf.net/p/esmf/esmf (push)
+=20
+ESMF_8_0_1_beta_snapshot_02-2-g1d30a92c49
+=20
+=20
+NUOPC Repository:
+=20
+Path: .
+Working Copy Root Path: /glade/work/svasquez/scripts_dir/branch/nuopc_c=
+heyenne/intel/NUOPC-Protos
+URL: https://svn.code.sf.net/p/esmfcontrib/svn/NUOPC/tags/ESMF_8_0_0
+Relative URL: ^/NUOPC/tags/ESMF_8_0_0
+Repository Root: https://svn.code.sf.net/p/esmfcontrib/svn
+Repository UUID: c3fc86fe-82d8-4841-a663-0ee342cebea3
+Revision: 999
+Node Kind: directory
+Schedule: normal
+Last Changed Author: theurich
+Last Changed Rev: 981
+Last Changed Date: 2019-10-03 11:52:54 -0600 (Thu, 03 Oct 2019)
+
+=20
+=20
+--------------------------------------------------------------
+ESMF_VERSION_STRING:    8.0.1 beta snapshot
+ESMF_8_0_1_beta_snapshot_02-2-g1d30a92c49
+--------------------------------------------------------------
+HEAD detached at origin/ESMF_8_0_1branch
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+=09src/installcheck/esmc_application
+=09src/installcheck/esmc_application.o
+=09src/installcheck/esmf_application
+=09src/installcheck/esmf_application.o
+=09tmp
+
+nothing added to commit but untracked files present (use "git add" to t=
+rack)
+--------------------------------------------------------------
+=20
+--------------------------------------------------------------
+Make version:
+GNU Make 4.0
+Built for x86_64-unknown-linux-gnu
+Copyright (C) 1988-2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl=
+.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+--------------------------------------------------------------
+Fortran Compiler version:
+Intel(R) Fortran Intel(R) 64 Compiler for applications running on Intel=
+(R) 64, Version 18.0.5.274 Build 20180823
+Copyright (C) 1985-2018 Intel Corporation.  All rights reserved.
+ifort: warning #10315: specifying -lm before files may supersede the In=
+tel(R) math library and affect performance
+
+ifort version 18.0.5
+
+--------------------------------------------------------------
+C++ Compiler version:
+Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) =
+64, Version 18.0.5.274 Build 20180823
+Copyright (C) 1985-2018 Intel Corporation.  All rights reserved.
+icpc: warning #10315: specifying -lm before files may supersede the Int=
+el(R) math library and affect performance
+
+icpc version 18.0.5 (gcc version 4.8.0 compatibility)
+
+--------------------------------------------------------------
+Preprocessor version:
+gcc (SUSE Linux) 4.8.5
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is=
+ NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURP=
+OSE.
+
+--------------------------------------------------------------
+NetCDF library version: netCDF 4.7.3
+NetCDF Fortran version: netCDF-Fortran 4.5.2
+=20
+--------------------------------------------------------------
+ * User set ESMF environment variables *
+ESMF_ABI=3D64
+ESMF_BOPT=3DO
+ESMF_COMM=3Dmpt
+ESMF_COMPILER=3Dintel
+ESMF_DIR=3D/glade/work/svasquez/scripts_dir/branch/nuopc_cheyenne/intel=
+/esmf
+ESMF_INSTALL_BINDIR=3Dbin
+ESMF_INSTALL_HEADERDIR=3Dinclude
+ESMF_INSTALL_LIBDIR=3Dlib
+ESMF_INSTALL_MODDIR=3Dinclude
+ESMF_INSTALL_PREFIX=3D/glade/work/svasquez/scripts_dir/branch/nuopc_che=
+yenne/intel/esmf/../install_dir
+ESMF_MPIRUN=3Dmpirun
+ESMF_NETCDF=3Dnc-config
+ESMF_OS=3DLinux
+ESMF_SITE=3Ddefault
+ESMF_TESTEXHAUSTIVE=3DON
+ESMF_TESTMPMD=3DOFF
+ESMF_TESTWITHTHREADS=3DOFF
+ESMF_YAMLCPP_INCLUDE=3D/glade/u/home/svasquez/bin/yaml0.6.2/intel15.1.1=
+33/include
+ESMF_YAMLCPP_LIBPATH=3D/glade/u/home/svasquez/bin/yaml0.6.2/intel15.1.1=
+33/lib
+ESMF_YAMLCPP=3Dstandard
+=20
+--------------------------------------------------------------
+ * ESMF environment variables *
+ESMF_DIR: /glade/work/svasquez/scripts_dir/branch/nuopc_cheyenne/intel/=
+esmf
+ESMF_OS:                Linux
+ESMF_MACHINE:           x86_64
+ESMF_ABI:               64
+ESMF_COMPILER:          intel
+ESMF_BOPT:              O
+ESMF_COMM:              mpt
+ESMF_SITE:              default
+ESMF_PTHREADS:          ON
+ESMF_OPENMP:            ON
+ESMF_OPENACC:           OFF
+ESMF_CXXSTD:            11
+ESMF_ARRAY_LITE:        FALSE
+ESMF_NO_INTEGER_1_BYTE: TRUE
+ESMF_NO_INTEGER_2_BYTE: TRUE
+ESMF_FORTRANSYMBOLS:    default
+ESMF_MAPPER_BUILD:      OFF
+ESMF_AUTO_LIB_BUILD:    ON
+ESMF_DEFER_LIB_BUILD:   ON
+ESMF_SHARED_LIB_BUILD:  ON
+ESMF_TRACE_LIB_BUILD:   ON
+ESMF_TESTEXHAUSTIVE:    ON
+ESMF_TESTCOMPTUNNEL:    ON
+ESMF_TESTWITHTHREADS:   OFF
+ESMF_TESTMPMD:          OFF
+ESMF_TESTSHAREDOBJ:     OFF
+ESMF_TESTFORCEOPENMP:   OFF
+ESMF_TESTFORCEOPENACC:  OFF
+ESMF_TESTHARNESS_ARRAY: default
+ESMF_TESTHARNESS_FIELD: default
+ESMF_MPIRUN:            mpirun
+=20
+--------------------------------------------------------------
+ * ESMF environment variables pointing to 3rd party software *
+ESMF_MOAB:               internal
+ESMF_LAPACK:             internal
+ESMF_ACC_SOFTWARE_STACK: none
+ESMF_NETCDF:             nc-config
+ESMF_NETCDF_INCLUDE:     /glade/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5=
+/include
+ESMF_NETCDF_LIBS:        -lnetcdff -lnetcdf
+ESMF_NETCDF_LIBPATH:     /glade/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5=
+/lib
+ESMF_YAMLCPP:            standard
+ESMF_YAMLCPP_INCLUDE:    /glade/u/home/svasquez/bin/yaml0.6.2/intel15.1=
+.133/include
+ESMF_YAMLCPP_LIBS:       -lyaml-cpp
+ESMF_YAMLCPP_LIBPATH:    /glade/u/home/svasquez/bin/yaml0.6.2/intel15.1=
+.133/lib
+ESMF_PIO:                internal
+=20
+--------------------------------------------------------------
+ * ESMF environment variables for final installation *
+ESMF_INSTALL_PREFIX:    /glade/work/svasquez/scripts_dir/branch/nuopc_c=
+heyenne/intel/esmf/../install_dir
+ESMF_INSTALL_HEADERDIR: include
+ESMF_INSTALL_MODDIR:    include
+ESMF_INSTALL_LIBDIR:    lib
+ESMF_INSTALL_BINDIR:    bin
+ESMF_INSTALL_DOCDIR:    doc
+=20
+--------------------------------------------------------------
+ * ESMF Benchmark directory and parameters *
+ESMF_BENCHMARK_PREFIX:         ./DEFAULTBENCHMARKDIR
+ESMF_BENCHMARK_TOLERANCE:      20%
+ESMF_BENCHMARK_THRESHOLD_MSEC: 500
+=20
+--------------------------------------------------------------
+ * Other relevant environment variables *
+PATH:    /glade/u/apps/ch/opt/lmod/8.1.7/bin:/glade/u/home/svasquez/bin=
+:/ncar/opt/slurm/latest//bin:/opt/clmgr/sbin:/opt/clmgr/bin:/opt/sgi/sb=
+in:/opt/sgi/bin:/glade/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5/bin:/gla=
+de/u/apps/ch/opt/ncarcompilers/0.5.0/intel/18.0.5/mpi:/glade/u/apps/ch/=
+opt/mpt/2.19/bin:/glade/u/apps/ch/opt/ncarcompilers/0.5.0/intel/18.0.5:=
+/glade/u/apps/opt/intel/2018u4/vtune_amplifier/bin64:/glade/u/apps/opt/=
+intel/2018u4/inspector/bin64:/glade/u/apps/opt/intel/2018u4/advisor/bin=
+64:/glade/u/apps/opt/intel/2018u4/compilers_and_libraries/linux/bin/int=
+el64:/glade/u/apps/opt/vncmgr:/glade/u/apps/opt/globus-utils:/glade/u/a=
+pps/ch/opt/usr/bin:/glade/u/apps/ch/opt/lmod/8.1.7/bin:/glade/u/home/sv=
+asquez/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/opt/ib=
+utils/bin:/usr/lib/mit/bin:/glade/u/apps/opt/hpss/hpss-client.5.0.2.p5/=
+bin:/glade/u/apps/ch/os/usr/bin:/opt/pbs/bin:/sbin:/bin:/glade/work/sva=
+squez/scripts_dir/branch/nuopc_cheyenne/intel/esmf/../install_dir/bin
+LD_LIBRARY_PATH: /ncar/opt/slurm/latest//lib:/glade/u/apps/ch/opt/mpt_f=
+mods/2.19/intel/18.0.5:/glade/u/apps/ch/opt/mpt/2.19/lib:/glade/u/apps/=
+opt/intel/2018u4/compilers_and_libraries/linux/lib/intel64:/glade/u/app=
+s/ch/os/usr/lib64:/glade/u/apps/ch/os/usr/lib:/glade/u/apps/ch/os/lib64=
+:/glade/u/apps/ch/os/lib
+=20
+--------------------------------------------------------------
+ * Compilers, Linkers, Flags, and Libraries *
+Location of the preprocessor:      /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/gcc
+Location of the Fortran compiler:  /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/mpi/mpif90
+Location of the Fortran linker:    /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/mpi/mpif90
+Location of the C++ compiler:      /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/mpi/mpicxx
+Location of the C++ linker:        /glade/u/apps/ch/opt/ncarcompilers/0=
+.5.0/intel/18.0.5/mpi/mpicxx
+
+Fortran compiler flags:
+ESMF_F90COMPILER: mpif90
+ESMF_F90COMPILEOPTS: -O -fPIC -assume realloc_lhs -m64 -mcmodel=3Dsmall=
+ -threads  -qopenmp
+ESMF_F90COMPILEPATHS: -I/glade/work/svasquez/scripts_dir/branch/nuopc_c=
+heyenne/intel/esmf/mod/modO/Linux.intel.64.mpt.default -I/glade/work/sv=
+asquez/scripts_dir/branch/nuopc_cheyenne/intel/esmf/src/include -I/glad=
+e/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5/include -I/glade/u/home/svasq=
+uez/bin/yaml0.6.2/intel15.1.133/include
+ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_02-2-g1d30a92c49' -DES=
+MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
+SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
+ -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -D=
+ESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
+=3D1 -DESMF_COMM=3Dmpt -DESMF_DIR=3D/glade/work/svasquez/scripts_dir/br=
+anch/nuopc_cheyenne/intel/esmf
+ESMF_F90COMPILEFREECPP:=20
+ESMF_F90COMPILEFREENOCPP:=20
+ESMF_F90COMPILEFIXCPP:=20
+ESMF_F90COMPILEFIXNOCPP:=20
+
+Fortran linker flags:
+ESMF_F90LINKOPTS:   -m64 -mcmodel=3Dsmall -threads -Wl,--no-as-needed  =
+-qopenmp
+ESMF_F90LINKPATHS: -L/glade/work/svasquez/scripts_dir/branch/nuopc_chey=
+enne/intel/esmf/lib/libO/Linux.intel.64.mpt.default -L/glade/u/apps/ch/=
+opt/netcdf/4.7.3/intel/18.0.5/lib -L/glade/u/home/svasquez/bin/yaml0.6.=
+2/intel15.1.133/lib=20
+ESMF_F90LINKRPATHS: -Wl,-rpath,/glade/work/svasquez/scripts_dir/branch/=
+nuopc_cheyenne/intel/esmf/lib/libO/Linux.intel.64.mpt.default  -Wl,-rpa=
+th,/glade/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5/lib  -Wl,-rpath,/glad=
+e/u/home/svasquez/bin/yaml0.6.2/intel15.1.133/lib
+ESMF_F90LINKLIBS:  -lmpi++ -cxxlib -lrt -ldl -lnetcdff -lnetcdf -lyaml-=
+cpp
+ESMF_F90ESMFLINKLIBS: -lesmf  -lmpi++ -cxxlib -lrt -ldl -lnetcdff -lnet=
+cdf -lyaml-cpp
+
+C++ compiler flags:
+ESMF_CXXCOMPILER: mpicxx
+ESMF_CXXCOMPILEOPTS: -std=3Dc++11 -O -DNDEBUG -fPIC -DMUST_NOTUSE_MALLO=
+C_TRIM -m64 -mcmodel=3Dsmall -pthread  -qopenmp
+ESMF_CXXCOMPILEPATHS:  -I/glade/work/svasquez/scripts_dir/branch/nuopc_=
+cheyenne/intel/esmf/src/include  -I/glade/u/apps/ch/opt/netcdf/4.7.3/in=
+tel/18.0.5/include -I/glade/u/home/svasquez/bin/yaml0.6.2/intel15.1.133=
+/include
+ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
+YTE -DESMFVERSIONGIT=3D'ESMF_8_0_1_beta_snapshot_02-2-g1d30a92c49' -DES=
+MF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_MOAB=3D1 -DESMF_NO_ACC_=
+SOFTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_YAMLCPP=3D1 -DESMF_YAML=3D1=
+ -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE  -=
+DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DSx86_64_small=3D1 -DESMF_OS_Linux=
+=3D1 -DESMF_COMM=3Dmpt -DESMF_DIR=3D/glade/work/svasquez/scripts_dir/br=
+anch/nuopc_cheyenne/intel/esmf -D__SDIR__=3D'' -DESMF_CXXSTD=3D11
+
+C++ linker flags:
+ESMF_CXXLINKOPTS:   -m64 -mcmodel=3Dsmall -pthread -Wl,--no-as-needed  =
+-qopenmp
+ESMF_CXXLINKPATHS: -L/glade/work/svasquez/scripts_dir/branch/nuopc_chey=
+enne/intel/esmf/lib/libO/Linux.intel.64.mpt.default -L/glade/u/apps/ch/=
+opt/netcdf/4.7.3/intel/18.0.5/lib -L/glade/u/home/svasquez/bin/yaml0.6.=
+2/intel15.1.133/lib -L/glade/u/apps/opt/intel/2018u4/compilers_and_libr=
+aries_2018.5.274/linux/compiler/lib/intel64_lin/
+ESMF_CXXLINKRPATHS: -Wl,-rpath,/glade/work/svasquez/scripts_dir/branch/=
+nuopc_cheyenne/intel/esmf/lib/libO/Linux.intel.64.mpt.default  -Wl,-rpa=
+th,/glade/u/apps/ch/opt/netcdf/4.7.3/intel/18.0.5/lib  -Wl,-rpath,/glad=
+e/u/home/svasquez/bin/yaml0.6.2/intel15.1.133/lib -Wl,-rpath,/glade/u/a=
+pps/opt/intel/2018u4/compilers_and_libraries_2018.5.274/linux/compiler/=
+lib/intel64_lin/
+ESMF_CXXLINKLIBS:  -lsz -lz -limf -lm -ldl -lrt -ldl -lpthread -lifport=
+ -lifcoremt -limf -lsvml -lm -lipgo -liomp5 -lintlc -lpthread -lsvml -l=
+gcc -lgcc_s -lirc_s -ldl -lrt -ldl -lnetcdff -lnetcdf -lyaml-cpp
+ESMF_CXXESMFLINKLIBS: -lesmf  -lsz -lz -limf -lm -ldl -lrt -ldl -lpthre=
+ad -lifport -lifcoremt -limf -lsvml -lm -lipgo -liomp5 -lintlc -lpthrea=
+d -lsvml -lgcc -lgcc_s -lirc_s -ldl -lrt -ldl -lnetcdff -lnetcdf -lyaml=
+-cpp
+
+Shared library build:
+ESMF_SL_LIBS_TO_MAKE: libesmf
+ESMF_SL_SUFFIX:       so
+ESMF_SL_LIBLINKER:    mpicxx
+ESMF_SL_LIBOPTS:       -pthread -shared  -qopenmp
+ESMF_SL_LIBLIBS:     =20
+
+ESMF Tracing linker options:
+ESMF_TRACE_LDPRELOAD=3D/glade/work/svasquez/scripts_dir/branch/nuopc_ch=
+eyenne/intel/esmf/lib/libO/Linux.intel.64.mpt.default/libesmftrace_prel=
+oad.so
+ESMF_TRACE_STATICLINKOPTS=3D-static -Wl,--wrap=3Dc_esmftrace_notify_wra=
+ppers -Wl,--wrap=3Dc_esmftrace_isinitialized -Wl,--wrap=3Dwrite -Wl,--w=
+rap=3Dwritev -Wl,--wrap=3Dpwrite -Wl,--wrap=3Dread -Wl,--wrap=3Dopen -W=
+l,--wrap=3DMPI_Allgather -Wl,--wrap=3DMPI_Allgatherv -Wl,--wrap=3DMPI_A=
+llreduce -Wl,--wrap=3DMPI_Alltoall -Wl,--wrap=3DMPI_Alltoallv -Wl,--wra=
+p=3DMPI_Alltoallw -Wl,--wrap=3DMPI_Barrier -Wl,--wrap=3DMPI_Bcast -Wl,-=
+-wrap=3DMPI_Gather -Wl,--wrap=3DMPI_Gatherv -Wl,--wrap=3DMPI_Recv -Wl,-=
+-wrap=3DMPI_Reduce -Wl,--wrap=3DMPI_Scatter -Wl,--wrap=3DMPI_Send -Wl,-=
+-wrap=3DMPI_Sendrecv -Wl,--wrap=3DMPI_Wait -Wl,--wrap=3DMPI_Waitall -Wl=
+,--wrap=3DMPI_Waitany -Wl,--wrap=3DMPI_Waitsome -Wl,--wrap=3Dmpi_allgat=
+her_ -Wl,--wrap=3Dmpi_allgather__ -Wl,--wrap=3Dmpi_allgatherv_ -Wl,--wr=
+ap=3Dmpi_allgatherv__ -Wl,--wrap=3Dmpi_allreduce_ -Wl,--wrap=3Dmpi_allr=
+educe__ -Wl,--wrap=3Dmpi_alltoall_ -Wl,--wrap=3Dmpi_alltoall__ -Wl,--wr=
+ap=3Dmpi_alltoallv_ -Wl,--wrap=3Dmpi_alltoallv__ -Wl,--wrap=3Dmpi_allto=
+allw_ -Wl,--wrap=3Dmpi_alltoallw__ -Wl,--wrap=3Dmpi_barrier_ -Wl,--wrap=
+=3Dmpi_barrier__ -Wl,--wrap=3Dmpi_bcast_ -Wl,--wrap=3Dmpi_bcast__ -Wl,-=
+-wrap=3Dmpi_exscan_ -Wl,--wrap=3Dmpi_exscan__ -Wl,--wrap=3Dmpi_gather_ =
+-Wl,--wrap=3Dmpi_gather__ -Wl,--wrap=3Dmpi_gatherv_ -Wl,--wrap=3Dmpi_ga=
+therv__ -Wl,--wrap=3Dmpi_recv_ -Wl,--wrap=3Dmpi_recv__ -Wl,--wrap=3Dmpi=
+_reduce_ -Wl,--wrap=3Dmpi_reduce__ -Wl,--wrap=3Dmpi_reduce_scatter_ -Wl=
+,--wrap=3Dmpi_reduce_scatter__ -Wl,--wrap=3Dmpi_scatter_ -Wl,--wrap=3Dm=
+pi_scatter__ -Wl,--wrap=3Dmpi_scatterv_ -Wl,--wrap=3Dmpi_scatterv__ -Wl=
+,--wrap=3Dmpi_scan_ -Wl,--wrap=3Dmpi_scan__ -Wl,--wrap=3Dmpi_send_ -Wl,=
+--wrap=3Dmpi_send__ -Wl,--wrap=3Dmpi_wait_ -Wl,--wrap=3Dmpi_wait__ -Wl,=
+--wrap=3Dmpi_waitall_ -Wl,--wrap=3Dmpi_waitall__ -Wl,--wrap=3Dmpi_waita=
+ny_ -Wl,--wrap=3Dmpi_waitany__
+ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
+
+
+--------------------------------------------------------------
+Compiling on Mon Apr 27 04:39:25 MDT 2020 on r2i3n23
+Machine characteristics: Linux r2i3n23 4.12.14-95.37.1.18642.1.PTF.1155=
+508-default #1 SMP Mon Nov 4 13:03:21 UTC 2019 (9cc1377) x86_64 x86_64 =
+x86_64 GNU/Linux
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+Mon Apr 27 05:02:02 MDT 2020 library build -j4 ........................=
+.PASSED
+Mon Apr 27 05:02:33 MDT 2020 library install ..........................=
+.PASSED
+Mon Apr 27 05:02:37 MDT 2020 library installcheck .....................=
+.PASSED
+
+
+|---------------------------------- NUOPC TESTS -----------------------=
+-----|
+
+Mon Apr 27 05:02:41 MDT 2020 Build SingleModelProto ...................=
+..PASSED
+Mon Apr 27 05:02:41 MDT 2020 Run SingleModelProto .....................=
+..PASSED
+
+Mon Apr 27 05:02:50 MDT 2020 Build AtmOcnLndProto .....................=
+..PASSED
+Mon Apr 27 05:02:50 MDT 2020 Run AtmOcnLndProto .......................=
+..PASSED
+
+Mon Apr 27 05:02:59 MDT 2020 Build AtmOcnMedPetListProto ..............=
+..PASSED
+Mon Apr 27 05:02:59 MDT 2020 Run AtmOcnMedPetListProto ................=
+..PASSED
+
+Mon Apr 27 05:03:09 MDT 2020 Build AtmOcnMedPetListTimescalesProto ....=
+..PASS
+Mon Apr 27 05:03:09 MDT 2020 Run AtmOcnMedPetListTimescalesProto ......=
+..PASSED
+
+Mon Apr 27 05:03:18 MDT 2020 Build AtmOcnMedPetListTimescalesSplitFastP=
+roto.PASSED
+Mon Apr 27 05:03:19 MDT 2020 Run AtmOcnMedPetListTimescalesSplitFastPro=
+to...PASSED
+
+Mon Apr 27 05:03:26 MDT 2020 Build AtmOcnProto ........................=
+..PASSED
+Mon Apr 27 05:03:26 MDT 2020 Run AtmOcnProto ..........................=
+..PASSED
+
+Mon Apr 27 05:03:39 MDT 2020 Build AtmOcnTransferGridProto ............=
+..PASSED
+Mon Apr 27 05:03:42 MDT 2020 Run AtmOcnTransferGridProto ..............=
+..PASSED
+
+Mon Apr 27 05:03:50 MDT 2020 Build AtmOcnTransferLocStreamProto .......=
+..PASSED
+Mon Apr 27 05:03:50 MDT 2020 Run AtmOcnTransferLocStreamProto .........=
+..PASSED
+
+Mon Apr 27 05:03:56 MDT 2020 Build NamespaceProto .....................=
+..PASSED
+Mon Apr 27 05:03:56 MDT 2020 Run NamespaceProto .......................=
+..PASSED
+
+Mon Apr 27 05:04:04 MDT 2020 Build AtmOcnCplListProto .................=
+..PASSED
+Mon Apr 27 05:04:04 MDT 2020 Run AtmOcnCplListProto ...................=
+..PASSED
+
+Mon Apr 27 05:04:12 MDT 2020 Build DriverInDriverProto ................=
+..PASSED
+Mon Apr 27 05:04:13 MDT 2020 Run DriverInDriverProto ..................=
+..PASSED
+
+Mon Apr 27 05:04:22 MDT 2020 Build AtmOcnRtmTwoTimescalesProto ........=
+..PASSED
+Mon Apr 27 05:04:22 MDT 2020 Run AtmOcnRtmTwoTimescalesProto ..........=
+..PASSED
+
+Mon Apr 27 05:04:29 MDT 2020 Build AsyncIOBlockingProto ...............=
+..PASSED
+Mon Apr 27 05:04:30 MDT 2020 Run AsyncIOBlockingProto .................=
+..PASSED
+
+Mon Apr 27 05:04:37 MDT 2020 Build AsyncIONonblockingProto ............=
+..PASSED
+Mon Apr 27 05:04:40 MDT 2020 Run AsyncIONonblockingProto ..............=
+..PASSED
+
+Mon Apr 27 05:04:48 MDT 2020 Build AtmOcnConProto .....................=
+..PASSED
+Mon Apr 27 05:04:48 MDT 2020 Run AtmOcnConProto .......................=
+..PASSED
+
+Mon Apr 27 05:04:56 MDT 2020 Build AtmOcnFDSynoProto ..................=
+..PASSED
+Mon Apr 27 05:04:56 MDT 2020 Run AtmOcnFDSynoProto ....................=
+..PASSED
+
+Mon Apr 27 05:05:03 MDT 2020 Build AtmOcnImplicitProto ................=
+..PASSED
+Mon Apr 27 05:05:04 MDT 2020 Run AtmOcnImplicitProto ..................=
+..PASSED
+
+Mon Apr 27 05:05:12 MDT 2020 Build AtmOcnMedProto .....................=
+..PASSED
+Mon Apr 27 05:05:12 MDT 2020 Run AtmOcnMedProto .......................=
+..PASSED
+
+Mon Apr 27 05:05:24 MDT 2020 Build AtmOcnPetListProto .................=
+..PASSED
+Mon Apr 27 05:05:24 MDT 2020 Run AtmOcnPetListProto ...................=
+..PASSED
+
+|-------------------------------- ATM=3DA OCN=3DA,B,C -----------------=
+---------|
+Mon Apr 27 05:05:52 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+..PASSED
+Mon Apr 27 05:05:52 MDT 2020 Run AtmOcnSelectExternalProto ............=
+..PASSED
+
+|-------------------------------- ATM=3DB OCN=3DA,B,C -----------------=
+---------|
+Mon Apr 27 05:06:20 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+..PASSED
+Mon Apr 27 05:06:20 MDT 2020 Run AtmOcnSelectExternalProto ............=
+..PASSED
+
+|-------------------------------- ATM=3DC OCN=3DA,B,C -----------------=
+---------|
+Mon Apr 27 05:06:48 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+..PASSED
+Mon Apr 27 05:06:48 MDT 2020 Run AtmOcnSelectExternalProto ............=
+..PASSED
+
+|-------------------------------- ATM=3DD OCN=3DA,B,C -----------------=
+---------|
+Mon Apr 27 05:07:17 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+..PASSED
+Mon Apr 27 05:07:17 MDT 2020 Run AtmOcnSelectExternalProto ............=
+..PASSED
+
+|-------------------------------- ATM=3DE OCN=3DA,B,C -----------------=
+---------|
+Mon Apr 27 05:07:45 MDT 2020 Build AtmOcnSelectExternalProto ..........=
+..PASSED
+Mon Apr 27 05:07:45 MDT 2020 Run AtmOcnSelectExternalProto ............=
+..PASSED
+
+|-------------------------------- ATM=3DA OCN=3DA,B -------------------=
+---------|
+Mon Apr 27 05:07:57 MDT 2020 Build AtmOcnSelectProto ..................=
+..PASSED
+Mon Apr 27 05:07:57 MDT 2020 Run AtmOcnSelectProto ....................=
+..PASSED
+
+|-------------------------------- ATM=3DB OCN=3DA,B -------------------=
+---------|
+Mon Apr 27 05:08:09 MDT 2020 Build AtmOcnSelectProto ..................=
+..PASSED
+Mon Apr 27 05:08:09 MDT 2020 Run AtmOcnSelectProto ....................=
+..PASSED
+
+|-------------------------------- ATM=3DA OCN=3DB ---------------------=
+---------|
+Mon Apr 27 05:08:21 MDT 2020 Build AtmOcnSelectProto ..................=
+..PASSED
+Mon Apr 27 05:08:21 MDT 2020 Run AtmOcnSelectProto ....................=
+..PASSED
+
+Mon Apr 27 05:08:28 MDT 2020 Build AtmOcnSimpleImplicitProto ..........=
+..PASSED
+Mon Apr 27 05:08:29 MDT 2020 Run AtmOcnSimpleImplicitProto ............=
+..PASSED
+
+Mon Apr 27 05:08:37 MDT 2020 Build GenericMediatorProto ...............=
+..PASSED
+Mon Apr 27 05:08:37 MDT 2020 Run GenericMediatorProto .................=
+..PASSED
+
+Mon Apr 27 05:08:43 MDT 2020 Build NestingMultipleProto ...............=
+..PASSED
+Mon Apr 27 05:08:46 MDT 2020 Run NestingMultipleProto .................=
+..PASSED
+
+Mon Apr 27 05:08:51 MDT 2020 Build NestingSingleProto .................=
+..PASSED
+Mon Apr 27 05:08:53 MDT 2020 Run NestingSingleProto ...................=
+..PASSED
+
+Mon Apr 27 05:09:00 MDT 2020 Build NestingTelescopeMultipleProto ......=
+..PASSED
+Mon Apr 27 05:09:06 MDT 2020 Run NestingTelescopeMultipleProto ........=
+..PASSED
+
+Mon Apr 27 05:09:16 MDT 2020 Build AtmOcnMedIngestFromConfigProto .....=
+..PASSED
+Mon Apr 27 05:09:16 MDT 2020 Run AtmOcnMedIngestFromConfigProto .......=
+..PASSED
+
+Mon Apr 27 05:09:24 MDT 2020 Build DriverInDriverProtoIPDv02 ..........=
+..PASSED
+Mon Apr 27 05:09:25 MDT 2020 Run DriverInDriverProtoIPDv02 ............=
+..PASSED
+
+Mon Apr 27 05:09:33 MDT 2020 Build AtmOcnScalarProto ..................=
+..PASSED
+Mon Apr 27 05:09:33 MDT 2020 Run AtmOcnScalarProto ....................=
+..PASSED
+
+Mon Apr 27 05:09:45 MDT 2020 Build HierarchyProto .....................=
+..PASSED
+Mon Apr 27 05:09:47 MDT 2020 Run HierarchyProto .......................=
+..PASSED
+
+Mon Apr 27 05:09:56 MDT 2020 Build AtmOcnMedIngestFromInternalProto ...=
+..PASSED
+Mon Apr 27 05:09:56 MDT 2020 Run AtmOcnMedIngestFromInternalProto .....=
+..PASSED
+
+Mon Apr 27 05:10:04 MDT 2020 Build AtmOcnLogNoneProto .................=
+..PASSED
+Mon Apr 27 05:10:04 MDT 2020 Run AtmOcnLogNoneProto ...................=
+..PASSED
+
+Mon Apr 27 05:10:14 MDT 2020 Build AtmOcnIceSimpleImplicitProto .......=
+..PASSED
+Mon Apr 27 05:10:14 MDT 2020 Run AtmOcnIceSimpleImplicitProto .........=
+..PASSED
+
+Mon Apr 27 05:10:22 MDT 2020 Build DynPhyProto ........................=
+..PASSED
+Mon Apr 27 05:10:23 MDT 2020 Run DynPhyProto ..........................=
+..PASSED
+
+Mon Apr 27 05:10:30 MDT 2020 Build AtmOcnCplSetProto ..................=
+..PASSED
+Mon Apr 27 05:10:30 MDT 2020 Run AtmOcnCplSetProto  ...................=
+..PASSED
+
+Mon Apr 27 05:10:38 MDT 2020 Build AtmOcnTransferMeshProto ............=
+.PASSED
+Mon Apr 27 05:10:39 MDT 2020 Run AtmOcnTransferMeshProto ..............=
+.PASSED
+
+Mon Apr 27 05:10:44 MDT 2020 Build CustomFieldDictionaryProto .........=
+.PASSED
+Mon Apr 27 05:10:57 MDT 2020 Run CustomFieldDictionaryProto ...........=
+.PASS
+
+Mon Apr 27 05:11:08 MDT 2020 Build AtmOcnMirrorFieldsProto ............=
+.PASSED
+Mon Apr 27 05:11:09 MDT 2020 Run AtmOcnMirrorFieldsProto ..............=
+.PASSED
+
+Mon Apr 27 05:11:17 MDT 2020 Build ExternalDriverAPIProto .............=
+.PASSED
+Mon Apr 27 05:11:17 MDT 2020 Run ExternalDriverAPIProto ...............=
+.PASSED
+
+Mon Apr 27 05:11:22 MDT 2020 Build SingleModelOpenMPProto .............=
+.PASSED
+Mon Apr 27 05:11:22 MDT 2020 Run SingleModelOpenMPProto ...............=
+.PASSED
+
+Mon Apr 27 05:11:26 MDT 2020 Build ComponentExplorer ..................=
+.PASSED
+Mon Apr 27 05:11:26 MDT 2020 Run ComponentExplorer ....................=
+.PASSED
+
+
+
+
+ The tarballs of the examples directories can be found at:
+ /glade/work/svasquez/scripts_dir/branch/nuopc_cheyenne/intel/esmf_logs=
+/2004_test.
+ These tarballs contain the *Log and *stdout files only, not the execut=
+ables.
+ This directory also contains failed build output files with the naming=
+ convention of=20
+ build_ESMF_BOPT_(day)(platform)ESMF_OS ESMF_ABI ESMF_COMPILER ESMF_COM=
+M.
+ For example, if the build fails on longs on the 19th of the month with=
+ ESMF_BOPT=3Dg, the file=20
+ would be called 'build_g_19longslinux32pgimpiuni'.
+Test_results:green
+Day_of_Week:Monday
+Test_Failures:0

@@ -2,92 +2,93 @@
 Return-Path: <svasquez@nersc.gov>
 Delivered-To: unknown
 Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
-  with IMAP4-SSL; 14 Apr 2020 10:15:03 -0000
+  with IMAP4-SSL; 28 Apr 2020 12:15:02 -0000
 X-Original-To: esmftest@cgd.ucar.edu
 Delivered-To: esmftest@cgd.ucar.edu
 Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
-	by post2.cgd.ucar.edu (Postfix) with ESMTP id B0538221
-	for <esmftest@cgd.ucar.edu>; Tue, 14 Apr 2020 04:06:51 -0600 (MDT)
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 76B6F2A1
+	for <esmftest@cgd.ucar.edu>; Tue, 28 Apr 2020 06:10:42 -0600 (MDT)
 Received: from mail-io1-f71.google.com (mail-io1-f71.google.com [209.85.166.71])
-	by vscanx2.ucar.edu (Postfix) with ESMTPS id 0E73A180024E
-	for <esmftest@cgd.ucar.edu>; Tue, 14 Apr 2020 04:06:51 -0600 (MDT)
-Received: by mail-io1-f71.google.com with SMTP id e76so252120iof.13
-        for <esmftest@cgd.ucar.edu>; Tue, 14 Apr 2020 03:06:51 -0700 (PDT)
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id D79CF1800273
+	for <esmftest@cgd.ucar.edu>; Tue, 28 Apr 2020 06:10:41 -0600 (MDT)
+Received: by mail-io1-f71.google.com with SMTP id i15so23864943iog.15
+        for <esmftest@cgd.ucar.edu>; Tue, 28 Apr 2020 05:10:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-original-authentication-results:x-gm-message-state:ironport-sdr
          :date:to:subject:user-agent:mime-version:content-transfer-encoding
          :message-id:from;
-        bh=oJVSEM+nexpx9IqoLofS7GVKBBjGvMAyANPLb4UA15A=;
-        b=tOe5j0KQwm5MFOUzolBOLBll2AM6pAl4HE+whW6115b1HzEyDZLCHZM42Nxu1Fxbf3
-         TIdBW9hx6NXbkq6RnIwzO+rOPevyyytP3GL6v3+5OOTSw+jJV5gmTDio6CpNkz9JI1p6
-         /BVr65NybELnGDTfaCrAXuzbmVJP7zT/ikXEnuDuP5OBnsJ7xUYZC+SDt/trBC9RbQWO
-         RGdFIMgy/dlZMTqANdAcgdj24QT0CQXSff3p3fkAVxmNh8haFFgKrgVDpiEQbXiTLb/1
-         JRkyqrxaRIjX4+9QVlQjTQoo6M+l4C1GbVz/xlL+SZV1mJSFiGYtKHen28Ifgxj8phNo
-         p6Jw==
-X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com: domain of svasquez@nersc.gov designates 128.55.200.30 as permitted sender) smtp.mailfrom=svasquez@nersc.gov;       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nersc.gov
-X-Gm-Message-State: AGi0PuYYrsRv8lhwn5ttasXF70WAP0XWF/z/6BmiQ6/H2SwA3/wwHl+q
-	81cDk+slyzvb4sWe17rqIfF+m6SOkzlNhJ9/RpwGGHYuBjK5uGWW8teyjUivrBkC5rp4fMqCG7t
-	TuXbUS8vk3xnmWApH
-X-Received: by 2002:a6b:b955:: with SMTP id j82mr20627723iof.54.1586858810214;
-        Tue, 14 Apr 2020 03:06:50 -0700 (PDT)
-X-Google-Smtp-Source: APiQypIoGCUz7mC/XNwXuDVNj1KUmgItu/TTAqdBS7xhU0IVLUGeLzUulAGksk3bUFFiJkYsUCS5
-X-Received: by 2002:a6b:b955:: with SMTP id j82mr20627621iof.54.1586858808315;
-        Tue, 14 Apr 2020 03:06:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1586858808; cv=none;
+        bh=v/Krqjr7VmrXZOenD3ypZ0QBAmof6MkiIzzXvp4Kx30=;
+        b=ogi25kPjERZ7aE1gJOW9VaCjbDzjbwmDDbHUSoywD7l3nOeKeC5LIEcZpOFWOzJJnw
+         AiFkce/vZKv4IE+BxZo3X9NGbC0tWMQN8xn9Ft0VhIjqQhOK9D9LNsod2v8FOdD5s1w2
+         oFfZV89985/aPisEEoryoF5p0TxEFhSf0e0K+sQhrU2rQNhTW50dJ0G8cmY6+ArMW1yS
+         7YWI2cicKdJdLBW47/r6o2Jm/uULKuuVVnn+hs4vbbfsCIDGj7mrO/hgKKd3sDafZdaX
+         GBuSM92wXPTG26oITuoj9AWmVRjjDH4skkxco5VW0PreQjtLH2hqUQVVIPl9Xg0KQ4sa
+         s34g==
+X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com: domain of svasquez@nersc.gov designates 128.55.200.31 as permitted sender) smtp.mailfrom=svasquez@nersc.gov;       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nersc.gov
+X-Gm-Message-State: AGi0PubCd0xcNAFeU182HMnA7DTSgDN2JDBV1EOYwonLLhL7nfdssy/y
+	FYHGe8VdJEHs5DWgfD5XUTZzKbTLNlpESMzaegxYfMrbdYk3MMVlXx+LppxhjqmkizZzH8rxL2Q
+	M9DGziJotOF5Mp2oi
+X-Received: by 2002:a92:2411:: with SMTP id k17mr19472068ilk.138.1588075841238;
+        Tue, 28 Apr 2020 05:10:41 -0700 (PDT)
+X-Google-Smtp-Source: APiQypI7PUB/Zjg7DIVv1R5LqThfzsw5ELIeOAvzBjATf69tT650q3i+6lXkypop5EkxfMx/Nw4K
+X-Received: by 2002:a92:2411:: with SMTP id k17mr19471908ilk.138.1588075839142;
+        Tue, 28 Apr 2020 05:10:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1588075839; cv=none;
         d=google.com; s=arc-20160816;
-        b=lK2d8/YKTLiCeoU7cpIKLOZaCjMp535B2+IxSZ1XmtFz+4ztCxIfWoykEB6/O4AoY2
-         v11XSeTskarocSSuUk7vH9FiRD99zmAgb2GWTCqZQ6JfOnvCWKOHquKculOVTdQxlSel
-         BGLQ82GCK1f4QtuITuvigRZzE8Ca1GI/oeedfNrdm4k8hohAoB6uVIBeSMKhhvIOpHHn
-         EcVyV0NTC/T+nnNNBBqW6gt9JEG4cc82E8NoRLfbekeGiTJVIrYfxnVpoZ7xAcX8imW5
-         tSNw0zYbXO1RuYdA4Rn1x6Z5oH93dWHXnxPtufZqhgxRx034qbA4T6gMd+lE7kBhpKC3
-         Jw/Q==
+        b=JGNq+b+xvg1IcNQKu6t8Yvulmv0pH4j8t27xxavea6GSN0EANKZOSCmjGpMMzYVvxy
+         GL8omN9t+NB/m5iovLRKnAdv8/s2Bb2oGi4fQeyt8PdvZFomIJ9FeUUpmLN+NDy1MYoG
+         0/NWfBJfeYOqH9ukE5mtO1fx0g9i0SvM1rL1GH+MnR9D+TPX2xHnRWy3GGC0aJFIXq1f
+         EJbKgnb4jiXy0pNwvEGQUQltid1kJIl8OvXkCKf8TNxV6Gwgj1n8XE4ukFOXmmVKfKVd
+         NNuhf9qyyldZcJlLZBQKfDDcLL1iPvaG//k99CC0fNUqTN6EbbxmZsC9tdlXwR/F0fIY
+         hXog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=from:message-id:content-transfer-encoding:mime-version:user-agent
          :subject:to:date:ironport-sdr;
-        bh=oJVSEM+nexpx9IqoLofS7GVKBBjGvMAyANPLb4UA15A=;
-        b=ylo9i+gRNxcc6+rQVgb7Sq5JiQhDHmwDR1IPDaFCfgowCKXPLg1ZPaDLNC6dh5Ee2r
-         8xHUzYOHWo9If40XCGOsJ5w2NEYyiG591g2F9g7jc7KTQp/84dN6ScesceHqnwd1Lzl6
-         sD2tbz6mISwp5nNyWVuPg3av0OM3epB2hOUD89Fpdx6bQejD9/Nu93QZv2f0OhlR9bYq
-         OibxZze4R6LWpd44Z03R0NrxVN60UUBlGVM9Vls8FFIZaE9NTkh993yDCdgPsxliDHc2
-         ZpWBOT6gifb2s+sfEDj65Y0LAQBQT0NrELUSQUtuCXD6xn4MKPb9EDvqatmGYyDgrnaY
-         BxUw==
+        bh=v/Krqjr7VmrXZOenD3ypZ0QBAmof6MkiIzzXvp4Kx30=;
+        b=kMH4+TXOA4k0LHGhHukhQlOw5EfFUW67vTp2EpIHBegajYDPfoAli2RvfLVWh64AHQ
+         VeQvwFbOb7MXVAvhUYHx13ImaBUFFEfiSdHpJv0P49GhmzNV/XCadQer38g/akOZ6s66
+         3pfYYHALHLTY6mzpnOsikt1zFm8TSUlUX8Fd7B0ETiC89mJrcZJdKb8L2+vX+X0IuyuV
+         nm4IyjjFXiCmSaxTqMwQOKPKQjjRApi1FaSiRG8YUrk8dSau7aJsGXKyZTm09Uk5l1/I
+         dgpRr3OT6rR5RXaRJqyDJ8KGD5F/aOKb18ZXf/si36ZCJE+P1h8AGztqLc5IHcz7f0+C
+         sJEw==
 ARC-Authentication-Results: i=1; mx.google.com;
-       spf=pass (google.com: domain of svasquez@nersc.gov designates 128.55.200.30 as permitted sender) smtp.mailfrom=svasquez@nersc.gov;
+       spf=pass (google.com: domain of svasquez@nersc.gov designates 128.55.200.31 as permitted sender) smtp.mailfrom=svasquez@nersc.gov;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nersc.gov
-Received: from esa1.nersc.gov (esa1.nersc.gov. [128.55.200.30])
-        by mx.google.com with ESMTP id z13si11612518ilm.147.2020.04.14.03.06.47
+Received: from esa2.nersc.gov (esa2.nersc.gov. [128.55.200.31])
+        by mx.google.com with ESMTP id k6si16279302ioh.97.2020.04.28.05.10.38
         for <esmftest@cgd.ucar.edu>;
-        Tue, 14 Apr 2020 03:06:48 -0700 (PDT)
-Received-SPF: pass (google.com: domain of svasquez@nersc.gov designates 128.55.200.30 as permitted sender) client-ip=128.55.200.30;
+        Tue, 28 Apr 2020 05:10:38 -0700 (PDT)
+Received-SPF: pass (google.com: domain of svasquez@nersc.gov designates 128.55.200.31 as permitted sender) client-ip=128.55.200.31;
 Authentication-Results: mx.google.com;
-       spf=pass (google.com: domain of svasquez@nersc.gov designates 128.55.200.30 as permitted sender) smtp.mailfrom=svasquez@nersc.gov;
+       spf=pass (google.com: domain of svasquez@nersc.gov designates 128.55.200.31 as permitted sender) smtp.mailfrom=svasquez@nersc.gov;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nersc.gov
-IronPort-SDR: yVCtiHCX8XWs194VMh6MKA8I+odjE3WNE17p6IsSTnB7k4d4vGd+sweM1eFOp82gUo2EiLAOTX
- NAwlljoqbTmA==
+IronPort-SDR: HE5Pixxbuk+zFiKudzE5F6x0o5T+kViyHYVOnKi89mAd1XwZHJAOToDfXQ1aSu29BqeTsM2LWr
+ 3sx1Xx2it8cQ==
 X-Ironport-SBRS: None
 X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2EZAADQiZVe/yDgN4BmDgwBAQEBAQE?=
- =?us-ascii?q?BAQEDAQEBAREBAQECAgEBAQGBagIBAQEBCwGBfCwoRHUSKodlhTmHaIEmjl2?=
- =?us-ascii?q?ETIU7gSs8CgEBAQEBAQEBARsQCAQEAQECgQJMhSw3Bg4CAwEBCwEBBgEBAQE?=
- =?us-ascii?q?BBQQCAmmFVgyCdl19AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBEgINVCZjAR8?=
- =?us-ascii?q?RAXw+MoJ5QIJ8D68UhAALASwBhFqBQIE4AYUjhyuBQT+BEQEyA4IlgnBqAgG?=
- =?us-ascii?q?BJ4QBgiwEjgsKiS+BSIEAllARaoJMh36PRgwdglOBBYwmjCstjyaJMo5xHG6?=
- =?us-ascii?q?FLSSBVysIAhgIIQ+DJAkWMRgNmhsXg1CEVj5RhDNdJDACjw1fAQE?=
-X-IronPort-AV: E=Sophos;i="5.72,382,1580803200"; 
-   d="scan'208";a="1641533"
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2EUAADEHKhe/yDgN4BmDgwBAQEBAQE?=
+ =?us-ascii?q?BAQEDAQEBAREBAQECAgEBAQE8gTUDAQEBAQsBgXwtKEQFTyESKoNXhBGFOId?=
+ =?us-ascii?q?3gSaOZYROhSkUgSs8CwEBAQEBAQEBARsQCAQEAQECgQJMhUM2Bw4CAwEBCwE?=
+ =?us-ascii?q?BBgEBAQEBBQQCAmmFVgyCdl59AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBEgI?=
+ =?us-ascii?q?NVCZjAR8EDQFpEx0CHzKCeUCCfA+yfYE0hAELASwBhGWBQIE4AYUohy6BQT+?=
+ =?us-ascii?q?BEQEyA4IlgnBqAgGBJ4QBgi0EjikKiTyBToEElmURa4JPiA+PZQwdgluBB4x?=
+ =?us-ascii?q?HjFItj02JSI8OHG+FJgIxgVYrCAIYCCEPgyQJFjEYDZFAF4NPhFY+UYQzXiQ?=
+ =?us-ascii?q?wAjMCBggBAQMJjj1fAQE?=
+X-IronPort-AV: E=Sophos;i="5.73,327,1583222400"; 
+   d="scan'208";a="1819649"
 Received: from cori02-224.nersc.gov (HELO cori02.nersc.gov) ([128.55.224.32])
-  by esa1.nersc.gov with ESMTP; 14 Apr 2020 03:06:40 -0700
+  by esa2.nersc.gov with ESMTP; 28 Apr 2020 05:10:12 -0700
 Received: by cori02.nersc.gov (Postfix, from userid 53297)
-	id A887740E73; Tue, 14 Apr 2020 03:06:40 -0700 (PDT)
-Date: Tue, 14 Apr 2020 03:06:40 -0700
+	id 8E3601209D6; Tue, 28 Apr 2020 05:10:12 -0700 (PDT)
+Date: Tue, 28 Apr 2020 05:10:12 -0700
 To: esmftest@cgd.ucar.edu, esmf_test@noaa.gov
 Subject: ESMF_ESMPy_Cori_XC40_gfortran
 User-Agent: Heirloom mailx 12.5 7/5/10
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20200414100640.A887740E73@cori02.nersc.gov>
+Message-Id: <20200428121012.8E3601209D6@cori02.nersc.gov>
 From: Silverio Vasquez <svasquez@nersc.gov>
 X-Gm-Spam: 0
 X-Gm-Phishy: 0
@@ -97,9 +98,9 @@ X-getmail-retrieved-from-mailbox: INBOX
 
 
 
-Script start time: Tue Apr 14 01:05:04 PDT 2020
+Script start time: Tue Apr 28 01:05:04 PDT 2020
 
-Script end: Tue Apr 14 03:06:40 PDT 2020
+Script end: Tue Apr 28 05:10:12 PDT 2020
 
 
 
@@ -137,7 +138,7 @@ cori02(O)       PASS        FAIL   =20
 _______________________________________________________________________=
 ______________________________________
 
-Tue Apr 14 01:07:17 PDT 2020 on cori02=20
+Tue Apr 28 01:07:28 PDT 2020 on cori02=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -153,19 +154,19 @@ Currently Loaded Modulefiles:
   6) craype-haswell
   7) craype-hugepages2M
   8) craype-network-aries
-  9) craype/2.6.2
+  9) craype/2.6.1
  10) cray-mpich/7.7.10
  11) cray-libsci/19.06.1
  12) udreg/2.3.2-7.0.1.1_3.26__g8175d3d.ari
  13) ugni/6.0.14.0-7.0.1.1_7.29__ge78e5b0.ari
  14) pmi/5.0.14
- 15) dmapp/7.1.1-7.0.1.1_4.39__g38cf134.ari
- 16) gni-headers/5.0.12.0-7.0.1.1_6.24__g3b1768f.ari
+ 15) dmapp/7.1.1-7.0.1.1_4.40__g38cf134.ari
+ 16) gni-headers/5.0.12.0-7.0.1.1_6.25__g3b1768f.ari
  17) xpmem/2.2.20-7.0.1.1_4.6__g0475745.ari
- 18) job/2.2.4-7.0.1.1_3.31__g36b56f4.ari
- 19) dvs/2.12_2.2.151-7.0.1.1_5.33__g7eb5e703
- 20) alps/6.6.57-7.0.1.1_5.5__g1b735148.ari
- 21) rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari
+ 18) job/2.2.4-7.0.1.1_3.32__g36b56f4.ari
+ 19) dvs/2.12_2.2.156-7.0.1.1_8.2__g5aab709e
+ 20) alps/6.6.57-7.0.1.1_5.7__g1b735148.ari
+ 21) rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari
  22) atp/2.1.3
  23) PrgEnv-gnu/6.0.5
  24) python/2.7-anaconda-2019.07
@@ -176,12 +177,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 --------------------------------------------------------------
 On branch master
 Your branch is up to date with 'origin/master'.
@@ -319,26 +320,26 @@ ESMF_BENCHMARK_THRESHOLD_MSEC: 500
 --------------------------------------------------------------
  * Other relevant environment variables *
 PATH:    /usr/common/software/python/2.7-anaconda-2019.07/bin:/global/h=
-omes/s/svasquez/bin:/opt/cray/rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari/bin=
-:/opt/cray/alps/6.6.57-7.0.1.1_5.5__g1b735148.ari/sbin:/opt/cray/alps/d=
-efault/bin:/opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/bin:/opt/cray=
-/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/craype/2.6.2/bin:/opt/gcc/7.3.0/bin=
+omes/s/svasquez/bin:/opt/cray/rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari/bin=
+:/opt/cray/alps/6.6.57-7.0.1.1_5.7__g1b735148.ari/sbin:/opt/cray/alps/d=
+efault/bin:/opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/bin:/opt/cray=
+/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/craype/2.6.1/bin:/opt/gcc/7.3.0/bin=
 :/global/common/cori_cle7/software/darshan/3.1.7/bin:/global/common/cor=
 i/software/altd/2.0/bin:/usr/common/software/bin:/usr/common/mss/bin:/u=
 sr/common/nsg/bin:/opt/ovis/bin:/opt/ovis/sbin:/usr/syscom/nsg/sbin:/us=
 r/syscom/nsg/bin:/opt/cray/pe/modules/3.2.11.4/bin:/global/homes/s/svas=
 quez/bin:/usr/local/bin:/usr/bin:/bin:/usr/lib/mit/bin:/usr/lib/mit/sbi=
 n:/opt/cray/pe/bin
-LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/lib64:/=
+LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/lib64:/=
 opt/gcc/7.3.0/snos/lib64:/usr/syscom/nsg/lib
 =20
 --------------------------------------------------------------
  * Compilers, Linkers, Flags, and Libraries *
 Location of the preprocessor:      /opt/gcc/7.3.0/bin/gcc
-Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the Fortran linker:    /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the C++ compiler:      /opt/cray/pe/craype/2.6.2/bin/CC
-Location of the C++ linker:        /opt/cray/pe/craype/2.6.2/bin/CC
+Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the Fortran linker:    /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the C++ compiler:      /opt/cray/pe/craype/2.6.1/bin/CC
+Location of the C++ linker:        /opt/cray/pe/craype/2.6.1/bin/CC
 
 Fortran compiler flags:
 ESMF_F90COMPILER: ftn
@@ -348,12 +349,12 @@ ESMF_F90COMPILEPATHS: -I/global/cscratch1/sd/svasquez/daily_builds/esmp=
 y/gfortran/esmf/mod/modg/Unicos.gfortran.64.mpiuni.default -I/global/cs=
 cratch1/sd/svasquez/daily_builds/esmpy/gfortran/esmf/src/include=20
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC =
--DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DE=
-SMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/s=
-d/svasquez/daily_builds/esmpy/gfortran/esmf -DESMF_MPIUNI
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unico=
+s=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/sd/svasquez/d=
+aily_builds/esmpy/gfortran/esmf -DESMF_MPIUNI
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -379,14 +380,14 @@ ESMF_CXXCOMPILEPATHS:  -I/global/cscratch1/sd/svasquez/daily_builds/esm=
 py/gfortran/esmf/src/include   -I/global/cscratch1/sd/svasquez/daily_bu=
 ilds/esmpy/gfortran/esmf/src/Infrastructure/stubs/mpiuni
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC =
--DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DE=
-SMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/s=
-d/svasquez/daily_builds/esmpy/gfortran/esmf -D__SDIR__=3D'' -DESMF_MPIU=
-NI -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOSTID -DESMF_NO_SIG=
-NALS -DESMF_NO_SYSTEMCALL
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unico=
+s=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/sd/svasquez/d=
+aily_builds/esmpy/gfortran/esmf -D__SDIR__=3D'' -DESMF_MPIUNI -DESMF_NO=
+_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOSTID -DESMF_NO_SIGNALS -DESMF_=
+NO_SYSTEMCALL
 
 C++ linker flags:
 ESMF_CXXLINKOPTS: =20
@@ -439,24 +440,24 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Tue Apr 14 01:07:19 PDT 2020 on cori02
+Compiling on Tue Apr 28 01:07:29 PDT 2020 on cori02
 Machine characteristics: Linux cori02 4.12.14-150.47-default #1 SMP Wed=
  Dec 18 15:05:52 UTC 2019 (8162e25) x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Tue Apr 14 01:19:52 PDT 2020 library build -j4 ............PASS
+Tue Apr 28 01:21:05 PDT 2020 library build -j4 ............PASS
 Builds with warnings.
-Tue Apr 14 01:20:17 PDT 2020 library install ..............PASS
-Tue Apr 14 01:20:21 PDT 2020 library installcheck .........PASS
+Tue Apr 28 01:21:35 PDT 2020 library install ..............PASS
+Tue Apr 28 01:21:38 PDT 2020 library installcheck .........PASS
 
 |------------------------ PYTHON BUILD ------------------------|
-Tue Apr 14 01:20:27 PDT 2020 python build .................PASS
+Tue Apr 28 01:21:42 PDT 2020 python build .................PASS
 
 
 |-------------------- PYTHON UNIT TESTS -----------------------|
-Tue Apr 14 01:21:12 PDT 2020 run test .....................PASS
+Tue Apr 28 01:22:22 PDT 2020 run test .....................PASS
 
 Found 88 unit tests, 60 pass, 16 fail and 12 were skipped.
 
@@ -847,7 +848,7 @@ _slice_mesh_created_from_file_scrip
 NameError: mesh_create_from_file_scrip failed!
 
 ----------------------------------------------------------------------
-Ran 88 tests in 1.743s
+Ran 88 tests in 1.759s
 
 FAILED (SKIP=3D12, errors=3D16)
 Field:
@@ -915,7 +916,7 @@ ow,!parallel', 'src/ESMF']' returned non-zero exit status 1
 
 
 |------------------- PYTHON EXAMPLES TESTS --------------------|
-Tue Apr 14 01:21:44 PDT 2020 run test_examples ............PASS
+Tue Apr 28 01:23:26 PDT 2020 run test_examples ............PASS
 
 Found 10 examples tests, 2 pass, 5 fail , and 3 skipped.
 
@@ -1085,7 +1086,7 @@ NetCDFMissing: This function requires ESMF to have been built with NetC=
 DF.
 
 ----------------------------------------------------------------------
-Ran 10 tests in 0.345s
+Ran 10 tests in 0.687s
 
 FAILED (SKIP=3D3, errors=3D5)
 Hello ESMPy World from PET (processor) 0!
@@ -1122,7 +1123,7 @@ s 1
 _______________________________________________________________________=
 ______________________________________
 
-Tue Apr 14 01:23:26 PDT 2020 on cori02=20
+Tue Apr 28 01:25:09 PDT 2020 on cori02=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -1138,19 +1139,19 @@ Currently Loaded Modulefiles:
   6) craype-haswell
   7) craype-hugepages2M
   8) craype-network-aries
-  9) craype/2.6.2
+  9) craype/2.6.1
  10) cray-mpich/7.7.10
  11) cray-libsci/19.06.1
  12) udreg/2.3.2-7.0.1.1_3.26__g8175d3d.ari
  13) ugni/6.0.14.0-7.0.1.1_7.29__ge78e5b0.ari
  14) pmi/5.0.14
- 15) dmapp/7.1.1-7.0.1.1_4.39__g38cf134.ari
- 16) gni-headers/5.0.12.0-7.0.1.1_6.24__g3b1768f.ari
+ 15) dmapp/7.1.1-7.0.1.1_4.40__g38cf134.ari
+ 16) gni-headers/5.0.12.0-7.0.1.1_6.25__g3b1768f.ari
  17) xpmem/2.2.20-7.0.1.1_4.6__g0475745.ari
- 18) job/2.2.4-7.0.1.1_3.31__g36b56f4.ari
- 19) dvs/2.12_2.2.151-7.0.1.1_5.33__g7eb5e703
- 20) alps/6.6.57-7.0.1.1_5.5__g1b735148.ari
- 21) rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari
+ 18) job/2.2.4-7.0.1.1_3.32__g36b56f4.ari
+ 19) dvs/2.12_2.2.156-7.0.1.1_8.2__g5aab709e
+ 20) alps/6.6.57-7.0.1.1_5.7__g1b735148.ari
+ 21) rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari
  22) atp/2.1.3
  23) PrgEnv-gnu/6.0.5
  24) python/2.7-anaconda-2019.07
@@ -1161,12 +1162,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 --------------------------------------------------------------
 On branch master
 Your branch is up to date with 'origin/master'.
@@ -1314,26 +1315,26 @@ ESMF_BENCHMARK_THRESHOLD_MSEC: 500
 --------------------------------------------------------------
  * Other relevant environment variables *
 PATH:    /usr/common/software/python/2.7-anaconda-2019.07/bin:/global/h=
-omes/s/svasquez/bin:/opt/cray/rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari/bin=
-:/opt/cray/alps/6.6.57-7.0.1.1_5.5__g1b735148.ari/sbin:/opt/cray/alps/d=
-efault/bin:/opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/bin:/opt/cray=
-/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/craype/2.6.2/bin:/opt/gcc/7.3.0/bin=
+omes/s/svasquez/bin:/opt/cray/rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari/bin=
+:/opt/cray/alps/6.6.57-7.0.1.1_5.7__g1b735148.ari/sbin:/opt/cray/alps/d=
+efault/bin:/opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/bin:/opt/cray=
+/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/craype/2.6.1/bin:/opt/gcc/7.3.0/bin=
 :/global/common/cori_cle7/software/darshan/3.1.7/bin:/global/common/cor=
 i/software/altd/2.0/bin:/usr/common/software/bin:/usr/common/mss/bin:/u=
 sr/common/nsg/bin:/opt/ovis/bin:/opt/ovis/sbin:/usr/syscom/nsg/sbin:/us=
 r/syscom/nsg/bin:/opt/cray/pe/modules/3.2.11.4/bin:/global/homes/s/svas=
 quez/bin:/usr/local/bin:/usr/bin:/bin:/usr/lib/mit/bin:/usr/lib/mit/sbi=
 n:/opt/cray/pe/bin
-LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/lib64:/=
+LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/lib64:/=
 opt/gcc/7.3.0/snos/lib64:/usr/syscom/nsg/lib
 =20
 --------------------------------------------------------------
  * Compilers, Linkers, Flags, and Libraries *
 Location of the preprocessor:      /opt/gcc/7.3.0/bin/gcc
-Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the Fortran linker:    /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the C++ compiler:      /opt/cray/pe/craype/2.6.2/bin/CC
-Location of the C++ linker:        /opt/cray/pe/craype/2.6.2/bin/CC
+Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the Fortran linker:    /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the C++ compiler:      /opt/cray/pe/craype/2.6.1/bin/CC
+Location of the C++ linker:        /opt/cray/pe/craype/2.6.1/bin/CC
 
 Fortran compiler flags:
 ESMF_F90COMPILER: ftn
@@ -1342,12 +1343,12 @@ ESMF_F90COMPILEPATHS: -I/global/cscratch1/sd/svasquez/daily_builds/esmp=
 y/gfortran/esmf/mod/modO/Unicos.gfortran.64.mpiuni.default -I/global/cs=
 cratch1/sd/svasquez/daily_builds/esmpy/gfortran/esmf/src/include=20
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC =
--DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DE=
-SMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/s=
-d/svasquez/daily_builds/esmpy/gfortran/esmf -DESMF_MPIUNI
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unico=
+s=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/sd/svasquez/d=
+aily_builds/esmpy/gfortran/esmf -DESMF_MPIUNI
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -1373,14 +1374,14 @@ ESMF_CXXCOMPILEPATHS:  -I/global/cscratch1/sd/svasquez/daily_builds/esm=
 py/gfortran/esmf/src/include   -I/global/cscratch1/sd/svasquez/daily_bu=
 ilds/esmpy/gfortran/esmf/src/Infrastructure/stubs/mpiuni
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC =
--DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DE=
-SMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/s=
-d/svasquez/daily_builds/esmpy/gfortran/esmf -D__SDIR__=3D'' -DESMF_MPIU=
-NI -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOSTID -DESMF_NO_SIG=
-NALS -DESMF_NO_SYSTEMCALL
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unico=
+s=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/sd/svasquez/d=
+aily_builds/esmpy/gfortran/esmf -D__SDIR__=3D'' -DESMF_MPIUNI -DESMF_NO=
+_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOSTID -DESMF_NO_SIGNALS -DESMF_=
+NO_SYSTEMCALL
 
 C++ linker flags:
 ESMF_CXXLINKOPTS: =20
@@ -1433,24 +1434,24 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Tue Apr 14 01:23:27 PDT 2020 on cori02
+Compiling on Tue Apr 28 01:25:10 PDT 2020 on cori02
 Machine characteristics: Linux cori02 4.12.14-150.47-default #1 SMP Wed=
  Dec 18 15:05:52 UTC 2019 (8162e25) x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Tue Apr 14 01:35:47 PDT 2020 library build -j4 ............PASS
+Tue Apr 28 01:38:07 PDT 2020 library build -j4 ............PASS
 Builds with warnings.
-Tue Apr 14 01:36:07 PDT 2020 library install ..............PASS
-Tue Apr 14 01:36:09 PDT 2020 library installcheck .........PASS
+Tue Apr 28 01:38:27 PDT 2020 library install ..............PASS
+Tue Apr 28 01:38:28 PDT 2020 library installcheck .........PASS
 
 |------------------------ PYTHON BUILD ------------------------|
-Tue Apr 14 01:36:10 PDT 2020 python build .................PASS
+Tue Apr 28 01:38:30 PDT 2020 python build .................PASS
 
 
 |-------------------- PYTHON UNIT TESTS -----------------------|
-Tue Apr 14 01:36:35 PDT 2020 run test .....................PASS
+Tue Apr 28 01:39:00 PDT 2020 run test .....................PASS
 
 Found 88 unit tests, 60 pass, 16 fail and 12 were skipped.
 
@@ -1841,7 +1842,7 @@ _slice_mesh_created_from_file_scrip
 NameError: mesh_create_from_file_scrip failed!
 
 ----------------------------------------------------------------------
-Ran 88 tests in 0.824s
+Ran 88 tests in 0.737s
 
 FAILED (SKIP=3D12, errors=3D16)
 Field:
@@ -1909,7 +1910,7 @@ ow,!parallel', 'src/ESMF']' returned non-zero exit status 1
 
 
 |------------------- PYTHON EXAMPLES TESTS --------------------|
-Tue Apr 14 01:36:52 PDT 2020 run test_examples ............PASS
+Tue Apr 28 01:39:30 PDT 2020 run test_examples ............PASS
 
 Found 10 examples tests, 2 pass, 5 fail , and 3 skipped.
 
@@ -2079,7 +2080,7 @@ NetCDFMissing: This function requires ESMF to have been built with NetC=
 DF.
 
 ----------------------------------------------------------------------
-Ran 10 tests in 0.229s
+Ran 10 tests in 0.347s
 
 FAILED (SKIP=3D3, errors=3D5)
 Hello ESMPy World from PET (processor) 0!
@@ -2114,7 +2115,7 @@ s 1
 
 
 |--------------- PYTHON REGRID FROM FILE TESTS ----------------|
-Tue Apr 14 01:37:59 PDT 2020 run test_regrid_from_file ****FAIL
+Tue Apr 28 01:41:19 PDT 2020 run test_regrid_from_file ****FAIL
 
 
 The following is the 'tail' of the run regrid tests from file failure
@@ -6056,7 +6057,7 @@ RESULT: FAIL
 _______________________________________________________________________=
 ______________________________________
 
-Tue Apr 14 01:39:47 PDT 2020 on cori02=20
+Tue Apr 28 01:43:31 PDT 2020 on cori02=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -6072,19 +6073,19 @@ Currently Loaded Modulefiles:
   6) craype-haswell
   7) craype-hugepages2M
   8) craype-network-aries
-  9) craype/2.6.2
+  9) craype/2.6.1
  10) cray-mpich/7.7.10
  11) cray-libsci/19.06.1
  12) udreg/2.3.2-7.0.1.1_3.26__g8175d3d.ari
  13) ugni/6.0.14.0-7.0.1.1_7.29__ge78e5b0.ari
  14) pmi/5.0.14
- 15) dmapp/7.1.1-7.0.1.1_4.39__g38cf134.ari
- 16) gni-headers/5.0.12.0-7.0.1.1_6.24__g3b1768f.ari
+ 15) dmapp/7.1.1-7.0.1.1_4.40__g38cf134.ari
+ 16) gni-headers/5.0.12.0-7.0.1.1_6.25__g3b1768f.ari
  17) xpmem/2.2.20-7.0.1.1_4.6__g0475745.ari
- 18) job/2.2.4-7.0.1.1_3.31__g36b56f4.ari
- 19) dvs/2.12_2.2.151-7.0.1.1_5.33__g7eb5e703
- 20) alps/6.6.57-7.0.1.1_5.5__g1b735148.ari
- 21) rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari
+ 18) job/2.2.4-7.0.1.1_3.32__g36b56f4.ari
+ 19) dvs/2.12_2.2.156-7.0.1.1_8.2__g5aab709e
+ 20) alps/6.6.57-7.0.1.1_5.7__g1b735148.ari
+ 21) rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari
  22) atp/2.1.3
  23) PrgEnv-gnu/6.0.5
  24) python/2.7-anaconda-2019.07
@@ -6096,12 +6097,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 --------------------------------------------------------------
 On branch master
 Your branch is up to date with 'origin/master'.
@@ -6258,25 +6259,25 @@ ESMF_BENCHMARK_THRESHOLD_MSEC: 500
  * Other relevant environment variables *
 PATH:    /opt/cray/pe/netcdf/4.6.3.2/bin:/usr/common/software/python/2.=
 7-anaconda-2019.07/bin:/global/homes/s/svasquez/bin:/opt/cray/rca/2.2.2=
-0-7.0.1.1_4.37__g8e3fb5b.ari/bin:/opt/cray/alps/6.6.57-7.0.1.1_5.5__g1b=
+0-7.0.1.1_4.39__g8e3fb5b.ari/bin:/opt/cray/alps/6.6.57-7.0.1.1_5.7__g1b=
 735148.ari/sbin:/opt/cray/alps/default/bin:/opt/cray/job/2.2.4-7.0.1.1_=
-3.31__g36b56f4.ari/bin:/opt/cray/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/cra=
-ype/2.6.2/bin:/opt/gcc/7.3.0/bin:/global/common/cori_cle7/software/dars=
+3.32__g36b56f4.ari/bin:/opt/cray/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/cra=
+ype/2.6.1/bin:/opt/gcc/7.3.0/bin:/global/common/cori_cle7/software/dars=
 han/3.1.7/bin:/global/common/cori/software/altd/2.0/bin:/usr/common/sof=
 tware/bin:/usr/common/mss/bin:/usr/common/nsg/bin:/opt/ovis/bin:/opt/ov=
 is/sbin:/usr/syscom/nsg/sbin:/usr/syscom/nsg/bin:/opt/cray/pe/modules/3=
 .2.11.4/bin:/global/homes/s/svasquez/bin:/usr/local/bin:/usr/bin:/bin:/=
 usr/lib/mit/bin:/usr/lib/mit/sbin:/opt/cray/pe/bin
-LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/lib64:/=
+LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/lib64:/=
 opt/gcc/7.3.0/snos/lib64:/usr/syscom/nsg/lib
 =20
 --------------------------------------------------------------
  * Compilers, Linkers, Flags, and Libraries *
 Location of the preprocessor:      /opt/gcc/7.3.0/bin/gcc
-Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the Fortran linker:    /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the C++ compiler:      /opt/cray/pe/craype/2.6.2/bin/CC
-Location of the C++ linker:        /opt/cray/pe/craype/2.6.2/bin/CC
+Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the Fortran linker:    /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the C++ compiler:      /opt/cray/pe/craype/2.6.1/bin/CC
+Location of the C++ linker:        /opt/cray/pe/craype/2.6.1/bin/CC
 
 Fortran compiler flags:
 ESMF_F90COMPILER: ftn
@@ -6287,13 +6288,13 @@ y/gfortran/esmf/mod/modg/Unicos.gfortran.64.mpi.default -I/global/cscra=
 tch1/sd/svasquez/daily_builds/esmpy/gfortran/esmf/src/include -I/opt/cr=
 ay/pe/netcdf/4.6.3.2/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_N=
-O_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
-SMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_=
-COMM=3Dmpi -DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmp=
-y/gfortran/esmf
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_PTHREADS -=
+DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -=
+DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpi -=
+DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmpy/gfortran/e=
+smf
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -6318,14 +6319,14 @@ SE_SINGLEUNDERSCORE
 ESMF_CXXCOMPILEPATHS:  -I/global/cscratch1/sd/svasquez/daily_builds/esm=
 py/gfortran/esmf/src/include  -I/opt/cray/pe/netcdf/4.6.3.2/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_N=
-O_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
-SMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_=
-COMM=3Dmpi -DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmp=
-y/gfortran/esmf -D__SDIR__=3D'' -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DES=
-MF_NO_GETHOSTID -DESMF_NO_SIGNALS -DESMF_NO_SYSTEMCALL
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_PTHREADS -=
+DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -=
+DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpi -=
+DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmpy/gfortran/e=
+smf -D__SDIR__=3D'' -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOS=
+TID -DESMF_NO_SIGNALS -DESMF_NO_SYSTEMCALL
 
 C++ linker flags:
 ESMF_CXXLINKOPTS: =20
@@ -6378,16 +6379,16 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Tue Apr 14 01:39:48 PDT 2020 on cori02
+Compiling on Tue Apr 28 01:43:33 PDT 2020 on cori02
 Machine characteristics: Linux cori02 4.12.14-150.47-default #1 SMP Wed=
  Dec 18 15:05:52 UTC 2019 (8162e25) x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Tue Apr 14 01:53:16 PDT 2020 library build -j4 ............PASS
+Tue Apr 28 01:59:29 PDT 2020 library build -j4 ............PASS
 Builds with warnings.
-Tue Apr 14 01:53:32 PDT 2020 library install **************FAIL
+Tue Apr 28 01:59:48 PDT 2020 library install **************FAIL
 
 
 The following is the 'tail' of the install failure
@@ -6532,7 +6533,7 @@ gmake[1]: Leaving directory '/global/cscratch1/sd/svasquez/daily_builds=
 gmake: *** [makefile:655: install] Error 2
 
 |------------------------ PYTHON BUILD ------------------------|
-Tue Apr 14 01:53:32 PDT 2020 python build *****************FAIL
+Tue Apr 28 01:59:49 PDT 2020 python build *****************FAIL
 
 
 The following is the 'tail' of the build failure
@@ -6546,7 +6547,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 
 
 |---------------- PYTHON UNIT PARALLEL TESTS ------------------|
-Tue Apr 14 01:53:54 PDT 2020 run test_parallel ************FAIL
+Tue Apr 28 02:00:52 PDT 2020 run test_parallel ************FAIL
 
 
 The following is the 'tail' of the run parallel tests failure
@@ -6560,7 +6561,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 
 
 |-------------- PYTHON EXAMPLES PARALLEL TESTS ----------------|
-Tue Apr 14 01:54:11 PDT 2020 run test_examples_parallel ***FAIL
+Tue Apr 28 02:01:18 PDT 2020 run test_examples_parallel ***FAIL
 
 
 The following is the 'tail' of the run examples parallel tests failure
@@ -6584,7 +6585,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 _______________________________________________________________________=
 ______________________________________
 
-Tue Apr 14 01:56:00 PDT 2020 on cori02=20
+Tue Apr 28 02:04:54 PDT 2020 on cori02=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -6600,19 +6601,19 @@ Currently Loaded Modulefiles:
   6) craype-haswell
   7) craype-hugepages2M
   8) craype-network-aries
-  9) craype/2.6.2
+  9) craype/2.6.1
  10) cray-mpich/7.7.10
  11) cray-libsci/19.06.1
  12) udreg/2.3.2-7.0.1.1_3.26__g8175d3d.ari
  13) ugni/6.0.14.0-7.0.1.1_7.29__ge78e5b0.ari
  14) pmi/5.0.14
- 15) dmapp/7.1.1-7.0.1.1_4.39__g38cf134.ari
- 16) gni-headers/5.0.12.0-7.0.1.1_6.24__g3b1768f.ari
+ 15) dmapp/7.1.1-7.0.1.1_4.40__g38cf134.ari
+ 16) gni-headers/5.0.12.0-7.0.1.1_6.25__g3b1768f.ari
  17) xpmem/2.2.20-7.0.1.1_4.6__g0475745.ari
- 18) job/2.2.4-7.0.1.1_3.31__g36b56f4.ari
- 19) dvs/2.12_2.2.151-7.0.1.1_5.33__g7eb5e703
- 20) alps/6.6.57-7.0.1.1_5.5__g1b735148.ari
- 21) rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari
+ 18) job/2.2.4-7.0.1.1_3.32__g36b56f4.ari
+ 19) dvs/2.12_2.2.156-7.0.1.1_8.2__g5aab709e
+ 20) alps/6.6.57-7.0.1.1_5.7__g1b735148.ari
+ 21) rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari
  22) atp/2.1.3
  23) PrgEnv-gnu/6.0.5
  24) python/2.7-anaconda-2019.07
@@ -6624,12 +6625,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 --------------------------------------------------------------
 On branch master
 Your branch is up to date with 'origin/master'.
@@ -6786,25 +6787,25 @@ ESMF_BENCHMARK_THRESHOLD_MSEC: 500
  * Other relevant environment variables *
 PATH:    /opt/cray/pe/netcdf/4.6.3.2/bin:/usr/common/software/python/2.=
 7-anaconda-2019.07/bin:/global/homes/s/svasquez/bin:/opt/cray/rca/2.2.2=
-0-7.0.1.1_4.37__g8e3fb5b.ari/bin:/opt/cray/alps/6.6.57-7.0.1.1_5.5__g1b=
+0-7.0.1.1_4.39__g8e3fb5b.ari/bin:/opt/cray/alps/6.6.57-7.0.1.1_5.7__g1b=
 735148.ari/sbin:/opt/cray/alps/default/bin:/opt/cray/job/2.2.4-7.0.1.1_=
-3.31__g36b56f4.ari/bin:/opt/cray/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/cra=
-ype/2.6.2/bin:/opt/gcc/7.3.0/bin:/global/common/cori_cle7/software/dars=
+3.32__g36b56f4.ari/bin:/opt/cray/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/cra=
+ype/2.6.1/bin:/opt/gcc/7.3.0/bin:/global/common/cori_cle7/software/dars=
 han/3.1.7/bin:/global/common/cori/software/altd/2.0/bin:/usr/common/sof=
 tware/bin:/usr/common/mss/bin:/usr/common/nsg/bin:/opt/ovis/bin:/opt/ov=
 is/sbin:/usr/syscom/nsg/sbin:/usr/syscom/nsg/bin:/opt/cray/pe/modules/3=
 .2.11.4/bin:/global/homes/s/svasquez/bin:/usr/local/bin:/usr/bin:/bin:/=
 usr/lib/mit/bin:/usr/lib/mit/sbin:/opt/cray/pe/bin
-LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/lib64:/=
+LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/lib64:/=
 opt/gcc/7.3.0/snos/lib64:/usr/syscom/nsg/lib
 =20
 --------------------------------------------------------------
  * Compilers, Linkers, Flags, and Libraries *
 Location of the preprocessor:      /opt/gcc/7.3.0/bin/gcc
-Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the Fortran linker:    /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the C++ compiler:      /opt/cray/pe/craype/2.6.2/bin/CC
-Location of the C++ linker:        /opt/cray/pe/craype/2.6.2/bin/CC
+Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the Fortran linker:    /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the C++ compiler:      /opt/cray/pe/craype/2.6.1/bin/CC
+Location of the C++ linker:        /opt/cray/pe/craype/2.6.1/bin/CC
 
 Fortran compiler flags:
 ESMF_F90COMPILER: ftn
@@ -6814,13 +6815,13 @@ y/gfortran/esmf/mod/modO/Unicos.gfortran.64.mpi.default -I/global/cscra=
 tch1/sd/svasquez/daily_builds/esmpy/gfortran/esmf/src/include -I/opt/cr=
 ay/pe/netcdf/4.6.3.2/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_N=
-O_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
-SMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_=
-COMM=3Dmpi -DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmp=
-y/gfortran/esmf
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_PTHREADS -=
+DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -=
+DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpi -=
+DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmpy/gfortran/e=
+smf
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -6845,14 +6846,14 @@ RE
 ESMF_CXXCOMPILEPATHS:  -I/global/cscratch1/sd/svasquez/daily_builds/esm=
 py/gfortran/esmf/src/include  -I/opt/cray/pe/netcdf/4.6.3.2/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_N=
-O_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
-SMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_=
-COMM=3Dmpi -DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmp=
-y/gfortran/esmf -D__SDIR__=3D'' -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DES=
-MF_NO_GETHOSTID -DESMF_NO_SIGNALS -DESMF_NO_SYSTEMCALL
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_PTHREADS -=
+DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -=
+DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpi -=
+DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmpy/gfortran/e=
+smf -D__SDIR__=3D'' -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOS=
+TID -DESMF_NO_SIGNALS -DESMF_NO_SYSTEMCALL
 
 C++ linker flags:
 ESMF_CXXLINKOPTS: =20
@@ -6905,16 +6906,16 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Tue Apr 14 01:56:01 PDT 2020 on cori02
+Compiling on Tue Apr 28 02:04:57 PDT 2020 on cori02
 Machine characteristics: Linux cori02 4.12.14-150.47-default #1 SMP Wed=
  Dec 18 15:05:52 UTC 2019 (8162e25) x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Tue Apr 14 02:08:16 PDT 2020 library build -j4 ............PASS
+Tue Apr 28 03:05:11 PDT 2020 library build -j4 ............PASS
 Builds with warnings.
-Tue Apr 14 02:08:24 PDT 2020 library install **************FAIL
+Tue Apr 28 03:05:53 PDT 2020 library install **************FAIL
 
 
 The following is the 'tail' of the install failure
@@ -7059,7 +7060,7 @@ gmake[1]: Leaving directory '/global/cscratch1/sd/svasquez/daily_builds=
 gmake: *** [makefile:655: install] Error 2
 
 |------------------------ PYTHON BUILD ------------------------|
-Tue Apr 14 02:08:24 PDT 2020 python build *****************FAIL
+Tue Apr 28 03:05:57 PDT 2020 python build *****************FAIL
 
 
 The following is the 'tail' of the build failure
@@ -7073,7 +7074,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 
 
 |---------------- PYTHON UNIT PARALLEL TESTS ------------------|
-Tue Apr 14 02:09:02 PDT 2020 run test_parallel ************FAIL
+Tue Apr 28 03:06:18 PDT 2020 run test_parallel ************FAIL
 
 
 The following is the 'tail' of the run parallel tests failure
@@ -7087,7 +7088,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 
 
 |-------------- PYTHON EXAMPLES PARALLEL TESTS ----------------|
-Tue Apr 14 02:09:51 PDT 2020 run test_examples_parallel ***FAIL
+Tue Apr 28 03:06:35 PDT 2020 run test_examples_parallel ***FAIL
 
 
 The following is the 'tail' of the run examples parallel tests failure
@@ -7109,7 +7110,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 
 
 |----------- PYTHON REGRID FROM FILE PARALLEL TESTS -----------|
-Tue Apr 14 02:10:21 PDT 2020 run test_regrid_from_file_parallel **FAIL
+Tue Apr 28 03:06:50 PDT 2020 run test_regrid_from_file_parallel **FAIL
 
 
 The following is the 'tail' of the run regrid tests from file parallel =
@@ -7142,7 +7143,7 @@ ped.
 _______________________________________________________________________=
 ______________________________________
 
-Tue Apr 14 02:11:44 PDT 2020 on cori02=20
+Tue Apr 28 03:21:01 PDT 2020 on cori02=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -7158,19 +7159,19 @@ Currently Loaded Modulefiles:
   6) craype-haswell
   7) craype-hugepages2M
   8) craype-network-aries
-  9) craype/2.6.2
+  9) craype/2.6.1
  10) cray-mpich/7.7.10
  11) cray-libsci/19.06.1
  12) udreg/2.3.2-7.0.1.1_3.26__g8175d3d.ari
  13) ugni/6.0.14.0-7.0.1.1_7.29__ge78e5b0.ari
  14) pmi/5.0.14
- 15) dmapp/7.1.1-7.0.1.1_4.39__g38cf134.ari
- 16) gni-headers/5.0.12.0-7.0.1.1_6.24__g3b1768f.ari
+ 15) dmapp/7.1.1-7.0.1.1_4.40__g38cf134.ari
+ 16) gni-headers/5.0.12.0-7.0.1.1_6.25__g3b1768f.ari
  17) xpmem/2.2.20-7.0.1.1_4.6__g0475745.ari
- 18) job/2.2.4-7.0.1.1_3.31__g36b56f4.ari
- 19) dvs/2.12_2.2.151-7.0.1.1_5.33__g7eb5e703
- 20) alps/6.6.57-7.0.1.1_5.5__g1b735148.ari
- 21) rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari
+ 18) job/2.2.4-7.0.1.1_3.32__g36b56f4.ari
+ 19) dvs/2.12_2.2.156-7.0.1.1_8.2__g5aab709e
+ 20) alps/6.6.57-7.0.1.1_5.7__g1b735148.ari
+ 21) rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari
  22) atp/2.1.3
  23) PrgEnv-gnu/6.0.5
  24) python/3.7-anaconda-2019.07
@@ -7181,12 +7182,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 --------------------------------------------------------------
 On branch master
 Your branch is up to date with 'origin/master'.
@@ -7334,26 +7335,26 @@ ESMF_BENCHMARK_THRESHOLD_MSEC: 500
 --------------------------------------------------------------
  * Other relevant environment variables *
 PATH:    /usr/common/software/python/3.7-anaconda-2019.07/bin:/global/h=
-omes/s/svasquez/bin:/opt/cray/rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari/bin=
-:/opt/cray/alps/6.6.57-7.0.1.1_5.5__g1b735148.ari/sbin:/opt/cray/alps/d=
-efault/bin:/opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/bin:/opt/cray=
-/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/craype/2.6.2/bin:/opt/gcc/7.3.0/bin=
+omes/s/svasquez/bin:/opt/cray/rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari/bin=
+:/opt/cray/alps/6.6.57-7.0.1.1_5.7__g1b735148.ari/sbin:/opt/cray/alps/d=
+efault/bin:/opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/bin:/opt/cray=
+/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/craype/2.6.1/bin:/opt/gcc/7.3.0/bin=
 :/global/common/cori_cle7/software/darshan/3.1.7/bin:/global/common/cor=
 i/software/altd/2.0/bin:/usr/common/software/bin:/usr/common/mss/bin:/u=
 sr/common/nsg/bin:/opt/ovis/bin:/opt/ovis/sbin:/usr/syscom/nsg/sbin:/us=
 r/syscom/nsg/bin:/opt/cray/pe/modules/3.2.11.4/bin:/global/homes/s/svas=
 quez/bin:/usr/local/bin:/usr/bin:/bin:/usr/lib/mit/bin:/usr/lib/mit/sbi=
 n:/opt/cray/pe/bin
-LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/lib64:/=
+LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/lib64:/=
 opt/gcc/7.3.0/snos/lib64:/usr/syscom/nsg/lib
 =20
 --------------------------------------------------------------
  * Compilers, Linkers, Flags, and Libraries *
 Location of the preprocessor:      /opt/gcc/7.3.0/bin/gcc
-Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the Fortran linker:    /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the C++ compiler:      /opt/cray/pe/craype/2.6.2/bin/CC
-Location of the C++ linker:        /opt/cray/pe/craype/2.6.2/bin/CC
+Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the Fortran linker:    /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the C++ compiler:      /opt/cray/pe/craype/2.6.1/bin/CC
+Location of the C++ linker:        /opt/cray/pe/craype/2.6.1/bin/CC
 
 Fortran compiler flags:
 ESMF_F90COMPILER: ftn
@@ -7363,12 +7364,12 @@ ESMF_F90COMPILEPATHS: -I/global/cscratch1/sd/svasquez/daily_builds/esmp=
 y/gfortran/esmf/mod/modg/Unicos.gfortran.64.mpiuni.default -I/global/cs=
 cratch1/sd/svasquez/daily_builds/esmpy/gfortran/esmf/src/include=20
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC =
--DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DE=
-SMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/s=
-d/svasquez/daily_builds/esmpy/gfortran/esmf -DESMF_MPIUNI
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unico=
+s=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/sd/svasquez/d=
+aily_builds/esmpy/gfortran/esmf -DESMF_MPIUNI
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -7394,14 +7395,14 @@ ESMF_CXXCOMPILEPATHS:  -I/global/cscratch1/sd/svasquez/daily_builds/esm=
 py/gfortran/esmf/src/include   -I/global/cscratch1/sd/svasquez/daily_bu=
 ilds/esmpy/gfortran/esmf/src/Infrastructure/stubs/mpiuni
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC =
--DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DE=
-SMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/s=
-d/svasquez/daily_builds/esmpy/gfortran/esmf -D__SDIR__=3D'' -DESMF_MPIU=
-NI -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOSTID -DESMF_NO_SIG=
-NALS -DESMF_NO_SYSTEMCALL
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unico=
+s=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/sd/svasquez/d=
+aily_builds/esmpy/gfortran/esmf -D__SDIR__=3D'' -DESMF_MPIUNI -DESMF_NO=
+_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOSTID -DESMF_NO_SIGNALS -DESMF_=
+NO_SYSTEMCALL
 
 C++ linker flags:
 ESMF_CXXLINKOPTS: =20
@@ -7454,24 +7455,24 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Tue Apr 14 02:11:45 PDT 2020 on cori02
+Compiling on Tue Apr 28 03:21:11 PDT 2020 on cori02
 Machine characteristics: Linux cori02 4.12.14-150.47-default #1 SMP Wed=
  Dec 18 15:05:52 UTC 2019 (8162e25) x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Tue Apr 14 02:21:36 PDT 2020 library build -j4 ............PASS
+Tue Apr 28 04:04:14 PDT 2020 library build -j4 ............PASS
 Builds with warnings.
-Tue Apr 14 02:21:53 PDT 2020 library install ..............PASS
-Tue Apr 14 02:21:55 PDT 2020 library installcheck .........PASS
+Tue Apr 28 04:04:50 PDT 2020 library install ..............PASS
+Tue Apr 28 04:04:59 PDT 2020 library installcheck .........PASS
 
 |------------------------ PYTHON BUILD ------------------------|
-Tue Apr 14 02:21:57 PDT 2020 python build .................PASS
+Tue Apr 28 04:05:06 PDT 2020 python build .................PASS
 
 
 |-------------------- PYTHON UNIT TESTS -----------------------|
-Tue Apr 14 02:22:22 PDT 2020 run test .....................PASS
+Tue Apr 28 04:05:26 PDT 2020 run test .....................PASS
 
 Found 88 unit tests, 60 pass, 16 fail and 12 were skipped.
 
@@ -8162,7 +8163,7 @@ _slice_mesh_created_from_file_scrip
 NameError: mesh_create_from_file_scrip failed!
 
 ----------------------------------------------------------------------
-Ran 88 tests in 1.591s
+Ran 88 tests in 2.031s
 
 FAILED (SKIP=3D12, errors=3D16)
 Field:
@@ -8230,7 +8231,7 @@ ow,!parallel', 'src/ESMF']' returned non-zero exit status 1.
 
 
 |------------------- PYTHON EXAMPLES TESTS --------------------|
-Tue Apr 14 02:22:56 PDT 2020 run test_examples ............PASS
+Tue Apr 28 04:05:47 PDT 2020 run test_examples ............PASS
 
 Found 10 examples tests, 2 pass, 5 fail , and 3 skipped.
 
@@ -8400,7 +8401,7 @@ ESMF.util.exceptions.NetCDFMissing: This function requires ESMF to have=
  been built with NetCDF.
 
 ----------------------------------------------------------------------
-Ran 10 tests in 0.484s
+Ran 10 tests in 1.727s
 
 FAILED (SKIP=3D3, errors=3D5)
 Hello ESMPy World from PET (processor) 0!
@@ -8437,7 +8438,7 @@ s 1.
 _______________________________________________________________________=
 ______________________________________
 
-Tue Apr 14 02:24:13 PDT 2020 on cori02=20
+Tue Apr 28 04:08:18 PDT 2020 on cori02=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -8453,19 +8454,19 @@ Currently Loaded Modulefiles:
   6) craype-haswell
   7) craype-hugepages2M
   8) craype-network-aries
-  9) craype/2.6.2
+  9) craype/2.6.1
  10) cray-mpich/7.7.10
  11) cray-libsci/19.06.1
  12) udreg/2.3.2-7.0.1.1_3.26__g8175d3d.ari
  13) ugni/6.0.14.0-7.0.1.1_7.29__ge78e5b0.ari
  14) pmi/5.0.14
- 15) dmapp/7.1.1-7.0.1.1_4.39__g38cf134.ari
- 16) gni-headers/5.0.12.0-7.0.1.1_6.24__g3b1768f.ari
+ 15) dmapp/7.1.1-7.0.1.1_4.40__g38cf134.ari
+ 16) gni-headers/5.0.12.0-7.0.1.1_6.25__g3b1768f.ari
  17) xpmem/2.2.20-7.0.1.1_4.6__g0475745.ari
- 18) job/2.2.4-7.0.1.1_3.31__g36b56f4.ari
- 19) dvs/2.12_2.2.151-7.0.1.1_5.33__g7eb5e703
- 20) alps/6.6.57-7.0.1.1_5.5__g1b735148.ari
- 21) rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari
+ 18) job/2.2.4-7.0.1.1_3.32__g36b56f4.ari
+ 19) dvs/2.12_2.2.156-7.0.1.1_8.2__g5aab709e
+ 20) alps/6.6.57-7.0.1.1_5.7__g1b735148.ari
+ 21) rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari
  22) atp/2.1.3
  23) PrgEnv-gnu/6.0.5
  24) python/3.7-anaconda-2019.07
@@ -8476,12 +8477,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 --------------------------------------------------------------
 On branch master
 Your branch is up to date with 'origin/master'.
@@ -8629,26 +8630,26 @@ ESMF_BENCHMARK_THRESHOLD_MSEC: 500
 --------------------------------------------------------------
  * Other relevant environment variables *
 PATH:    /usr/common/software/python/3.7-anaconda-2019.07/bin:/global/h=
-omes/s/svasquez/bin:/opt/cray/rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari/bin=
-:/opt/cray/alps/6.6.57-7.0.1.1_5.5__g1b735148.ari/sbin:/opt/cray/alps/d=
-efault/bin:/opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/bin:/opt/cray=
-/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/craype/2.6.2/bin:/opt/gcc/7.3.0/bin=
+omes/s/svasquez/bin:/opt/cray/rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari/bin=
+:/opt/cray/alps/6.6.57-7.0.1.1_5.7__g1b735148.ari/sbin:/opt/cray/alps/d=
+efault/bin:/opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/bin:/opt/cray=
+/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/craype/2.6.1/bin:/opt/gcc/7.3.0/bin=
 :/global/common/cori_cle7/software/darshan/3.1.7/bin:/global/common/cor=
 i/software/altd/2.0/bin:/usr/common/software/bin:/usr/common/mss/bin:/u=
 sr/common/nsg/bin:/opt/ovis/bin:/opt/ovis/sbin:/usr/syscom/nsg/sbin:/us=
 r/syscom/nsg/bin:/opt/cray/pe/modules/3.2.11.4/bin:/global/homes/s/svas=
 quez/bin:/usr/local/bin:/usr/bin:/bin:/usr/lib/mit/bin:/usr/lib/mit/sbi=
 n:/opt/cray/pe/bin
-LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/lib64:/=
+LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/lib64:/=
 opt/gcc/7.3.0/snos/lib64:/usr/syscom/nsg/lib
 =20
 --------------------------------------------------------------
  * Compilers, Linkers, Flags, and Libraries *
 Location of the preprocessor:      /opt/gcc/7.3.0/bin/gcc
-Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the Fortran linker:    /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the C++ compiler:      /opt/cray/pe/craype/2.6.2/bin/CC
-Location of the C++ linker:        /opt/cray/pe/craype/2.6.2/bin/CC
+Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the Fortran linker:    /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the C++ compiler:      /opt/cray/pe/craype/2.6.1/bin/CC
+Location of the C++ linker:        /opt/cray/pe/craype/2.6.1/bin/CC
 
 Fortran compiler flags:
 ESMF_F90COMPILER: ftn
@@ -8657,12 +8658,12 @@ ESMF_F90COMPILEPATHS: -I/global/cscratch1/sd/svasquez/daily_builds/esmp=
 y/gfortran/esmf/mod/modO/Unicos.gfortran.64.mpiuni.default -I/global/cs=
 cratch1/sd/svasquez/daily_builds/esmpy/gfortran/esmf/src/include=20
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC =
--DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DE=
-SMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/s=
-d/svasquez/daily_builds/esmpy/gfortran/esmf -DESMF_MPIUNI
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unico=
+s=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/sd/svasquez/d=
+aily_builds/esmpy/gfortran/esmf -DESMF_MPIUNI
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -8688,14 +8689,14 @@ ESMF_CXXCOMPILEPATHS:  -I/global/cscratch1/sd/svasquez/daily_builds/esm=
 py/gfortran/esmf/src/include   -I/global/cscratch1/sd/svasquez/daily_bu=
 ilds/esmpy/gfortran/esmf/src/Infrastructure/stubs/mpiuni
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC =
--DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DE=
-SMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/s=
-d/svasquez/daily_builds/esmpy/gfortran/esmf -D__SDIR__=3D'' -DESMF_MPIU=
-NI -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOSTID -DESMF_NO_SIG=
-NALS -DESMF_NO_SYSTEMCALL
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NO_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTE=
+XHAUSTIVE -DESMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unico=
+s=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/global/cscratch1/sd/svasquez/d=
+aily_builds/esmpy/gfortran/esmf -D__SDIR__=3D'' -DESMF_MPIUNI -DESMF_NO=
+_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOSTID -DESMF_NO_SIGNALS -DESMF_=
+NO_SYSTEMCALL
 
 C++ linker flags:
 ESMF_CXXLINKOPTS: =20
@@ -8748,24 +8749,24 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Tue Apr 14 02:24:14 PDT 2020 on cori02
+Compiling on Tue Apr 28 04:08:19 PDT 2020 on cori02
 Machine characteristics: Linux cori02 4.12.14-150.47-default #1 SMP Wed=
  Dec 18 15:05:52 UTC 2019 (8162e25) x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Tue Apr 14 02:34:12 PDT 2020 library build -j4 ............PASS
+Tue Apr 28 04:24:25 PDT 2020 library build -j4 ............PASS
 Builds with warnings.
-Tue Apr 14 02:34:28 PDT 2020 library install ..............PASS
-Tue Apr 14 02:34:30 PDT 2020 library installcheck .........PASS
+Tue Apr 28 04:24:54 PDT 2020 library install ..............PASS
+Tue Apr 28 04:24:56 PDT 2020 library installcheck .........PASS
 
 |------------------------ PYTHON BUILD ------------------------|
-Tue Apr 14 02:34:31 PDT 2020 python build .................PASS
+Tue Apr 28 04:24:57 PDT 2020 python build .................PASS
 
 
 |-------------------- PYTHON UNIT TESTS -----------------------|
-Tue Apr 14 02:34:58 PDT 2020 run test .....................PASS
+Tue Apr 28 04:25:35 PDT 2020 run test .....................PASS
 
 Found 88 unit tests, 60 pass, 16 fail and 12 were skipped.
 
@@ -9456,7 +9457,7 @@ _slice_mesh_created_from_file_scrip
 NameError: mesh_create_from_file_scrip failed!
 
 ----------------------------------------------------------------------
-Ran 88 tests in 0.748s
+Ran 88 tests in 0.801s
 
 FAILED (SKIP=3D12, errors=3D16)
 Field:
@@ -9524,7 +9525,7 @@ ow,!parallel', 'src/ESMF']' returned non-zero exit status 1.
 
 
 |------------------- PYTHON EXAMPLES TESTS --------------------|
-Tue Apr 14 02:35:34 PDT 2020 run test_examples ............PASS
+Tue Apr 28 04:25:56 PDT 2020 run test_examples ............PASS
 
 Found 10 examples tests, 2 pass, 5 fail , and 3 skipped.
 
@@ -9694,7 +9695,7 @@ ESMF.util.exceptions.NetCDFMissing: This function requires ESMF to have=
  been built with NetCDF.
 
 ----------------------------------------------------------------------
-Ran 10 tests in 0.336s
+Ran 10 tests in 0.716s
 
 FAILED (SKIP=3D3, errors=3D5)
 Hello ESMPy World from PET (processor) 0!
@@ -9729,7 +9730,7 @@ s 1.
 
 
 |--------------- PYTHON REGRID FROM FILE TESTS ----------------|
-Tue Apr 14 02:36:36 PDT 2020 run test_regrid_from_file ****FAIL
+Tue Apr 28 04:26:49 PDT 2020 run test_regrid_from_file ****FAIL
 
 
 The following is the 'tail' of the run regrid tests from file failure
@@ -13671,7 +13672,7 @@ RESULT: FAIL
 _______________________________________________________________________=
 ______________________________________
 
-Tue Apr 14 02:38:00 PDT 2020 on cori02=20
+Tue Apr 28 04:29:31 PDT 2020 on cori02=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -13687,19 +13688,19 @@ Currently Loaded Modulefiles:
   6) craype-haswell
   7) craype-hugepages2M
   8) craype-network-aries
-  9) craype/2.6.2
+  9) craype/2.6.1
  10) cray-mpich/7.7.10
  11) cray-libsci/19.06.1
  12) udreg/2.3.2-7.0.1.1_3.26__g8175d3d.ari
  13) ugni/6.0.14.0-7.0.1.1_7.29__ge78e5b0.ari
  14) pmi/5.0.14
- 15) dmapp/7.1.1-7.0.1.1_4.39__g38cf134.ari
- 16) gni-headers/5.0.12.0-7.0.1.1_6.24__g3b1768f.ari
+ 15) dmapp/7.1.1-7.0.1.1_4.40__g38cf134.ari
+ 16) gni-headers/5.0.12.0-7.0.1.1_6.25__g3b1768f.ari
  17) xpmem/2.2.20-7.0.1.1_4.6__g0475745.ari
- 18) job/2.2.4-7.0.1.1_3.31__g36b56f4.ari
- 19) dvs/2.12_2.2.151-7.0.1.1_5.33__g7eb5e703
- 20) alps/6.6.57-7.0.1.1_5.5__g1b735148.ari
- 21) rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari
+ 18) job/2.2.4-7.0.1.1_3.32__g36b56f4.ari
+ 19) dvs/2.12_2.2.156-7.0.1.1_8.2__g5aab709e
+ 20) alps/6.6.57-7.0.1.1_5.7__g1b735148.ari
+ 21) rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari
  22) atp/2.1.3
  23) PrgEnv-gnu/6.0.5
  24) python/3.7-anaconda-2019.07
@@ -13711,12 +13712,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 --------------------------------------------------------------
 On branch master
 Your branch is up to date with 'origin/master'.
@@ -13873,25 +13874,25 @@ ESMF_BENCHMARK_THRESHOLD_MSEC: 500
  * Other relevant environment variables *
 PATH:    /opt/cray/pe/netcdf/4.6.3.2/bin:/usr/common/software/python/3.=
 7-anaconda-2019.07/bin:/global/homes/s/svasquez/bin:/opt/cray/rca/2.2.2=
-0-7.0.1.1_4.37__g8e3fb5b.ari/bin:/opt/cray/alps/6.6.57-7.0.1.1_5.5__g1b=
+0-7.0.1.1_4.39__g8e3fb5b.ari/bin:/opt/cray/alps/6.6.57-7.0.1.1_5.7__g1b=
 735148.ari/sbin:/opt/cray/alps/default/bin:/opt/cray/job/2.2.4-7.0.1.1_=
-3.31__g36b56f4.ari/bin:/opt/cray/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/cra=
-ype/2.6.2/bin:/opt/gcc/7.3.0/bin:/global/common/cori_cle7/software/dars=
+3.32__g36b56f4.ari/bin:/opt/cray/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/cra=
+ype/2.6.1/bin:/opt/gcc/7.3.0/bin:/global/common/cori_cle7/software/dars=
 han/3.1.7/bin:/global/common/cori/software/altd/2.0/bin:/usr/common/sof=
 tware/bin:/usr/common/mss/bin:/usr/common/nsg/bin:/opt/ovis/bin:/opt/ov=
 is/sbin:/usr/syscom/nsg/sbin:/usr/syscom/nsg/bin:/opt/cray/pe/modules/3=
 .2.11.4/bin:/global/homes/s/svasquez/bin:/usr/local/bin:/usr/bin:/bin:/=
 usr/lib/mit/bin:/usr/lib/mit/sbin:/opt/cray/pe/bin
-LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/lib64:/=
+LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/lib64:/=
 opt/gcc/7.3.0/snos/lib64:/usr/syscom/nsg/lib
 =20
 --------------------------------------------------------------
  * Compilers, Linkers, Flags, and Libraries *
 Location of the preprocessor:      /opt/gcc/7.3.0/bin/gcc
-Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the Fortran linker:    /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the C++ compiler:      /opt/cray/pe/craype/2.6.2/bin/CC
-Location of the C++ linker:        /opt/cray/pe/craype/2.6.2/bin/CC
+Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the Fortran linker:    /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the C++ compiler:      /opt/cray/pe/craype/2.6.1/bin/CC
+Location of the C++ linker:        /opt/cray/pe/craype/2.6.1/bin/CC
 
 Fortran compiler flags:
 ESMF_F90COMPILER: ftn
@@ -13902,13 +13903,13 @@ y/gfortran/esmf/mod/modg/Unicos.gfortran.64.mpi.default -I/global/cscra=
 tch1/sd/svasquez/daily_builds/esmpy/gfortran/esmf/src/include -I/opt/cr=
 ay/pe/netcdf/4.6.3.2/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_N=
-O_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
-SMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_=
-COMM=3Dmpi -DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmp=
-y/gfortran/esmf
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_PTHREADS -=
+DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -=
+DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpi -=
+DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmpy/gfortran/e=
+smf
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -13933,14 +13934,14 @@ SE_SINGLEUNDERSCORE
 ESMF_CXXCOMPILEPATHS:  -I/global/cscratch1/sd/svasquez/daily_builds/esm=
 py/gfortran/esmf/src/include  -I/opt/cray/pe/netcdf/4.6.3.2/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_N=
-O_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
-SMF_BOPT_g -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_=
-COMM=3Dmpi -DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmp=
-y/gfortran/esmf -D__SDIR__=3D'' -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DES=
-MF_NO_GETHOSTID -DESMF_NO_SIGNALS -DESMF_NO_SYSTEMCALL
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_PTHREADS -=
+DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -=
+DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpi -=
+DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmpy/gfortran/e=
+smf -D__SDIR__=3D'' -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOS=
+TID -DESMF_NO_SIGNALS -DESMF_NO_SYSTEMCALL
 
 C++ linker flags:
 ESMF_CXXLINKOPTS: =20
@@ -13993,16 +13994,16 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Tue Apr 14 02:38:01 PDT 2020 on cori02
+Compiling on Tue Apr 28 04:29:32 PDT 2020 on cori02
 Machine characteristics: Linux cori02 4.12.14-150.47-default #1 SMP Wed=
  Dec 18 15:05:52 UTC 2019 (8162e25) x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Tue Apr 14 02:48:48 PDT 2020 library build -j4 ............PASS
+Tue Apr 28 04:47:20 PDT 2020 library build -j4 ............PASS
 Builds with warnings.
-Tue Apr 14 02:49:06 PDT 2020 library install **************FAIL
+Tue Apr 28 04:47:40 PDT 2020 library install **************FAIL
 
 
 The following is the 'tail' of the install failure
@@ -14147,7 +14148,7 @@ gmake[1]: Leaving directory '/global/cscratch1/sd/svasquez/daily_builds=
 gmake: *** [makefile:655: install] Error 2
 
 |------------------------ PYTHON BUILD ------------------------|
-Tue Apr 14 02:49:07 PDT 2020 python build *****************FAIL
+Tue Apr 28 04:47:41 PDT 2020 python build *****************FAIL
 
 
 The following is the 'tail' of the build failure
@@ -14161,7 +14162,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 
 
 |---------------- PYTHON UNIT PARALLEL TESTS ------------------|
-Tue Apr 14 02:49:37 PDT 2020 run test_parallel ************FAIL
+Tue Apr 28 04:48:22 PDT 2020 run test_parallel ************FAIL
 
 
 The following is the 'tail' of the run parallel tests failure
@@ -14175,7 +14176,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 
 
 |-------------- PYTHON EXAMPLES PARALLEL TESTS ----------------|
-Tue Apr 14 02:50:02 PDT 2020 run test_examples_parallel ***FAIL
+Tue Apr 28 04:48:43 PDT 2020 run test_examples_parallel ***FAIL
 
 
 The following is the 'tail' of the run examples parallel tests failure
@@ -14199,7 +14200,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 _______________________________________________________________________=
 ______________________________________
 
-Tue Apr 14 02:51:48 PDT 2020 on cori02=20
+Tue Apr 28 04:51:20 PDT 2020 on cori02=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -14215,19 +14216,19 @@ Currently Loaded Modulefiles:
   6) craype-haswell
   7) craype-hugepages2M
   8) craype-network-aries
-  9) craype/2.6.2
+  9) craype/2.6.1
  10) cray-mpich/7.7.10
  11) cray-libsci/19.06.1
  12) udreg/2.3.2-7.0.1.1_3.26__g8175d3d.ari
  13) ugni/6.0.14.0-7.0.1.1_7.29__ge78e5b0.ari
  14) pmi/5.0.14
- 15) dmapp/7.1.1-7.0.1.1_4.39__g38cf134.ari
- 16) gni-headers/5.0.12.0-7.0.1.1_6.24__g3b1768f.ari
+ 15) dmapp/7.1.1-7.0.1.1_4.40__g38cf134.ari
+ 16) gni-headers/5.0.12.0-7.0.1.1_6.25__g3b1768f.ari
  17) xpmem/2.2.20-7.0.1.1_4.6__g0475745.ari
- 18) job/2.2.4-7.0.1.1_3.31__g36b56f4.ari
- 19) dvs/2.12_2.2.151-7.0.1.1_5.33__g7eb5e703
- 20) alps/6.6.57-7.0.1.1_5.5__g1b735148.ari
- 21) rca/2.2.20-7.0.1.1_4.37__g8e3fb5b.ari
+ 18) job/2.2.4-7.0.1.1_3.32__g36b56f4.ari
+ 19) dvs/2.12_2.2.156-7.0.1.1_8.2__g5aab709e
+ 20) alps/6.6.57-7.0.1.1_5.7__g1b735148.ari
+ 21) rca/2.2.20-7.0.1.1_4.39__g8e3fb5b.ari
  22) atp/2.1.3
  23) PrgEnv-gnu/6.0.5
  24) python/3.7-anaconda-2019.07
@@ -14239,12 +14240,12 @@ ESMF Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_14-4-gaab64d03
+ESMF_8_1_0_beta_snapshot_15
 --------------------------------------------------------------
 On branch master
 Your branch is up to date with 'origin/master'.
@@ -14401,25 +14402,25 @@ ESMF_BENCHMARK_THRESHOLD_MSEC: 500
  * Other relevant environment variables *
 PATH:    /opt/cray/pe/netcdf/4.6.3.2/bin:/usr/common/software/python/3.=
 7-anaconda-2019.07/bin:/global/homes/s/svasquez/bin:/opt/cray/rca/2.2.2=
-0-7.0.1.1_4.37__g8e3fb5b.ari/bin:/opt/cray/alps/6.6.57-7.0.1.1_5.5__g1b=
+0-7.0.1.1_4.39__g8e3fb5b.ari/bin:/opt/cray/alps/6.6.57-7.0.1.1_5.7__g1b=
 735148.ari/sbin:/opt/cray/alps/default/bin:/opt/cray/job/2.2.4-7.0.1.1_=
-3.31__g36b56f4.ari/bin:/opt/cray/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/cra=
-ype/2.6.2/bin:/opt/gcc/7.3.0/bin:/global/common/cori_cle7/software/dars=
+3.32__g36b56f4.ari/bin:/opt/cray/pe/mpt/7.7.10/gni/bin:/opt/cray/pe/cra=
+ype/2.6.1/bin:/opt/gcc/7.3.0/bin:/global/common/cori_cle7/software/dars=
 han/3.1.7/bin:/global/common/cori/software/altd/2.0/bin:/usr/common/sof=
 tware/bin:/usr/common/mss/bin:/usr/common/nsg/bin:/opt/ovis/bin:/opt/ov=
 is/sbin:/usr/syscom/nsg/sbin:/usr/syscom/nsg/bin:/opt/cray/pe/modules/3=
 .2.11.4/bin:/global/homes/s/svasquez/bin:/usr/local/bin:/usr/bin:/bin:/=
 usr/lib/mit/bin:/usr/lib/mit/sbin:/opt/cray/pe/bin
-LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.31__g36b56f4.ari/lib64:/=
+LD_LIBRARY_PATH: /opt/cray/job/2.2.4-7.0.1.1_3.32__g36b56f4.ari/lib64:/=
 opt/gcc/7.3.0/snos/lib64:/usr/syscom/nsg/lib
 =20
 --------------------------------------------------------------
  * Compilers, Linkers, Flags, and Libraries *
 Location of the preprocessor:      /opt/gcc/7.3.0/bin/gcc
-Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the Fortran linker:    /opt/cray/pe/craype/2.6.2/bin/ftn
-Location of the C++ compiler:      /opt/cray/pe/craype/2.6.2/bin/CC
-Location of the C++ linker:        /opt/cray/pe/craype/2.6.2/bin/CC
+Location of the Fortran compiler:  /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the Fortran linker:    /opt/cray/pe/craype/2.6.1/bin/ftn
+Location of the C++ compiler:      /opt/cray/pe/craype/2.6.1/bin/CC
+Location of the C++ linker:        /opt/cray/pe/craype/2.6.1/bin/CC
 
 Fortran compiler flags:
 ESMF_F90COMPILER: ftn
@@ -14429,13 +14430,13 @@ y/gfortran/esmf/mod/modO/Unicos.gfortran.64.mpi.default -I/global/cscra=
 tch1/sd/svasquez/daily_builds/esmpy/gfortran/esmf/src/include -I/opt/cr=
 ay/pe/netcdf/4.6.3.2/include
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_N=
-O_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
-SMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_=
-COMM=3Dmpi -DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmp=
-y/gfortran/esmf
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_PTHREADS -=
+DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -=
+DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpi -=
+DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmpy/gfortran/e=
+smf
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -ffree-form
 ESMF_F90COMPILEFIXCPP: -cpp -ffixed-form
@@ -14460,14 +14461,14 @@ RE
 ESMF_CXXCOMPILEPATHS:  -I/global/cscratch1/sd/svasquez/daily_builds/esm=
 py/gfortran/esmf/src/include  -I/opt/cray/pe/netcdf/4.6.3.2/include
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-4-gaab64d03' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_N=
-O_PTHREADS -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DE=
-SMF_BOPT_O -DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_=
-COMM=3Dmpi -DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmp=
-y/gfortran/esmf -D__SDIR__=3D'' -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DES=
-MF_NO_GETHOSTID -DESMF_NO_SIGNALS -DESMF_NO_SYSTEMCALL
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_15' -DESMF_MOAB=3D1 -D=
+ESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=
+=3D1 -DESMF_NETCDF=3D1 -DESMF_PIO=3D1 -DESMF_MPIIO -DESMF_NO_PTHREADS -=
+DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -=
+DESMF_TESTCOMPTUNNEL -DS64=3D1 -DESMF_OS_Unicos=3D1 -DESMF_COMM=3Dmpi -=
+DESMF_DIR=3D/global/cscratch1/sd/svasquez/daily_builds/esmpy/gfortran/e=
+smf -D__SDIR__=3D'' -DESMF_NO_POSIXIPC -DESMF_NO_DLFCN -DESMF_NO_GETHOS=
+TID -DESMF_NO_SIGNALS -DESMF_NO_SYSTEMCALL
 
 C++ linker flags:
 ESMF_CXXLINKOPTS: =20
@@ -14520,16 +14521,16 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Tue Apr 14 02:51:49 PDT 2020 on cori02
+Compiling on Tue Apr 28 04:51:21 PDT 2020 on cori02
 Machine characteristics: Linux cori02 4.12.14-150.47-default #1 SMP Wed=
  Dec 18 15:05:52 UTC 2019 (8162e25) x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Tue Apr 14 03:05:12 PDT 2020 library build -j4 ............PASS
+Tue Apr 28 05:09:02 PDT 2020 library build -j4 ............PASS
 Builds with warnings.
-Tue Apr 14 03:05:20 PDT 2020 library install **************FAIL
+Tue Apr 28 05:09:13 PDT 2020 library install **************FAIL
 
 
 The following is the 'tail' of the install failure
@@ -14674,7 +14675,7 @@ gmake[1]: Leaving directory '/global/cscratch1/sd/svasquez/daily_builds=
 gmake: *** [makefile:655: install] Error 2
 
 |------------------------ PYTHON BUILD ------------------------|
-Tue Apr 14 03:05:20 PDT 2020 python build *****************FAIL
+Tue Apr 28 05:09:14 PDT 2020 python build *****************FAIL
 
 
 The following is the 'tail' of the build failure
@@ -14688,7 +14689,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 
 
 |---------------- PYTHON UNIT PARALLEL TESTS ------------------|
-Tue Apr 14 03:05:49 PDT 2020 run test_parallel ************FAIL
+Tue Apr 28 05:09:41 PDT 2020 run test_parallel ************FAIL
 
 
 The following is the 'tail' of the run parallel tests failure
@@ -14702,7 +14703,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 
 
 |-------------- PYTHON EXAMPLES PARALLEL TESTS ----------------|
-Tue Apr 14 03:06:15 PDT 2020 run test_examples_parallel ***FAIL
+Tue Apr 28 05:09:59 PDT 2020 run test_examples_parallel ***FAIL
 
 
 The following is the 'tail' of the run examples parallel tests failure
@@ -14724,7 +14725,7 @@ uez/daily_builds/esmpy/gfortran/esmf/../install_dir/lib/esmf.mk'
 
 
 |----------- PYTHON REGRID FROM FILE PARALLEL TESTS -----------|
-Tue Apr 14 03:06:40 PDT 2020 run test_regrid_from_file_parallel **FAIL
+Tue Apr 28 05:10:12 PDT 2020 run test_regrid_from_file_parallel **FAIL
 
 
 The following is the 'tail' of the run regrid tests from file parallel =
