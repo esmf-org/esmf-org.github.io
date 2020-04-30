@@ -27825,7 +27825,7 @@ The arguments are:
 <P>
 
 <H3><A NAME="SECTION0601251600000000000000">
-49.5.16 ESMF_VMGet - Get object-wide information from a VM</A>
+49.5.16 ESMF_VMGet - Get information from a VM</A>
 </H3>
 
 <P>
@@ -27835,13 +27835,14 @@ The arguments are:
 <I>INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_VMGet()
    recursive subroutine ESMF_VMGetDefault(vm, localPet, &amp;
-     petCount, peCount, ssiCount, ssiMinPetCount, ssiMaxPetCount, &amp;
+     localPe, petCount, peCount, ssiCount, ssiMinPetCount, ssiMaxPetCount, &amp;
      ssiLocalPetCount, mpiCommunicator, pthreadsEnabledFlag, openMPEnabledFlag, &amp;
      ssiSharedMemoryEnabledFlag, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_VM),      intent(in)            :: vm
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,            intent(out), optional :: localPet
+     integer,            intent(out), optional :: localPe
      integer,            intent(out), optional :: petCount
      integer,            intent(out), optional :: peCount
      integer,            intent(out), optional :: ssiCount
@@ -27874,6 +27875,10 @@ Added argument <TT>ssiSharedMemoryEnabledFlag</TT> that allows the user to
      access between PETs on the same SSI.
    
 </DD>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>localPe</TT> for easy access to the PE.
+   
+</DD>
 </DL>
 </LI>
 </UL>
@@ -27893,7 +27898,7 @@ The arguments are:
      
 </DD>
 <DT><STRONG>[localPet]</STRONG></DT>
-<DD>Upon return this holds the local id of the PET that issued this call.
+<DD>Upon return this holds the id of the local PET that issued this call.
           The valid range of <TT>localPet</TT> is <!-- MATH
  $[0..petCount-1]$
  -->
@@ -27905,6 +27910,13 @@ The arguments are:
  SRC="img82.png"
  ALT="$-1$">
           is returned on PETs that are not active under the specified <TT>vm</TT>.
+     
+</DD>
+<DT><STRONG>[localPe]</STRONG></DT>
+<DD>Upon return this holds the id of the PE on which the local PET is
+          executing. The range of the returned value is platform specific and
+          refers to the core or cpu id by which the PE is known to the operating
+          system.
      
 </DD>
 <DT><STRONG>[petCount]</STRONG></DT>
@@ -27997,7 +28009,7 @@ The arguments are:
 <P>
 
 <H3><A NAME="SECTION0601251700000000000000">
-49.5.17 ESMF_VMGet - Get PET-local VM information</A>
+49.5.17 ESMF_VMGet - Get PET specific VM information</A>
 </H3>
 
 <P>
@@ -28006,7 +28018,7 @@ The arguments are:
 <BR>
 <I>INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_VMGet()
-   subroutine ESMF_VMGetPetLocalInfo(vm, pet, peCount, &amp;
+   subroutine ESMF_VMGetPetSpecific(vm, pet, peCount, &amp;
      accDeviceCount, ssiId, threadCount, threadId, vas, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_VM), intent(in)            :: vm
