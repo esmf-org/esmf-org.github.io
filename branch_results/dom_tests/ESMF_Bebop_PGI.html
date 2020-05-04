@@ -2,110 +2,110 @@
 Return-Path: <svasquez@lcrc.anl.gov>
 Delivered-To: unknown
 Received: from mail.cgd.ucar.edu (128.117.21.245:993) by bighorn.cgd.ucar.edu
-  with IMAP4-SSL; 19 Apr 2020 11:00:02 -0000
+  with IMAP4-SSL; 03 May 2020 11:00:02 -0000
 X-Original-To: esmftest@cgd.ucar.edu
 Delivered-To: esmftest@cgd.ucar.edu
 Received: from vscanx2.ucar.edu (vscanx2.ucar.edu [128.117.64.142])
-	by post2.cgd.ucar.edu (Postfix) with ESMTP id 2FA5E212
-	for <esmftest@cgd.ucar.edu>; Sun, 19 Apr 2020 04:54:43 -0600 (MDT)
-Received: from mail-io1-f69.google.com (mail-io1-f69.google.com [209.85.166.69])
-	by vscanx2.ucar.edu (Postfix) with ESMTPS id 11EEA180024B
-	for <esmftest@cgd.ucar.edu>; Sun, 19 Apr 2020 04:54:43 -0600 (MDT)
+	by post2.cgd.ucar.edu (Postfix) with ESMTP id 5F7A01C9
+	for <esmftest@cgd.ucar.edu>; Sun,  3 May 2020 04:54:08 -0600 (MDT)
+Received: from mail-io1-f72.google.com (mail-io1-f72.google.com [209.85.166.72])
+	by vscanx2.ucar.edu (Postfix) with ESMTPS id 17D701800277
+	for <esmftest@cgd.ucar.edu>; Sun,  3 May 2020 04:54:08 -0600 (MDT)
 Authentication-Results: vscanx2.ucar.edu;
-	dkim=pass (2048-bit key) header.d=anl.gov header.i=@anl.gov header.b="UbAFpL+/"
-Received: by mail-io1-f69.google.com with SMTP id f4so7544719iov.22
-        for <esmftest@cgd.ucar.edu>; Sun, 19 Apr 2020 03:54:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=anl.gov header.i=@anl.gov header.b="PWf85LW6"
+Received: by mail-io1-f72.google.com with SMTP id f17so9994495iow.19
+        for <esmftest@cgd.ucar.edu>; Sun, 03 May 2020 03:54:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:dkim-signature:ironport-sdr:date:to:subject
          :user-agent:mime-version:content-transfer-encoding:message-id:from;
-        bh=7ecKSLONOQAbKEFjEXUuIyo5vG6KCbe0plSVSfjIRQM=;
-        b=nTYa9KjFVIeqwEPUmZDo5yrdPzq3VqmaaTJ8YgRkZhc8xi2KtQOWmCqC6qyK4YFVjR
-         xvvnUqUp7fep2FAu5VKrBeBaLQ4tuWQg4q/PeuidLlbjE7yQ8mRzuN4JBj/kCEnhIL5c
-         gbn4qrM0pLaXI1/NJ2aC4Rq8DxKQqj4yvNOyY4KTsAmVUqEfjyZSSeJjoP/zbA2RfFl3
-         DmdFQjVDJ93hyfrDPZ2C4gvRmSEuoszjs9uF6dBc+o5wrQ8nnhkJ5LUaA4Rkr8IVQV1T
-         I6+wzczR+JjfMGyKCGMYen0hwV7qllmzekxsD/28d9mPRXaIbHwe3q60X0LX9ppTQrR/
-         lTFQ==
-X-Gm-Message-State: AGi0PuYveRUMjdpug57zpiQet1H6tFS68iGBxb4l+ckSELm1ehf9ILlc
-	CLWXQL8Ci4UqxEvTr3Q2U0EXaiWqjJrmpNHh9e3BR3GWo6CtcQpolsdMRvWyyNi/mZb9I5VDldO
-	km1M8YK4PCBscA/kK
-X-Received: by 2002:a6b:7317:: with SMTP id e23mr11165534ioh.72.1587293682596;
-        Sun, 19 Apr 2020 03:54:42 -0700 (PDT)
-X-Google-Smtp-Source: APiQypKuTL27H5qm6RndYrVu09mgjwbDkPXSJlvP/Ar7nZhk9iKkVFTkvZlK3U655DNP/uzZic08
-X-Received: by 2002:a6b:7317:: with SMTP id e23mr11165483ioh.72.1587293681273;
-        Sun, 19 Apr 2020 03:54:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1587293681; cv=none;
+        bh=8Esjy1zmqtPZYc73vHP5Nx+dgqS6Ti3Zprqw4t9UIP0=;
+        b=VDBQsCHRODU72PPyQ48uVfCRP1dypmUorfAbPsyDx4Xjj2B2h+TK76M8lmhyrb8e63
+         Ij7XibS3YEU5EbnBiKV+ot0qqQeT5Iw1GcdHyd0Zy4BZZ6hfDOym3P2O9D2Jgsl8TFsr
+         /6ynmwslJlMDOKq48kaGyUuID+8LSSPiiNxRl2UVI7Pz93PopnJUqQLXBfYko6PcQK0F
+         zfCJFu4hw+FbXQneufZhrzahVRhD8iKo7i7Hajv8/z/4aH+3MzjfmX4bWBog3/vVk3pM
+         C0w0FkHhwbJwNOwhfl4DAMcGxiRkA1/n+O0PdR9ZFjWbUFHCBRRlWlAYVV2STLxQm09P
+         PXJA==
+X-Gm-Message-State: AGi0PubkEnOG1ttrs39vtZocJstYLSPKOnujYMurVV6/J1K2H8q8iNZr
+	wOzdIB/f2rZB7WocZnoCCr94MS+faDBs/pasX5OoWkWyPu5+tfDzC2MF1TeAOxHWxiGWD9TTwvE
+	WqjeTgBGpzXiP9Cnx
+X-Received: by 2002:a02:7f8c:: with SMTP id r134mr11080083jac.21.1588503247546;
+        Sun, 03 May 2020 03:54:07 -0700 (PDT)
+X-Google-Smtp-Source: APiQypK7i1VKAZjZtnpKO85wd6atu0B3QP5mDeMkEAdaMcl8mhAPCWtU7RGhAnfEM+myAzGkEK2h
+X-Received: by 2002:a02:7f8c:: with SMTP id r134mr11080041jac.21.1588503246093;
+        Sun, 03 May 2020 03:54:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1588503246; cv=none;
         d=google.com; s=arc-20160816;
-        b=y/akuXmJjVlVRT0Vbq+xjeTagY14IAvSbmCYcDXULzSwsxT2Tog/x17sYvUkOJW38T
-         +ntnfElf1dCTcu2Hirl8a9XNQevqQTiyOawiHwfzENL+jDlqcLWBkGsorUaWr3uvYU6r
-         vVI0AGERxVDq2pzegDQDvlpBJa3yazrYK3c+rfaN5smJUOYnEf3UWvCK4PfD4dJM5LJ8
-         vF+g5Ghi0eTva6qeQ4k3JYMpimOHsC3AQdVvDSxG5HSEV12euyGyA6itVvgfneZyjVO1
-         QlYfeav/MhsNLSDv3W7wf20ZeLrnwsWEeJJudvRlYbms/vEM7FHZtO5vCzEWYi7Spdfn
-         J7Ag==
+        b=HvKkiSAo8wF6AY/ynobnhv32Okb30uuq+Eirf88c8GVPBnw6COfQKY4UGlvkcyE7ho
+         ZIJT8b/TYslcMMPsRCcBjhMWlfgw/csUT0CaeV7QwwrbLw5/Oy1qkmozK8K21TZMaBzh
+         NOkTQIAosecwR8gegXyfx74PnVGUA0BOqCK+KsBMq/VaT9RzppUrcefBUxecqbpfcdHM
+         3F26TJl7lCRdQa0Ip9eqJ/V3ys15nQrUuMXEIkTo/XUlALYrQWKC795pGa2ekfDEa90f
+         trPpftPp9NRcaD/ccM0oTo+T9CSuVAOrDlwNiQJzOjJzFN7NIslh4Ra94W9uLPi5enIG
+         /JQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=from:message-id:content-transfer-encoding:mime-version:user-agent
          :subject:to:date:ironport-sdr:dkim-signature;
-        bh=7ecKSLONOQAbKEFjEXUuIyo5vG6KCbe0plSVSfjIRQM=;
-        b=mwW/UHd3GdJnb5/mJmhc2RbQu7y+OZvQt/NYC9plJ7p+QMfxT6J3r3/w1WDlbTe70R
-         DCLrFp9DtZP+WUFBPYgPHcImR09cPcPfC87Ru6byVHdQ9pGxRSWLGmQawhhJ1dOu2CbK
-         221nCjbuO1neTdRE1Wom4HpdAp6bcIabzzJg3wUuqX8to8E4w2tGfikyO7Zd7CN0+NPG
-         CmkmopMAcwfjd1n5p3jR1BwjQ684AFqF7YCuSb4DlZ+l5PkmhzKOKQ0le9XETD60gTlF
-         Tr3FGCa2SIaTu5lVTm8n5rMR8nU/ohaNSdTeSxI0pDSDVv2AR5RgOltzEswCy6ShsmmT
-         8eYg==
+        bh=8Esjy1zmqtPZYc73vHP5Nx+dgqS6Ti3Zprqw4t9UIP0=;
+        b=rFPdiyjpzcFy/PDC67uC6xDl3WWaX/TioRgX99g8l71DuoAZqzvkbPHSSSR4gprzlO
+         2ugTDt3C7xGXzBF1J5KVQtN4raZ+faQaX7nxhbWEIdlkqmWfRCfDM36TPLyEdwWTxhxV
+         /biWy3jAssO1UIkS/Cziwdjvi+WYTTiup9nrIbjST8H7fOBxmP1BIWpbcSGvK+YYt6NO
+         J9AzPA9REuyzPtLrEDkRidFZES//JVdRRFAdOq6zlvyfdrzev1o/Tr+I5Bt7a53iYo3j
+         iUvs06a+HfaBnck7/12BvEkIR/08dAi2L14f88B7gn3B+IOf2h0hj7Gzelo+TDCLg5ED
+         avnA==
 ARC-Authentication-Results: i=1; mx.google.com;
-       dkim=pass header.i=@anl.gov header.s=selector1-anl-gov header.b="UbAFpL+/";
+       dkim=pass header.i=@anl.gov header.s=selector1-anl-gov header.b=PWf85LW6;
        spf=pass (google.com: domain of svasquez@lcrc.anl.gov designates 130.202.101.22 as permitted sender) smtp.mailfrom=svasquez@lcrc.anl.gov;
        dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=anl.gov
 Received: from mailrelay.anl.gov (mailrelay.anl.gov. [130.202.101.22])
-        by mx.google.com with ESMTPS id r13si8497345ioa.36.2020.04.19.03.54.40
+        by mx.google.com with ESMTPS id i24si7870386ilf.105.2020.05.03.03.54.05
         for <esmftest@cgd.ucar.edu>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 19 Apr 2020 03:54:40 -0700 (PDT)
+        Sun, 03 May 2020 03:54:06 -0700 (PDT)
 Received-SPF: pass (google.com: domain of svasquez@lcrc.anl.gov designates 130.202.101.22 as permitted sender) client-ip=130.202.101.22;
 Authentication-Results: mx.google.com;
-       dkim=pass header.i=@anl.gov header.s=selector1-anl-gov header.b="UbAFpL+/";
+       dkim=pass header.i=@anl.gov header.s=selector1-anl-gov header.b=PWf85LW6;
        spf=pass (google.com: domain of svasquez@lcrc.anl.gov designates 130.202.101.22 as permitted sender) smtp.mailfrom=svasquez@lcrc.anl.gov;
        dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=anl.gov
 Received: from mailgateway.anl.gov (mailgateway.anl.gov [130.202.101.28])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mailrelay.anl.gov (Postfix) with ESMTPS id F04E72000BE
-	for <esmftest@cgd.ucar.edu>; Sun, 19 Apr 2020 05:54:39 -0500 (CDT)
+	by mailrelay.anl.gov (Postfix) with ESMTPS id BFB892000BF
+	for <esmftest@cgd.ucar.edu>; Sun,  3 May 2020 05:54:05 -0500 (CDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=anl.gov; i=@anl.gov; q=dns/txt; s=selector1-anl-gov;
-  t=1587293679; x=1618829679;
+  t=1588503245; x=1620039245;
   h=date:to:subject:mime-version:content-transfer-encoding:
    message-id:from;
-  bh=7ecKSLONOQAbKEFjEXUuIyo5vG6KCbe0plSVSfjIRQM=;
-  b=UbAFpL+/GCVpPrCiceuSfEuVW11L+S06eUDq5YXD3ozCmuKrlaPCT1Jq
-   m96VBpDeQMPWIvxIJXdQ6zmSRdJwtKqpdAlbfAUl9+RnModK1+qwVyn/m
-   gqB6ZNsn40c1LHiSZqD+L9f98bAzk16bYaGyfEC8cR4dOEc0RvX1QnW/B
-   DIfMJxBv+1Yj+0Y/aOgRXeNHegF52k2dpPaaW+5MseHusgMKYWNTCK8rN
-   EFxx/7iaDG4F6AVIQFPHBIxqBaUv5maGb3np9xabT2V9+dRT2Li/kvly1
-   vvFqpyMlMkrdeqpapfwgkA2LmdBR98PtvQMgGpvFt76NupiLH9uTgseOY
-   A==;
-IronPort-SDR: B9mk0on2CY/YwpXx+VKRa9BMewi7Z9vsSW0OQPQ6I/aQWmzzjmwPUfftFLNeG1u5xZt1KxKGmr
- AExUbClo6zQZh24lUcbvyGyMEAHzNTq2+1MIv4LoF/tqJkn54p/jz5TYL2nitmspH7TKltNCFb
- AnfDVlUT/bPM4c/HsNnTXr8o3H7GASQJyY4B6HaDMESFdsAjIQNds1QJaSB4D05mkAe5NCHMaC
- nkao7g1/7gMcZypuXicwQjeL0uEzeUbQTEWGy7Sk3TEeicEFhNfzQwZ2MfxtMFDp7GpprEbAeT
- wNc=
-X-IronPort-AV: E=Sophos;i="5.72,402,1580796000"; 
-   d="scan'208";a="86503176"
+  bh=8Esjy1zmqtPZYc73vHP5Nx+dgqS6Ti3Zprqw4t9UIP0=;
+  b=PWf85LW66YGOtrwhA8AbZpamATBfLdEKOywmE4xMT+mRN6G1oqWMgKmF
+   nCzcrVYnuxYL71wjGDWFW6uy+tUxSkyANV/xvhsqcvSakuyMUPlqKDBa7
+   Lots0PWyePbVFyut/6x4cqazG+CfKh0CfTIszmquKSQLXea9+zvfyTlRO
+   5tDB4deJT2f7L9wMlsNxaTnkNzOOO8u4wAmZZg7RClX/bIUohG/ALiurE
+   ArvW6Mi7ZHbtnLJlpM1F92mP5ytaFMMe5oUFO12OGX5TesG5B2GFZ4TaZ
+   0XEOH0gREpfSoDjxsFtEEZw0yq3I4naTWnm4jw/tRgTSm/LTbreCP8rh/
+   g==;
+IronPort-SDR: +Zg+TAanBZSRomQCg3W5iK5l8Ce7blOE5UuP+hBzBbWeFWIDcwAmrJ8LGnEMdX/TsQtnNsDSkd
+ 4MeTdqsxZxfgLiUcO3DpUi8gW3N0dCzUHpRZmxQZ3s5v9LiZSmvZUaJ2Jt23oaRsGklRezYMbp
+ QFBRPYDlyP43dJCkb1Y0bOrfQxqRpBXM54kJny2T6XsW/HExwO8O4eAmGtvWFLpgPGEJzlW2q0
+ SPx9kC7UrkA8RAb4zk6YSmzfSMYbv7LDjQegW5X5wWRRgj0+binydmOHQjjkKGliVnG49qSSpc
+ sLs=
+X-IronPort-AV: E=Sophos;i="5.73,347,1583215200"; 
+   d="scan'208";a="88463201"
 Received: from newman-1.mcs.anl.gov (HELO mailrelay.mcs.anl.gov) ([140.221.6.6])
-  by mailgateway.anl.gov with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Apr 2020 05:54:39 -0500
+  by mailgateway.anl.gov with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 May 2020 05:54:05 -0500
 Received: from beboplogin3.lcrc.anl.gov (beboplogin3.lcrc.anl.gov [140.221.70.7])
-	by mailrelay.mcs.anl.gov (Postfix) with ESMTP id BC5C818B
-	for <esmftest@cgd.ucar.edu>; Sun, 19 Apr 2020 05:54:39 -0500 (CDT)
+	by mailrelay.mcs.anl.gov (Postfix) with ESMTP id 86CFA1B6
+	for <esmftest@cgd.ucar.edu>; Sun,  3 May 2020 05:54:05 -0500 (CDT)
 Received: by beboplogin3.lcrc.anl.gov (Postfix, from userid 2862)
-	id 4F5869965BFE3; Sun, 19 Apr 2020 05:54:17 -0500 (CDT)
-Date: Sun, 19 Apr 2020 05:54:17 -0500
+	id 17994B5BECE6C; Sun,  3 May 2020 05:53:42 -0500 (CDT)
+Date: Sun, 03 May 2020 05:53:42 -0500
 To: esmftest@cgd.ucar.edu
 Subject: ESMF_Bebop_PGI
 User-Agent: Heirloom mailx 12.5 7/5/10
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20200419105417.4F5869965BFE3@beboplogin3.lcrc.anl.gov>
+Message-Id: <20200503105342.17994B5BECE6C@beboplogin3.lcrc.anl.gov>
 From: svasquez@lcrc.anl.gov (Silverio Vasquez)
 X-Gm-Spam: 0
 X-Gm-Phishy: 0
@@ -115,9 +115,9 @@ X-getmail-retrieved-from-mailbox: INBOX
 
 
 
-Script start time: Sun Apr 19 05:15:05 CDT 2020
+Script start time: Sun May  3 05:15:03 CDT 2020
 
-Script end: Sun Apr 19 05:54:17 CDT 2020
+Script end: Sun May  3 05:53:41 CDT 2020
 
 
 ______________________________________ESMF TRUNK BUILD AND TEST SUMMARY=
@@ -142,7 +142,7 @@ _______________________________________________________________________=
 ________________________
 
 
-Sun Apr 19 05:19:51 CDT 2020 on beboplogin3=20
+Sun May  3 05:19:33 CDT 2020 on beboplogin3=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -165,13 +165,13 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b
+ESMF_8_1_0_beta_snapshot_16-2-g04f0f27
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b
+ESMF_8_1_0_beta_snapshot_16-2-g04f0f27
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -328,13 +328,13 @@ ESMF_F90COMPILEPATHS: -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pg=
 i_bebop/esmf/mod/modg/Linux.pgi.64.mpiuni.default -I/lcrc/project/ESMF/=
 scripts_dirs/daily_builds/pgi_bebop/esmf/src/include=20
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTI=
-VE -DESMF_BOPT_g -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3D=
-mpiuni -DESMF_DIR=3D/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_be=
-bop/esmf -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESMF_PGIVERSION_M=
-INOR=3D4 -DESMF_PGIVERSION_PATCH=3D0
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_16-2-g04f0f27' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIV=
+E -DESMF_BOPT_g -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dm=
+piuni -DESMF_DIR=3D/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_beb=
+op/esmf -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESMF_PGIVERSION_MI=
+NOR=3D4 -DESMF_PGIVERSION_PATCH=3D0
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -Mfreeform
 ESMF_F90COMPILEFIXCPP: -Mpreprocess -Mnofreeform
@@ -360,13 +360,13 @@ ESMF_CXXCOMPILEPATHS:  -I/lcrc/project/ESMF/scripts_dirs/daily_builds/p=
 gi_bebop/esmf/src/include   -I/lcrc/project/ESMF/scripts_dirs/daily_bui=
 lds/pgi_bebop/esmf/src/Infrastructure/stubs/mpiuni
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTI=
-VE -DESMF_BOPT_g -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3D=
-mpiuni -DESMF_DIR=3D/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_be=
-bop/esmf -D__SDIR__=3D'' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DE=
-SMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_16-2-g04f0f27' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIV=
+E -DESMF_BOPT_g -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dm=
+piuni -DESMF_DIR=3D/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_beb=
+op/esmf -D__SDIR__=3D'' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
+MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0
 
 C++ linker flags:
 ESMF_CXXLINKOPTS:   -lpthread -Wl,--no-as-needed
@@ -422,14 +422,14 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Sun Apr 19 05:20:04 CDT 2020 on beboplogin3
+Compiling on Sun May 3 05:19:51 CDT 2020 on beboplogin3
 Machine characteristics: Linux beboplogin3 3.10.0-957.21.3.el7.x86_64 #=
 1 SMP Tue Jun 18 16:35:19 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Sun Apr 19 05:35:23 CDT 2020 library build -j16 ***********FAIL
+Sun May  3 05:34:55 CDT 2020 library build -j16 ***********FAIL
 
 
 The following is the 'tail' of the build failure
@@ -457,16 +457,82 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/AEntityFactory.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/p=
-gi_bebop/esmf/obj/objg/Linux.pgi.64.mpiuni.default/AEntityFactory.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/AEntityFactory.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pg=
+i_bebop/esmf/obj/objg/Linux.pgi.64.mpiuni.default/AEntityFactory.o
+pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
+ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
+/Moab/../include -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_beb=
+op/esmf/build_config/Linux.pgi.default -I/lcrc/project/ESMF/scripts_dir=
+s/daily_builds/pgi_bebop/esmf/src/Infrastructure -I/lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Superstructure -I/lcrc/proj=
+ect/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/st=
+ubs/pthread  -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/e=
+smf/src/include   -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_be=
+bop/esmf/src/Infrastructure/stubs/mpiuni -DIS_BUILDING_MB -DHAVE_VSNPRI=
+NTF -DLINUX -DUSE_MPI -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pg=
+i_bebop/esmf/src/Infrastructure/Mesh/src/Moab/DiscreteGeometry -I/lcrc/=
+project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructur=
+e/Mesh/src/Moab/IntxMesh -I/lcrc/project/ESMF/scripts_dirs/daily_builds=
+/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/io -I/lcrc/project/ESM=
+F/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/=
+Moab/io/mhdf/include -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi=
+_bebop/esmf/src/Infrastructure/Mesh/src/Moab/LocalDiscretization -I/lcr=
+c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
+ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
+ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
+TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/AffineXform.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_b=
+ebop/esmf/obj/objg/Linux.pgi.64.mpiuni.default/AffineXform.o
+pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
+ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
+/Moab/../include -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_beb=
+op/esmf/build_config/Linux.pgi.default -I/lcrc/project/ESMF/scripts_dir=
+s/daily_builds/pgi_bebop/esmf/src/Infrastructure -I/lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Superstructure -I/lcrc/proj=
+ect/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/st=
+ubs/pthread  -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/e=
+smf/src/include   -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_be=
+bop/esmf/src/Infrastructure/stubs/mpiuni -DIS_BUILDING_MB -DHAVE_VSNPRI=
+NTF -DLINUX -DUSE_MPI -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pg=
+i_bebop/esmf/src/Infrastructure/Mesh/src/Moab/DiscreteGeometry -I/lcrc/=
+project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructur=
+e/Mesh/src/Moab/IntxMesh -I/lcrc/project/ESMF/scripts_dirs/daily_builds=
+/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/io -I/lcrc/project/ESM=
+F/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/=
+Moab/io/mhdf/include -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi=
+_bebop/esmf/src/Infrastructure/Mesh/src/Moab/LocalDiscretization -I/lcr=
+c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
+ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
+ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
+TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/AxisBox.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop=
+/esmf/obj/objg/Linux.pgi.64.mpiuni.default/AxisBox.o
 "/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infras=
 tructure
           /Mesh/src/Moab/AdaptiveKDTree.cpp", line 215: warning: variab=
@@ -498,16 +564,16 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/AffineXform.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_=
-bebop/esmf/obj/objg/Linux.pgi.64.mpiuni.default/AffineXform.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/BitPage.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop=
+/esmf/obj/objg/Linux.pgi.64.mpiuni.default/BitPage.o
 pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
 ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
 MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
@@ -531,16 +597,16 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/AxisBox.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebo=
-p/esmf/obj/objg/Linux.pgi.64.mpiuni.default/AxisBox.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/BitTag.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/=
+esmf/obj/objg/Linux.pgi.64.mpiuni.default/BitTag.o
 pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
 ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
 MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
@@ -564,16 +630,16 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/BitPage.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebo=
-p/esmf/obj/objg/Linux.pgi.64.mpiuni.default/BitPage.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/BoundBox.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebo=
+p/esmf/obj/objg/Linux.pgi.64.mpiuni.default/BoundBox.o
 pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
 ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
 MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
@@ -597,16 +663,16 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/BitTag.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop=
-/esmf/obj/objg/Linux.pgi.64.mpiuni.default/BitTag.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/BSPTree.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop=
+/esmf/obj/objg/Linux.pgi.64.mpiuni.default/BSPTree.o
 pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
 ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
 MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
@@ -630,16 +696,16 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/BoundBox.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_beb=
-op/esmf/obj/objg/Linux.pgi.64.mpiuni.default/BoundBox.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/BSPTreePoly.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_b=
+ebop/esmf/obj/objg/Linux.pgi.64.mpiuni.default/BSPTreePoly.o
 pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
 ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
 MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
@@ -663,16 +729,16 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/BSPTree.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebo=
-p/esmf/obj/objg/Linux.pgi.64.mpiuni.default/BSPTree.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/BVHTree.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop=
+/esmf/obj/objg/Linux.pgi.64.mpiuni.default/BVHTree.o
 pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
 ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
 MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
@@ -696,16 +762,16 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/BSPTreePoly.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_=
-bebop/esmf/obj/objg/Linux.pgi.64.mpiuni.default/BSPTreePoly.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/CartVect.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebo=
+p/esmf/obj/objg/Linux.pgi.64.mpiuni.default/CartVect.o
 pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
 ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
 MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
@@ -729,16 +795,16 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/BVHTree.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebo=
-p/esmf/obj/objg/Linux.pgi.64.mpiuni.default/BVHTree.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/CN.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf=
+/obj/objg/Linux.pgi.64.mpiuni.default/CN.o
 pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
 ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
 MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
@@ -762,16 +828,16 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/CartVect.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_beb=
-op/esmf/obj/objg/Linux.pgi.64.mpiuni.default/CartVect.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/Core.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/es=
+mf/obj/objg/Linux.pgi.64.mpiuni.default/Core.o
 pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
 ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
 MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
@@ -795,16 +861,16 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/CN.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esm=
-f/obj/objg/Linux.pgi.64.mpiuni.default/CN.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/DebugOutput.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_b=
+ebop/esmf/obj/objg/Linux.pgi.64.mpiuni.default/DebugOutput.o
 pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
 ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
 MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
@@ -828,82 +894,16 @@ c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
 ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
 TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/Core.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/e=
-smf/obj/objg/Linux.pgi.64.mpiuni.default/Core.o
-pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
-ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
-MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
-/Moab/../include -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_beb=
-op/esmf/build_config/Linux.pgi.default -I/lcrc/project/ESMF/scripts_dir=
-s/daily_builds/pgi_bebop/esmf/src/Infrastructure -I/lcrc/project/ESMF/s=
-cripts_dirs/daily_builds/pgi_bebop/esmf/src/Superstructure -I/lcrc/proj=
-ect/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/st=
-ubs/pthread  -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/e=
-smf/src/include   -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_be=
-bop/esmf/src/Infrastructure/stubs/mpiuni -DIS_BUILDING_MB -DHAVE_VSNPRI=
-NTF -DLINUX -DUSE_MPI -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pg=
-i_bebop/esmf/src/Infrastructure/Mesh/src/Moab/DiscreteGeometry -I/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructur=
-e/Mesh/src/Moab/IntxMesh -I/lcrc/project/ESMF/scripts_dirs/daily_builds=
-/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/io -I/lcrc/project/ESM=
-F/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/=
-Moab/io/mhdf/include -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi=
-_bebop/esmf/src/Infrastructure/Mesh/src/Moab/LocalDiscretization -I/lcr=
-c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
-ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
-ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
-TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/DebugOutput.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_=
-bebop/esmf/obj/objg/Linux.pgi.64.mpiuni.default/DebugOutput.o
-pgc++ -c  -g -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs/daily_bu=
-ilds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/project/ES=
-MF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src=
-/Moab/../include -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_beb=
-op/esmf/build_config/Linux.pgi.default -I/lcrc/project/ESMF/scripts_dir=
-s/daily_builds/pgi_bebop/esmf/src/Infrastructure -I/lcrc/project/ESMF/s=
-cripts_dirs/daily_builds/pgi_bebop/esmf/src/Superstructure -I/lcrc/proj=
-ect/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/st=
-ubs/pthread  -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/e=
-smf/src/include   -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_be=
-bop/esmf/src/Infrastructure/stubs/mpiuni -DIS_BUILDING_MB -DHAVE_VSNPRI=
-NTF -DLINUX -DUSE_MPI -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pg=
-i_bebop/esmf/src/Infrastructure/Mesh/src/Moab/DiscreteGeometry -I/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructur=
-e/Mesh/src/Moab/IntxMesh -I/lcrc/project/ESMF/scripts_dirs/daily_builds=
-/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/io -I/lcrc/project/ESM=
-F/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/=
-Moab/io/mhdf/include -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi=
-_bebop/esmf/src/Infrastructure/Mesh/src/Moab/LocalDiscretization -I/lcr=
-c/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastruct=
-ure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/daily_buil=
-ds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DESMF_NO_IN=
-TEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESMF_8_1_0_b=
-eta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_=
-LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -=
-DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D=
-1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/E=
-SMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrast=
-ructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
-MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/=
-scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Mo=
-ab/DenseTag.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_beb=
-op/esmf/obj/objg/Linux.pgi.64.mpiuni.default/DenseTag.o
+eta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_L=
+APACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_OPENMP -D=
+ESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_g -DSx86_64_small=3D1=
+ -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/project/ES=
+MF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src/Infrastr=
+ucture/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESM=
+F_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/project/ESMF/s=
+cripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moa=
+b/DenseTag.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebo=
+p/esmf/obj/objg/Linux.pgi.64.mpiuni.default/DenseTag.o
 "/usr/include/c++/4.8.5/bits/c++0x_warning.h", line 32: catastrophic er=
 ror:
           #error directive: This file requires compiler and library sup=
@@ -955,7 +955,7 @@ _______________________________________________________________________=
 ________________________
 
 
-Sun Apr 19 05:39:31 CDT 2020 on beboplogin3=20
+Sun May  3 05:39:10 CDT 2020 on beboplogin3=20
 
 ESMF Checkout Source: https://github.com/esmf-org/esmf
 
@@ -978,13 +978,13 @@ Repository:
 origin=09https://github.com/esmf-org/esmf (fetch)
 origin=09https://github.com/esmf-org/esmf (push)
 =20
-ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b
+ESMF_8_1_0_beta_snapshot_16-2-g04f0f27
 =20
 =20
 =20
 --------------------------------------------------------------
 ESMF_VERSION_STRING:    8.1.0 beta snapshot
-ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b
+ESMF_8_1_0_beta_snapshot_16-2-g04f0f27
 --------------------------------------------------------------
 # On branch master
 # Untracked files:
@@ -1141,13 +1141,13 @@ ESMF_F90COMPILEPATHS: -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pg=
 i_bebop/esmf/mod/modO/Linux.pgi.64.mpiuni.default -I/lcrc/project/ESMF/=
 scripts_dirs/daily_builds/pgi_bebop/esmf/src/include=20
 ESMF_F90COMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTI=
-VE -DESMF_BOPT_O -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3D=
-mpiuni -DESMF_DIR=3D/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_be=
-bop/esmf -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESMF_PGIVERSION_M=
-INOR=3D4 -DESMF_PGIVERSION_PATCH=3D0
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_16-2-g04f0f27' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIV=
+E -DESMF_BOPT_O -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dm=
+piuni -DESMF_DIR=3D/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_beb=
+op/esmf -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DESMF_PGIVERSION_MI=
+NOR=3D4 -DESMF_PGIVERSION_PATCH=3D0
 ESMF_F90COMPILEFREECPP:=20
 ESMF_F90COMPILEFREENOCPP: -Mfreeform
 ESMF_F90COMPILEFIXCPP: -Mpreprocess -Mnofreeform
@@ -1173,13 +1173,13 @@ ESMF_CXXCOMPILEPATHS:  -I/lcrc/project/ESMF/scripts_dirs/daily_builds/p=
 gi_bebop/esmf/src/include   -I/lcrc/project/ESMF/scripts_dirs/daily_bui=
 lds/pgi_bebop/esmf/src/Infrastructure/stubs/mpiuni
 ESMF_CXXCOMPILECPPFLAGS: -DESMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_B=
-YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_14-10-gd7b1f4b' -DESMF=
-_MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SO=
-FTWARE_STACK=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTI=
-VE -DESMF_BOPT_O -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3D=
-mpiuni -DESMF_DIR=3D/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_be=
-bop/esmf -D__SDIR__=3D'' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DE=
-SMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0
+YTE -DESMFVERSIONGIT=3D'ESMF_8_1_0_beta_snapshot_16-2-g04f0f27' -DESMF_=
+MOAB=3D1 -DESMF_LAPACK=3D1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOF=
+TWARE_STACK=3D1 -DESMF_NO_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIV=
+E -DESMF_BOPT_O -DSx86_64_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dm=
+piuni -DESMF_DIR=3D/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_beb=
+op/esmf -D__SDIR__=3D'' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=3D17 -DES=
+MF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0
 
 C++ linker flags:
 ESMF_CXXLINKOPTS:   -lpthread -Wl,--no-as-needed
@@ -1235,14 +1235,14 @@ ESMF_TRACE_STATICLINKLIBS=3D-lesmftrace_static
 
 
 --------------------------------------------------------------
-Compiling on Sun Apr 19 05:39:45 CDT 2020 on beboplogin3
+Compiling on Sun May 3 05:39:19 CDT 2020 on beboplogin3
 Machine characteristics: Linux beboplogin3 3.10.0-957.21.3.el7.x86_64 #=
 1 SMP Tue Jun 18 16:35:19 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 =20
-Sun Apr 19 05:54:16 CDT 2020 library build -j16 ***********FAIL
+Sun May  3 05:53:41 CDT 2020 library build -j16 ***********FAIL
 
 
 The following is the 'tail' of the build failure
@@ -1270,12 +1270,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/AEntityFactory.cpp -o /lcrc/project/ESMF/scripts_dirs/dail=
@@ -1312,12 +1312,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/AffineXform.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_b=
@@ -1345,12 +1345,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/AxisBox.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_build=
@@ -1378,12 +1378,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/BitPage.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_build=
@@ -1411,12 +1411,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/BitTag.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds=
@@ -1444,12 +1444,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/BoundBox.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_buil=
@@ -1477,12 +1477,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/BSPTree.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_build=
@@ -1510,12 +1510,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/BSPTreePoly.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_b=
@@ -1543,12 +1543,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/BVHTree.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_build=
@@ -1576,12 +1576,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/CartVect.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_buil=
@@ -1609,12 +1609,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/CN.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi=
@@ -1642,12 +1642,12 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/Core.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_builds/p=
@@ -1675,28 +1675,16 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/DebugOutput.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_b=
 uilds/pgi_bebop/esmf/obj/objO/Linux.pgi.64.mpiuni.default/DebugOutput.o
-"/usr/include/c++/4.8.5/bits/c++0x_warning.h", line 32: catastrophic er=
-ror:
-          #error directive: This file requires compiler and library sup=
-port for
-          the ISO C++ 2011 standard. This support is currently experime=
-ntal,
-          and must be enabled with the -std=3Dc++11 or -std=3Dgnu++11 c=
-ompiler
-          options.
-  #error This file requires compiler and library support for the \
-   ^
-
 pgc++ -c  -O -DNDEBUG -fpic -lpthread -I/lcrc/project/ESMF/scripts_dirs=
 /daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab -I/lcrc/p=
 roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure=
@@ -1720,16 +1708,28 @@ on -I/lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/In=
 frastructure/Mesh/src/Moab/parallel -I/lcrc/project/ESMF/scripts_dirs/d=
 aily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/Moab/verdict -DE=
 SMF_NO_INTEGER_1_BYTE -DESMF_NO_INTEGER_2_BYTE -DESMFVERSIONGIT=3D'"ESM=
-F_8_1_0_beta_snapshot_14-10-gd7b1f4b"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D=
-1 -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO=
-_OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64=
-_small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/=
-project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"sr=
-c/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
+F_8_1_0_beta_snapshot_16-2-g04f0f27"' -DESMF_MOAB=3D1 -DESMF_LAPACK=3D1=
+ -DESMF_LAPACK_INTERNAL=3D1 -DESMF_NO_ACC_SOFTWARE_STACK=3D1 -DESMF_NO_=
+OPENMP -DESMF_NO_OPENACC -DESMF_TESTEXHAUSTIVE -DESMF_BOPT_O -DSx86_64_=
+small=3D1 -DESMF_OS_Linux=3D1 -DESMF_COMM=3Dmpiuni -DESMF_DIR=3D/lcrc/p=
+roject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf -D__SDIR__=3D'"src=
+/Infrastructure/Mesh/src/Moab"' -DESMF_MPIUNI -DESMF_PGIVERSION_MAJOR=
 =3D17 -DESMF_PGIVERSION_MINOR=3D4 -DESMF_PGIVERSION_PATCH=3D0 /lcrc/pro=
 ject/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/M=
 esh/src/Moab/DenseTag.cpp -o /lcrc/project/ESMF/scripts_dirs/daily_buil=
 ds/pgi_bebop/esmf/obj/objO/Linux.pgi.64.mpiuni.default/DenseTag.o
+"/usr/include/c++/4.8.5/bits/c++0x_warning.h", line 32: catastrophic er=
+ror:
+          #error directive: This file requires compiler and library sup=
+port for
+          the ISO C++ 2011 standard. This support is currently experime=
+ntal,
+          and must be enabled with the -std=3Dc++11 or -std=3Dgnu++11 c=
+ompiler
+          options.
+  #error This file requires compiler and library support for the \
+   ^
+
 1 catastrophic error detected in the compilation of "/lcrc/project/ESMF=
 /scripts_dirs/daily_builds/pgi_bebop/esmf/src/Infrastructure/Mesh/src/M=
 oab/Core.cpp".
@@ -1768,7 +1768,7 @@ gmake: *** [lib] Error 2
 
 
  The tarballs of the tests and examples directories can be found at:
- /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf_logs/2004_=
+ /lcrc/project/ESMF/scripts_dirs/daily_builds/pgi_bebop/esmf_logs/2005_=
 test.
  These tarballs contain the *Log and *stdout files only, not the execut=
 ables.
