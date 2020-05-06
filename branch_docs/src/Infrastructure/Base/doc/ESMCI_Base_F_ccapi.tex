@@ -1,0 +1,534 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_Base\_F.C,  Date: Tue May  5 20:59:32 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [c\_ESMC\_BaseCreate] {c\_ESMC\_BaseCreate - create and initialize a new Base object }
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_basecreate)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_basecreate()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       const char *superclass,   // in - F90, non-null terminated string
+       const char *name,         // in (opt) - F90, non-null terminated string
+       int *nattrs,              // in - number of initial attributes to alloc
+       ESMCI::VM **vm,           // in - optional VM object
+       int *rc,                  // out - return code
+       ESMCI_FortranStrLenArg sclen,  // hidden/in - strlen count for superclass
+       ESMCI_FortranStrLenArg nlen) { // hidden/in - strlen count for name
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Create a new Base object.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [c\_ESMC\_BaseDestroy] {c\_ESMC\_BaseDestroy - release resources from a Base object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_basedestroy)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_basedestroy()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       ESMC_Logical *noGarbage,
+       int *rc) {                // out - return code
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Free resources associated with a base object.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [c\_ESMC\_BasePrint] {c\_ESMC\_BasePrint - print Base object }
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_baseprint)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_baseprint()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       int *level,               // in - print level for recursive prints
+       const char *opts,         // in - F90, non-null terminated string
+       ESMC_Logical *tofile,     // in - tofile flag
+       const char *fname,        // in - F90, non-null terminated string
+       ESMC_Logical *append,     // in - append flage
+       int *rc,                  // out - return code
+       ESMCI_FortranStrLenArg nlen,   // hidden/in - strlen count for options
+       ESMCI_FortranStrLenArg flen) { // hidden/in - strlen count for filename
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Print the contents of a base object.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_BaseSerialize] {c\_ESMC\_BaseSerialize - Serialize Base object }
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_baseserialize)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_baseserialize()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       char *buf,                // in/out - really a byte stream
+       int *length,              // in/out - number of allocated bytes
+       int *offset,              // in/out - current offset in the stream
+       ESMC_AttReconcileFlag *attreconflag, // in - attreconcile flag
+       ESMC_InquireFlag *inquireflag,       // in - inquire-only flag
+       int *rc,                  // out - return code
+       ESMCI_FortranStrLenArg buf_l) { // hidden/in - buffer length
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Serialize the contents of a base object.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_BaseDeserialize] {c\_ESMC\_BaseDeserialize - Deserialize Base object }
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_basedeserialize)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_basedeserialize()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       char *buf,                // in/out - really a byte stream
+       int *offset,              // in/out - current offset in the stream
+       ESMC_AttReconcileFlag *attreconflag, // in - attreconcile flag
+       int *rc,                  // out - return code
+       ESMCI_FortranStrLenArg buf_l) { // hidden/in - buffer length
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Deserialize the contents of a base object.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_BaseDeserialize\_idvmid] {c\_ESMC\_BaseDeserialize\_idvmid - Deserialize Base ID and vmId inquiry}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_basedeserialize_idvmid)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_basedeserialize_idvmid()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const char *buf,          // in - really a byte stream
+       const int *offset,        // in - current offset in the stream
+       int *ID,                  // out - Object ID
+       ESMCI::VMId **vmId,       // out - vmId
+       char *objname,            // out - base name
+       int *rc,                  // out - return code
+       ESMCI_FortranStrLenArg buf_l, // hidden/in - buffer length
+       ESMCI_FortranStrLenArg objname_l) { // hidden/in - objname length\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Deserialize the ID, vmId, and base name of a serialized Base.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [c\_ESMC\_BaseValidate] {c\_ESMC\_BaseValidate - print Base object }
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_basevalidate)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_basevalidate()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       const char *opts,         // in - F90, non-null terminated string
+       int *rc,                  // out - return code
+       ESMCI_FortranStrLenArg nlen) { // hidden/in - strlen count for options
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Validate the contents of a base object.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_GetName] {c\_ESMC\_GetName - return the object name to a Fortran caller}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_getname)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_getname()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       char *name,               // out - F90, non-null terminated string
+       int *rc,                  // out - return code
+       ESMCI_FortranStrLenArg nlen) { // hidden/in - max strlen count for name
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       return the name to a Fortran caller.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_GetVM] {c\_ESMC\_GetVM - return the object's VM to the caller}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_getvm)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_getvm()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in - base object
+       ESMCI::VM **vm,           // out - Fortran, ESMF_VM
+       int *rc) {                // out - return code
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       return the object's VM to a Fortran caller.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_SetName] {c\_ESMC\_SetName - set the object name from an F90 caller}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_setname)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_setname()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       const char *classname,    // in - F90, non-null terminated string
+       const char *objname,      // in - F90, non-null terminated string
+       int *rc,                  // out - return code
+       ESMCI_FortranStrLenArg clen,   // hidden/in - max strlen count for classname
+       ESMCI_FortranStrLenArg olen) { // hidden/in - max strlen count for objname
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       set the name from an F90 caller.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_GetClassName] {c\_ESMC\_GetClassName - return the object name to a Fortran caller}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_getclassname)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_getclassname()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       char *classname,          // out - Fortran, non-null terminated string
+       int *rc,                  // out - return code
+       ESMCI_FortranStrLenArg nlen) { // hidden/in - max strlen count for name
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       return the name to a Fortran caller.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_GetID] {c\_ESMC\_GetID - return the object id to the caller}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_getid)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_getid()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in - base object
+       int *id,                  // out - Fortran, integer address
+       int *rc) {                // out - return code
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       return the object ID to a Fortran caller.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_SetID] {c\_ESMC\_SetID - set an object id }
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_setid)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_setid()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in - base object
+       int *id,                  // in - Fortran, integer address
+       int *rc) {                // out - return code
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       set an object ID from a Fortran caller.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_GetVMId] {c\_ESMC\_GetVMId - return the object's VMId to the caller}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_getvmid)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_getvmid()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in - base object
+       ESMCI::VMId **vmid,       // out - Fortran, ESMF_VMId
+       int *rc) {                // out - return code
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       return the object's VMId to a Fortran caller.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_SetVMId] {c\_ESMC\_SetVMId - allocate space and set the object's VMId }
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_setvmid)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_setvmid()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in - base object
+       ESMCI::VMId **vmid,       // in - Fortran, ESMF_VMId
+       int *rc) {                // out - return code
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       allocate space and set the object's VMId.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_BaseSetBaseStatus] {c\_ESMC\_BaseSetBaseStatus - set baseStatus in Base object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_basesetbasestatus)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_basesetbasestatus()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       ESMC_Status *baseStatus,  // in - baseStatus
+       int *rc                   // out - return code
+       ){
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       set baseStatus in Base object
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_BaseGetBaseStatus] {c\_ESMC\_BaseGetBaseStatus - get baseStatus from Base object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_basegetbasestatus)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_basegetbasestatus()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       ESMC_Status *baseStatus,  // in - baseStatus
+       int *rc                   // out - return code
+       ){
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       get baseStatus from Base object
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_BaseSetStatus] {c\_ESMC\_BaseSetStatus - set status in Base object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_basesetstatus)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_basesetstatus()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in/out - base object
+       ESMC_Status *status,      // in - status
+       int *rc                   // out - return code
+       ){
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       set status in Base object
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [c\_ESMC\_BaseGetStatus] {c\_ESMC\_BaseGetStatus - get status from Base object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_basegetstatus)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_basegetstatus()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in - base object
+       ESMC_Status *status,      // out - status
+       int *rc                   // out - return code
+       ){
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       get status from Base object
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [c\_ESMC\_IsProxy] {c\_ESMC\_IsProxy - test if this base object is a proxy}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       void FTN_X(c_esmc_isproxy)(
+ #undef  ESMC_METHOD
+ #define ESMC_METHOD "c_esmc_isproxy()"\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none.  return code is passed thru the parameter list
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_Base **base,         // in - base object
+       ESMC_Logical *isProxy,    // out - true or false
+       int *rc) {                // out - return code
+   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Return ESMF\_TRUE or ESMF\_FALSE in {\tt isProxy}.
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

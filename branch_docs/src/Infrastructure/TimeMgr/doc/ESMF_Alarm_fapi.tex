@@ -1,0 +1,1061 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_Alarm.F90,  Date: Tue May  5 20:59:34 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_AlarmAssignment(=)] {ESMF\_AlarmAssignment(=) - Assign an Alarm to another Alarm}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface assignment(=)
+       alarm1 = alarm2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm) :: alarm1
+       type(ESMF_Alarm) :: alarm2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Assign {\tt alarm1} as an alias to the same {\tt ESMF\_Alarm} object in
+       memory as {\tt alarm2}. If {\tt alarm2} is invalid, then {\tt alarm1}
+       will be equally invalid after the assignment.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm1]
+            The {\tt ESMF\_Alarm} object on the left hand side of the
+            assignment.
+       \item[alarm2]
+            The {\tt ESMF\_Alarm} object on the right hand side of the
+            assignment.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmOperator(==)] {ESMF\_AlarmOperator(==) - Test if Alarm 1 is equal to Alarm 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(==)
+       if (alarm1 == alarm2) then ... endif
+                    OR
+       result = (alarm1 == alarm2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(in) :: alarm1
+       type(ESMF_Alarm), intent(in) :: alarm2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (==) operator for the {\tt ESMF\_Alarm} class.
+       Compare two alarms for equality; return {\tt .true.} if equal,
+       {\tt .false.} otherwise. Comparison is based on IDs, which are distinct
+       for newly created alarms and identical for alarms created as copies.
+  
+       If either side of the equality test is not in the
+       {\tt ESMF\_INIT\_CREATED} status an error will be logged. However, this
+       does not affect the return value, which is {\tt .true.} when both
+       sides are in the {\em same} status, and {\tt .false.} otherwise.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm1]
+            The {\tt ESMF\_Alarm} object on the left hand side of the equality
+            operation.
+       \item[alarm2]
+            The {\tt ESMF\_Alarm} object on the right hand side of the equality
+            operation.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmOperator(/=)] {ESMF\_AlarmOperator(/=) - Test if Alarm 1 is not equal to Alarm 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(/=)
+       if (alarm1 /= alarm2) then ... endif
+                    OR
+       result = (alarm1 /= alarm2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(in) :: alarm1
+       type(ESMF_Alarm), intent(in) :: alarm2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (/=) operator for the {\tt ESMF\_Alarm} class.
+       Compare two alarms for inequality; return {\tt .true.} if not equal,
+       {\tt .false.} otherwise. Comparison is based on IDs, which are distinct
+       for newly created alarms and identical for alarms created as copies.
+  
+       If either side of the equality test is not in the
+       {\tt ESMF\_INIT\_CREATED} status an error will be logged. However, this
+       does not affect the return value, which is {\tt .true.} when both sides
+       are {\em not} in the {\em same} status, and {\tt .false.} otherwise.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm1]
+            The {\tt ESMF\_Alarm} object on the left hand side of the
+            non-equality operation.
+       \item[alarm2]
+            The {\tt ESMF\_Alarm} object on the right hand side of the
+            non-equality operation.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmCreate] {ESMF\_AlarmCreate - Create a new ESMF Alarm}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ! Private name; call using ESMF_AlarmCreate()
+       function ESMF_AlarmCreateNew(clock, &
+         ringTime, ringInterval, stopTime, ringDuration, ringTimeStepCount, &
+         refTime, enabled, sticky, name, rc)
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_Alarm) :: ESMF_AlarmCreateNew
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Clock),        intent(in)            :: clock
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_Time),         intent(in),  optional :: ringTime
+       type(ESMF_TimeInterval), intent(in),  optional :: ringInterval
+       type(ESMF_Time),         intent(in),  optional :: stopTime
+       type(ESMF_TimeInterval), intent(in),  optional :: ringDuration
+       integer,                 intent(in),  optional :: ringTimeStepCount
+       type(ESMF_Time),         intent(in),  optional :: refTime
+       logical,                 intent(in),  optional :: enabled
+       logical,                 intent(in),  optional :: sticky
+       character (len=*),       intent(in),  optional :: name
+       integer,                 intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Creates and sets the initial values in a new {\tt ESMF\_Alarm}.
+  
+       In {\tt ESMF\_DIRECTION\_REVERSE} (see Section~\ref{sec:Clock}), alarms
+       ring in reverse, i.e., they begin ringing when they originally ended,
+       and end ringing when they originally began.
+  
+       The arguments are:
+       \begin{description}
+       \item[clock]
+            The clock with which to associate this newly created alarm.
+       \item[{[ringTime]}]
+            The ring time for a one-shot alarm or the first ring time for a
+            repeating (interval) alarm.  Must specify at least one of ringTime
+            or ringInterval.
+       \item[{[ringInterval]}]
+            The ring interval for repeating (interval) alarms.  If
+            {\tt ringTime} is not also specified (first ring time), it will be
+            calculated as the {\tt clock}'s current time plus {\tt ringInterval}.
+            Must specify at least one of ringTime or ringInterval.
+       \item[{[stopTime]}]
+            The stop time for repeating (interval) alarms.  If not
+            specified, an interval alarm will repeat forever.
+       \item[{[ringDuration]}]
+            The absolute ring duration.  If not sticky (see argument below),
+            alarms rings for ringDuration, then turns itself off.  Default is
+            zero (unused).  Mutually exclusive with ringTimeStepCount (below);
+            used only if set to a non-zero duration and ringTimeStepCount is 1
+            (see below).
+            See also {\tt ESMF\_AlarmSticky()}, {\tt ESMF\_AlarmNotSticky()}.
+       \item[{[ringTimeStepCount]}]
+            The relative ring duration.  If not sticky (see argument below),
+            alarms rings for ringTimeStepCount, then turns itself off.
+            Default is 1: a non-sticky alarm will ring for one clock time step.
+            Mutually exclusive with ringDuration (above); used if
+            ringTimeStepCount > 1.  If ringTimeStepCount is 1 (default) and
+            ringDuration is non-zero, ringDuration is used (see above), otherwise
+            ringTimeStepCount is used.
+            See also {\tt ESMF\_AlarmSticky()}, {\tt ESMF\_AlarmNotSticky()}.
+       \item[{[refTime]}]
+            The reference (i.e. base) time for an interval alarm.
+       \item[{[enabled]}]
+            Sets the enabled state; default is on (true).  If disabled,
+            an alarm will not function at all.
+            See also {\tt ESMF\_AlarmEnable()}, {\tt ESMF\_AlarmDisable()}.
+       \item[{[sticky]}]
+            Sets the sticky state; default is on (true).  If sticky,
+            once an alarm is ringing, it will remain ringing until turned off
+            manually via a user call to {\tt ESMF\_AlarmRingerOff()}.
+            If not sticky, an alarm will turn itself off after a certain
+            ring duration specified by either ringDuration or
+            ringTimeStepCount (see above).  There is an implicit limitation
+            that in order to properly reverse timestep through a ring end
+            time in {\tt ESMF\_DIRECTION\_REVERSE}, that time must have already
+            been traversed in the forward direction.  This is due to the fact
+            that the Time Manager cannot predict when user code will call
+            {\tt ESMF\_AlarmRingerOff()}.  An error message will be logged
+            when this limitation is not satisfied.
+            See also {\tt ESMF\_AlarmSticky()}, {\tt ESMF\_AlarmNotSticky()}.
+       \item[{[name]}]
+            The name for the newly created alarm.  If not specified,
+            a default unique name will be generated: "AlarmNNN" where NNN
+            is a unique sequence number from 001 to 999.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmCreate] {ESMF\_AlarmCreate - Create a copy of an existing ESMF Alarm}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ! Private name; call using ESMF_AlarmCreate()
+       function ESMF_AlarmCreateCopy(alarm, rc)
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_Alarm) :: ESMF_AlarmCreateCopy
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(in)            :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,          intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Creates a complete (deep) copy of a given {\tt ESMF\_Alarm}.
+       The returned {\tt ESMF\_Alarm} copy is associated with the same
+       {\tt ESMF\_Clock} as the original {\tt ESMF\_Alarm}.  If desired, use
+       {\tt ESMF\_AlarmSet(...clock=...)} to re-associate the
+       {\tt ESMF\_Alarm} copy with a different {\tt ESMF\_Clock}.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+          The {\tt ESMF\_Alarm} to copy.
+       \item[{[rc]}]
+          Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmDestroy] {ESMF\_AlarmDestroy - Release resources associated with an Alarm}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_AlarmDestroy(alarm, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(inout)          :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,          intent(out),  optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       \begin{sloppypar}
+       Releases resources associated with this {\tt ESMF\_Alarm}.  Also
+       removes this {\tt ESMF\_Alarm} from its associated {\tt ESMF\_Clock}'s
+       list of {\tt ESMF\_Alarm}s (removes the {\tt ESMF\_Alarm} pointer from
+       the list).
+       \end{sloppypar}
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+         Release resources associated with this {\tt ESMF\_Alarm} and mark the
+         object as invalid.  It is an error to pass this object into any other
+         routines after being destroyed.
+       \item[[rc]]
+         Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmDisable] {ESMF\_AlarmDisable - Disable an Alarm}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_AlarmDisable(alarm, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(inout)         :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,          intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Disables an {\tt ESMF\_Alarm}.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The object instance to disable.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmEnable] {ESMF\_AlarmEnable - Enable an Alarm}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_AlarmEnable(alarm, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(inout)         :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,          intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Enables an {\tt ESMF\_Alarm} to function.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The object instance to enable.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmGet] {ESMF\_AlarmGet - Get Alarm properties}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_AlarmGet(alarm, &
+         clock, ringTime, prevRingTime, ringInterval, stopTime, ringDuration, &
+         ringTimeStepCount, timeStepRingingCount, ringBegin, ringEnd, &
+         refTime, ringing, ringingOnPrevTimeStep, enabled, sticky, name, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm),        intent(in)            :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_Clock),        intent(out), optional :: clock
+       type(ESMF_Time),         intent(out), optional :: ringTime
+       type(ESMF_Time),         intent(out), optional :: prevRingTime
+       type(ESMF_TimeInterval), intent(out), optional :: ringInterval
+       type(ESMF_Time),         intent(out), optional :: stopTime
+       type(ESMF_TimeInterval), intent(out), optional :: ringDuration
+       integer,                 intent(out), optional :: ringTimeStepCount
+       integer,                 intent(out), optional :: timeStepRingingCount
+       type(ESMF_Time),         intent(out), optional :: ringBegin
+       type(ESMF_Time),         intent(out), optional :: ringEnd
+       type(ESMF_Time),         intent(out), optional :: refTime
+       logical,                 intent(out), optional :: ringing
+       logical,                 intent(out), optional :: ringingOnPrevTimeStep
+       logical,                 intent(out), optional :: enabled
+       logical,                 intent(out), optional :: sticky
+       character (len=*),       intent(out), optional :: name
+       integer,                 intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Gets one or more of an {\tt ESMF\_Alarm}'s properties.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The object instance to query.
+       \item[{[clock]}]
+            The associated clock.
+       \item[{[ringTime]}]
+            The ring time for a one-shot alarm or the next repeating alarm.
+       \item[{[prevRingTime]}]
+            The previous ring time.
+       \item[{[ringInterval]}]
+            The ring interval for repeating (interval) alarms.
+       \item[{[stopTime]}]
+            The stop time for repeating (interval) alarms.
+       \item[{[ringDuration]}]
+            The ring duration.  Mutually exclusive with
+            ringTimeStepCount (see below).
+       \item[{[ringTimeStepCount]}]
+            The number of time steps comprising the ring duration.  Mutually
+            exclusive with ringDuration (see above).
+       \item[{[timeStepRingingCount]}]
+            The number of time steps for which the alarm has been ringing thus
+            far.  Used internally for tracking ringTimeStepCount ring
+            durations (see above).  Mutually exclusive with ringBegin
+            (see below).  Increments in {\tt ESMF\_DIRECTION\_FORWARD} and
+            decrements in {\tt ESMF\_DIRECTION\_REVERSE};
+            see Section~\ref{sec:Clock}.
+       \item[{[ringBegin]}]
+            The time when the alarm began ringing.  Used internally for tracking
+            ringDuration (see above).  Mutually exclusive with
+            timeStepRingingCount (see above).
+       \item[{[ringEnd]}]
+            \begin{sloppypar}
+            The time when the alarm ended ringing.  Used internally for
+            re-ringing alarm in {\tt ESMF\_DIRECTION\_REVERSE}.
+            \end{sloppypar}
+       \item[{[refTime]}]
+            The reference (i.e. base) time for an interval alarm.
+       \item[{[ringing]}]
+            The current ringing state.
+            See also {\tt ESMF\_AlarmRingerOn()}, {\tt ESMF\_AlarmRingerOff()}.
+       \item[{[ringingOnPrevTimeStep]}]
+            \begin{sloppypar}
+            The ringing state upon the previous time step. Same as
+            {\tt ESMF\_AlarmWasPrevRinging()}.
+            \end{sloppypar}
+       \item[{[enabled]}]
+            The enabled state.
+            See also {\tt ESMF\_AlarmEnable()}, {\tt ESMF\_AlarmDisable()}.
+       \item[{[sticky]}]
+            The sticky state.
+            See also {\tt ESMF\_AlarmSticky()}, {\tt ESMF\_AlarmNotSticky()}.
+       \item[{[name]}]
+            The name of this alarm.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmIsCreated] {ESMF\_AlarmIsCreated - Check whether a Alarm object has been created}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function ESMF_AlarmIsCreated(alarm, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: ESMF_AlarmIsCreated\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Alarm), intent(in)            :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,             intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return {\tt .true.} if the {\tt alarm} has been created. Otherwise return
+     {\tt .false.}. If an error occurs, i.e. {\tt rc /= ESMF\_SUCCESS} is
+     returned, the return value of the function will also be {\tt .false.}.
+  
+   The arguments are:
+     \begin{description}
+     \item[alarm]
+       {\tt ESMF\_Alarm} queried.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmIsEnabled] {ESMF\_AlarmIsEnabled - Check if Alarm is enabled}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       function ESMF_AlarmIsEnabled(alarm, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: ESMF_AlarmIsEnabled
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(in)            :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,          intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Check if {\tt ESMF\_Alarm} is enabled.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The object instance to check for enabled state.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmIsRinging] {ESMF\_AlarmIsRinging - Check if Alarm is ringing}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       function ESMF_AlarmIsRinging(alarm, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: ESMF_AlarmIsRinging
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(in)            :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,          intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Check if {\tt ESMF\_Alarm} is ringing.
+  
+       See also method
+             {\tt ESMF\_ClockGetAlarmList(clock, ESMF\_ALARMLIST\_RINGING, ...)}
+       to get a list of all ringing alarms belonging to an {\tt ESMF\_Clock}.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The alarm to check for ringing state.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmIsSticky] {ESMF\_AlarmIsSticky - Check if Alarm is sticky}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       function ESMF_AlarmIsSticky(alarm, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: ESMF_AlarmIsSticky
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(in)            :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,          intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Check if {\tt alarm} is sticky.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The object instance to check for sticky state.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmNotSticky] {ESMF\_AlarmNotSticky - Unset an Alarm's sticky flag}
+
+
+ 
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_AlarmNotSticky(alarm, &
+         ringDuration, ringTimeStepCount, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm),        intent(inout)         :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_TimeInterval), intent(in),  optional :: ringDuration
+       integer,                 intent(in),  optional :: ringTimeStepCount
+       integer,                 intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Unset an {\tt ESMF\_Alarm}'s sticky flag; once alarm is ringing,
+       it turns itself off after ringDuration.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The object instance to unset sticky.
+       \item[{[ringDuration]}]
+            If not sticky, alarms rings for ringDuration, then turns itself off.
+            Mutually exclusive with ringTimeStepCount (see below and full
+            description in method {\tt ESMF\_AlarmCreate()} or
+            {\tt ESMF\_AlarmSet()}).
+       \item[{[ringTimeStepCount]}]
+            \begin{sloppypar}
+            If not sticky, alarms rings for ringTimeStepCount, then turns
+            itself off.  Mutually exclusive with ringDuration (see above and
+            full description in method {\tt ESMF\_AlarmCreate()} or
+            {\tt ESMF\_AlarmSet()}).
+            \end{sloppypar}
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmPrint] {ESMF\_AlarmPrint - Print Alarm information}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_AlarmPrint(alarm, options, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm),  intent(in)            :: alarm
+       character (len=*), intent(in),  optional :: options
+       integer,           intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Prints out an {\tt ESMF\_Alarm}'s properties to {\tt stdout}, in support
+       of testing and debugging.  The options control the type of information
+       and level of detail. \\
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            {\tt ESMF\_Alarm} to be printed out.
+       \item[{[options]}]
+            Print options. If none specified, prints all {\tt alarm} property values.\\
+            "clock"        - print the associated clock's name. \\
+            "enabled"      - print the alarm's ability to ring. \\
+            "name"         - print the alarm's name. \\
+            "prevRingTime" - print the alarm's previous ring time. \\
+            "ringBegin"    - print time when the alarm actually begins to ring.\\
+            "ringDuration" - print how long this alarm is to remain ringing. \\
+            "ringEnd"      - print time when the alarm actually ends ringing.\\
+            "ringing"                - print the alarm's current ringing state.\\
+            "ringingOnPrevTimeStep"  - print whether the alarm was ringing
+                                       immediately after the previous clock
+                                       time step. \\
+            "ringInterval" - print the alarm's periodic ring interval. \\
+            "ringTime"     - print the alarm's next time to ring. \\
+            "ringTimeStepCount" - print how long this alarm is to remain
+                                  ringing, in terms of a number of clock time
+                                  steps. \\
+            "refTime"      - print the alarm's interval reference (base) time. \\
+            "sticky"       - print whether the alarm must be turned off
+                             manually. \\
+            "stopTime"     - print when alarm intervals end. \\
+            "timeStepRingingCount"   - print the number of time steps the
+                                       alarm has been ringing thus far. \\
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmRingerOff] {ESMF\_AlarmRingerOff - Turn off an Alarm}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_AlarmRingerOff(alarm, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(inout)         :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,          intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Turn off an {\tt ESMF\_Alarm}; unsets ringing state.  For a sticky
+       alarm, this method must be called to turn off its ringing state.
+       This is true for either {\tt ESMF\_DIRECTION\_FORWARD} (default) or
+       {\tt ESMF\_DIRECTION\_REVERSE}.  See Section~\ref{sec:Clock}.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The object instance to turn off.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmRingerOn] {ESMF\_AlarmRingerOn - Turn on an Alarm}
+
+
+ 
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_AlarmRingerOn(alarm, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(inout)         :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,          intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Turn on an {\tt ESMF\_Alarm}; sets ringing state.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The object instance to turn on.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmSet] {ESMF\_AlarmSet - Set Alarm properties}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_AlarmSet(alarm, &
+         clock, ringTime, ringInterval, stopTime, ringDuration, &
+         ringTimeStepCount, refTime, ringing, enabled, sticky, name, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm),        intent(inout)         :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_Clock),        intent(in),  optional :: clock
+       type(ESMF_Time),         intent(in),  optional :: ringTime
+       type(ESMF_TimeInterval), intent(in),  optional :: ringInterval
+       type(ESMF_Time),         intent(in),  optional :: stopTime
+       type(ESMF_TimeInterval), intent(in),  optional :: ringDuration
+       integer,                 intent(in),  optional :: ringTimeStepCount
+       type(ESMF_Time),         intent(in),  optional :: refTime
+       logical,                 intent(in),  optional :: ringing
+       logical,                 intent(in),  optional :: enabled
+       logical,                 intent(in),  optional :: sticky
+       character (len=*),       intent(in),  optional :: name
+       integer,                 intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       \begin{sloppypar}
+       Sets/resets one or more of the properties of an {\tt ESMF\_Alarm} that
+       was previously initialized via {\tt ESMF\_AlarmCreate()}.
+       \end{sloppypar}
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The object instance to set.
+       \item[{[clock]}]
+            Re-associates this alarm with a different clock.
+       \item[{[ringTime]}]
+            The next ring time for a one-shot alarm or a repeating (interval)
+            alarm.
+       \item[{[ringInterval]}]
+            The ring interval for repeating (interval) alarms.
+       \item[{[stopTime]}]
+            The stop time for repeating (interval) alarms.
+       \item[{[ringDuration]}]
+            The absolute ring duration.  If not sticky (see argument below),
+            alarms rings for ringDuration, then turns itself off.  Default is
+            zero (unused).  Mutually exclusive with ringTimeStepCount (below);
+            used only if set to a non-zero duration and ringTimeStepCount is 1
+            (see below).
+            See also {\tt ESMF\_AlarmSticky()}, {\tt ESMF\_AlarmNotSticky()}.
+       \item[{[ringTimeStepCount]}]
+            The relative ring duration.  If not sticky (see argument below),
+            alarms rings for ringTimeStepCount, then turns itself off.
+            Default is 1: a non-sticky alarm will ring for one clock time step.
+            Mutually exclusive with ringDuration (above); used if
+            ringTimeStepCount > 1.  If ringTimeStepCount is 1 (default) and
+            ringDuration is non-zero, ringDuration is used (see above), otherwise
+            ringTimeStepCount is used.
+            See also {\tt ESMF\_AlarmSticky()}, {\tt ESMF\_AlarmNotSticky()}.
+       \item[{[refTime]}]
+            The reference (i.e. base) time for an interval alarm.
+       \item[{[ringing]}]
+            Sets the ringing state.
+            See also {\tt ESMF\_AlarmRingerOn()}, {\tt ESMF\_AlarmRingerOff()}.
+       \item[{[enabled]}]
+            Sets the enabled state.  If disabled, an alarm will not function
+            at all.
+            See also {\tt ESMF\_AlarmEnable()}, {\tt ESMF\_AlarmDisable()}.
+       \item[{[sticky]}]
+            Sets the sticky state.  If sticky, once an alarm is ringing, it
+            will remain ringing until turned off manually via a user call to
+            {\tt ESMF\_AlarmRingerOff()}.  If not sticky, an alarm will turn
+            itself off after a certain ring duration specified by either
+            ringDuration or ringTimeStepCount (see above).
+            There is an implicit limitation that in order to properly reverse
+            timestep through a ring end time in {\tt ESMF\_DIRECTION\_REVERSE},
+            that time must have already been traversed in the forward direction.
+            This is due to the fact that the Time Manager cannot predict when
+            user code will call {\tt ESMF\_AlarmRingerOff()}.  An error message
+            will be logged when this limitation is not satisfied.
+            See also {\tt ESMF\_AlarmSticky()}, {\tt ESMF\_AlarmNotSticky()}.
+       \item[{[name]}]
+            The new name for this alarm.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmSticky] {ESMF\_AlarmSticky - Set an Alarm's sticky flag}
+
+
+ 
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_AlarmSticky(alarm, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(inout)         :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,          intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Set an {\tt ESMF\_Alarm}'s sticky flag; once alarm is ringing,
+       it remains ringing until {\tt ESMF\_AlarmRingerOff()} is called.
+       There is an implicit limitation that in order to properly reverse
+       timestep through a ring end time in {\tt ESMF\_DIRECTION\_REVERSE}, that
+       time must have already been traversed in the forward direction.
+       This is due to the fact that an {\tt ESMF\_Alarm} cannot predict when
+       user code will call {\tt ESMF\_AlarmRingerOff()}.  An error message
+       will be logged when this limitation is not satisfied.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The object instance to be set sticky.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmValidate] {ESMF\_AlarmValidate - Validate an Alarm's properties}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_AlarmValidate(alarm, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm),  intent(in)            :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,           intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Performs a validation check on an {\tt ESMF\_Alarm}'s properties.
+       Must have a valid ringTime, set either directly or indirectly via
+       ringInterval.  See {\tt ESMF\_AlarmCreate()}.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            {\tt ESMF\_Alarm} to be validated.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmWasPrevRinging] {ESMF\_AlarmWasPrevRinging - Check if Alarm was ringing on the previous Clock timestep}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       function ESMF_AlarmWasPrevRinging(alarm, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: ESMF_AlarmWasPrevRinging
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm), intent(in)            :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,          intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Check if {\tt ESMF\_Alarm} was ringing on the previous clock timestep.
+  
+       See also method
+         {\tt ESMF\_ClockGetAlarmList(clock, ESMF\_ALARMLIST\_PREVRINGING, ...)}
+       get a list of all alarms belonging to a {\tt ESMF\_Clock} that were
+       ringing on the previous time step.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The object instance to check for previous ringing state.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_AlarmWillRingNext] {ESMF\_AlarmWillRingNext - Check if Alarm will ring upon the next Clock timestep}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       function ESMF_AlarmWillRingNext(alarm, timeStep, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: ESMF_AlarmWillRingNext
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Alarm),        intent(in)            :: alarm
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_TimeInterval), intent(in),  optional :: timeStep
+       integer,                 intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Check if {\tt ESMF\_Alarm} will ring on the next clock timestep, either
+       the current clock timestep or a passed-in timestep.
+  
+       See also method
+         {\tt ESMF\_ClockGetAlarmList(clock, ESMF\_ALARMLIST\_NEXTRINGING, ...)}
+       to get a list of all alarms belonging to a {\tt ESMF\_Clock} that will
+       ring on the next time step.
+  
+       The arguments are:
+       \begin{description}
+       \item[alarm]
+            The alarm to check for next ringing state.
+       \item[{[timeStep]}]
+            Optional timestep to use instead of the clock's.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

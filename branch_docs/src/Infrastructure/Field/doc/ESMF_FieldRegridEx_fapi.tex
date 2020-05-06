@@ -1,0 +1,123 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_FieldRegridEx.F90,  Date: Tue May  5 21:00:02 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+  \subsubsection{Field regridding}\label{sec:fieldregrid}
+  
+   This section describes the Field regrid methods. For an in depth description of ESMF regridding and the options available
+   please see Section~\ref{sec:regrid}. 
+  
+   The basic flow of ESMF Field regridding is as follows. First a source and destination geometry object are created, depending on 
+   the regrid method they can be either a Grid, a Mesh, or a LocStream. 
+   Next Fields are built on the source and destination grid objects. These Fields are then passed into {\tt ESMF\_FieldRegridStore()}. The user can either get a 
+   sparse matrix from this call and/or a {\tt routeHandle}. If the user gets the sparse matrix then they are responsible for deallocating it, but other than that
+   can use it as they wish. The {\tt routeHandle} can be used in the {\tt ESMF\_FieldRegrid()} call to perform the actual interpolation of data from the source 
+   to the destination field. This interpolation can be repeated for the same set of Fields as long as the coordinates at the staggerloc involved in the
+   regridding in the associated grid object don't change. The same {\tt routeHandle} can also be used between any pair of Fields that matches the original 
+   pari in {\em type}, {\em kind}, and memory layout of the {\em gridded} dimensions. However, the size, number, and index order of {\em ungridded} dimensions
+   may be different. See section \ref{RH:Reusability} for a more detailed discussion of RouteHandle reusability.
+   However, if you want                                     
+   the routehandle to be the same interpolation between the grid objects upon which the Fields are built as was calculated                                        
+   with the original {\tt ESMF\_FieldRegridStore()} call, then there                                                                                              
+   are additional constraints on the grid objects. To be the same interpolation, the grid objects upon which the                                                  
+   Fields are build must contain the same coordinates at the stagger locations involved in the regridding as                                                      
+   the original source and destination Fields used in the {\tt ESMF\_FieldRegridStore()} call.                                                                    
+   The routehandle represents the interpolation between the grid objects as they were during the {\tt ESMF\_FieldRegridStore()} call.                             
+   So if the coordinates at the stagger location in the grid objects change, a new call to {\tt ESMF\_FieldRegridStore()}                                         
+   is necessary to compute the interpolation between that new set of coordinates. When finished with the {\tt routeHandle} 
+   {\tt ESMF\_FieldRegridRelease()} should be used to 
+   free the associated memory. 
+  
+   The following example demonstrates doing a regrid operation between two Fields.
+   
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+  ! (Create source Grid, Mesh, or LocStream.)
+  ! (Create srcField on the above.)
+
+  ! (Create destination Grid, Mesh, or LocStream.)
+  ! (Create dstField on the above.)
+  
+  ! Create the routeHandle which encodes the communication and
+  ! information necessary for the regrid sparse matrix multiply.
+  call ESMF_FieldRegridStore(srcField=srcField, dstField=dstField, &
+                             routeHandle=routeHandle, rc=localrc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+ 
+  ! Can loop here regridding from srcField to dstField 
+  ! do i=1,....
+
+       ! (Put data into srcField)
+
+       ! Use the routeHandle to regrid data from srcField to dstField.
+       ! As described above, the same routeHandle can be used to 
+       ! regrid a large class of different source and destination Fields. 
+       call ESMF_FieldRegrid(srcField, dstField, routeHandle, rc=localrc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+  !    (Use data in dstField)
+
+  ! enddo 
+
+
+  ! Free the buffers and data associated with the routeHandle. 
+  call ESMF_FieldRegridRelease(routeHandle, rc=localrc)
+
+ 
+\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

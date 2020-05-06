@@ -1,0 +1,122 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: GridComp2Template.F90,  Date: Tue May  5 21:00:19 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+  
+{\sf DESCRIPTION:\\ }
+
+
+    A Template for a User-Written Gridded Component.
+  
+  
+  \begin{verbatim}
+ 
+     module UserGridComp2Mod
+     
+     ! ESMF Framework module
+     use ESMF
+     
+     implicit none
+     private
+     
+     public UserGrid_SetServices
+ 
+     contains
+ 
+     subroutine UserGrid_SetServices(gcomp, rc)
+        type(ESMF_GridComp) :: gcomp
+        integer, intent(out) :: rc
+ 
+        call ESMF_GridCompSetEntryPoint(gcomp, ESMF_METHOD_INITIALIZE, my_init, rc=rc)
+        call ESMF_GridCompSetEntryPoint(gcomp, ESMF_METHOD_RUN, my_run, rc=rc)
+        call ESMF_GridCompSetEntryPoint(gcomp, ESMF_METHOD_FINALIZE, my_final, rc=rc)
+ 
+     end subroutine UserGrid_SetServices
+ 
+ 
+     subroutine my_init(gcomp, importState, exportState, externalclock, rc)
+       type(ESMF_GridComp) :: gcomp
+       type(ESMF_State) :: importState
+       type(ESMF_State) :: exportState
+       type(ESMF_Clock) :: externalclock
+       integer, intent(out) :: rc
+      
+ 
+       call ESMF_LogWrite("User initialize routine called", ESMF_LOGMSG_INFO)
+       rc = ESMF_SUCCESS
+ 
+     end subroutine my_init
+ 
+ 
+     subroutine my_run(gcomp, importState, exportState, externalclock, rc)
+       type(ESMF_GridComp) :: gcomp
+       type(ESMF_State) :: importState
+       type(ESMF_State) :: exportState
+       type(ESMF_Clock) :: externalclock
+       integer, intent(out) :: rc
+      
+       call ESMF_LogWrite("User run routine called", ESMF_LOGMSG_INFO)
+       rc = ESMF_SUCCESS
+ 
+     end subroutine my_run
+ 
+ 
+     subroutine my_final(gcomp, importState, exportState, externalclock, rc)
+       type(ESMF_GridComp) :: gcomp
+       type(ESMF_State) :: importState
+       type(ESMF_State) :: exportState
+       type(ESMF_Clock) :: externalclock
+       integer, intent(out) :: rc
+      
+       call ESMF_LogWrite("User finalize routine called", ESMF_LOGMSG_INFO)
+       rc = ESMF_SUCCESS
+ 
+     end subroutine my_final
+ 
+     end module UserGridComp2Mod
+ 
+  \end{verbatim}
+     
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

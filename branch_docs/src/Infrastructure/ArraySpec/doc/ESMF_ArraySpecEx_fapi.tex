@@ -1,0 +1,132 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_ArraySpecEx.F90,  Date: Tue May  5 20:59:37 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+! !PROGRAM: ESMF_ArraySpecEx - ArraySpec manipulation examples
+!
+! !DESCRIPTION:
+!
+! This program shows examples of ArraySpec set and get usage
+!-----------------------------------------------------------------------------
+#include "ESMF.h"
+
+      ! ESMF Framework module
+      use ESMF
+      use ESMF_TestMod
+      implicit none
+
+      ! local variables
+      type(ESMF_ArraySpec) :: arrayDS
+      integer :: myrank
+      type(ESMF_TypeKind_Flag) :: mytypekind
+
+
+      ! return code
+      integer:: rc, result
+      character(ESMF_MAXSTR) :: testname
+      character(ESMF_MAXSTR) :: failMsg
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! initialize ESMF framework
+      call ESMF_Initialize(defaultlogfilename="ArraySpecEx.Log", &
+                    logkindflag=ESMF_LOGKIND_MULTI, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection{Set ArraySpec values}
+ 
+   This example shows how to set values in an {\tt ESMF\_ArraySpec}. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      call ESMF_ArraySpecSet(arrayDS, rank=2, &
+                             typekind=ESMF_TYPEKIND_R8, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection{Get ArraySpec values}
+ 
+   This example shows how to query an {\tt ESMF\_ArraySpec}. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      call ESMF_ArraySpecGet(arrayDS, rank=myrank, &
+        typekind=mytypekind, rc=rc)
+      print *, "Returned values from ArraySpec:"
+      print *, "rank =", myrank
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! finalize ESMF framework
+      call ESMF_Finalize(rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      end program ESMF_ArraySpecEx
+ 
+\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

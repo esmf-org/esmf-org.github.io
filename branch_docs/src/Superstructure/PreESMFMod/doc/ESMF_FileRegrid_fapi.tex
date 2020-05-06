@@ -1,0 +1,158 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_FileRegrid.F90,  Date: Tue May  5 21:00:18 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_FileRegrid] {ESMF\_FileRegrid - Regrid variables defined in the grid files}
+
+
+   \label{api:esmf_fileregrid}
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_FileRegrid(srcFile, dstFile, srcVarName, dstVarName, &
+     dstLoc, srcDataFile, dstDataFile, tileFilePath, &
+     dstCoordVars, regridmethod, polemethod, regridPoleNPnts, &
+     unmappedaction, ignoreDegenerate, srcRegionalFlag, dstRegionalFlag, &
+     verboseFlag, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim} 
+   character(len=*),             intent(in)            :: srcFile
+   character(len=*),             intent(in)            :: dstFile
+   character(len=*),             intent(in)            :: srcVarName
+   character(len=*),             intent(in)            :: dstVarName
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+   character(len=*),             intent(in),  optional :: dstLoc
+   character(len=*),             intent(in),  optional :: srcDataFile     
+   character(len=*),             intent(in),  optional :: dstDataFile     
+   character(len=*),             intent(in),  optional :: tileFilePath
+   character(len=*),             intent(in),  optional :: dstCoordVars
+   type(ESMF_RegridMethod_Flag), intent(in),  optional :: regridmethod
+   type(ESMF_PoleMethod_Flag),   intent(in),  optional :: polemethod
+   integer,                      intent(in),  optional :: regridPoleNPnts
+   type(ESMF_UnmappedAction_Flag),intent(in), optional :: unmappedaction
+   logical,                      intent(in),  optional :: ignoreDegenerate
+   logical,                      intent(in),  optional :: srcRegionalFlag
+   logical,                      intent(in),  optional :: dstRegionalFlag
+   logical,                      intent(in),  optional :: verboseFlag
+   integer,                      intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   This subroutine provides the same function as the {\tt ESMF\_Regrid} application
+   described in Section~\ref{sec:ESMF_Regrid}.  It takes two grid files in NetCDF format and interpolate
+   the variable defined in the source grid file to the destination variable using one of the ESMF supported
+   regrid methods -- bilinear~(\ref{sec:interpolation:bilinear}), higher-order patch~(\ref{sec:interpolation:patch}),
+   first order conservative~(\ref{sec:interpolation:conserve}) or nearest neighbor methods.
+   The grid files can be in one of the following two formats:
+   \begin{itemize}
+   \item The GRIDSPEC Tile grid file following the CF metadata convention~(\ref{sec:fileformat:gridspec}) for logically rectangular grids
+   \item The proposed CF Unstructured grid (UGRID) format~(\ref{sec:fileformat:ugrid}) for  unstructured grids.
+   \end{itemize}
+   \smallskip
+   The optional arguments allow users to specify various options to control the regrid operation,
+   such as which pole option to use, or whether to use user-specified area in the conservative regridding.
+   The acceptable values and the default value for the optional arguments are listed below.
+  
+   The arguments are:
+     \begin{description}
+     \item [srcFile]
+       The source grid file name.
+     \item [dstFile]
+       The destination grid file name.
+     \item [srcVarName]
+       The source variable names to be regridded. If more than one, separate them by comma.
+     \item [dstVarName]
+       The destination variable names to be regridded to. If more than one, separate them by comma.
+     \item [{[dstLoc]}]
+       The destination variable's location, either 'node' or 'face'.  This
+       argument is only used when the destination grid file is UGRID, the regridding method is
+       non-conservative and the destination variable does not exist in the destination grid file.
+       If not specified, default is 'face'.
+     \item [{[srcDataFile]}]
+       The input data file prefix if the srcFile is in GRIDSPEC MOSAIC
+       fileformat.  The tilename and the file extension (.nc) will be added to
+       the prefix.  The tilename is defined in the MOSAIC file using variable "gridtiles".
+     \item [{[dstDataFile]}]
+       The output data file prefix if the dstFile is in GRIDSPEC MOSAIC
+       fileformat.  The tilename and the file extension (.nc) will be added to
+       the prefix.  The tilename is defined in the MOSAIC file using variable "gridtiles".
+     \item [{[tileFilePath]}]
+       The alternative file path for the tile files and mosaic data files when either srcFile or
+       dstFile is a GRIDSPEC MOSAIC grid.  The path can be either relative or absolute.  If it is
+       relative, it is relative to the working directory.  When specified, the gridlocation variable
+       defined in the Mosaic file will be ignored.
+     \item [{[dstCoordVars]}]
+       The destination coordinate variable names if the dstVarName does not exist in the dstFile
+     \item [{[regridmethod]}]
+       The type of interpolation. Please see Section~\ref{opt:regridmethod}
+       for a list of valid options. If not specified, defaults to
+       {\tt ESMF\_REGRIDMETHOD\_BILINEAR}.
+     \item [{[polemethod]}]
+       A flag to indicate which type of artificial pole
+       to construct on the source Grid for regridding. Please see
+       Section~\ref{const:polemethod} for a list of valid options.
+       The default value varies depending on the regridding method and the grid type and format.
+     \item [{[regridPoleNPnts]}]
+       If {\tt polemethod} is set to {\tt ESMF\_POLEMETHOD\_NPNTAVG}, this argument is required to
+       specify how many points should be averaged over at the pole.
+     \item [{[unmappedaction]}]
+             Specifies what should happen if there are destination points that
+             can't be mapped to a source cell. Please see Section~\ref{const:unmappedaction} for a
+             list of valid options. If not specified, {\tt unmappedaction} defaults to {\tt ESMF\_UNMAPPEDACTION\_ERROR}.
+     \item [{[ignoreDegenerate]}]
+             Ignore degenerate cells when checking the input Grids or Meshes for errors. If this is set to true, then the
+             regridding proceeds, but degenerate cells will be skipped. If set to false, a degenerate cell produces an error.
+             If not specified, {\tt ignoreDegenerate} defaults to false.
+     \item [{[srcRegionalFlag]}]
+       If .TRUE., the source grid is a regional grid, otherwise,
+       it is a global grid.  The default value is .FALSE.
+     \item [{[dstRegionalFlag]}]
+       If .TRUE., the destination grid is a regional grid, otherwise,
+       it is a global grid.  The default value is .FALSE.
+     \item [{[verboseFlag]}]
+       If .TRUE., it will print summary information about the regrid parameters,
+       default to .FALSE.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

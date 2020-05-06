@@ -1,0 +1,812 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_Config.F90,  Date: Tue May  5 20:59:36 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_ConfigAssignment(=)] {ESMF\_ConfigAssignment(=) - Config assignment}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     interface assignment(=)
+     config1 = config2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Config) :: config1
+     type(ESMF_Config) :: config2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Assign {\tt config1} as an alias to the same {\tt ESMF\_Config} object in memory
+     as {\tt config2}. If {\tt config2} is invalid, then {\tt config1} will be
+     equally invalid after the assignment.
+  
+     The arguments are:
+     \begin{description}
+     \item[config1]
+       The {\tt ESMF\_Config} object on the left hand side of the assignment.
+     \item[config2]
+       The {\tt ESMF\_Config} object on the right hand side of the assignment.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ConfigOperator(==)] {ESMF\_ConfigOperator(==) - Test if Config objects are equivalent}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(==)
+       if (config1 == config2) then ... endif
+                    OR
+       result = (config1 == config2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       configical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(in) :: config1
+       type(ESMF_Config), intent(in) :: config2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (==) operator for the {\tt ESMF\_Config} class.
+       Compare two configs for equality; return {\tt .true.} if equal,
+       {\tt .false.} otherwise. Comparison is based on whether the objects
+       are distinct, as with two newly created objects, or are simply aliases
+       to the same object as would be the case when assignment was involved.
+  
+       The arguments are:
+       \begin{description}
+       \item[config1]
+            The {\tt ESMF\_Config} object on the left hand side of the equality
+            operation.
+       \item[config2]
+            The {\tt ESMF\_Config} object on the right hand side of the equality
+            operation.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ConfigOperator(/=)] {ESMF\_ConfigOperator(/=) - Test if Config objects are not equivalent}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(/=)
+       if (config1 /= config2) then ... endif
+                    OR
+       result = (config1 /= config2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       configical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(in) :: config1
+       type(ESMF_Config), intent(in) :: config2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (/=) operator for the {\tt ESMF\_Config} class.
+       Compare two configs for equality; return {\tt .true.} if not equivalent,
+       {\tt .false.} otherwise. Comparison is based on whether the Config objects
+       are distinct, as with two newly created objects, or are simply aliases
+       to the same object as would be the case when assignment was involved.
+  
+       The arguments are:
+       \begin{description}
+       \item[config1]
+            The {\tt ESMF\_Config} object on the left hand side of the equality
+            operation.
+       \item[config2]
+            The {\tt ESMF\_Config} object on the right hand side of the equality
+            operation.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigCreate] {ESMF\_ConfigCreate - Instantiate a Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ! Private name; call using ESMF_ConfigCreate()
+       type(ESMF_Config) function ESMF_ConfigCreateEmpty(rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim} -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+      integer,intent(out), optional              :: rc \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+ 
+     Instantiates an {\tt ESMF\_Config} object for use in subsequent calls.
+  
+     The arguments are:
+     \begin{description}
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigCreate] {ESMF\_ConfigCreate - Instantiate a new Config object from a Config section}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     ! Private name; call using ESMF_ConfigCreate()
+     type(ESMF_Config) function ESMF_ConfigCreateFromSection(config, &
+       openlabel, closelabel, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config)             :: config
+       character(len=*),  intent(in) :: openlabel, closelabel
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Instantiates an {\tt ESMF\_Config} object from a section of an existing
+     {\tt ESMF\_Config} object delimited by {\tt openlabel} and {\tt closelabel}.
+     An error is returned if neither of the input labels is found in input
+     {\tt config}.
+  
+     Note that a section is intended as the content of a given {\tt ESMF\_Config}
+     object delimited by two distinct labels. Such content, as well as each of the
+     surrounding labels, are still within the scope of the parent {\tt ESMF\_Config}
+     object. Therefore, including in a section labels used outside that
+     section should be done carefully to prevent parsing conflicts.
+  
+     The arguments are:
+     \begin{description}
+       \item[config]
+         The input {\tt ESMF\_Config} object.
+       \item[openlabel]
+         Label marking the beginning of a section in {\tt config}.
+       \item[closelabel]
+         Label marking the end of a section in {\tt config}.
+       \item [{[rc]}]
+         Return code; equals {\tt ESMF\_SUCCESS} if a section is found
+        and a new {\tt ESMF\_Config} object returned.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigDestroy] {ESMF\_ConfigDestroy - Destroy a Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ConfigDestroy(config, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(inout)          :: config
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,           intent(out),  optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+ 
+      Destroys the {\tt config} object.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMF\_Config} object.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigFindLabel] {ESMF\_ConfigFindLabel - Find a label in a Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ConfigFindLabel(config, label, isPresent, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(inout)           :: config 
+       character(len=*),  intent(in)              :: label
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       logical,           intent(out),  optional  :: isPresent
+       integer,           intent(out),  optional  :: rc 
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[6.1.0] Added the {\tt isPresent} argument.  Allows detection of
+    end-of-line condition to be separate from the {\tt rc}.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+Finds the {\tt label} (key) string in the {\tt config} object 
+     starting from the beginning of its content.
+  
+     Since the search is done by looking for a string, possibly multi-worded,
+     in the whole {\tt Config} object, it is important to use special 
+     conventions to distinguish {\tt labels} from other words. This is done 
+     in the Resource File by using the NASA/DAO convention to finish
+     line labels with a colon (:) and table labels with a double colon (::).
+  
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMF\_Config} object.
+     \item [label]
+       Identifying label. 
+     \item [{[isPresent]}]
+       Set to {\tt .true.} if the item is found.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       If the label is not found, and the {\tt isPresent} argument is
+       not present, an error is returned.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigFindNextLabel] {ESMF\_ConfigFindNextLabel - Find a label in Config object starting from current position}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ConfigFindNextLabel(config, label, isPresent, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(inout)           :: config
+       character(len=*),  intent(in)              :: label
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       logical,           intent(out),  optional  :: isPresent
+       integer,           intent(out),  optional  :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+Finds the {\tt label} (key) string in the {\tt config} object, 
+     starting from the current position pointer.
+  
+     This method is equivalent to {\tt ESMF\_ConfigFindLabel}, but the search
+     is performed starting from the current position pointer.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMF\_Config} object.
+     \item [label]
+       Identifying label.
+     \item [{[isPresent]}]
+       Set to {\tt .true.} if the item is found.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       If the label is not found, and the {\tt isPresent} argument is
+       not present, an error is returned.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ConfigGetAttribute] {ESMF\_ConfigGetAttribute - Get an attribute value from Config object}
+
+
+  
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}        subroutine ESMF_ConfigGetAttribute(config, <value>, &
+          label, default, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}        type(ESMF_Config), intent(inout)         :: config     
+        <value argument>, see below for supported values
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+        character(len=*),  intent(in),  optional :: label 
+        character(len=*),  intent(in),  optional :: default 
+        integer,           intent(out), optional :: rc     \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+ 
+        Gets a value from the {\tt config} object.  When the
+        value is a sequence of characters
+        it will be terminated by the first white space.
+        
+        Supported values for <value argument> are:
+        \begin{description}
+        \item character(len=*), intent(out)          :: value
+        \item real(ESMF\_KIND\_R4), intent(out)      :: value    
+        \item real(ESMF\_KIND\_R8), intent(out)      :: value
+        \item integer(ESMF\_KIND\_I4), intent(out)   :: value
+        \item integer(ESMF\_KIND\_I8), intent(out)   :: value
+        \item logical, intent(out)                   :: value
+        \end{description}
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMF\_Config} object.
+     \item [<value argument>]
+       Returned value.
+     \item [{[label]}]
+       Identifing label. 
+     \item [{[default]}]
+       Default value if {\tt label} is not found in {\tt config} object. 
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ConfigGetAttribute] {ESMF\_ConfigGetAttribute - Get a list of attribute values from Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}        subroutine ESMF_ConfigGetAttribute(config, <value list argument>, &
+          count, label, default, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}        type(ESMF_Config), intent(inout)         :: config     
+        <value list argument>, see below for values      
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+        integer,           intent(in)   optional :: count
+        character(len=*),  intent(in),  optional :: label 
+        character(len=*),  intent(in),  optional :: default 
+        integer,           intent(out), optional :: rc     \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a list of values from the {\tt config} object.  
+  
+        Supported values for <value list argument> are:
+        \begin{description}
+        \item character(len=*), intent(out)            :: valueList(:)
+        \item real(ESMF\_KIND\_R4), intent(inout)      :: valueList(:)
+        \item real(ESMF\_KIND\_R8), intent(inout)      :: valueList(:)
+        \item integer(ESMF\_KIND\_I4), intent(inout)   :: valueList(:)
+        \item integer(ESMF\_KIND\_I8), intent(inout)   :: valueList(:)
+        \item logical, intent(inout)                   :: valueList(:)
+        \end{description}
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMF\_Config} object.
+     \item [<value list argument>]
+       Returned value.
+     \item [count]
+       Number of returned values expected.  
+     \item [{[label]}]
+       Identifing label. 
+     \item [{[default]}]
+       Default value if {\tt label} is not found in {\tt config} object. 
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigGetChar] {ESMF\_ConfigGetChar - Get a character attribute value from Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_ConfigGetChar(config, value, &
+         label, default, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(inout)         :: config 
+       character,         intent(out)           :: value
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character(len=*),  intent(in),  optional :: label   
+       character,         intent(in),  optional :: default
+       integer,           intent(out), optional :: rc    \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+ 
+    Gets a character {\tt value} from the {\tt config} object.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMF\_Config} object.
+     \item [value]
+       Returned value. 
+     \item [{[label]}]
+       Identifying label. 
+     \item [{[default]}]
+       Default value if label is not found in configuration object. 
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+  
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigGetDim] {ESMF\_ConfigGetDim - Get table sizes from Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ConfigGetDim(config, lineCount, columnCount, &
+       label, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(inout)         :: config
+       integer,           intent(out)           :: lineCount
+       integer,           intent(out)           :: columnCount
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character(len=*),  intent(in),  optional :: label
+       integer,           intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+ 
+    Returns the number of lines in the table in {\tt lineCount} and 
+    the maximum number of words in a table line in {\tt columnCount}.
+  
+    After the call, the line pointer is positioned to the end of the table.
+    To reset it to the beginning of the table, use {\tt ESMF\_ConfigFindLabel}. 
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMF\_Config} object.
+     \item [lineCount]
+       Returned number of lines in the table. 
+     \item [columnCount]
+       Returned maximum number of words in a table line. 
+     \item [{[label]}]
+       Identifying label (if present), otherwise current line.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ConfigGetLen] {ESMF\_ConfigGetLen - Get the length of the line in words from Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     integer function ESMF_ConfigGetLen(config, label, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(inout)          :: config 
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character(len=*),  intent(in),   optional :: label
+       integer,           intent(out),  optional :: rc         \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+ 
+   Gets the length of the line in words by counting words
+   disregarding types.  Returns the word count as an integer.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMF\_Config} object.
+     \item [{[label]}]
+       Identifying label.   If not specified, use the current line.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ConfigIsCreated] {ESMF\_ConfigIsCreated - Check whether a Config object has been created}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function ESMF_ConfigIsCreated(config, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: ESMF_ConfigIsCreated\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Config), intent(in)            :: config
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,             intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return {\tt .true.} if the {\tt config} has been created. Otherwise return 
+     {\tt .false.}. If an error occurs, i.e. {\tt rc /= ESMF\_SUCCESS} is 
+     returned, the return value of the function will also be {\tt .false.}.
+  
+   The arguments are:
+     \begin{description}
+     \item[config]
+       {\tt ESMF\_Config} queried.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigLoadFile] {ESMF\_ConfigLoadFile - Load resource file into Config object memory}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ConfigLoadFile(config, filename, &
+       delayout, unique, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config),   intent(inout)         :: config     
+       character(len=*),    intent(in)            :: filename 
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_DELayout), intent(in),  optional :: delayout 
+       logical,             intent(in),  optional :: unique 
+       integer,             intent(out), optional :: rc         \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+ 
+    Resource file with {\tt filename} is loaded into memory.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMF\_Config} object.
+     \item [filename]
+       Configuration file name.
+     \item [{[delayout]}]
+       {\tt ESMF\_DELayout} associated with this {\tt config} object.
+     \item [{[unique]}]
+       If specified as true, uniqueness of labels are checked and 
+       error code set if duplicates found.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigNextLine] {ESMF\_ConfigNextLine - Find next line in a Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ConfigNextLine(config, tableEnd, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(inout)          :: config 
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       logical,           intent(out),  optional :: tableEnd
+       integer,           intent(out),  optional :: rc \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+ 
+     Selects the next line (for tables).
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMF\_Config} object.
+     \item [{[tableEnd]}]
+       Returns {\tt .true.} if end of table mark (::) is encountered.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+  
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigPrint] {ESMF\_ConfigPrint - Write content of Config object to unit}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ConfigPrint(config, unit, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(in)  :: config
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer, optional, intent(in)  :: unit
+       integer, optional, intent(out) :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Write content of input {\tt ESMF\_Config} object to unit {\tt unit}.
+     If {\tt unit} not provided, writes to standard output.
+  
+     The arguments are:
+     \begin{description}
+       \item[config]
+         The input {\tt ESMF\_Config} object.
+       \item[{[unit]}]
+         Output unit.
+       \item [{[rc]}]
+         Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigSetAttribute] {ESMF\_ConfigSetAttribute - Set a value in Config object}
+
+
+  
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_ConfigSetAttribute(config, <value argument>, &
+         label, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(inout)           :: config     
+       <value argument>, see below for supported values
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character(len=*),  intent(in),   optional  :: label 
+       integer,           intent(out),  optional  :: rc   \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+ 
+    Sets a value in the {\tt config} object.
+  
+        Supported values for <value argument> are:
+        \begin{description}
+        \item integer(ESMF\_KIND\_I4), intent(in)            :: value
+        \end{description}
+  
+     The arguments are:
+       \begin{description}
+     \item [config]
+       Already created {\tt ESMF\_Config} object.
+     \item [<value argument>]
+       Value to set. 
+     \item [{[label]}]
+       Identifying attribute label. 
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \subsubsection [ESMF\_ConfigValidate] {ESMF\_ConfigValidate - Validate a Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ConfigValidate(config, &
+       options, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Config), intent(inout)          :: config 
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character (len=*), intent(in),   optional :: options
+       integer,           intent(out),  optional :: rc \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+ 
+     Checks whether a {\tt config} object is valid.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       {\tt ESMF\_Config} object to be validated.
+     \item[{[options]}]
+       \begin{sloppypar}
+       If none specified:  simply check that the buffer is not full and the
+         pointers are within range.
+       "unusedAttributes" - Report to the default logfile all attributes not
+         retrieved via a call to {\tt ESMF\_ConfigGetAttribute()} or
+         {\tt ESMF\_ConfigGetChar()}.  The attribute name (label) will be
+         logged via {\tt ESMF\_LogErr} with the WARNING log message type.
+         For an array-valued attribute, retrieving at least one value via
+         {\tt ESMF\_ConfigGetAttribute()} or {\tt ESMF\_ConfigGetChar()}
+         constitutes being "used."
+       \end{sloppypar}
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       Equals {\tt ESMF\_RC\_ATTR\_UNUSED} if any unused attributes are found
+       with option "unusedAttributes" above.
+     \end{description}
+ 
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

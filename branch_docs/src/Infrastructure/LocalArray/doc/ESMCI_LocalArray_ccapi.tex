@@ -1,0 +1,464 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_LocalArray.C,  Date: Tue May  5 20:59:38 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMCI::LocalArray::construct()] {ESMCI::LocalArray::construct() - fill in allocated LocalArray}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int LocalArray::construct(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   bool aflag,                 // allocate space for data?
+   CopyFlag docopy,            // make a data copy from ibase_addr?
+   ESMC_TypeKind_Flag tk,      // I1, I2, I4, I8, R4, R8
+   int irank,                  // 1, 2, ..., ESMF_MAXDIM
+   LocalArrayOrigin oflag,     // create called from Fortran or C++?
+   bool dflag,                 // responsible for deallocation?
+   const int *offsets,         // offset in bytes to start of each dim
+   const int *lbounds,         // lower index number per dim
+   const int *ubounds,         // upper index number per dim
+   const int *icounts,         // number of items in each dim
+   void *ibase_addr,           // base memory address of data block
+   struct c_F90ptr *f90ptr     // opaque type of Fortran dope vector
+   ){\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    ESMF routine which fills in the contents of an already allocated
+    {\tt ESMCI::LocalArray} object.  May need to do additional allocations
+    as needed.  Must call the corresponding {\tt ESMCI::LocalArray::destruct}
+    routine to free the additional memory.  Intended for internal
+    ESMF use only.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::destruct] {ESMCI::LocalArray::destruct - release LocalArray}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int LocalArray::destruct(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       void){\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        ESMF routine which deallocates any space allocated by
+        {\tt ESMCI::LocalArray::construct}, does any additional cleanup before
+        the original {\tt ESMCI::LocalArray} object is freed.  Intended for
+        internal ESMF use only.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::create] {ESMCI::LocalArray::create - Create new ESMCI::LocalArray object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} LocalArray *LocalArray::create(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      pointer to newly allocated LocalArray object\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ESMC_TypeKind_Flag tk,      // I1, I2, I4, I8, R4, R8
+   int rank,                   // 1, 2, ..., ESMF_MAXDIM
+   LocalArrayOrigin oflag,     // caller is fortran or C++?
+   int *rc){                   // return code\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    This version of create() creates a partially constructed LocalArray
+    object. The caller must complete the LocalArray construction with the
+    {\tt LocalArray::setInfo()} call. It is broken up this way to minimize
+    the amount of macro-generated code needed in {\tt ESMF\_LocalArray.cppF90}
+    when used as the back-end to the Fortran API {\tt ESMF_LocalArrayCreate()}.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::create] {ESMCI::LocalArray::create - Create new ESMCI::LocalArray object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} LocalArray *LocalArray::create(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      pointer to newly allocated ESMCI::LocalArray object\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ESMC_TypeKind_Flag tk,      // I1, I2, I4, I8, R4, R8
+   int rank,                   // 1, 2, ..., ESMF_MAXDIM
+   const int *counts,          // number of items in each dim
+   void *base_addr,            // if non-null, this is allocated memory
+   CopyFlag docopy,            // make a data copy from base_addr?
+   int *rc){                   // return code\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    This routine is the C++ entry point for creating an {\tt ESMC\_LocalArray}
+    object.  Unlike natural C++ arrays which can be as simple as the
+    base address pointer and the number of bytes necessary to move to
+    the next item, {\tt ESMC\_LocalArray}s are richer in the associated metadata
+    which allows them to behave more like Fortran arrays.
+  
+    This routine allocates memory for data and conditionally copies from
+    base_addr.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::create] {ESMCI::LocalArray::create - Create new ESMCI::LocalArray object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} LocalArray *LocalArray::create(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      pointer to newly allocated ESMCI::LocalArray object\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ESMC_TypeKind_Flag tk,      // I1, I2, I4, I8, R4, R8
+   int rank,                   // 1, 2, ..., ESMF_MAXDIM
+   const int *counts,          // number of items in each dim
+   const int *lbounds,         // lower index number per dim
+   const int *ubounds,         // upper index number per dim
+   void *base_addr,            // if non-null, this is allocated memory
+   CopyFlag docopy,            // make a data copy from base_addr?
+   int *rc){                   // return code\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    This routine is the C++ entry point for creating an {\tt ESMC\_LocalArray}
+    object.  Unlike natural C++ arrays which can be as simple as the
+    base address pointer and the number of bytes necessary to move to
+    the next item, {\tt ESMC\_LocalArray}s are richer in the associated metadata
+    which allows them to behave more like Fortran arrays.
+  
+    This routine allocates memory for data and conditionally copies from
+    base_addr.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::create] {ESMCI::LocalArray::create - create ESMCI::LocalArray from copy}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} LocalArray *LocalArray::create(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      pointer to newly allocated ESMCI::LocalArray object\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   const LocalArray *larrayIn, // object to copy from
+   const int *lbounds,         // lower index number per dim
+   const int *ubounds,         // upper index number per dim
+   int *rc){                   // return code\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Deep copy from {\tt larrayIn} with the option to adjust lbounds and ubounds.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::create] {ESMCI::LocalArray::create - create ESMCI::LocalArray from existing object, adjusting bounds in Fortran dope vector}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} LocalArray *LocalArray::create(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      pointer to newly allocated ESMCI::LocalArray object\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   const LocalArray *larrayIn, // object to copy from
+   CopyFlag copyflag,          // copy or reference original data
+   const int *lbounds,         // lower index number per dim
+   const int *ubounds,         // upper index number per dim
+   int *rc){                   // return code\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Copy from {\tt larrayIn} with the option to adjust lbounds and ubounds in
+    the Fortran dope vector. Depending on {\tt copyflag} a deep copy of the
+    data is made, in which case memory for the data will be allocated, or
+    the existing data in {\tt larrayIn} will be referenced by the returned
+    LocalArray object.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::destroy] {ESMCI::LocalArray::destroy - destroy an ESMCI::LocalArray object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int LocalArray::destroy(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   LocalArray *localarray) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    ESMF routine which destroys a LocalArray object previously allocated
+    via an {\tt ESMCI::LocalArray::create()} routine.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::setInfo] {ESMCI::LocalArray::setInfo - Set most LocalArray members}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int LocalArray::setInfo(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   struct c_F90ptr *fptr,    // in - Fortran dope vector
+   void *ibase_addr,         // in - base memory address
+   const int *icounts,       // in - counts along each dim
+   const int *lbounds,       // in - lowest valid index
+   const int *ubounds,       // in - highest valid index
+   const int *offsets,       // in - numbytes from base to 1st item/dim
+   const bool *cflag,        // in - is memory chunk contiguous?
+   const bool *dflag){       // in - do we need to deallocate at delete?\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Sets a list of values associated with an already created pointer.
+    This particular set was chosen to match well with creation on the
+    Fortran side.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::setFortranDopev] {ESMCI::LocalArray::setFortranDopev - set Fortran dope vector}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int LocalArray::setFortranDopev(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   struct c_F90ptr *p){      // in - Fortran dope vector block\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Sets the Fortran dope vector inside {\tt ESMC\_LocalArray} object.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::getFortranDopev] {ESMCI::LocalArray::getFortranDopev - get Fortran dope vector}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int LocalArray::getFortranDopev(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   struct c_F90ptr *p) const{      // out - fortran 90 array pointer\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Return a stored F90 pointer block.  The size may vary with rank.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [getDataInternal] {getDataInternal - get the data at an index location without error checking}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} template <class TYPE>
+ void LocalArray::getDataInternal(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   int *index,           // in - index location
+   TYPE *data){          // out - pointer to data. \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Get the data at a particular index location in a LocalArray. For
+    efficiency's sake this routine doesn't do error checking. It's assumed 
+    that the error checking is occurring at a higher level. For error checking
+    use getData.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [getData] {getData - get the data at an index location}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} template <class TYPE>
+ int LocalArray::getData(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   int *index,           // in - index location
+   TYPE *data){          // out - pointer to data. \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Get the data at a particular index location in a LocalArray. 
+  
+   TODO: This method should eventually be made more efficient by precalculating
+          and storing the offsets per Dim. 
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [setDataInternal] {setDataInternal - set the data at an index location without error checking}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} template <class TYPE>
+ void LocalArray::setDataInternal(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   int *index,           // in - index location
+   TYPE data){           // in - data to set \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Get the data at a particular index location in a LocalArray. For
+    efficiency's sake this routine doesn't do error checking. It's assumed 
+    that the error checking is occurring at a higher level. For error checking
+    use setData.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [setData] {setData - get the data at an index location}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} template <class TYPE>
+ int LocalArray::setData(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   int *index,           // in - index location
+   TYPE data){          //  in - data. \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Set the data at a particular index location in a LocalArray. 
+  
+   TODO: This method should eventually be made more efficient by precalculating
+          and storing the offsets per Dim. 
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::print] {ESMCI::LocalArray::print - print contents of a LocalArray}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int LocalArray::print(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   const char *options)const{      //  in - print options\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Print information about a {\tt ESMCI::LocalArray}.  The options control
+    the type of information and level of detail.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::write] {ESMCI::LocalArray::write - write contents of a LocalArray}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int LocalArray::write(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   const char *options,              // in - write options
+   const char *filename)const{       // in - file name\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Write the contents of an {\tt ESMCI::LocalArray} to disk.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::validate] {ESMCI::LocalArray::validate - internal consistency check}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int LocalArray::validate(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   const char *options)const{    // in - validate options\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Validates that an {\tt ESMCI::LocalArray} is internally consistent.
+    Returns error code if problems are found.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::LocalArray::tkrPtrCopy] {ESMCI::LocalArray::tkrPtrCopy - portably copy Fortran dope vector}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int LocalArray::tkrPtrCopy(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   void *dst, 
+   void *src, 
+   ESMC_TypeKind_Flag typekind,
+   int rank){\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

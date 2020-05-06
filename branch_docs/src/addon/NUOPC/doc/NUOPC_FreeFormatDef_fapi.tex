@@ -1,0 +1,199 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: NUOPC\_FreeFormatDef.F90,  Date: Tue May  5 21:00:28 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [NUOPC\_FreeFormatAdd] {NUOPC\_FreeFormatAdd - Add lines to a FreeFormat object}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine NUOPC_FreeFormatAdd(freeFormat, stringList, line, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(NUOPC_FreeFormat),           intent(inout) :: freeFormat
+     character(len=*),                 intent(in)    :: stringList(:)
+     integer,                optional, intent(in)    :: line
+     integer,                optional, intent(out)   :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Add lines to a FreeFormat object. The capacity of {\tt freeFormat} may 
+     increase during this operation. The new lines provided in {\tt stringList}
+     are added starting at position {\tt line}. If {\tt line} is greater than the
+     current {\tt lineCount} of {\tt freeFormat}, blank lines are inserted to
+     fill the gap. By default, i.e. without specifying the {\tt line} argument,
+     the elements in {\tt stringList} are added to the {\em end} of the
+     {\tt freeFormat} object. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FreeFormatCreate] {NUOPC\_FreeFormatCreate - Create a FreeFormat object}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using NUOPC_FreeFormatCreate()
+   function NUOPC_FreeFormatCreateDefault(freeFormat, stringList, capacity, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(NUOPC_FreeFormat) :: NUOPC_FreeFormatCreateDefault\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(NUOPC_FreeFormat), optional, intent(in)  :: freeFormat
+     character(len=*),       optional, intent(in)  :: stringList(:)
+     integer,                optional, intent(in)  :: capacity
+     integer,                optional, intent(out) :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Create a new FreeFormat object, which by default is empty. 
+     If {\tt freeFormat} is provided, then the newly created object starts as
+     a copy of {\tt freeFormat}. If {\tt stringList} is provided, then it is
+     added to the end of the newly created object. If {\tt capacity} is provided,
+     it is used for the {\em initial} creation of the newly created FreeFormat 
+     object. However, if the {\tt freeFormat} or {\tt stringList} arguments are
+     present, the final capacity may be larger than specified by {\tt capacity}. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FreeFormatCreate] {NUOPC\_FreeFormatCreate - Create a FreeFormat object from Config}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using NUOPC_FreeFormatCreate()
+   function NUOPC_FreeFormatCreateRead(config, label, relaxedflag, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(NUOPC_FreeFormat) :: NUOPC_FreeFormatCreateRead\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Config)                            :: config
+     character(len=*),      intent(in)            :: label
+     logical,               intent(in),  optional :: relaxedflag
+     integer,               intent(out), optional :: rc \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Create a new FreeFormat object from ESMF\_Config object. The {\tt config}
+     object must exist, and {\tt label} must reference a table attribute 
+     within {\tt config}.
+  
+   By default an error is returned if {\tt label} is not found in {\tt config}.
+   This error can be suppressed by setting {\tt relaxedflag=.true.}, and an 
+   empty FreeFormat object will be returned.
+  
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FreeFormatDestroy] {NUOPC\_FreeFormatDestroy - Destroy a FreeFormat object}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine NUOPC_FreeFormatDestroy(freeFormat, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(NUOPC_FreeFormat),           intent(inout) :: freeFormat
+     integer,                optional, intent(out)   :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Destroy a FreeFormat object. All internal memory is deallocated. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FreeFormatGet] {NUOPC\_FreeFormatGet - Get information from a FreeFormat object}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine NUOPC_FreeFormatGet(freeFormat, lineCount, capacity, stringList, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(NUOPC_FreeFormat),                       intent(in)  :: freeFormat
+     integer,                            optional, intent(out) :: lineCount
+     integer,                            optional, intent(out) :: capacity
+     character(len=NUOPC_FreeFormatLen), optional, pointer     :: stringList(:)
+     integer,                            optional, intent(out) :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Get information from a FreeFormat object. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FreeFormatGetLine] {NUOPC\_FreeFormatGetLine - Get line info from a FreeFormat object}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine NUOPC_FreeFormatGetLine(freeFormat, line, lineString, tokenCount, &
+     tokenList, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(NUOPC_FreeFormat),                       intent(in)  :: freeFormat
+     integer,                                      intent(in)  :: line
+     character(len=NUOPC_FreeFormatLen), optional, intent(out) :: lineString
+     integer,                            optional, intent(out) :: tokenCount
+     character(len=NUOPC_FreeFormatLen), optional, intent(out) :: tokenList(:)
+     integer,                            optional, intent(out) :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Get information about a specific line in a FreeFormat object. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FreeFormatLog] {NUOPC\_FreeFormatLog - Write a FreeFormat object to the default Log}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine NUOPC_FreeFormatLog(freeFormat, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(NUOPC_FreeFormat),           intent(in)    :: freeFormat
+     integer,                optional, intent(out)   :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Write a FreeFormat object to the default Log. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FreeFormatPrint] {NUOPC\_FreeFormatPrint - Print a FreeFormat object}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine NUOPC_FreeFormatPrint(freeFormat, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(NUOPC_FreeFormat),           intent(in)    :: freeFormat
+     integer,                optional, intent(out)   :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Print a FreeFormat object.
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

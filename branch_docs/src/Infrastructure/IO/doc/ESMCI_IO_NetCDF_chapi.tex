@@ -1,0 +1,135 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_IO\_NetCDF.h,  Date: Tue May  5 20:59:47 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsection{C++:  Class Interface ESMCI::IO\_NetCDF - Handles low-level NetCDF IO for ESMF internals and user API. (Source File: ESMCI\_IO\_NetCDF.h)}
+
+
+  
+{\sf DESCRIPTION:\\ }
+
+
+    TODO
+  -------------------------------------------------------------------------
+  
+\bigskip{\em USES:}
+\begin{verbatim} #include "ESMCI_Base.h"           // inherited Base class
+ #include "ESMCI_State.h"
+ 
+ #include <string>
+ 
+ #ifdef ESMF_NETCDF
+ #include "netcdf.h"
+ typedef int NcFile;
+ typedef int NcDim;
+ #define NC_UNSPECIFIED ((nc_type)0)
+ #endif
+ 
+ namespace ESMCI
+ {
+ \end{verbatim}{\sf PUBLIC TYPES:}
+\begin{verbatim}  class IO_NetCDF;
+ \end{verbatim}{\sf PRIVATE TYPES:}
+\begin{verbatim} 
+  // class definition type
+  class IO_NetCDF : public ESMC_Base { // inherit ESMC_Base class
+   private:   // corresponds to F90 module 'type ESMF_IO_NetCDF' members
+     ESMC_Base   *base;    // associated object's base
+     std::string  fileName;
+     State*       theState;
+ \end{verbatim}{\sf PUBLIC MEMBER FUNCTIONS:}
+\begin{verbatim} 
+   public:
+     // accessor methods
+ 
+     // Get the State object
+     State*  getState()  { return theState; }
+     void  setState(State*  newState)  { theState = newState; }
+ 
+     // Read/Write to support the F90 optional arguments interface
+     int read(const std::string& fileName);
+     int write(const std::string& fileName);
+ 
+     // internal validation
+     int validate(const char *options=0) const;
+ 
+     // for testing/debugging
+     int print(const char *options=0) const;
+ 
+     // native C++ constructors/destructors
+     IO_NetCDF(void);
+     // IO_NetCDF(const IO_NetCDF &io_netcdf);  TODO
+     ~IO_NetCDF(){destruct();}
+    private:
+     void destruct();
+    
+    public:
+     // friend function to allocate and initialize IO_NetCDF object from heap
+     friend IO_NetCDF *ESMCI_IO_NetCDFCreate(const std::string&, ESMC_Base*, int*);
+ 
+     // friend function to copy an io_netcdf  TODO ?
+     //friend IO_NetCDF *ESMCI_IO_NetCDF(IO_NetCDF*, int*);
+ 
+     // friend function to de-allocate IO_NetCDF
+     friend int ESMCI_IO_NetCDFDestroy(IO_NetCDF**);
+ \end{verbatim}{\sf PRIVATE MEMBER FUNCTIONS:}
+\begin{verbatim}   private:
+  // < declare private interface methods here >
+ 
+ #ifdef ESMF_NETCDF
+     int ncerrToEsmcRc (int ncerr);
+     ESMC_TypeKind_Flag  ncToEsmcType(nc_type  ncTypeVal);
+     nc_type         esmcToNcType(ESMC_TypeKind_Flag  esmcTypeVal);
+ 
+     Array*  readArray(NcFile  netCdfFile,
+                        int    varIndex,
+                        int    *rc);
+     int     writeArray(NcFile netCdfFile,
+                        Array* thisArray,
+                        int    numDims,
+                        int*   dimensions);
+ #endif
+ \end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

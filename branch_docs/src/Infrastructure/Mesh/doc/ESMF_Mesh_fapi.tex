@@ -1,0 +1,1343 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_Mesh.F90,  Date: Tue May  5 20:59:54 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_MeshAssignment(=)] {ESMF\_MeshAssignment(=) - Mesh assignment}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     interface assignment(=)
+     mesh1 = mesh2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Mesh) :: mesh1
+     type(ESMF_Mesh) :: mesh2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Assign mesh1 as an alias to the same ESMF Mesh object in memory
+     as mesh2. If mesh2 is invalid, then mesh1 will be equally invalid after
+     the assignment.
+  
+     The arguments are:
+     \begin{description}
+     \item[mesh1]
+       The {\tt ESMF\_Mesh} object on the left hand side of the assignment.
+     \item[mesh2]
+       The {\tt ESMF\_Mesh} object on the right hand side of the assignment.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshOperator(==)] {ESMF\_MeshOperator(==) - Mesh equality operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}    interface operator(==)
+     if (mesh1 == mesh2) then ... endif
+               OR
+     result = (mesh1 == mesh2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Mesh), intent(in) :: mesh1
+     type(ESMF_Mesh), intent(in) :: mesh2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Test whether mesh1 and mesh2 are valid aliases to the same ESMF
+     Mesh object in memory. For a more general comparison of two ESMF Meshes,
+     going beyond the simple alias test, the ESMF\_MeshMatch() function (not yet
+     implemented) must be used.
+  
+     The arguments are:
+     \begin{description}
+     \item[mesh1]
+       The {\tt ESMF\_Mesh} object on the left hand side of the equality
+       operation.
+     \item[mesh2]
+       The {\tt ESMF\_Mesh} object on the right hand side of the equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshOperator(/=)] {ESMF\_MeshOperator(/=) - Mesh not equal operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(/=)
+     if (mesh1 /= mesh2) then ... endif
+               OR
+     result = (mesh1 /= mesh2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Mesh), intent(in) :: mesh1
+     type(ESMF_Mesh), intent(in) :: mesh2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Test whether mesh1 and mesh2 are {\it not} valid aliases to the
+     same ESMF Mesh object in memory. For a more general comparison of two ESMF
+     Meshes, going beyond the simple alias test, the ESMF\_MeshMatch() function
+     (not yet implemented) must be used.
+  
+     The arguments are:
+     \begin{description}
+     \item[mesh1]
+       The {\tt ESMF\_Mesh} object on the left hand side of the non-equality
+       operation.
+     \item[mesh2]
+       The {\tt ESMF\_Mesh} object on the right hand side of the non-equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshAddElements] {ESMF\_MeshAddElements - Add elements to a Mesh \label{sec:mesh:api:meshaddelements}}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_MeshAddElements(mesh, elementIds, elementTypes, &
+                  elementConn, elementMask, elementArea, elementCoords, &
+                  elementDistgrid, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Mesh),    intent(inout)         :: mesh
+     integer,            intent(in)            :: elementIds(:)
+     integer,            intent(in)            :: elementTypes(:)
+     integer,            intent(in)            :: elementConn(:)
+     integer,            intent(in),  optional :: elementMask(:)
+     real(ESMF_KIND_R8), intent(in),  optional :: elementArea(:)
+     real(ESMF_KIND_R8), intent(in),  optional :: elementCoords(:)
+     type(ESMF_DistGrid), intent(in), optional :: elementDistgrid
+     integer,            intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     This call is the third and last part of the three part mesh create
+     sequence and should be called after the mesh is created with {\tt ESMF\_MeshCreate()}
+     (\ref{sec:mesh:api:meshcreate})
+     and after the nodes are added with {\tt ESMF\_MeshAddNodes()} (\ref{sec:mesh:api:meshaddnodes}).
+     This call adds the elements to the
+     mesh and finalizes the create. After this call the Mesh is usable, for
+     example a Field may be built on the created Mesh object and
+     this Field may be used in a {\tt ESMF\_FieldRegridStore()} call.
+  
+     The parameters to this call {\tt elementIds}, {\tt elementTypes}, and
+     {\tt elementConn} describe the elements to be created. The description
+     for a particular element lies at the same index location in {\tt elementIds}
+     and {\tt elementTypes}. Each entry in {\tt elementConn} consists of the list of
+     nodes used to create that element, so the connections for element $e$ in the
+     {\tt elementIds} array will start at $number\_of\_nodes\_in\_element(1) + number\_of\_nodes\_in\_element(2) +
+     \cdots + number\_of\_nodes\_in\_element(e-1) + 1$ in {\tt elementConn}.
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [elementIds]
+            An array containing the global ids of the elements to be created on this PET.
+            This input consists of a 1D array the size of the number of elements on this PET.
+            Each element id must be a number equal to or greater than 1. An id should be
+            unique in the sense that different elements must have different ids (the same element
+            that appears on different processors must have the same id). There may be gaps in the sequence
+            of ids, but if these gaps are the same scale as the length of the sequence it can lead to
+            inefficiencies when the Mesh is used (e.g. in {\tt ESMF\_FieldRegridStore()}).
+     \item[elementTypes]
+            An array containing the types of the elements to be created on this PET. The types used
+            must be appropriate for the parametric dimension of the Mesh. Please see
+            Section~\ref{const:meshelemtype} for the list of options. This input consists of
+            a 1D array the size of the number of elements on this PET.
+     \item[elementConn]
+           An array containing the indexes of the sets of nodes to be connected together to form the
+           elements to be created on this PET. The entries in this list are NOT node global ids,
+           but rather each entry is a local index (1 based) into the list of nodes which were
+           created on this PET by the previous {\tt ESMF\_MeshAddNodes()} call.
+           In other words, an entry of 1 indicates that this element contains the node
+           described by {\tt nodeIds(1)}, {\tt nodeCoords(1)}, etc. passed into the
+           {\tt ESMF\_MeshAddNodes()} call on this PET. It is also
+           important to note that the order of the nodes in an element connectivity list
+           matters. Please see Section~\ref{const:meshelemtype} for diagrams illustrating
+           the correct order of nodes in a element. This input consists of a 1D array with
+           a total size equal to the sum of the number of nodes in each element on
+           this PET. The number of nodes in each element is implied by its element type in
+           {\tt elementTypes}. The nodes for each element
+           are in sequence in this array (e.g. the nodes for element 1 are elementConn(1),
+           elementConn(2), etc.).
+     \item [{[elementMask]}]
+            An array containing values which can be used for element masking. Which values indicate
+            masking are chosen via the {\tt srcMaskValues} or {\tt dstMaskValues} arguments to
+            {\tt ESMF\_FieldRegridStore()} call. This input consists of a 1D array the
+            size of the number of elements on this PET.
+     \item [{[elementArea]}]
+            An array containing element areas. If not specified, the element areas are internally calculated.
+            This input consists of a 1D array the size of the number of elements on this PET.
+            {\bf NOTE:} ESMF doesn't currently do unit conversion on areas. If these areas are going to be used
+                  in a process that also involves the areas of another Grid or Mesh (e.g. conservative regridding), then
+                  it is the user's responsibility to make sure that the area units are consistent between the two sides.
+                  If ESMF calculates an area on the surface of a sphere, then it is in units of square radians. If
+                  it calculates the area for a Cartesian grid, then it is in the same units as the coordinates, but squared.
+     \item[{[elementCoords]}]
+            An array containing the physical coordinates of the elements to be created on this
+            PET. This input consists of a 1D array the size of the number of elements on this PET times the Mesh's
+            spatial dimension ({\tt spatialDim}). The coordinates in this array are ordered
+            so that the coordinates for an element lie in sequence in memory. (e.g. for a
+            Mesh with spatial dimension 2, the coordinates for element 1 are in elementCoords(1) and
+            elementCoords(2), the coordinates for element 2 are in elementCoords(3) and elementCoords(4),
+            etc.).
+     \item [{[elementDistgrid]}]
+            If present, use this as the element Distgrid for the Mesh.
+            The passed in Distgrid
+            needs to contain a local set of sequence indices matching the set of local element ids (i.e. those in {\tt elementIds}).
+            However, specifying an externally created Distgrid gives the user more control over aspects of
+            the Distgrid containing those sequence indices (e.g. how they are broken into DEs).
+            If not present, a 1D Distgrid will be created internally consisting of one DE per PET.
+     \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshAddNodes] {ESMF\_MeshAddNodes - Add nodes to a Mesh \label{sec:mesh:api:meshaddnodes}}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_MeshAddNodes(mesh, nodeIds, nodeCoords, nodeOwners, &
+                                  nodeMask, nodalDistgrid, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Mesh),    intent(inout)         :: mesh
+     integer,            intent(in)            :: nodeIds(:)
+     real(ESMF_KIND_R8), intent(in)            :: nodeCoords(:)
+     integer,            intent(in)            :: nodeOwners(:)
+     integer,            intent(in),  optional :: nodeMask(:)
+     type(ESMF_DistGrid), intent(in), optional :: nodalDistgrid
+     integer,            intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     This call is the second part of the three part mesh create
+     sequence and should be called after the mesh's dimensions are set
+     using {\tt ESMF\_MeshCreate()} (\ref{sec:mesh:api:meshcreate}).
+     This call adds the nodes to the
+     mesh. The next step is to call {\tt ESMF\_MeshAddElements()} (\ref{sec:mesh:api:meshaddelements}).
+  
+     The parameters to this call {\tt nodeIds}, {\tt nodeCoords}, and
+     {\tt nodeOwners} describe the nodes to be created on this PET.
+     The description for a particular node lies at the same index location in
+     {\tt nodeIds} and {\tt nodeOwners}. Each entry
+     in {\tt nodeCoords} consists of spatial dimension coordinates, so the coordinates
+     for node $n$ in the {\tt nodeIds} array will start at $(n-1)*spatialDim+1$.
+  
+     \begin{description}
+     \item [nodeIds]
+           An array containing the global ids of the nodes to be created on this PET.
+           This input consists of a 1D array the size of the number of nodes on this PET.
+            Each node id must be a number equal to or greater than 1. An id should be
+            unique in the sense that different nodes must have different ids (the same node
+            that appears on different processors must have the same id). There may be gaps in the sequence
+            of ids, but if these gaps are the same scale as the length of the sequence it can lead to
+            inefficiencies when the Mesh is used (e.g. in {\tt ESMF\_FieldRegridStore()}).
+     \item[nodeCoords]
+            An array containing the physical coordinates of the nodes to be created on this
+            PET. This input consists of a 1D array the size of the number of nodes on this PET times the Mesh's
+            spatial dimension ({\tt spatialDim}). The coordinates in this array are ordered
+            so that the coordinates for a node lie in sequence in memory. (e.g. for a
+            Mesh with spatial dimension 2, the coordinates for node 1 are in nodeCoords(1) and
+            nodeCoords(2), the coordinates for node 2 are in nodeCoords(3) and nodeCoords(4),
+            etc.).
+     \item[nodeOwners]
+           An array containing the PETs that own the nodes to be created on this PET.
+           If the node is shared with another PET, the value
+           may be a PET other than the current one. Only nodes owned by this PET
+           will have PET local entries in a Field created on the Mesh. This input consists of
+           a 1D array the size of the number of nodes on this PET.
+     \item [{[nodeMask]}]
+            An array containing values which can be used for node masking. Which values indicate
+            masking are chosen via the {\tt srcMaskValues} or {\tt dstMaskValues} arguments to
+            {\tt ESMF\_FieldRegridStore()} call. This input consists of a 1D array the
+            size of the number of nodes on this PET.
+     \item [{[nodalDistgrid]}]
+            If present, use this as the node Distgrid for the Mesh.
+            The passed in Distgrid
+            needs to contain a local set of sequence indices matching the set of local node ids (i.e. the ids in
+            {\tt nodeIds} with {\tt nodeOwners} equal to the current PET).
+            However, specifying an externally created Distgrid gives the user more control over aspects of
+            the Distgrid containing those sequence indices (e.g. how they are broken into DEs).
+            If not present, a 1D Distgrid will be created internally consisting of one DE per PET.
+     \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshCreate] {ESMF\_MeshCreate - Create a Mesh as a 3 step process \label{sec:mesh:api:meshcreate}}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_MeshCreate()
+     function ESMF_MeshCreate3Part(parametricDim, spatialDim, &
+                                   coordSys, name, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_Mesh)                                 :: ESMF_MeshCreate3Part\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     integer,                  intent(in)            :: parametricDim
+     integer,                  intent(in)            :: spatialDim
+     type(ESMF_CoordSys_Flag), intent(in),  optional :: coordSys
+     character(len=*),         intent(in),  optional :: name
+     integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     This call is the first part of the three part mesh create
+     sequence. This call sets the dimension of the elements in the mesh
+     ({\tt parametricDim}) and the number of coordinate dimensions in the mesh
+     ({\tt spatialDim}). The next step is to call {\tt ESMF\_MeshAddNodes()} (\ref{sec:mesh:api:meshaddnodes})
+     to add the nodes and then {\tt ESMF\_MeshAddElements()} (\ref{sec:mesh:api:meshaddelements}) to add
+     the elements and finalize the mesh.
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [parametricDim]
+           Dimension of the topology of the Mesh. (E.g. a mesh constructed of squares would
+           have a parametric dimension of 2, whereas a Mesh constructed of cubes would have one
+           of 3.)
+     \item[spatialDim]
+           The number of coordinate dimensions needed to describe the locations of the nodes
+           making up the Mesh. For a manifold, the spatial dimension can be larger than the
+           parametric dim (e.g. the 2D surface of a sphere in 3D space), but it can't be smaller.
+   \item[{[coordSys]}]
+           The coordinate system of the grid coordinate data.
+           For a full list of options, please see Section~\ref{const:coordsys}.
+           If not specified then defaults to ESMF\_COORDSYS\_SPH\_DEG.
+     \item [{[name]}]
+           The name of the Mesh.
+     \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshCreate] {ESMF\_MeshCreate - Create a Mesh all at once}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_MeshCreate()
+     function ESMF_MeshCreate1Part(parametricDim, spatialDim, &
+                    nodeIds, nodeCoords, nodeOwners, nodeMask, nodalDistgrid, &
+                    elementIds, elementTypes, elementConn, &
+                    elementMask, elementArea, elementCoords, &
+                    elementDistgrid, coordSys, name, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_Mesh)                                 :: ESMF_MeshCreate1Part\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     integer,                  intent(in)            :: parametricDim
+     integer,                  intent(in)            :: spatialDim
+     integer,                  intent(in)            :: nodeIds(:)
+     real(ESMF_KIND_R8),       intent(in)            :: nodeCoords(:)
+     integer,                  intent(in)            :: nodeOwners(:)
+     integer,                  intent(in),  optional :: nodeMask(:)
+     type(ESMF_DistGrid),      intent(in),  optional :: nodalDistgrid
+     integer,                  intent(in)            :: elementIds(:)
+     integer,                  intent(in)            :: elementTypes(:)
+     integer,                  intent(in)            :: elementConn(:)
+     integer,                  intent(in),  optional :: elementMask(:)
+     real(ESMF_KIND_R8),       intent(in),  optional :: elementArea(:)
+     real(ESMF_KIND_R8),       intent(in),  optional :: elementCoords(:)
+     type(ESMF_DistGrid),      intent(in),  optional :: elementDistgrid
+     type(ESMF_CoordSys_Flag), intent(in),  optional :: coordSys
+     character(len=*),         intent(in),  optional :: name
+     integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Create a Mesh object in one step. After this call the Mesh is usable, for
+     example, a Field may be built on the created Mesh object and
+     this Field may be used in a {\tt ESMF\_FieldRegridStore()} call.
+  
+     This call sets the dimension of the elements in the mesh
+     ({\tt parametricDim}) and the number of coordinate dimensions in the mesh
+     ({\tt spatialDim}). It then creates the nodes, and
+     then creates the elements by connecting together the nodes.
+  
+     The parameters to this call {\tt nodeIds}, {\tt nodeCoords}, and
+     {\tt nodeOwners} describe the nodes to be created on this PET.
+     The description for a particular node lies at the same index location in
+     {\tt nodeIds} and {\tt nodeOwners}. Each entry
+     in {\tt nodeCoords} consists of spatial dimension coordinates, so the coordinates
+     for node $n$ in the {\tt nodeIds} array will start at $(n-1)*spatialDim+1$.
+  
+     The parameters to this call {\tt elementIds}, {\tt elementTypes}, and
+     {\tt elementConn} describe the elements to be created. The description
+     for a particular element lies at the same index location in {\tt elementIds}
+     and {\tt elementTypes}. Each entry in {\tt elementConn} consists of the list of
+     nodes used to create that element, so the connections for element $e$ in the
+     {\tt elementIds} array will start at $number\_of\_nodes\_in\_element(1) + number\_of\_nodes\_in\_element(2) +
+     \cdots + number\_of\_nodes\_in\_element(e-1) + 1$ in {\tt elementConn}.
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [parametricDim]
+           Dimension of the topology of the Mesh. (E.g. a mesh constructed of squares would
+           have a parametric dimension of 2, whereas a Mesh constructed of cubes would have one
+           of 3.)
+     \item[spatialDim]
+           The number of coordinate dimensions needed to describe the locations of the nodes
+           making up the Mesh. For a manifold, the spatial dimension can be larger than the
+           parametric dim (e.g. the 2D surface of a sphere in 3D space), but it can't be smaller.
+     \item [nodeIds]
+           An array containing the global ids of the nodes to be created on this PET.
+           This input consists of a 1D array the size of the number of nodes on this PET.
+            Each node id must be a number equal to or greater than 1. An id should be
+            unique in the sense that different nodes must have different ids (the same node
+            that appears on different processors must have the same id). There may be gaps in the sequence
+            of ids, but if these gaps are the same scale as the length of the sequence it can lead to
+            inefficiencies when the Mesh is used (e.g. in {\tt ESMF\_FieldRegridStore()}).
+     \item[nodeCoords]
+            An array containing the physical coordinates of the nodes to be created on this
+            PET. This input consists of a 1D array the size of the number of nodes on this PET times the Mesh's
+            spatial dimension ({\tt spatialDim}). The coordinates in this array are ordered
+            so that the coordinates for a node lie in sequence in memory. (e.g. for a
+            Mesh with spatial dimension 2, the coordinates for node 1 are in nodeCoords(1) and
+            nodeCoords(2), the coordinates for node 2 are in nodeCoords(3) and nodeCoords(4),
+            etc.).
+     \item[nodeOwners]
+           An array containing the PETs that own the nodes to be created on this PET.
+           If the node is shared with another PET, the value
+           may be a PET other than the current one. Only nodes owned by this PET
+           will have PET local entries in a Field created on the Mesh. This input consists of
+           a 1D array the size of the number of nodes on this PET.
+     \item [{[nodeMask]}]
+            An array containing values which can be used for node masking. Which values indicate
+            masking are chosen via the {\tt srcMaskValues} or {\tt dstMaskValues} arguments to
+            {\tt ESMF\_FieldRegridStore()} call. This input consists of a 1D array the
+            size of the number of nodes on this PET.
+     \item [{[nodalDistgrid]}]
+            If present, use this as the node Distgrid for the Mesh.
+            The passed in Distgrid
+            needs to contain a local set of sequence indices matching the set of local node ids (i.e. the ids in
+            {\tt nodeIds} with {\tt nodeOwners} equal to the current PET).
+            However, specifying an externally created Distgrid gives the user more control over aspects of
+            the Distgrid containing those sequence indices (e.g. how they are broken into DEs).
+            If not present, a 1D Distgrid will be created internally consisting of one DE per PET.
+     \item [elementIds]
+            An array containing the global ids of the elements to be created on this PET.
+            This input consists of a 1D array the size of the number of elements on this PET.
+            Each element id must be a number equal to or greater than 1. An id should be
+            unique in the sense that different elements must have different ids (the same element
+            that appears on different processors must have the same id). There may be gaps in the sequence
+            of ids, but if these gaps are the same scale as the length of the sequence it can lead to
+            inefficiencies when the Mesh is used (e.g. in {\tt ESMF\_FieldRegridStore()}).
+     \item[elementTypes]
+            An array containing the types of the elements to be created on this PET. The types used
+            must be appropriate for the parametric dimension of the Mesh. Please see
+            Section~\ref{const:meshelemtype} for the list of options. This input consists of
+            a 1D array the size of the number of elements on this PET.
+     \item[elementConn]
+           An array containing the indexes of the sets of nodes to be connected together to form the
+           elements to be created on this PET. The entries in this list are NOT node global ids,
+           but rather each entry is a local index (1 based) into the list of nodes to be
+           created on this PET by this call.
+           In other words, an entry of 1 indicates that this element contains the node
+           described by {\tt nodeIds(1)}, {\tt nodeCoords(1)}, etc. on this PET. It is also
+           important to note that the order of the nodes in an element connectivity list
+           matters. Please see Section~\ref{const:meshelemtype} for diagrams illustrating
+           the correct order of nodes in a element. This input consists of a 1D array with
+           a total size equal to the sum of the number of nodes contained in each element on
+           this PET. The number of nodes in each element is implied by its element type in
+           {\tt elementTypes}. The nodes for each element
+           are in sequence in this array (e.g. the nodes for element 1 are elementConn(1),
+           elementConn(2), etc.).
+     \item [{[elementMask]}]
+            An array containing values which can be used for element masking. Which values indicate
+            masking are chosen via the {\tt srcMaskValues} or {\tt dstMaskValues} arguments to
+            {\tt ESMF\_FieldRegridStore()} call. This input consists of a 1D array the
+            size of the number of elements on this PET.
+     \item [{[elementArea]}]
+            An array containing element areas. If not specified, the element areas are internally calculated.
+            This input consists of a 1D array the size of the number of elements on this PET.
+            {\bf NOTE:} ESMF doesn't currently do unit conversion on areas. If these areas are going to be used
+                  in a process that also involves the areas of another Grid or Mesh (e.g. conservative regridding), then
+                  it is the user's responsibility to make sure that the area units are consistent between the two sides.
+                  If ESMF calculates an area on the surface of a sphere, then it is in units of square radians. If
+                  it calculates the area for a Cartesian grid, then it is in the same units as the coordinates, but squared.
+     \item[{[elementCoords]}]
+            An array containing the physical coordinates of the elements to be created on this
+            PET. This input consists of a 1D array the size of the number of elements on this PET times the Mesh's
+            spatial dimension ({\tt spatialDim}). The coordinates in this array are ordered
+            so that the coordinates for an element lie in sequence in memory. (e.g. for a
+            Mesh with spatial dimension 2, the coordinates for element 1 are in elementCoords(1) and
+            elementCoords(2), the coordinates for element 2 are in elementCoords(3) and elementCoords(4),
+            etc.).
+     \item [{[elementDistgrid]}]
+            If present, use this as the element Distgrid for the Mesh.
+            The passed in Distgrid
+            needs to contain a local set of sequence indices matching the set of local element ids (i.e. those in {\tt elementIds}).
+            However, specifying an externally created Distgrid gives the user more control over aspects of
+            the Distgrid containing those sequence indices (e.g. how they are broken into DEs).
+            If not present, a 1D Distgrid will be created internally consisting of one DE per PET.
+     \item[{[coordSys]}]
+           The coordinate system of the grid coordinate data.
+           For a full list of options, please see Section~\ref{const:coordsys}.
+           If not specified then defaults to ESMF\_COORDSYS\_SPH\_DEG.
+     \item [{[name]}]
+           The name of the Mesh.
+     \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshCreate] {ESMF\_MeshCreate - Create a Mesh from a Grid}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_MeshCreate()
+     function ESMF_MeshCreateFromGrid(grid, name, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_Mesh)         :: ESMF_MeshCreateFromGrid\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Grid),        intent(in)            :: grid
+     character(len=*),       intent(in),  optional :: name
+     integer,                intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Create an ESMF Mesh from an ESMF Grid. This method creates the elements of
+    the Mesh from the cells of the Grid, and the nodes of the Mesh from the corners of
+    the Grid. Corresponding locations in the Grid and new Mesh will have the same
+    coordinates, sequence indices, masking, and area information.
+  
+     This method currently only works for 2D Grids. In addition, this method requires
+     the input Grid to have coordinates in the corner stagger location.
+  
+     \begin{description}
+     \item [grid]
+           The ESMF Grid from which to create the Mesh.
+     \item [{[name]}]
+           The name of the Mesh.
+     \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+  \label{API:MeshCreateFromFile}\subsubsection [ESMF\_MeshCreate] {ESMF\_MeshCreate - Create a Mesh from a file}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_MeshCreate()
+     function ESMF_MeshCreateFromFile(filename, fileformat, &
+                  convertToDual, addUserArea, maskFlag, varname, &
+                  nodalDistgrid, elementDistgrid, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_Mesh)         :: ESMF_MeshCreateFromFile\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     character(len=*),           intent(in)            :: filename
+     type(ESMF_FileFormat_Flag), intent(in)            :: fileformat
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                    intent(in),  optional :: convertToDual
+     logical,                    intent(in),  optional :: addUserArea
+     type(ESMF_MeshLoc),         intent(in),  optional :: maskFlag
+     character(len=*),           intent(in),  optional :: varname
+     type(ESMF_DistGrid),        intent(in),  optional :: nodalDistgrid
+     type(ESMF_DistGrid),        intent(in),  optional :: elementDistgrid
+     integer,                    intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Create a Mesh from a file. Provides options to convert to 3D and in the case of SCRIP
+     format files, allows the dual of the mesh to be created.
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [filename]
+           The name of the grid file
+     \item[fileformat]
+           The file format. The valid options are {\tt ESMF\_FILEFORMAT\_SCRIP}, {\tt ESMF\_FILEFORMAT\_ESMFMESH} and
+           {\tt ESMF\_FILEFORMAT\_UGRID}.
+           Please see Section~\ref{const:fileformatflag} for a detailed description of the options.
+     \item[{[convertToDual]}]
+           if {\tt .true.}, the mesh will be converted to its dual. If not specified,
+           defaults to {\tt .false.}.
+     \item[{[addUserArea]}]
+           if {\tt .true.}, the cell area will be read in from the GRID file.  This feature is
+           only supported when the grid file is in the SCRIP or ESMF format. If not specified,
+           defaults to {\tt .false.}.
+     \item[{[maskFlag]}]
+           If maskFlag is present, generate the mask using the missing\_value attribute defined in 'varname'
+           This flag is only supported when the grid file is in the UGRID format.
+           The value could be either {\tt ESMF\_MESHLOC\_NODE} or {\tt ESMF\_MESHLOC\_ELEMENT}.  If the value is
+           {\tt ESMF\_MESHLOC\_NODE}, the node mask will be generated and the variable has to be
+           defined on the "node" (specified by its {\tt location} attribute).  If the value is
+           {\tt ESMF\_MESHLOC\_ELEMENT}, the element mask will be generated and the variable has to be
+           defined on the "face" of the mesh.  If the variable is not defined on the right location,
+           no mask will be generated.  If not specified, no mask will be generated.
+     \item[{[varname]}]
+           If maskFlag is present, provide a variable name stored in the UGRID file and
+           the mask will be generated using the missing value of the data value of
+           this variable.  The first two dimensions of the variable has to be the
+           the longitude and the latitude dimension and the mask is derived from the
+           first 2D values of this variable even if this data is 3D, or 4D array. If not
+           specified, defaults to empty string.
+     \item [{[nodalDistgrid]}]
+           A Distgrid describing the user-specified distribution of
+           the nodes across the PETs.
+     \item [{[elementDistgrid]}]
+           A Distgrid describing the user-specified distribution of
+           the elements across the PETs.
+     \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+ \subsubsection [ESMF\_MeshCreate] {ESMF\_MeshCreate - Create a copy of a Mesh with a new distribution}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_MeshCreate()
+     function ESMF_MeshCreateRedist(mesh, nodalDistgrid, &
+       elementDistgrid, vm, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_Mesh)                            :: ESMF_MeshCreateRedist
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Mesh),     intent(in)            :: mesh
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_DistGrid), intent(in),  optional :: nodalDistgrid
+     type(ESMF_DistGrid), intent(in),  optional :: elementDistgrid
+     type(ESMF_VM),       intent(in),  optional :: vm
+     integer,             intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Create a copy of an existing Mesh with a new distribution. Information
+   in the Mesh such as connections, coordinates, areas, masks, etc. are
+   automatically redistributed to the new Mesh. To redistribute
+   data in Fields built on the original Mesh create a Field on the new Mesh
+    and then use the Field redistribution functionality
+   ({\tt ESMF\_FieldRedistStore()}, etc.). The equivalent methods
+   can also be used for data in FieldBundles.
+  
+   \begin{description}
+    \item [mesh]
+         The source Mesh to be redistributed.
+    \item [{[nodalDistgrid]}]
+         A Distgrid describing the new distribution of
+         the nodes across the PETs.
+    \item [{[elementDistgrid]}]
+         A Distgrid describing the new distribution of
+         the elements across the PETs.
+    \item[{[vm]}]
+        If present, the Mesh object is created on the specified
+        {\tt ESMF\_VM} object. The default is to create on the VM of the
+        current context.
+    \item [{[rc]}]
+        Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+    \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshCreate] {ESMF\_MeshCreate - Create a Mesh of just one element type using corner coordinates}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_MeshCreate()
+     function  ESMF_MeshCreateEasyElems1Type(parametricDim, coordSys, &
+                    elementIds, elementType, elementCornerCoords, &
+                    elementMask, elementArea, elementCoords, &
+                    elementDistgrid, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_Mesh) :: ESMF_MeshCreateEasyElems1Type\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     integer,                  intent(in)            :: parametricDim
+     type(ESMF_CoordSys_Flag), intent(in),  optional :: coordSys
+     integer,                  intent(in),  optional :: elementIds(:)
+     integer,                  intent(in)            :: elementType
+     real(ESMF_KIND_R8),       intent(in)            :: elementCornerCoords(:,:,:)
+     integer,                  intent(in),  optional :: elementMask(:)
+     real(ESMF_KIND_R8),       intent(in),  optional :: elementArea(:)
+     real(ESMF_KIND_R8),       intent(in),  optional :: elementCoords(:,:)
+     type(ESMF_DistGrid),      intent(in),  optional :: elementDistgrid
+     integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Create a Mesh object in one step by just specifying the corner coordinates of each element.
+     Internally these corners are turned into nodes forming the outside edges of the elements.
+     This call assumes that each element is the same type to make the specification of the elements
+     a bit easier.
+     After this call the Mesh is usable, for
+     example, a Field may be built on the created Mesh object and
+     this Field may be used in a {\tt ESMF\_FieldRegridStore()} call.
+  
+     This call sets the dimension of the elements in the Mesh
+     via {\tt parametricDim} and the number of coordinate dimensions in the mesh
+     is determined from the first dimension of {\tt elementCornerCoords}.
+  
+     The parameters to this call {\tt elementIds}, {\tt elementTypes}, and
+     {\tt elementCornerCoords} describe the elements to be created. The description
+     for a particular element lies at the same index location in {\tt elementIds}
+     and {\tt elementTypes}. The argument {\tt elementCornerCoords} contains the coordinates of the
+     corners used to create each element. The first dimension of this argument are across the coordinate dimensions.
+     The second dimension of this argument is across the corners of a
+     particular element. The last dimension of this argument is across the list
+     of elements on this PET, so the coordinates of corner c in element e on this PET
+     would be in {\tt elementCornerCoords(:,c,e)}.
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [parametricDim]
+           Dimension of the topology of the Mesh. (E.g. a mesh constructed of squares would
+           have a parametric dimension of 2, whereas a Mesh constructed of cubes would have one
+           of 3.)
+     \item[{[coordSys]}]
+           The coordinate system of the grid coordinate data.
+           For a full list of options, please see Section~\ref{const:coordsys}.
+           If not specified then defaults to ESMF\_COORDSYS\_SPH\_DEG.
+     \item [{[elementIds]}]
+            An array containing the global ids of the elements to be created on this PET.
+            This input consists of a 1D array the size of the number of elements on this PET.
+            Each element id must be a number equal to or greater than 1. An id should be
+            unique in the sense that different elements must have different ids (the same element
+            that appears on different processors must have the same id). There may be gaps in the sequence
+            of ids, but if these gaps are the same scale as the length of the sequence it can lead to
+            inefficiencies when the Mesh is used (e.g. in {\tt ESMF\_FieldRegridStore()}).
+            If not specified, then elements are numbered in sequence starting with the first element
+            on PET 0.
+     \item[elementType]
+            An variable containing the type of the elements to be created in this Mesh. The type used
+            must be appropriate for the parametric dimension of the Mesh. Please see
+            Section~\ref{const:meshelemtype} for the list of options.
+     \item[elementCornerCoords]
+           A 3D array containing the coordinates of the corners of the elements
+           to be created on this PET. The first dimension of this array is for the
+           coordinates and should be of size 2 or 3. The size of this dimension will be
+           used to determine the spatialDim of the Mesh. The second dimension is the number
+           of corners for an element. The 3rd dimension is a list of all the elements on this PET.
+     \item [{[elementMask]}]
+            An array containing values which can be used for element masking. Which values indicate
+            masking are chosen via the {\tt srcMaskValues} or {\tt dstMaskValues} arguments to
+            {\tt ESMF\_FieldRegridStore()} call. This input consists of a 1D array the
+            size of the number of elements on this PET.
+     \item [{[elementArea]}]
+            An array containing element areas. If not specified, the element areas are internally calculated.
+            This input consists of a 1D array the size of the number of elements on this PET.
+            {\bf NOTE:} ESMF doesn't currently do unit conversion on areas. If these areas are going to be used
+                  in a process that also involves the areas of another Grid or Mesh (e.g. conservative regridding), then
+                  it is the user's responsibility to make sure that the area units are consistent between the two sides.
+                  If ESMF calculates an area on the surface of a sphere, then it is in units of square radians. If
+                  it calculates the area for a Cartesian grid, then it is in the same units as the coordinates, but squared.
+     \item[{[elementCoords]}]
+            An array containing the physical coordinates of the elements to be created on this
+            PET. This input consists of a 2D array with the first dimension that same size as the first dimension of {\tt elementCornerCoords}.
+            The second dimension should be the same size as the {\tt elementTypes} argument.
+     \item [{[elementDistgrid]}]
+            If present, use this as the element Distgrid for the Mesh.
+            The passed in Distgrid
+            needs to contain a local set of sequence indices matching the set of local element ids (i.e. those in {\tt elementIds}).
+            However, specifying an externally created Distgrid gives the user more control over aspects of
+            the Distgrid containing those sequence indices (e.g. how they are broken into DEs).
+            If not present, a 1D Distgrid will be created internally consisting of one DE per PET.
+     \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshCreate] {ESMF\_MeshCreate - Create a Mesh using element corner coordinates}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_MeshCreate()
+     function  ESMF_MeshCreateEasyElemsGen(parametricDim, coordSys, &
+                    elementIds, elementTypes, elementCornerCoords, &
+                    elementMask, elementArea, elementCoords, &
+                    elementDistgrid, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_Mesh) :: ESMF_MeshCreateEasyElemsGen\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     integer,                  intent(in)            :: parametricDim
+     type(ESMF_CoordSys_Flag), intent(in),  optional :: coordSys
+     integer,                  intent(in),  optional :: elementIds(:)
+     integer,                  intent(in)            :: elementTypes(:)
+     real(ESMF_KIND_R8),       intent(in)            :: elementCornerCoords(:,:)
+     integer,                  intent(in),  optional :: elementMask(:)
+     real(ESMF_KIND_R8),       intent(in),  optional :: elementArea(:)
+     real(ESMF_KIND_R8),       intent(in),  optional :: elementCoords(:,:)
+     type(ESMF_DistGrid),      intent(in),  optional :: elementDistgrid
+     integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Create a Mesh object in one step by just specifying the corner coordinates of each element.
+     Internally these corners are turned into nodes forming the outside edges of the elements.
+     After this call the Mesh is usable, for
+     example, a Field may be built on the created Mesh object and
+     this Field may be used in a {\tt ESMF\_FieldRegridStore()} call.
+  
+     This call sets the dimension of the elements in the Mesh
+     via {\tt parametricDim} and the number of coordinate dimensions in the mesh
+     is determined from the first dimension of {\tt elementCornerCoords}.
+  
+     The parameters to this call {\tt elementIds}, {\tt elementTypes}, and
+     {\tt elementCornerCoords} describe the elements to be created. The description
+     for a particular element lies at the same index location in {\tt elementIds}
+     and {\tt elementTypes}. The argument {\tt elementCornerCoords} consists of a list of
+     all the corners used to create all the elements, so the corners for element $e$ in the
+     {\tt elementTypes} array will start at $number\_of\_corners\_in\_element(1)
+      + number\_of\_corners\_in\_element(2) +
+     \cdots + number\_of\_corners\_in\_element(e-1) + 1$ in {\tt elementCornerCoords}.
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [parametricDim]
+           Dimension of the topology of the Mesh. (E.g. a mesh constructed of squares would
+           have a parametric dimension of 2, whereas a Mesh constructed of cubes would have one
+           of 3.)
+     \item[{[coordSys]}]
+           The coordinate system of the grid coordinate data.
+           For a full list of options, please see Section~\ref{const:coordsys}.
+           If not specified then defaults to ESMF\_COORDSYS\_SPH\_DEG.
+     \item [{[elementIds]}]
+            An array containing the global ids of the elements to be created on this PET.
+            This input consists of a 1D array the size of the number of elements on this PET.
+            Each element id must be a number equal to or greater than 1. An id should be
+            unique in the sense that different elements must have different ids (the same element
+            that appears on different processors must have the same id). There may be gaps in the sequence
+            of ids, but if these gaps are the same scale as the length of the sequence it can lead to
+            inefficiencies when the Mesh is used (e.g. in {\tt ESMF\_FieldRegridStore()}).
+            If not specified, then elements are numbered in sequence starting with the first element
+            on PET 0.
+     \item[elementTypes]
+            An array containing the types of the elements to be created on this PET. The types used
+            must be appropriate for the parametric dimension of the Mesh. Please see
+            Section~\ref{const:meshelemtype} for the list of options. This input consists of
+            a 1D array the size of the number of elements on this PET.
+     \item[elementCornerCoords]
+           A 2D array containing the coordinates of the corners of the elements
+           to be created on this PET. The first dimension of this array is for the
+           coordinates and should be of size 2 or 3. The size of this dimension will be
+           used to determine the spatialDim of the Mesh. The second dimension is a collapsed
+           list of all the corners in all the elements. The list of corners has been collapsed
+           to 1D to enable elements with different number of corners to be supported in the
+           same list without wasting space.
+           The number of corners in each element is implied by its element type in
+           {\tt elementTypes}. The corners for each element
+           are in sequence in this array (e.g. If element 1 has 3 corners then they are in elementCornerCoords(:,1),
+           elementCornerCoords(:,2), elementCornerCoords(:,3) and the corners for the next element start in elementCornerCoords(:,4)).
+     \item [{[elementMask]}]
+            An array containing values which can be used for element masking. Which values indicate
+            masking are chosen via the {\tt srcMaskValues} or {\tt dstMaskValues} arguments to
+            {\tt ESMF\_FieldRegridStore()} call. This input consists of a 1D array the
+            size of the number of elements on this PET.
+     \item [{[elementArea]}]
+            An array containing element areas. If not specified, the element areas are internally calculated.
+            This input consists of a 1D array the size of the number of elements on this PET.
+            {\bf NOTE:} ESMF doesn't currently do unit conversion on areas. If these areas are going to be used
+                  in a process that also involves the areas of another Grid or Mesh (e.g. conservative regridding), then
+                  it is the user's responsibility to make sure that the area units are consistent between the two sides.
+                  If ESMF calculates an area on the surface of a sphere, then it is in units of square radians. If
+                  it calculates the area for a Cartesian grid, then it is in the same units as the coordinates, but squared.
+     \item[{[elementCoords]}]
+            An array containing the physical coordinates of the elements to be created on this
+            PET. This input consists of a 2D array with the first dimension that same size as the first dimension of {\tt elementCornerCoords}.
+            The second dimension should be the same size as the {\tt elementTypes} argument.
+     \item [{[elementDistgrid]}]
+            If present, use this as the element Distgrid for the Mesh.
+            The passed in Distgrid
+            needs to contain a local set of sequence indices matching the set of local element ids (i.e. those in {\tt elementIds}).
+            However, specifying an externally created Distgrid gives the user more control over aspects of
+            the Distgrid containing those sequence indices (e.g. how they are broken into DEs).
+            If not present, a 1D Distgrid will be created internally consisting of one DE per PET.
+     \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+
+ \subsubsection [ESMF\_MeshCreateCubedSphere] {ESMF\_MeshCreateCubedSphere - Create a Mesh representation of a cubed sphere grid}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} function ESMF_MeshCreateCubedSphere(tileSize, nx, ny, name, rc)
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_Mesh)         :: ESMF_MeshCreateCubedSphere
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     integer,                  intent(in)            :: tileSize
+     integer,                  intent(in)            :: nx
+     integer,                  intent(in)            :: ny
+     character(len=*),         intent(in),  optional :: name
+     integer,                  intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Create a {\tt ESMF\_Mesh} object for a cubed sphere grid using identical regular decomposition for every tile.
+     The grid coordinates are generated based on the algorithm used by GEOS-5, The tile resolution is defined by
+     {\tt tileSize}.  Each tile is decomposed into nx x ny blocks and the total number of DEs used
+     is nx x ny x 6.  If the total PET is not equal to the number of DEs, the DEs are distributed
+     into PETs in the default cyclic distribution.  Internally, the nodes and the elements from multiple DEs are
+     collapsed into a 1D array.  Therefore, the nodal distgrid or the element distgrid attached to the Mesh object
+     is always a one DE arbitrarily distributed distgrid.  The sequential indices of the nodes and the elements
+     are derived based on the location of the point in the Cubed Sphere grid.  If an element is located at {\tt (x, y)} of
+     tile {\tt n}.  Its sequential index would be {\tt (n-1)*tileSize*tileSize+(y-1)*tileSize+x}.  If it is a node, its
+     sequential index would be {\tt (n-1)*(tileSize+1)*(tileSize+1)+(y-1)*(tileSize+1)+x}.
+ 
+  
+       The arguments are:
+       \begin{description}
+       \item[tilesize]
+            The number of elements on each side of the tile of the Cubed Sphere grid
+       \item[nx]
+            The number of blocks on the horizontal size of each tile
+       \item[ny]
+            The number of blocks on the vertical size of each tile
+     \item [{[name]}]
+           The name of the Mesh.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshDestroy] {ESMF\_MeshDestroy - Release resources associated with a Mesh}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_MeshDestroy(mesh, noGarbage, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim} \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Mesh), intent(inout)          :: mesh
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,         intent(in),   optional :: noGarbage
+     integer,         intent(out),  optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[8.1.0] Added argument {\tt noGarbage}.
+     The argument provides a mechanism to override the default garbage collection
+     mechanism when destroying an ESMF object.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+    This call removes internal memory associated with {\tt mesh}.
+    After this call {\tt mesh} will no longer be usable.
+  !
+  ! The arguments are:
+   \begin{description}
+   \item [mesh]
+   Mesh object to be destroyed.
+   \item[{[noGarbage]}]
+        If set to {\tt .TRUE.} the object will be fully destroyed and removed
+        from the ESMF garbage collection system. Note however that under this 
+        condition ESMF cannot protect against accessing the destroyed object 
+        through dangling aliases -- a situation which may lead to hard to debug 
+        application crashes.
+   
+        It is generally recommended to leave the {\tt noGarbage} argument
+        set to {\tt .FALSE.} (the default), and to take advantage of the ESMF 
+        garbage collection system which will prevent problems with dangling
+        aliases or incorrect sequences of destroy calls. However this level of
+        support requires that a small remnant of the object is kept in memory
+        past the destroy call. This can lead to an unexpected increase in memory
+        consumption over the course of execution in applications that use 
+        temporary ESMF objects. For situations where the repeated creation and 
+        destruction of temporary objects leads to memory issues, it is 
+        recommended to call with {\tt noGarbage} set to {\tt .TRUE.}, fully 
+        removing the entire temporary object from memory.
+   \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshEmptyCreate] {ESMF\_MeshEmptyCreate - Create a Mesh to hold Distgrid information}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     function ESMF_MeshEmptyCreate(nodalDistgrid, elementDistgrid, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_Mesh)         :: ESMF_MeshEmptyCreate\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DistGrid),        intent(in), optional  :: elementdistgrid
+     type(ESMF_DistGrid),        intent(in), optional  :: nodalDistgrid
+     integer,                    intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Create a Mesh to hold distribution information (i.e. Distgrids).
+     Such a mesh will have no coordinate or connectivity information stored.
+     Aside from holding distgrids the Mesh created by this call can't be used in other
+     ESMF functionality (e.g. it can't be used to create a Field or in regridding).
+  
+     \begin{description}
+     \item [{[nodalDistgrid]}]
+           The nodal distgrid.
+     \item [{[elementDistgrid]}]
+           The elemental distgrid.
+     \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshFreeMemory] {ESMF\_MeshFreeMemory - Remove a Mesh and its memory}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_MeshFreeMemory(mesh, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim} \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Mesh), intent(inout)        :: mesh
+     integer,        intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      This call removes the portions of {\tt mesh} which contain connection and coordinate
+      information. After this call, Fields build on {\tt mesh} will no longer be usable
+      as part of an {\tt ESMF\_FieldRegridStore()} operation. However, after this call
+      Fields built on {\tt mesh} can still be used in an {\tt ESMF\_FieldRegrid()}
+      operation if the routehandle was generated beforehand. New Fields may also
+      be built on {\tt mesh} after this call.
+  
+   The arguments are:
+   \begin{description}
+   \item [mesh]
+   Mesh object whose memory is to be freed.
+   \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshGet] {ESMF\_MeshGet - Get object-wide Mesh information}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_MeshGet(mesh, parametricDim, spatialDim, &
+                    nodeCount, nodeIds, nodeCoords, nodeOwners, &
+                    nodeMaskIsPresent, nodeMask,&
+                    elementCount, elementIds, elementTypes, &
+                    elementConnCount, elementConn, &
+                    elementMaskIsPresent,elementMask, &
+                    elementAreaIsPresent, elementArea, &
+                    elementCoordsIsPresent, elementCoords, &
+                    nodalDistgridIsPresent, nodalDistgrid, &
+                    elementDistgridIsPresent, elementDistgrid, &
+                    numOwnedNodes, ownedNodeCoords, &
+                    numOwnedElements, ownedElemCoords, &
+                    elemMaskArray, elemAreaArray, &
+                    isMemFreed, coordSys, status, name, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim} \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Mesh),          intent(in)            :: mesh
+     integer,                  intent(out), optional :: parametricDim
+     integer,                  intent(out), optional :: spatialDim
+     integer,                  intent(out), optional :: nodeCount
+     integer,                  intent(out), optional :: nodeIds(:)
+     real(ESMF_KIND_R8),       intent(out), optional :: nodeCoords(:)
+     integer,                  intent(out), optional :: nodeOwners(:)
+     logical,                  intent(out), optional :: nodeMaskIsPresent
+     integer,                  intent(out), optional :: nodeMask(:)
+     integer,                  intent(out), optional :: elementCount
+     integer,                  intent(out), optional :: elementIds(:)
+     integer,                  intent(out), optional :: elementTypes(:)
+     integer,                  intent(out), optional :: elementConnCount
+     integer,                  intent(out), optional :: elementConn(:)
+     logical,                  intent(out), optional :: elementMaskIsPresent
+     integer,                  intent(out), optional :: elementMask(:)
+     logical,                  intent(out), optional :: elementAreaIsPresent
+     real(ESMF_KIND_R8),       intent(out), optional :: elementArea(:)
+     logical,                  intent(out), optional :: elementCoordsIsPresent
+     real(ESMF_KIND_R8),       intent(out), optional :: elementCoords(:)
+     logical,                  intent(out), optional :: nodalDistgridIsPresent
+     type(ESMF_DistGrid),      intent(out), optional :: nodalDistgrid
+     logical,                  intent(out), optional :: elementDistgridIsPresent
+     type(ESMF_DistGrid),      intent(out), optional :: elementDistgrid
+     integer,                  intent(out), optional :: numOwnedNodes
+     real(ESMF_KIND_R8),       intent(out), optional :: ownedNodeCoords(:)
+     integer,                  intent(out), optional :: numOwnedElements
+     real(ESMF_KIND_R8),       intent(out), optional :: ownedElemCoords(:)
+     logical,                  intent(out), optional :: isMemFreed
+     type(ESMF_Array),         intent(inout), optional :: elemMaskArray
+     type(ESMF_Array),         intent(inout), optional :: elemAreaArray
+     type(ESMF_CoordSys_Flag), intent(out), optional :: coordSys
+     type(ESMF_MeshStatus_Flag),intent(out), optional :: status
+     character(len=*),         intent(out), optional :: name
+     integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Get various information from a mesh.
+  
+   The arguments are:
+   \begin{description}
+   \item [mesh]
+   Mesh object to retrieve information from.
+   \item [{[parametricDim]}]
+   Dimension of the topology of the Mesh. (E.g. a mesh constructed of squares would
+   have a parametric dimension of 2, whereas a Mesh constructed of cubes would have one
+   of 3.)
+   \item[{[spatialDim]}]
+   The number of coordinate dimensions needed to describe the locations of the nodes
+   making up the Mesh. For a manifold, the spatial dimension can be larger than the
+   parametric dim (e.g. the 2D surface of a sphere in 3D space), but it can't be smaller.
+   \item [{[nodeCount]}]
+   The number of local nodes in the mesh (both owned and shared with another PET).
+   \item [{[nodeIds]}]
+   An array of ids for each local node in the mesh. The nodeIds array should be of size nodeCount.
+   \item [{[nodeCoords]}]
+   An array of  coordinates for each local node in the mesh. The nodeCoords array should be of size (spatialDim*nodeCount).
+   \item [{[nodeOwners]}]
+   An array of the PET numbers that own each local node in the mesh. The nodeOwners array should be of size nodeCount.
+   \item [{[nodeMaskIsPresent]}]
+   .true. if node masking was set in mesh, .false. otherwise.
+   \item [{[nodeMask]}]
+   An array of mask values for each local node in the mesh. The nodeOwners array should be of size nodeCount.
+   \item [{[elementCount]}]
+   The number of local elements in the mesh (both owned and shared with another PET).
+   \item [{[elementIds]}]
+   An array of ids for each local element in the mesh. The elementIds array should be of size elementCount.
+   \item [{[elementTypes]}]
+   An array of types for each local element in the mesh. Please see
+   section~\ref{const:meshelemtype} for the list of options. The elementTypes array should be of size elementCount.
+   \item [{[elementConnCount]}]
+   The number of entries elementConn array. Provided as a convenience.
+   \item[elementConn]
+           An array containing the indexes of the sets of nodes to be connected together to form the
+           elements to be created on this PET. The entries in this list are NOT node global ids,
+           but rather each entry is a local index (1 based) into the list of nodes to be
+           created on this PET by this call.
+           In other words, an entry of 1 indicates that this element contains the node
+           described by {\tt nodeIds(1)}, {\tt nodeCoords(1)}, etc. on this PET. It is also
+           important to note that the order of the nodes in an element connectivity list
+           matters. Please see Section~\ref{const:meshelemtype} for diagrams illustrating
+           the correct order of nodes in a element. This input consists of a 1D array with
+           a total size equal to the sum of the number of nodes contained in each element on
+           this PET (also provided by elementConnCount). The number of nodes in each element 
+           is implied by its element type in
+           {\tt elementTypes}. The nodes for each element
+           are in sequence in this array (e.g. the nodes for element 1 are elementConn(1),
+           elementConn(2), etc.).
+   \item [{[elementMaskIsPresent]}]
+   .true. if element masking was set in mesh, .false. otherwise.
+   \item [{[elementMask]}]
+   An array of mask values for each local element in the mesh. The elementMask array should be of size elementCount.
+   \item [{[elementAreaIsPresent]}]
+   .true. if element areas were set in mesh, .false. otherwise.
+   \item [{[elementArea]}]
+   An array of area values for each local element in the mesh. The elementArea array should be of size elementCount.
+   \item [{[elementCoordsIsPresent]}]
+   .true. if element coordinates were set in mesh, .false. otherwise.
+   \item [{[elementCoords]}]
+   An array of coordinate values for each local element in the mesh. The elementCoord array should be of size (spatialDim*elementCount).
+   \item [{[nodalDistgridIsPresent]}]
+   .true. if nodalDistgrid was set in Mesh object, .false. otherwise.
+   \item [{[nodalDistgrid]}]
+   A Distgrid describing the distribution of the nodes across the PETs. Note that
+   on each PET the distgrid will only contain entries for nodes owned by that PET.
+   This is the DistGrid that would be used to construct the Array in a Field that is constructed
+   on {\tt mesh}.
+   \item [{[elementDistgridIsPresent]}]
+   .true. if elementDistgrid was set in Mesh object, .false. otherwise.
+   \item [{[elementDistgrid]}]
+   A Distgrid describing the distribution of elements across the PETs. Note that
+   on each PET the distgrid will only contain entries for elements owned by that PET.
+   \item [{[numOwnedNodes]}]
+   The number of local nodes which are owned by this PET. This is the number of PET local entries in
+   the nodalDistgrid.
+   \item [{[ownedNodeCoords]}]
+   The coordinates for the local nodes. These coordinates will be in the proper order to correspond
+   with the nodes in the {\tt nodalDistgrid} returned by this call, and hence with a Field built on
+   {\tt mesh}. The size of the input array should be the spatial dim of {\tt mesh} times
+   {\tt numOwnedNodes}.
+   \item [{[numOwnedElements]}]
+   The number of local elements which are owned by this PET. Note that every element is owned by
+   the PET it resides on, so unlike for nodes, {\tt numOwnedElements} is identical to the number of elements on
+   the PET. It is also the number of PET local entries in the elementDistgrid.
+   \item [{[ownedElemCoords]}]
+   The center coordinates for the local elements. These coordinates will be in the proper order to correspond
+   with the elements in the {\tt elementDistgrid} returned by this call, and hence with a Field built on the
+   center of {\tt mesh}. The size of the input array should be the spatial dim of {\tt mesh} times
+   {\tt numOwnedElements}.
+   \item [{[elemMaskArray]}]
+   The mask information for elements put into an ESMF Array. The ESMF Array must be build on a DistGrid which
+   matches the elementDistgrid.
+   \item [{[elemAreaArray]}]
+   The area information for elements put into an ESMF Array. The ESMF Array must be build on a DistGrid which
+   matches the elementDistgrid.
+   \item [{[isMemFreed]}]
+   Indicates if the coordinate and connection memory been freed from {\tt mesh}. If so, it
+   can no longer be used as part of an {\tt ESMF\_FieldRegridStore()} call.
+   \item[{[coordSys]}]
+    The coordinate system of the grid coordinate data.
+   \item[{[status]}]
+      Flag indicating the status of the Mesh. Please
+      see Section~\ref{const:meshstatus} for the list of options.
+   \item [{[name]}]
+      Name of the Mesh object.
+   \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshIsCreated] {ESMF\_MeshIsCreated - Check whether a Mesh object has been created}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function ESMF_MeshIsCreated(mesh, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: ESMF_MeshIsCreated\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Mesh), intent(in)            :: mesh
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,             intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return {\tt .true.} if the {\tt mesh} has been created. Otherwise return
+     {\tt .false.}. If an error occurs, i.e. {\tt rc /= ESMF\_SUCCESS} is
+     returned, the return value of the function will also be {\tt .false.}.
+  
+   The arguments are:
+     \begin{description}
+     \item[mesh]
+       {\tt ESMF\_Mesh} queried.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_MeshSetMOAB] {ESMF\_MeshSetMOAB -- Toggle using the MOAB library internally.}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}    subroutine ESMF_MeshSetMOAB(moabOn, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     logical, intent(in)                        :: moabOn
+     integer, intent(out) , optional            :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     This method is only temporary. It was created to enable testing during the stage in ESMF development while
+     we have two internal mesh implementations. At some point it will be removed.
+  
+     This method can be employed to turn on or off using the MOAB library
+     to hold the internal structure of the Mesh. When set to .true. the following
+     Mesh create calls create a Mesh using MOAB internally. When set to .false. the following
+     Mesh create calls use the ESMF native internal mesh respresentation. Note that ESMF Meshes
+     created on MOAB are only supported in a limited set of operations and should be used
+     with caution as they haven't yet been tested as thoroughly as the native version.
+     Also, operations that use a pair of Meshes (e.g. regrid weight generation) are only supported between
+     meshes of the same type (e.g. you can regrid between two MOAB meshes, but not between a MOAB and
+     a native mesh).
+  
+     \begin{description}
+     \item [moabOn]
+           Variable used to turn MOAB on or off
+     \item [{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

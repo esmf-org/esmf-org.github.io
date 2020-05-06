@@ -1,0 +1,305 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_FTable.C,  Date: Tue May  5 21:00:10 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [getDataPtr] {getDataPtr - get data pointer from name}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::getDataPtr(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       char const *namep,     // in, data name
+       void **datap,          // out, data address
+       enum dtype *dtype) {   // out, data type\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Returns the named data pointer
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [setDataPtr] {setDataPtr - set data pointer}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::setDataPtr(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       char const *namep,     // in, data name
+       void **datap,          // in, data address
+       enum dtype dtype) {    // in, data type\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Sets the named data pointer
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [getEntry] {getEntry - get FTable entry from name}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::getEntry(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      entry index, or -1 if not found.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   char const *name,      // in, function name
+   int *rc) {             // out, return code\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Returns the index into the function table that matches "name". A linear
+    search is used, which is sufficient for typically very small function
+    table sizes.
+    One added feature this look-up routine also provides is a secondary
+    search for the actual method name in case that "name" was _not_ found,
+    _and_ "name" contained the substring "IC" which indicates that this
+    would have been a look-up for an interface component method.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [setFuncPtr] {setFuncPtr - set function pointer, no extra args}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::setFuncPtr(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     char const *name,      // in, function name
+     void *func) {          // in, function address\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Sets the named function pointer
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [setFuncPtr] {setFuncPtr - set function pointer, type; no args yet.}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::setFuncPtr(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     char const *name,      // in, function name
+     void *func,            // in, function address
+     enum ftype ftype) {    // in, function type\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Sets the named function pointer and type, but specifies no argument
+      values.  Before this can be called successfully, the user must call
+      FTable::setFuncArgs to fill in the argument list.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [setFuncPtr] {setFuncPtr - set voidp, intp specifically}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::setFuncPtr(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     char const *name,     // in, function name
+     void *func,           // in, function address
+     void *arg){           // in, void *\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Sets the named function pointer and arg.  This is a common case
+      so it has it's own interface.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [setFuncArgs] {setFuncArgs - set arglist for existing function}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::setFuncArgs(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     char const *name,      // in, function name
+     int acount,            // in, count of args
+     void **arglist) {      // in, address of arg list\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Sets the named function args.  The function must already exist.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [callVFuncPtr] {callVFuncPtr - call a function w/ proper args}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::callVFuncPtr(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      integer return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   char const *name,     // in, function name
+   VM *vm_pointer,       // in, optional, pointer to this PET's VM instance
+   int *userrc) {        // out, function return code\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Calls the named function pointer
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [extend] {extend - make space for additional functions/data}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::extend(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       int nfuncp,     // in, number of functions which will be added
+       int ndatap) {   // in, number of data pointers which will be added\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [query] {query - return count of functions/data}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::query(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       int *nfuncp,     // out, number of functions which will be added
+       int *ndatap) {   // out, number of data pointers which will be added\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [validate] {validate - internal consistency check for a Component}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::validate(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       char const *options) const {    // in - validate options\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Validates that a Component is internally consistent.
+        Returns error code if problems are found.  Base class method.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [print] {print - print contents of a Component}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int FTable::print(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       char const *options) const {     //  in - print options\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Print information about a Component.  The options control the
+        type of information and level of detail.  Base class method.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [FTable] {FTable - native C++ constructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} FTable::FTable(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     void){\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Native constructor.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [~FTable] {~FTable - native C++ destructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} FTable::~FTable(void) {\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}    none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Native destructor - deleting internal allocations
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

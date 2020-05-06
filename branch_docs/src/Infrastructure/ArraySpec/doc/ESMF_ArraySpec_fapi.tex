@@ -1,0 +1,287 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_ArraySpec.F90,  Date: Tue May  5 20:59:37 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_ArraySpecAssignment(=)] {ESMF\_ArraySpecAssignment(=) - Assign an ArraySpec to another ArraySpec}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface assignment(=)
+     arrayspec1 = arrayspec2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArraySpec) :: arrayspec1
+     type(ESMF_ArraySpec) :: arrayspec2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Set {\tt arrayspec1} equal to {\tt arrayspec2}. This is the default 
+     Fortran assignment, which creates a complete, independent copy of 
+     {\tt arrayspec2} as {\tt arrayspec1}. If {\tt arrayspec2} is an 
+     invalid {\tt ESMF\_ArraySpec} object then {\tt arrayspec1} will be 
+     equally invalid after the assignment.
+  
+     The arguments are:
+     \begin{description} 
+     \item[arrayspec1] 
+       The {\tt ESMF\_ArraySpec} to be set.
+     \item[arrayspec2] 
+       The {\tt ESMF\_ArraySpec} to be copied.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArraySpecOperator(==)] {ESMF\_ArraySpecOperator(==) - Test if ArraySpec 1 is equal to ArraySpec 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(==)
+     if (arrayspec1 == arrayspec2) then ... endif
+                  OR
+     result = (arrayspec1 == arrayspec2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArraySpec), intent(in) :: arrayspec1
+     type(ESMF_ArraySpec), intent(in) :: arrayspec2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Overloads the (==) operator for the {\tt ESMF\_ArraySpec} class to return 
+     {\tt .true.} if {\tt arrayspec1} and {\tt arrayspec2} specify the same
+     type, kind and rank, and {\tt .false.} otherwise.
+  
+     The arguments are:
+     \begin{description}
+     \item[arrayspec1]
+       First {\tt ESMF\_ArraySpec} in comparison.
+     \item[arrayspec2]
+       Second {\tt ESMF\_ArraySpec} in comparison.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArraySpecOperator(/=)] {ESMF\_ArraySpecOperator(/=) - Test if ArraySpec 1 is not equal to ArraySpec 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(/=)
+     if (arrayspec1 /= arrayspec2) then ... endif
+                  OR
+     result = (arrayspec1 /= arrayspec2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArraySpec), intent(in) :: arrayspec1
+     type(ESMF_ArraySpec), intent(in) :: arrayspec2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Overloads the (/=) operator for the {\tt ESMF\_ArraySpec} class to return 
+     {\tt .true.} if {\tt arrayspec1} and {\tt arrayspec2} do not specify the
+     same type, kind or rank, and {\tt .false.} otherwise.
+  
+     The arguments are:
+     \begin{description}
+     \item[arrayspec1]
+       First {\tt ESMF\_ArraySpec} in comparison.
+     \item[arrayspec2]
+       Second {\tt ESMF\_ArraySpec} in comparison.
+     \end{description}
+    
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArraySpecGet] {ESMF\_ArraySpecGet - Get values from an ArraySpec}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArraySpecGet(arrayspec, rank, typekind, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArraySpec),     intent(in)            :: arrayspec
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                  intent(out), optional :: rank
+     type(ESMF_TypeKind_Flag), intent(out), optional :: typekind
+     integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Returns information about the contents of an {\tt ESMF\_ArraySpec}.
+  
+     The arguments are:
+     \begin{description}
+     \item[arrayspec]
+       The {\tt ESMF\_ArraySpec} to query.
+     \item[{[rank]}]
+       Array rank (dimensionality -- 1D, 2D, etc). Maximum possible is 7D.
+     \item[{[typekind]}]
+       Array typekind.  See section \ref{const:typekind} for valid values.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArraySpecPrint] {ESMF\_ArraySpecPrint - Print ArraySpec information}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArraySpecPrint(arrayspec, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArraySpec), intent(in)            :: arrayspec
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,              intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Print ArraySpec internals. \\
+  
+       The arguments are:
+       \begin{description}
+       \item[arrayspec] 
+           Specified {\tt ESMF\_ArraySpec} object.
+       \item[{[rc]}]
+           Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArraySpecSet] {ESMF\_ArraySpecSet - Set values for an ArraySpec}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArraySpecSet(arrayspec, rank, typekind, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArraySpec),     intent(out)           :: arrayspec
+     integer,                  intent(in)            :: rank
+     type(ESMF_TypeKind_Flag), intent(in)            :: typekind
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Creates a description of the data -- the typekind, the rank,
+     and the dimensionality.
+  
+     The arguments are:
+     \begin{description}
+     \item[arrayspec]
+       The {\tt ESMF\_ArraySpec} to set.
+     \item[rank]
+       Array rank (dimensionality -- 1D, 2D, etc). Maximum allowed is 7D.
+     \item[typekind]
+       Array typekind.  See section \ref{const:typekind} for valid values.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArraySpecValidate] {ESMF\_ArraySpecValidate - Validate ArraySpec internals}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArraySpecValidate(arrayspec, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArraySpec), intent(in)            :: arrayspec
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,              intent(out), optional :: rc  \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Validates that the {\tt arrayspec} is internally consistent.
+     The method returns an error code if problems are found.  
+  
+     The arguments are:
+     \begin{description}
+     \item[arrayspec] 
+       Specified {\tt ESMF\_ArraySpec} object.
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

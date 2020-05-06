@@ -1,0 +1,617 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_DELayout.F90,  Date: Tue May  5 20:59:36 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_DELayoutAssignment(=)] {ESMF\_DELayoutAssignment(=) - DELayout assignment}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     interface assignment(=)
+     delayout1 = delayout2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DELayout) :: delayout1
+     type(ESMF_DELayout) :: delayout2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Assign delayout1 as an alias to the same ESMF DELayout object in memory
+     as delayout2. If delayout2 is invalid, then delayout1 will be equally
+     invalid after the assignment.
+  
+     The arguments are:
+     \begin{description}
+     \item[delayout1]
+       The {\tt ESMF\_DELayout} object on the left hand side of the assignment.
+     \item[delayout2]
+       The {\tt ESMF\_DELayout} object on the right hand side of the assignment.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DELayoutOperator(==)] {ESMF\_DELayoutOperator(==) - DELayout equality operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(==)
+     if (delayout1 == delayout2) then ... endif
+               OR
+     result = (delayout1 == delayout2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DELayout), intent(in) :: delayout1
+     type(ESMF_DELayout), intent(in) :: delayout2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Test whether delayout1 and delayout2 are valid aliases to the same ESMF
+     DELayout object in memory. For a more general comparison of two
+     ESMF DELayouts, going beyond the simple alias test, the 
+     ESMF\_DELayoutMatch() function (not yet implemented) must
+     be used.
+  
+     The arguments are:
+     \begin{description}
+     \item[delayout1]
+       The {\tt ESMF\_DELayout} object on the left hand side of the equality
+       operation.
+     \item[delayout2]
+       The {\tt ESMF\_DELayout} object on the right hand side of the equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DELayoutOperator(/=)] {ESMF\_DELayoutOperator(/=) - DELayout not equal operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(/=)
+     if (delayout1 /= delayout2) then ... endif
+               OR
+     result = (delayout1 /= delayout2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DELayout), intent(in) :: delayout1
+     type(ESMF_DELayout), intent(in) :: delayout2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Test whether delayout1 and delayout2 are {\it not} valid aliases to the
+     same ESMF DELayout object in memory. For a more general comparison of two
+     ESMF DELayouts, going beyond the simple alias test, the 
+     ESMF\_DELayoutMatch() function (not yet implemented) must
+     be used.
+  
+     The arguments are:
+     \begin{description}
+     \item[delayout1]
+       The {\tt ESMF\_DELayout} object on the left hand side of the non-equality
+       operation.
+     \item[delayout2]
+       The {\tt ESMF\_DELayout} object on the right hand side of the non-equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DELayoutCreate] {ESMF\_DELayoutCreate - Create DELayout object}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_DELayoutCreate()
+   recursive function ESMF_DELayoutCreateDefault(deCount, &
+     deGrouping, pinflag, petList, vm, rc)
+           \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_DELayout) :: ESMF_DELayoutCreateDefault\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim} -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                      intent(in),  optional :: deCount
+     integer, target,              intent(in),  optional :: deGrouping(:)
+     type(ESMF_Pin_Flag),          intent(in),  optional :: pinflag
+     integer, target,              intent(in),  optional :: petList(:)
+     type(ESMF_VM),                intent(in),  optional :: vm
+     integer,                      intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Create an {\tt ESMF\_DELayout} object on the basis of optionally provided
+       restrictions. By default a DELayout with deCount equal to petCount will
+       be created, each DE mapped to a single PET. However, the number of DEs
+       as well grouping of DEs and PETs can be specified via the optional
+       arguments.
+  
+       The arguments are:
+       \begin{description}
+       \item[{[deCount]}]
+            Number of DEs to be provided by the created DELayout. By default
+            the number of DEs equals the number of PETs in the associated VM
+            context. Specifying a {\tt deCount} smaller than the number
+            of PETs will result in unassociated PETs.
+            This may be used to share VM resources between DELayouts within the
+            same ESMF component. Specifying a {\tt deCount} greater than the 
+            number of PETs will result in multiple DE to PET mapping.
+       \item[{[deGrouping]}]
+            This optional argument must be of size deCount. Its content assigns
+            a DE group index to each DE of the DELayout. A group index of -1 
+            indicates that the associated DE isn't member of any particular 
+            group. The significance of DE groups is that all the DEs belonging
+            to a certain group will be mapped against the {\em same} PET. This
+            does not, however, mean that DEs belonging to different DE groups 
+            must be mapped to different PETs.
+       \item[{[pinflag]}]
+            This flag specifies which type of resource DEs are pinned to. 
+            The default is to pin DEs to PETs. Alternatively it is
+            also possible to pin DEs to VASs. See section 
+            \ref{const:pin_flag} for a list of valid pinning options.
+       \item[{[petList]}]
+            List specifying PETs to be used by this DELayout. This can be used
+            to control the PET overlap between DELayouts within the same
+            ESMF component. It is erroneous to specify PETs that are not within 
+            the provided VM context. The default is to include all the PETs of
+            the VM.
+       \item[{[vm]}]
+            If present, the DELayout object is created on the specified 
+            {\tt ESMF\_VM} object. The default is to create on the VM of the 
+            current context.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DELayoutCreate] {ESMF\_DELayoutCreate - Create DELayout from petMap}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_DELayoutCreate()
+   recursive function ESMF_DELayoutCreateFromPetMap(petMap, &
+     pinflag, vm, rc)
+           \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_DELayout) :: ESMF_DELayoutCreateFromPetMap\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     integer,                      intent(in)            :: petMap(:)
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_Pin_Flag),          intent(in),  optional :: pinflag
+     type(ESMF_VM),                intent(in),  optional :: vm
+     integer,                      intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Create an {\tt ESMF\_DELayout} with exactly specified DE to PET mapping.
+  
+       This ESMF method must be called in unison by all PETs of the VM. Calling
+       this method from a PET not part of the VM or not calling it from a PET
+       that is part of the VM will result in undefined behavior. ESMF does not
+       guard against violation of the unison requirement. The call is not
+       collective, there is no communication between PETs.
+  
+       The arguments are:
+       \begin{description}
+       \item[petMap]
+            List specifying the DE-to-PET mapping. The list elements correspond 
+            to DE 0, 1, 2, ... and map against the specified PET of the VM
+            context. The size of the {\tt petMap} 
+            argument determines the number of DEs in the created DELayout. It is
+            erroneous to specify a PET identifier that lies outside the VM 
+            context.
+       \item[{[pinflag]}]
+            This flag specifies which type of resource DEs are pinned to. 
+            The default is to pin DEs to PETs. Alternatively it is
+            also possible to pin DEs to VASs. See section 
+            \ref{const:pin_flag} for a list of valid pinning options.
+       \item[{[vm]}]
+            If present, the DELayout object is created on the specified 
+            {\tt ESMF\_VM} object. The default is to create on the VM of the 
+            current context.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DELayoutDestroy] {ESMF\_DELayoutDestroy - Release resources associated with DELayout object}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   recursive subroutine ESMF_DELayoutDestroy(delayout, noGarbage, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DELayout),  intent(inout)          :: delayout
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,              intent(in),   optional :: noGarbage
+     integer,              intent(out),  optional :: rc  \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[7.0.0] Added argument {\tt noGarbage}.
+     The argument provides a mechanism to override the default garbage collection
+     mechanism when destroying an ESMF object.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Destroy an {\tt ESMF\_DELayout} object, releasing the resources associated
+     with the object.
+  
+     By default a small remnant of the object is kept in memory in order to 
+     prevent problems with dangling aliases. The default garbage collection
+     mechanism can be overridden with the {\tt noGarbage} argument.
+  
+   The arguments are:
+   \begin{description}
+   \item[delayout] 
+        {\tt ESMF\_DELayout} object to be destroyed.
+   \item[{[noGarbage]}]
+        If set to {\tt .TRUE.} the object will be fully destroyed and removed
+        from the ESMF garbage collection system. Note however that under this 
+        condition ESMF cannot protect against accessing the destroyed object 
+        through dangling aliases -- a situation which may lead to hard to debug 
+        application crashes.
+   
+        It is generally recommended to leave the {\tt noGarbage} argument
+        set to {\tt .FALSE.} (the default), and to take advantage of the ESMF 
+        garbage collection system which will prevent problems with dangling
+        aliases or incorrect sequences of destroy calls. However this level of
+        support requires that a small remnant of the object is kept in memory
+        past the destroy call. This can lead to an unexpected increase in memory
+        consumption over the course of execution in applications that use 
+        temporary ESMF objects. For situations where the repeated creation and 
+        destruction of temporary objects leads to memory issues, it is 
+        recommended to call with {\tt noGarbage} set to {\tt .TRUE.}, fully 
+        removing the entire temporary object from memory.
+   \item[{[rc]}] 
+        Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DELayoutGet] {ESMF\_DELayoutGet - Get object-wide DELayout information}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   recursive subroutine ESMF_DELayoutGet(delayout, vm, deCount,&
+     petMap, vasMap, oneToOneFlag, pinflag, localDeCount, localDeToDeMap, &
+     localDeList, &      ! DEPRECATED ARGUMENT
+     vasLocalDeCount, vasLocalDeToDeMap, &
+     vasLocalDeList, &   ! DEPRECATED ARGUMENT
+     rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DELayout),      intent(in)            :: delayout
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_VM),            intent(out), optional :: vm
+     integer,                  intent(out), optional :: deCount
+     integer, target,          intent(out), optional :: petMap(:)
+     integer, target,          intent(out), optional :: vasMap(:)
+     logical,                  intent(out), optional :: oneToOneFlag
+     type(ESMF_Pin_Flag),      intent(out), optional :: pinflag
+     integer,                  intent(out), optional :: localDeCount
+     integer, target,          intent(out), optional :: localDeToDeMap(:)
+     integer, target, intent(out), optional :: localDeList(:)  !DEPRECATED ARG
+     integer,                  intent(out), optional :: vasLocalDeCount
+     integer, target,          intent(out), optional :: vasLocalDeToDeMap(:)
+     integer, target, intent(out), optional :: vasLocalDeList(:) !DEPRECATED ARG
+     integer,                  intent(out), optional :: rc  \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[5.2.0rp1] Added arguments {\tt localDeToDeMap} and {\tt vasLocalDeToDeMap}.
+                   Started to deprecate arguments {\tt localDeList} and 
+                   {\tt vasLocalDeList}. 
+                   The new argument names correctly use the {\tt Map} suffix and
+                   better describe the returned information.
+                   This was pointed out by user request.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Access to DELayout information.
+  
+     The arguments are:
+     \begin{description}
+     \item[delayout] 
+       Queried {\tt ESMF\_DELayout} object.
+     \item[{[vm]}]
+       The {\tt ESMF\_VM} object on which {\tt delayout} is defined.
+     \item[{[deCount]}]
+       The total number of DEs in the DELayout.
+     \item[{[petMap]}]
+       List of PETs against which the DEs are mapped. The {\tt petMap} 
+       argument must at least be of size {\tt deCount}.
+     \item[{[vasMap]}]
+       List of VASs against which the DEs are mapped. The {\tt vasMap}
+       argument must at least be of size {\tt deCount}.
+     \item[{[oneToOneFlag]}]
+       A value of {\tt .TRUE.} indicates that {\tt delayout} maps each DE to a
+       single PET, and each PET maps to a single DE. All other layouts return
+       a value of {\tt .FALSE.}.
+     \item[{[pinflag]}]
+       The type of DE pinning. See section \ref{const:pin_flag} for a list
+       of valid pinning options.
+     \item[{[localDeCount]}]
+       The number of DEs in the DELayout associated with the local PET.
+     \item[{[localDeToDeMap]}]
+       Mapping between localDe indices and the (global) DEs associated with
+       the local PET. The localDe index variables are discussed in sections
+       \ref{DELayout_general_mapping} and \ref{Array_native_language_localde}.
+       The provided actual argument must be of size {\tt localDeCount}.
+     \item[{[localDeList]}]
+       \apiDeprecatedArgWithReplacement{localDeToDeMap}
+     \item[{[vasLocalDeCount]}]
+       The number of DEs in the DELayout associated with the local VAS.
+     \item[{[vasLocalDeToDeMap]}]
+       Mapping between localDe indices and the (global) DEs associated with
+       the local VAS. The localDe index variables are discussed in sections
+       \ref{DELayout_general_mapping} and \ref{Array_native_language_localde}.
+       The provided actual argument must be of size {\tt localDeCount}.
+     \item[{[vasLocalDeList]}]
+       \apiDeprecatedArgWithReplacement{vasLocalDeToDeMap}
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DELayoutIsCreated] {ESMF\_DELayoutIsCreated - Check whether a DELayout object has been created}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function ESMF_DELayoutIsCreated(delayout, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: ESMF_DELayoutIsCreated\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DELayout), intent(in)            :: delayout
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,             intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return {\tt .true.} if the {\tt delayout} has been created. Otherwise return 
+     {\tt .false.}. If an error occurs, i.e. {\tt rc /= ESMF\_SUCCESS} is 
+     returned, the return value of the function will also be {\tt .false.}.
+  
+   The arguments are:
+     \begin{description}
+     \item[delayout]
+       {\tt ESMF\_DELayout} queried.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DELayoutPrint] {ESMF\_DELayoutPrint - Print DELayout information}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_DELayoutPrint(delayout, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DELayout),  intent(in)            :: delayout
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,              intent(out), optional :: rc  \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Prints internal information about the specified {\tt ESMF\_DELayout} 
+       object to {\tt stdout}. \\
+  
+       The arguments are:
+       \begin{description}
+       \item[delayout] 
+            Specified {\tt ESMF\_DELayout} object.
+       \item[{[rc]}] 
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DELayoutServiceComplete] {ESMF\_DELayoutServiceComplete - Close service window}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   recursive subroutine ESMF_DELayoutServiceComplete(delayout, de, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DELayout),  intent(in)            :: delayout
+     integer,              intent(in)            :: de
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,              intent(out), optional :: rc  \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     The PET who's service offer was accepted for {\tt de} must use 
+     {\tt ESMF\_DELayoutServiceComplete} to close the service window.
+  
+       The arguments are:
+       \begin{description}
+       \item[delayout] 
+            Specified {\tt ESMF\_DELayout} object.
+       \item[de]
+            DE for which to close service window.
+       \item[{[rc]}] 
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DELayoutServiceOffer] {ESMF\_DELayoutServiceOffer - Offer service for a DE in DELayout}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   recursive function ESMF_DELayoutServiceOffer(delayout, de, rc)
+           \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_ServiceReply_Flag) :: ESMF_DELayoutServiceOffer\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DELayout),  intent(in)            :: delayout
+     integer,              intent(in)            :: de
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,              intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       \begin{sloppypar}
+       Offer service for a DE in the {\tt ESMF\_DELayout} object. This call
+       together with {\tt ESMF\_DELayoutServiceComplete()} provides the
+       synchronization primitives between the PETs of an ESMF multi-threaded VM
+       necessary for dynamic load balancing via a work queue approach.
+  
+       The calling PET will either receive {\tt ESMF\_SERVICEREPLY\_ACCEPT} if
+       the service offer has been accepted by DELayout or 
+       {\tt ESMF\_SERVICEREPLY\_DENY} if the service offer was denied. The 
+       service offer paradigm is different from a simple mutex approach in that
+       the DELayout keeps track of the number of service offers issued for each
+       DE by each PET and accepts only one PET's offer for each offer increment.
+       This requires that all PETs use {\tt ESMF\_DELayoutServiceOffer()} in 
+       unison. See section \ref{const:servicereply_flag} for the potential return
+       values.
+       \end{sloppypar}
+  
+       The arguments are:
+       \begin{description}
+       \item[delayout] 
+            Specified {\tt ESMF\_DELayout} object.
+       \item[de]
+            DE for which service is offered by the calling PET.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DELayoutValidate] {ESMF\_DELayoutValidate - Validate DELayout internals}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_DELayoutValidate(delayout, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DELayout),  intent(in)            :: delayout
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,              intent(out), optional :: rc  \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+        Validates that the {\tt delayout} is internally consistent.
+        The method returns an error code if problems are found.  
+  
+       The arguments are:
+       \begin{description}
+       \item[delayout] 
+            Specified {\tt ESMF\_DELayout} object.
+       \item[{[rc]}] 
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

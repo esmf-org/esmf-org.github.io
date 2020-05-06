@@ -1,0 +1,226 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_AttReadGridCompEx.F90,  Date: Tue May  5 21:00:07 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+   \subsubsection{Read an XML file-based ESG Attribute package for a Gridded Component}
+   This example shows how to read an ESG Attribute Package for a Gridded
+   Component from an XML file.  The XML file contains Attribute values filled-in
+   by the user.  The standard ESG Component Attribute Package is supplied with
+   ESMF and is defined in an XSD file, which is used to validate the XML file.
+   See
+   \begin{description}
+   \item ESMF\_DIR/src/Superstructure/Component/etc/esmf\_gridcomp.xml (Attribute Package values) and
+   \item ESMF\_DIR/src/Superstructure/Component/etc/esmf\_comp.xsd (Attribute Package definition).
+   \end{description} 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! ESMF Framework module
+      use ESMF
+      use ESMF_TestMod
+      implicit none
+
+      ! local variables
+      type(ESMF_GridComp)    :: gridcomp
+      type(ESMF_AttPack)   :: attpack
+      character(ESMF_MAXSTR) :: attrvalue
+      type(ESMF_VM)          :: vm
+      integer                :: rc, petCount, localPet
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! initialize ESMF
+      call ESMF_Initialize(vm=vm, defaultlogfilename="AttReadGridCompEx.Log", &
+                    logkindflag=ESMF_LOGKIND_MULTI, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! get the vm
+      call ESMF_VMGet(vm, petCount=petCount, localPet=localPet, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      if (petCount<4) then
+        gridcomp = ESMF_GridCompCreate(name="gridcomp", &
+          petList=(/0/), rc=rc)
+      else
+        gridcomp = ESMF_GridCompCreate(name="gridcomp", &
+          petList=(/0,1,2,3/), rc=rc)
+      endif
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Read an XML file to populate the ESG Attribute package of a GridComp.
+      ! The file is validated against an internal, ESMF-supplied XSD file
+      ! defining the standard ESG Component Attribute package (see file
+      ! pathnames above).
+      call ESMF_AttributeRead(comp=gridcomp, fileName="esmf_gridcomp.xml", &
+          rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Get ESG "ComponentShortName" Attribute from a GridComp
+      call ESMF_AttributeGet(gridcomp, name='ComponentShortName', &
+                             value=attrValue, &
+                             convention='ESG', purpose='General', rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Get ESG "ComponentLongName" Attribute from a GridComp
+      call ESMF_AttributeGet(gridcomp, name='ComponentLongName', &
+                             value=attrValue, &
+                             convention='ESG', purpose='General', rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Get ESG "Agency" Attribute from a GridComp
+      call ESMF_AttributeGet(gridcomp, name='Agency', value=attrValue, &
+                             convention='ESG', purpose='General', rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Get ESG "Institution" Attribute from a GridComp
+      call ESMF_AttributeGet(gridcomp, name='Institution', value=attrValue, &
+                             convention='ESG', purpose='General', rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Get ESG "Version" Attribute from a GridComp
+      call ESMF_AttributeGet(gridcomp, name='Version', value=attrValue, &
+                             convention='ESG', purpose='General', rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Get ESG "Author" Attribute from a GridComp
+      call ESMF_AttributeGet(gridcomp, name='Author', value=attrValue, &
+                             convention='ESG', purpose='General', rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Get ESG "Discipline" Attribute from a GridComp
+      call ESMF_AttributeGet(gridcomp, name='Discipline', value=attrValue, &
+                             convention='ESG', purpose='General', rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Get ESG "PhysicalDomain" Attribute from a GridComp
+      call ESMF_AttributeGet(gridcomp, name='PhysicalDomain', &
+                             value=attrValue, convention='ESG', &
+                             purpose='General', rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Get ESG "CodingLanguage" Attribute from a GridComp Test
+      call ESMF_AttributeGet(gridcomp, name='CodingLanguage', &
+                             value=attrValue,  convention='ESG', &
+                             purpose='General', rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Get ESG "ModelComponentFramework" Attribute from a GridComp
+      call ESMF_AttributeGet(gridcomp, name='ModelComponentFramework', &
+                             value=attrValue, &
+                             convention='ESG', purpose='General', rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      call ESMF_GridCompDestroy(gridcomp, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! finalize ESMF framework
+      call ESMF_Finalize(rc=rc)
+ 
+\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

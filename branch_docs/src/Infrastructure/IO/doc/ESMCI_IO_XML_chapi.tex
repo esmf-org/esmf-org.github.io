@@ -1,0 +1,165 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_IO\_XML.h,  Date: Tue May  5 20:59:47 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsection{C++:  Class Interface ESMCI::IO\_XML - Handles low-level XML IO for ESMF internals and (Source File: ESMCI\_IO\_XML.h)}
+
+
+    ESMF user API.  Translates between ESMF internals/API and specific XML
+    protocols/API such as SAX2 and DOM.  Xerces is used for SAX2 currently,
+    (via ESMCI::SAX2[Write,Read]Handler), although Xerces/DOM could 
+    be added via a separate class such as ESMCI::DOM.
+  
+{\sf DESCRIPTION:\\ }
+
+
+    TODO
+  -------------------------------------------------------------------------
+  
+\bigskip{\em USES:}
+\begin{verbatim} #include <fstream>
+ #include <string>
+ #include <stdarg.h>
+ #include "ESMCI_Base.h"           // inherited Base class
+ #include "ESMCI_SAX2WriteHandler.h"
+   #include "ESMCI_SAX2ReadHandler.h"  // TODO: ?
+ 
+ namespace ESMCI{
+ \end{verbatim}{\sf PUBLIC TYPES:}
+\begin{verbatim}  class IO_XML;
+  class Attribute;
+ \end{verbatim}{\sf PRIVATE TYPES:}
+\begin{verbatim} 
+  // class definition type
+  class IO_XML : public ESMC_Base { // inherit from ESMC_Base class
+   private:   // corresponds to F90 module 'type ESMF_IO_XML' members
+     Attribute *attr;    // root node of associated object's attributes
+     std::string  fileName;
+     std::string  schemaFileName;
+ #ifdef ESMF_XERCES
+     SAX2WriteHandler* writeHandler;   // to file; a future use could be to 
+                                       // write to a network protocol rather
+                                       // than a file.
+     // SAX2ReadHandler* readHandler;  // TODO:  multiple reads per
+     // SAX2XMLReader* parser;         //        IO_XML object lifetime ?
+ #else
+     std::ofstream writeFile;
+ #endif
+ \end{verbatim}{\sf PUBLIC MEMBER FUNCTIONS:}
+\begin{verbatim} 
+   public:
+     // accessor methods
+ 
+     // Read/Write (via SAX2 API)
+     int read(const std::string& fileName,
+              const std::string& schemaFileName);
+ 
+     // maps to SAX2 startElement() & characters(), but not endElement();
+     //   use to open a nested tag section
+     int writeStartElement(const std::string& name,
+                           const std::string& value,
+                           const int     indentLevel,
+                           const int     nPairs, ...); // nPairs of
+                  // (char *attrName, char *attrValue)
+ 
+     // maps to SAX2 startElement, characters() & endElement();
+     //   use to write an entire tag, with xml attrs, and with no nested tags
+     int writeElement(const std::string& name,
+                      const std::string& value,
+                      const int     indentLevel,
+                      const int     nPairs, ...); // nPairs of
+                  // (char *attrName, char *attrValue)
+ 
+     // maps to SAX2 endElement(); use to close a nested tag section
+     int writeEndElement(const std::string& name,
+                         const int     indentLevel);
+ 
+     // write an XML comment
+     int writeComment(const std::string& comment, const int indentLevel=0);
+ 
+     int write(const std::string& fileName,
+               const char* outChars, int flag);
+ 
+     // internal validation
+     int validate(const char *options=0) const;
+ 
+     // for testing/debugging
+     int print(const char *options=0) const;
+ 
+     // native C++ constructors/destructors
+     IO_XML(void);
+     IO_XML(Attribute*);
+     // IO_XML(const IO_XML &io_xml);  TODO
+     ~IO_XML(){destruct();}
+ \end{verbatim}{\sf PRIVATE MEMBER FUNCTIONS:}
+\begin{verbatim}   private:
+  // < declare private interface methods here >
+ 
+     // used internally by public methods writeStartElement() & writeElement()
+     //   to share the common logic of writing the bulk of the tag
+     //   (the difference is in the handling of the end-of-line/end-of-tag)
+     int writeElementCore(const std::string& name,
+                          const std::string& value,
+                          const int     indentLevel,
+                          const int     nPairs,
+                          va_list       args); // nPairs of
+                      // (char *attrName, char *attrValue)
+     void destruct();
+ 
+     // replace special characters to XML entities to prevent malformed XML
+     int replaceXMLEntities(std::string& str);
+ 
+     // friend function to allocate and initialize IO_XML object from heap
+     friend IO_XML *ESMCI_IO_XMLCreate(const std::string& name,
+                                       const std::string& fileName,
+                                       Attribute*, int*);
+ 
+     // friend function to copy an io_xml  TODO ?
+     //friend IO_XML *ESMCI_IO_XML(IO_XML*, int*);
+ 
+     // friend function to de-allocate IO_XML
+     friend int ESMCI_IO_XMLDestroy(IO_XML**);
+ \end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

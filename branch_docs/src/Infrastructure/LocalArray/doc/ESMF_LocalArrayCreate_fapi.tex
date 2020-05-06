@@ -1,0 +1,382 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_LocalArrayCreate.F90,  Date: Tue May  5 20:59:38 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_LocalArrayAssignment(=)] {ESMF\_LocalArrayAssignment(=) - LocalArray assignment}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface assignment(=)
+   localarray1 = localarray2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   type(ESMF_LocalArray) :: localarray1
+   type(ESMF_LocalArray) :: localarray2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+   Assign localarray1 as an alias to the same ESMF LocalArray object in memory
+   as localarray2. If localarray2 is invalid, then localarray1 will be equally invalid after
+   the assignment.
+  
+   The arguments are:
+   \begin{description}
+   \item[localarray1]
+   The {\tt ESMF\_LocalArray} object on the left hand side of the assignment.
+   \item[localarray2]
+   The {\tt ESMF\_LocalArray} object on the right hand side of the assignment.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocalArrayOperator(==)] {ESMF\_LocalArrayOperator(==) - LocalArray equality operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(==)
+   if (localarray1 == localarray2) then ... endif
+   OR
+   result = (localarray1 == localarray2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}   logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   type(ESMF_LocalArray), intent(in) :: localarray1
+   type(ESMF_LocalArray), intent(in) :: localarray2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+   Test whether localarray1 and localarray2 are valid aliases to the same ESMF
+   LocalArray object in memory. For a more general comparison of two ESMF LocalArrays,
+   going beyond the simple alias test, the ESMF\_LocalArrayMatch() function (not yet
+   implemented) must be used.
+  
+   The arguments are:
+   \begin{description}
+   \item[localarray1]
+   The {\tt ESMF\_LocalArray} object on the left hand side of the equality
+   operation.
+   \item[localarray2]
+   The {\tt ESMF\_LocalArray} object on the right hand side of the equality
+   operation.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocalArrayOperator(/=)] {ESMF\_LocalArrayOperator(/=) - LocalArray not equal operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(/=)
+   if (localarray1 /= localarray2) then ... endif
+   OR
+   result = (localarray1 /= localarray2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}   logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   type(ESMF_LocalArray), intent(in) :: localarray1
+   type(ESMF_LocalArray), intent(in) :: localarray2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+   Test whether localarray1 and localarray2 are {\it not} valid aliases to the
+   same ESMF LocalArray object in memory. For a more general comparison of two ESMF
+   LocalArrays, going beyond the simple alias test, the ESMF\_LocalArrayMatch() function
+   (not yet implemented) must be used.
+  
+   The arguments are:
+   \begin{description}
+   \item[localarray1]
+   The {\tt ESMF\_LocalArray} object on the left hand side of the non-equality
+   operation.
+   \item[localarray2]
+   The {\tt ESMF\_LocalArray} object on the right hand side of the non-equality
+   operation.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocalArrayCreate] {ESMF\_LocalArrayCreate -- Create a LocalArray by explicitly specifying typekind and rank arguments}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_LocalArrayCreate()
+   function ESMF_LocalArrayCreateByTKR(typekind, rank, totalCount, &
+     totalLBound, totalUBound, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_LocalArray) :: ESMF_LocalArrayCreateByTKR\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_TypeKind_Flag), intent(in) :: typekind
+     integer, intent(in) :: rank
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer, intent(in), optional :: totalCount(:)
+     integer, intent(in), optional :: totalLBound(:)
+     integer, intent(in), optional :: totalUBound(:)
+     integer, intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+   Create a new {\tt ESMF\_LocalArray} and allocate data space, which remains
+   uninitialized. The return value is a new LocalArray.
+  
+   The arguments are:
+   \begin{description}
+   \item[typekind]
+   Array typekind. See section \ref{const:typekind} for valid values.
+   \item[rank]
+   Array rank (dimensionality, 1D, 2D, etc). Maximum allowed is 7D.
+   \item[{[totalCount]}]
+   The number of items in each dimension of the array. This is a 1D
+   integer array the same length as the rank. The {\tt count} argument may
+   be omitted if both {\tt totalLBound} and {\tt totalUBound} arguments are present.
+   \item[{[totalLBound]}]
+   An integer array of length rank, with the lower index for each dimension.
+   \item[{[totalUBound]}]
+   An integer array of length rank, with the upper index for each dimension.
+   \item[{[rc]}]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocalArrayCreate] {ESMF\_LocalArrayCreate -- Create a LocalArray by specifying an ArraySpec}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_LocalArrayCreate()
+   function ESMF_LocalArrayCreateBySpec(arrayspec, totalCount, &
+     totalLBound, totalUBound, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_LocalArray) :: ESMF_LocalArrayCreateBySpec\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArraySpec), intent(in) :: arrayspec
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer, intent(in), optional :: totalCount(:)
+     integer, intent(in), optional :: totalLBound(:)
+     integer, intent(in), optional :: totalUBound(:)
+     integer, intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+   Create a new {\tt ESMF\_LocalArray} and allocate data space, which remains
+   uninitialized. The return value is a new LocalArray.
+  
+   The arguments are:
+   \begin{description}
+   \item[arrayspec]
+   ArraySpec object specifying typekind and rank.
+   \item[{[totalCount]}]
+   The number of items in each dimension of the array. This is a 1D
+   integer array the same length as the rank. The {\tt count} argument may
+   be omitted if both {\tt totalLBound} and {\tt totalUBound} arguments are present.
+   \item[{[totalLBound]}]
+   An integer array of length rank, with the lower index for each dimension.
+   \item[{[totalUBound]}]
+   An integer array of length rank, with the upper index for each dimension.
+   \item[{[rc]}]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocalArrayCreate] {ESMF\_LocalArrayCreate -- Create a LocalArray from pre-existing LocalArray}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_LocalArrayCreate()
+   function ESMF_LocalArrayCreateCopy(localarray, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_LocalArray) :: ESMF_LocalArrayCreateCopy\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_LocalArray), intent(in) :: localarray
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer, intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+   Perform a deep copy of an existing {\tt ESMF\_LocalArray} object. The return
+   value is a new LocalArray.
+  
+   The arguments are:
+   \begin{description}
+   \item[localarray]
+   Existing LocalArray to be copied.
+   \item[{[rc]}]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocalArrayCreate] {ESMF\_LocalArrayCreate - Create a LocalArray from a Fortran pointer (associated or unassociated) }
+
+
+   
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_LocalArrayCreate() 
+   function ESMF_LocalArrCreateByPtr<rank><type><kind>(farrayPtr, & 
+   datacopyflag, totalCount, totalLBound, totalUBound, rc) 
+   \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}   type(ESMF_LocalArray) :: ESMF_LocalArrCreateByPtr<rank><type><kind> 
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   <type> (ESMF_KIND_<kind>), pointer :: farrayPtr(<rank>) 
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+   type(ESMF_DataCopy_Flag), intent(in), optional :: datacopyflag 
+   integer, intent(in), optional :: totalCount(:) 
+   integer, intent(in), optional :: totalLBound(:) 
+   integer, intent(in), optional :: totalUBound(:) 
+   integer, intent(out), optional :: rc 
+   \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize} 
+   \item\apiStatusCompatibleVersion{5.2.0r} 
+   \end{itemize} 
+   
+{\sf DESCRIPTION:\\ }
+
+ 
+   Creates an {\tt ESMF\_LocalArray} based on a Fortran array pointer. 
+   Two cases must be distinguished. 
+   
+   First, if {\tt farrayPtr} is associated 
+   the optional {\tt datacopyflag} argument may be used to indicate whether the 
+   associated data is to be copied or referenced. For associated {\tt farrayPtr} 
+   the optional {\tt totalCount}, {\tt totalLBound} and {\tt totalUBound} arguments need 
+   not be specified. However, all present arguments will be checked against 
+   {\tt farrayPtr} for consistency. 
+   
+   Second, if {\tt farrayPtr} is unassociated the optional argument {\tt datacopyflag} 
+   must not be specified. However, in this case a complete set of totalCount and 
+   bounds information must be provided. Any combination of present {\tt totalCount} 
+   {\tt totalLBound} and {\tt totalUBound} arguments that provides a complete 
+   specification is valid. All input information will be checked for 
+   consistency. 
+   
+   The arguments are: 
+   \begin{description} 
+   \item[farrayPtr] 
+   A Fortran array pointer (associated or unassociated). 
+   \item[{[datacopyflag]}] 
+   Indicate copy vs. reference behavior in case of associated {\tt farrayPtr}. 
+   This argument must {\em not} be present for unassociated {\tt farrayPtr}. 
+   Default to {\tt ESMF\_DATACOPY\_REFERENCE}, makes the {\tt ESMF\_LocalArray} 
+   reference the associated data array. If set to {\tt ESMF\_DATACOPY\_VALUE} this 
+   routine allocates new memory and copies the data from the pointer into 
+   the new LocalArray allocation. 
+   \item[{[totalCount]}] 
+   The number of items in each dimension of the array. This is a 1D 
+   integer array the same length as the rank. The {\tt count} argument may 
+   be omitted if both {\tt totalLBound} and {\tt totalUBound} arguments are present. 
+   \item[{[totalLBound]}] 
+   An integer array of lower index values. Must be the same length as the rank. 
+   \item[{[totalUBound]}] 
+   An integer array of upper index values. Must be the same length as the rank. 
+   \item[{[rc]}] 
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors. 
+   \end{description} 
+    
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocalArrayDestroy] {ESMF\_LocalArrayDestroy - Release resources associated with a LocalArray}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_LocalArrayDestroy(localarray, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_LocalArray), intent(inout) :: localarray
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer, intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+   Destroys an {\tt ESMF\_LocalArray}, releasing all resources associated
+   with the object.
+  
+   The arguments are:
+   \begin{description}
+   \item[localarray]
+   Destroy contents of this {\tt ESMF\_LocalArray}.
+   \item[[rc]]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

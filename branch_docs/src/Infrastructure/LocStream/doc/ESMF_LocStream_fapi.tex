@@ -1,0 +1,1139 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_LocStream.F90,  Date: Tue May  5 20:59:56 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_LocStreamAssignment(=)] {ESMF\_LocStreamAssignment(=) - LocStream assignment}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     interface assignment(=)
+     locstream1 = locstream2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_LocStream) :: locstream1
+     type(ESMF_LocStream) :: locstream2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Assign locstream1 as an alias to the same ESMF LocStream object in memory
+     as locstream2. If locstream2 is invalid, then locstream1 will be equally invalid after
+     the assignment.
+  
+     The arguments are:
+     \begin{description}
+     \item[locstream1]
+       The {\tt ESMF\_LocStream} object on the left hand side of the assignment.
+     \item[locstream2]
+       The {\tt ESMF\_LocStream} object on the right hand side of the assignment.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamOperator(==)] {ESMF\_LocStreamOperator(==) - LocStream equality operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(==)
+     if (locstream1 == locstream2) then ... endif
+               OR
+     result = (locstream1 == locstream2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_LocStream), intent(in) :: locstream1
+     type(ESMF_LocStream), intent(in) :: locstream2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Test whether locstream1 and locstream2 are valid aliases to the same ESMF
+     LocStream object in memory. For a more general comparison of two ESMF LocStreams,
+     going beyond the simple alias test, the ESMF\_LocStreamMatch() function (not yet
+     implemented) must be used.
+  
+     The arguments are:
+     \begin{description}
+     \item[locstream1]
+       The {\tt ESMF\_LocStream} object on the left hand side of the equality
+       operation.
+     \item[locstream2]
+       The {\tt ESMF\_LocStream} object on the right hand side of the equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamOperator(/=)] {ESMF\_LocStreamOperator(/=) - LocStream not equal operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(/=)
+     if (locstream1 /= locstream2) then ... endif
+               OR
+     result = (locstream1 /= locstream2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_LocStream), intent(in) :: locstream1
+     type(ESMF_LocStream), intent(in) :: locstream2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Test whether locstream1 and locstream2 are {\it not} valid aliases to the
+     same ESMF LocStream object in memory. For a more general comparison of two ESMF
+     LocStreams, going beyond the simple alias test, the ESMF\_LocStreamMatch() function
+     (not yet implemented) must be used.
+  
+     The arguments are:
+     \begin{description}
+     \item[locstream1]
+       The {\tt ESMF\_LocStream} object on the left hand side of the non-equality
+       operation.
+     \item[locstream2]
+       The {\tt ESMF\_LocStream} object on the right hand side of the non-equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamAddKey] {ESMF\_LocStreamAddKey - Add a key Array and allocate the internal memory}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_LocStreamAddKey()
+   subroutine ESMF_LocStreamAddKeyAlloc(locstream, keyName, &
+                keyTypeKind, keyUnits, keyLongName, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Locstream),     intent(in)            :: locstream
+     character (len=*),        intent(in)            :: keyName
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_TypeKind_Flag), intent(in),  optional :: keyTypeKind
+     character (len=*),        intent(in),  optional :: keyUnits 
+     character (len=*),        intent(in),  optional :: keyLongName 
+     integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   Add a key to a locstream with a required keyName. Once a key has 
+   been added, a pointer to its internally allocated memory can be 
+   retrieved and used to set key values. 
+  
+   The arguments are:
+   \begin{description}
+   \item [locstream]
+   The {\tt ESMF\_LocStream} object to add key to.
+   \item [keyName]
+   The name of the key to add. 
+   \item [{[keyTypeKind]}]
+   The type/kind of the key data. 
+   If not specified then the type/kind will default to 8 byte reals.  
+   \item [{[keyUnits]}]
+   The units of the key data. 
+   If not specified, then the item remains blank.  
+   \item [{[keyLongName]}]
+   The long name of the key data. 
+   If not specified, then the item remains blank.  
+   \item [{[rc]}]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamAddKey] {ESMF\_LocStreamAddKey - Add a key Array }
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_LocStreamAddKey()
+   subroutine ESMF_LocStreamAddKeyArray(locstream, keyName, keyArray, &
+                destroyKey, keyUnits, keyLongName, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Locstream), intent(in)             :: locstream
+     character (len=*),    intent(in)             :: keyName
+     type(ESMF_Array),     intent(in)             :: keyArray
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,              intent(in),  optional  :: destroyKey
+     character (len=*),    intent(in),  optional  :: keyUnits 
+     character (len=*),    intent(in),  optional  :: keyLongName 
+     integer,              intent(out), optional  :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   Add a key to a locstream with a required keyName and a required 
+   {\tt ESMF\_Array}.  The user is responsible for the creation of the 
+   {\tt ESMF\_Array} that will hold the key values.
+  
+   The arguments are:
+   \begin{description}
+   \item [locstream]
+   The {\tt ESMF\_LocStream} object to add key to.
+   \item [keyName]
+   The name of the key to add. 
+   \item [keyArray]
+   An ESMF Array which contains the key data
+   \item [{[destroyKey]}]
+   if .true. destroy this key array when the locstream is destroyed.
+   Defaults to .false.
+   \item [{[keyUnits]}]
+   The units of the key data. 
+   If not specified, then the item remains blank.  
+   \item [{[keyLongName]}]
+   The long name of the key data. 
+   If not specified, then the item remains blank.  
+   \item [{[rc]}]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamAddKey] {ESMF\_LocStreamAddKey - Add a key Array created around user memory }
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_LocStreamAddKey()
+    subroutine ESMF_LocStreamAddKeyI4(locstream, keyName, farray, &
+                 datacopyflag, keyUnits, keyLongName, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      type(ESMF_Locstream), intent(in) :: locstream
+      character (len=*), intent(in) :: keyName
+      <farray>
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+      type(ESMF_DataCopy_Flag), intent(in), optional :: datacopyflag
+      character (len=*), intent(in), optional :: keyUnits
+      character (len=*), intent(in), optional :: keyLongName
+      integer, intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Add a key to a locstream with a required keyName and a required 
+      Fortran array.  The user is responsible for the creation of the 
+      Fortran array that will hold the key values, including 
+      the maintenance of any allocated memory.
+  
+      Supported values for <farray> are:
+      \begin{description}
+      \item integer(ESMF\_KIND\_I4), intent(in) :: farray(:)
+      \item real(ESMF\_KIND\_R4),    intent(in) :: farray(:)
+      \item real(ESMF\_KIND\_R8),    intent(in) :: farray(:)
+      \end{description}
+  
+      The arguments are:
+      \begin{description}
+      \item [locstream]
+      The {\tt ESMF\_LocStream} object to add key to.
+      \item [keyName]
+      The name of the key to add. 
+      \item[farray] 
+      Valid native Fortran array, i.e. memory must be associated with the 
+      actual argument. The type/kind/rank information of {\tt farray} will be 
+      used to set the key Array's properties accordingly. 
+      \item[{[datacopyflag]}] 
+      Specifies whether the Array object will reference the memory allocation 
+      provided by {\tt farray} directly or will copy the data from 
+      {\tt farray} into a new memory allocation. Valid options are 
+  !    {\tt ESMF\_DATACOPY\_REFERENCE} (default) or {\tt ESMF\_DATACOPY\_VALUE}. 
+      Depending on the specific situation the {\tt ESMF\_DATACOPY\_REFERENCE} option 
+      may be unsafe when specifying an array slice for {\tt farray}. 
+      \item [{[keyUnits]}]
+      The units of the key data. 
+      If not specified, then the item remains blank.  
+      \item [{[keyLongName]}]
+      The long name of the key data. 
+      If not specified, then the item remains blank.  
+      \item [{[rc]}]
+      Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+      \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamCreate] {ESMF\_LocStreamCreate - Create a new LocStream by projecting onto a Grid}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ! Private name; call using ESMF_LocStreamCreate()
+       function ESMF_LocStreamCreateByBkgGrid(locstream, &
+                  background, maskValues, &
+                  unmappedaction, name, rc)
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_LocStream) :: ESMF_LocStreamCreateByBkgGrid
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_LocStream),           intent(in)            :: locstream
+       type(ESMF_Grid),                intent(in)            :: background
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer(ESMF_KIND_I4),          intent(in),  optional :: maskValues(:)
+       type(ESMF_UnmappedAction_Flag), intent(in),  optional :: unmappedaction
+       character (len=*),              intent(in),  optional :: name
+       integer,                        intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+  
+       Create an location stream from an existing one in accordance with 
+       the distribution of the background Grid.  The entries
+       in the new location stream are redistributed, so that they lie on the same PET
+       as the piece of Grid which contains the coordinates of the entries. The coordinates
+       of the entries are the data in the keys named ESMF:Lon, ESMF:Lat, ESMF:Radius in the 
+       case of a spherical system and ESMF:X, ESMF:Y, ESMF:Z for cartesian. To copy data in
+       Fields or FieldBundles built on {\tt locstream} to the new one simply use {\tt ESMF\_FieldRedist()}
+       or {\tt ESMF\_FieldBundleRedist()}.
+  
+       The arguments are:
+       \begin{description}
+        \item[locstream]
+            Location stream from which the new location stream is to be created
+        \item[background]
+            Background Grid which determines the distribution of the entries in the new location stream.
+            The background Grid 
+            Note also that this subroutine uses the corner stagger location in the Grid for determining 
+            where a point lies, because this is the stagger location which fully contains the cell. 
+            A Grid must have coordinate data in this stagger location to be used in this subroutine. 
+            For a 2D Grid this stagger location is ESMF\_STAGGERLOC\_CORNER for a 3D Grid this 
+            stagger location is ESMF\_STAGGERLOC\_CORNER\_VFACE. Note that currently the background 
+            Grid also needs to have been created with indexflag=ESMF\_INDEX\_GLOBAL to be usable here. 
+       \item [{[maskValues]}]
+             List of values that indicate a background grid point should be masked out. 
+             If not specified, no masking will occur. 
+       \item [{[unmappedaction]}]
+             Specifies what should happen if there are destination points that
+             can't be mapped to a source cell. Please see Section~\ref{const:unmappedaction} for a 
+             list of valid options. If not specified, {\tt unmappedaction} defaults to {\tt ESMF\_UNMAPPEDACTION\_ERROR}. [NOTE: the {\tt unmappedaction=ESMF\_UNMAPPEDACTION\_IGNORE} option is currently not implemented.]
+        \item[{[name]}]
+            Name of the resulting location stream
+        \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamCreate] {ESMF\_LocStreamCreate - Create a new LocStream by projecting onto a Mesh}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ! Private name; call using ESMF_LocStreamCreate()
+       function ESMF_LocStreamCreateByBkgMesh(locstream, &
+                  background, unmappedaction, name, rc)
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_LocStream) :: ESMF_LocStreamCreateByBkgMesh
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_LocStream),           intent(in)           :: locstream
+       type(ESMF_Mesh),                intent(in)           :: background
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_UnmappedAction_Flag), intent(in), optional :: unmappedaction
+       character (len=*),              intent(in), optional :: name
+       integer,                        intent(out),optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+  
+       Create an location stream from an existing one in accordance with 
+       the distribution of the background Mesh.  The entries
+       in the new location stream are redistributed, so that they lie on the same PET
+       as the piece of Mesh which contains the coordinates of the entries. The coordinates
+       of the entries are the data in the keys named ESMF:Lon, ESMF:Lat, ESMF:Radius in the 
+       case of a spherical system and ESMF:X, ESMF:Y, ESMF:Z for cartesian. To copy data in
+       Fields or FieldBundles built on {\tt locstream} to the new one simply use {\tt ESMF\_FieldRedist()}
+       or {\tt ESMF\_FieldBundleRedist()}.
+  
+       The arguments are:
+       \begin{description}
+        \item[locstream]
+            Location stream from which the new location stream is to be created
+        \item[background]
+            Background Mesh which determines the distribution of entries in the new locatiion stream.
+       \item [{[unmappedaction]}]
+             Specifies what should happen if there are destination points that
+             can't be mapped to a source cell. Please see Section~\ref{const:unmappedaction} for a 
+             list of valid options. If not specified, {\tt unmappedaction} defaults to {\tt ESMF\_UNMAPPEDACTION\_ERROR}. [NOTE: the {\tt unmappedaction=ESMF\_UNMAPPEDACTION\_IGNORE} option is currently not implemented.]
+        \item[{[name]}]
+            Name of the resulting location stream
+        \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamCreate] {ESMF\_LocStreamCreate - Create a new LocStream from a distgrid}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ! Private name: call using ESMF_LocStreamCreate()
+       function ESMF_LocStreamCreateFromDG(distgrid, &
+         indexflag, coordSys, name, vm, rc )\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_LocStream) :: ESMF_LocStreamCreateFromDG
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_DistGrid),      intent(in)            :: distgrid
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_Index_Flag),    intent(in),  optional :: indexflag    
+       type(ESMF_CoordSys_Flag), intent(in),  optional :: coordSys
+       character (len=*),        intent(in),  optional :: name
+       type(ESMF_VM),            intent(in),  optional :: vm
+       integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Allocates memory for a new {\tt ESMF\_LocStream} object, constructs its
+       internal derived types. 
+  
+       The arguments are:
+       \begin{description}
+       \item[distgrid]
+            Distgrid specifying size and distribution. Only 1D distgrids are allowed.
+       \item[{[indexflag]}]
+            Flag that indicates how the DE-local indices are to be defined.
+            Defaults to {\tt ESMF\_INDEX\_DELOCAL}, which indicates
+            that the index range on each DE starts at 1. See Section~\ref{const:indexflag}
+            for the full range of options. 
+       \item[{[coordSys]}]
+           The coordinate system of the location stream coordinate data.
+           For a full list of options, please see Section~\ref{const:coordsys}.
+           If not specified then defaults to ESMF\_COORDSYS\_SPH\_DEG.
+       \item[{[name]}]
+            Name of the location stream
+       \item[{[vm]}]
+           If present, the LocStream object is created on the specified 
+           {\tt ESMF\_VM} object. The default is to create on the VM of the 
+           current context.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamCreate] {ESMF\_LocStreamCreate - Create a new LocStream from an irregular distribution}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ! Private name: call using ESMF_LocStreamCreate()
+       function ESMF_LocStreamCreateIrreg(minIndex, countsPerDE, &
+                   indexflag, coordSys, name, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_LocStream) :: ESMF_LocStreamCreateIrreg
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       integer, intent(in), optional                   :: minIndex
+       integer, intent(in)                             :: countsPerDE(:)
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_Index_Flag), intent(in), optional     :: indexflag
+       type(ESMF_CoordSys_Flag), intent(in),  optional :: coordSys
+       character (len=*), intent(in), optional         :: name
+       integer, intent(out), optional                  :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Allocates memory for a new {\tt ESMF\_LocStream} object, constructs its
+       internal derived types.  The {\tt ESMF\_DistGrid} is set up, indicating
+       how the LocStream is distributed. 
+  
+       The arguments are:
+       \begin{description}
+       \item[{[minIndex]}] 
+            If indexflag={\tt ESMF\_INDEX\_DELOCAL}, this setting is used to indicate
+            the number to start the index ranges at. If not present, defaults to 1.
+       \item[{countsPerDE}] 
+            This array has an element for each DE, specifying the number of locations 
+            for that DE.
+       \item[{[indexflag]}]
+            Flag that indicates how the DE-local indices are to be defined.
+            Defaults to {\tt ESMF\_INDEX\_DELOCAL}, which indicates
+            that the index range on each DE starts at 1. See Section~\ref{const:indexflag}
+            for the full range of options. 
+       \item[{[coordSys]}]
+           The coordinate system of the location stream coordinate data.
+           For a full list of options, please see Section~\ref{const:coordsys}.
+           If not specified then defaults to ESMF\_COORDSYS\_SPH\_DEG.
+       \item[{[name]}]
+            Name of the location stream
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamCreate] {ESMF\_LocStreamCreate - Create a new LocStream from a local count}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ! Private name: call using ESMF_LocStreamCreate()
+       function ESMF_LocStreamCreateFromLocal(localCount, &
+                   indexflag, coordSys, name, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_LocStream) :: ESMF_LocStreamCreateFromLocal
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       integer, intent(in)                             :: localCount
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_Index_Flag), intent(in), optional     :: indexflag
+       type(ESMF_CoordSys_Flag), intent(in),  optional :: coordSys
+       character (len=*), intent(in), optional         :: name
+       integer, intent(out), optional                  :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Allocates memory for a new {\tt ESMF\_LocStream} object, constructs its
+       internal derived types.  The {\tt ESMF\_DistGrid} is set up, indicating
+       how the LocStream is distributed. The assumed layout is one DE per PET.
+  
+       The arguments are:
+       \begin{description}
+       \item[localCount]
+            Number of grid cells to be distributed to this DE/PET.
+       \item[{[indexflag]}]
+            Flag that indicates how the DE-local indices are to be defined.
+            Defaults to {\tt ESMF\_INDEX\_DELOCAL}, which indicates
+            that the index range on each DE starts at 1. See Section~\ref{const:indexflag}
+            for the full range of options. 
+       \item[{[coordSys]}]
+           The coordinate system of the location stream coordinate data.
+           For a full list of options, please see Section~\ref{const:coordsys}.
+           If not specified then defaults to ESMF\_COORDSYS\_SPH\_DEG.
+       \item[{[name]}]
+            Name of the location stream
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamCreate] {ESMF\_LocStreamCreate - Create a new LocStream from an old one and a distgrid}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ! Private name: call using ESMF_LocStreamCreate()
+       function ESMF_LocStreamCreateFromNewDG(locstream, distgrid, &
+            name, rc)
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_LocStream) :: ESMF_LocStreamCreateFromNewDG
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_LocStream), intent(in)                :: locstream
+       type(ESMF_DistGrid),  intent(in)                :: distgrid
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character (len=*),    intent(in), optional      :: name
+       integer,              intent(out), optional     :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+  
+       Create a new location stream that is a copy of an old one, but with a new
+       distribution. The new distribution is given by a distgrid passed into the call.
+       Key and other class information is copied from the old locstream to the new one. 
+       Information contained in Fields build on the location streams can be copied over
+       by using the Field redistribution calls (e.g. {\tt ESMF\_FieldRedistStore()} 
+       and {\tt ESMF\_FieldRedist()}).   
+  
+       The arguments are:
+       \begin{description}
+        \item[locstream]
+            Location stream from which the new location stream is to be created
+        \item[distgrid]
+            Distgrid for new distgrid
+        \item[{[name]}]
+            Name of the resulting location stream
+        \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamCreate] {ESMF\_LocStreamCreate - Create a new LocStream using a regular distribution}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ! Private name: call using ESMF_LocStreamCreate()
+       function ESMF_LocStreamCreateReg(regDecomp, decompFlag, &
+                     minIndex, maxIndex, &
+                     coordSys, indexflag, name, rc)
+ 
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_LocStream) :: ESMF_LocStreamCreateReg
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       integer,                  intent(in),  optional  :: regDecomp
+       type(ESMF_Decomp_Flag),   intent(in),  optional  :: decompflag
+       integer,                  intent(in),  optional  :: minIndex
+       integer,                  intent(in)             :: maxIndex
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_CoordSys_Flag), intent(in),  optional  :: coordSys
+       type(ESMF_Index_Flag),    intent(in),  optional  :: indexflag
+       character (len=*),        intent(in),  optional  :: name
+       integer,                  intent(out), optional  :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Allocates memory for a new {\tt ESMF\_LocStream} object, constructs its
+       internal derived types.  The {\tt ESMF\_DistGrid} is set up, indicating
+       how the LocStream is distributed. 
+  
+       The arguments are:
+       \begin{description}
+       \item[{[regDecomp]}]
+            Specify into how many chunks to divide the locations. 
+            If not specified, defaults to the number of PETs.
+       \item[{[decompFlag]}]
+            \begin{sloppypar}
+            Specify what to do with leftover locations after division.
+            If not specified, defaults to {\tt ESMF\_DECOMP\_BALANCED}. Please
+            see Section~\ref{const:decompflag} for a full description of the 
+            possible options. 
+            \end{sloppypar}
+       \item[{[minIndex]}] 
+            If indexflag={\tt ESMF\_INDEX\_DELOCAL}, this setting is used to indicate
+            the number to start the index ranges at. If not present, defaults to 1.
+       \item[maxIndex]
+            The maximum index across all PETs.
+       \item[{[coordSys]}]
+           The coordinate system of the location stream coordinate data.
+           For a full list of options, please see Section~\ref{const:coordsys}.
+           If not specified then defaults to ESMF\_COORDSYS\_SPH\_DEG.
+       \item[{[indexflag]}]
+            Flag that indicates how the DE-local indices are to be defined.
+            Defaults to {\tt ESMF\_INDEX\_DELOCAL}, which indicates
+            that the index range on each DE starts at 1. See Section~\ref{const:indexflag}
+            for the full range of options. 
+       \item[{[name]}]
+            Name of the location stream
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamCreate] {ESMF\_LocStreamCreate - Create a new LocStream from a grid file}
+
+
+  \label{locstream:createfromfile}
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ! Private name: call using ESMF_LocStreamCreate()
+       function ESMF_LocStreamCreateFromFile(filename, &
+            fileformat, varname, indexflag, centerflag, name, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_LocStream) :: ESMF_LocStreamCreateFromFile
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       character (len=*),          intent(in)           :: filename
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       type(ESMF_FileFormat_Flag), intent(in), optional :: fileformat
+       character(len=*),           intent(in), optional :: varname
+       type(ESMF_Index_Flag),      intent(in), optional :: indexflag
+       logical,                    intent(in), optional :: centerflag
+       character (len=*),          intent(in), optional :: name
+       integer,                    intent(out),optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Create a new {\tt ESMF\_LocStream} object and add the coordinate keys and mask key
+       to the LocStream using the coordinates defined in a grid file.  Currently, it 
+       supports the SCRIP format, the ESMF unstructured grid format and the UGRID format.
+       For a 2D or 3D grid in ESMF or UGRID format, it can construct the LocStream using either 
+       the center coordinates or the corner coordinates.  For a SCRIP format grid file, the
+       LocStream can only be constructed using the center coordinates.  In
+       addition, it supports 1D network topology in UGRID format.  When
+       construction a LocStream using a 1D UGRID, it always uses node
+       coordinates (i.e., corner coordinates). 
+  
+       The arguments are:
+       \begin{description}
+       \item[filename]
+            Name of grid file to be used to create the location stream.  
+       \item[{[fileformat]}]
+       The file format.  The valid options are {\tt ESMF\_FILEFORMAT\_SCRIP},
+       {\tt ESMF\_FILEFORMAT\_ESMFMESH}, and {\tt ESMF\_FILEFORMAT\_UGRID}.
+        Please see section~\ref{const:fileformatflag} for a detailed description of the options.
+       If not specified, the default is {\tt ESMF\_FILEFORMAT\_SCRIP}.
+       \item[{[varname]}]
+           An optional variable name stored in the UGRID file to be used to
+           generate the mask using the missing value of the data value of
+           this variable.  The first two dimensions of the variable has to be the
+           the longitude and the latitude dimension and the mask is derived from the
+           first 2D values of this variable even if this data is 3D, or 4D array. If not 
+           specified, no mask is used for a UGRID file.
+       \item[{[indexflag]}]
+            Flag that indicates how the DE-local indices are to be defined.
+            Defaults to {\tt ESMF\_INDEX\_DELOCAL}, which indicates
+            that the index range on each DE starts at 1. See Section~\ref{const:indexflag}
+            for the full range of options. 
+       \item[{[centerflag]}]
+            Flag that indicates whether to use the center coordinates to construct the location stream.
+            If true, use center coordinates, otherwise, use the corner coordinates.  If not specified,
+            use center coordinates as default.  For SCRIP files, only center coordinate 
+            is supported.
+       \item[{[name]}]
+            Name of the location stream
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamDestroy] {ESMF\_LocStreamDestroy - Release resources associated with a LocStream }
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_LocStreamDestroy(locstream, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_LocStream), intent(inout)          :: locstream 
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,              intent(out),  optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Deallocate an {\tt ESMF\_LocStream} object and appropriate 
+       internal structures.
+  
+       The arguments are:
+       \begin{description}
+       \item[locstream]
+            locstream to destroy
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamGet] {ESMF\_LocStreamGet - Return object-wide information from a LocStream}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_LocStreamGet(locstream, &
+        distgrid, keyCount, keyNames, localDECount, indexflag, &
+        coordSys, name, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Locstream),         intent(in)            :: locstream
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_DistGrid),          intent(out), optional :: distgrid
+     integer,                      intent(out), optional :: keyCount
+     character(len=ESMF_MAXSTR),                optional :: keyNames(:) 
+     integer,                      intent(out), optional :: localDECount
+     type(ESMF_Index_Flag),        intent(out), optional :: indexflag
+     type(ESMF_CoordSys_Flag),     intent(out), optional :: coordSys
+     character(len=*),             intent(out), optional :: name
+     integer,                      intent(out), optional :: rc
+ 
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   Query an {\tt ESMF\_LocStream} for various information. All arguments after
+   the {\tt locstream} are optional. 
+  
+   The arguments are:
+   \begin{description}
+   \item [locstream]
+   The {\tt ESMF\_LocStream} object to query.
+   \item [{[distgrid]}]
+   The {\tt ESMF\_DistGrid} object that describes 
+   \item [{[keyCount]}]
+   Number of keys in the {\tt locstream}.
+   \item [{[keyNames]}]
+   The names of the keys in the {\tt locstream}. Keynames should
+   be an array of character strings. The character strings should
+   be of length ESMF\_MAXSTR and the array's length should be
+   at least keyCount. 
+   \item [{[localDECount]}]
+   Number of DEs on this PET in the {\tt locstream}.
+   \item [{[indexflag]}]
+   The indexflag for this indexflag.
+   \item [{[coordSys]}]
+   The coordinate system for this location stream.
+   \item [{[name]}]
+   Name of queried item.
+   \item [{[rc]}]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamGetBounds] {ESMF\_LocStreamGetBounds - Get DE-local bounds of a LocStream}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_LocStreamGetBounds(locstream,   &
+           localDE, exclusiveLBound, exclusiveUBound, exclusiveCount,   &
+           computationalLBound, computationalUBound, computationalCount,&
+           rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_LocStream),   intent(in) :: locstream
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,                intent(in),  optional :: localDE
+       integer,                intent(out), optional :: exclusiveLBound
+       integer,                intent(out), optional :: exclusiveUBound
+       integer,                intent(out), optional :: exclusiveCount
+       integer,                intent(out), optional :: computationalLBound
+       integer,                intent(out), optional :: computationalUBound
+       integer,                intent(out), optional :: computationalCount
+       integer, intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      This method gets the bounds of a localDE for a locstream.
+  
+       The arguments are:
+       \begin{description}
+       \item[{locstream}]
+            LocStream to get the information from.
+       \item[{localDE}]
+           The local DE for which information is requested. {\tt [0,..,localDECount-1]}.
+           For {\tt localDECount==1} the {\tt localDE} argument may be omitted,
+            in which case it will default to {\tt localDE=0}.
+       \item[{[exclusiveLBound]}]
+            Upon return this holds the lower bounds of the exclusive region.
+       \item[{[exclusiveUBound]}]
+            Upon return this holds the upper bounds of the exclusive region.
+       \item[{[exclusiveCount]}]
+  !          Upon return this holds the number of items in the exclusive region
+       \newline
+            (i.e. {\tt exclusiveUBound-exclusiveLBound+1}). {\tt exclusiveCount}.
+       \item[{[computationalLBound]}]
+            Upon return this holds the lower bounds of the computational region.
+       \item[{[computationalUBound]}]
+            Upon return this holds the upper bounds of the computational region.
+       \item[{[computationalCount]}]
+            Upon return this holds the number of items in the computational region
+       \newline
+            (i.e. {\tt computationalUBound-computationalLBound+1}). {\tt computationalCount}.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamGetKey] {ESMF\_LocStreamGetKey - Get an Array associated with a key}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_LocStreamGetKey()
+   subroutine ESMF_LocStreamGetKeyArray(locstream, keyName, keyArray, &
+        rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Locstream), intent(in)            :: locstream
+     character (len=*),    intent(in)            :: keyName
+     type(ESMF_Array),     intent(out)           :: keyArray
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,              intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   Get ESMF Array associated with key.
+  
+   The arguments are:
+   \begin{description}
+   \item [locstream]
+   The {\tt ESMF\_LocStream} object to get key from.
+   \item [keyName]
+   The name of the key to get. 
+   \item [keyArray]
+   Array associated with key.
+   \item [{[rc]}]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamGetKey] {ESMF\_LocStreamGetKey - Get info associated with a key}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_LocStreamGetKey()
+   subroutine ESMF_LocStreamGetKeyInfo(locstream, keyName, &
+        keyUnits, keyLongName, typekind, isPresent, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Locstream),     intent(in)            :: locstream
+     character (len=*),        intent(in)            :: keyName
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     character (len=*),        intent(out), optional :: keyUnits 
+     character (len=*),        intent(out), optional :: keyLongName 
+     type(ESMF_TypeKind_Flag), intent(out), optional :: typekind
+     logical,                  intent(out), optional :: isPresent
+     integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   Get ESMF Array associated with key.
+  
+   The arguments are:
+   \begin{description}
+   \item [locstream]
+   The {\tt ESMF\_LocStream} object to get key from.
+   \item [keyName]
+   The name of the key to get. 
+   \item [{[keyUnits]}]
+   The units of the key data. 
+   If not specified, then the item remains blank.  
+   \item [{[keyLongName]}]
+   The long name of the key data. 
+   If not specified, then the item remains blank.  
+   \item [{[typekind]}]
+   The typekind of the key data
+   \item [{[isPresent]}]
+   Whether or not the keyname is present 
+   \item [{[rc]}]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamGetKey] {ESMF\_LocStreamGetKey - Get a DE-local Fortran array pointer to key values}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_LocStreamGetKey()
+        subroutine ESMF_LocStreamGetKey(locstream, keyName, &
+            localDE, exclusiveLBound, exclusiveUBound, exclusiveCount,       &
+            computationalLBound, computationalUBound, computationalCount,    &
+            totalLBound, totalUBound, totalCount,                            &
+            farray, datacopyflag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}        type(ESMF_LocStream),   intent(in)            :: locstream
+        character (len=*),      intent(in)            :: keyName
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+        integer,                intent(in),  optional :: localDE
+        integer,                intent(out), optional :: exclusiveLBound
+        integer,                intent(out), optional :: exclusiveUBound
+        integer,                intent(out), optional :: exclusiveCount
+        integer,                intent(out), optional :: computationalLBound
+        integer,                intent(out), optional :: computationalUBound
+        integer,                intent(out), optional :: computationalCount
+        integer,                intent(out), optional :: totalLBound
+        integer,                intent(out), optional :: totalUBound
+        integer,                intent(out), optional :: totalCount
+        <farray>
+        type(ESMF_DataCopy_Flag), intent(in), optional :: datacopyflag
+        integer, intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      This method gets a Fortran pointer to the piece of memory which holds the 
+      key data for a particular key on the given local DE. 
+      This is useful, for example, for setting the key values in a LocStream, or
+      for reading the values. 
+  
+      Supported values for <farray> are:
+      \begin{description}
+      \item integer(ESMF\_KIND\_I4), pointer :: farray(:)
+      \item real(ESMF\_KIND\_R4), pointer :: farray(:)
+      \item real(ESMF\_KIND\_R8), pointer :: farray(:)
+      \end{description}
+  
+       The arguments are:
+       \begin{description}
+       \item[{locstream}]
+            LocStream to get the information from.
+       \item[{keyName}]
+            The key to get the information from.
+       \item[{[localDE]}]
+           The local DE for which information is requested. {\tt [0,..,localDECount-1]}.
+           For {\tt localDECount==1} the {\tt localDE} argument may be omitted,
+            in which case it will default to {\tt localDE=0}.
+       \item[{[exclusiveLBound]}]
+            Upon return this holds the lower bounds of the exclusive region.
+       \item[{[exclusiveUBound]}]
+            Upon return this holds the upper bounds of the exclusive region.
+       \item[{[exclusiveCount]}]
+            Upon return this holds the number of items in the exclusive region \newline
+            (i.e. {\tt exclusiveUBound-exclusiveLBound+1}). {\tt exclusiveCount}.
+       \item[{[computationalLBound]}]
+            Upon return this holds the lower bounds of the computational region.
+       \item[{[computationalUBound]}]
+            Upon return this holds the upper bounds of the computational region.
+       \item[{[computationalCount]}]
+            Upon return this holds the number of items in the computational region
+            \newline
+            (i.e. {\tt computationalUBound-computationalLBound+1}). 
+       \item[{[totalLBound]}]
+            Upon return this holds the lower bounds of the total region.
+       \item[{[totalUBound]}]
+            Upon return this holds the upper bounds of the total region.
+       \item[{[totalCount]}]
+            Upon return this holds the number of items in the total region
+            (i.e. {\tt totalUBound-totalLBound+1}). 
+       \item[{farray}]
+            The pointer to the coordinate data.
+       \item[{[datacopyflag]}]
+            If not specified, default to {\tt ESMF\_DATACOPY\_REFERENCE}, in this case
+            farray is a reference to the data in the Grid coordinate arrays. 
+            Please see Section~\ref{const:datacopyflag} for further description and a
+            list of valid values. 
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamIsCreated] {ESMF\_LocStreamIsCreated - Check whether a LocStream object has been created}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function ESMF_LocStreamIsCreated(locstream, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: ESMF_LocStreamIsCreated\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_LocStream), intent(in)            :: locstream
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,             intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return {\tt .true.} if the {\tt locstream} has been created. Otherwise return 
+     {\tt .false.}. If an error occurs, i.e. {\tt rc /= ESMF\_SUCCESS} is 
+     returned, the return value of the function will also be {\tt .false.}.
+  
+   The arguments are:
+     \begin{description}
+     \item[locstream]
+       {\tt ESMF\_LocStream} queried.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamPrint] {ESMF\_LocStreamPrint - Print the contents of a LocStream}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_LocStreamPrint(locstream, options, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_LocStream), intent(in)             :: locstream 
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character (len = *),  intent(in),   optional :: options
+       integer,              intent(out),  optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Prints information about the {\tt locstream} to {\tt stdout}.
+    This subroutine goes through the internal data members of a locstream
+  !  data type and prints information of each data member.
+  
+       The arguments are:
+       \begin{description}
+       \item [locstream]
+       \item [{[options]}]
+             Print options are not yet supported.
+       \item [{[rc]}]
+             Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LocStreamValidate] {ESMF\_LocStreamValidate - Check validity of a LocStream}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_LocStreamValidate(locstream, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_LocStream), intent(in)            :: locstream 
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,              intent(out), optional :: rc   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Validates that the {\tt locstream} is internally consistent.
+        Currently this method determines if the {\tt locstream} is uninitialized 
+        or already destroyed. 
+  
+        The method returns an error code if problems are found.  
+  
+       The arguments are:
+       \begin{description}
+       \item [locstream]
+             {\tt ESMF\_LocStream} to validate.
+       \item [{[rc]}]
+             Return code; equals {\tt ESMF\_SUCCESS} if the {\tt locstream} 
+             is valid.
+       \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

@@ -1,0 +1,125 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_FieldBundleRedistEx.F90,  Date: Tue May  5 21:00:04 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+   \subsubsection{Redistribute data from a source FieldBundle to a destination FieldBundle}
+   \label{sec:fieldbundle:usage:redist_1dptr}
+  
+   The {\tt ESMF\_FieldBundleRedist} interface can be used to redistribute data from
+   source FieldBundle to destination FieldBundle. This interface is overloaded by type and kind;
+   In the version of {\tt ESMF\_FieldBundleRedist} without factor argument, a default value
+   of factor 1 is used.
+   
+   In this example, we first create two FieldBundles, a source FieldBundle and a destination
+   FieldBundle. Then we use {\tt ESMF\_FieldBundleRedist} to
+   redistribute data from source FieldBundle to destination FieldBundle. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+    ! perform redist
+    call ESMF_FieldBundleRedistStore(srcFieldBundle, dstFieldBundle, &
+         routehandle, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+    call ESMF_FieldBundleRedist(srcFieldBundle, dstFieldBundle, &
+         routehandle, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   \subsubsection{Redistribute data from a packed source FieldBundle to a packed destination FieldBundle}
+   \label{sec:fieldbundle:usage:redist_packed}
+  
+   The {\tt ESMF\_FieldBundleRedist} interface can be used to redistribute data from
+   source FieldBundle to destination FieldBundle when both Bundles are packed with same
+   number of fields.  
+  
+   In this example, we first create two packed FieldBundles, a source FieldBundle and a destination
+   FieldBundle. Then we use {\tt ESMF\_FieldBundleRedist} to
+   redistribute data from source FieldBundle to destination FieldBundle.
+  
+   The same Grid is used where the source and destination packed FieldBundle are built upon. Source
+   and destination Bundle have different memory layout. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+    allocate(srcfptr(3,5,10), dstfptr(10,5,3))
+    srcfptr = lpe
+    srcFieldBundle = ESMF_FieldBundleCreate((/'field01', 'field02', 'field03'/), &
+      srcfptr, grid, 1, gridToFieldMap=(/2,3/), rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+    dstFieldBundle = ESMF_FieldBundleCreate((/'field01', 'field02', 'field03'/), &
+      dstfptr, grid, 3, gridToFieldMap=(/2,1/), rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+    ! perform redist
+    call ESMF_FieldBundleRedistStore(srcFieldBundle, dstFieldBundle, &
+         routehandle, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+    call ESMF_FieldBundleRedist(srcFieldBundle, dstFieldBundle, &
+         routehandle, rc=rc)
+ 
+\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

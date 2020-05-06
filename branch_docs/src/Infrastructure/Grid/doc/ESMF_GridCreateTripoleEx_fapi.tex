@@ -1,0 +1,225 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_GridCreateTripoleEx.F90,  Date: Tue May  5 20:59:48 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+   \subsubsection{Create a 2D tripole grid from Arrays}\label{sec:usage:ex:adv:tripole}
+  
+   This example illustrates the creation of a 2D tripole Grid from coordinate data
+   read in on a single processor and then distributed to the rest of the processors. 
+   The Grid contains just the center stagger location. The size of the Grid is gridSize(1) by 
+   gridSize(2). 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      ! Use ESMF framework module
+      use ESMF
+      implicit none
+
+      ! Local variables  
+      integer:: rc, finalrc
+      integer:: myPet, npets, rootPet
+      type(ESMF_VM):: vm
+      type(ESMF_Config) :: config
+      type(ESMF_DistGrid) :: distgrid
+      type(ESMF_Array) :: gridCoordArrays(2,1)
+      type(ESMF_Array) :: gridCntrCoordArrayLat,gridCntrCoordArrayLon
+      type(ESMF_StaggerLoc) :: staggerLocs(1)
+      type(ESMF_ArraySpec) ::  arrayspec
+      real(ESMF_KIND_R8), allocatable :: globalGridCntrCoordLat(:,:)
+      real(ESMF_KIND_R8), allocatable :: globalGridCntrCoordLon(:,:)
+      integer :: gridSize(2), gridRank
+      integer, allocatable ::  connectionList(:,:)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   Allocate a Fortran array to hold sphere coodinates, then read them in. This
+   all takes place on one processor. Later the data will be distributed across the processors.  
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      gridRank=2  ! 2D grid
+      call read2Dgriddata(gridSize)
+      allocate( globalGridCntrCoordLat(gridSize(1),gridSize(2)))
+      allocate( globalGridCntrCoordLon(gridSize(1),gridSize(2)))
+      call read2Dgrid(globalGridCntrCoordLat)
+      call read2Dgrid(globalGridCntrCoordLon)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   Construct a single tile tripole domain. 
+   Specify that the first dimension is periodic: \\
+  
+   \begin{itemize}
+   \item Setting tileIndexA=tileIndexB indicates that the connection 
+        is within the tile.
+   \item The position vector is set to span the width of the tile's 
+        first dimension.
+   \item The repetitionVector indicates that the connection repeats along
+             the dimension. This takes care of both sides of the connection.
+   \end{itemize} 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+      allocate( connectionList(2*gridRank,3) )
+      call ESMF_ConnectionElementConstruct(                          &
+                 connectionElement=connectionList(:,1),     &
+                 tileIndexA=1, tileIndexB=1,              &
+                 positionVector = (/gridSize(1),0/),        &
+                 repetitionVector= (/1,0/), rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   Specify the northern bipolar fold: \\
+  
+    The position and orientation vectors indicate that each element 
+    along the top edge of the tile is attached to the corresponding
+    element across the fold.  
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+       call ESMF_ConnectionElementConstruct(
+                  connectionElement = connectionList(:,2), &
+                  tileIndexA = 1, tileIndexB = 1, &
+                  positionVector = (/gridSize(1)+1, 2*gridSize(2)/), &
+                  orientationVector = (/-1, -2/), &
+                  rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   Specify the south pole: \\
+  
+    The position and orientation vectors indicate that each element along
+     the bottom edge of the tile is attached to the element directly across the pole.  
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+       call ESMF_ConnectionElementConstruct( 
+                 connectionElement = connectionList(:,3), &
+                 tileIndexA = 1, tileIndexB = 1, &
+                 positionVector = (/gridSize(1)/2, 0/), &
+                 orientationVector = (/1, -2/), &
+                 repetitionVector = (/1, 0/), &
+                 rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+    Construct distgrid from connection information. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      distgrid = ESMF_DistGridCreate( minCorner=(/1,1/),  &
+                          maxCorner=(/gridSize(1),gridSize(2)/),    &
+                          connectionList=connectionList, rc=rc)  
+
+      deallocate( connectionList )
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+    Create an array into which to put the spherical coordinates.
+  
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      call ESMF_ArraySpecSet(arrayspec, typekind=ESMF_TYPEKIND_R8,  &
+                 rank=gridRank)
+
+      gridCntrCoordArrayLat = ESMF_ArrayCreate(arrayspec=arrayspec,  &
+                                                 distgrid=distgrid, rc=rc)
+      gridCntrCoordArrayLon = ESMF_ArrayCreate(arrayspec=arrayspec, &
+                                                 distgrid=distgrid, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+    Scatter the Fortran array according to DistGrid into the esmf Array. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+      call ESMF_ArrayScatter(gridCntrCoordArrayLat, globalGridCntrCoordLat, &
+                rootPet=rootPet, vm=vm, rc=rc)    
+
+      call ESMF_ArrayScatter(gridCntrCoordArrayLon, globalGridCntrCoordLon, &
+                rootPet=rootPet, vm=vm, rc=rc)    
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   Load Stagger location and corresponding coordinate arrays into array of ESMF Arrays. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+     staggerlocs(1)=ESMF_STAGGERLOC_CENTER
+     gridCoordArrays(1,1)=gridCntrCoordArrayLon     
+     gridCoordArrays(2,1)=gridCntrCoordArrayLat     
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+      Create a Grid from the coordinate array.  
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+     tripoleGrid = ESMF_GridCreate(arrays=gridCoordArrays, &
+                               staggerLocs=staggerlocs,rc=rc)
+ 
+\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

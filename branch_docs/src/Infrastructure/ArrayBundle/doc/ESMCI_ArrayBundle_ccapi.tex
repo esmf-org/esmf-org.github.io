@@ -1,0 +1,432 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_ArrayBundle.C,  Date: Tue May  5 20:59:45 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMCI::ArrayBundle::ArrayBundle] {ESMCI::ArrayBundle::ArrayBundle - constructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} ArrayBundle::ArrayBundle(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   Array **arrayList,                  // (in)
+   int arrayCount,                     // (in)
+   bool multi,                         // (in)
+   bool relaxed                        // (in)
+   ){\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Construct the internal structure of an ESMCI::ArrayBundle object.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::destruct] {ESMCI::ArrayBundle::destruct}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::destruct(bool followCreator){
+   TODO: The followCreator flag is only needed until we have reference counting.
+   TODO: For now followCreator, which by default is true, will be coming in as
+   TODO: false when calling through the native destructor. This prevents
+   TODO: sequence problems during automatic garbage collection unit reference
+   TODO: counting comes in to solve this problem in the final manner.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Destruct the internal structure of an ESMCI::ArrayBundle object.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::create] {ESMCI::ArrayBundle::create}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} ArrayBundle *ArrayBundle::create(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      ArrayBundle * to newly allocated ArrayBundle\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   Array **arrayList,                  // (in)
+   int arrayCount,                     // (in)
+   bool multi,                         // (in)
+   bool relaxed,                       // (in)
+   int *rc                             // (out) return code
+   ){\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Create an {\tt ArrayBundle} object from list of Arrays. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::destroy] {ESMCI::ArrayBundle::destroy}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::destroy(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ArrayBundle **arraybundle,    // in - ArrayBundle to destroy
+   bool noGarbage){              // in - remove from garbage collection\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::read] {ESMCI::ArrayBundle::read}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::read(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   const std::string &file,      // in    - name of file being read
+   bool *singleFile,             // in    - All arrays from single file if true
+   int   *timeslice,             // in    - timeslice option
+   ESMC_IOFmt_Flag *iofmt        // in    - I/O format flag
+   ){\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Read Array data to an ArrayBundle object from file(s).
+     For this API to be functional, the environment variable {\tt ESMF\_PIO} 
+     should be set to "internal" when the ESMF library is built.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::write] {ESMCI::ArrayBundle::write}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::write(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   const std::string &file,        // in    - name of file being read
+   const std::string &convention,  // in    - Attribute convention
+   const std::string &purpose,     // in    - Attribute purpose
+   bool *singleFile,               // in    - All arrays to single file if true
+   bool *overwrite,                // in    - OK to overwrite fields if true
+   ESMC_FileStatus_Flag *status,   // in    - file status flag
+   int   *timeslice,               // in    - timeslice option
+   ESMC_IOFmt_Flag *iofmt          // in    - I/O format flag
+   ){\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Write the Arrays into a file. For this API to be functional,
+     the environment variable {\tt ESMF\_PIO} should be set to "internal"
+     when the ESMF library is built.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::print] {ESMCI::ArrayBundle::print}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::print()const{\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Print details of ArrayBundle object 
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::haloStore] {ESMCI::ArrayBundle::haloStore}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::haloStore(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ArrayBundle *arraybundle,           // inout - ArrayBundle to be haloed
+   RouteHandle **routehandle,          // inout - handle to precomputed comm
+   ESMC_HaloStartRegionFlag halostartregionflag, // in - start of halo region
+   InterArray<int> *haloLDepth,        // in    - lower corner halo depth
+   InterArray<int> *haloUDepth         // in    - upper corner halo depth
+   ){    \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Precompute and store communication pattern for ArrayBundle halo 
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::halo] {ESMCI::ArrayBundle::halo}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::halo(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ArrayBundle *arraybundle,             // inout - ArrayBundle to be haloed
+   RouteHandle **routehandle,            // inout - handle to precomputed comm
+   bool checkflag                        // in    - ESMF_FALSE: (def.) bas. chcks
+                                         //         ESMF_TRUE: full input check
+   ){    \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Execute an ArrayBundle halo operation
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::haloRelease] {ESMCI::ArrayBundle::haloRelease}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::haloRelease(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   RouteHandle *routehandle        // inout -
+   ){    \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Release information for an ArrayBundle halo
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::redistStore] {ESMCI::ArrayBundle::redistStore}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::redistStore(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ArrayBundle *srcArraybundle,            // in    - source ArrayBundle
+   ArrayBundle *dstArraybundle,            // in    - destination ArrayBundle
+   RouteHandle **routehandle,              // inout - handle to precomputed comm
+   InterArray<int> *srcToDstTransposeMap,  // in    - mapping src -> dst dims
+   ESMC_TypeKind_Flag typekindFactor,      // in    - typekind of factor
+   void *factor                            // in    - redist factor
+   ){    \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Precompute and store communication pattern for redistribution
+    from srcArrayBundle to dstArrayBundle.
+  
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::redist] {ESMCI::ArrayBundle::redist}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::redist(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ArrayBundle *srcArraybundle,          // in    - source ArrayBundle
+   ArrayBundle *dstArraybundle,          // inout - destination ArrayBundle
+   RouteHandle **routehandle,            // inout - handle to precomputed comm
+   bool checkflag                        // in    - ESMF_FALSE: (def.) bas. chcks
+                                         //         ESMF_TRUE: full input check
+   ){    \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Execute an ArrayBundle redistribution operation
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::redistRelease] {ESMCI::ArrayBundle::redistRelease}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::redistRelease(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   RouteHandle *routehandle        // inout -
+   ){    \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Release information for an ArrayBundle redistribution
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::sparseMatMulStore] {ESMCI::ArrayBundle::sparseMatMulStore}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::sparseMatMulStore(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ArrayBundle *srcArraybundle,        // in    - source ArrayBundle
+   ArrayBundle *dstArraybundle,        // in    - destination ArrayBundle
+   RouteHandle **routehandle,          // inout - handle to precomputed comm
+   vector<SparseMatrix<ESMC_I4,ESMC_I4> > &sparseMatrix, // in - sparse matrix
+   InterArray<int> *srcTermProcessing  // inout - srcTermProcessing parameters
+   ){    \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Precompute and store communication pattern for sparse matrix multiplication
+    from srcArrayBundle to dstArrayBundle.
+  
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::sparseMatMul] {ESMCI::ArrayBundle::sparseMatMul}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::sparseMatMul(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ArrayBundle *srcArraybundle,          // in    - source ArrayBundle
+   ArrayBundle *dstArraybundle,          // inout - destination ArrayBundle
+   RouteHandle **routehandle,            // inout - handle to precomputed comm
+   ESMC_Region_Flag zeroflag,            // in    - ESMC_REGION_TOTAL:
+                                         //          -> zero out total region
+                                         //         ESMC_REGION_SELECT:
+                                         //          -> zero out target points
+                                         //         ESMC_REGION_EMPTY:
+                                         //          -> don't zero out any points
+   ESMC_TermOrder_Flag *termorderflag,   // in    - ESMC_TERMORDER_FREE
+                                         //         -> free partial sum order
+                                         //       - ESMC_TERMORDER_SRCPET
+                                         //         -> PET then seq index order
+                                         //       - ESMC_TERMORDER_SRCSEQ
+                                         //         -> strict src seq index order
+   int termorderflag_len,                //       - elements in termorderflag
+   bool checkflag,                       // in    - ESMF_FALSE: (def.) bas. chcks
+                                         //         ESMF_TRUE: full input check
+   bool haloFlag                         // in    - support halo conditions
+   ){    \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Execute an ArrayBundle sparse matrix multiplication operation
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::sparseMatMulRelease] {ESMCI::ArrayBundle::sparseMatMulRelease}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::sparseMatMulRelease(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   RouteHandle *routehandle        // inout -
+   ){    \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Release information for an ArrayBundle sparse matrix multiplication
+      operation.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::serialize] {ESMCI::ArrayBundle::serialize - Turn ArrayBundle into byte stream}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::serialize(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   char *buffer,          // inout - byte stream to fill
+   int *length,           // inout - buf length
+   int *offset,           // inout - original offset
+   const ESMC_AttReconcileFlag &attreconflag,   // in - attreconcile flag
+   const ESMC_InquireFlag &inquireflag) const { // in - inquireflag\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Turn info in ArrayBundle class into a stream of bytes.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::ArrayBundle::deserialize] {ESMCI::ArrayBundle::deserialize - Turn byte strm into ArrayBundle}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ArrayBundle::deserialize(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   char *buffer,          // in - byte stream to read
+   int *offset,           // inout - original offset
+   const ESMC_AttReconcileFlag &attreconflag) {  // in - attreconcile flag\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Turn a stream of bytes into an object.
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

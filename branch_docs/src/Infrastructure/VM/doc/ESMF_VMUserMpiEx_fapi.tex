@@ -1,0 +1,102 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_VMUserMpiEx.F90,  Date: Tue May  5 20:59:29 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+  
+   \subsubsection{Nesting ESMF inside a user MPI application}
+   \label{vm_inside_user_mpi}
+  
+   \begin{sloppypar}
+   It is possible to nest an ESMF application inside a user application that 
+   explicitly calls {\tt MPI\_Init()} and {\tt MPI\_Finalize()}. The
+   {\tt ESMF\_Initialize()} call automatically checks whether MPI has already
+   been initialized, and if so does not call {\tt MPI\_Init()} internally. 
+   On the finalize side, {\tt ESMF\_Finalize()} can be instructed to {\em not}
+   call {\tt MPI\_Finalize()}, making it the responsibility of the outer code
+   to finalize MPI.
+   \end{sloppypar}
+   
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  ! User code initializes MPI.
+  call MPI_Init(ierr)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  ! ESMF_Initialize() does not call MPI_Init() if it finds MPI initialized.
+  call ESMF_Initialize(defaultlogfilename="VMUserMpiEx.Log", &
+    logkindflag=ESMF_LOGKIND_MULTI, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  ! Use ESMF here...
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  ! Calling ESMF_Finalize() with endflag=ESMF_END_KEEPMPI instructs ESMF
+  ! to keep MPI active.
+  call ESMF_Finalize(endflag=ESMF_END_KEEPMPI, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  ! It is the responsibility of the outer user code to finalize MPI.
+  call MPI_Finalize(ierr)
+ 
+\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

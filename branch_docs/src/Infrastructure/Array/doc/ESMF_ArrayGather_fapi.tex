@@ -1,0 +1,105 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_ArrayGather.F90,  Date: Tue May  5 20:59:43 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+   \subsubsection [ESMF\_ArrayGather] {ESMF\_ArrayGather - Gather a Fortran array from an ESMF\_Array }
+
+
+   
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArrayGather(array, farray, rootPet, tile, vm, rc) 
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   type(ESMF_Array), intent(in) :: array 
+   <type>(ESMF_KIND_<kind>), intent(out), target :: farray(<rank>) 
+   integer, intent(in) :: rootPet 
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+   integer, intent(in), optional :: tile 
+   type(ESMF_VM), intent(in), optional :: vm 
+   integer, intent(out), optional :: rc 
+   \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize} 
+   \item\apiStatusCompatibleVersion{5.2.0r} 
+   \end{itemize} 
+   
+{\sf DESCRIPTION:\\ }
+
+ 
+   Gather the data of an {ESMF\_Array} object into the {\tt farray} located on 
+   {\tt rootPET}. A single DistGrid tile of {\tt array} must be 
+   gathered into {\tt farray}. The optional {\tt tile} 
+   argument allows selection of the tile. For Arrays defined on a single 
+   tile DistGrid the default selection (tile 1) will be correct. The 
+   shape of {\tt farray} must match the shape of the tile in Array. 
+   
+   If the Array contains replicating DistGrid dimensions data will be 
+   gathered from the numerically higher DEs. Replicated data elements in 
+   numerically lower DEs will be ignored. 
+   
+   This version of the interface implements the PET-based blocking paradigm: 
+   Each PET of the VM must issue this call exactly once for {\em all} of its 
+   DEs. The call will block until all PET-local data objects are accessible. 
+   
+   The arguments are: 
+   \begin{description} 
+   \item[array] 
+   The {\tt ESMF\_Array} object from which data will be gathered. 
+   \item[\{farray\}] 
+   The Fortran array into which to gather data. Only root 
+   must provide a valid {\tt farray}, the other PETs may treat 
+   {\tt farray} as an optional argument. 
+   \item[rootPet] 
+   PET that holds the valid destination array, i.e. {\tt farray}. 
+   \item[{[tile]}] 
+   The DistGrid tile in {\tt array} from which to gather {\tt farray}. 
+   By default {\tt farray} will be gathered from tile 1. 
+   \item[{[vm]}] 
+   Optional {\tt ESMF\_VM} object of the current context. Providing the 
+   VM of the current context will lower the method's overhead. 
+   \item[{[rc]}] 
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors. 
+   \end{description} 
+   
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

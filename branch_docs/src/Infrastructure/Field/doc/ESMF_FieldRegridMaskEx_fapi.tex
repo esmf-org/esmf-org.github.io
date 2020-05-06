@@ -1,0 +1,86 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_FieldRegridMaskEx.F90,  Date: Tue May  5 21:00:02 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+  
+  \subsubsection{Field regrid with masking}
+   As before, to create the sparse matrix regrid operator we call the
+   {\tt ESMF\_FieldRegridStore()} routine. 
+   However, in this case we apply masking to the regrid operation. 
+   The mask value for each index location in the Grids may be set using
+   the {\tt ESMF\_GridAddItem()} call (see Section~\ref{sec:usage:items}
+   and Section~\ref{sec:usage:items:accessing}). Mask values may be set independently 
+   for the source and destination Grids. If no mask values have been set in a Grid, then it is 
+   assumed no masking should be used for that Grid. The {\tt srcMaskValues}
+   parameter allows the user to set the list of values which indicate
+   that a source location should be masked out. The {\tt dstMaskValues}
+   parameter allows the user to set the list of values which indicate
+   that a destination location should be masked out. The absence of 
+   one of these parameters indicates that no masking should be used
+   for that Field (e.g no {\tt srcMaskValue} parameter indicates that source
+   masking shouldn't occur). The {\tt unmappedaction} flag may be
+   used with or without masking and indicates what should occur
+   if destination points can not be mapped to a source cell. 
+   Here the {\tt ESMF\_UNMAPPEDACTION\_IGNORE} value indicates that unmapped
+   destination points are to be ignored and no sparse matrix entries should be
+    generated for them.  
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  call ESMF_FieldRegridStore(srcField=srcField, srcMaskValues=(/1/),       &
+                             dstField=dstField, dstMaskValues=(/1/),       &
+                             unmappedaction=ESMF_UNMAPPEDACTION_IGNORE, &
+                             routeHandle=routeHandle,                      &
+                             regridmethod=ESMF_REGRIDMETHOD_BILINEAR,     &
+                             rc=localrc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+  
+   The {\tt ESMF\_FieldRegrid} and {\tt ESMF\_FieldRegridRelease} calls
+   may then be applied as in the previous example.
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

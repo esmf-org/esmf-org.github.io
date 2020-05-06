@@ -1,0 +1,122 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_AttachMethodsEx.F90,  Date: Tue May  5 21:00:11 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+  \subsubsection{Producer Component attaches user defined method}
+        
+    The producer Component attaches a user defined method to {\tt exportState}
+    during the Component's initialize method. The user defined method is
+    attached with label {\tt finalCalculation} by which it will become
+    accessible to the consumer Component. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  subroutine init(gcomp, importState, exportState, clock, rc)
+    ! arguments
+    type(ESMF_GridComp):: gcomp
+    type(ESMF_State):: importState, exportState
+    type(ESMF_Clock):: clock
+    integer, intent(out):: rc
+    
+    call ESMF_MethodAdd(exportState, label="finalCalculation", &
+      userRoutine=finalCalc, rc=rc)
+
+    rc = 0
+  end subroutine !--------------------------------------------------------------
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+  \subsubsection{Producer Component implements user defined method}
+        
+    The producer Component implements the attached, user defined method
+    {\tt finalCalc}. Strict interface rules apply for the user defined
+    method. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  subroutine finalCalc(state, rc)
+    ! arguments
+    type(ESMF_State):: state
+    integer, intent(out):: rc
+
+    ! access data objects in state and perform calculation
+    
+    print *, "dummy output from attached method "
+
+    rc = 0
+  end subroutine !--------------------------------------------------------------
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+  \subsubsection{Consumer Component executes user defined method}
+        
+    The consumer Component executes the user defined method on the
+    {\tt importState}.
+   
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  subroutine init(gcomp, importState, exportState, clock, rc)
+    ! arguments
+    type(ESMF_GridComp):: gcomp
+    type(ESMF_State):: importState, exportState
+    type(ESMF_Clock):: clock
+    integer, intent(out):: rc
+    
+    integer:: userRc
+    
+    call ESMF_MethodExecute(importState, label="finalCalculation", &
+      userRc=userRc, rc=rc)
+
+    rc = 0
+  end subroutine !--------------------------------------------------------------
+ 
+\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

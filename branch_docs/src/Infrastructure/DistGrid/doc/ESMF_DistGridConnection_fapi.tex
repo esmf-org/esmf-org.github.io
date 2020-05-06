@@ -1,0 +1,139 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_DistGridConnection.F90,  Date: Tue May  5 20:59:41 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_DistGridConnectionGet] {ESMF\_DistGridConnectionGet - Get DistGridConnection}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_DistGridConnectionGet(connection, &
+     tileIndexA, tileIndexB, dimCount, positionVector, orientationVector, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DistGridConnection), intent(in)            :: connection
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                       intent(out), optional :: tileIndexA
+     integer,                       intent(out), optional :: tileIndexB
+     integer,                       intent(out), optional :: dimCount
+     integer,                       intent(out), optional :: positionVector(:)
+     integer,                       intent(out), optional :: orientationVector(:)
+     integer,                       intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     \label{api:DistGridConnectionGet}
+     Get connection parameters from an {\tt ESMF\_DistGridConnection} object.
+     This interface provides access to all variables required to create a new
+     connection using the {\tt ESMF\_DistGridConnectionSet()} method.
+  
+     The arguments are:
+     \begin{description}
+     \item[connection]
+       DistGridConnection object.
+     \item[{[tileIndexA]}]
+       Index of one of the two connected tiles.
+     \item[{[tileIndexB]}]
+       Index of the other connected tile.
+     \item[{[dimCount]}]
+       Number of dimensions of {\tt positionVector}.
+     \item[{[positionVector]}]
+       Position of tile B's minIndex with respect to tile A's minIndex.
+       This array's size should be at least equal to {\tt dimCount}.
+     \item[{[orientationVector]}]
+       Lists which dimension of tile A is associated to which dimension of
+       tile B. Negative index values may be used to indicate a reversal
+       in index orientation. Should be at least of size {\tt dimCount}.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DistGridConnectionSet] {ESMF\_DistGridConnectionSet - Set DistGridConnection}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_DistGridConnectionSet(connection, tileIndexA, tileIndexB, &
+     positionVector, orientationVector, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DistGridConnection),intent(out)         :: connection
+     integer,                     intent(in)           :: tileIndexA
+     integer,                     intent(in)           :: tileIndexB
+     integer,                     intent(in)           :: positionVector(:)
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                     intent(in), optional :: orientationVector(:)
+     integer,                     intent(out), optional:: rc
+           \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     \label{api:DistGridConnectionSet}
+     Set an {\tt ESMF\_DistGridConnection} object to represent a connection 
+     according to the provided index space information.
+  
+     The arguments are:
+     \begin{description}
+     \item[connection] 
+       DistGridConnection object.
+     \item[tileIndexA] 
+       Index of one of the two tiles that are to be connected.
+     \item[tileIndexB] 
+       Index of one of the two tiles that are to be connected.
+     \item[positionVector] 
+       Position of tile B's minIndex with respect to tile A's minIndex.
+     \item[{[orientationVector]}]
+       Associates each dimension of tile A with a dimension in tile B's 
+       index space. Negative index values may be used to indicate a 
+       reversal in index orientation. It is erroneous to associate multiple
+       dimensions of tile A with the same index in tile B. By default
+       {\tt orientationVector = (/1,2,3,.../)}, i.e. same orientation as tile A.
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

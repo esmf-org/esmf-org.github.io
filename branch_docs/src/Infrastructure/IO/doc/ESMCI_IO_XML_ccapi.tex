@@ -1,0 +1,301 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_IO\_XML.C,  Date: Tue May  5 20:59:46 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMCI\_IO\_XMLCreate] {ESMCI\_IO\_XMLCreate - Allocates and Initializes an IO\_XML object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       IO_XML *ESMCI_IO_XMLCreate(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       pointer to newly allocated IO_XML\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const string      &name,             // in
+       const string      &fileName,         // in
+       Attribute         *attr,             // in
+       int               *rc) {             // out - return code
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Allocates and Initializes a {\tt ESMC\_IO\_XML} with given values
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMCI\_IO\_XMLDestroy] {ESMCI\_IO\_XMLDestroy - free an IO\_XML created with Create}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int ESMCI_IO_XMLDestroy(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       IO_XML **io_xml) {  // in - IO_XML to destroy\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        ESMF routine which destroys an IO object previously allocated
+        via an {\tt ESMCI\_IO\_XMLCreate} routine. Define for deep classes only.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [IO\_XML::read] {IO\_XML::read - Performs a read on an IO object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int IO_XML::read(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const std::string& fileName,            // in
+       const std::string& schemaFileName) {    // in
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Reads an {\tt ESMC\_IO\_XML} object from file
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [IO\_XML::writeElementCore] {IO\_XML::writeElementCore - writes core of an XML element}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int IO_XML::writeElementCore(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const string &name,
+       const string &value,
+       const int     indentLevel,
+       const int     nPairs,
+       va_list       args) {
+       // nPairs of (char *attrName, char *attrValue) var args
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Private method used internally by public methods writeStartElement() &
+     writeElement() to share the common logic of writing the bulk of the tag.
+     (the difference is in the handling of the end-of-line/end-of-tag)
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [IO\_XML::writeStartElement] {IO\_XML::writeStartElement - writes start of an XML element}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int IO_XML::writeStartElement(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const string &name,
+       const string &value,
+       const int     indentLevel,
+       const int     nPairs, ...) {
+       // nPairs of (char *attrName, char *attrValue) var args
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Call writeElementCore(), then write an end-of-line character
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [IO\_XML::writeElement] {IO\_XML::writeElement - Performs a write on an IO object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int IO_XML::writeElement(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const string &name,
+       const string &value,
+       const int     indentLevel,
+       const int     nPairs, ...) {
+       // nPairs of (char *attrName, char *attrValue) var args
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Part of writing an {\tt ESMC\_IO\_XML} object to file.
+        Maps to SAX2 characters(), optionally to startElement() & endElement().
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [IO\_XML::writeEndElement] {IO\_XML::writeEndElement - Performs a write on an IO object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int IO_XML::writeEndElement(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const string        &name,
+       const int            indentLevel) {
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Part of writing an {\tt ESMC\_IO\_XML} object to file.
+        Maps to SAX2 endElement()
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [IO\_XML::writeComment] {IO\_XML::writeComment - Writes an XML comment to an IO object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int IO_XML::writeComment(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const string &comment,        // comment characters
+       const int     indentLevel) {
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Writes an {\tt ESMC\_IO\_XML} comment to file
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [IO\_XML::write] {IO\_XML::write - Performs a write on an IO object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int IO_XML::write(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const std::string& fileName,
+       const char        *outChars,
+       int                flag) {          // in
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Writes an {\tt ESMC\_IO\_XML} object to file
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [IO\_XML::replaceXMLEntities] {IO\_XML::replaceXMLEntities - replace special characters with XML entities}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int IO_XML::replaceXMLEntities(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       string& str) {        // string containing special chars to replace
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Replace special characters with XML entities to prevent 
+      malformed (unparseable) XML.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [IO\_XML] {IO\_XML - native C++ constructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       IO_XML::IO_XML(void)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initializes for either C++ or F90, since {\tt ESMC\_IO\_XML} is a deep,
+        dynamically allocated class.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [IO\_XML] {IO\_XML - native C++ constructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       IO_XML::IO_XML(Attribute* attribute)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initializes for either C++ or F90, since {\tt ESMC\_IO} is a deep,
+        dynamically allocated class.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [IO\_XML] {IO\_XML - destruct()}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void IO_XML::destruct(void) {\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Destruct an IO_XML object
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

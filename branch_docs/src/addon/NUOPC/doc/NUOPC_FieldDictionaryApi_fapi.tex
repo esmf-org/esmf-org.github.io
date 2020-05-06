@@ -1,0 +1,188 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: NUOPC\_FieldDictionaryApi.F90,  Date: Tue May  5 21:00:27 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [NUOPC\_FieldDictionaryAddEntry] {NUOPC\_FieldDictionaryAddEntry - Add an entry to the NUOPC Field dictionary}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine NUOPC_FieldDictionaryAddEntry(standardName, canonicalUnits, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     character(*),                 intent(in)            :: standardName
+     character(*),                 intent(in)            :: canonicalUnits
+     integer,                      intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Add an entry to the NUOPC Field dictionary. If necessary the dictionary is
+     first set up. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FieldDictionaryEgest] {NUOPC\_FieldDictionaryEgest - Egest NUOPC Field dictionary into FreeFormat}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine NUOPC_FieldDictionaryEgest(freeFormat, iofmt, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(NUOPC_FreeFormat), intent(out)           :: freeFormat
+     type(ESMF_IOFmt_Flag),  intent(in),  optional :: iofmt
+     integer,                intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Egest the contents of the NUOPC Field dictionary into a FreeFormat object.
+     If I/O format option {\tt iofmt} is provided and equal to {\tt ESMF\_IOFMT\_YAML},
+     the FreeFormat object will contain the NUOPC Field dictionary expressed in YAML
+     format. Other values for {\tt iofmt} are ignored and this method behaves as if
+     the optional {\tt iofmt} argument were missing. In such a case, {\tt freeFormat}
+     will contain NUOPC Field dictionary entries in the traditional format.
+     It is the caller's responsibility to destroy the created {\tt freeFormat}
+     object. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FieldDictionaryGetEntry] {NUOPC\_FieldDictionaryGetEntry - Get information about a NUOPC Field dictionary entry}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine NUOPC_FieldDictionaryGetEntry(standardName, canonicalUnits, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     character(*),                 intent(in)            :: standardName
+     character(*),                 intent(out), optional :: canonicalUnits
+     integer,                      intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return the canonical units that the NUOPC Field dictionary associates with
+     the {\tt standardName}. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FieldDictionaryHasEntry] {NUOPC\_FieldDictionaryHasEntry - Check whether the NUOPC Field dictionary has a specific entry}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function NUOPC_FieldDictionaryHasEntry(standardName, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: NUOPC_FieldDictionaryHasEntry\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     character(*),                 intent(in)            :: standardName
+     integer,                      intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return {\tt .true.} if the NUOPC Field dictionary has an entry with the
+     specified {\tt standardName}, {\tt .false.} otherwise. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FieldDictionaryMatchSyno] {NUOPC\_FieldDictionaryMatchSyno - Check whether the NUOPC Field dictionary considers the standard names synonyms}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function NUOPC_FieldDictionaryMatchSyno(standardName1, standardName2, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: NUOPC_FieldDictionaryMatchSyno\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     character(*),                 intent(in)            :: standardName1
+     character(*),                 intent(in)            :: standardName2
+     integer,                      intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return {\tt .true.} if the NUOPC Field dictionary considers
+     {\tt standardName1} and {\tt standardName2} synonyms, {\tt .false.} 
+     otherwise. Also, if {\tt standardName1} and/or {\tt standardName2} do not 
+     correspond to an existing dictionary entry, {.false.} will be returned. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FieldDictionarySetSyno] {NUOPC\_FieldDictionarySetSyno - Set synonyms in the NUOPC Field dictionary}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine NUOPC_FieldDictionarySetSyno(standardNames, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     character(*),                 intent(in)            :: standardNames(:)
+     integer,                      intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Set all of the elements of the {\tt standardNames} argument to be considered
+     synonyms by the field dictionary. Every element in {\tt standardNames} must
+     correspond to the standard name of already existing entries in the field 
+     dictionary, or else an error will be returned. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FieldDictionarySetup] {NUOPC\_FieldDictionarySetup - Setup the default NUOPC Field dictionary}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using NUOPC_FieldDictionarySetup()
+   subroutine NUOPC_FieldDictionarySetupDefault(rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     integer,      intent(out), optional   :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Setup the default NUOPC Field dictionary. 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [NUOPC\_FieldDictionarySetup] {NUOPC\_FieldDictionarySetup - Setup the NUOPC Field dictionary from file}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using NUOPC_FieldDictionarySetup()
+   subroutine NUOPC_FieldDictionarySetupFile(fileName, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     character(len=*),      intent(in)              :: fileName
+     integer,               intent(out), optional   :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Setup the NUOPC Field dictionary by reading its content from YAML file.
+     If the NUOPC Field dictionary already exists, remove it and create a new one.
+     This feature requires ESMF built with YAML support. Please see the
+     ESMF User's Guide for details.
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

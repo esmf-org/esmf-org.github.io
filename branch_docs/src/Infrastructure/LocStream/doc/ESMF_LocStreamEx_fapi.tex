@@ -1,0 +1,750 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_LocStreamEx.F90,  Date: Tue May  5 20:59:56 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+  \subsubsection{Create a LocStream with user allocated memory}
+  
+   The following is an example of creating a LocStream object.
+   After creation, key data is added, and a Field is created to hold data
+   (temperature) at each location. 
+   
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Get parallel information. Here petCount is the total number of 
+   ! running PETs, and localPet is the number of this particular PET.
+   !-------------------------------------------------------------------
+   call ESMF_VMGet(vm, localPet=localPet, petCount=petCount, rc=rc)
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Allocate and set example location information. Locations on a PET
+   ! are wrapped around sphere. Each PET occupies a different latitude
+   ! ranging from +50.0 to -50.0.
+   !-------------------------------------------------------------------
+   numLocations = 20
+   allocate(lon(numLocations))
+   allocate(lat(numLocations))
+
+   do i=1,numLocations
+      lon(i)=360.0*i/numLocations
+      lat(i)=100*REAL(localPet,ESMF_KIND_R8)/REAL(petCount,ESMF_KIND_R8)-50.0
+   enddo
+
+   !-------------------------------------------------------------------
+   ! Allocate and set example Field data
+   !-------------------------------------------------------------------
+   allocate(temperature(numLocations))
+
+   do i=1,numLocations
+      temperature(i)= 300 - abs(lat(i))
+   enddo
+
+   !-------------------------------------------------------------------
+   ! Create the LocStream:  Allocate space for the LocStream object, 
+   ! define the number and distribution of the locations. 
+   !-------------------------------------------------------------------
+   locstream=ESMF_LocStreamCreate(name="Temperature Measurements",   &
+                                  localCount=numLocations, &
+                                  coordSys=ESMF_COORDSYS_SPH_DEG,   &
+                                  rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Add key data, referencing a user data pointer. By changing the 
+   ! datacopyflag to ESMF_DATACOPY_VALUE an internally allocated copy of the 
+   ! user data may also be set.  
+   !-------------------------------------------------------------------
+   call ESMF_LocStreamAddKey(locstream,              &
+                             keyName="ESMF:Lat",     &
+                             farray=lat,             &
+                             datacopyflag=ESMF_DATACOPY_REFERENCE, &
+                             keyUnits="Degrees",     &
+                             keyLongName="Latitude", rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   call ESMF_LocStreamAddKey(locstream,              &
+                             keyName="ESMF:Lon",     &
+                             farray=lon,             &
+                             datacopyflag=ESMF_DATACOPY_REFERENCE, &
+                             keyUnits="Degrees",     &
+                             keyLongName="Longitude", rc=rc)
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Create a Field on the Location Stream. In this case the 
+   ! Field is created from a user array, but any of the other
+   ! Field create methods (e.g. from ArraySpec) would also apply.
+   !-------------------------------------------------------------------       
+   field_temperature=ESMF_FieldCreate(locstream,   &
+                                   temperature, &
+                                   name="temperature", &
+                                   rc=rc)
+
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+  \subsubsection{Create a LocStream with internally allocated memory}
+  
+   The following is an example of creating a LocStream object.
+   After creation, key data is internally allocated,
+   the pointer is retrieved, and the data is set.
+   A Field is also created on the LocStream to hold data
+   (temperature) at each location. 
+   
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Get parallel information. Here petCount is the total number of 
+   ! running PETs, and localPet is the number of this particular PET.
+   !-------------------------------------------------------------------
+   call ESMF_VMGet(vm, localPet=localPet, petCount=petCount, rc=rc)
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   numLocations = 20
+
+   !-------------------------------------------------------------------
+   ! Create the LocStream:  Allocate space for the LocStream object, 
+   ! define the number and distribution of the locations. 
+   !-------------------------------------------------------------------
+   locstream=ESMF_LocStreamCreate(name="Temperature Measurements",   &
+                                  localCount=numLocations, &
+                                  coordSys=ESMF_COORDSYS_SPH_DEG,   &
+                                  rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+
+   !-------------------------------------------------------------------
+   ! Add key data (internally allocating memory).
+   !-------------------------------------------------------------------
+   call ESMF_LocStreamAddKey(locstream,                    &
+                             keyName="ESMF:Lat",           &
+                             KeyTypeKind=ESMF_TYPEKIND_R8, &
+                             keyUnits="Degrees",           &
+                             keyLongName="Latitude", rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   call ESMF_LocStreamAddKey(locstream,                    &
+                             keyName="ESMF:Lon",           &
+                             KeyTypeKind=ESMF_TYPEKIND_R8, &
+                             keyUnits="Degrees",           &
+                             keyLongName="Longitude", rc=rc)
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Get key data. 
+   !-------------------------------------------------------------------
+   call ESMF_LocStreamGetKey(locstream,                    &
+                             keyName="ESMF:Lat",           &
+                             farray=lat,                   &
+                             rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   call ESMF_LocStreamGetKey(locstream,                    &
+                             keyName="ESMF:Lon",           &
+                             farray=lon,                   &
+                             rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Set example location information. Locations on a PET are wrapped 
+   ! around sphere. Each PET occupies a different latitude ranging 
+   ! from +50.0 to -50.0.
+   !-------------------------------------------------------------------
+   do i=1,numLocations
+      lon(i)=360.0*i/numLocations
+      lat(i)=100*REAL(localPet,ESMF_KIND_R8)/REAL(petCount,ESMF_KIND_R8)-50.0
+   enddo
+
+
+   !-------------------------------------------------------------------
+   ! Allocate and set example Field data
+   !-------------------------------------------------------------------
+   allocate(temperature(numLocations))
+   do i=1,numLocations
+      temperature(i)= 300 - abs(lat(i))
+   enddo
+
+   !-------------------------------------------------------------------
+   ! Create a Field on the Location Stream. In this case the 
+   ! Field is created from a user array, but any of the other
+   ! Field create methods (e.g. from ArraySpec) would also apply.
+   !-------------------------------------------------------------------    
+   field_temperature=ESMF_FieldCreate(locstream,   &
+                                 temperature, &
+                                 name="temperature", &
+                                 rc=rc)
+
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+  \subsubsection{Create a LocStream with a distribution based on a Grid}
+  
+   The following is an example of using the LocStream create from background
+   Grid capability. Using this capability, the newly created LocStream 
+   is a copy of the old LocStream, but with a new distribution. The new LocStream 
+   is distributed such that if the coordinates of a location in the LocStream lie 
+   within a Grid cell, then that location is put on the same PET as the Grid cell. 
+   
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Get parallel information. Here petCount is the total number of 
+   ! running PETs, and localPet is the number of this particular PET.
+   !-------------------------------------------------------------------
+   call ESMF_VMGet(vm, localPet=localPet, petCount=petCount, rc=rc)
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   !-------------------------------------------------------------------
+   ! Create the LocStream:  Allocate space for the LocStream object, 
+   ! define the number and distribution of the locations. 
+   !-------------------------------------------------------------------
+   numLocations = 20
+   locstream=ESMF_LocStreamCreate(name="Temperature Measurements",   &
+                                  localCount=numLocations, &
+                                  coordSys=ESMF_COORDSYS_SPH_DEG,   &
+                                  rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Add key data (internally allocating memory).
+   !-------------------------------------------------------------------
+   call ESMF_LocStreamAddKey(locstream,                    &
+                             keyName="ESMF:Lon",           &
+                             KeyTypeKind=ESMF_TYPEKIND_R8, &
+                             keyUnits="Degrees",           &
+                             keyLongName="Longitude", rc=rc)
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   call ESMF_LocStreamAddKey(locstream,                    &
+                             keyName="ESMF:Lat",           &
+                             KeyTypeKind=ESMF_TYPEKIND_R8, &
+                             keyUnits="Degrees",           &
+                             keyLongName="Latitude", rc=rc)
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+
+   !-------------------------------------------------------------------
+   ! Get Fortran arrays which hold the key data, so that it can be set. 
+   !-------------------------------------------------------------------
+   call ESMF_LocStreamGetKey(locstream,                    &
+                             keyName="ESMF:Lon",           &
+                             farray=lon,                   &
+                             rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   call ESMF_LocStreamGetKey(locstream,                    &
+                             keyName="ESMF:Lat",           &
+                             farray=lat,                   &
+                             rc=rc)
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Set example location information. Locations on a PET are wrapped 
+   ! around sphere. Each PET occupies a different latitude ranging 
+   ! from +50.0 to -50.0.
+   !-------------------------------------------------------------------
+   do i=1,numLocations
+      lon(i)=360.0*i/numLocations
+      lat(i)=100*REAL(localPet,ESMF_KIND_R8)/REAL(petCount,ESMF_KIND_R8)-50.0
+   enddo
+
+   !-------------------------------------------------------------------
+   ! Create a Grid to use as the background. The Grid is 
+   ! GridLonSize by GridLatSize with the default distribution 
+   ! (The first dimension split across the PETs). The coordinate range
+   ! is  0 to 360 in longitude and -90 to 90 in latitude. Note that we 
+   ! use indexflag=ESMF_INDEX_GLOBAL for the Grid creation. At this time 
+   ! this is required for a Grid to be usable as a background Grid.
+   ! Note that here the points are treated as cartesian.
+   !-------------------------------------------------------------------
+   grid=ESMF_GridCreateNoPeriDim(maxIndex=(/GridLonSize,GridLatSize/), &
+                                 coordSys=ESMF_COORDSYS_SPH_DEG,       &
+                                 indexflag=ESMF_INDEX_GLOBAL,          &
+                                 rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Allocate the corner stagger location in which to put the coordinates. 
+   ! (The corner stagger must be used for the Grid to be usable as a
+   !  background Grid.)
+   !-------------------------------------------------------------------
+   call ESMF_GridAddCoord(grid, staggerloc=ESMF_STAGGERLOC_CORNER, rc=rc)
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Get access to the Fortran array pointers that hold the Grid 
+   ! coordinate information and then set the coordinates to be uniformly 
+   ! distributed around the globe. 
+   !-------------------------------------------------------------------
+   call ESMF_GridGetCoord(grid,                                  &
+                          staggerLoc=ESMF_STAGGERLOC_CORNER,     &
+                          coordDim=1, computationalLBound=clbnd, &
+                          computationalUBound=cubnd,             & 
+                          farrayPtr=farrayPtrLonC, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+
+   call ESMF_GridGetCoord(grid,                                  &
+                         staggerLoc=ESMF_STAGGERLOC_CORNER,      &
+                          coordDim=2, farrayPtr=farrayPtrLatC, rc=rc)
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   do i1=clbnd(1),cubnd(1)
+   do i2=clbnd(2),cubnd(2)
+      ! Set Grid longitude coordinates as 0 to 360
+      farrayPtrLonC(i1,i2) = REAL(i1-1)*360.0/REAL(GridLonSize)
+
+      ! Set Grid latitude coordinates as -90 to 90
+      farrayPtrLatC(i1,i2) = -90. + REAL(i2-1)*180.0/REAL(GridLatSize) + &
+                                      0.5*180.0/REAL(GridLatSize)
+   enddo
+   enddo
+
+
+   !-------------------------------------------------------------------
+   ! Create newLocstream on the background Grid using the 
+   ! "Lon" and "Lat" keys as the coordinates for the entries in 
+   ! locstream. The entries in newLocstream with coordinates (lon,lat)
+   ! are on the same PET as the piece of grid which contains (lon,lat). 
+   !-------------------------------------------------------------------
+   newLocstream=ESMF_LocStreamCreate(locstream, &
+                  background=grid, rc=rc)
+
+
+   !-------------------------------------------------------------------
+   ! A Field can now be created on newLocstream and 
+   ! ESMF_FieldRedist() can be used to move data between Fields built 
+   ! on locstream and Fields built on newLocstream.
+   !-------------------------------------------------------------------
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+  \subsubsection{Regridding from a Grid to a LocStream}
+  
+   The following is an example of how a LocStream object can be used in regridding.
+   
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   !-------------------------------------------------------------------
+   ! Create a global Grid to use as the regridding source. The Grid is 
+   ! GridLonSize by GridLatSize with the default distribution 
+   ! (The first dimension split across the PETs). The coordinate range
+   ! is  0 to 360 in longitude and -90 to 90 in latitude. Note that we 
+   ! use indexflag=ESMF_INDEX_GLOBAL for the Grid creation to calculate
+   ! coordinates across PETs.
+   !-------------------------------------------------------------------
+   grid=ESMF_GridCreate1PeriDim(maxIndex=(/GridLonSize,GridLatSize/), &
+                                coordSys=ESMF_COORDSYS_SPH_DEG,       &
+                                indexflag=ESMF_INDEX_GLOBAL,          &
+                                rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   !-------------------------------------------------------------------
+   ! Allocate the center stagger location in which to put the coordinates. 
+   !-------------------------------------------------------------------
+   call ESMF_GridAddCoord(grid, staggerloc=ESMF_STAGGERLOC_CENTER, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   !-------------------------------------------------------------------
+   ! Get access to the Fortran array pointers that hold the Grid 
+   ! coordinate information.
+   !------------------------------------------------------------------- 
+   ! Longitudes 
+   call ESMF_GridGetCoord(grid,                                  &
+                          staggerLoc=ESMF_STAGGERLOC_CENTER,     &
+                          coordDim=1, computationalLBound=clbnd, &
+                          computationalUBound=cubnd,             &
+                          farrayPtr=farrayPtrLonC, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   ! Latitudes
+   call ESMF_GridGetCoord(grid,                                  &
+                          staggerLoc=ESMF_STAGGERLOC_CENTER,     &
+                          coordDim=2, computationalLBound=clbnd, &
+                          computationalUBound=cubnd,             &
+                          farrayPtr=farrayPtrLatC, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Create a source Field to hold the data to be regridded to the 
+   ! destination
+   !-------------------------------------------------------------------
+   srcField = ESMF_FieldCreate(grid, typekind=ESMF_TYPEKIND_R8,   &
+                               staggerloc=ESMF_STAGGERLOC_CENTER, &
+                               name="source", rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   !-------------------------------------------------------------------
+   ! Set the Grid coordinates to be uniformly distributed around the globe. 
+   !-------------------------------------------------------------------
+   do i1=clbnd(1),cubnd(1)
+   do i2=clbnd(2),cubnd(2)
+      ! Set Grid longitude coordinates as 0 to 360
+      farrayPtrLonC(i1,i2) = REAL(i1-1)*360.0/REAL(GridLonSize)
+
+      ! Set Grid latitude coordinates as -90 to 90
+      farrayPtrLatC(i1,i2) = -90. + REAL(i2-1)*180.0/REAL(GridLatSize) + &
+                                       0.5*180.0/REAL(GridLatSize)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   enddo
+   enddo
+
+   !-------------------------------------------------------------------
+   ! Set the number of points the destination LocStream will have
+   ! depending on the PET. 
+   !-------------------------------------------------------------------
+   if (petCount .eq. 1) then
+     numLocationsOnThisPet=7
+   else
+     if (localpet .eq. 0) then
+       numLocationsOnThisPet=2
+     else if (localpet .eq. 1) then
+       numLocationsOnThisPet=2
+     else if (localpet .eq. 2) then
+       numLocationsOnThisPet=2
+     else if (localpet .eq. 3) then
+       numLocationsOnThisPet=1
+     endif
+   endif
+
+   !-------------------------------------------------------------------
+   ! Create the LocStream:  Allocate space for the LocStream object,
+   ! define the number of locations on this PET. 
+   !-------------------------------------------------------------------
+   locstream=ESMF_LocStreamCreate(name="Test Data",                 &
+                                  localCount=numLocationsOnThisPet, &
+                                  coordSys=ESMF_COORDSYS_SPH_DEG,   &
+                                  rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   !-------------------------------------------------------------------
+   ! Add key data to LocStream(internally allocating memory).
+   !-------------------------------------------------------------------
+   call ESMF_LocStreamAddKey(locstream,                    &
+                             keyName="ESMF:Lat",           &
+                             KeyTypeKind=ESMF_TYPEKIND_R8, &
+                             keyUnits="degrees",           &
+                             keyLongName="Latitude", rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   call ESMF_LocStreamAddKey(locstream,                    &
+                             keyName="ESMF:Lon",           &
+                             KeyTypeKind=ESMF_TYPEKIND_R8, &
+                             keyUnits="degrees",           &
+                             keyLongName="Longitude", rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   !-------------------------------------------------------------------
+   ! Get access to the Fortran array pointers that hold the key data.
+   !-------------------------------------------------------------------
+   ! Longitudes
+   call ESMF_LocStreamGetKey(locstream,           &
+                             keyName="ESMF:Lon",  &
+                             farray=lonArray,     &
+                             rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   ! Latitudes
+   call ESMF_LocStreamGetKey(locstream,           &
+                             keyName="ESMF:Lat",  &
+                             farray=latArray,     &
+                             rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Set coordinates in key arrays depending on the PET.
+   ! For this example use an arbitrary set of points around globe.  
+   !-------------------------------------------------------------------
+   if (petCount .eq. 1) then
+     latArray = (/-87.75, -56.25, -26.5, 0.0, 26.5, 56.25, 87.75 /)
+     lonArray = (/51.4, 102.8, 154.2, 205.6, 257.0, 308.4, 359.8 /)
+   else
+     if (localpet .eq. 0) then
+       latArray = (/ -87.75, -56.25 /)
+       lonArray = (/ 51.4, 102.8 /)
+     else if (localpet .eq.1) then
+       latArray = (/ -26.5, 0.0 /)
+       lonArray = (/ 154.2, 205.6 /)
+     else if (localpet .eq.2) then
+       latArray = (/ 26.5, 56.25 /)
+       lonArray = (/ 257.0, 308.4 /)
+     else if (localpet .eq.3) then
+       latArray = (/ 87.75 /)
+       lonArray = (/ 359.8 /)
+     endif
+   endif
+
+   !-------------------------------------------------------------------
+   ! Create the destination Field on the LocStream to hold the 
+   ! result of the regridding. 
+   !-------------------------------------------------------------------
+   dstField = ESMF_FieldCreate(locstream, typekind=ESMF_TYPEKIND_R8, &
+                               name="dest", rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+   !-------------------------------------------------------------------
+   ! Calculate the RouteHandle that represents the regridding from 
+   ! the source to destination Field using the Bilinear regridding method.
+   !-------------------------------------------------------------------
+   call ESMF_FieldRegridStore( srcField=srcField,                       &
+                               dstField=dstField,                       &
+                               routeHandle=routeHandle,                 &
+                               regridmethod=ESMF_REGRIDMETHOD_BILINEAR, &
+                               rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+
+
+   !-------------------------------------------------------------------
+   ! Regrid from srcField to dstField
+   !-------------------------------------------------------------------
+   ! Can loop here regridding from srcField to dstField as src data changes
+   ! do i=1,...
+
+        ! (Put data into srcField)
+
+        !-------------------------------------------------------------------
+        ! Use the RouteHandle to regrid data from srcField to dstField.
+        !-------------------------------------------------------------------
+        call ESMF_FieldRegrid(srcField, dstField, routeHandle, rc=rc)
+
+        ! (Can now use the data in dstField)
+
+   ! enddo
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+   !-------------------------------------------------------------------
+   ! Now that we are done, release the RouteHandle freeing its memory. 
+   !-------------------------------------------------------------------
+   call ESMF_FieldRegridRelease(routeHandle, rc=rc)
+ 
+\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

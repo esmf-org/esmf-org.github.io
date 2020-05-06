@@ -1,0 +1,232 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_RHandleFromRHandleEx.F90,  Date: Tue May  5 20:59:40 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+   \subsubsection{Creating a RouteHandle from an existing RouteHandle -- 
+   Transfer to a different set of PETs}
+   \label{RH:RHfromRH}
+  
+   \begin{sloppypar}
+   Typically a RouteHandle object is created indirectly, i.e. without explicitly
+   calling the {\tt ESMF\_RouteHandleCreate()} method. The RouteHandle
+   object is a byproduct of calling communication Store() methods like 
+   {\tt ESMF\_FieldRegridStore()}. 
+   \end{sloppypar}
+  
+   One exception to this rule is when creating a duplicate RouteHandle from an
+   existing RouteHandle object. In this case the {\tt ESMF\_RouteHandleCreate()}
+   method is used explicitly. While this method allows to create a duplicate 
+   RouteHandle on the exact same set of PETs as the original RouteHandle, the 
+   real purpose of duplication is the transfer of a precomputed RouteHandle to a
+   different set of PETs. This is an efficient way to reduce the total time
+   spent in Store() calls, for situations where the same communication pattern
+   repeats for multiple components.
+  
+   This example demonstrates the transfer of a RouteHandle from one set of PETs
+   to another by first introducing three components. Component A is defined
+   on the first half of available PETs. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  petCountA = petCount/2  ! component A gets half the PETs
+
+  allocate(petListA(petCountA))
+  do i=1, petCountA
+    petListA(i) = i-1 ! PETs are base 0
+  enddo
+  
+  compA = ESMF_GridCompCreate(petList=petListA, rc=rc)
+  if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &
+    line=__LINE__, &
+    file=__FILE__)) &
+    call ESMF_Finalize(endflag=ESMF_END_ABORT)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   The other two components, B1 and B2, split the remaining PETs evenly. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  petCountR = petCount - petCountA
+  petCountB1 = petCountR / 2
+  
+  allocate(petListB1(petCountB1))
+  do i=1, petCountB1
+    petListB1(i) = petCountA + i-1 ! PETs are base 0
+  enddo
+
+  allocate(petListB2(petCountR-petCountB1))
+  do i=1, petCountR-petCountB1
+    petListB2(i) = petCountA + petCountB1 + i-1 ! PETs are base 0
+  enddo
+
+  compB1 = ESMF_GridCompCreate(petList=petListB1, rc=rc)
+  if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &
+    line=__LINE__, &
+    file=__FILE__)) &
+    call ESMF_Finalize(endflag=ESMF_END_ABORT)
+
+  compB2 = ESMF_GridCompCreate(petList=petListB2, rc=rc)
+  if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &
+    line=__LINE__, &
+    file=__FILE__)) &
+    call ESMF_Finalize(endflag=ESMF_END_ABORT)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   Skipping all of the standard superstructure code, assume that {\tt fieldA}
+   has been created by component A, has been reconciled across all PETs via
+   a StateReconcile() call, and accessed via a StateGet(). The same is true for
+   {\tt fieldB1} and {\tt fieldB2} from components B1 and B2, respectively.
+  
+   Now the RouteHandle {\tt rh1} for a Redist operation is precomputed between 
+   {\tt fieldA} and {\tt fieldB1}. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  call ESMF_FieldRedistStore(srcField=fieldA, dstField=fieldB1, &
+    routehandle=rh1, rc=rc)
+  if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &
+    line=__LINE__, &
+    file=__FILE__)) &
+    call ESMF_Finalize(endflag=ESMF_END_ABORT)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   The communication pattern stored in {\tt rh1} is between the PETs associated
+   with component A and those associated with component B1. Now component B2 is
+   simply a second instance of the same component code as B1, but on a different
+   set of PETs. The {\tt ESMF\_RouteHandleCreate()} method can be used to 
+   transfer {\tt rh1} to the set of PETs that is consistent with fieldA to 
+   fieldB2 communication.
+  
+   In order to transfer a RouteHandle to a different set of PETs, the 
+   {\tt originPetList} and {\tt targetPetList} must be constructed. The
+   {\tt originPetList} is the union of source and destination PETs (in that
+   order) for which {\tt rh1} was explicitly computed via the Store() call: 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  allocate(originPetList(size(petListA)+size(petListB1)))
+  originPetList(1:size(petListA)) = petListA(:)
+  originPetList(size(petListA)+1:) = petListB1(:)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   The {\tt targetPetList} is the union of source and destination PETs (in that
+   order) for which the target RouteHandle (i.e. {\tt rh2}) will be defined: 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  allocate(targetPetList(size(petListA)+size(petListB2)))
+  targetPetList(1:size(petListA)) = petListA(:)
+  targetPetList(size(petListA)+1:) = petListB2(:)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   Now the new RouteHandle {\tt rh2} can be created easily from the exising 
+   RouteHandle {\tt rh1}, suppling the origin and target petLists. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  rh2 = ESMF_RouteHandleCreate(rh1, originPetList=originPetList, &
+    targetPetList=targetPetList, rc=rc)
+  if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &
+    line=__LINE__, &
+    file=__FILE__)) &
+    call ESMF_Finalize(endflag=ESMF_END_ABORT)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   The new RouteHandle {\tt rh2} is completely independent of the original
+   RouteHandle. In fact, it is perfectly fine to destroy (or release) {\tt rh1} 
+   while holding on to {\tt rh2}. 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  call ESMF_RouteHandleDestroy(rh1, noGarbage=.true., rc=rc)
+  if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &
+    line=__LINE__, &
+    file=__FILE__)) &
+    call ESMF_Finalize(endflag=ESMF_END_ABORT)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   Finally the {\tt rh2} object can be used to redistribute data from 
+   {\tt fieldA} to {\tt fieldB2}.  
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  call ESMF_FieldRedist(srcField=fieldA, dstField=fieldB2, &
+    routehandle=rh2, rc=rc)
+  if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &
+    line=__LINE__, &
+    file=__FILE__)) &
+    call ESMF_Finalize(endflag=ESMF_END_ABORT)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+   The communication pattern held by {\tt rh2}
+   is idential to what whould have been created by an explicit 
+   {\tt ESMF\_FieldRedistStore()} call. However, the 
+   {\tt ESMF\_RouteHandleCreate()} call used to create {\tt rh2} from {\tt rh1}
+   is much faster than the full RedistStore() operation.
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

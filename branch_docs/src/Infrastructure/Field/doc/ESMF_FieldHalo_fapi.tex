@@ -1,0 +1,284 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_FieldHalo.F90,  Date: Tue May  5 21:00:00 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_FieldHalo] {ESMF\_FieldHalo - Execute a FieldHalo operation}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_FieldHalo(field, routehandle,  &
+                             routesyncflag, finishedflag, checkflag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Field),          intent(inout)          :: field
+     type(ESMF_RouteHandle),    intent(inout)          :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_RouteSync_Flag), intent(in),  optional  :: routesyncflag
+     logical,                   intent(out), optional  :: finishedflag
+     logical,                   intent(in),  optional  :: checkflag
+     integer,                   intent(out), optional  :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Execute a precomputed Field halo operation for {\tt field}. 
+     The {\tt field} argument must match the Field used during 
+     {\tt ESMF\_FieldHaloStore()} in {\em type}, {\em kind}, and 
+     memory layout of the {\em gridded} dimensions. However, the size, number, 
+     and index order of {\em ungridded} dimensions may be different. See section
+     \ref{RH:Reusability} for a more detailed discussion of RouteHandle 
+     reusability.
+  
+     See {\tt ESMF\_FieldHaloStore()} on how to precompute {\tt routehandle}.
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [field]
+       {\tt ESMF\_Field} containing data to be haloed.
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item [{[routesyncflag]}]
+       Indicate communication option. Default is {\tt ESMF\_ROUTESYNC\_BLOCKING},
+       resulting in a blocking operation.
+       See section \ref{const:routesync} for a complete list of valid settings.
+     \item [{[finishedflag]}]
+       \begin{sloppypar}
+       Used in combination with {\tt routesyncflag = ESMF\_ROUTESYNC\_NBTESTFINISH}.
+       Returned {\tt finishedflag} equal to {\tt .true.} indicates that all
+       operations have finished. A value of {\tt .false.} indicates that there
+       are still unfinished operations that require additional calls with
+       {\tt routesyncflag = ESMF\_ROUTESYNC\_NBTESTFINISH}, or a final call with
+       {\tt routesyncflag = ESMF\_ROUTESYNC\_NBWAITFINISH}. For all other {\tt routesyncflag}
+       settings the returned value in {\tt finishedflag} is always {\tt .true.}.
+       \end{sloppypar}
+     \item [{[checkflag]}]
+       If set to {\tt .TRUE.} the input Field pair will be checked for
+       consistency with the precomputed operation provided by {\tt routehandle}.
+       If set to {\tt .FALSE.} {\em (default)} only a very basic input check
+       will be performed, leaving many inconsistencies undetected. Set
+       {\tt checkflag} to {\tt .FALSE.} to achieve highest performance.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_FieldHaloRelease] {ESMF\_FieldHaloRelease - Release resources associated with a Field halo operation}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_FieldHaloRelease(routehandle, noGarbage, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_RouteHandle), intent(inout)           :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),   optional  :: noGarbage
+     integer,                intent(out),  optional  :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[8.0.0] Added argument {\tt noGarbage}.
+     The argument provides a mechanism to override the default garbage collection
+     mechanism when destroying an ESMF object.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Release resources associated with a Field halo operation.
+     After this call {\tt routehandle} becomes invalid.
+  
+     \begin{description}
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item[{[noGarbage]}]
+       If set to {\tt .TRUE.} the object will be fully destroyed and removed
+       from the ESMF garbage collection system. Note however that under this 
+       condition ESMF cannot protect against accessing the destroyed object 
+       through dangling aliases -- a situation which may lead to hard to debug 
+       application crashes.
+   
+       It is generally recommended to leave the {\tt noGarbage} argument
+       set to {\tt .FALSE.} (the default), and to take advantage of the ESMF 
+       garbage collection system which will prevent problems with dangling
+       aliases or incorrect sequences of destroy calls. However this level of
+       support requires that a small remnant of the object is kept in memory
+       past the destroy call. This can lead to an unexpected increase in memory
+       consumption over the course of execution in applications that use 
+       temporary ESMF objects. For situations where the repeated creation and 
+       destruction of temporary objects leads to memory issues, it is 
+       recommended to call with {\tt noGarbage} set to {\tt .TRUE.}, fully 
+       removing the entire temporary object from memory.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_FieldHaloStore] {ESMF\_FieldHaloStore - Store a FieldHalo operation}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_FieldHaloStore(field, routehandle,  &
+       startregion, haloLDepth, haloUDepth, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Field),            intent(inout)           :: field
+     type(ESMF_RouteHandle),      intent(inout)           :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_StartRegion_Flag), intent(in),    optional :: startregion
+     integer,                     intent(in),    optional :: haloLDepth(:)
+     integer,                     intent(in),    optional :: haloUDepth(:)
+     integer,                     intent(out),   optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Store a Field halo operation over the data in {\tt field}. By default,
+     i.e. without specifying {\tt startregion}, {\tt haloLDepth} and
+     {\tt haloUDepth}, all elements in the total Field region that lie outside
+     the exclusive region will be considered potential destination elements for
+     halo. However, only those elements that have a corresponding halo source
+     element, i.e. an exclusive element on one of the DEs, will be updated under
+     the halo operation. Elements that have no associated source remain 
+     unchanged under halo.
+  
+     Specifying {\tt startregion} allows to change the shape of the 
+     effective halo region from the inside. Setting this flag to
+     {\tt ESMF\_STARTREGION\_COMPUTATIONAL} means that only elements outside 
+     the computational region of the Field are considered for potential
+     destination elements for the halo operation. The default is {\tt ESMF\_STARTREGION\_EXCLUSIVE}.
+  
+     The {\tt haloLDepth} and {\tt haloUDepth} arguments allow to reduce
+     the extent of the effective halo region. Starting at the region specified
+     by {\tt startregion}, the {\tt haloLDepth} and {\tt haloUDepth}
+     define a halo depth in each direction. Note that the maximum halo region is
+     limited by the total Field region, independent of the actual
+     {\tt haloLDepth} and {\tt haloUDepth} setting. The total Field region is
+     local DE specific. The {\tt haloLDepth} and {\tt haloUDepth} are interpreted
+     as the maximum desired extent, reducing the potentially larger region
+     available for the halo operation.
+  
+     The routine returns an {\tt ESMF\_RouteHandle} that can be used to call 
+     {\tt ESMF\_FieldHalo()} on any Field that matches 
+     {\tt field} in {\em type}, {\em kind}, and 
+     memory layout of the {\em gridded} dimensions. However, the size, number, 
+     and index order of {\em ungridded} dimensions may be different. See section
+     \ref{RH:Reusability} for a more detailed discussion of RouteHandle 
+     reusability.
+    
+     This call is {\em collective} across the current VM.  
+  
+     \begin{description}
+     \item [field]
+       {\tt ESMF\_Field} containing data to be haloed. The data in this Field may be
+       destroyed by this call.
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item [{[startregion]}]
+       \begin{sloppypar}
+       The start of the effective halo region on every DE. The default
+       setting is {\tt ESMF\_STARTREGION\_EXCLUSIVE}, rendering all non-exclusive
+       elements potential halo destination elements.
+       See section \ref{const:startregion} for a complete list of
+       valid settings.
+       \end{sloppypar}
+     \item[{[haloLDepth]}] 
+       This vector specifies the lower corner of the effective halo
+       region with respect to the lower corner of {\tt startregion}.
+       The size of {\tt haloLDepth} must equal the number of distributed Array
+       dimensions.
+     \item[{[haloUDepth]}] 
+       This vector specifies the upper corner of the effective halo
+       region with respect to the upper corner of {\tt startregion}.
+       The size of {\tt haloUDepth} must equal the number of distributed Array
+       dimensions.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_FieldIsCreated] {ESMF\_FieldIsCreated - Check whether a Field object has been created}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function ESMF_FieldIsCreated(field, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: ESMF_FieldIsCreated\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Field), intent(in)            :: field
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,             intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return {\tt .true.} if the {\tt field} has been created. Otherwise return 
+     {\tt .false.}. If an error occurs, i.e. {\tt rc /= ESMF\_SUCCESS} is 
+     returned, the return value of the function will also be {\tt .false.}.
+  
+   The arguments are:
+     \begin{description}
+     \item[field]
+       {\tt ESMF\_Field} queried.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

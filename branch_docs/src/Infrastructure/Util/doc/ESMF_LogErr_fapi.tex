@@ -1,0 +1,846 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_LogErr.F90,  Date: Tue May  5 20:59:26 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_LogAssignment(=)] {ESMF\_LogAssignment(=) - Log assignment}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     interface assignment(=)
+     log1 = log2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Log) :: log1
+     type(ESMF_Log) :: log2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Assign {\tt log1} as an alias to the same {\tt ESMF\_Log} object in memory
+     as {\tt log2}. If {\tt log2} is invalid, then {\tt log1} will be
+     equally invalid after the assignment.
+  
+     The arguments are:
+     \begin{description}
+     \item[log1]
+       The {\tt ESMF\_Log} object on the left hand side of the assignment.
+     \item[log2]
+       The {\tt ESMF\_Log} object on the right hand side of the assignment.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogOperator(==)] {ESMF\_LogOperator(==) - Test if Log 1 is equivalent to Log 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(==)
+       if (log1 == log2) then ... endif
+                    OR
+       result = (log1 == log2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Log), intent(in) :: log1
+       type(ESMF_Log), intent(in) :: log2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (==) operator for the {\tt ESMF\_Log} class.
+       Compare two logs for equality; return {\tt .true.} if equal,
+       {\tt .false.} otherwise. Comparison is based on whether the objects
+       are distinct, as with two newly created logs, or are simply aliases
+       to the same log as would be the case when assignment was involved.
+  
+       The arguments are:
+       \begin{description}
+       \item[log1]
+            The {\tt ESMF\_Log} object on the left hand side of the equality
+            operation.
+       \item[log2]
+            The {\tt ESMF\_Log} object on the right hand side of the equality
+            operation.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogOperator(/=)] {ESMF\_LogOperator(/=) - Test if Log 1 is not equivalent to Log 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(/=)
+       if (log1 /= log2) then ... endif
+                    OR
+       result = (log1 /= log2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Log), intent(in) :: log1
+       type(ESMF_Log), intent(in) :: log2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (/=) operator for the {\tt ESMF\_Log} class.
+       Compare two logs for inequality; return {\tt .true.} if equal,
+       {\tt .false.} otherwise.  Comparison is based on whether the objects
+       are distinct, as with two newly created logs, or are simply aliases
+       to the same log as would be the case when assignment was involved.
+  
+       The arguments are:
+       \begin{description}
+       \item[log1]
+            The {\tt ESMF\_Log} object on the left hand side of the non-equality
+            operation.
+       \item[log2]
+            The {\tt ESMF\_Log} object on the right hand side of the non-equality
+            operation.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogClose] {ESMF\_LogClose - Close Log file(s)}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_LogClose(log, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Log), intent(inout), optional :: log
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,        intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+        This routine closes the log file(s) associated with {\tt log}.
+        If the log is not explicitly closed, it will be closed by
+        {\tt ESMF\_Finalize}.
+  
+        The arguments are:
+        \begin{description}
+  
+        \item [{[log]}]
+              An {\tt ESMF\_Log} object.  If not specified, the default log is closed.
+        \item [{[rc]}]
+              Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+        \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogFlush] {ESMF\_LogFlush - Flush the Log file(s)}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_LogFlush(log, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Log), intent(inout), optional :: log
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,        intent(out),   optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+        This subroutine flushes the file buffer associated with {\tt log}.
+  
+        The arguments are:
+        \begin{description}
+  
+        \item [{[log]}]
+              An optional {\tt ESMF\_Log} object that can be used instead
+              of the default Log.
+        \item [{[rc]}]
+              Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+        \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogFoundAllocError] {ESMF\_LogFoundAllocError - Check Fortran allocation status error and write message}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       function ESMF_LogFoundAllocError(statusToCheck,  &
+                                        msg,line,file, &
+                                        method,rcToReturn,log)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical                                    :: ESMF_LogFoundAllocError\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       integer,          intent(in)              :: statusToCheck
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character(len=*), intent(in),    optional :: msg
+       integer,          intent(in),    optional :: line
+       character(len=*), intent(in),    optional :: file
+       character(len=*), intent(in),    optional :: method
+       integer,          intent(inout), optional :: rcToReturn
+       type(ESMF_Log),   intent(inout), optional :: log
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+        This function returns {\tt .true.} when {\tt statusToCheck} indicates
+        an allocation error, otherwise it returns {\tt .false.}.  The status
+        value is typically returned from a Fortran ALLOCATE statement.
+        If an error is indicated, a ESMF memory allocation error message
+        will be written to the {\tt ESMF\_Log} along with a user added {\tt msg},
+        {\tt line}, {\tt file} and {\tt method}.
+  
+        The arguments are:
+        \begin{description}
+  
+        \item [statusToCheck]
+              Fortran allocation status to check.  Fortran specifies
+              that a status of 0 (zero) indicates success.
+        \item [{[msg]}]
+              User-provided message string.
+        \item [{[line]}]
+              Integer source line number.  Expected to be set by
+              using the preprocessor {\tt \_\_LINE\_\_} macro.
+        \item [{[file]}]
+              User-provided source file name.
+        \item [{[method]}]
+              User-provided method string.
+        \item [{[rcToReturn]}]
+              If specified, when the allocation status indicates an error,
+              set the {\tt rcToReturn} value to {\tt ESMF\_RC\_MEM}.  Otherwise,
+              {\tt rcToReturn} is not modified.
+        \item [{[log]}]
+              An optional {\tt ESMF\_Log} object that can be used instead
+              of the default Log.
+  
+        \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogFoundDeallocError] {ESMF\_LogFoundDeallocError - Check Fortran deallocation status error and write message}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       function ESMF_LogFoundDeallocError(statusToCheck,  &
+                                          msg,line,file, &
+                                          method,rcToReturn,log)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical ::ESMF_LogFoundDeallocError\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       integer,          intent(in)              :: statusToCheck
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character(len=*), intent(in),    optional :: msg
+       integer,          intent(in),    optional :: line
+       character(len=*), intent(in),    optional :: file
+       character(len=*), intent(in),    optional :: method
+       integer,          intent(inout), optional :: rcToReturn
+       type(ESMF_Log),   intent(inout), optional :: log
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+        This function returns {\tt .true.} when {\tt statusToCheck} indicates
+        a deallocation error, otherwise it returns {\tt .false.}.  The status
+        value is typically returned from a Fortran DEALLOCATE statement.
+        If an error is indicated, a ESMF memory allocation error message
+        will be written to the {\tt ESMF\_Log} along with a user added {\tt msg},
+        {\tt line}, {\tt file} and {\tt method}.
+  
+        The arguments are:
+        \begin{description}
+  
+        \item [statusToCheck]
+              Fortran deallocation status to check.  Fortran specifies
+              that a status of 0 (zero) indicates success.
+        \item [{[msg]}]
+              User-provided message string.
+        \item [{[line]}]
+              Integer source line number.  Expected to be set by
+              using the preprocessor {\tt \_\_LINE\_\_} macro.
+        \item [{[file]}]
+              User-provided source file name.
+        \item [{[method]}]
+              User-provided method string.
+        \item [{[rcToReturn]}]
+              If specified, when the deallocation status indicates an error,
+              set the {\tt rcToReturn} value to {\tt ESMF\_RC\_MEM}.  Otherwise,
+              {\tt rcToReturn} is not modified.
+        \item [{[log]}]
+              An optional {\tt ESMF\_Log} object that can be used instead
+              of the default Log.
+  
+        \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogFoundError] {ESMF\_LogFoundError - Check ESMF return code for error and write message}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   recursive function ESMF_LogFoundError(rcToCheck,   &
+                                   msg, line, file, method, &
+                                   rcToReturn, log) result (LogFoundError)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: LogFoundError\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       integer,          intent(in),    optional :: rcToCheck
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character(len=*), intent(in),    optional :: msg
+       integer,          intent(in),    optional :: line
+       character(len=*), intent(in),    optional :: file
+       character(len=*), intent(in),    optional :: method
+       integer,          intent(inout), optional :: rcToReturn
+       type(ESMF_Log),   intent(inout), optional :: log
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+        This function returns {\tt .true.} when {\tt rcToCheck} indicates
+        an return code other than {\tt ESMF\_SUCCESS}, otherwise it returns
+        {\tt .false.}.
+        If an error is indicated, a ESMF predefined error message
+        will be written to the {\tt ESMF\_Log} along with a user added {\tt msg},
+        {\tt line}, {\tt file} and {\tt method}.
+  
+        The arguments are:
+        \begin{description}
+  
+        \item [{[rcToCheck]}]
+              Return code to check. Default is {\tt ESMF\_SUCCESS}.
+        \item [{[msg]}]
+              User-provided message string.
+        \item [{[line]}]
+              Integer source line number.  Expected to be set by
+              using the preprocessor {\tt \_\_LINE\_\_} macro.
+        \item [{[file]}]
+              User-provided source file name.
+        \item [{[method]}]
+              User-provided method string.
+        \item [{[rcToReturn]}]
+              If specified, when {\tt rcToCheck} indicates an error,
+              set the {\tt rcToReturn} to the value of {\tt rcToCheck}.
+              Otherwise, {\tt rcToReturn} is not modified.
+              This is not the return code for this function; it allows
+              the calling code to do an assignment of the error code
+              at the same time it is testing the value.
+        \item [{[log]}]
+              An optional {\tt ESMF\_Log} object that can be used instead
+              of the default Log.
+  
+        \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogFoundNetCDFError] {ESMF\_LogFoundNetCDFError - Check NetCDF status code for success or log the associated NetCDF error message.}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} function ESMF_LogFoundNetCDFError(ncerrToCheck, msg, line, &
+                                   file, method, rcToReturn, log)
+ 
+ #if defined ESMF_NETCDF
+   use netcdf
+ #elif defined ESMF_PNETCDF
+   use pnetcdf
+ #endif
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}   logical :: ESMF_LogFoundNetCDFError\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   integer,          intent(in)              :: ncerrToCheck
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+   character(len=*), intent(in),    optional :: msg
+   integer,          intent(in),    optional :: line
+   character(len=*), intent(in),    optional :: file
+   character(len=*), intent(in),    optional :: method
+   integer,          intent(inout), optional :: rcToReturn
+   type(ESMF_Log),   intent(inout), optional :: log\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        This function returns {\tt .true.} when {\tt ncerrToCheck} indicates
+        an return code other than {\tt 0} (the success code from NetCDF Fortran)
+        or {\tt NF\_NOERR} (the success code for PNetCDF). Otherwise it returns
+        {\tt .false.}.
+        If an error is indicated, a predefined ESMF error message
+        will be written to the {\tt ESMF\_Log} along with a user added {\tt msg},
+        {\tt line}, {\tt file} and {\tt method}. The NetCDF string error
+        representation will also be logged.
+  
+        The arguments are:
+        \begin{description}
+  
+        \item [{[ncerrToCheck]}]
+              NetCDF error code to check.
+        \item [{[msg]}]
+              User-provided message string.
+        \item [{[line]}]
+              Integer source line number.  Expected to be set by using the
+              preprocessor {\tt \_\_LINE\_\_} macro.
+        \item [{[file]}]
+              User-provided source file name.
+        \item [{[method]}]
+              User-provided method string.
+        \item [{[rcToReturn]}]
+              If specified, when {\tt ncerrToCheck} indicates an error,
+              set {\tt rcToReturn} to {\tt ESMF\_RC\_NETCDF\_ERROR}. The string
+              representation for the error code will be retrieved from the NetCDF
+              Fortran library and logged alongside any user-provided message
+              string.
+              Otherwise, {\tt rcToReturn} is not modified.
+              This is not the return code for this function; it allows the
+              calling code to do an assignment of the error code at the same time
+              it is testing the value.
+        \item [{[log]}]
+              An optional {\tt ESMF\_Log} object that can be used instead
+              of the default Log.
+  
+        \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogGet] {ESMF\_LogGet - Return information about a log object}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_LogGet(log,  &
+                              flush,    &
+                              logmsgAbort, logkindflag, &
+                              maxElements, trace, fileName,  &
+                              highResTimestampFlag, indentCount,  &
+                              noPrefix, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Log),          intent(in),  optional :: log
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       logical,                 intent(out), optional :: flush
+       type(ESMF_LogMsg_Flag),  pointer,     optional :: logmsgAbort(:)
+       type(ESMF_LogKind_Flag), intent(out), optional :: logkindflag
+       integer,                 intent(out), optional :: maxElements
+       logical,                 intent(out), optional :: trace
+       character(*),            intent(out), optional :: fileName
+       logical,                 intent(out), optional :: highResTimestampFlag
+       integer,                 intent(out), optional :: indentCount
+       logical,                 intent(out), optional :: noPrefix
+       integer,                 intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        This subroutine returns properties about a Log object.
+  
+        The arguments are:
+        \begin{description}
+  
+        \item [{[log]}]
+              An optional {\tt ESMF\_Log} object that can be used instead
+              of the default Log.
+        \item [{[flush]}]
+              Flush flag.
+        \item [{[logmsgAbort]}]
+              Returns an array containing current message halt settings.
+              If the array is not pre-allocated, {\tt ESMF\_LogGet} will
+              allocate an array of the correct size.  If no message types
+              are defined, an array of length zero is returned.  It is the
+              callers responsibility to deallocate the array.
+        \item [{[logkindflag]}]
+              Defines either single or multilog.
+        \item [{[maxElements]}]
+              Maximum number of elements in the Log.
+        \item [{[trace]}]
+              Current setting of the Log call tracing flag.
+        \item [{[fileName]}]
+              Current file name.  When the log has been opened with
+              {\tt ESMF\_LOGKIND\_MULTI}, the filename has a PET number
+              prefix.
+        \item [{[highResTimestampFlag]}]
+              Current setting of the extended elapsed timestamp flag.
+        \item [{[indentCount]}]
+              Current setting of the leading white space padding.
+        \item [{[noPrefix]}]
+              Current setting of the message prefix enable/disable flag.
+        \item [{[rc]}]
+              Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+        \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogOpen] {ESMF\_LogOpen - Open Log file(s)}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_LogOpen(log, filename,  &
+         appendflag, logkindflag, noPrefix, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_Log),          intent(inout)         :: log
+     character(len=*),        intent(in)            :: filename
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                 intent(in),  optional :: appendFlag
+     type(ESMF_LogKind_Flag), intent(in),  optional :: logkindFlag
+     logical,                 intent(in),  optional :: noPrefix
+     integer,                 intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        This routine opens a file named {\tt filename} and associates
+        it with the {\tt ESMF\_Log}.  When {\tt logkindflag} is set to
+        {\tt ESMF\_LOGKIND\_MULTI} or {\tt ESMF\_LOGKIND\_MULTI\_ON\_ERROR}
+        the file name is prepended with PET number identification.  If the
+        incoming log is already open, an error is returned.
+  
+        The arguments are:
+        \begin{description}
+        \item [log]
+              An {\tt ESMF\_Log} object.
+        \item [filename]
+              Name of log file to be opened.
+        \item [{[appendFlag]}]
+              If the log file exists, setting to {\tt .false.} will set the file position
+              to the beginning of the file.  Otherwise, new records will be appended to the
+              end of the file.  If not specified, defaults to {\tt .true.}.
+        \item [{[logkindFlag]}]
+              Set the logkindflag. See section \ref{const:logkindflag} for a list of
+              valid options.  When the {\tt ESMF\_LOGKIND\_MULTI\_ON\_ERROR} is selected,
+              the log opening is deferred until a {\tt ESMF\_LogWrite} with log message of
+              type {\tt ESMF\_LOGMSG\_ERROR} is written.
+              If not specified, defaults to {\tt ESMF\_LOGKIND\_MULTI}.
+        \item [{[noPrefix]}]
+              Set the noPrefix flag.  If set to {\tt .false.}, log messages are prefixed
+              with time stamps, message type, and PET number.  If set to {\tt .true.} the
+              messages will be written without prefixes.  If not specified, defaults to
+              {\tt .false.}.
+        \item [{[rc]}]
+              Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+        \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogOpen] {ESMF\_LogOpen - Open Default Log file(s)}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_LogOpen ()
+     subroutine ESMF_LogOpenDefault (filename,  &
+         appendflag, logkindflag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     character(len=*),        intent(in)            :: filename
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                 intent(in),  optional :: appendflag
+     type(ESMF_LogKind_Flag), intent(in),  optional :: logkindflag
+     integer,                 intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        This routine opens a file named {\tt filename} and associates
+        it with the default log.  When {\tt logkindflag} is set to
+        {\tt ESMF\_LOGKIND\_MULTI} the file name is prepended with PET
+        number identification.  If the incoming default log is already open,
+        an error is returned.
+  
+        The arguments are:
+        \begin{description}
+        \item [filename]
+              Name of DEFAULT log file to be opened.
+        \item [{[appendflag]}]
+              If the log file exists, setting to {\tt .false.} will set the file position
+              to the beginning of the file.  Otherwise, new records will be appended to the
+              end of the file.  If not specified, defaults to {\tt .true.}.
+        \item [{[logkindflag]}]
+              Set the logkindflag. See section \ref{const:logkindflag} for a list of
+              valid options.
+              If not specified, defaults to {\tt ESMF\_LOGKIND\_MULTI}.
+        \item [{[rc]}]
+              Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+        \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogSet] {ESMF\_LogSet - Set Log parameters}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_LogSet(log,  &
+         flush,  &
+         logmsgAbort, maxElements, logmsgList,  &
+         errorMask, trace, highResTimestampFlag, indentCount,  &
+         noPrefix, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Log),         intent(inout), optional :: log
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       logical,                intent(in),    optional :: flush
+       type(ESMF_LogMsg_Flag), intent(in),    optional :: logmsgAbort(:)
+       integer,                intent(in),    optional :: maxElements
+       type(ESMF_LogMsg_Flag), intent(in),    optional :: logmsgList(:)
+       integer,                intent(in),    optional :: errorMask(:)
+       logical,                intent(in),    optional :: trace
+       logical,                intent(in),    optional :: highResTimestampFlag
+       integer,                intent(in),    optional :: indentCount
+       logical,                intent(in),    optional :: noPrefix
+       integer,                intent(out),   optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        This subroutine sets the properties for the Log object.
+  
+        The arguments are:
+        \begin{description}
+  
+        \item [{[log]}]
+              An optional {\tt ESMF\_Log} object.  The default is to use the
+              default log that was opened at {\tt ESMF\_Initialize} time.
+        \item [{[flush]}]
+              If set to {\tt .true.}, flush log messages immediately, rather
+              than buffering them.  Default is to flush after {\tt maxElements}
+              messages.
+        \item [{[logmsgAbort]}]
+              Sets the condition on which ESMF aborts.  The array
+              can contain any combination of {\tt ESMF\_LOGMSG} named constants.  These
+              named constants are described in section \ref{const:logmsgflag}.
+              Default is to always continue processing.
+        \item [{[maxElements]}]
+              Maximum number of elements in the Log buffer before flushing occurs.
+              Default is to flush when 10 messages have been accumulated.
+        \item [{[logmsgList]}]
+              An array of message types that will be logged.  Log write requests
+              not matching the list will be ignored.  If an empty array is
+              provided, no messages will be logged.
+              See section \ref{const:logmsgflag} for a list of
+              valid message types.  By default, all non-trace messages will be
+              logged.
+        \item [{[errorMask]}]
+              List of error codes that will {\em not} be logged as errors.
+              Default is to log all error codes.
+        \item [{[trace]}]
+              \begin{sloppypar}
+              If set to {\tt .true.}, calls such as {\tt ESMF\_LogFoundError()},
+              {\tt ESMF\_LogFoundAllocError()}, and
+              {\tt ESMF\_LogFoundDeallocError()}
+              will be logged in the default log files.  This option is intended
+              to be used as a tool for debugging and program flow tracing
+              within the ESMF library. Voluminous output may appear in the log,
+              with a consequent slowdown in performance.  Therefore, it is
+              recommended that this option only be enabled before a problematic
+              call to a ESMF method, and disabled afterwards. Default is to
+              not trace these calls.
+             \end{sloppypar}
+        \item [{[highResTimestampFlag]}]
+              Sets the extended elapsed timestamp flag.  If set to {\tt .true.}, a timestamp
+              from {\tt ESMF\_VMWtime} will be included in each log message.  Default is
+              to not add the additional timestamps.
+        \item [{[indentCount]}]
+              Number of leading white spaces.
+        \item [{[noPrefix]}]
+              If set to {\tt .false.}, log messages are prefixed with time stamps,
+              message type and PET number.  If set to {\tt .true.} the messages will be
+              written without the prefixes.
+        \item [{[rc]}]
+              Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+        \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogSetError] {ESMF\_LogSetError - Set ESMF return code for error and write msg}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_LogSetError(rcToCheck,  &
+                                   msg, line, file, method, &
+                                   rcToReturn, log)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       integer,          intent(in)              :: rcToCheck
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character(len=*), intent(in),    optional :: msg
+       integer,          intent(in),    optional :: line
+       character(len=*), intent(in),    optional :: file
+       character(len=*), intent(in),    optional :: method
+       integer,          intent(out),   optional :: rcToReturn
+       type(ESMF_Log),   intent(inout), optional :: log
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+        This subroutine sets the {\tt rcToReturn} value to {\tt rcToCheck} if
+        {\tt rcToReturn} is present and writes this error code to the {\tt ESMF\_Log}
+        if an error is generated.  A predefined error message will added to the
+        {\tt ESMF\_Log} along with a user added {\tt msg}, {\tt line}, {\tt file}
+        and {\tt method}.
+  
+        The arguments are:
+        \begin{description}
+  
+        \item [rcToCheck]
+              rc value for set
+        \item [{[msg]}]
+              User-provided message string.
+        \item [{[line]}]
+              Integer source line number.  Expected to be set by
+              using the preprocessor macro {\tt \_\_LINE\_\_} macro.
+        \item [{[file]}]
+              User-provided source file name.
+        \item [{[method]}]
+              User-provided method string.
+        \item [{[rcToReturn]}]
+              If specified, copy the {\tt rcToCheck} value to {\tt rcToreturn}.
+              This is not the return code for this function; it allows
+              the calling code to do an assignment of the error code
+              at the same time it is testing the value.
+        \item [{[log]}]
+              An optional {\tt ESMF\_Log} object that can be used instead
+              of the default Log.
+  
+        \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_LogWrite] {ESMF\_LogWrite - Write to Log file(s)}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       recursive subroutine ESMF_LogWrite(msg, logmsgFlag, &
+                         logmsgList,      & ! DEPRECATED ARGUMENT
+                         line, file, method, log, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       character(len=*),      intent(in)             :: msg
+       type(ESMF_LogMsg_Flag),intent(in),optional    :: logmsgFlag
+       type(ESMF_LogMsg_Flag),intent(in),optional::logmsgList ! DEPRECATED ARG
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,               intent(in),   optional :: line
+       character(len=*),      intent(in),   optional :: file
+       character(len=*),      intent(in),   optional :: method
+       type(ESMF_Log),        intent(inout),optional :: log
+       integer,               intent(out),  optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[5.2.0rp1] Added argument {\tt logmsgFlag}.
+                   Started to deprecate argument {\tt logmsgList}.
+                   This corrects inconsistent use of the {\tt List} suffix on
+                   the argument name. In ESMF this suffix indicates
+                   one--dimensional array arguments.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+        This subroutine writes to the file associated with an {\tt ESMF\_Log}.
+        A message is passed in along with the {\tt logmsgFlag}, {\tt line},
+        {\tt file} and {\tt method}.  If the write to the {\tt ESMF\_Log}
+        is successful, the function will return a logical {\tt true}.  This
+        function is the base function used by all the other {\tt ESMF\_Log}
+        writing methods.
+  
+        The arguments are:
+        \begin{description}
+  
+        \item [msg]
+              User-provided message string.
+        \item [{[logmsgFlag]}]
+              The type of message.  See Section~\ref{const:logmsgflag} for
+              possible values.  If not specified, the default is {\tt ESMF\_LOGMSG\_INFO}.
+        \item [{[logmsgList]}]
+              \apiDeprecatedArgWithReplacement{logmsgFlag}
+        \item [{[line]}]
+              Integer source line number.  Expected to be set by
+              using the preprocessor macro {\tt \_\_LINE\_\_} macro.
+        \item [{[file]}]
+              User-provided source file name.
+        \item [{[method]}]
+              User-provided method string.
+        \item [{[log]}]
+              An optional {\tt ESMF\_Log} object that can be used instead
+              of the default Log.
+        \item [{[rc]}]
+              Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+        \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

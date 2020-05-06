@@ -1,0 +1,146 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_IO\_YAML.h,  Date: Tue May  5 20:59:47 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsection{C++:  Class Interface ESMCI::IO\_YAML - Add support for YAML language (Source File: ESMCI\_IO\_YAML.h)}
+
+
+  
+{\sf DESCRIPTION:\\ }
+
+
+    This class enables ESMF to read, write, and parse text in
+    "YAML Ain't Markup Language" (YAML) version 1.2 via the external
+    yaml-cpp library (see: https://github.com/jbeder/yaml-cpp).
+  -------------------------------------------------------------------------
+  
+\bigskip{\em USES:}
+\begin{verbatim} #include <string>
+ 
+ #ifdef ESMF_YAMLCPP
+ #include "yaml-cpp/yaml.h"
+ #endif
+ 
+ namespace ESMCI {
+ 
+  // classes and structs
+ 
+   class IO_YAML;
+ 
+   class definition type
+ 
+   class IO_YAML {\end{verbatim}{\sf PUBLIC TYPES:}
+\begin{verbatim}     public:
+       struct ParseFormat {
+         enum value { Unset = 0, NUOPCFieldDictionary };
+       };
+       struct ContentType {
+         enum value { Unset = 0, Native, NUOPCFreeFormat };
+       };
+ \end{verbatim}{\sf PRIVATE TYPES:}
+\begin{verbatim}     private:
+ #ifdef ESMF_YAMLCPP
+       YAML::Node doc;
+ #endif
+       struct {
+         ParseFormat::value format;
+ #ifdef ESMF_YAMLCPP
+         YAML::Node data;
+ #endif
+       } parser;
+ 
+       struct {
+         ContentType::value type;
+         int capacity;
+         std::string buffer;
+       } producer;
+ \end{verbatim}{\sf PUBLIC MEMBER FUNCTIONS:}
+\begin{verbatim}     public:
+       // native constructor/destructor
+       IO_YAML(void);
+       ~IO_YAML() {};
+       // explicit create/destroy:
+       static IO_YAML* create(int* rc);
+       static int destroy(IO_YAML** ioyaml);
+       // input methods:
+       // - read
+       int read(const std::string& filename);
+       // - ingest content
+       int ingest(const std::string& content);
+ 
+       // output methods:
+       // - write
+       //   - to standard output
+       int write(void) const;
+       //   - to file
+       int write(const std::string& filename) const;
+       //   - to output stream
+       int write(std::ostream& ostream) const;
+ 
+       // content methods
+       // - create content from parsed YAML
+       int cinit(const IO_YAML::ContentType::value& type);
+       // - write to standard output
+       int cwrite(void) const;
+       // - write to output stream
+       int cwrite(std::ostream& ostream) const;
+       // - write to file
+       int cwrite(const std::string& filename) const;
+       // - return content line count
+       int clinec(void) const { return producer.capacity; };
+       // - return content size
+       int csize(void) const { return producer.buffer.size(); };
+       // - return content buffer
+       const char* cget(void) const { return producer.buffer.data(); };
+ 
+       // process methods:
+       // - parse 
+       int parse(const IO_YAML::ParseFormat::value& format);
+                 \end{verbatim}{\sf PRIVATE MEMBER FUNCTIONS:}
+\begin{verbatim}     private:
+       // helper to process methods:
+       // - parse 
+       int nuopc_fd_parser(void);\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

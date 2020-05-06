@@ -1,0 +1,1024 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_Time.F90,  Date: Tue May  5 20:59:34 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_TimeAssignment(=)] {ESMF\_TimeAssignment(=) - Assign a Time to another Time}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface assignment(=)
+       time1 = time2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time) :: time1
+       type(ESMF_Time) :: time2
+   \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Set {\tt time1} equal to {\tt time2}.  This is the default Fortran
+       assignment, which creates a complete, independent copy of {\tt time2} 
+       as {\tt time1}.  If {\tt time2} is an invalid {\tt ESMF\_Time} object then
+       {\tt time1} will be equally invalid after the assignment.
+  
+       The arguments are:
+       \begin{description} 
+       \item[time1] 
+            The {\tt ESMF\_Time} to be set.
+       \item[time2] 
+            The {\tt ESMF\_Time} to be copied.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeOperator(+)] {ESMF\_TimeOperator(+) - Increment a Time by a TimeInterval}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(+)
+       time2 = time1 + timeinterval      \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_Time) :: time2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time),         intent(in) :: time1
+       type(ESMF_TimeInterval), intent(in) :: timeinterval
+   \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (+) operator for the {\tt ESMF\_Time} class to increment
+       {\tt time1} with {\tt timeinterval} and return the result as an
+       {\tt ESMF\_Time}.
+  
+       The arguments are:
+       \begin{description} 
+       \item[time1] 
+            The {\tt ESMF\_Time} to increment.
+       \item[timeinterval] 
+            The {\tt ESMF\_TimeInterval} to add to the given {\tt ESMF\_Time}.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeOperator(-)] {ESMF\_TimeOperator(-) - Decrement a Time by a TimeInterval}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(-)
+       time2 = time1 - timeinterval      
+   \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_Time) :: time2
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time),         intent(in) :: time1
+       type(ESMF_TimeInterval), intent(in) :: timeinterval\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (-) operator for the {\tt ESMF\_Time} class to decrement
+       {\tt time1} with {\tt timeinterval}, and return the result as an
+       {\tt ESMF\_Time}.
+   
+       The arguments are:      
+       \begin{description}
+       \item[time1]
+            The {\tt ESMF\_Time} to decrement.
+       \item[timeinterval]
+            The {\tt ESMF\_TimeInterval} to subtract from the given
+            {\tt ESMF\_Time}.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeOperator(-)] {ESMF\_TimeOperator(-) - Return the difference between two Times}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(-)
+       timeinterval = time1 - time2      \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       type(ESMF_TimeInterval) :: timeinterval
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time),         intent(in) :: time1
+       type(ESMF_Time),         intent(in) :: time2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (-) operator for the {\tt ESMF\_Time} class to return the
+       difference between {\tt time1} and {\tt time2} as an
+       {\tt ESMF\_TimeInterval}.  It is assumed that {\tt time1} is later than
+       {\tt time2}; if not, the resulting {\tt ESMF\_TimeInterval} will have a
+       negative value.
+  
+       The arguments are:
+       \begin{description}
+       \item[time1]
+            The first {\tt ESMF\_Time} in comparison.
+       \item[time2]
+            The second {\tt ESMF\_Time} in comparison.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeOperator(==)] {ESMF\_TimeOperator(==) - Test if Time 1 is equal to Time 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(==)
+       if (time1 == time2) then ... endif
+                    OR
+       result = (time1 == time2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time), intent(in) :: time1
+       type(ESMF_Time), intent(in) :: time2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (==) operator for the {\tt ESMF\_Time} class to return 
+       {\tt .true.} if {\tt time1} and {\tt time2} represent the same instant 
+       in time, and {\tt .false.} otherwise.
+  
+       The arguments are:
+       \begin{description}
+       \item[time1]
+            First {\tt ESMF\_Time} in comparison.
+       \item[time2]
+            Second {\tt ESMF\_Time} in comparison.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeOperator(/=)] {ESMF\_TimeOperator(/=) - Test if Time 1 is not equal to Time 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(/=)
+       if (time1 /= time2) then ... endif
+                    OR
+       result = (time1 /= time2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time), intent(in) :: time1
+       type(ESMF_Time), intent(in) :: time2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (/=) operator for the {\tt ESMF\_Time} class to return 
+       {\tt .true.} if {\tt time1} and {\tt time2} do not represent the same 
+       instant in time, and {\tt .false.} otherwise.
+  
+       The arguments are:
+       \begin{description}
+       \item[time1]
+            First {\tt ESMF\_Time} in comparison.
+       \item[time2]
+            Second {\tt ESMF\_Time} in comparison.
+       \end{description}
+    
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeOperator(<)] {ESMF\_TimeOperator(<) - Test if Time 1 is less than Time 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(<)
+       if (time1 < time2) then ... endif
+                    OR
+       result = (time1 < time2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time), intent(in) :: time1
+       type(ESMF_Time), intent(in) :: time2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (<) operator for the {\tt ESMF\_Time} class to return 
+       {\tt .true.} if {\tt time1} is earlier in time than {\tt time2}, and 
+       {\tt .false.} otherwise.
+  
+       The arguments are:
+       \begin{description}
+       \item[time1]
+            First {\tt ESMF\_Time} in comparison.
+       \item[time2]
+            Second {\tt ESMF\_Time} in comparison.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeOperator(<=)] {ESMF\_TimeOperator(<=) - Test if Time 1 is less than or equal to Time 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(<=)
+       if (time1 <= time2) then ... endif
+                    OR
+       result = (time1 <= time2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time), intent(in) :: time1
+       type(ESMF_Time), intent(in) :: time2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (<=) operator for the {\tt ESMF\_Time} class to return 
+       {\tt .true.} if {\tt time1} is earlier in time or the same time as 
+       {\tt time2}, and {\tt .false.} otherwise.
+  
+       The arguments are:
+       \begin{description}
+       \item[time1]
+            First {\tt ESMF\_Time} in comparison.
+       \item[time2]
+            Second {\tt ESMF\_Time} in comparison.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeOperator(>)] {ESMF\_TimeOperator(>) - Test if Time 1 is greater than Time 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(>)
+       if (time1 > time2) then ... endif
+                    OR
+       result = (time1 > time2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time), intent(in) :: time1
+       type(ESMF_Time), intent(in) :: time2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (>) operator for the {\tt ESMF\_Time} class to return 
+       {\tt .true.} if {\tt time1} is later in time than {\tt time2}, and 
+       {\tt .false.} otherwise.
+  
+       The arguments are:
+       \begin{description}
+       \item[time1]
+            First {\tt ESMF\_Time} in comparison.
+       \item[time2]
+            Second {\tt ESMF\_Time} in comparison.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeOperator(>=)] {ESMF\_TimeOperator(>=) - Test if Time 1 is greater than or equal to Time 2}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       interface operator(>=)
+       if (time1 >= time2) then ... endif
+                    OR
+       result = (time1 >= time2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time), intent(in) :: time1
+       type(ESMF_Time), intent(in) :: time2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Overloads the (>=) operator for the {\tt ESMF\_Time} class to return 
+       {\tt .true.} if {\tt time1} is later in time or the same time as 
+       {\tt time2}, and {\tt .false.} otherwise.
+  
+       The arguments are:
+       \begin{description}
+       \item[time1]
+            First {\tt ESMF\_Time} in comparison.
+       \item[time2]
+            Second {\tt ESMF\_Time} in comparison.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeGet] {ESMF\_TimeGet - Get a Time value }
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_TimeGet(time, &
+         yy, yy_i8, &
+         mm, dd, &
+         d, d_i8, &
+         h, m, &
+         s, s_i8, &
+         ms, us, ns, &
+         d_r8, h_r8, m_r8, s_r8, &
+         ms_r8, us_r8, ns_r8, &
+         sN, sN_i8, sD, sD_i8, &
+         calendar, calkindflag, timeZone, &
+         timeString, timeStringISOFrac, &
+         dayOfWeek, midMonth, &
+         dayOfYear,  dayOfYear_r8, &
+         dayOfYear_intvl, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time),         intent(in)            :: time
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer(ESMF_KIND_I4),   intent(out), optional :: yy
+       integer(ESMF_KIND_I8),   intent(out), optional :: yy_i8
+       integer,                 intent(out), optional :: mm
+       integer,                 intent(out), optional :: dd
+       integer(ESMF_KIND_I4),   intent(out), optional :: d
+       integer(ESMF_KIND_I8),   intent(out), optional :: d_i8
+       integer(ESMF_KIND_I4),   intent(out), optional :: h
+       integer(ESMF_KIND_I4),   intent(out), optional :: m
+       integer(ESMF_KIND_I4),   intent(out), optional :: s
+       integer(ESMF_KIND_I8),   intent(out), optional :: s_i8
+       integer(ESMF_KIND_I4),   intent(out), optional :: ms
+       integer(ESMF_KIND_I4),   intent(out), optional :: us
+       integer(ESMF_KIND_I4),   intent(out), optional :: ns
+       real(ESMF_KIND_R8),      intent(out), optional :: d_r8
+       real(ESMF_KIND_R8),      intent(out), optional :: h_r8
+       real(ESMF_KIND_R8),      intent(out), optional :: m_r8
+       real(ESMF_KIND_R8),      intent(out), optional :: s_r8
+       real(ESMF_KIND_R8),      intent(out), optional :: ms_r8
+       real(ESMF_KIND_R8),      intent(out), optional :: us_r8
+       real(ESMF_KIND_R8),      intent(out), optional :: ns_r8
+       integer(ESMF_KIND_I4),   intent(out), optional :: sN
+       integer(ESMF_KIND_I8),   intent(out), optional :: sN_i8
+       integer(ESMF_KIND_I4),   intent(out), optional :: sD
+       integer(ESMF_KIND_I8),   intent(out), optional :: sD_i8
+       type(ESMF_Calendar),     intent(out), optional :: calendar
+       type(ESMF_CalKind_Flag), intent(out), optional :: calkindflag
+       integer,                 intent(out), optional :: timeZone ! not imp
+       character (len=*),       intent(out), optional :: timeString
+       character (len=*),       intent(out), optional :: timeStringISOFrac
+       integer,                 intent(out), optional :: dayOfWeek
+       type(ESMF_Time),         intent(out), optional :: midMonth
+       integer(ESMF_KIND_I4),   intent(out), optional :: dayOfYear
+       real(ESMF_KIND_R8),      intent(out), optional :: dayOfYear_r8
+       type(ESMF_TimeInterval), intent(out), optional :: dayOfYear_intvl
+       integer,                 intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Gets the value of {\tt time} in units specified by the user
+       via Fortran optional arguments.  See {\tt ESMF\_TimeSet()} above for a
+       description of time units and calendars.
+  
+       The ESMF Time Manager represents and manipulates time internally with 
+       integers to maintain precision.  Hence, user-specified floating point 
+       values are converted internally from integers.  For example, if a time
+       value is 5 and 3/8 seconds (s=5, sN=3, sD=8), and you want to get it as
+       floating point seconds, you would get 5.375 (s\_r8=5.375).
+  
+       Units are bound (normalized) by the next larger unit specified.  For
+       example, if a time is defined to be 2:00 am on February 2, 2004, then
+       {\tt ESMF\_TimeGet(dd=day, h=hours, s=seconds)} would return
+         {\tt day = 2}, {\tt hours = 2}, {\tt seconds = 0},
+       whereas {\tt ESMF\_TimeGet(dd = day, s=seconds)} would return
+         {\tt day = 2}, {\tt seconds = 7200}.
+       Note that {\tt hours} and {\tt seconds} are bound by a day.  If bound
+       by a month,
+       {\tt ESMF\_TimeGet(mm=month, h=hours, s=seconds)} would return
+         {\tt month = 2}, {\tt hours = 26}, {\tt seconds = 0},
+       and {\tt ESMF\_TimeGet(mm = month, s=seconds)} would return
+         {\tt month = 2}, {\tt seconds = 93600} (26 * 3600).
+       Similarly, if bound to a year,
+       {\tt ESMF\_TimeGet(yy=year, h=hours, s=seconds)} would return
+         {\tt year = 2004}, {\tt hours = 770} (32*24 + 2), {\tt seconds = 0},
+       and {\tt ESMF\_TimeGet(yy = year, s=seconds)} would return
+         {\tt year = 2004}, {\tt seconds = 2772000} (770 * 3600).
+  
+       For {\tt timeString}, {\tt timeStringISOFrac}, {\tt dayOfWeek},
+       {\tt midMonth}, {\tt dayOfYear}, {\tt dayOfYear\_intvl}, and
+       {\tt dayOfYear\_r8} described below, valid calendars are Gregorian,
+       Julian, No Leap, 360 Day and Custom calendars.  Not valid for
+       Julian Day, Modified Julian Day, or No Calendar. \\
+  
+       For {\tt timeString} and {\tt timeStringISOFrac}, YYYY format returns
+       at least 4 digits; years <= 999 are padded on the left with zeroes and
+       years >= 10000 return the number of digits required.
+  
+       For timeString, convert {\tt ESMF\_Time}'s value into partial ISO 8601
+       format YYYY-MM-DDThh:mm:ss[:n/d].  See ~\cite{ISO} and ~\cite{ISOnotes}.
+       See also method {\tt ESMF\_TimePrint()}.
+       
+       For timeStringISOFrac, convert {\tt ESMF\_Time}'s value into full ISO 8601
+       format YYYY-MM-DDThh:mm:ss[.f].  See ~\cite{ISO} and ~\cite{ISOnotes}.
+       See also method {\tt ESMF\_TimePrint()}.
+       
+       For dayOfWeek, gets the day of the week the given {\tt ESMF\_Time}
+       instant falls on.  ISO 8601 standard:  Monday = 1 through Sunday = 7.
+       See ~\cite{ISO} and ~\cite{ISOnotes}.
+  
+       For midMonth, gets the middle time instant of the month that the given
+       {\tt ESMF\_Time} instant falls on.
+  
+       For dayOfYear, gets the day of the year that the given {\tt ESMF\_Time}
+       instant falls on.  See range discussion in argument list below.
+       Return as an integer value.
+  
+       For dayOfYear\_r8, gets the day of the year the given {\tt ESMF\_Time}
+       instant falls on.  See range discussion in argument list below.
+       Return as floating point value; fractional part represents the time of
+       day.
+  
+       \begin{sloppypar}
+       For dayOfYear\_intvl, gets the day of the year the given {\tt ESMF\_Time}
+       instant falls on.  Return as an {\tt ESMF\_TimeInterval}.
+       \end{sloppypar}
+  
+       The arguments are:
+       \begin{description}
+       \item[time]
+            The object instance to query.
+       \item[{[yy]}]
+            Integer year (32-bit).
+       \item[{[yy\_i8]}]
+            Integer year (large, 64-bit).
+       \item[{[mm]}]
+            Integer month.
+       \item[{[dd]}]
+            Integer day of the month.
+       \item[{[d]}]
+            Integer Julian date, or Modified Julian date (32-bit).
+       \item[{[d\_i8]}]
+            Integer Julian date, or Modified Julian date (large, 64-bit).
+       \item[{[h]}]
+            Integer hour.
+       \item[{[m]}]
+            Integer minute.
+       \item[{[s]}]
+            Integer second (32-bit).
+       \item[{[s\_i8]}]
+            Integer second (large, 64-bit).
+       \item[{[ms]}]
+            Integer millisecond.
+       \item[{[us]}]
+            Integer microsecond.
+       \item[{[ns]}]
+            Integer nanosecond.
+       \item[{[d\_r8]}]
+            Double precision day.
+       \item[{[h\_r8]}]
+            Double precision hour.
+       \item[{[m\_r8]}]
+            Double precision minute.
+       \item[{[s\_r8]}]
+            Double precision second.
+       \item[{[ms\_r8]}]
+            Double precision millisecond.
+       \item[{[us\_r8]}]
+            Double precision microsecond.
+       \item[{[ns\_r8]}]
+            Double precision nanosecond.
+       \item[{[sN]}]
+            Integer numerator of fractional second (sN/sD).
+       \item[{[sN\_i8]}]
+            Integer numerator of fractional second (sN\_i8/sD\_i8)
+                                                             (large, <= 64-bit).
+       \item[{[sD]}]
+            Integer denominator of fractional second (sN/sD).
+       \item[{[sD\_i8]}]
+            Integer denominator of fractional second (sN\_i8/sD\_i8)
+                                                             (large, <= 64-bit).
+       \item[{[calendar]}]
+            Associated {\tt Calendar}.
+       \item[{[calkindflag]}]
+            Associated {\tt CalKind\_Flag}.
+       \item[{[timeZone]}]
+            Associated timezone (hours offset from UCT, e.g. EST = -5).
+            (Not implemented yet).
+       \item[{[timeString]}]
+            \begin{sloppypar}
+            Convert time value to format string YYYY-MM-DDThh:mm:ss[:n/d],
+            where n/d is numerator/denominator of any fractional seconds and
+            all other units are in ISO 8601 format.  See ~\cite{ISO} and
+            ~\cite{ISOnotes}.  See also method {\tt ESMF\_TimePrint()}.
+            \end{sloppypar}
+       \item[{[timeStringISOFrac]}]
+            Convert time value to strict ISO 8601 format string
+            YYYY-MM-DDThh:mm:ss[.f], where f is decimal form of any fractional
+            seconds.  See ~\cite{ISO} and ~\cite{ISOnotes}.  See also method
+            {\tt ESMF\_TimePrint()}.
+       \item[{[dayOfWeek]}]
+            The time instant's day of the week [1-7].
+       \item[{[MidMonth]}]
+            The given time instant's middle-of-the-month time instant.
+       \item[{[dayOfYear]}]
+            The {\tt ESMF\_Time} instant's integer day of the year.
+            [1-366] for Gregorian and Julian calendars, [1-365] for No-Leap
+            calendar.  [1-360] for 360-Day calendar.  User-defined range
+            for Custom calendar.
+       \item[{[dayOfYear\_r8]}]
+            The {\tt ESMF\_Time} instant's floating point day of the year.
+            [1.x-366.x] for Gregorian and Julian calendars, [1.x-365.x] for
+            No-Leap calendar.  [1.x-360.x] for 360-Day calendar.  User-defined
+            range for Custom calendar.
+       \item[{[dayOfYear\_intvl]}]
+            The {\tt ESMF\_Time} instant's day of the year as an
+            {\tt ESMF\_TimeInterval}.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeIsLeapYear] {ESMF\_TimeIsLeapYear - Determine if a Time is in a leap year}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       function ESMF_TimeIsLeapYear(time, rc)
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: ESMF_TimeIsLeapYear
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time), intent(in)            :: time
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,         intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Returns {\tt .true.} if given time is in a leap year, and {\tt .false.}
+       otherwise.  See also {\tt ESMF\_CalendarIsLeapYear()}.
+  
+       The arguments are:
+       \begin{description}
+       \item[time]
+            The {\tt ESMF\_Time} to check for leap year.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeIsSameCalendar] {ESMF\_TimeIsSameCalendar - Compare Calendars of two Times}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       function ESMF_TimeIsSameCalendar(time1, time2, rc)
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}       logical :: ESMF_TimeIsSameCalendar
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time), intent(in)            :: time1
+       type(ESMF_Time), intent(in)            :: time2
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,         intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Returns {\tt .true.} if the Calendars in these Times are
+       the same, {\tt .false.} otherwise.
+  
+       The arguments are:
+       \begin{description}
+       \item[time1]
+            The first {\tt ESMF\_Time} in comparison.
+       \item[time2]
+            The second {\tt ESMF\_Time} in comparison.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimePrint] {ESMF\_TimePrint - Print Time information}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_TimePrint(time, options, preString, unit, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time),   intent(in)            :: time
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       character (len=*), intent(in),  optional :: options
+       character(*),      intent(in),  optional :: preString
+       character(*),      intent(out), optional :: unit
+       integer,           intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Prints out the contents of an {\tt ESMF\_Time} to {\tt stdout}, in
+       support of testing and debugging.  The options control the type of
+       information and level of detail.  For options "string" and "string
+       isofrac", YYYY format returns at least 4 digits; years <= 999 are
+       padded on the left with zeroes and years >= 10000 return the number
+       of digits required. \\
+  
+       The arguments are:
+       \begin{description}
+       \item[time]
+            The {\tt ESMF\_Time} to be printed out.
+       \item[{[options]}]
+            Print options. If none specified, prints all Time property values. \\
+            "string" - prints {\tt time}'s value in ISO 8601 format for all units
+                       through seconds.  For any non-zero fractional seconds,
+                       prints in integer rational fraction form n/d.  Format is
+                       YYYY-MM-DDThh:mm:ss[:n/d], where [:n/d] is the 
+                       integer numerator and denominator of the fractional
+                       seconds value, if present.  See ~\cite{ISO} and
+                       ~\cite{ISOnotes}.  See also method
+                       {\tt ESMF\_TimeGet(..., timeString= , ...)} \\
+            "string isofrac" - prints {\tt time}'s value in strict ISO 8601
+                       format for all units, including any fractional seconds
+                       part.  Format is YYYY-MM-DDThh:mm:ss[.f] where [.f]
+                       represents fractional seconds in decimal form, if present.
+                       See ~\cite{ISO} and ~\cite{ISOnotes}.  See also method
+                       {\tt ESMF\_TimeGet(..., timeStringISOFrac= , ...)} \\
+       \item[{[preString]}]
+            Optionally prepended string. Default to empty string.
+       \item[{[unit]}]
+            Internal unit, i.e. a string. Default to printing to stdout.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeSet] {ESMF\_TimeSet - Initialize or set a Time}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_TimeSet(time, &
+         yy, yy_i8, &
+         mm, dd, &
+         d, d_i8, &
+         h, m, &
+         s, s_i8, &
+         ms, us, ns, &
+         d_r8, h_r8, m_r8, s_r8, &
+         ms_r8, us_r8, ns_r8, &
+         sN, sN_i8, sD, sD_i8, &
+         calendar, calkindflag, &
+         timeZone, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time),         intent(inout)         :: time
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer(ESMF_KIND_I4),   intent(in),  optional :: yy
+       integer(ESMF_KIND_I8),   intent(in),  optional :: yy_i8
+       integer,                 intent(in),  optional :: mm
+       integer,                 intent(in),  optional :: dd
+       integer(ESMF_KIND_I4),   intent(in),  optional :: d
+       integer(ESMF_KIND_I8),   intent(in),  optional :: d_i8
+       integer(ESMF_KIND_I4),   intent(in),  optional :: h
+       integer(ESMF_KIND_I4),   intent(in),  optional :: m
+       integer(ESMF_KIND_I4),   intent(in),  optional :: s
+       integer(ESMF_KIND_I8),   intent(in),  optional :: s_i8
+       integer(ESMF_KIND_I4),   intent(in),  optional :: ms
+       integer(ESMF_KIND_I4),   intent(in),  optional :: us
+       integer(ESMF_KIND_I4),   intent(in),  optional :: ns
+       real(ESMF_KIND_R8),      intent(in),  optional :: d_r8
+       real(ESMF_KIND_R8),      intent(in),  optional :: h_r8
+       real(ESMF_KIND_R8),      intent(in),  optional :: m_r8
+       real(ESMF_KIND_R8),      intent(in),  optional :: s_r8
+       real(ESMF_KIND_R8),      intent(in),  optional :: ms_r8
+       real(ESMF_KIND_R8),      intent(in),  optional :: us_r8
+       real(ESMF_KIND_R8),      intent(in),  optional :: ns_r8
+       integer(ESMF_KIND_I4),   intent(in),  optional :: sN
+       integer(ESMF_KIND_I8),   intent(in),  optional :: sN_i8
+       integer(ESMF_KIND_I4),   intent(in),  optional :: sD
+       integer(ESMF_KIND_I8),   intent(in),  optional :: sD_i8
+       type(ESMF_Calendar),     intent(in),  optional :: calendar
+       type(ESMF_CalKind_Flag), intent(in),  optional :: calkindflag
+       integer,                 intent(in),  optional :: timeZone ! not imp
+       integer,                 intent(out), optional :: rc
+ \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Initializes an {\tt ESMF\_Time} with a set of user-specified units
+       via Fortran optional arguments.
+  
+       The range of valid values for mm and dd depend on the calendar used.
+       For Gregorian, Julian, and No-Leap calendars, mm is [1-12] and dd is
+       [1-28,29,30, or 31], depending on the value of mm and whether yy or
+       yy\_i8 is a leap year.  For the 360-day calendar, mm is [1-12] and dd is
+       [1-30].  For Julian Day, Modified Julian Day, and No-Calendar,
+       yy, yy\_i8, mm, and dd are invalid inputs, since these calendars do not
+       define them.  When valid, the yy and yy\_i8 arguments should be fully
+       specified, e.g. 2003 instead of 03.  yy and yy\_i8 ranges are only
+       limited by machine word size, except for the Gregorian and Julian
+       calendars, where the lowest (proleptic) date limits are 3/1/-4800 and
+       3/1/-4712, respectively.  This is a limitation of the Gregorian
+       date-to-Julian day and Julian date-to-Julian day conversion algorithms
+       used to convert Gregorian and Julian dates to the internal representation
+       of seconds.  See~\cite{Fli68} for a description of the Gregorian
+       date-to-Julian day algorithm and~\cite{Hat84} for a description of the
+       Julian date-to-Julian day algorithm.  The Custom calendar will have
+       user-defined values for yy, yy\_i8, mm, and dd.
+  
+       The Julian day specifier, d or d\_i8, can only be used with the
+       Julian Day and Modified Julian Day calendars, and has a valid range
+       depending on the word size.  For a signed 32-bit d, the range for
+       Julian day is [+/- 24855].  For a signed 64-bit d\_i8, the valid
+       range for Julian day is [+/- 106,751,991,167,300].  The Julian day
+       number system adheres to the conventional standard where the reference
+       day of d=0 corresponds to 11/24/-4713 in the proleptic Gregorian calendar
+       and 1/1/-4712 in the proleptic Julian calendar.  See~\cite{Meyer2} and
+       ~\cite{JDNcalculator}.
+  
+       The Modified Julian Day system, introduced by space scientists in the late
+       1950's, is defined as Julian Day - 2400000.5.  See~\cite{MJD}.
+  
+       Note that d and d\_i8 are not valid for the No-Calendar.  To remain
+       consistent with non-Earth calendars added to ESMF in the future, ESMF
+       requires a calendar to be planet-specific.  Hence the No-Calendar does
+       not know what a day is; it cannot assume an Earth day of 86400 seconds.
+  
+       Hours, minutes, seconds, and sub-seconds can be used with any calendar,
+       since they are standardized units that are the same for any planet.
+  
+       Time manager represents and manipulates time internally with integers
+       to maintain precision. Hence, user-specified floating point values are
+       converted internally to integers.  Sub-second values are represented
+       internally with an integer numerator and denominator fraction (sN/sD).
+       The smallest required resolution is nanoseconds (denominator).
+       For example, pi can be represented as s=3,
+       sN=141592654, sD=1000000000.  However, via sN\_i8 and sD\_i8, larger
+       values can be used.  If specifying a constant floating point value, be
+       sure to provide at least 16 digits to take full advantage of double
+       precision, for example s\_r8=2.718281828459045d0 for 'e' seconds.
+  
+       The arguments are:
+       \begin{description}
+       \item[time]
+            The object instance to initialize.
+       \item[{[yy]}]
+            Integer year (32-bit).  Default = 0.
+       \item[{[yy\_i8]}]
+            Integer year (large, 64-bit).  Default = 0.
+       \item[{[mm]}]
+            Integer month.  Default = 1.
+       \item[{[dd]}]
+            Integer day of the month.  Default = 1.
+       \item[{[d]}]
+            Integer Julian Day, or Modified Julian Day (32-bit).  Must not be
+            specified with Gregorian calendars.  Default = 0.
+       \item[{[d\_i8]}]
+            Integer Julian Day, or Modified Julian Day (large, 64-bit).  Must not be
+            specified with Gregorian calendars.  Default = 0.
+       \item[{[h]}]
+            Integer hour.  Default = 0.
+       \item[{[m]}]
+            Integer minute.  Default = 0.
+       \item[{[s]}]
+            Integer second (32-bit).  Default = 0.
+       \item[{[s\_i8]}]
+            Integer second (large, 64-bit).  Default = 0.
+       \item[{[ms]}]
+            Integer millisecond.  Default = 0.
+       \item[{[us]}]
+            Integer microsecond.  Default = 0.
+       \item[{[ns]}]
+            Integer nanosecond.  Default = 0.
+       \item[{[d\_r8]}]
+            Double precision day.  Default = 0.0.
+       \item[{[h\_r8]}]
+            Double precision hour.  Default = 0.0.
+       \item[{[m\_r8]}]
+            Double precision minute.  Default = 0.0.
+       \item[{[s\_r8]}]
+            Double precision second.  Default = 0.0.
+       \item[{[ms\_r8]}]
+            Double precision millisecond.  Default = 0.0.
+       \item[{[us\_r8]}]
+            Double precision microsecond.  Default = 0.0.
+       \item[{[ns\_r8]}]
+            Double precision nanosecond.  Default = 0.0.
+       \item[{[sN]}]
+            Integer numerator of fractional second (sN/sD).
+            Default = 0.
+       \item[{[sN\_i8]}]
+            Integer numerator of fractional second (sN\_i8/sD\_i8)
+                                                             (large, 64-bit).
+            Default = 0.
+       \item[{[sD]}]
+            Integer denominator of fractional second (sN/sD).
+            Default = 1.
+       \item[{[sD\_i8]}]
+            Integer denominator of fractional second (sN\_i8/sD\_i8)
+                                                             (large, 64-bit).
+            Default = 1.
+       \item[{[calendar]}]
+            \begin{sloppypar}
+            Associated {\tt Calendar}.  Defaults to calendar
+            {\tt ESMF\_CALKIND\_NOCALENDAR} or default specified in
+            {\tt ESMF\_Initialize()} or {\tt ESMF\_CalendarSetDefault()}.
+            Alternate to, and mutually exclusive with, calkindflag
+            below.  Primarily for specifying a custom calendar kind.
+            \end{sloppypar}
+       \item[{[calkindflag]}]
+            Alternate to, and mutually exclusive with, calendar above.  More
+            convenient way of specifying a built-in calendar kind.
+       \item[{[timeZone]}]
+            Associated timezone (hours offset from UTC, e.g. EST = -5).
+            Default = 0 (UTC).  (Not implemented yet).
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeSyncToRealTime] {ESMF\_TimeSyncToRealTime - Get system real time (wall clock time)}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_TimeSyncToRealTime(time, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time), intent(inout) :: time
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer, intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+       Gets the system real time (wall clock time), and returns it as an
+       {\tt ESMF\_Time}.  Accurate to the nearest second.
+  
+       The arguments are:
+       \begin{description}
+       \item[time]
+            The object instance to receive the real time.
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_TimeValidate] {ESMF\_TimeValidate - Validate a Time}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       subroutine ESMF_TimeValidate(time, options, rc)
+ \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       type(ESMF_Time),   intent(in)            :: time
+       character (len=*), intent(in),  optional :: options
+       integer,           intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Checks whether an {\tt ESMF\_Time} is valid.
+       Must be a valid date/time on a valid calendar.
+       The options control the type of validation.
+  
+       The arguments are:
+       \begin{description}
+       \item[time]
+            {\tt ESMF\_Time} instant to be validated.
+       \item[{[options]}]
+            Validation options. If none specified, validates all {\tt time} property
+              values. \\
+            "calendar" - validate only the {\tt time}'s calendar. \\
+            "timezone" - validate only the {\tt time}'s timezone. \\
+       \item[{[rc]}]
+            Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

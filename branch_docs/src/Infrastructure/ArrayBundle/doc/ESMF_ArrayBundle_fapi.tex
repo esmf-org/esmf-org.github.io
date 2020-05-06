@@ -1,0 +1,1684 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_ArrayBundle.F90,  Date: Tue May  5 20:59:45 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_ArrayBundleAssignment(=)] {ESMF\_ArrayBundleAssignment(=) - ArrayBundle assignment}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     interface assignment(=)
+     arraybundle1 = arraybundle2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle) :: arraybundle1
+     type(ESMF_ArrayBundle) :: arraybundle2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Assign arraybundle1 as an alias to the same ESMF ArrayBundle object in memory
+     as arraybundle2. If arraybundle2 is invalid, then arraybundle1 will be equally invalid after
+     the assignment.
+  
+     The arguments are:
+     \begin{description}
+     \item[arraybundle1]
+       The {\tt ESMF\_ArrayBundle} object on the left hand side of the assignment.
+     \item[arraybundle2]
+       The {\tt ESMF\_ArrayBundle} object on the right hand side of the assignment.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleOperator(==)] {ESMF\_ArrayBundleOperator(==) - ArrayBundle equality operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(==)
+     if (arraybundle1 == arraybundle2) then ... endif
+               OR
+     result = (arraybundle1 == arraybundle2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(in) :: arraybundle1
+     type(ESMF_ArrayBundle), intent(in) :: arraybundle2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     \begin{sloppypar}
+     Test whether arraybundle1 and arraybundle2 are valid aliases to the same ESMF
+     ArrayBundle object in memory. For a more general comparison of two ESMF ArrayBundles,
+     going beyond the simple alias test, the ESMF\_ArrayBundleMatch() function (not yet
+     implemented) must be used.
+     \end{sloppypar}
+  
+     The arguments are:
+     \begin{description}
+     \item[arraybundle1]
+       The {\tt ESMF\_ArrayBundle} object on the left hand side of the equality
+       operation.
+     \item[arraybundle2]
+       The {\tt ESMF\_ArrayBundle} object on the right hand side of the equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleOperator(/=)] {ESMF\_ArrayBundleOperator(/=) - ArrayBundle not equal operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(/=)
+     if (arraybundle1 /= arraybundle2) then ... endif
+               OR
+     result = (arraybundle1 /= arraybundle2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(in) :: arraybundle1
+     type(ESMF_ArrayBundle), intent(in) :: arraybundle2\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     \begin{sloppypar}
+     Test whether arraybundle1 and arraybundle2 are {\it not} valid aliases to the
+     same ESMF ArrayBundle object in memory. For a more general comparison of two ESMF
+     ArrayBundles, going beyond the simple alias test, the ESMF\_ArrayBundleMatch() function
+     (not yet implemented) must be used.
+     \end{sloppypar}
+  
+     The arguments are:
+     \begin{description}
+     \item[arraybundle1]
+       The {\tt ESMF\_ArrayBundle} object on the left hand side of the non-equality
+       operation.
+     \item[arraybundle2]
+       The {\tt ESMF\_ArrayBundle} object on the right hand side of the non-equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleAdd] {ESMF\_ArrayBundleAdd - Add Arrays to an ArrayBundle}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ArrayBundleAdd(arraybundle, arrayList, &
+       multiflag, relaxedflag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(inout)         :: arraybundle
+     type(ESMF_Array),       intent(in)            :: arrayList(:)
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),  optional :: multiflag
+     logical,                intent(in),  optional :: relaxedflag
+     integer,                intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Add Array(s) to an ArrayBundle. It is an error if {\tt arrayList} contains
+     Arrays that match by name Arrays already contained in {\tt arraybundle}.
+  
+     \begin{description}
+     \item [arraybundle]
+       {\tt ESMF\_ArrayBundle} to be added to.
+     \item [arrayList]
+       List of {\tt ESMF\_Array} objects to be added.
+     \item [{[multiflag]}]
+       A setting of {\tt .true.} allows multiple items with the same name
+       to be added to {\tt arraybundle}. For {\tt .false.} added items must
+       have unique names. The default setting is {\tt .false.}.
+     \item [{[relaxedflag]}]
+       A setting of {\tt .true.} indicates a relaxed definition of "add"
+       under {\tt multiflag=.false.} mode, where it is {\em not} an error if 
+       {\tt arrayList} contains items with names that are also found in 
+       {\tt arraybundle}. The {\tt arraybundle} is left unchanged for these items.
+       For {\tt .false.} this is treated as an error condition. 
+       The default setting is {\tt .false.}.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleAddReplace] {ESMF\_ArrayBundleAddReplace - Conditionally add or replace Arrays in an ArrayBundle}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ArrayBundleAddReplace(arraybundle, arrayList, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(inout)         :: arraybundle
+     type(ESMF_Array),       intent(in)            :: arrayList(:)
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Arrays in {\tt arrayList} that do not match any Arrays by name in 
+     {\tt arraybundle} are added to the ArrayBundle. Arrays in {\tt arraybundle}
+     that match by name Arrays in {\tt arrayList} are replaced by those Arrays.
+  
+     \begin{description}
+     \item [arraybundle]
+       {\tt ESMF\_ArrayBundle} to be manipulated.
+     \item [arrayList]
+       List of {\tt ESMF\_Array} objects to be added or used as replacement.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleCreate] {ESMF\_ArrayBundleCreate - Create an ArrayBundle from a list of Arrays}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function ESMF_ArrayBundleCreate(arrayList, multiflag, &
+     relaxedflag, name, rc)
+           \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_ArrayBundle) :: ESMF_ArrayBundleCreate\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim} -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_Array), intent(in),  optional :: arrayList(:)
+     logical,          intent(in),  optional :: multiflag
+     logical,          intent(in),  optional :: relaxedflag
+     character(len=*), intent(in),  optional :: name
+     integer,          intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Create an {\tt ESMF\_ArrayBundle} object from a list of existing Arrays.
+  
+     The creation of an ArrayBundle leaves the bundled Arrays unchanged, they
+     remain valid individual objects. An ArrayBundle is a light weight container
+     of Array references. The actual data remains in place, there are no
+     data movements or duplications associated with the creation of an 
+     ArrayBundle.
+  
+     \begin{description}
+     \item [{[arrayList]}]
+       List of {\tt ESMF\_Array} objects to be bundled.
+     \item [{[multiflag]}]
+       A setting of {\tt .true.} allows multiple items with the same name
+       to be added to {\tt arraybundle}. For {\tt .false.} added items must
+       have unique names. The default setting is {\tt .false.}.
+     \item [{[relaxedflag]}]
+       A setting of {\tt .true.} indicates a relaxed definition of "add"
+       under {\tt multiflag=.false.} mode, where it is {\em not} an error if 
+       {\tt arrayList} contains items with names that are also found in 
+       {\tt arraybundle}. The {\tt arraybundle} is left unchanged for these items.
+       For {\tt .false.} this is treated as an error condition. 
+       The default setting is {\tt .false.}.
+     \item [{[name]}]
+       Name of the created {\tt ESMF\_ArrayBundle}. A default name is generated
+       if not specified.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleDestroy] {ESMF\_ArrayBundleDestroy - Release resources associated with an ArrayBundle}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArrayBundleDestroy(arraybundle, noGarbage, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(inout)           :: arraybundle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),   optional  :: noGarbage
+     integer,                intent(out),  optional  :: rc
+           \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[7.0.0] Added argument {\tt noGarbage}.
+     The argument provides a mechanism to override the default garbage collection
+     mechanism when destroying an ESMF object.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Destroys an {\tt ESMF\_ArrayBundle} object. The member Arrays are not
+     touched by this operation and remain valid objects that need to be 
+     destroyed individually if necessary. 
+  
+     By default a small remnant of the object is kept in memory in order to 
+     prevent problems with dangling aliases. The default garbage collection
+     mechanism can be overridden with the {\tt noGarbage} argument.
+  
+   The arguments are:
+   \begin{description}
+   \item[arraybundle]
+        {\tt ESMF\_ArrayBundle} object to be destroyed.
+   \item[{[noGarbage]}]
+        If set to {\tt .TRUE.} the object will be fully destroyed and removed
+        from the ESMF garbage collection system. Note however that under this 
+        condition ESMF cannot protect against accessing the destroyed object 
+        through dangling aliases -- a situation which may lead to hard to debug 
+        application crashes.
+   
+        It is generally recommended to leave the {\tt noGarbage} argument
+        set to {\tt .FALSE.} (the default), and to take advantage of the ESMF 
+        garbage collection system which will prevent problems with dangling
+        aliases or incorrect sequences of destroy calls. However this level of
+        support requires that a small remnant of the object is kept in memory
+        past the destroy call. This can lead to an unexpected increase in memory
+        consumption over the course of execution in applications that use 
+        temporary ESMF objects. For situations where the repeated creation and 
+        destruction of temporary objects leads to memory issues, it is 
+        recommended to call with {\tt noGarbage} set to {\tt .TRUE.}, fully 
+        removing the entire temporary object from memory.
+   \item[{[rc]}]
+        Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleGet] {ESMF\_ArrayBundleGet - Get object-wide information from an ArrayBundle}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     ! Private name; call using ESMF_ArrayBundleGet()   
+     subroutine ESMF_ArrayBundleGetListAll(arraybundle, &
+       itemorderflag, arrayCount, arrayList, arrayNameList, name, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle),    intent(in)            :: arraybundle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_ItemOrder_Flag), intent(in),  optional :: itemorderflag
+     integer,                   intent(out), optional :: arrayCount
+     type(ESMF_Array),          intent(out), optional :: arrayList(:)
+     character(len=*),          intent(out), optional :: arrayNameList(:)
+     character(len=*),          intent(out), optional :: name
+     integer,                   intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[6.1.0] Added argument {\tt itemorderflag}.
+                The new argument gives the user control over the order in which
+                the items are returned.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Get general, i.e. not Array name specific information from the ArrayBundle.
+  
+     \begin{description}
+     \item [arraybundle]
+       {\tt ESMF\_ArrayBundle} to be queried.
+     \item[{[itemorderflag]}]
+       Specifies the order of the returned items in the {\tt arrayList} and
+       {\tt arrayNameList}.
+       The default is {\tt ESMF\_ITEMORDER\_ABC}.
+       See \ref{const:itemorderflag} for a full list of options.
+     \item [{[arrayCount]}]
+       Upon return holds the number of Arrays bundled in the ArrayBundle.
+     \item [{[arrayList]}]
+       Upon return holds a list of Arrays bundled in {\tt arraybundle}. The
+       argument must be allocated to be at least of size {\tt arrayCount}.
+     \item [{[arrayNameList]}]
+       Upon return holds a list of the names of the Arrays bundled in 
+       {\tt arraybundle}. The argument must be allocated to be at least of
+       size {\tt arrayCount}.
+     \item [{[name]}]
+       Name of the ArrayBundle object.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleGet] {ESMF\_ArrayBundleGet - Get information about an Array by name and optionally return an Array}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     ! Private name; call using ESMF_ArrayBundleGet()   
+     subroutine ESMF_ArrayBundleGetItem(arraybundle, arrayName, &
+       array, arrayCount, isPresent, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(in)            :: arraybundle
+     character(len=*),       intent(in)            :: arrayName
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_Array),       intent(out), optional :: array
+     integer,                intent(out), optional :: arrayCount
+     logical,                intent(out), optional :: isPresent
+     integer,                intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Get information about items that match {\tt arrayName} in ArrayBundle.
+  
+     \begin{description}
+     \item [arraybundle]
+       {\tt ESMF\_ArrayBundle} to be queried.
+     \item [arrayName]
+       Specified name.
+     \item [{[array]}]
+       Upon return holds the requested Array item. It is an error if this
+       argument was specified and there is not exactly one Array item in 
+       {\tt arraybundle} that matches {\tt arrayName}.
+     \item [{[arrayCount]}]
+       Number of Arrays with {\tt arrayName} in {\tt arraybundle}.
+     \item [{[isPresent]}]
+       Upon return indicates whether Array(s) with {\tt arrayName} exist
+       in {\tt arraybundle}.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleGet] {ESMF\_ArrayBundleGet - Get a list of Arrays by name}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     ! Private name; call using ESMF_ArrayBundleGet()   
+     subroutine ESMF_ArrayBundleGetList(arraybundle, arrayName, arrayList, &
+       itemorderflag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle),    intent(in)            :: arraybundle
+     character(len=*),          intent(in)            :: arrayName
+     type(ESMF_Array),          intent(out)           :: arrayList(:)
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_ItemOrder_Flag), intent(in),  optional :: itemorderflag
+     integer,                   intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[6.1.0] Added argument {\tt itemorderflag}.
+                The new argument gives the user control over the order in which
+                the items are returned.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Get the list of Arrays from ArrayBundle that match {\tt arrayName}.
+  
+     \begin{description}
+     \item [arraybundle]
+       {\tt ESMF\_ArrayBundle} to be queried.
+     \item [arrayName]
+       Specified name.
+     \item [arrayList]
+       List of Arrays in {\tt arraybundle} that match {\tt arrayName}. The
+       argument must be allocated to be at least of size {\tt arrayCount}
+       returned for this {\tt arrayName}.
+     \item[{[itemorderflag]}]
+       Specifies the order of the returned items in the {\tt arrayList}.
+       The default is {\tt ESMF\_ITEMORDER\_ABC}.
+       See \ref{const:itemorderflag} for a full list of options.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleHalo] {ESMF\_ArrayBundleHalo - Execute an ArrayBundle halo operation}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArrayBundleHalo(arraybundle, routehandle, &
+     checkflag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(inout)          :: arraybundle
+     type(ESMF_RouteHandle), intent(inout)          :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),   optional :: checkflag
+     integer,                intent(out),  optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Execute a precomputed ArrayBundle halo operation for the Arrays in
+     {\tt arrayBundle}.
+  
+     See {\tt ESMF\_ArrayBundleHaloStore()} on how to precompute 
+     {\tt routehandle}.
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [arraybundle]
+       {\tt ESMF\_ArrayBundle} containing data to be haloed.
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item [{[checkflag]}]
+       If set to {\tt .TRUE.} the input Array pairs will be checked for
+       consistency with the precomputed operation provided by {\tt routehandle}.
+       If set to {\tt .FALSE.} {\em (default)} only a very basic input check
+       will be performed, leaving many inconsistencies undetected. Set
+       {\tt checkflag} to {\tt .FALSE.} to achieve highest performance.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleHaloRelease] {ESMF\_ArrayBundleHaloRelease - Release resources associated with an ArrayBundle halo operation}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArrayBundleHaloRelease(routehandle, &
+     noGarbage, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_RouteHandle), intent(inout)          :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),   optional :: noGarbage
+     integer,                intent(out),  optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[8.0.0] Added argument {\tt noGarbage}.
+     The argument provides a mechanism to override the default garbage collection
+     mechanism when destroying an ESMF object.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Release resources associated with an ArrayBundle halo operation.
+     After this call {\tt routehandle} becomes invalid.
+  
+     \begin{description}
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item[{[noGarbage]}]
+       If set to {\tt .TRUE.} the object will be fully destroyed and removed
+       from the ESMF garbage collection system. Note however that under this 
+       condition ESMF cannot protect against accessing the destroyed object 
+       through dangling aliases -- a situation which may lead to hard to debug 
+       application crashes.
+   
+       It is generally recommended to leave the {\tt noGarbage} argument
+       set to {\tt .FALSE.} (the default), and to take advantage of the ESMF 
+       garbage collection system which will prevent problems with dangling
+       aliases or incorrect sequences of destroy calls. However this level of
+       support requires that a small remnant of the object is kept in memory
+       past the destroy call. This can lead to an unexpected increase in memory
+       consumption over the course of execution in applications that use 
+       temporary ESMF objects. For situations where the repeated creation and 
+       destruction of temporary objects leads to memory issues, it is 
+       recommended to call with {\tt noGarbage} set to {\tt .TRUE.}, fully 
+       removing the entire temporary object from memory.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleHaloStore] {ESMF\_ArrayBundleHaloStore - Precompute an ArrayBundle halo operation}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ArrayBundleHaloStore(arraybundle, routehandle, &
+       startregion, haloLDepth, haloUDepth, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle),     intent(inout)         :: arraybundle
+     type(ESMF_RouteHandle),     intent(inout)         :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_StartRegion_Flag),intent(in),  optional :: startregion
+     integer,                    intent(in),  optional :: haloLDepth(:)
+     integer,                    intent(in),  optional :: haloUDepth(:)
+     integer,                    intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     \begin{sloppypar}
+     Store an ArrayBundle halo operation over the data in {\tt arraybundle}. By 
+     default, i.e. without specifying {\tt startregion}, {\tt haloLDepth}
+     and {\tt haloUDepth}, all elements in the total Array regions that lie
+     outside the exclusive regions will be considered potential destination
+     elements for the halo operation. However, only those elements that have a corresponding
+     halo source element, i.e. an exclusive element on one of the DEs, will be
+     updated under the halo operation. Elements that have no associated source
+     remain unchanged under halo.
+     \end{sloppypar}
+  
+     Specifying {\tt startregion} allows to change the shape of the 
+     effective halo region from the inside. Setting this flag to
+     {\tt ESMF\_STARTREGION\_COMPUTATIONAL} means that only elements outside 
+     the computational region for each Array are considered for potential
+     destination elements for the halo operation. The default is
+     {\tt ESMF\_STARTREGION\_EXCLUSIVE}.
+  
+     The {\tt haloLDepth} and {\tt haloUDepth} arguments allow to reduce
+     the extent of the effective halo region. Starting at the region specified
+     by {\tt startregion}, the {\tt haloLDepth} and {\tt haloUDepth}
+     define a halo depth in each direction. Note that the maximum halo region is
+     limited by the total region for each Array, independent of the actual
+     {\tt haloLDepth} and {\tt haloUDepth} setting. The total Array regions are
+     local DE specific. The {\tt haloLDepth} and {\tt haloUDepth} are interpreted
+     as the maximum desired extent, reducing the potentially larger region
+     available for the halo operation.
+  
+     The routine returns an {\tt ESMF\_RouteHandle} that can be used to call 
+     {\tt ESMF\_ArrayBundleHalo()} on any pair of ArrayBundles that matches 
+     {\tt srcArrayBundle} and {\tt dstArrayBundle} in {\em type}, {\em kind},
+     and memory layout of the {\em distributed} dimensions. However, the size, 
+     number, and index order of {\em undistributed} dimensions may be different.
+     See section \ref{RH:Reusability} for a more detailed discussion of
+     RouteHandle reusability.
+    
+     This call is {\em collective} across the current VM.  
+  
+     \begin{description}
+     \item [arraybundle]
+       {\tt ESMF\_ArrayBundle} containing data to be haloed. The data in the halo
+       regions may be destroyed by this call.
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item [{[startregion]}]
+       \begin{sloppypar}
+       The start of the effective halo region on every DE. The default
+       setting is {\tt ESMF\_STARTREGION\_EXCLUSIVE}, rendering all non-exclusive
+       elements potential halo destination elements.
+       See section \ref{const:startregion} for a complete list of
+       valid settings.
+       \end{sloppypar}
+     \item[{[haloLDepth]}] 
+       This vector specifies the lower corner of the effective halo
+       region with respect to the lower corner of {\tt startregion}.
+       The size of {\tt haloLDepth} must equal the number of distributed Array
+       dimensions.
+     \item[{[haloUDepth]}] 
+       This vector specifies the upper corner of the effective halo
+       region with respect to the upper corner of {\tt startregion}.
+       The size of {\tt haloUDepth} must equal the number of distributed Array
+       dimensions.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleIsCreated] {ESMF\_ArrayBundleIsCreated - Check whether an ArrayBundle object has been created}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function ESMF_ArrayBundleIsCreated(arraybundle, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: ESMF_ArrayBundleIsCreated\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(in)            :: arraybundle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return {\tt .true.} if the {\tt arraybundle} has been created. Otherwise return 
+     {\tt .false.}. If an error occurs, i.e. {\tt rc /= ESMF\_SUCCESS} is 
+     returned, the return value of the function will also be {\tt .false.}.
+  
+   The arguments are:
+     \begin{description}
+     \item[arraybundle]
+       {\tt ESMF\_ArrayBundle} queried.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundlePrint] {ESMF\_ArrayBundlePrint - Print ArrayBundle information}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArrayBundlePrint(arraybundle, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(in)            :: arraybundle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                intent(out), optional :: rc  \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Print internal information of the specified {\tt ESMF\_ArrayBundle}
+     object to {\tt stdout}. \\
+  
+     The arguments are:
+     \begin{description}
+     \item[arraybundle] 
+       {\tt ESMF\_ArrayBundle} object.
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleRead] {ESMF\_ArrayBundleRead - Read Arrays to an ArrayBundle from file(s)}
+
+
+   \label{api:ArrayBundleRead}
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArrayBundleRead(arraybundle, fileName, &
+     singleFile, timeslice, iofmt, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(inout)          :: arraybundle
+     character(*),           intent(in)             :: fileName
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),  optional  :: singleFile
+     integer,                intent(in),  optional  :: timeslice
+     type(ESMF_IOFmt_Flag),  intent(in),  optional  :: iofmt
+     integer,                intent(out), optional  :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Read Array data to an ArrayBundle object from file(s).
+     For this API to be functional, the environment variable {\tt ESMF\_PIO} 
+     should be set to "internal" when the ESMF library is built.
+     Please see the section on Data I/O,~\ref{io:dataio}.
+  
+     Limitations:
+     \begin{itemize}
+       \item Only single tile Arrays are supported.
+       \item Not supported in {\tt ESMF\_COMM=mpiuni} mode.
+     \end{itemize}
+  
+     The arguments are:
+     \begin{description}
+     \item[arraybundle] 
+       An {\tt ESMF\_ArrayBundle} object.
+     \item[fileName]
+       The name of the file from which ArrayBundle data is read.
+     \item[{[singleFile]}]
+       A logical flag, the default is .true., i.e., all Arrays in the bundle 
+       are stored in one single file. If .false., each Array is stored 
+       in separate files; these files are numbered with the name based on the
+       argument "file". That is, a set of files are named: [file\_name]001,
+       [file\_name]002, [file\_name]003,...
+     \item[{[timeslice]}]
+      The time-slice number of the variable read from file.
+     \item[{[iofmt]}]
+       \begin{sloppypar}
+      The I/O format.  Please see Section~\ref{opt:iofmtflag} for the list
+      of options. If not present, file names with a {\tt .bin} extension will
+      use {\tt ESMF\_IOFMT\_BIN}, and file names with a {\tt .nc} extension
+      will use {\tt ESMF\_IOFMT\_NETCDF}.  Other files default to
+      {\tt ESMF\_IOFMT\_NETCDF}.
+       \end{sloppypar}
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleRedist] {ESMF\_ArrayBundleRedist - Execute an ArrayBundle redistribution}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArrayBundleRedist(srcArrayBundle, dstArrayBundle, &
+     routehandle, checkflag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(in),    optional :: srcArrayBundle
+     type(ESMF_ArrayBundle), intent(inout), optional :: dstArrayBundle
+     type(ESMF_RouteHandle), intent(inout)           :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),    optional :: checkflag
+     integer,                intent(out),   optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     \begin{sloppypar}
+     Execute a precomputed ArrayBundle redistribution from the Arrays in
+     {\tt srcArrayBundle} to the Arrays in {\tt dstArrayBundle}.
+     \end{sloppypar}
+  
+     The {\tt srcArrayBundle} and {\tt dstArrayBundle} arguments are optional in
+     support of the situation where {\tt srcArrayBundle} and/or
+     {\tt dstArrayBundle} are not defined on all PETs. The {\tt srcArrayBundle}
+     and {\tt dstArrayBundle} must be specified on those PETs that hold source
+     or destination DEs, respectively, but may be omitted on all other PETs.
+     PETs that hold neither source nor destination DEs may omit both arguments.
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [{[srcArrayBundle]}]
+       {\tt ESMF\_ArrayBundle} with source data.
+     \item [{[dstArrayBundle]}]
+       {\tt ESMF\_ArrayBundle} with destination data.
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item [{[checkflag]}]
+       If set to {\tt .TRUE.} the input Array pairs will be checked for
+       consistency with the precomputed operation provided by {\tt routehandle}.
+       If set to {\tt .FALSE.} {\em (default)} only a very basic input check
+       will be performed, leaving many inconsistencies undetected. Set
+       {\tt checkflag} to {\tt .FALSE.} to achieve highest performance.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleRedistRelease] {ESMF\_ArrayBundleRedistRelease - Release resources associated with ArrayBundle redistribution}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArrayBundleRedistRelease(routehandle, &
+     noGarbage, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_RouteHandle), intent(inout)          :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),   optional :: noGarbage
+     integer,                intent(out),  optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[8.0.0] Added argument {\tt noGarbage}.
+     The argument provides a mechanism to override the default garbage collection
+     mechanism when destroying an ESMF object.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Release resources associated with an ArrayBundle redistribution.
+     After this call {\tt routehandle} becomes invalid.
+  
+     \begin{description}
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item[{[noGarbage]}]
+       If set to {\tt .TRUE.} the object will be fully destroyed and removed
+       from the ESMF garbage collection system. Note however that under this 
+       condition ESMF cannot protect against accessing the destroyed object 
+       through dangling aliases -- a situation which may lead to hard to debug 
+       application crashes.
+   
+       It is generally recommended to leave the {\tt noGarbage} argument
+       set to {\tt .FALSE.} (the default), and to take advantage of the ESMF 
+       garbage collection system which will prevent problems with dangling
+       aliases or incorrect sequences of destroy calls. However this level of
+       support requires that a small remnant of the object is kept in memory
+       past the destroy call. This can lead to an unexpected increase in memory
+       consumption over the course of execution in applications that use 
+       temporary ESMF objects. For situations where the repeated creation and 
+       destruction of temporary objects leads to memory issues, it is 
+       recommended to call with {\tt noGarbage} set to {\tt .TRUE.}, fully 
+       removing the entire temporary object from memory.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleRedistStore] {ESMF\_ArrayBundleRedistStore - Precompute an ArrayBundle redistribution with local factor argument}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_ArrayBundleRedistStore()
+   subroutine ESMF_ArrayBundleRedistStore<type><kind>(srcArrayBundle, &
+     dstArrayBundle, routehandle, factor, srcToDstTransposeMap, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle),   intent(in)            :: srcArrayBundle
+     type(ESMF_ArrayBundle),   intent(inout)         :: dstArrayBundle
+     type(ESMF_RouteHandle),   intent(inout)         :: routehandle
+     <type>(ESMF_KIND_<kind>), intent(in)            :: factor
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                  intent(in),  optional :: srcToDstTransposeMap(:)
+     integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Store an ArrayBundle redistribution operation from
+     {\tt srcArrayBundle} to {\tt dstArrayBundle}. The redistribution
+     between ArrayBundles is defined as the sequence of
+     individual Array redistributions over all source and
+     destination Array pairs in sequence. The method requires that
+     {\tt srcArrayBundle} and {\tt dstArrayBundle} reference an identical
+     number of {\tt ESMF\_Array} objects.
+  
+     The effect of this method on ArrayBundles that contain aliased members is
+     undefined.
+  
+     PETs that specify a {\tt factor} argument must use the
+     <type><kind> overloaded interface. Other PETs call into the interface
+     without {\tt factor} argument. If multiple PETs specify the {\tt factor}
+     argument its type and kind as well as its value must match across all
+     PETs. If none of the PETs specifies a {\tt factor} argument the default
+     will be a factor of 1.
+  
+     See the description of method {\tt ESMF\_ArrayRedistStore()} for
+     the definition of the Array based operation.
+  
+     The routine returns an {\tt ESMF\_RouteHandle} that can be used to call 
+     {\tt ESMF\_ArrayBundleRedist()} on any pair of ArrayBundles that matches 
+     {\tt srcArrayBundle} and {\tt dstArrayBundle} in {\em type}, {\em kind},
+     and memory layout of the {\em distributed} dimensions. However, the size, 
+     number, and index order of {\em undistributed} dimensions may be different.
+     See section \ref{RH:Reusability} for a more detailed discussion of
+     RouteHandle reusability.
+  
+     This method is overloaded for:\newline
+     {\tt ESMF\_TYPEKIND\_I4}, {\tt ESMF\_TYPEKIND\_I8},\newline 
+     {\tt ESMF\_TYPEKIND\_R4}, {\tt ESMF\_TYPEKIND\_R8}.
+     \newline
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [srcArrayBundle]
+       {\tt ESMF\_ArrayBundle} with source data.
+     \item [dstArrayBundle]
+       {\tt ESMF\_ArrayBundle} with destination data. The data in these Arrays
+       may be destroyed by this call.
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item [factor]
+       Factor by which to multiply source data.
+     \item [{[srcToDstTransposeMap]}]
+       List with as many entries as there are dimensions in the Arrays in
+       {\tt srcArrayBundle}. Each
+       entry maps the corresponding source Array dimension against the 
+       specified destination Array dimension. Mixing of distributed and
+       undistributed dimensions is supported.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleRedistStore] {ESMF\_ArrayBundleRedistStore - Precompute an ArrayBundle redistribution without local factor argument}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_ArrayBundleRedistStore()
+   subroutine ESMF_ArrayBundleRedistStoreNF(srcArrayBundle, dstArrayBundle, &
+     routehandle, srcToDstTransposeMap, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(in)            :: srcArrayBundle
+     type(ESMF_ArrayBundle), intent(inout)         :: dstArrayBundle
+     type(ESMF_RouteHandle), intent(inout)         :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                intent(in),  optional :: srcToDstTransposeMap(:)
+     integer,                intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Store an ArrayBundle redistribution operation from
+     {\tt srcArrayBundle} to {\tt dstArrayBundle}. The redistribution
+     between ArrayBundles is defined as the sequence of
+     individual Array redistributions over all source and
+     destination Array pairs in sequence. The method requires that
+     {\tt srcArrayBundle} and {\tt dstArrayBundle} reference an identical
+     number of {\tt ESMF\_Array} objects.
+  
+     The effect of this method on ArrayBundles that contain aliased members is
+     undefined.
+  
+     PETs that specify a {\tt factor} argument must use the
+     <type><kind> overloaded interface. Other PETs call into the interface
+     without {\tt factor} argument. If multiple PETs specify the {\tt factor}
+     argument its type and kind as well as its value must match across all
+     PETs. If none of the PETs specifies a {\tt factor} argument the default
+     will be a factor of 1.
+  
+     See the description of method {\tt ESMF\_ArrayRedistStore()} for
+     the definition of the Array based operation.
+  
+     The routine returns an {\tt ESMF\_RouteHandle} that can be used to call 
+     {\tt ESMF\_ArrayBundleRedist()} on any pair of ArrayBundles that matches 
+     {\tt srcArrayBundle} and {\tt dstArrayBundle} in {\em type}, {\em kind},
+     and memory layout of the {\em distributed} dimensions. However, the size, 
+     number, and index order of {\em undistributed} dimensions may be different.
+     See section \ref{RH:Reusability} for a more detailed discussion of
+     RouteHandle reusability.
+    
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [srcArrayBundle]
+       {\tt ESMF\_ArrayBundle} with source data.
+     \item [dstArrayBundle]
+       {\tt ESMF\_ArrayBundle} with destination data. The data in these Arrays
+       may be destroyed by this call.
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item [{[srcToDstTransposeMap]}]
+       List with as many entries as there are dimensions in the Arrays in
+       {\tt srcArrayBundle}. Each
+       entry maps the corresponding source Array dimension against the 
+       specified destination Array dimension. Mixing of distributed and
+       undistributed dimensions is supported.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleRemove] {ESMF\_ArrayBundleRemove - Remove Arrays from ArrayBundle}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ArrayBundleRemove(arraybundle, arrayNameList, &
+       multiflag, relaxedflag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(inout)         :: arraybundle
+     character(len=*),       intent(in)            :: arrayNameList(:)
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),  optional :: multiflag
+     logical,                intent(in),  optional :: relaxedflag
+     integer,                intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Remove Array(s) by name from ArrayBundle. In the relaxed setting it is 
+     {\em not} an error if {\tt arrayNameList} contains names that are not 
+     found in {\tt arraybundle}.
+  
+     \begin{description}
+     \item [arraybundle]
+       {\tt ESMF\_ArrayBundle} from which to remove items.
+     \item [arrayNameList]
+       List of items to remove.
+     \item [{[multiflag]}]
+       A setting of {\tt .true.} allows multiple Arrays with the same name
+       to be removed from {\tt arraybundle}. For {\tt .false.}, items to be
+       removed must have unique names. The default setting is {\tt .false.}.
+     \item [{[relaxedflag]}]
+       A setting of {\tt .true.} indicates a relaxed definition of "remove"
+       where it is {\em not} an error if {\tt arrayNameList} contains item
+       names that are not found in {\tt arraybundle}. For {\tt .false.} this is 
+       treated as an error condition. 
+       Further, in {\tt multiflag=.false.} mode, the relaxed definition of
+       "remove" also covers the case where there are multiple items in
+       {\tt arraybundle} that match a single entry in {\tt arrayNameList}.
+       For {\tt relaxedflag=.false.} this is treated as an error condition.
+       The default setting is {\tt .false.}.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleReplace] {ESMF\_ArrayBundleReplace - Replace Arrays in ArrayBundle}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     subroutine ESMF_ArrayBundleReplace(arraybundle, arrayList, &
+       multiflag, relaxedflag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle), intent(inout)         :: arraybundle
+     type(ESMF_Array),       intent(in)            :: arrayList(:)
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),  optional :: multiflag
+     logical,                intent(in),  optional :: relaxedflag
+     integer,                intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Replace Array(s) by name in ArrayBundle. In the relaxed setting it is not
+     an error if {\tt arrayList} contains Arrays that do not match by name any
+     item in {\tt arraybundle}. These Arrays are simply ignored in this case.
+  
+     \begin{description}
+     \item [arraybundle]
+       {\tt ESMF\_ArrayBundle} in which to replace items.
+     \item [arrayList]
+       List of items to replace.
+     \item [{[multiflag]}]
+       A setting of {\tt .true.} allows multiple items with the same name
+       to be replaced in {\tt arraybundle}. For {\tt .false.}, items to be
+       replaced must have unique names. The default setting is {\tt .false.}.
+     \item [{[relaxedflag]}]
+       A setting of {\tt .true.} indicates a relaxed definition of "replace"
+       where it is {\em not} an error if {\tt arrayList} contains items with
+       names that are not found in {\tt arraybundle}. These items in 
+       {\tt arrayList} are ignored in the relaxed mode. For {\tt .false.} this
+       is treated as an error condition.
+       Further, in {\tt multiflag=.false.} mode, the relaxed definition of
+       "replace" also covers the case where there are multiple items in
+       {\tt arraybundle} that match a single entry by name in {\tt arrayList}.
+       For {\tt relaxedflag=.false.} this is treated as an error condition.
+       The default setting is {\tt .false.}.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleSMM] {ESMF\_ArrayBundleSMM - Execute an ArrayBundle sparse matrix multiplication}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArrayBundleSMM(srcArrayBundle, dstArrayBundle, &
+     routehandle, zeroregion, termorderflag, checkflag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle),    intent(in),    optional :: srcArrayBundle
+     type(ESMF_ArrayBundle),    intent(inout), optional :: dstArrayBundle
+     type(ESMF_RouteHandle),    intent(inout)           :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_Region_Flag),    intent(in),    optional :: zeroregion
+     type(ESMF_TermOrder_Flag), intent(in),    optional :: termorderflag(:)
+     logical,                   intent(in),    optional :: checkflag
+     integer,                   intent(out),   optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[7.0.0] Added argument {\tt termorderflag}.
+                The new argument gives the user control over the order in which
+                the src terms are summed up.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Execute a precomputed ArrayBundle sparse matrix multiplication from the
+     Arrays in {\tt srcArrayBundle} to the Arrays in {\tt dstArrayBundle}.
+  
+     The {\tt srcArrayBundle} and {\tt dstArrayBundle} arguments are optional in
+     support of the situation where {\tt srcArrayBundle} and/or
+     {\tt dstArrayBundle} are not defined on all PETs. The {\tt srcArrayBundle}
+     and {\tt dstArrayBundle} must be specified on those PETs that hold source
+     or destination DEs, respectively, but may be omitted on all other PETs.
+     PETs that hold neither source nor destination DEs may omit both arguments.
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [{[srcArrayBundle]}]
+       {\tt ESMF\_ArrayBundle} with source data.
+     \item [{[dstArrayBundle]}]
+       {\tt ESMF\_ArrayBundle} with destination data.
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item [{[zeroregion]}]
+       If set to {\tt ESMF\_REGION\_TOTAL} {\em (default)} the total regions of 
+       all DEs in all Arrays in {\tt dstArrayBundle} will be initialized to zero 
+       before updating the elements with the results of the sparse matrix 
+       multiplication. If set to {\tt ESMF\_REGION\_EMPTY} the elements in the
+       Arrays in {\tt dstArrayBundle} will not be modified prior to the sparse
+       matrix multiplication and results will be added to the incoming element
+       values. Setting {\tt zeroregion} to {\tt ESMF\_REGION\_SELECT} will only
+       zero out those elements in the destination Arrays that will be updated
+       by the sparse matrix multiplication. See section \ref{const:region}
+       for a complete list of valid settings.
+     \item [{[termorderflag]}]
+       Specifies the order of the source side terms in all of the destination
+       sums. The {\tt termorderflag} only affects the order of terms during 
+       the execution of the RouteHandle. See the \ref{RH:bfb} section for an
+       in-depth discussion of {\em all} bit-for-bit reproducibility
+       aspects related to route-based communication methods.
+       See \ref{const:termorderflag} for a full list of options.
+       The size of this array argument must either be 1 or equal the number of
+       Arrays in the {\tt srcArrayBundle} and {\tt dstArrayBundle} arguments. In
+       the latter case, the term order for each Array SMM operation is
+       indicated separately. If only one term order element is specified, it is
+       used for {\em all} Array pairs.
+       The default is {\tt (/ESMF\_TERMORDER\_FREE/)}, allowing maximum 
+       flexibility in the order of terms for optimum performance.
+     \item [{[checkflag]}]
+       If set to {\tt .TRUE.} the input Array pairs will be checked for
+       consistency with the precomputed operation provided by {\tt routehandle}.
+       If set to {\tt .FALSE.} {\em (default)} only a very basic input check
+       will be performed, leaving many inconsistencies undetected. Set
+       {\tt checkflag} to {\tt .FALSE.} to achieve highest performance.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleSMMRelease] {ESMF\_ArrayBundleSMMRelease - Release resources associated with ArrayBundle sparse matrix multiplication}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArrayBundleSMMRelease(routehandle, &
+     noGarbage, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_RouteHandle), intent(inout)          :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),   optional :: noGarbage
+     integer,                intent(out),  optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[8.0.0] Added argument {\tt noGarbage}.
+     The argument provides a mechanism to override the default garbage collection
+     mechanism when destroying an ESMF object.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Release resources associated with an ArrayBundle sparse matrix multiplication. 
+     After this call {\tt routehandle} becomes invalid.
+  
+     \begin{description}
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item[{[noGarbage]}]
+       If set to {\tt .TRUE.} the object will be fully destroyed and removed
+       from the ESMF garbage collection system. Note however that under this 
+       condition ESMF cannot protect against accessing the destroyed object 
+       through dangling aliases -- a situation which may lead to hard to debug 
+       application crashes.
+   
+       It is generally recommended to leave the {\tt noGarbage} argument
+       set to {\tt .FALSE.} (the default), and to take advantage of the ESMF 
+       garbage collection system which will prevent problems with dangling
+       aliases or incorrect sequences of destroy calls. However this level of
+       support requires that a small remnant of the object is kept in memory
+       past the destroy call. This can lead to an unexpected increase in memory
+       consumption over the course of execution in applications that use 
+       temporary ESMF objects. For situations where the repeated creation and 
+       destruction of temporary objects leads to memory issues, it is 
+       recommended to call with {\tt noGarbage} set to {\tt .TRUE.}, fully 
+       removing the entire temporary object from memory.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleSMMStore] {ESMF\_ArrayBundleSMMStore - Precompute an ArrayBundle sparse matrix multiplication with local factors}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_ArrayBundleSMMStore()
+   subroutine ESMF_ArrayBundleSMMStore<type><kind>(srcArrayBundle, &
+     dstArrayBundle, routehandle, factorList, factorIndexList, &
+     srcTermProcessing, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle),           intent(in)    :: srcArrayBundle
+     type(ESMF_ArrayBundle),           intent(inout) :: dstArrayBundle
+     type(ESMF_RouteHandle),           intent(inout) :: routehandle
+     <type>(ESMF_KIND_<kind>), target, intent(in)    :: factorList(:)
+     integer,                          intent(in)    :: factorIndexList(:,:)
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                intent(inout), optional :: srcTermProcessing(:)
+     integer,                intent(out),   optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[7.1.0r] Added argument {\tt srcTermProcessing}.
+                The new argument gives the user access to the tuning parameter
+                affecting the sparse matrix execution and bit-wise 
+                reproducibility.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Store an ArrayBundle sparse matrix multiplication operation from
+     {\tt srcArrayBundle} to {\tt dstArrayBundle}. The sparse matrix
+     multiplication between ArrayBundles is defined as the sequence of
+     individual Array sparse matrix multiplications over all source and
+     destination Array pairs in sequence. The method requires that
+     {\tt srcArrayBundle} and {\tt dstArrayBundle} reference an identical
+     number of {\tt ESMF\_Array} objects.
+  
+     The effect of this method on ArrayBundles that contain aliased members is
+     undefined.
+  
+     PETs that specify non-zero matrix coefficients must use
+     the <type><kind> overloaded interface and provide the {\tt factorList} and
+     {\tt factorIndexList} arguments. Providing {\tt factorList} and
+     {\tt factorIndexList} arguments with {\tt size(factorList) = (/0/)} and
+     {\tt size(factorIndexList) = (/2,0/)} or {\tt (/4,0/)} indicates that a 
+     PET does not provide matrix elements. Alternatively, PETs that do not 
+     provide matrix elements may also call into the overloaded interface
+     {\em without} {\tt factorList} and {\tt factorIndexList} arguments.
+     
+     See the description of method {\tt ESMF\_ArraySMMStore()} for
+     the definition of the Array based operation.
+  
+     The routine returns an {\tt ESMF\_RouteHandle} that can be used to call 
+     {\tt ESMF\_ArrayBundleSMM()} on any pair of ArrayBundles that matches 
+     {\tt srcArrayBundle} and {\tt dstArrayBundle} in {\em type}, {\em kind},
+     and memory layout of the {\em distributed} dimensions. However, the size, 
+     number, and index order of {\em undistributed} dimensions may be different.
+     See section \ref{RH:Reusability} for a more detailed discussion of
+     RouteHandle reusability.
+    
+     This method is overloaded for:\newline
+     {\tt ESMF\_TYPEKIND\_I4}, {\tt ESMF\_TYPEKIND\_I8},\newline 
+     {\tt ESMF\_TYPEKIND\_R4}, {\tt ESMF\_TYPEKIND\_R8}.
+     \newline
+  
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [srcArrayBundle]
+       {\tt ESMF\_ArrayBundle} with source data.
+     \item [dstArrayBundle]
+       {\tt ESMF\_ArrayBundle} with destination data. The data in these Arrays
+       may be destroyed by this call.
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item [factorList]
+       List of non-zero coefficients.
+     \item [factorIndexList]
+       Pairs of sequence indices for the factors stored in {\tt factorList}.
+  
+       \begin{sloppypar}
+       The second dimension of {\tt factorIndexList} steps through the list of
+       pairs, i.e. {\tt size(factorIndexList,2) == size(factorList)}. The first
+       dimension of {\tt factorIndexList} is either of size 2 or size 4.
+       \end{sloppypar}
+  
+       In the {\em size 2 format} {\tt factorIndexList(1,:)} specifies the
+       sequence index of the source element in the source Array while
+       {\tt factorIndexList(2,:)} specifies the sequence index of the
+       destination element in the destination Array. For this format to be a
+       valid option source and destination Arrays must have matching number of
+       tensor elements (the product of the sizes of all Array tensor dimensions).
+       Under this condition an identity matrix can be applied within the space of
+       tensor elements for each sparse matrix factor.
+  
+       \begin{sloppypar}
+       The {\em size 4 format} is more general and does not require a matching
+       tensor element count. Here the {\tt factorIndexList(1,:)} specifies the
+       sequence index while {\tt factorIndexList(2,:)} specifies the tensor
+       sequence index of the source element in the source Array. Further
+       {\tt factorIndexList(3,:)} specifies the sequence index and
+       {\tt factorIndexList(4,:)} specifies the tensor sequence index of the 
+       destination element in the destination Array.
+       \end{sloppypar}
+  
+       See section \ref{Array:SparseMatMul} for details on the definition of 
+       Array {\em sequence indices} and {\em tensor sequence indices}.
+     \item [{[srcTermProcessing]}]
+         Source term summing options for route handle creation. See
+         {\tt ESMF\_ArraySMMStore} documentation for a full parameter description.
+         Two forms may be provided. If a single element list is provided, this
+         integer value is applied across all bundle members. Otherwise, the list must
+         contain as many elements as there are bundle members. For the special case
+         of accessing the auto-tuned parameter (providing a negative integer value),
+         the list length must equal the bundle member count.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleSMMStore] {ESMF\_ArrayBundleSMMStore - Precompute an ArrayBundle sparse matrix multiplication without local factors}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_ArrayBundleSMMStore()
+   subroutine ESMF_ArrayBundleSMMStoreNF(srcArrayBundle, dstArrayBundle, &
+     routehandle, srcTermProcessing, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle),  intent(in)              :: srcArrayBundle
+     type(ESMF_ArrayBundle),  intent(inout)           :: dstArrayBundle
+     type(ESMF_RouteHandle),  intent(inout)           :: routehandle
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,                 intent(inout), optional :: srcTermProcessing(:)
+     integer,                 intent(out),   optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiStatusModifiedSinceVersion{5.2.0r}
+   \begin{description}
+   \item[7.1.0r] Added argument {\tt srcTermProcessing}.
+                The new argument gives the user access to the tuning parameter
+                affecting the sparse matrix execution and bit-wise 
+                reproducibility.
+   \end{description}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Store an ArrayBundle sparse matrix multiplication operation from
+     {\tt srcArrayBundle} to {\tt dstArrayBundle}. The sparse matrix
+     multiplication between ArrayBundles is defined as the sequence of
+     individual Array sparse matrix multiplications over all source and
+     destination Array pairs in sequence. The method requires that
+     {\tt srcArrayBundle} and {\tt dstArrayBundle} reference an identical
+     number of {\tt ESMF\_Array} objects.
+  
+     The effect of this method on ArrayBundles that contain aliased members is
+     undefined.
+  
+     PETs that specify non-zero matrix coefficients must use
+     the <type><kind> overloaded interface and provide the {\tt factorList} and
+     {\tt factorIndexList} arguments. Providing {\tt factorList} and
+     {\tt factorIndexList} arguments with {\tt size(factorList) = (/0/)} and
+     {\tt size(factorIndexList) = (/2,0/)} or {\tt (/4,0/)} indicates that a 
+     PET does not provide matrix elements. Alternatively, PETs that do not 
+     provide matrix elements may also call into the overloaded interface
+     {\em without} {\tt factorList} and {\tt factorIndexList} arguments.
+     
+     See the description of method {\tt ESMF\_ArraySMMStore()} for
+     the definition of the Array based operation.
+  
+     The routine returns an {\tt ESMF\_RouteHandle} that can be used to call 
+     {\tt ESMF\_ArrayBundleSMM()} on any pair of ArrayBundles that matches 
+     {\tt srcArrayBundle} and {\tt dstArrayBundle} in {\em type}, {\em kind},
+     and memory layout of the {\em distributed} dimensions. However, the size, 
+     number, and index order of {\em undistributed} dimensions may be different.
+     See section \ref{RH:Reusability} for a more detailed discussion of
+     RouteHandle reusability.
+    
+     This call is {\em collective} across the current VM.
+  
+     \begin{description}
+     \item [srcArrayBundle]
+       {\tt ESMF\_ArrayBundle} with source data.
+     \item [dstArrayBundle]
+       {\tt ESMF\_ArrayBundle} with destination data. The data in these Arrays
+       may be destroyed by this call.
+     \item [routehandle]
+       Handle to the precomputed Route.
+     \item [{[srcTermProcessing]}]
+         Source term summing options for route handle creation. See
+         {\tt ESMF\_ArraySMMStore} documentation for a full parameter description.
+         Two forms may be provided. If a single element list is provided, this
+         integer value is applied across all bundle members. Otherwise, the list must
+         contain as many elements as there are bundle members. For the special case
+         of accessing the auto-tuned parameter (providing a negative integer value),
+         the list length must equal the bundle member count.
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_ArrayBundleWrite] {ESMF\_ArrayBundleWrite - Write the Arrays into a file}
+
+
+   \label{api:ArrayBundleWrite}
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_ArrayBundleWrite(arraybundle, fileName, &
+     convention, purpose, singleFile, overwrite, status, timeslice, iofmt, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_ArrayBundle),     intent(in)              :: arraybundle
+     character(*),               intent(in)              :: fileName
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     character(*),               intent(in),  optional  :: convention
+     character(*),               intent(in),  optional  :: purpose
+     logical,                    intent(in),  optional  :: singleFile
+     logical,                    intent(in),  optional  :: overwrite
+     type(ESMF_FileStatus_Flag), intent(in),  optional  :: status
+     integer,                    intent(in),  optional  :: timeslice
+     type(ESMF_IOFmt_Flag),      intent(in),  optional  :: iofmt
+     integer,                    intent(out), optional  :: rc  \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Write the Arrays into a file. For this API to be functional,
+     the environment variable {\tt ESMF\_PIO} should be set to "internal"
+     when the ESMF library is built. Please see the section on 
+     Data I/O,~\ref{io:dataio}.
+  
+     When {\tt convention} and {\tt purpose} arguments are specified, NetCDF dimension
+     labels and variable attributes are written from each Array in the ArrayBundle
+     from the corresponding Attribute package. Additionally, Attributes may be
+     set on the ArrayBundle level under the same Attribute package.  This allows
+     the specification of global attributes within the file.
+     As with individual Arrays, the value associated with each name may be either
+     a scalar character string, or a scalar or array of type integer, real, or
+     double precision.
+  
+     Limitations:
+     \begin{itemize}
+       \item Only single tile Arrays are supported.
+       \item Not supported in {\tt ESMF\_COMM=mpiuni} mode.
+     \end{itemize}
+  
+     The arguments are:
+     \begin{description}
+     \item[arraybundle] 
+       An {\tt ESMF\_ArrayBundle} object.
+     \item[fileName]
+       The name of the output file to which array bundle data is written.
+     \item[{[convention]}]
+       Specifies an Attribute package associated with the ArrayBundle, and the
+       contained Arrays, used to create NetCDF dimension labels and attributes
+       in the file.  When this argument is present, the {\tt purpose} 
+       argument must also be present.  Use this argument only with a NetCDF
+       I/O format. If binary format is used, ESMF will return an error code.
+     \item[{[purpose]}]
+       Specifies an Attribute package associated with the ArrayBundle, and the
+       contained Arrays, used to create NetCDF dimension labels and attributes
+       in the file.  When this argument is present, the {\tt convention} 
+       argument must also be present.  Use this argument only with a NetCDF
+       I/O format. If binary format is used, ESMF will return an error code.
+     \item[{[singleFile]}]
+       A logical flag, the default is .true., i.e., all arrays in the bundle 
+       are written in one single file. If .false., each array will be written
+       in separate files; these files are numbered with the name based on the
+       argument "file". That is, a set of files are named: [file\_name]001,
+       [file\_name]002, [file\_name]003,...
+     \item[{[overwrite]}]
+      \begin{sloppypar}
+        A logical flag, the default is .false., i.e., existing Array data may
+        {\em not} be overwritten. If .true., the overwrite behavior depends
+        on the value of {\tt iofmt} as shown below:
+      \begin{description}
+      \item[{\tt iofmt} = {\tt ESMF\_IOFMT\_BIN}:]\ All data in the file will
+        be overwritten with each Arrays's data.
+      \item[{\tt iofmt} = {\tt ESMF\_IOFMT\_NETCDF, ESMF\_IOFMT\_NETCDF\_64BIT\_OFFSET}:]\ Only the
+        data corresponding to each Array's name will be
+        be overwritten. If the {\tt timeslice} option is given, only data for
+        the given timeslice may be overwritten.
+        Note that it is always an error to attempt to overwrite a NetCDF
+        variable with data which has a different shape.
+      \end{description}
+      \end{sloppypar}
+     \item[{[status]}]
+      \begin{sloppypar}
+      The file status. Please see Section~\ref{const:filestatusflag} for
+      the list of options. If not present, defaults to
+      {\tt ESMF\_FILESTATUS\_UNKNOWN}.
+      \end{sloppypar}
+     \item[{[timeslice]}]
+      \begin{sloppypar}
+      Some I/O formats (e.g. NetCDF) support the output of data in form of
+      time slices. The {\tt timeslice} argument provides access to this
+      capability. {\tt timeslice} must be positive. The behavior of this
+      option may depend on the setting of the {\tt overwrite} flag:
+      \begin{description}
+      \item[{\tt overwrite = .false.}:]\ If the timeslice value is
+      less than the maximum time already in the file, the write will fail.
+      \item[{\tt overwrite = .true.}:]\ Any positive timeslice value is valid.
+      \end{description}
+      By default, i.e. by omitting the {\tt timeslice} argument, no
+      provisions for time slicing are made in the output file,
+      however, if the file already contains a time axis for the variable,
+      a timeslice one greater than the maximum will be written.
+      \end{sloppypar}
+     \item[{[iofmt]}]
+       \begin{sloppypar}
+      The I/O format.  Please see Section~\ref{opt:iofmtflag} for the list
+      of options. If not present, file names with a {\tt .bin} extension will
+      use {\tt ESMF\_IOFMT\_BIN}, and file names with a {\tt .nc} extension
+      will use {\tt ESMF\_IOFMT\_NETCDF}.  Other files default to
+      {\tt ESMF\_IOFMT\_NETCDF}.
+       \end{sloppypar}
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

@@ -1,0 +1,238 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMC\_LocStream.h,  Date: Tue May  5 20:59:56 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMC\_LocStreamCreateLocal] {ESMC\_LocStreamCreateLocal - Create a LocStream}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} ESMC_LocStream ESMC_LocStreamCreateLocal(
+                                     int ls_size,
+                                     enum ESMC_IndexFlag *indexflag,
+                                     enum ESMC_CoordSys_Flag *coordSys,
+                                     int *rc
+ );
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Newly created ESMC_LocStream object.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+  
+    Creates a {\tt ESMC\_LocStream} object.
+  
+    The arguments are:
+    \begin{description}
+    \item[{[ls_size]}]
+      number of points in the location stream.
+    \item[indexflag]
+      Indicates the indexing scheme to be used in the new LocStream. If not present,
+      defaults to ESMC\_INDEX\_DELOCAL.
+    \item[coordSys]
+      The coordinated system of the LocStream coordinate data. If not specified then
+      defaults to ESMF\_COORDSYS\_SPH\_DEG.
+    \item[{[rc]}]
+      Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+    \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_LocStreamGetBounds] {ESMC\_LocStreamGetBounds - Get the LocStream bounds}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_LocStreamGetBounds(
+   ESMC_LocStream locstream,      // in
+   int localDe,
+   int *cLBound,
+   int *cUBound
+ );
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+  
+    Get the LocStream bounds from the {\tt ESMC\_LocStream}.
+  
+    The arguments are:
+    \begin{description}
+    \item[LocStream]
+      {\tt ESMC\_LocStream} whose bounds will be returned
+    \item[localDe]
+      The local DE of the {\tt ESMC\_LocStream} (not implemented)
+    \item[exclusiveLBound]
+      The exclusive lower bounds of the {\tt ESMC\_LocStream}
+    \item[exclusiveUBound]
+      The exclusive upper bounds of the {\tt ESMC\_LocStream}
+    \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_LocStreamAddKeyAlloc] {ESMC\_LocStreamAddKeyAlloc - allocate memory for adding a key}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_LocStreamAddKeyAlloc(
+   ESMC_LocStream locstream,      // in
+   const char *keyName,
+   enum ESMC_TypeKind_Flag *keyTypeKind
+ );
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+  
+    allocate memory for a new key in {\tt ESMC\_LocStream}.
+  
+    The arguments are:
+    \begin{description}
+    \item[LocStream]
+      {\tt ESMC\_LocStream} who will have the new key
+    \item[keyName]
+      name of the new key in {\tt ESMC\_LocStream}
+    \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_LocStreamGetKeyPtr] {ESMC\_LocStreamGetKeyPtr - Get a pointer to a LocStream key}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void *ESMC_LocStreamGetKeyPtr(
+   ESMC_LocStream locstream,      // in
+   const char *keyName,
+   int localDe,
+   int *rc
+ );
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+  
+    Get a pointer to a specified key in {\tt ESMC\_LocStream}.
+  
+    The arguments are:
+    \begin{description}
+    \item[LocStream]
+      {\tt ESMC\_LocStream} containing the key.
+    \item[keyName]
+      name of the new key in {\tt ESMC\_LocStream}
+    \item[localDe]
+      The local DE of the {\tt ESMC\_LocStream} (not implemented)
+    \item[{[rc]}]
+      Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+    \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_LocStreamGetKeyArray] {ESMC\_LocStreamGetKeyArray - Get the internal Array stored in the LocStream}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ESMC_Array ESMC_LocStreamGetKeyArray(
+                                 ESMC_LocStream locstream,     // in
+                                 const char *keyName,          // in
+                                 int *rc                       // out
+                                 );
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    The ESMC_Array object stored in the ESMC_LocStream.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+  
+    Get the internal Array stored in the {\tt ESMC\_LocStream}.
+  
+    The arguments are:
+    \begin{description}
+    \item[LocStream]
+      {\tt ESMC\_LocStream} containing the array.
+    \item[keyName]
+      name of the new key in {\tt ESMC\_LocStream}
+    \item[{[rc]}]
+      Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+    \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_LocStreamDestroy] {ESMC\_LocStreamDestroy - Destroy a LocStream}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_LocStreamDestroy(
+   ESMC_LocStream *locstream     // inout
+ );
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+  
+    Releases all resources associated with this {\tt ESMC\_LocStream}.
+      Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+  
+    The arguments are:
+    \begin{description}
+    \item[LocStream]
+      Destroy contents of this {\tt ESMC\_LocStream}.
+    \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

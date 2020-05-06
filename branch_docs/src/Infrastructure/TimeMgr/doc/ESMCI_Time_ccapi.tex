@@ -1,0 +1,611 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_Time.C,  Date: Tue May  5 20:59:33 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [Time::set] {Time::set - initializer to support F90 interface}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::set(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_I4 *yy,        // in - integer year (>= 32-bit)
+       ESMC_I8 *yy_i8,     // in - integer year (large, >= 64-bit)
+       int *mm,                 // in - integer month
+       int *dd,                 // in - integer day of the month
+       ESMC_I4 *d,         // in - integer days (>= 32-bit)
+       ESMC_I8 *d_i8,      // in - integer days (large, >= 64-bit)
+       ESMC_I4 *h,         // in - integer hours
+       ESMC_I4 *m,         // in - integer minutes
+       ESMC_I4 *s,         // in - integer seconds (>= 32-bit)
+       ESMC_I8 *s_i8,      // in - integer seconds (large, >= 64-bit)
+       ESMC_I4 *ms,        // in - integer milliseconds
+       ESMC_I4 *us,        // in - integer microseconds
+       ESMC_I4 *ns,        // in - integer nanoseconds
+       ESMC_R8 *d_r8,      // in - floating point days
+       ESMC_R8 *h_r8,      // in - floating point hours
+       ESMC_R8 *m_r8,      // in - floating point minutes
+       ESMC_R8 *s_r8,      // in - floating point seconds
+       ESMC_R8 *ms_r8,     // in - floating point milliseconds
+       ESMC_R8 *us_r8,     // in - floating point microseconds
+       ESMC_R8 *ns_r8,     // in - floating point nanoseconds
+       ESMC_I4 *sN,        // in - fractional seconds numerator
+       ESMC_I8 *sN_i8,     // in - fractional seconds numerator
+                           //                                 (large, >= 64-bit)
+       ESMC_I4 *sD,        // in - fractional seconds denominator
+       ESMC_I8 *sD_i8,     // in - fractional seconds denominator
+                           //                                 (large, >= 64-bit)
+       Calendar **calendar, // in - associated calendar
+       ESMC_CalKind_Flag *calkindflag, // in - associated calendar kind
+       int *timeZone) {         // in - timezone (hours offset from UTC,
+                                //      e.g. EST = -5)\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initialzes a {\tt Time} with values given in arg list. Supports
+        F90 interface.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::get] {Time::get - Get a Time value; supports F90 interface}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::get(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_I4 *yy,           // out - integer year (>= 32-bit)
+       ESMC_I8 *yy_i8,        // out - integer year (large, >= 64-bit)
+       int *mm,                    // out - integer month
+       int *dd,                    // out - integer day of the month
+       ESMC_I4 *d,            // out - integer days (>= 32-bit)
+       ESMC_I8 *d_i8,         // out - integer days (large, >= 64-bit)
+       ESMC_I4 *h,            // out - integer hours
+       ESMC_I4 *m,            // out - integer minutes
+       ESMC_I4 *s,            // out - integer seconds (>= 32-bit)
+       ESMC_I8 *s_i8,         // out - integer seconds (large, >= 64-bit)
+       ESMC_I4 *ms,           // out - integer milliseconds
+       ESMC_I4 *us,           // out - integer microseconds
+       ESMC_I4 *ns,           // out - integer nanoseconds
+       ESMC_R8 *d_r8,         // out - floating point days
+       ESMC_R8 *h_r8,         // out - floating point hours
+       ESMC_R8 *m_r8,         // out - floating point minutes
+       ESMC_R8 *s_r8,         // out - floating point seconds
+       ESMC_R8 *ms_r8,        // out - floating point milliseconds
+       ESMC_R8 *us_r8,        // out - floating point microseconds
+       ESMC_R8 *ns_r8,        // out - floating point nanoseconds
+       ESMC_I4 *sN,           // out - fractional seconds numerator
+       ESMC_I8 *sN_i8,        // out - fractional seconds numerator
+                              //                              (large, >= 64-bit)
+       ESMC_I4 *sD,           // out - fractional seconds denominator
+       ESMC_I8 *sD_i8,        // out - fractional seconds denominator
+                              //                              (large, >= 64-bit)
+       Calendar **calendar,   // out - associated calendar
+       ESMC_CalKind_Flag *calkindflag, // out - associated calendar kind
+       int     *timeZone,          // out - timezone (hours offset from UTC)
+       int      timeStringLen,     // in  - F90 time string size
+       int     *tempTimeStringLen, // out - temp F90 time string size
+       char    *tempTimeString,    // out - hybrid format
+                                   //       YYYY-MM-DDThh:mm:ss[:n/d]
+       int   timeStringLenISOFrac,     // in  - F90 ISO time string size
+       int  *tempTimeStringLenISOFrac, // out - temp F90 ISO time string size
+       char *tempTimeStringISOFrac,    // out - ISO 8601 format
+                                   //       YYYY-MM-DDThh:mm:ss[.f]
+       int          *dayOfWeek,    // out - day of the week (Mon = 1, Sun = 7)
+       Time    *midMonth,     // out - middle of the month time instant
+       ESMC_I4 *dayOfYear,    // out - day of the year as an integer
+       ESMC_R8 *dayOfYear_r8, // out - day of the year as a floating point
+       TimeInterval *dayOfYear_intvl) const {  // out - day of the year
+                                                    //       as a time interval\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt Time}'s values in user-specified format. This version
+        supports the F90 interface.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::get] {Time::get - Get a Time value}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}        int Time::get(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}        const char *timeList,    // in  - time value specifier string
+        ...) const {             // out - specifier values (variable args)\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt Time}'s values in user-specified format. This version
+        supports native C++ use.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::set] {Time::set - Set a Time value (1)}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}        int Time::set(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}        Calendar *calendar,  // in - associated calendar
+        int timeZone,             // in - timezone
+        const char *timeList,     // in - initializer specifier string
+        ...) {                    // in - specifier values (variable args)\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initialzes a {\tt Time} with values given in variable arg list.
+        Supports native C++ use.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::set] {Time::set - Set a Time value (2)}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}        int Time::set(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}        const char *timeList,    // in - initializer specifier string
+        ...) {                   // in - specifier values (variable args)\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initialzes a {\tt Time} with values given in variable arg list.
+        Supports native C++ use.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::set] {Time::set - direct property initializer}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::set(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_I8 s,          // in - integer seconds
+       ESMC_I8 sN,         // in - fractional seconds, numerator
+       ESMC_I8 sD,         // in - fractional seconds, denominator
+       Calendar *calendar, // in - associated calendar
+       ESMC_CalKind_Flag calkindflag, // in - associated calendar kind
+       int timeZone) {          // in - timezone\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initialzes a {\tt Time} with given values.  Used to avoid constructor
+        to cover case when initial entry is from F90, since destructor is called
+        automatically when leaving scope to return to F90.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::isLeapYear] {Time::isLeapYear - Determines if this time is in a leap year}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       bool Time::isLeapYear(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      bool true if this time is in a leap year, false otherwise.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       int *rc) const {    // out - return code\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Determines if this {\tt Time}'s year is a leap year.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::isSameCalendar] {Time::isSameCalendar - Compares 2 Time's Calendar kinds}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       bool Time::isSameCalendar(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      bool true if same calendars, false if different calendars\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const Time *time,    // in  - Time to compare Calendar kinds against
+       int *rc) const {          // out - return code\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Compares given {\tt Time}'s {\tt Calendar} type with this {\tt Time}'s
+        {\tt Calendar} type
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::syncToRealTime] {Time::syncToRealTime - Sync this Time to wall clock time}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::syncToRealTime(void) {\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Sets a {\tt Time}'s value to wall clock time
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time(+)] {Time(+) - Increment a Time with a TimeInterval}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       Time Time::operator+(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      Time result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                  //      to add\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Adds {\tt timeinterval} expression to this time.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time(-)] {Time(-) - Decrement a Time with a TimeInterval}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       Time Time::operator-(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      Time result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //      to subtract\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Subtracts {\tt timeinterval} expression from this time.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time(+=)] {Time(+=) - Increment a Time with a TimeInterval}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       Time& Time::operator+=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      Time& result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) {  // in - TimeInterval
+                                                 //      to add\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Adds {\tt timeinterval} expression to this time.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time(-=)] {Time(-=) - Decrement a Time with a TimeInterval}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       Time& Time::operator-=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      Time& result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) {  // in - TimeInterval
+                                                 //      to subtract\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Adds {\tt timeinterval} expression to this time.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time(-)] {Time(-) - Return the difference between two Times}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval Time::operator-(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const Time &time) const {  // in - Time to subtract\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Subtracts given {\tt time} expression from this time, returns
+      result as {\tt ESMC\_TimeInterval}.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::readRestart] {Time::readRestart - restore Time state}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::readRestart(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       int          nameLen,   // in
+       const char  *name) {    // in   \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        restore {\tt Time} state for persistence/checkpointing.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::writeRestart] {Time::writeRestart - save Time state}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::writeRestart(void) const {\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Save {\tt Time} state for persistence/checkpointing
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::validate] {Time::validate - validate Time state}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::validate(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const char *options) const {    // in - validate options\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        validate {\tt Time} state for testing/debugging
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::print] {Time::print - print Time state}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::print(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const char *options) const {    // in - print options\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        print {\tt Time} state for testing/debugging
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time] {Time - native default C++ constructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       Time::Time(void) {\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initializes a {\tt ESMC\_Time} with defaults
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time] {Time - native C++ constructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       Time::Time(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_I8 s,           // in - integer seconds
+       ESMC_I8 sN,          // in - fractional seconds, numerator
+       ESMC_I8 sD,          // in - fractional seconds, denominator
+       Calendar *calendar,  // in - associated calendar
+       ESMC_CalKind_Flag calkindflag,  // in - associated calendar kind
+       int timeZone) :           // in - timezone\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initializes a {\tt ESMC\_Time}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [~Time] {~Time - native default C++ destructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       Time::~Time(void) {\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Default {\tt ESMC\_Time} destructor
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::getString] {Time::getString - Get a Time value}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::getString(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       char *timeString, const char *options) const {    // out - time value in
+                                                         //       string format
+                                                         // in  - format options\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt time}'s value in ISO 8601 string format
+        YYYY-MM-DDThh:mm:ss[:n/d]  (hybrid) (default, options == "")
+        or YYYY-MM-DDThh:mm:ss[.f] (strict) (options == "isofrac")
+        Supports {\tt ESMC\_Time::get()} and {\tt ESMC\_Time::print()}.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::getDayOfWeek] {Time::getDayOfWeek - Get a Time's day of the week value}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::getDayOfWeek(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       int *dayOfWeek) const {    // out - time's day of week value\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt Time}'s day of the week value in ISO 8601 format:
+        Monday = 1 through Sunday = 7
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::getMidMonth] {Time::getMidMonth - Get a Time's middle of the month value}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::getMidMonth(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       Time *midMonth) const {    // out - time's middle of month value\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt Time}'s middle of the month value
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::getDayOfYear] {Time::getDayOfYear - Get a Time's day of the year value}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::getDayOfYear(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_I4 *dayOfYear) const {    // out - time's day of year value\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt Time}'s day of the year value as a integer value.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::getDayOfYear] {Time::getDayOfYear - Get a Time's day of the year value}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::getDayOfYear(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_R8 *dayOfYear) const {    // out - time's day of year value\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt Time}'s day of the year value as a floating point value.
+        Whole number part is days; fractional part is fraction of a day, equal
+        to seconds (whole + fractional) divided by 86400, the number of seconds
+        in a day.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [Time::getDayOfYear] {Time::getDayOfYear - Get a Time's day of the year value}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Time::getDayOfYear(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       TimeInterval *dayOfYear) const {   // out - time's day of year value\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt Time}'s day of the year value as an {\tt TimeInterval}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

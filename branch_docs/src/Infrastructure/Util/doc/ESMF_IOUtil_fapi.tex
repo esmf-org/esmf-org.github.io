@@ -1,0 +1,122 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_IOUtil.F90,  Date: Tue May  5 20:59:26 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+  
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_UtilIOUnitFlush] {ESMF\_UtilIOUnitFlush - Flush output on a unit number}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_UtilIOUnitFlush(unit, rc)\end{verbatim}{\em PARAMETERS:}
+\begin{verbatim}     integer, intent(in)            :: unit
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer, intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Call the system-dependent routine to force output on a specific
+     Fortran unit number.
+  
+       The arguments are:
+       \begin{description}
+       \item[unit]
+         A Fortran I/O unit number.  If the unit is not connected to a file,
+         no flushing occurs.
+       \item[{[rc]}]
+         Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_UtilIOUnitGet] {ESMF\_UtilIOUnitGet - Scan for a free I/O unit number}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_UtilIOUnitGet(unit, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     integer, intent(out)           :: unit
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer, intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+     Scan for, and return, a free Fortran I/O unit number.
+     By default, the range of unit numbers returned is between 50 and 99
+     (parameters {\tt ESMF\_LOG\_FORTRAN\_UNIT\_NUMBER} and {\tt ESMF\_LOG\_UPPER}
+     respectively.) When integrating ESMF into an application where these values
+     conflict with other usages, the range of values may be moved by setting the
+     optional {\tt IOUnitLower} and {\tt IOUnitUpper} arguments in the initial
+     {\tt ESMF\_Initialize()} call with values in a safe, alternate, range.
+  
+     The Fortran unit number which is returned is not reserved in any way.
+     Successive calls without intervening {\tt OPEN} or {\tt CLOSE} statements
+     (or other means of connecting to units), might not return a unique unit
+     number.  It is recommended that an {\tt OPEN} statement immediately follow
+     the call to {\tt ESMF\_IOUnitGet()} to activate the unit.
+  
+       The arguments are:
+       \begin{description}
+       \item[unit]
+         A Fortran I/O unit number.
+       \item[{[rc]}]
+         Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+       \end{description}
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

@@ -1,0 +1,420 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_DynamicMask.F90,  Date: Tue May  5 20:59:42 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_DynamicMaskSetR8R8R8] {ESMF\_DynamicMaskSetR8R8R8 - Set DynamicMask for R8R8R8}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_DynamicMaskSetR8R8R8(dynamicMask, dynamicMaskRoutine, &
+     handleAllElements, dynamicSrcMaskValue, &
+     dynamicDstMaskValue, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DynamicMask), intent(out)           :: dynamicMask
+     procedure(ESMF_DynamicMaskRoutineR8R8R8)      :: dynamicMaskRoutine
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),  optional :: handleAllElements
+     real(ESMF_KIND_R8),     intent(in),  optional :: dynamicSrcMaskValue
+     real(ESMF_KIND_R8),     intent(in),  optional :: dynamicDstMaskValue
+     integer,                intent(out), optional :: rc
+           \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     \label{api:DynamicMaskSetR8R8R8}
+     Set an {\tt ESMF\_DynamicMask} object suitable for 
+     destination element typekind {\tt ESMF\_TYPEKIND\_R8},
+     factor typekind {\tt ESMF\_TYPEKIND\_R8}, and
+     source element typekind {\tt ESMF\_TYPEKIND\_R8}.
+     
+     All values in {\tt dynamicMask} will be reset by this call.
+  
+     See section \ref{RH:DynMask} for a general discussion of dynamic masking.
+  
+     The arguments are:
+     \begin{description}
+     \item[dynamicMask] 
+       DynamicMask object.
+     \item [dynamicMaskRoutine]
+       The routine responsible for handling dynamically masked source and 
+       destination elements. See section \ref{RH:DynMask} for the precise
+       definition of the {\tt dynamicMaskRoutine} procedure interface.
+       The routine is only called on PETs where {\em at least one} interpolation 
+       element is identified for special handling.
+     \item [{[handleAllElements]}]
+       If set to {\tt .true.}, all local elements, regardless of their dynamic
+       masking status, are made available to {\tt dynamicMaskRoutine} for
+       handling. This option can be used to implement fully customized
+       interpolations based on the information provided by ESMF.
+       The default is {\tt .false.}, meaning that only elements affected by
+       dynamic masking will be handed to {\tt dynamicMaskRoutine}.
+     \item [{[dynamicSrcMaskValue]}]
+       The value for which a source element is considered dynamically
+       masked.
+       The default is to {\em not} consider any source elements as
+       dynamically masked.
+     \item [{[dynamicDstMaskValue]}]
+       The value for which a destination element is considered dynamically
+       masked.
+       The default is to {\em not} consider any destination elements as
+       dynamically masked.
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DynamicMaskSetR8R8R8V] {ESMF\_DynamicMaskSetR8R8R8V - Set DynamicMask for R8R8R8 with vectorization}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_DynamicMaskSetR8R8R8V(dynamicMask, dynamicMaskRoutine, &
+     handleAllElements, dynamicSrcMaskValue, &
+     dynamicDstMaskValue, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DynamicMask), intent(out)           :: dynamicMask
+     procedure(ESMF_DynamicMaskRoutineR8R8R8V)     :: dynamicMaskRoutine
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),  optional :: handleAllElements
+     real(ESMF_KIND_R8),     intent(in),  optional :: dynamicSrcMaskValue
+     real(ESMF_KIND_R8),     intent(in),  optional :: dynamicDstMaskValue
+     integer,                intent(out), optional :: rc
+           \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     \label{api:DynamicMaskSetR8R8R8V}
+     Set an {\tt ESMF\_DynamicMask} object suitable for 
+     destination element typekind {\tt ESMF\_TYPEKIND\_R8},
+     factor typekind {\tt ESMF\_TYPEKIND\_R8}, and
+     source element typekind {\tt ESMF\_TYPEKIND\_R8}.
+     
+     All values in {\tt dynamicMask} will be reset by this call.
+  
+     See section \ref{RH:DynMask} for a general discussion of dynamic masking.
+  
+     The arguments are:
+     \begin{description}
+     \item[dynamicMask] 
+       DynamicMask object.
+     \item [dynamicMaskRoutine]
+       The routine responsible for handling dynamically masked source and 
+       destination elements. See section \ref{RH:DynMask} for the precise
+       definition of the {\tt dynamicMaskRoutine} procedure interface.
+       The routine is only called on PETs where {\em at least one} interpolation 
+       element is identified for special handling.
+     \item [{[handleAllElements]}]
+       If set to {\tt .true.}, all local elements, regardless of their dynamic
+       masking status, are made available to {\tt dynamicMaskRoutine} for
+       handling. This option can be used to implement fully customized
+       interpolations based on the information provided by ESMF.
+       The default is {\tt .false.}, meaning that only elements affected by
+       dynamic masking will be handed to {\tt dynamicMaskRoutine}.
+     \item [{[dynamicSrcMaskValue]}]
+       The value for which a source element is considered dynamically
+       masked.
+       The default is to {\em not} consider any source elements as
+       dynamically masked.
+     \item [{[dynamicDstMaskValue]}]
+       The value for which a destination element is considered dynamically
+       masked.
+       The default is to {\em not} consider any destination elements as
+       dynamically masked.
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DynamicMaskSetR4R8R4] {ESMF\_DynamicMaskSetR4R8R4 - Set DynamicMask for R4R8R4}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_DynamicMaskSetR4R8R4(dynamicMask, dynamicMaskRoutine, &
+     handleAllElements, dynamicSrcMaskValue, &
+     dynamicDstMaskValue, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DynamicMask), intent(out)           :: dynamicMask
+     procedure(ESMF_DynamicMaskRoutineR4R8R4)      :: dynamicMaskRoutine
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),  optional :: handleAllElements
+     real(ESMF_KIND_R4),     intent(in),  optional :: dynamicSrcMaskValue
+     real(ESMF_KIND_R4),     intent(in),  optional :: dynamicDstMaskValue
+     integer,                intent(out), optional :: rc
+           \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     \label{api:DynamicMaskSetR8R8R8}
+     Set an {\tt ESMF\_DynamicMask} object suitable for 
+     destination element typekind {\tt ESMF\_TYPEKIND\_R4},
+     factor typekind {\tt ESMF\_TYPEKIND\_R8}, and
+     source element typekind {\tt ESMF\_TYPEKIND\_R4}.
+     
+     All values in {\tt dynamicMask} will be reset by this call.
+  
+     See section \ref{RH:DynMask} for a general discussion of dynamic masking.
+  
+     The arguments are:
+     \begin{description}
+     \item[dynamicMask] 
+       DynamicMask object.
+     \item [dynamicMaskRoutine]
+       The routine responsible for handling dynamically masked source and 
+       destination elements. See section \ref{RH:DynMask} for the precise
+       definition of the {\tt dynamicMaskRoutine} procedure interface.
+       The routine is only called on PETs where {\em at least one} interpolation 
+       element is identified for special handling.
+     \item [{[handleAllElements]}]
+       If set to {\tt .true.}, all local elements, regardless of their dynamic
+       masking status, are made available to {\tt dynamicMaskRoutine} for
+       handling. This option can be used to implement fully customized
+       interpolations based on the information provided by ESMF.
+       The default is {\tt .false.}, meaning that only elements affected by
+       dynamic masking will be handed to {\tt dynamicMaskRoutine}.
+     \item [{[dynamicSrcMaskValue]}]
+       The value for which a source element is considered dynamically
+       masked.
+       The default is to {\em not} consider any source elements as
+       dynamically masked.
+     \item [{[dynamicDstMaskValue]}]
+       The value for which a destination element is considered dynamically
+       masked.
+       The default is to {\em not} consider any destination elements as
+       dynamically masked.
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DynamicMaskSetR4R8R4V] {ESMF\_DynamicMaskSetR4R8R4V - Set DynamicMask for R4R8R4 with vectorization}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_DynamicMaskSetR4R8R4V(dynamicMask, dynamicMaskRoutine, &
+     handleAllElements, dynamicSrcMaskValue, &
+     dynamicDstMaskValue, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DynamicMask), intent(out)           :: dynamicMask
+     procedure(ESMF_DynamicMaskRoutineR4R8R4V)     :: dynamicMaskRoutine
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),  optional :: handleAllElements
+     real(ESMF_KIND_R4),     intent(in),  optional :: dynamicSrcMaskValue
+     real(ESMF_KIND_R4),     intent(in),  optional :: dynamicDstMaskValue
+     integer,                intent(out), optional :: rc
+           \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     \label{api:DynamicMaskSetR4R8R4V}
+     Set an {\tt ESMF\_DynamicMask} object suitable for 
+     destination element typekind {\tt ESMF\_TYPEKIND\_R4},
+     factor typekind {\tt ESMF\_TYPEKIND\_R8}, and
+     source element typekind {\tt ESMF\_TYPEKIND\_R4}.
+     
+     All values in {\tt dynamicMask} will be reset by this call.
+  
+     See section \ref{RH:DynMask} for a general discussion of dynamic masking.
+  
+     The arguments are:
+     \begin{description}
+     \item[dynamicMask] 
+       DynamicMask object.
+     \item [dynamicMaskRoutine]
+       The routine responsible for handling dynamically masked source and 
+       destination elements. See section \ref{RH:DynMask} for the precise
+       definition of the {\tt dynamicMaskRoutine} procedure interface.
+       The routine is only called on PETs where {\em at least one} interpolation 
+       element is identified for special handling.
+     \item [{[handleAllElements]}]
+       If set to {\tt .true.}, all local elements, regardless of their dynamic
+       masking status, are made available to {\tt dynamicMaskRoutine} for
+       handling. This option can be used to implement fully customized
+       interpolations based on the information provided by ESMF.
+       The default is {\tt .false.}, meaning that only elements affected by
+       dynamic masking will be handed to {\tt dynamicMaskRoutine}.
+     \item [{[dynamicSrcMaskValue]}]
+       The value for which a source element is considered dynamically
+       masked.
+       The default is to {\em not} consider any source elements as
+       dynamically masked.
+     \item [{[dynamicDstMaskValue]}]
+       The value for which a destination element is considered dynamically
+       masked.
+       The default is to {\em not} consider any destination elements as
+       dynamically masked.
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DynamicMaskSetR4R4R4] {ESMF\_DynamicMaskSetR4R4R4 - Set DynamicMask for R4R4R4}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_DynamicMaskSetR4R4R4(dynamicMask, dynamicMaskRoutine, &
+     handleAllElements, dynamicSrcMaskValue, &
+     dynamicDstMaskValue, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DynamicMask), intent(out)           :: dynamicMask
+     procedure(ESMF_DynamicMaskRoutineR4R4R4)      :: dynamicMaskRoutine
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),  optional :: handleAllElements
+     real(ESMF_KIND_R4),     intent(in),  optional :: dynamicSrcMaskValue
+     real(ESMF_KIND_R4),     intent(in),  optional :: dynamicDstMaskValue
+     integer,                intent(out), optional :: rc
+           \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     \label{api:DynamicMaskSetR8R8R8}
+     Set an {\tt ESMF\_DynamicMask} object suitable for 
+     destination element typekind {\tt ESMF\_TYPEKIND\_R4},
+     factor typekind {\tt ESMF\_TYPEKIND\_R4}, and
+     source element typekind {\tt ESMF\_TYPEKIND\_R4}.
+     
+     All values in {\tt dynamicMask} will be reset by this call.
+  
+     See section \ref{RH:DynMask} for a general discussion of dynamic masking.
+  
+     The arguments are:
+     \begin{description}
+     \item[dynamicMask] 
+       DynamicMask object.
+     \item [dynamicMaskRoutine]
+       The routine responsible for handling dynamically masked source and 
+       destination elements. See section \ref{RH:DynMask} for the precise
+       definition of the {\tt dynamicMaskRoutine} procedure interface.
+       The routine is only called on PETs where {\em at least one} interpolation 
+       element is identified for special handling.
+     \item [{[handleAllElements]}]
+       If set to {\tt .true.}, all local elements, regardless of their dynamic
+       masking status, are made available to {\tt dynamicMaskRoutine} for
+       handling. This option can be used to implement fully customized
+       interpolations based on the information provided by ESMF.
+       The default is {\tt .false.}, meaning that only elements affected by
+       dynamic masking will be handed to {\tt dynamicMaskRoutine}.
+     \item [{[dynamicSrcMaskValue]}]
+       The value for which a source element is considered dynamically
+       masked.
+       The default is to {\em not} consider any source elements as
+       dynamically masked.
+     \item [{[dynamicDstMaskValue]}]
+       The value for which a destination element is considered dynamically
+       masked.
+       The default is to {\em not} consider any destination elements as
+       dynamically masked.
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_DynamicMaskSetR4R4R4V] {ESMF\_DynamicMaskSetR4R4R4V - Set DynamicMask for R4R4R4 with vectorization}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_DynamicMaskSetR4R4R4V(dynamicMask, dynamicMaskRoutine, &
+     handleAllElements, dynamicSrcMaskValue, &
+     dynamicDstMaskValue, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_DynamicMask), intent(out)           :: dynamicMask
+     procedure(ESMF_DynamicMaskRoutineR4R4R4V)     :: dynamicMaskRoutine
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),  optional :: handleAllElements
+     real(ESMF_KIND_R4),     intent(in),  optional :: dynamicSrcMaskValue
+     real(ESMF_KIND_R4),     intent(in),  optional :: dynamicDstMaskValue
+     integer,                intent(out), optional :: rc
+           \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     \label{api:DynamicMaskSetR4R4R4V}
+     Set an {\tt ESMF\_DynamicMask} object suitable for 
+     destination element typekind {\tt ESMF\_TYPEKIND\_R4},
+     factor typekind {\tt ESMF\_TYPEKIND\_R4}, and
+     source element typekind {\tt ESMF\_TYPEKIND\_R4}.
+     
+     All values in {\tt dynamicMask} will be reset by this call.
+  
+     See section \ref{RH:DynMask} for a general discussion of dynamic masking.
+  
+     The arguments are:
+     \begin{description}
+     \item[dynamicMask] 
+       DynamicMask object.
+     \item [dynamicMaskRoutine]
+       The routine responsible for handling dynamically masked source and 
+       destination elements. See section \ref{RH:DynMask} for the precise
+       definition of the {\tt dynamicMaskRoutine} procedure interface.
+       The routine is only called on PETs where {\em at least one} interpolation 
+       element is identified for special handling.
+     \item [{[handleAllElements]}]
+       If set to {\tt .true.}, all local elements, regardless of their dynamic
+       masking status, are made available to {\tt dynamicMaskRoutine} for
+       handling. This option can be used to implement fully customized
+       interpolations based on the information provided by ESMF.
+       The default is {\tt .false.}, meaning that only elements affected by
+       dynamic masking will be handed to {\tt dynamicMaskRoutine}.
+     \item [{[dynamicSrcMaskValue]}]
+       The value for which a source element is considered dynamically
+       masked.
+       The default is to {\em not} consider any source elements as
+       dynamically masked.
+     \item [{[dynamicDstMaskValue]}]
+       The value for which a destination element is considered dynamically
+       masked.
+       The default is to {\em not} consider any destination elements as
+       dynamically masked.
+     \item[{[rc]}] 
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

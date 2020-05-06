@@ -1,0 +1,210 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_StateRemRep.F90,  Date: Tue May  5 21:00:08 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_StateRemove] {ESMF\_StateRemove - Remove an item from a State - (DEPRECATED METHOD)}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_StateRemove ()
+   subroutine ESMF_StateRemoveOneItem (state, itemName, &
+       relaxedFlag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_State), intent(inout) :: state
+     character(*), intent(in) :: itemName
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical, intent(in), optional :: relaxedFlag
+     integer, intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \item\apiDeprecatedMethodWithReplacement{5.3.1}{ESMF\_StateRemove}{esmfstateremovelist}
+   Rationale: The list version is consistent with other ESMF container
+   operations which use lists.
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+   Remove an existing reference to an item from a {\tt State}.
+  
+   The arguments are:
+   \begin{description}
+   \item[state]
+   The {\tt ESMF\_State} within which {\tt itemName} will be removed.
+   \item[itemName]
+   The name of the item to be removed. This is a reference only.
+   The item itself is unchanged.
+  
+   If the {\tt state} contains nested {\tt ESMF\_State}s,
+   the {\tt itemName} argument may specify a fully qualified name
+   to remove the desired item with a single call. This is performed
+   using the "/" character to separate the names of the intermediate
+   State names leading to the desired item. (E.g.,
+   {\tt itemName="state1/state12/item"}.
+  
+   Since an item could potentially be referenced by multiple containers,
+   it remains the responsibility of the user to manage its
+   destruction when it is no longer in use.
+   \item[{[relaxedflag]}]
+   A setting of {\tt .true.} indicates a relaxed definition of "remove",
+   where it is {\em not} an error if {\tt itemName} is not present in the
+   {\tt state}. For {\tt .false.} this is treated
+   as an error condition. The default setting is {\tt .false.}.
+   \item[{[rc]}]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_StateRemove] {ESMF\_StateRemove - Remove a list of items from a State}
+
+
+   \label{esmfstateremovelist}
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_StateRemove ()
+   subroutine ESMF_StateRemoveList (state, itemNameList, relaxedFlag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_State), intent(inout) :: state
+     character(*), intent(in) :: itemNameList(:)
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical, intent(in), optional :: relaxedFlag
+     integer, intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.3.1}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+   Remove existing references to items from a {\tt State}.
+  
+   The arguments are:
+   \begin{description}
+   \item[state]
+   The {\tt ESMF\_State} within which {\tt itemName} will be removed.
+   \item[itemNameList]
+   The name of the items to be removed. This is a reference only.
+   The items themselves are unchanged.
+  
+   If the {\tt state} contains nested {\tt ESMF\_State}s,
+   the {\tt itemName} arguments may specify fully qualified names
+   to remove the desired items with a single call. This is performed
+   using the "/" character to separate the names of the intermediate
+   State names leading to the desired items. (E.g.,
+   {\tt itemName="state1/state12/item"}.
+  
+   Since items could potentially be referenced by multiple containers,
+   it remains the responsibility of the user to manage their
+   destruction when they are no longer in use.
+   \item[{[relaxedflag]}]
+   A setting of {\tt .true.} indicates a relaxed definition of "remove",
+   where it is {\em not} an error if an item in the {\tt itemNameList}
+   is not present in the {\tt state}. For {\tt .false.} this is treated
+   as an error condition. The default setting is {\tt .false.}.
+   \item[{[rc]}]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description} 
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_StateReplace] {ESMF\_StateReplace - Replace a list of items within a State}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_StateReplace(state, <itemList>, relaxedflag, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   type(ESMF_State), intent(inout) :: state
+   <itemList>, see below for supported values
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+   logical, intent(in), optional :: relaxedflag
+   integer, intent(out), optional :: rc\end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+   Replace a list of items with a {\tt ESMF\_State}. If an item in
+   <itemList> does not match any items already present in {\tt state}, an
+   error is returned.
+  
+   Supported values for <itemList> are:
+   \begin{description}
+   \item type(ESMF\_Array), intent(in) :: arrayList(:)
+   \item type(ESMF\_ArrayBundle), intent(in) :: arraybundleList(:)
+   \item type(ESMF\_Field), intent(in) :: fieldList(:)
+   \item type(ESMF\_FieldBundle), intent(in) :: fieldbundleList(:)
+   \item type(ESMF\_RouteHandle), intent(in) :: routehandleList(:)
+   \item type(ESMF\_State), intent(in) :: nestedStateList(:)
+   \end{description}
+  
+   The arguments are:
+   \begin{description}
+   \item[state]
+   An {\tt ESMF\_State} within which the <itemList> items will be replaced.
+   \item[<itemList>]
+   The list of items to be replaced.
+   This is a reference only; when
+   the {\tt ESMF\_State} is destroyed the <itemList> contained in it will
+   not be destroyed. Also, the items in the <itemList> cannot be safely
+   destroyed before the {\tt ESMF\_State} is destroyed.
+   Since <itemList> items can be added to multiple containers, it remains
+   the responsibility of the user to manage their
+   destruction when they are no longer in use.
+   \item[{[relaxedflag]}]
+   A setting of {\tt .true.} indicates a relaxed definition of "replace",
+   where it is {\em not} an error if {\tt <itemList>} contains items
+   with names that are not found in {\tt state}. The {\tt State}
+   is left unchanged for these items. For {\tt .false.} this is treated
+   as an error condition. The default setting is {\tt .false.}.
+   \item[{[rc]}]
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

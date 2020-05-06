@@ -1,0 +1,405 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMC\_Config.h,  Date: Tue May  5 20:59:36 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMC\_ConfigCreate] {ESMC\_ConfigCreate - Create a Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} ESMC_Config ESMC_ConfigCreate(
+   int* rc                    // out
+ );\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    ESMC_Config*  to newly allocated ESMC_Config\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Creates an {\tt ESMC\_Config} for use in subsequent calls.
+  
+     The arguments are:
+     \begin{description}
+     \item [{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_ConfigDestroy] {ESMC\_ConfigDestroy - Destroy a Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_ConfigDestroy(
+   ESMC_Config* config        // in
+ );\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Destroys the {\tt config} object.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMC\_Config} object to destroy.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_ConfigCreate] {ESMC\_ConfigCreate - Create a Config object from a section of an existing Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} ESMC_Config ESMC_ConfigCreateFromSection(
+   ESMC_Config config,       // in
+   const char* olabel,       // in
+   const char* clabel,       // in
+   int* rc                   // out
+ );\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    ESMC_Config*  to newly allocated ESMC_Config\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Instantiates an {\tt ESMC\_Config} object from a section of an existing
+     {\tt ESMC\_Config} object delimited by {\tt openlabel} and {\tt closelabel}.
+     An error is returned if neither of the input labels is found in input
+     {\tt config}.
+  
+     Note that a section is intended as the content of a given {\tt ESMC\_Config}
+     object delimited by two distinct labels. Such content, as well as each of the
+     surrounding labels, are still within the scope of the parent {\tt ESMC\_Config}
+     object. Therefore, including in a section labels used outside that
+     section should be done carefully to prevent parsing conflicts.
+  
+     The arguments are:
+     \begin{description}
+       \item[config]
+         The input {\tt ESMC\_Config} object.
+       \item[openlabel]
+         Label marking the beginning of a section in {\tt config}.
+       \item[closelabel]
+         Label marking the end of a section in {\tt config}.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_ConfigFindLabel] {ESMC\_ConfigFindLabel - Find a label}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_ConfigFindLabel(
+   ESMC_Config config,        // in
+   const char* label,         // in
+   int *isPresent             // out
+ );\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.
+    If label not found, and the {\tt isPresent} pointer is {\tt NULL},
+    an error will be returned.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Finds the {\tt label} (key) in the {\tt config} file. 
+  
+    Since the search is done by looking for a word in the 
+    whole resource file, it is important to use special 
+    conventions to distinguish labels from other words 
+    in the resource files. The DAO convention is to finish 
+    line labels by : and table labels by ::.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMC\_Config} object.
+     \item [label]
+       Identifying label. 
+     \item [{[isPresent]}]
+       Label presence flag.  (optional).  If non-NULL, the target is
+       set to 1 when the label is found; otherwise set to 0.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_ConfigFindNextLabel] {ESMC\_ConfigFindNextLabel - Find a label}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_ConfigFindNextLabel(
+   ESMC_Config config,        // in
+   const char* label,         // in
+   int *isPresent             // out
+ );\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.
+    If label not found, and the {\tt isPresent} pointer is {\tt NULL},
+    an error will be returned.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+Finds the {\tt label} (key) string in the {\tt config} object, 
+     starting from the current position pointer.
+  
+     This method is equivalent to {\tt ESMC\_ConfigFindLabel}, but the search
+     is performed starting from the current position pointer.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMC\_Config} object.
+     \item [label]
+       Identifying label.
+     \item [isPresent]
+       If non-NULL, the address specified is given a value of 1 if the
+       label is found, and 0 when the label is not found.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_ConfigGetDim] {ESMC\_ConfigGetDim - Get table sizes}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_ConfigGetDim(
+   ESMC_Config config,        // in
+   int* lineCount,            // out
+   int* columnCount,          // out
+   ...                        // optional argument list
+ );\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Returns the number of lines in the table in {\tt lineCount} and
+    the maximum number of words in a table line in {\tt columnCount}.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMC\_Config} object.
+     \item [lineCount]
+       Returned number of lines in the table. 
+     \item [columnCount]
+       Returned maximum number of words in a table line. 
+     \item [{[label]}]
+       Identifying label (optional).
+     \end{description}
+  
+    Due to this method accepting optional arguments, the final argument
+    must be {\tt ESMC\_ArgLast}.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_ConfigGetLen] {ESMC\_ConfigGetLen - Get the length of the line in words}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_ConfigGetLen(
+   ESMC_Config config,        // in
+   int* wordCount,            // out
+   ...                        // optional argument list
+ );\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Gets the length of the line in words by counting words
+    disregarding types.  Returns the word count as an integer.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMC\_Config} object.
+     \item [wordCount]
+       Returned number of words in the line. 
+     \item [{[label]}]
+       Identifying label.  If not specified, use the current line (optional).
+     \end{description}
+  
+    Due to this method accepting optional arguments, the final argument
+    must be {\tt ESMC\_ArgLast}.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_ConfigLoadFile] {ESMC\_ConfigLoadFile - Load resource file into memory}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_ConfigLoadFile(
+   ESMC_Config config,        // in
+   const char* file,          // in
+   ...                        // optional argument list
+ );\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Resource file with {\tt filename} is loaded into memory.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMC\_Config} object.
+     \item [file]
+       Configuration file name.
+     \item [{[delayout]}]
+       {\tt ESMC\_DELayout} associated with this {\tt config} object.
+       **NOTE: This argument is not currently supported.
+     \item [{[unique]}]
+       If specified as true, uniqueness of labels are checked and 
+       error code set if duplicates found (optional).
+     \end{description}
+  
+    Due to this method accepting optional arguments, the final argument
+    must be {\tt ESMC\_ArgLast}.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_ConfigNextLine] {ESMC\_ConfigNextLine - Find next line}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_ConfigNextLine(
+   ESMC_Config config,       // in
+   int *tableEnd             // out
+ );\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+    Selects the next line (for tables).
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMC\_Config} object.
+     \item [{[tableEnd]}]
+       End of table mark (::) found flag.  Returns 1 when found, and 0 when
+       not found.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_ConfigPrint] {ESMC\_ConfigPrint - Write content of config object to standard output}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_ConfigPrint(
+   ESMC_Config config        // in
+ );\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Write content of a {\tt ESMC\_Config} object to standard output.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMC\_Config} object.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMC\_ConfigValidate] {ESMC\_ConfigValidate - Validate a Config object}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int ESMC_ConfigValidate(
+   ESMC_Config config,        // in
+   ...                        // optional argument list
+ );\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    Return code; equals ESMF_SUCCESS if there are no errors.
+    Equals ESMF_RC_ATTR_UNUSED if any unused attributes are found
+    with option "unusedAttributes" below.\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Checks whether a {\tt config} object is valid.
+  
+     The arguments are:
+     \begin{description}
+     \item [config]
+       Already created {\tt ESMC\_Config} object.
+     \item[{[options]}]
+       If none specified:  simply check that the buffer is not full and the
+         pointers are within range (optional).
+       "unusedAttributes" - Report to the default logfile all attributes not
+         retrieved via a call to {\tt ESMC\_ConfigGetAttribute()} or
+         {\tt ESMC\_ConfigGetChar()}.  The attribute name (label) will be
+         logged via {\tt ESMC\_LogErr} with the WARNING log message type.
+         For an array-valued attribute, retrieving at least one value via
+         {\tt ESMC\_ConfigGetAttribute()} or {\tt ESMC\_ConfigGetChar()}
+         constitutes being "used."
+     \end{description}
+  
+    Due to this method accepting optional arguments, the final argument
+    must be {\tt ESMC\_ArgLast}.
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

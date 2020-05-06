@@ -1,0 +1,270 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_AttributeUpdate.C,  Date: Tue May  5 21:00:05 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+  
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [AttributeUpdate] {AttributeUpdate - update an {\tt Attribute}}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Attribute::AttributeUpdate(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      {\tt ESMF\_SUCCESS} or error code on failure.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       VM *vm,                         // the VM
+       const vector<ESMC_I4> &roots,   // the rootList
+       ESMCI::InterArray<int> *petList,// the petList
+       bool reconcile) {               // reconcile flag\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Update an {\tt Attribute} hierarchy with a later version of itself.  
+      Expected to be called internally.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [AttributeUpdateBufRecv] {AttributeUpdateBufRecv - unpack the serialized Attribute updates}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Attribute::AttributeUpdateBufRecv(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      {\tt ESMF\_SUCCESS} or error code on failure.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       char *recvBuf,                   // buffer with packed updates
+       int localPet,                   // localPet for printing
+       int *offset,                     // current position in the buffer
+       const int &length)  {                 // length of buffer\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Serialize the updates to an {\tt Attribute} hierarchy.  
+      Expected to be called internally.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [AttributeUpdateBufSend] {AttributeUpdateBufSend - serialize the Attribute updates}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Attribute::AttributeUpdateBufSend(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      {\tt ESMF\_SUCCESS} or error code on failure.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       char *sendBuf,                   // buffer to pack updates
+       int localPet,
+       int *offset,                     // current position in the buffer
+       int *length) const {            // length of buffer\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Deserialize the updates to an {\tt Attribute} hierarchy.  
+      Expected to be called internally.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [AttributeUpdateTreeChanges] {AttributeUpdateTreeChanges - look for all changes in Attribute hierarchy}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Attribute::AttributeUpdateTreeChanges(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      {\tt ESMF\_SUCCESS} or error code on failure.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       int *linkChanges,            // link changes flag
+       int *structChanges,          // structural changes flag
+       int *valueChanges,           // value changes flag
+       int *deleteChanges,          // value changes flag
+       int *numKeys) const{         // number of keys flag\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Search an {\tt Attribute} hierarchy for changes to be updated.  
+      Expected to be called internally.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [AttributeUpdateCountPackage] {AttributeUpdateCountPackage - count the Attributes in a package}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Attribute::AttributeUpdateCountPackage(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      {\tt ESMF\_SUCCESS} or error code on failure.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       int *packAttCount) const{         // number of attributes in package\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Count the Attributes in a package.  
+      Expected to be called internally.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [AttributeUpdateComm] {AttributeUpdateComm - {\tt Attribute} update comm pattern}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Attribute::AttributeUpdateComm(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      {\tt ESMF\_SUCCESS} or error code on failure.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       VM *vm,                    // the VM
+       int sendBufSize,                       // size of sendBuf
+       int *recvBufSize,                       // size of recvBuf
+       char *sendBuf,                         // sendBuf
+       char *recvBuf,                         // recvBuf
+       const vector<ESMC_I4> &roots,          // roots vector
+       const vector<ESMC_I4> &nonroots) const {     // nonroots vector\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Update an {\tt Attribute} hierarchy with a later version of itself.  
+      Expected to be called internally.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [AttributeUpdateKeyCompare] {AttributeUpdateKeyCompare - Compare Attribute keys}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       bool Attribute::AttributeUpdateKeyCompare(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      {\tt ESMF\_SUCCESS} or error code on failure.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       char *key1,              // one key
+       char *key2) const {      // other key\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Compare Attribute keys.
+      Expected to be called internally.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [AttributeUpdateKeyCreate] {AttributeUpdateKeyCreate - Make the key for this Attribute}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Attribute::AttributeUpdateKeyCreate(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      {\tt ESMF\_SUCCESS} or error code on failure.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       char *key) const { // this key\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Make the key for this Attribute.
+      Expected to be called internally.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [AttributeUpdateNeeded] {AttributeUpdateNeeded - Determine if update is needed}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Attribute::AttributeUpdateNeeded(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      {\tt ESMF\_SUCCESS} or error code on failure.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       VM *vm,                           // the VM
+       int &bufSize,                     // size of buffer to return
+       const vector<ESMC_I4> &roots,     // roots vector
+       const vector<ESMC_I4> &nonroots,  // nonroots vector
+       bool reconcile) const {           // reconcile flag\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Determine if AttributeUpdate() is needed. 
+      Expected to be called internally.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [AttributeUpdateRemove] {AttributeUpdateRemove - Remove an Attribute in Update}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Attribute::AttributeUpdateRemove(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      {\tt ESMF\_SUCCESS} or error code on failure.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}         int attrNum) {          // number of attribute to remove\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Remove an Attribute in {\tt ESMCI\_AttibuteUpdate()}.
+      Expected to be called internally.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [AttributeUpdateReset] {AttributeUpdateReset - Reset flags for AttributeUpdate}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int Attribute::AttributeUpdateReset(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      {\tt ESMF\_SUCCESS} or error code on failure.\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}         ) { \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Reset the flags for AttributeUpdate().
+      Expected to be called internally.
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

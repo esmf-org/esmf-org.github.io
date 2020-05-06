@@ -1,0 +1,92 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_VMGetMPICommunicatorEx.F90,  Date: Tue May  5 20:59:29 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+  
+   \subsubsection{Getting the MPI Communicator from an VM object}
+  
+   Sometimes user code requires access to the MPI communicator, e.g. to support
+   legacy code that contains explict MPI communication calls. The correct way of
+   wrapping such code into ESMF is to obtain the MPI intra-communicator out of
+   the VM object. In order not to interfere with ESMF communications it is
+   advisable to duplicate the communicator before using it in user-level MPI
+   calls. In this example the duplicated communicator is used for a user
+   controlled {\tt MPI\_Barrier()}.
+   
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  integer:: mpic
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  integer:: mpic2
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  call ESMF_VMGet(vm, mpiCommunicator=mpic, rc=rc)
+  ! The returned MPI communicator spans the same MPI processes that the VM
+  ! is defined on.
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  call MPI_Comm_dup(mpic, mpic2, ierr)
+  ! Duplicate the MPI communicator not to interfere with ESMF communications.
+  ! The duplicate MPI communicator can be used in any MPI call in the user
+  ! code. Here the MPI_Barrier() routine is called.
+  call MPI_Barrier(mpic2, ierr)
+ 
+\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

@@ -1,0 +1,338 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_SciComp.F90,  Date: Tue May  5 21:00:10 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_SciCompAssignment(=)] {ESMF\_SciCompAssignment(=) - SciComp assignment}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     interface assignment(=)
+     scicomp1 = scicomp2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_SciComp) :: scicomp1
+     type(ESMF_SciComp) :: scicomp2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Assign scicomp1 as an alias to the same ESMF SciComp object in memory
+     as scicomp2. If scicomp2 is invalid, then scicomp1 will be equally 
+     invalid after the assignment.
+  
+     The arguments are:
+     \begin{description}
+     \item[scicomp1]
+       The {\tt ESMF\_SciComp} object on the left hand side of the assignment.
+     \item[scicomp2]
+       The {\tt ESMF\_SciComp} object on the right hand side of the assignment.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_SciCompOperator(==)] {ESMF\_SciCompOperator(==) - SciComp equality operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(==)
+     if (scicomp1 == scicomp2) then ... endif
+               OR
+     result = (scicomp1 == scicomp2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_SciComp), intent(in) :: scicomp1
+     type(ESMF_SciComp), intent(in) :: scicomp2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Test whether scicomp1 and scicomp2 are valid aliases to the same ESMF
+     SciComp object in memory. For a more general comparison of two ESMF 
+     SciComps, going beyond the simple alias test, the ESMF\_SciCompMatch() 
+     function (not yet implemented) must be used.
+  
+     The arguments are:
+     \begin{description}
+     \item[scicomp1]
+       The {\tt ESMF\_SciComp} object on the left hand side of the equality
+       operation.
+     \item[scicomp2]
+       The {\tt ESMF\_SciComp} object on the right hand side of the equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_SciCompOperator(/=)] {ESMF\_SciCompOperator(/=) - SciComp not equal operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   interface operator(/=)
+     if (scicomp1 /= scicomp2) then ... endif
+               OR
+     result = (scicomp1 /= scicomp2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_SciComp), intent(in) :: scicomp1
+     type(ESMF_SciComp), intent(in) :: scicomp2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Test whether scicomp1 and scicomp2 are {\it not} valid aliases to the
+     same ESMF SciComp object in memory. For a more general comparison of two 
+     ESMF SciComps, going beyond the simple alias test, the ESMF\_SciCompMatch()
+     function (not yet implemented) must be used.
+  
+     The arguments are:
+     \begin{description}
+     \item[scicomp1]
+       The {\tt ESMF\_SciComp} object on the left hand side of the non-equality
+       operation.
+     \item[scicomp2]
+       The {\tt ESMF\_SciComp} object on the right hand side of the non-equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_SciCompCreate] {ESMF\_SciCompCreate - Create a SciComp}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   recursive function ESMF_SciCompCreate(name, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_SciComp) :: ESMF_SciCompCreate\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim} -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     character(len=*),        intent(in),    optional :: name
+     integer,                 intent(out),   optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   This interface creates an {\tt ESMF\_SciComp} object. 
+   The return value is the new {\tt ESMF\_SciComp}.
+     
+   The arguments are:
+   \begin{description}
+   \item[{[name]}]
+     Name of the newly-created {\tt ESMF\_SciComp}.  This name can be altered
+     from within the {\tt ESMF\_SciComp} code once the initialization routine
+     is called.
+   \item[{[rc]}]
+     Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_SciCompDestroy] {ESMF\_SciCompDestroy - Release resources associated with a SciComp}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_SciCompDestroy(scicomp, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_SciComp), intent(inout)           :: scicomp
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,             intent(out),  optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   Destroys an {\tt ESMF\_SciComp}, releasing the resources associated
+   with the object.
+  
+   The arguments are:
+   \begin{description}
+   \item[scicomp]
+     Release all resources associated with this {\tt ESMF\_SciComp}
+     and mark the object as invalid.  It is an error to pass this
+     object into any other routines after being destroyed.
+   \item[{[rc]}]
+     Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_SciCompGet] {ESMF\_SciCompGet - Get SciComp information}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_SciCompGet(scicomp, name, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_SciComp),       intent(in)            :: scicomp
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     character(len=*),         intent(out), optional :: name
+     integer,                  intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   Get information about an {\tt ESMF\_SciComp} object.
+    
+   The arguments are:
+   \begin{description}
+   \item[scicomp]
+     The {\tt ESMF\_SciComp} object being queried.
+   \item[{[name]}]
+     Return the name of the {\tt ESMF\_SciComp}.
+   \item[{[rc]}]
+     Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_SciCompIsCreated] {ESMF\_SciCompIsCreated - Check whether a SciComp object has been created}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function ESMF_SciCompIsCreated(scicomp, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: ESMF_SciCompIsCreated\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_SciComp), intent(in)            :: scicomp
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,             intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return {\tt .true.} if the {\tt scicomp} has been created. Otherwise return
+     {\tt .false.}. If an error occurs, i.e. {\tt rc /= ESMF\_SUCCESS} is
+     returned, the return value of the function will also be {\tt .false.}.
+  
+   The arguments are:
+     \begin{description}
+     \item[scicomp]
+       {\tt ESMF\_SciComp} queried.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_SciCompPrint] {ESMF\_SciCompPrint - Print SciComp information}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_SciCompPrint(scicomp, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_SciComp), intent(in)             :: scicomp
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,             intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   Prints information about an {\tt ESMF\_SciComp} to {\tt stdout}. \\
+  
+   The arguments are:
+   \begin{description}
+   \item[scicomp]
+     {\tt ESMF\_SciComp} to print.
+   \item[{[rc]}]
+     Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_SciCompSet] {ESMF\_SciCompSet - Set or reset information about the SciComp}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_SciCompSet(scicomp, name, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_SciComp), intent(inout)          :: scicomp
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     character(len=*),    intent(in),  optional :: name
+     integer,             intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   Sets or resets information about an {\tt ESMF\_SciComp}.
+  
+   The arguments are:
+   \begin{description}
+   \item[scicomp]
+     {\tt ESMF\_SciComp} to change.
+   \item[{[name]}]
+     Set the name of the {\tt ESMF\_SciComp}.
+   \item[{[rc]}]
+     Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_SciCompValidate] {ESMF\_SciCompValidate - Check validity of a SciComp}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   subroutine ESMF_SciCompValidate(scicomp, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_SciComp), intent(in)             :: scicomp
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,             intent(out), optional :: rc\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+   Currently all this method does is to check that the {\tt scicomp}
+   was created.
+  
+   The arguments are:
+   \begin{description}
+   \item[scicomp]
+     {\tt ESMF\_SciComp} to validate.
+   \item[{[rc]}]
+     Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

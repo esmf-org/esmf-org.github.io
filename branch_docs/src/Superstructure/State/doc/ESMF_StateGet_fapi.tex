@@ -1,0 +1,100 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_StateGet.F90,  Date: Tue May  5 21:00:08 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_StateGetDataPointer] {ESMF\_StateGetDataPointer - Retrieve Fortran pointer directly from a State }
+
+
+   
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   ! Private name; call using ESMF_StateGetDataPointer() 
+   subroutine ESMF_StateGetDataPointer<rank><type><kind>(state, itemName, 
+   dataPointer, datacopyflag, nestedStateName, rc) 
+   \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   type(ESMF_State), intent(in) :: state 
+   character(len=*), intent(in) :: itemName 
+   <type> (ESMF_KIND_<kind>), dimension(<rank>), pointer :: dataPointer 
+   type(ESMF_DataCopy_Flag), intent(in), optional :: datacopyflag 
+   character(len=*), intent(in), optional :: nestedStateName 
+   integer, intent(out), optional :: rc 
+   
+   \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize} 
+   \item\apiStatusCompatibleVersion{5.2.0r} 
+   \end{itemize} 
+   
+{\sf DESCRIPTION:\\ }
+
+ 
+   Retrieves data from a state, returning a direct Fortran pointer to 
+   the data array. 
+   Valid type/kind/rank combinations supported by the 
+   framework are: ranks 1 to 7, type real of kind *4 or *8, 
+   and type integer of kind *1, *2, *4, or *8. 
+   
+   The arguments are: 
+   \begin{description} 
+   \item[state] 
+   The {\tt ESMF\_State} to query. 
+   \item[itemName] 
+   The name of the FieldBundle, Field, or Array to return data from. 
+   \item[dataPointer] 
+   An unassociated Fortran pointer of the proper Type, Kind, and Rank as the data 
+   in the State. When this call returns successfully, the pointer will now reference 
+   the data in the State. This is either a reference or a copy, depending on the 
+   setting of the following argument. The default is to return a reference. 
+   \item[{[datacopyflag]}] 
+   Defaults to {\tt ESMF\_DATACOPY\_REFERENCE}. If set to {\tt ESMF\_DATACOPY\_VALUE}, a separate 
+   copy of the data will be made and the pointer will point at the copy. 
+   \item[{[nestedStateName]}] 
+   Optional. If multiple states are present, a specific state name must be given. 
+   \item[{[fieldName]}] 
+   Optional. If {\tt itemName} refers to a fieldbundle then the name of the field 
+   in the fieldbundle must also be given. 
+   \item[{[rc]}] 
+   Return code; equals {\tt ESMF\_SUCCESS} if there are no errors. 
+   \end{description} 
+   
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

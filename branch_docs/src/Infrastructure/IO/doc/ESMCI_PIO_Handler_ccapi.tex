@@ -1,0 +1,506 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_PIO\_Handler.C,  Date: Tue May  5 20:59:46 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMCI::PIO\_Handler::initialize] {ESMCI::PIO\_Handler::initialize}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void PIO_Handler::initialize (\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   int comp_rank,                        // (in)  - local PE rank
+   MPI_Comm comp_comm,                   // (in)  - MPI communicator for IO
+   int num_iotasks,                      // (in)  - Number of IO tasks
+   int num_aggregator,                   // (in)  - MPI aggregator count
+   int stride,                           // (in)  - IO task stride
+   int rearr,                            // (in)  - rearrangement type
+   int *base_p,                          // (in)  - base option (IO task offset)
+   int *rc                               // (out) - Error return code
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Create an active, initialized PIO instance.
+      PIO is initialized based on the input arguments. However, if a
+      compatible PIO iosystem is already initialized, then nothing is done.
+      This is a collective call. Input parameters are read on comp_rank=0,
+      values on other tasks are ignored. ALL PEs which will be participating
+      in future I/O calls with this instance must participate in the call.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::initializeVM] {ESMCI::PIO\_Handler::initializeVM}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int PIO_Handler::initializeVM (void\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Create an active, initialized PIO instance.
+      PIO is initialized based on defaults gleaned from the VM. However, if a
+      compatible PIO iosystem is already initialized, then nothing is done.
+      This is a collective call. Input parameters are read on comp_rank=0,
+      values on other tasks are ignored. ALL PEs which will be participating
+      in future I/O calls with this instance must participate in the call.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::finalize] {ESMCI::PIO\_Handler::finalize}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void PIO_Handler::finalize (\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   int *rc                                 // (out) - Error return code
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Tear down all active, initialized PIO instances.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::isPioInitialized] {ESMCI::PIO\_Handler::isPioInitialized}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} ESMC_Logical PIO_Handler::isPioInitialized (void\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    ESMC_Logical ESMF_TRUE if PIO is initialized, ESMF_FALSE otherwise\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Indicate whether or not PIO has been initialized.
+      NB: This does not guarantee that the initialization is appropriate
+          for the desired I/O operations.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::PIO\_Handler] {ESMCI::PIO\_Handler::PIO\_Handler - constructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} PIO_Handler::PIO_Handler(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ESMC_IOFmt_Flag fmtArg,                 // (in)  - File format for PIO to use
+   int *rc                                 // (out) - Error return code
+   ) : IO_Handler(fmtArg) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Construct the internal information structure of an ESMCI::PIO_Handler
+      object.
+      No error checking wrt consistency of input arguments is needed because
+      the PIO_Handler constructor is only to be called by IO_Handler::create()
+      interfaces which are responsible for providing consistent arguments
+      to this layer.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::destruct] {ESMCI::PIO\_Handler::destruct - tear down PIO handler}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void PIO_Handler::destruct (void\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Close any open files and recover resources.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::arrayRead] {ESMCI::PIO\_Handler::arrayRead - Read an array from a file}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void PIO_Handler::arrayRead(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   Array *arr_p,                           // (inout) - Destination of read
+   const char * const name,                // (in)    - Optional array name
+   int *timeslice,                         // (in)    - Optional timeslice
+   int *rc                                 // (out)   - Error return code
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Read data from field <name> from the open file. If timeslice is not
+      NULL, it should point to an integer representing the timeslice to read
+      from the Array.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::arrayWrite] {ESMCI::PIO\_Handler::arrayWrite - Write an Array to a file}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void PIO_Handler::arrayWrite(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   Array *arr_p,                           // (in) Destination of write
+   const char * const name,                // (in) Optional array name
+   const std::vector<std::string> &dimLabels, // (in) Optional dimension labels
+   int *timeslice,                         // (in) Optional timeslice
+   const Attribute *varAttPack,            // (in) Optional per-variable Attribute Package
+   const Attribute *gblAttPack,            // (in) Optional global Attribute Package
+   int *rc                                 // (out) - Error return code
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Call the appropriate PIO write_darray_<rank>_<typekind> function
+      It is an error if this handler object does not have an open 
+      PIO file descriptor and a valid PIO IO descriptor (these items should
+      all be in place after a successful call to PIO_Handler::open).
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::open] {ESMCI::PIO\_Handler::open - open a stream with stored filename}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void PIO_Handler::open(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   bool readonly,                       // (in)  - if false, then read/write
+   int *rc                              // (out) - Error return code
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Open a file for reading and/or writing.
+      PIO must be initialized for this routine to succeed (ESMF_RC_INTNRL_BAD)
+      It is an error if a file is already open (ESMF_RC_FILE_OPEN)
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::attPackPut] {ESMCI::PIO\_Handler::attPackPut}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void PIO_Handler::attPackPut (\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim} \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   pio_var_desc_t vardesc,                 // (in) - variable to write attributes into, NULL for global
+   const Attribute *attPack,               // (in) - AttPack containing name/value(s) pairs
+   int *rc                                 // (out) - Error return code
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Puts the Attributes and their values into the NetCDF file.  If vardesc is NULL, the
+      attribute will be considered a global attribute.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::isOpen] {ESMCI::PIO\_Handler::isOpen - Determine is a file is open}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} ESMC_Logical PIO_Handler::isOpen(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}    ESMC_Logical ESMF_TRUE if a file is open, ESMF_FALSE otherwise\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Determine if a file is open returning ESMF_TRUE if a file is open,
+      ESMF_FALSE otherwise
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::flush] {ESMCI::PIO\_Handler::flush - Flush any pending I/O operations}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void PIO_Handler::flush(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   int *rc                                 // (out) - Error return code
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      xxx
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::close] {ESMCI::PIO\_Handler::close - Close an open file}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void PIO_Handler::close(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   int *rc                                 // (out) - Error return code
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Close the open file (if any).
+      It is not an error if no file is open
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::getIODesc] {ESMCI::PIO\_Handler::getIODesc - Find or create an IO descriptor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   pio_io_desc_t PIO_Handler::getIODesc(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      pio_io_desc_t PIO IO descriptor\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   pio_iosystem_desc_t iosys,          // (in)  - PIO system handle to use
+   Array *arr_p,                       // (in)  - Array for IO decompomposition
+   int ** ioDims,                      // (out) - Array shape for IO
+   int *nioDims,                       // (out) - Rank of Array IO
+   int ** arrDims,                     // (out) - Array shape for IO
+   int *narrDims,                      // (out) - Rank of Array IO
+   int *basepiotype,                   // (out) - Data type for IO
+   int *rc                             // (out) - Error return code
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Find or create an appropriate PIO I/O Descriptor and return it.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_Handler::CheckPIOError] {ESMCI::PIO\_Handler::CheckPIOError}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} bool PIO_Handler::CheckPIOError(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      bool true if it is OK to continue (false = error condition)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   int pioRetCode,                        // (in)  - Return code to check
+   int line,                              // (in)  - Line containing error
+   const char * const file,               // (in)  - File containing error
+   const char * const method,             // (in)  - ESMC_METHOD
+   const std::string &fmtStr,             // (in)  - Optional error string
+   int rc_code,                           // (in)  - Default return code on error
+   int *rc,                               // (out) - Error return code
+   bool warn                              // (in)  - warn instead of error
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Log an error (if an error condition is indicated by pioRetCode)
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_IODescHandler::~PIO\_IODescHandler] {ESMCI::PIO\_IODescHandler::~PIO\_IODescHandler}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} PIO_IODescHandler::~PIO_IODescHandler (\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Tear down active, initialized PIO IO Descriptor and free memory
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_IODescHandler::finalize] {ESMCI::PIO\_IODescHandler::finalize}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} void PIO_IODescHandler::finalize (\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Tear down all active, initialized PIO IO Descriptors.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_IODescHandler::constructPioDecomp] {ESMCI::PIO\_IODescHandler::constructPioDecomp - New Decomposition}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int PIO_IODescHandler::constructPioDecomp(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   pio_iosystem_desc_t iosys,          // (in)  - PIO system handle to use
+   Array *arr_p,                       // (in)  - Array for IO decompomposition
+   pio_io_desc_t *newDecomp_p          // (out) - New decomposition descriptor
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Gather the necessary information the input array and call PIO_initdecomp.
+      The result is a new decomposition descriptor which is used in the
+       PIO read/write calls.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_IODescHandler::freePioDecomp] {ESMCI::PIO\_IODescHandler::freePioDecomp - Delete Decomposition}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int PIO_IODescHandler::freePioDecomp(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   pio_io_desc_t *decomp_p             // (inout) - PIO decomp desc to free
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Free a PIO I/O decomposition structure and remove it from the
+      active instances.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_IODescHandler::getDims] {ESMCI::PIO\_IODescHandler::getDims}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int PIO_IODescHandler::getDims(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      Return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   const pio_io_desc_t &iodesc,    // (in)  - The IO descriptor
+   int * nioDims,                  // (out) - The number of IO dimensions
+   int ** ioDims,                  // (out) - Array of dimensions (shape) for IO
+   int * narrDims,                 // (out) - The array's rank
+   int ** arrDims                  // (out) - The array's shape
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Return a pointer to the array of dimensions (shape) for the IO descriptor
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_IODescHandler::getIOType] {ESMCI::PIO\_IODescHandler::getIOType}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} int PIO_IODescHandler::getIOType(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int IO type (e.g., PIO_int)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   const pio_io_desc_t &iodesc,            // (in)  - The IO descriptor
+   int *rc                                 // (out) - Error return code
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Return the IO type descriptor (e.g., PIO_int)
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [ESMCI::PIO\_IODescHandler::getIODesc] {ESMCI::PIO\_IODescHandler::getIODesc}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} pio_io_desc_t PIO_IODescHandler::getIODesc(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      pio_io_desc_t Pointer to the IODescHandler matching the IO system and
+                    array\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}   pio_iosystem_desc_t iosys,              // (in)  - The PIO IO system
+   Array *arrayArg,                        // (in)  - The IO descriptor
+   int *rc                                 // (out) - Error return code
+   ) {\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Return a pointer to an appropriate PIO IO descriptor
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

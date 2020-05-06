@@ -1,0 +1,142 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_VMDefaultBasicsEx.F90,  Date: Tue May  5 20:59:29 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+  
+   \subsubsection{Global VM}
+  
+   This complete example program demonstrates the simplest ESMF application, 
+   consisting of only a main program without any Components. The global
+   VM, which is automatically created during the {\tt ESMF\_Initialize()} call,
+   is obtained using two different methods. First the global VM will be returned
+   by {\tt ESMF\_Initialize()} if the optional {\tt vm} argument is specified.
+   The example uses the VM object obtained this way to call the VM print method.
+   Second, the global VM can be obtained anywhere in the user application using
+   the {\tt ESMF\_VMGetGlobal()} call. The identical VM is returned and several
+   VM query methods are called to inquire about the associated resources.
+   
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+program ESMF_VMDefaultBasicsEx
+#include "ESMF.h"
+
+  use ESMF
+  use ESMF_TestMod
+  
+  implicit none
+  
+  ! local variables
+  integer:: rc
+  type(ESMF_VM):: vm
+  integer:: localPet, petCount, peCount, ssiId, vas
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  call ESMF_Initialize(vm=vm, defaultlogfilename="VMDefaultBasicsEx.Log", &
+                    logkindflag=ESMF_LOGKIND_MULTI, rc=rc)
+  ! Providing the optional vm argument to ESMF_Initialize() is one way of
+  ! obtaining the global VM.
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  call ESMF_VMPrint(vm, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  call ESMF_VMGetGlobal(vm=vm, rc=rc)
+  ! Calling ESMF_VMGetGlobal() anywhere in the user application is the other
+  ! way to obtain the global VM object.
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  call ESMF_VMGet(vm, localPet=localPet, petCount=petCount, peCount=peCount, &
+    rc=rc)
+  ! The VM object contains information about the associated resources. If the
+  ! user code requires this information it must query the VM object.
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  print *, "This PET is localPet: ", localPet
+  print *, "of a total of ",petCount," PETs in this VM."
+  print *, "There are ", peCount," PEs referenced by this VM"
+
+  call ESMF_VMGet(vm, localPet, peCount=peCount, ssiId=ssiId, vas=vas, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  print *, "This PET is executing in virtual address space (VAS) ", vas
+  print *, "located on single system image (SSI) ", ssiId
+  print *, "and is associated with ", peCount, " PEs."
+
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+end program
+ 
+\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

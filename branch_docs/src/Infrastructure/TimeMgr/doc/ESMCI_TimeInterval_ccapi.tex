@@ -1,0 +1,987 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMCI\_TimeInterval.C,  Date: Tue May  5 20:59:33 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [TimeInterval::set] {TimeInterval::set - initializer to support F90 interface}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int TimeInterval::set(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_I4 *yy,        // in - integer number of interval years
+                                //                           (>= 32-bit)
+       ESMC_I8 *yy_i8,     // in - integer number of interval years
+                                //                           (large, >= 64-bit)
+       ESMC_I4 *mm,        // in - integer number of interval months
+                                //                           (>= 32-bit)
+       ESMC_I8 *mm_i8,     // in - integer number of interval months
+                                //                           (large, >= 64-bit)
+       ESMC_I4 *d,         // in - integer number of interval days
+                                //                           (>= 32-bit)
+       ESMC_I8 *d_i8,      // in - integer number of interval days
+                                //                           (large, >= 64-bit)
+       ESMC_I4 *h,         // in - integer hours
+       ESMC_I4 *m,         // in - integer minutes
+       ESMC_I4 *s,         // in - integer seconds (>= 32-bit)
+       ESMC_I8 *s_i8,      // in - integer seconds (large, >= 64-bit)
+       ESMC_I4 *ms,        // in - integer milliseconds
+       ESMC_I4 *us,        // in - integer microseconds
+       ESMC_I4 *ns,        // in - integer nanoseconds
+       ESMC_R8 *d_r8,      // in - floating point days
+       ESMC_R8 *h_r8,      // in - floating point hours
+       ESMC_R8 *m_r8,      // in - floating point minutes
+       ESMC_R8 *s_r8,      // in - floating point seconds
+       ESMC_R8 *ms_r8,     // in - floating point milliseconds
+       ESMC_R8 *us_r8,     // in - floating point microseconds
+       ESMC_R8 *ns_r8,     // in - floating point nanoseconds
+       ESMC_I4 *sN,        // in - fractional seconds numerator
+       ESMC_I8 *sN_i8,     // in - fractional seconds numerator
+                           //                                 (large, >= 64-bit)
+       ESMC_I4 *sD,        // in - fractional seconds denominator
+       ESMC_I8 *sD_i8,     // in - fractional seconds denominator
+                           //                                 (large, >= 64-bit)
+       Time *startTime,    // in - starting time for absolute calendar
+                                //      interval
+       Time *endTime,      // in - ending time for absolute calendar
+                                //      interval
+       Calendar **calendar, // in - calendar for calendar interval
+       ESMC_CalKind_Flag *calkindflag) { // in - calendar kind for calendar interval\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initialzes a {\tt ESMC\_TimeInterval} with values given in F90
+        variable arg list.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::get] {TimeInterval::get - Get a TimeInterval value; supports F90 interface}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int TimeInterval::get(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_I4 *yy,         // out - integer number of interval years
+                                 //                           (>= 32-bit)
+       ESMC_I8 *yy_i8,      // out - integer number of interval years
+                                 //                           (large, >= 64-bit)
+       ESMC_I4 *mm,         // out - integer number of interval months
+                                 //                           (>= 32-bit)
+       ESMC_I8 *mm_i8,      // out - integer number of interval months
+                                 //                           (large, >= 64-bit)
+       ESMC_I4 *d,          // out - integer number of interval days
+                                 //                           (>= 32-bit)
+       ESMC_I8 *d_i8,       // out - integer number of interval days
+                                 //                           (large, >= 64-bit)
+       ESMC_I4 *h,          // out - integer hours
+       ESMC_I4 *m,          // out - integer minutes
+       ESMC_I4 *s,          // out - integer seconds (>= 32-bit)
+       ESMC_I8 *s_i8,       // out - integer seconds (large, >= 64-bit)
+       ESMC_I4 *ms,         // out - integer milliseconds
+       ESMC_I4 *us,         // out - integer microseconds
+       ESMC_I4 *ns,         // out - integer nanoseconds
+       ESMC_R8 *d_r8,       // out - floating point days
+       ESMC_R8 *h_r8,       // out - floating point hours
+       ESMC_R8 *m_r8,       // out - floating point minutes
+       ESMC_R8 *s_r8,       // out - floating point seconds
+       ESMC_R8 *ms_r8,      // out - floating point milliseconds
+       ESMC_R8 *us_r8,      // out - floating point microseconds
+       ESMC_R8 *ns_r8,      // out - floating point nanoseconds
+       ESMC_I4 *sN,         // out - fractional seconds numerator
+       ESMC_I8 *sN_i8,      // out - fractional seconds numerator
+                            //                                (large, >= 64-bit)
+       ESMC_I4 *sD,         // out - fractional seconds denominator
+       ESMC_I8 *sD_i8,      // out - fractional seconds denominator
+                            //                                (large, >= 64-bit)
+       Time *startTime,     // out - starting time of absolute calendar
+                                 //       interval
+       Time *endTime,       // out - ending time of absolute calendar
+                                 //       interval
+       Calendar **calendar, // out - calendar of calendar interval
+       ESMC_CalKind_Flag *calkindflag,  // out - calendar kind of
+                                        //       calendar interval
+       Time *startTimeIn,   // in  - starting time for calendar interval
+                                 //       unit conversions
+       Time *endTimeIn,     // in  - ending time for calendar interval
+                                 //       unit conversions
+       Calendar **calendarIn, // in  - calendar for calendar interval
+                                   //       unit conversions
+       ESMC_CalKind_Flag *calkindflagIn,  // in  - calendar kind for calendar
+                                          //       interval unit conversions
+       int   timeStringLen,             // in  - F90 time string size
+       int  *tempTimeStringLen,         // out - temp F90 time string size
+       char *tempTimeString,            // out - hybrid format
+                                        //       PyYmMdDThHmMs[:n/d]S
+       int   timeStringLenISOFrac,          // in  - F90 ISO time string size
+       int  *tempTimeStringLenISOFrac,      // out - tmp F90 ISO time string size
+       char *tempTimeStringISOFrac) const { // out - ISO 8601 format
+                                        //       PyYmMdDThHmMs[.f]S\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt ESMC\_TimeInterval}'s values in user-specified format.
+        This version supports the F90 interface.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::set] {TimeInterval::set - Set a TimeInterval value}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}        int TimeInterval::set(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}        const char *timeList,    // in - time interval value specifier string
+        ...) {                   // in - specifier values (variable args)\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Sets a {\tt ESMC\_TimeInterval}'s values in user-specified values.
+        Supports native C++ use.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::get] {TimeInterval::get - Get a TimeInterval value}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}        int TimeInterval::get(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}        const char *timeList,    // in  - time interval value specifier string
+        ...) const {             // out - specifier values (variable args)\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt ESMC\_TimeInterval}'s values in user-specified format.
+        Supports native C++ use.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::set] {TimeInterval::set - direct property initializer}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int TimeInterval::set(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_I8 s,            // in - integer seconds
+       ESMC_I8 sN,           // in - fractional seconds, numerator
+       ESMC_I8 sD,           // in - fractional seconds, denominator
+       ESMC_I8 yy,           // in - calendar interval number of years
+       ESMC_I8 mm,           // in - calendar interval number of months
+       ESMC_I8 d,            // in - calendar interval number of integer days
+       ESMC_R8 d_r8,         // in - calendar interval number of real days
+       Time *startTime,      // in - interval startTime
+       Time *endTime,        // in - interval endTime
+       Calendar *calendar,   // in - associated calendar
+       ESMC_CalKind_Flag calkindflag) { // in - associated calendar kind\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initialzes a {\tt TimeInterval} with given values.  Used to avoid
+        constructor to cover case when initial entry is from F90, since
+        destructor is called automatically when leaving scope to return to F90.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::absValue] {TimeInterval::absValue - Get a Time Interval's absolute value}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::absValue(void) const{\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt ESMC\_TimeInterval}'s absolute value
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::negAbsValue] {TimeInterval::negAbsValue - Return a Time Interval's negative absolute value}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::negAbsValue(void) const {\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Returns a {\tt ESMC\_TimeInterval}'s negative absolute value
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [TimeInterval::absValue] {TimeInterval::absValue - TimeInterval absolute value common method}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::absValue(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_AbsValueType absValueType) const { // in - positive or negative type\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Captures common logic for performing positive or negative
+        absolute value on this time interval.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(/)] {TimeInterval(/) - Divide two time intervals, return double precision result}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       ESMC_R8 TimeInterval::operator/(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      ESMC_R8 result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //        to divide by\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Returns this time interval divided by given time interval as a ESMC_R8
+      precision quotient.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(/)] {TimeInterval(/) - Divide time interval by an integer, return time interval result}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::operator/(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const ESMC_I4 &divisor) const {   // in - integer divisor\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Divides a {\tt ESMC\_TimeInterval} by an integer divisor,
+      returns quotient as a {\tt ESMC\_TimeInterval}.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(/=)] {TimeInterval(/=) - Divide time interval by an integer}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval& TimeInterval::operator/=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval& result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const ESMC_I4 &divisor) {   // in - integer divisor\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Divides a {\tt ESMC\_TimeInterval} by an integer divisor
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(/)] {TimeInterval(/) - Divide time interval by a double precision, return time interval result}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::operator/(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const ESMC_R8 &divisor) const {   // in - double precision divisor\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Divides a {\tt ESMC\_TimeInterval} by an ESMC_R8 divisor,
+      returns quotient as a {\tt ESMC\_TimeInterval}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(/=)] {TimeInterval(/=) - Divide time interval by a double precision}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval& TimeInterval::operator/=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval& result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const ESMC_R8 &divisor) {   // in - double precision divisor\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Divides a {\tt ESMC\_TimeInterval} by a double precision divisor
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::div] {TimeInterval::div - Divide two time intervals, return fraction result}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       Fraction TimeInterval::div(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      Fraction result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //        to divide by\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Returns this time interval divided by given time interval as a fractional
+      quotient.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(\%)] {TimeInterval(\%) - Divide two time intervals, return time interval remainder}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::operator%(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //        to modulo by\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Returns this time interval modulo by given time interval as a 
+      {\tt ESMC\_TimeInterval}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(\%=)] {TimeInterval(\%=) - Takes the modulus of two time intervals}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval& TimeInterval::operator%=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval& result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) {  // in - TimeInterval
+                                                 //        to modulo by\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Returns this time interval modulo by given time interval
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(*)] {TimeInterval(*) - Multiply a time interval by an integer}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::operator*(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const ESMC_I4 &multiplier) const {   // in - integer multiplier\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Multiply a {\tt ESMC\_TimeInterval} by an integer, return product as a
+      {\tt ESMC\_TimeInterval}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(*)] {TimeInterval(*) - Multiply a time interval by an integer}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval operator*(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const ESMC_I4 &multiplier,  // in - integer multiplier
+       const TimeInterval &ti) {   // in - TimeInterval multiplicand\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Multiply a {\tt ESMC\_TimeInterval} by an integer, return product as a
+      {\tt ESMC\_TimeInterval}.  Commutative complement to member operator*
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(*=)] {TimeInterval(*=) - Multiply a time interval by an integer}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval& TimeInterval::operator*=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval& result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const ESMC_I4 &multiplier) {   // in - integer multiplier\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Multiply a {\tt ESMC\_TimeInterval} by an integer
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(*)] {TimeInterval(*) - Multiply a time interval by an fraction}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::operator*(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const Fraction &multiplier) const {   // in - fraction multiplier\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Multiply a {\tt ESMC\_TimeInterval} by an fraction, return product as a
+      {\tt ESMC\_TimeInterval}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(*)] {TimeInterval(*) - Multiply a time interval by an fraction}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval operator*(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const Fraction &multiplier, // in - fraction multiplier
+       const TimeInterval &ti) {   // in - TimeInterval multiplicand\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Multiply a {\tt ESMC\_TimeInterval} by an fraction, return product as a
+      {\tt ESMC\_TimeInterval}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(*=)] {TimeInterval(*=) - Multiply a time interval by an fraction}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval& TimeInterval::operator*=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval& result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const Fraction &multiplier) {   // in - fraction multiplier\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Multiply a {\tt ESMC\_TimeInterval} by a fraction
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(*)] {TimeInterval(*) - Multiply a time interval by a double precision}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::operator*(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const ESMC_R8 &multiplier) const {   // in - double precision
+                                                  //   multiplier\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Multiply a {\tt ESMC\_TimeInterval} by an double precision,
+       return product as a {\tt ESMC\_TimeInterval}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(*)] {TimeInterval(*) - Multiply a time interval by a double precision}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval operator*(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const ESMC_R8 &multiplier,  // in - double precision
+       const TimeInterval &ti) {   // in - TimeInterval multiplicand
+                                                  //   multiplier\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Multiply a {\tt ESMC\_TimeInterval} by an double precision,
+       return product as a {\tt ESMC\_TimeInterval}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(*=)] {TimeInterval(*=) - Multiply a time interval by a double precision}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval& TimeInterval::operator*=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval& result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const ESMC_R8 &multiplier) {   // in - double precision multiplier\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Multiply a {\tt ESMC\_TimeInterval} by a double precision
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(+)] {TimeInterval(+) - Sum of two TimeIntervals}
+
+
+      
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::operator+(
+      \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result
+      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //      to add\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Adds given {\tt timeinterval} expression to this {\tt timeinterval}.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(-)] {TimeInterval(-) - Difference between two TimeIntervals}
+
+
+      
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::operator-(
+      \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result
+      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //      to subtract\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Subtracts given {\tt timeinterval} expression from this 
+      {\tt timeinterval}.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(-)] {TimeInterval(-) - Unary negation of a TimeInterval}
+
+
+      
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval TimeInterval::operator-(void) const {
+      \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval result
+      \end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Negates this {\tt timeinterval} and returns the result.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(==)] {TimeInterval(==) - TimeInterval equality comparison}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       bool TimeInterval::operator==(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      bool result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //      to compare\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Compare for equality the current object's (this)
+        {\tt ESMC\_TimeInterval} with given {\tt ESMC\_TimeInterval},
+        return result.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(!=)] {TimeInterval(!=) - TimeInterval inequality comparison}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       bool TimeInterval::operator!=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      bool result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //      to compare\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Compare for inequality the current object's (this)
+        {\tt ESMC\_TimeInterval} with given {\tt ESMC\_TimeInterval},
+        return result.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(<)] {TimeInterval(<) - TimeInterval less than comparison}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       bool TimeInterval::operator<(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      bool result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //      to compare\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Compare for less than the current object's (this)
+        {\tt ESMC\_TimeInterval} with given {\tt ESMC\_TimeInterval},
+        return result.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(>)] {TimeInterval(>) - TimeInterval greater than comparison}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       bool TimeInterval::operator>(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      bool result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //      to compare\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Compare for greater than the current object's (this)
+        {\tt ESMC\_TimeInterval} with given {\tt ESMC\_TimeInterval},
+        return result.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(<=)] {TimeInterval(<=) - TimeInterval less or equal than comparison}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       bool TimeInterval::operator<=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      bool result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //      to compare\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Compare for less than or equal the current object's (this)
+        {\tt ESMC\_TimeInterval} with given {\tt ESMC\_TimeInterval},
+        return result.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(>=)] {TimeInterval(>=) - TimeInterval greater than or equal comparison}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       bool TimeInterval::operator>=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      bool result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval) const {  // in - TimeInterval
+                                                       //      to compare\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Compare for greater than or equal the current object's (this)
+        {\tt ESMC\_TimeInterval} with given {\tt ESMC\_TimeInterval},
+        return result.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\
+ 
+\subsubsection [TimeInterval::compare] {TimeInterval::compare - TimeInterval comparison common method}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       bool TimeInterval::compare(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      bool result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const TimeInterval &timeinterval,            // in - 2nd to compare
+             ESMC_ComparisonType comparisonType) const { // in - operator type\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Captures common logic for comparing two time intervals, *this and
+        timeinterval.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval(=)] {TimeInterval(=) - copy or assign from Fraction expression}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval& TimeInterval::operator=(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      TimeInterval& result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const Fraction &fraction) {   // in - Fraction to copy\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+      Assign {\tt ESMC\_Fraction} expression to this time interval.
+      Supports inherited operators from {\tt ESMC\_Fraction}.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::readRestart] {TimeInterval::readRestart - restore TimeInterval state}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int TimeInterval::readRestart(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       int          nameLen,   // in
+       const char  *name) {    // in\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        restore {\tt TimeInterval} state for persistence/checkpointing.
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::writeRestart] {TimeInterval::writeRestart - return TimeInterval state}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int TimeInterval::writeRestart(void) const {\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Save {\tt TimeInterval} state for persistence/checkpointing
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::validate] {TimeInterval::validate - validate TimeInterval state}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int TimeInterval::validate(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const char *options) const {    // in - validate options\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        validate {\tt ESMC\_TimeInterval} state for testing/debugging
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::print] {TimeInterval::print - print TimeInterval state}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int TimeInterval::print(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       const char *options) const {    // in - print options\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        print {\tt ESMC\_TimeInterval} state for testing/debugging
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval] {TimeInterval - native default C++ constructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval::TimeInterval(void) {\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initializes an {\tt ESMC\_TimeInterval} with defaults
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval] {TimeInterval - native C++ constructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}      TimeInterval::TimeInterval(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       ESMC_I8 s,             // in - integer seconds
+       ESMC_I8 sN,            // in - fractional seconds, numerator
+       ESMC_I8 sD,            // in - fractional seconds, denominator
+       ESMC_I8 yy,            // in - calendar interval number of years
+       ESMC_I8 mm,            // in - calendar interval number of months
+       ESMC_I8 d,             // in - calendar interval number of days
+       ESMC_R8 d_r8,          // in - calendar interval number of real days
+       Time *startTime,       // in - interval start time
+       Time *endTime,         // in - interval end time
+       Calendar *calendar,    // in - calendar
+       ESMC_CalKind_Flag calkindflag) :   // in - calendar kind\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Initializes a {\tt ESMC\_TimeInterval} via {\tt ESMC\_BaseTime}
+        base class
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [~TimeInterval] {~TimeInterval - native default C++ destructor}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       TimeInterval::~TimeInterval(void) {\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      none\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Default {\tt ESMC\_TimeInterval} destructor
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::getString] {TimeInterval::getString - Get a Time Interval value in string format}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int TimeInterval::getString(\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}       char *timeString, const char *options) const {    // out - time interval
+                                                         //       value in
+                                                         //       string format\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Gets a {\tt ESMC\_TimeInterval}'s value in ISO 8601 string format
+        PyYmMdDThHmMs[:n/d]S (hybrid) (default, options == "")
+        PyYmMdDThHmMs[.f]S   (strict) (options == "isofrac")
+        Supports {\tt ESMC\_TimeIntervalGet()} and
+                 {\tt ESMC\_TimeInterval::print()}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [TimeInterval::reduce] {TimeInterval::reduce - reduce a Time Interval to the smallest and least number of units}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}       int TimeInterval::reduce(void) {\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}      int error return code\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}      none\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+       Determines the magnitude of a given {\tt ESMC\_TimeInterval} by reducing
+       to the smallest and least number of units possible, ideally only seconds.//     Takes into account the time interval's calendar and its start time
+       and/or end time, if set.
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

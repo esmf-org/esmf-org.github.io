@@ -1,0 +1,176 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_VMUserMpiCommMultiEx.F90,  Date: Tue May  5 20:59:29 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+
+  
+   \subsubsection{Multiple concurrent instances of ESMF under separate MPI communicators}
+   \label{vm_multi_instance_esmf}
+  
+   \begin{sloppypar}
+   Multiple instances of ESMF can run concurrently under the same user main 
+   program on separate MPI communicators. The user program first splits
+   {\tt MPI\_COMM\_WORLD} into separate MPI communicators. Each communicator is
+   then used to run a separate ESMF instance by passing it into 
+   {\tt ESMF\_Initialize()} on the appropriate MPI ranks.
+  
+   Care must be taken to set the {\tt defaultlogfilename} to be unique on each
+   ESMF instances. This prevents concurrent ESMF instances from writing to the
+   same log file. 
+   Further, each ESMF instances must call 
+   {\tt ESMF\_Finalize()} with the {\tt endflag=ESMF\_END\_KEEPMPI} option in
+   order to hand MPI control back to the user program. The outer user program is
+   ultimately responsible for destroying the MPI communicators and to cleanly
+   shut down MPI. 
+   \end{sloppypar}
+   
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  ! User code initializes MPI.
+  call MPI_Init(ierr)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  ! User code determines the local rank and overall size of MPI_COMM_WORLD
+  call MPI_Comm_rank(MPI_COMM_WORLD, rank, ierr)
+  call MPI_Comm_size(MPI_COMM_WORLD, size, ierr)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  ! User code prepares different MPI communicators.
+  ! Here a single MPI_Comm_split() call is used to split MPI_COMM_WORLD
+  ! into two non-overlapping communicators:
+  ! One communicator for ranks 0 and 1, and the other for ranks 2 and above.
+  if (rank < 2) then
+    ! first communicator split with color=0
+    call MPI_Comm_split(MPI_COMM_WORLD, 0, 0, esmfComm, ierr)
+  else
+    ! second communicator split with color=1
+    call MPI_Comm_split(MPI_COMM_WORLD, 1, 0, esmfComm, ierr)
+  endif
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  if (rank < 2) then
+    ! Ranks 0 and 1 enter ESMF_Initialize() with the prepared communicator.
+    ! Care is taken to set a unique log file name.
+    call ESMF_Initialize(mpiCommunicator=esmfComm, &
+      defaultlogfilename="VMUserMpiCommMultiEx1.Log", &
+      logkindflag=ESMF_LOGKIND_MULTI, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+    ! Use ESMF here...
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+    ! Finalize ESMF without finalizing MPI. The user application will call
+    ! MPI_Finalize() on all ranks.
+    call ESMF_Finalize(endflag=ESMF_END_KEEPMPI, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  else
+    ! Ranks 2 and above enter ESMF_Initialize() with the prepared communicator.
+    ! Care is taken to set a unique log file name.
+    call ESMF_Initialize(mpiCommunicator=esmfComm, &
+      defaultlogfilename="VMUserMpiCommMultiEx2.Log", &
+      logkindflag=ESMF_LOGKIND_MULTI, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+    ! Use ESMF here...
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+    ! Finalize ESMF without finalizing MPI. The user application will call
+    ! MPI_Finalize() on all ranks.
+    call ESMF_Finalize(endflag=ESMF_END_KEEPMPI, rc=rc)
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  endif
+ 
+\end{verbatim}
+ 
+%/////////////////////////////////////////////////////////////
+
+ \begin{verbatim}
+  ! Free the MPI communicator(s) before finalizing MPI.
+  call MPI_Comm_free(esmfComm, ierr)
+  
+  ! It is the responsibility of the outer user code to finalize MPI.
+  call MPI_Finalize(ierr)
+ 
+\end{verbatim}
+
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}

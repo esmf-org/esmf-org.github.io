@@ -1,0 +1,432 @@
+%                **** IMPORTANT NOTICE *****
+% This LaTeX file has been automatically produced by ProTeX v. 1.1
+% Any changes made to this file will likely be lost next time
+% this file is regenerated from its source. Send questions 
+% to Arlindo da Silva, dasilva@gsfc.nasa.gov
+ 
+\setlength{\oldparskip}{\parskip}
+\setlength{\parskip}{1.5ex}
+\setlength{\oldparindent}{\parindent}
+\setlength{\parindent}{0pt}
+\setlength{\oldbaselineskip}{\baselineskip}
+\setlength{\baselineskip}{11pt}
+ 
+%--------------------- SHORT-HAND MACROS ----------------------
+\def\bv{\begin{verbatim}}
+\def\ev{\end{verbatim}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\bn{\begin{enumerate}}
+\def\en{\end{enumerate}}
+\def\bd{\begin{description}}
+\def\ed{\end{description}}
+\def\({\left (}
+\def\){\right )}
+\def\[{\left [}
+\def\]{\right ]}
+\def\<{\left  \langle}
+\def\>{\right \rangle}
+\def\cI{{\cal I}}
+\def\diag{\mathop{\rm diag}}
+\def\tr{\mathop{\rm tr}}
+%-------------------------------------------------------------
+
+\markboth{Left}{Source File: ESMF\_XGridCreate.F90,  Date: Tue May  5 20:59:57 MDT 2020
+}
+
+ 
+%/////////////////////////////////////////////////////////////
+\subsubsection [ESMF\_XGridAssignment(=)] {ESMF\_XGridAssignment(=) - XGrid assignment}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     interface assignment(=)
+     xgrid1 = xgrid2\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_XGrid) :: xgrid1
+     type(ESMF_XGrid) :: xgrid2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Assign xgrid1 as an alias to the same ESMF XGrid object in memory
+     as xgrid2. If xgrid2 is invalid, then xgrid1 will be equally invalid after
+     the assignment.
+  
+     The arguments are:
+     \begin{description}
+     \item[xgrid1]
+       The {\tt ESMF\_XGrid} object on the left hand side of the assignment.
+     \item[xgrid2]
+       The {\tt ESMF\_XGrid} object on the right hand side of the assignment.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_XGridOperator(==)] {ESMF\_XGridOperator(==) - XGrid equality operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     interface operator(==)
+     if (xgrid1 == xgrid2) then ... endif
+               OR
+     result = (xgrid1 == xgrid2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_XGrid), intent(in) :: xgrid1
+     type(ESMF_XGrid), intent(in) :: xgrid2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Test whether xgrid1 and xgrid2 are valid aliases to the same ESMF
+     XGrid object in memory. For a more general comparison of two ESMF XGrids,
+     going beyond the simple alias test, the ESMF\_XGridMatch() function (not yet
+     implemented) must be used.
+  
+     The arguments are:
+     \begin{description}
+     \item[xgrid1]
+       The {\tt ESMF\_XGrid} object on the left hand side of the equality
+       operation.
+     \item[xgrid2]
+       The {\tt ESMF\_XGrid} object on the right hand side of the equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_XGridOperator(/=)] {ESMF\_XGridOperator(/=) - XGrid not equal operator}
+
+
+  
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}     interface operator(/=)
+     if (xgrid1 /= xgrid2) then ... endif
+               OR
+     result = (xgrid1 /= xgrid2)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: result\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_XGrid), intent(in) :: xgrid1
+     type(ESMF_XGrid), intent(in) :: xgrid2\end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Test whether xgrid1 and xgrid2 are {\it not} valid aliases to the
+     same ESMF XGrid object in memory. For a more general comparison of two ESMF
+     XGrids, going beyond the simple alias test, the ESMF\_XGridMatch() function
+     (not yet implemented) must be used.
+  
+     The arguments are:
+     \begin{description}
+     \item[xgrid1]
+       The {\tt ESMF\_XGrid} object on the left hand side of the non-equality
+       operation.
+     \item[xgrid2]
+       The {\tt ESMF\_XGrid} object on the right hand side of the non-equality
+       operation.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_XGridCreate] {ESMF\_XGridCreate - Create an XGrid from lists of Grids and Meshes}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} 
+ function ESMF_XGridCreate(&
+     sideAGrid,              sideAMesh, &
+     sideBGrid,              sideBMesh, &
+     sideAGridPriority,      sideAMeshPriority, &
+     sideBGridPriority,      sideBMeshPriority, &
+     sideAMaskValues,        sideBMaskValues, &
+     storeOverlay, &
+     name, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}   type(ESMF_XGrid)                           :: ESMF_XGridCreate\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim} -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+   type(ESMF_Grid),      intent(in), optional :: sideAGrid(:)
+   type(ESMF_Mesh),      intent(in), optional :: sideAMesh(:)
+   type(ESMF_Grid),      intent(in), optional :: sideBGrid(:)
+   type(ESMF_Mesh),      intent(in), optional :: sideBMesh(:)
+   integer,              intent(in), optional :: sideAGridPriority(:)
+   integer,              intent(in), optional :: sideAMeshPriority(:)
+   integer,              intent(in), optional :: sideBGridPriority(:)
+   integer,              intent(in), optional :: sideBMeshPriority(:)
+   integer(ESMF_KIND_I4),intent(in), optional :: sideAMaskValues(:)
+   integer(ESMF_KIND_I4),intent(in), optional :: sideBMaskValues(:)
+   logical,              intent(in), optional :: storeOverlay
+   character(len=*),     intent(in), optional :: name
+   integer,              intent(out),optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Create an XGrid from user supplied input: the list of Grids or Meshes on side A and side B, 
+    and other optional arguments. A user can supply both Grids and Meshes on one side to create
+    the XGrid. By default, the Grids have a higher priority over Meshes but the order of priority 
+    can be adjusted by the optional GridPriority and MeshPriority arguments. The priority order
+    of Grids and Meshes can also be interleaved by rearranging the optional 
+    GridPriority and MeshPriority arguments accordingly.
+    
+    Sparse matrix multiplication coefficients are internally computed and
+    uniquely determined by the Grids or Meshes provided in {\tt sideA} and {\tt sideB}. User can supply
+    a single {\tt ESMF\_Grid} or an array of {\tt ESMF\_Grid} on either side of the 
+    {\tt ESMF\_XGrid}. For an array of {\tt ESMF\_Grid} or {\tt ESMF\_Mesh} in {\tt sideA} or {\tt sideB},
+    a merging process concatenates all the {\tt ESMF\_Grid}s and {\tt ESMF\_Mesh}es 
+    into a super mesh represented
+    by {\tt ESMF\_Mesh}. The super mesh is then used to compute the XGrid. 
+    Grid or Mesh objects in {\tt sideA} and {\tt sideB} arguments must have coordinates defined for
+    the corners of a Grid or Mesh cell. XGrid creation can be potentially memory expensive given the
+    size of the input Grid and Mesh objects. By default, the super mesh is not stored
+    to reduce memory usage. 
+    Once communication routehandles are computed using {\tt ESMF\_FieldRegridStore()} method through
+    XGrid, all memory can be released by destroying the XGrid.
+   
+    If {\tt sideA} and {\tt sideB} have a single 
+    Grid or Mesh object, it's erroneous
+    if the two Grids or Meshes are spatially disjoint. 
+    It is also erroneous to specify a Grid or Mesh object in {\tt sideA} or {\tt sideB}
+    that is spatially disjoint from the {\tt ESMF\_XGrid}. 
+  
+    This call is {\em collective} across the current VM. For more details please refer to the description 
+    \ref{sec:xgrid:desc} of the XGrid class. For an example and associated documentation using this method see section 
+    \ref{sec:xgrid:usage:xgrid_create}
+ 
+  
+       The arguments are:
+       \begin{description}
+       \item [{[sideAGrid]}]
+             Parametric 2D Grids on side A, for example, 
+             these Grids can be either Cartesian 2D or Spherical.
+       \item [{[sideAMesh]}]
+             Parametric 2D Meshes on side A, for example, 
+             these Meshes can be either Cartesian 2D or Spherical.
+       \item [{[sideBGrid]}]
+             Parametric 2D Grids on side B, for example, 
+             these Grids can be either Cartesian 2D or Spherical.
+       \item [{[sideBMesh]}]
+             Parametric 2D Meshes on side B, for example, 
+             these Meshes can be either Cartesian 2D or Spherical.
+       \item [{[sideAGridPriority]}]
+             Priority array of Grids on {\tt sideA} during overlay generation.
+             The priority arrays describe the priorities of Grids at the overlapping region.
+             Flux contributions at the overlapping region are computed in the order from the Grid of the
+             highest priority to the lowest priority.
+       \item [{[sideAMeshPriority]}]
+             Priority array of Meshes on {\tt sideA} during overlay generation.
+             The priority arrays describe the priorities of Meshes at the overlapping region.
+             Flux contributions at the overlapping region are computed in the order from the Mesh of the
+             highest priority to the lowest priority.
+       \item [{[sideBGridPriority]}]
+             Priority of Grids on {\tt sideB} during overlay generation
+             The priority arrays describe the priorities of Grids at the overlapping region.
+             Flux contributions at the overlapping region are computed in the order from the Grid of the
+             highest priority to the lowest priority.
+       \item [{[sideBMeshPriority]}]
+             Priority array of Meshes on {\tt sideB} during overlay generation.
+             The priority arrays describe the priorities of Meshes at the overlapping region.
+             Flux contributions at the overlapping region are computed in the order from the Mesh of the
+             highest priority to the lowest priority.
+       \item [{[sideAMaskValues]}]
+             Mask information can be set in the Grid (see~\ref{sec:usage:items}) or Mesh (see~\ref{sec:mesh:mask}) 
+             upon which the {\tt Field} is built. The {\tt sideAMaskValues} argument specifies the values in that 
+             mask information which indicate a point should be masked out. In other words, a location is masked if and only if the
+             value for that location in the mask information matches one of the values listed in {\tt sideAMaskValues}.  
+             If {\tt sideAMaskValues} is not specified, no masking on side A will occur. 
+       \item [{[sideBMaskValues]}]
+             Mask information can be set in the Grid (see~\ref{sec:usage:items}) or Mesh (see~\ref{sec:mesh:mask}) 
+             upon which the {\tt Field} is built. The {\tt sideBMaskValues} argument specifies the values in that 
+             mask information which indicate a point should be masked out. In other words, a location is masked if and only if the
+             value for that location in the mask information matches one of the values listed in {\tt sideBMaskValues}.  
+             If {\tt sideBMaskValues} is not specified, no masking on side B will occur. 
+       \item [{[storeOverlay]}]
+             Setting the {\tt storeOverlay} optional argument to .false. (default) 
+             allows a user to bypass storage of the {\tt ESMF\_Mesh} used to represent the XGrid.
+             Only a {\tt ESMF\_DistGrid} is stored to allow Field to be built on the XGrid.
+             If the temporary mesh object is of interest, {\tt storeOverlay} can be set to .true.
+             so a user can retrieve it for future use.
+       \item [{[name]}]
+             name of the xgrid object.
+       \item [{[rc]}]
+             Return code; equals {\tt ESMF\_SUCCESS} only if the {\tt ESMF\_XGrid} 
+             is created.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_XGridCreateFromSparseMat] {ESMF\_XGridCreateFromSparseMat an XGrid from raw input parameters}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} 
+ function ESMF_XGridCreateFromSparseMat(&
+     sideAGrid,              sideAMesh, &
+     sideBGrid,              sideBMesh, &
+     sideAGridPriority,      sideAMeshPriority, &
+     sideBGridPriority,      sideBMeshPriority, &
+     sparseMatA2X, sparseMatX2A, sparseMatB2X, sparseMatX2B, &
+     area, centroid, &
+     name, &
+     rc) 
+ \end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     type(ESMF_XGrid) :: ESMF_XGridCreateFromSparseMat\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim} -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+ type(ESMF_Grid),      intent(in), optional :: sideAGrid(:)
+ type(ESMF_Mesh),      intent(in), optional :: sideAMesh(:)
+ type(ESMF_Grid),      intent(in), optional :: sideBGrid(:)
+ type(ESMF_Mesh),      intent(in), optional :: sideBMesh(:)
+ integer,              intent(in), optional :: sideAGridPriority(:)
+ integer,              intent(in), optional :: sideAMeshPriority(:)
+ integer,              intent(in), optional :: sideBGridPriority(:)
+ integer,              intent(in), optional :: sideBMeshPriority(:)
+ type(ESMF_XGridSpec), intent(in), optional :: sparseMatA2X(:)
+ type(ESMF_XGridSpec), intent(in), optional :: sparseMatX2A(:)
+ type(ESMF_XGridSpec), intent(in), optional :: sparseMatB2X(:)
+ type(ESMF_XGridSpec), intent(in), optional :: sparseMatX2B(:)
+ real(ESMF_KIND_R8),   intent(in), optional :: area(:)
+ real(ESMF_KIND_R8),   intent(in), optional :: centroid(:,:)
+ character (len=*),    intent(in), optional :: name
+ integer,              intent(out),optional :: rc 
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+        Create an XGrid directly from user supplied sparse matrix parameters. User
+        is responsible to supply all information necessary for communication calculation. 
+        For an example and associated documentation using this method see section 
+        \ref{sec:xgrid:usage:xgrid_createfromsparsemat}
+  
+       The arguments are:
+       \begin{description}
+       \item [{[sideAGrid]}]
+             Parametric 2D Grids on side A, for example, 
+             these Grids can be either Cartesian 2D or Spherical.
+       \item [{[sideAMesh]}]
+             Parametric 2D Meshes on side A, for example, 
+             these Meshes can be either Cartesian 2D or Spherical.
+       \item [{[sideBGrid]}]
+             Parametric 2D Grids on side B, for example, 
+             these Grids can be either Cartesian 2D or Spherical.
+       \item [{[sideBMesh]}]
+             Parametric 2D Meshes on side B, for example, 
+             these Meshes can be either Cartesian 2D or Spherical.
+       \item [{[sideAGridPriority]}]
+             Priority array of Grids on {\tt sideA} during overlay generation.
+             The priority arrays describe the priorities of Grids at the overlapping region.
+             Flux contributions at the overlapping region are computed in the order from the Grid of the
+             highest priority to the lowest priority.
+       \item [{[sideAMeshPriority]}]
+             Priority array of Meshes on {\tt sideA} during overlay generation.
+             The priority arrays describe the priorities of Meshes at the overlapping region.
+             Flux contributions at the overlapping region are computed in the order from the Mesh of the
+             highest priority to the lowest priority.
+       \item [{[sideBGridPriority]}]
+             Priority of Grids on {\tt sideB} during overlay generation
+             The priority arrays describe the priorities of Grids at the overlapping region.
+             Flux contributions at the overlapping region are computed in the order from the Grid of the
+             highest priority to the lowest priority.
+       \item [{[sideBMeshPriority]}]
+             Priority array of Meshes on {\tt sideB} during overlay generation.
+             The priority arrays describe the priorities of Meshes at the overlapping region.
+             Flux contributions at the overlapping region are computed in the order from the Mesh of the
+             highest priority to the lowest priority.
+       \item [{[sparseMatA2X]}]
+             indexlist from a Grid index space on side A to xgrid index space;
+             indexFactorlist from a Grid index space on side A to xgrid index space.
+       \item [{[sparseMatX2A]}]
+             indexlist from xgrid index space to a Grid index space on side A;
+             indexFactorlist from xgrid index space to a Grid index space on side A.
+       \item [{[sparseMatB2X]}]
+             indexlist from a Grid index space on side B to xgrid index space;
+             indexFactorlist from a Grid index space on side B to xgrid index space.
+       \item [{[sparseMatX2B]}]
+             indexlist from xgrid index space to a Grid index space on side B;
+             indexFactorlist from xgrid index space to a Grid index space on side B.
+       \item [{[area]}]
+             area of the xgrid cells.
+       \item [{[centroid]}]
+             coordinates at the area weighted center of the xgrid cells.
+       \item [{[name]}]
+             name of the xgrid object.
+       \item [{[rc]}]
+             Return code; equals {\tt ESMF\_SUCCESS} only if the {\tt ESMF\_XGrid} 
+             is created.
+       \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_XGridIsCreated] {ESMF\_XGridIsCreated - Check whether a XGrid object has been created}
+
+
+ 
+\bigskip{\sf INTERFACE:}
+\begin{verbatim}   function ESMF_XGridIsCreated(xgrid, rc)\end{verbatim}{\em RETURN VALUE:}
+\begin{verbatim}     logical :: ESMF_XGridIsCreated\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_XGrid), intent(in)            :: xgrid
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,             intent(out), optional :: rc
+ \end{verbatim}
+{\sf DESCRIPTION:\\ }
+
+
+     Return {\tt .true.} if the {\tt xgrid} has been created. Otherwise return 
+     {\tt .false.}. If an error occurs, i.e. {\tt rc /= ESMF\_SUCCESS} is 
+     returned, the return value of the function will also be {\tt .false.}.
+  
+   The arguments are:
+     \begin{description}
+     \item[xgrid]
+       {\tt ESMF\_XGrid} queried.
+     \item[{[rc]}]
+       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+     \end{description}
+   
+%/////////////////////////////////////////////////////////////
+ 
+\mbox{}\hrulefill\ 
+ 
+\subsubsection [ESMF\_XGridDestroy] {ESMF\_XGridDestroy - Release resources associated with an XGrid}
+
+
+\bigskip{\sf INTERFACE:}
+\begin{verbatim} 
+   subroutine ESMF_XGridDestroy(xgrid, rc)\end{verbatim}{\em ARGUMENTS:}
+\begin{verbatim}     type(ESMF_XGrid), intent(inout)          :: xgrid       
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     integer,          intent(out),  optional :: rc     \end{verbatim}
+{\sf STATUS:}
+   \begin{itemize}
+   \item\apiStatusCompatibleVersion{5.2.0r}
+   \end{itemize}
+  
+{\sf DESCRIPTION:\\ }
+
+
+   Destroys an {\tt ESMF\_XGrid}, releasing the resources associated
+   with the object.
+   
+   The arguments are:
+   \begin{description}
+   \item [xgrid]
+         {\tt ESMF\_XGrid} object.
+   \item [{[rc]}] 
+         Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+   \end{description}
+  
+%...............................................................
+\setlength{\parskip}{\oldparskip}
+\setlength{\parindent}{\oldparindent}
+\setlength{\baselineskip}{\oldbaselineskip}
