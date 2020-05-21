@@ -970,11 +970,10 @@ Egest the run sequence stored in the driver as a FreeFormat object. It is the
 <BR>
 <I>INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_DriverGet()
-   recursive subroutine NUOPC_DriverGet(driver, slotCount, parentClock, rc)
+   recursive subroutine NUOPC_DriverGet(driver, slotCount, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp)                        :: driver
      integer,             intent(out), optional :: slotCount
-     type(ESMF_Clock),    intent(out), optional :: parentClock
      integer,             intent(out), optional :: rc
 </PRE>
 <I>DESCRIPTION:
@@ -998,14 +997,12 @@ Access Driver information.
 <I>INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_DriverGetComp()
    recursive subroutine NUOPC_DriverGetGridComp(driver, compLabel, comp, petList, &amp;
-     importState, exportState, relaxedflag, rc)
+     relaxedflag, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp)                        :: driver
      character(len=*),    intent(in)            :: compLabel
      type(ESMF_GridComp), intent(out), optional :: comp
      integer,             pointer,     optional :: petList(:)
-     type(ESMF_State),    intent(out), optional :: importState
-     type(ESMF_State),    intent(out), optional :: exportState
      logical,             intent(in),  optional :: relaxedflag
      integer,             intent(out), optional :: rc
 </PRE>
@@ -2420,7 +2417,7 @@ The arguments are:
        source side fields. The order in which the fields are stored
        in <TT>srcFields</TT> is significant, as it corresponds to the order of
        fields in <TT>dstFields</TT>. Consequently, when accessing and modifying
-       the fields inside of <TT>srcFields</TT>, it is important to use the
+       the fields inside of <TT>srcFields</TT>, it is imporant to use the
        <TT>itemorderflag=ESMF_ITEMORDER_ADDORDER</TT> option to
        <TT>ESMF_FieldBundleGet()</TT>.
      
@@ -2430,7 +2427,7 @@ The arguments are:
        destination side fields. The order in which the fields are stored
        in <TT>dstFields</TT> is significant, as it corresponds to the order of
        fields in <TT>srcFields</TT>. Consequently, when accessing and modifying
-       the fields inside of <TT>dstFields</TT>, it is important to use the
+       the fields inside of <TT>dstFields</TT>, it is imporant to use the
        <TT>itemorderflag=ESMF_ITEMORDER_ADDORDER</TT> option to
        <TT>ESMF_FieldBundleGet()</TT>.
      
@@ -3367,11 +3364,10 @@ Return with error if the Attribute is not present or not set.
 <BR>
 <I>INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_CompCheckSetClock() 
-   subroutine NUOPC_GridCompCheckSetClock(comp, externalClock, forceTimeStep, rc)
+   subroutine NUOPC_GridCompCheckSetClock(comp, externalClock, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp),     intent(inout)         :: comp
      type(ESMF_Clock),        intent(in)            :: externalClock
-     logical,                 intent(in),  optional :: forceTimeStep
      integer,                 intent(out), optional :: rc
 </PRE>
 <I>DESCRIPTION:
@@ -3384,10 +3380,7 @@ Compare <TT>externalClock</TT> to the internal clock of <TT>comp</TT> to make su
      both conditions are satisfied then set the stop time of the internal clock
      so it is reached in one time step of the external clock. Otherwise leave the
      internal clock unchanged and return with error. The direction of
-     the involved clocks is taking into account.
-     Setting the <TT>forceTimeStep</TT> argument to <TT>.true.</TT> forces the 
-     <TT>timeStep</TT> of the <TT>externalClock</TT> to be used to reset the
-     <TT>timeStep</TT> of the internal clock. 
+     the involved clocks is taking into account. 
 
 <P>
 
@@ -4555,11 +4548,11 @@ The arguments are:
 <DD>The <TT>ESMF_State</TT> object to which the namespace is added.
      
 </DD>
-<DT><STRONG>[Namespace]</STRONG></DT>
+<DT><STRONG>Namespace</STRONG></DT>
 <DD>Optional The Namespace string. Defaults to "__UNSPECIFIED__".
      
 </DD>
-<DT><STRONG>[CplSet]</STRONG></DT>
+<DT><STRONG>CplSet</STRONG></DT>
 <DD>Optional The CplSet string. Defaults to "__UNSPECIFIED__".
      
 </DD>
@@ -4594,7 +4587,7 @@ The arguments are:
 <PRE>   ! Private name; call using NUOPC_Advertise() 
    subroutine NUOPC_AdvertiseField(state, StandardName, Units, &amp;
      LongName, ShortName, name, TransferOfferGeomObject, SharePolicyField, &amp;
-     SharePolicyGeomObject, vm, field, rc)
+     SharePolicyGeomObject, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_State), intent(inout)         :: state
      character(*),     intent(in)            :: StandardName
@@ -4606,7 +4599,6 @@ The arguments are:
      character(*),     intent(in),  optional :: SharePolicyField
      character(*),     intent(in),  optional :: SharePolicyGeomObject
      type(ESMF_VM),    intent(in),  optional :: vm
-     type(ESMF_Field), intent(out), optional :: field
      integer,          intent(out), optional :: rc
 </PRE>
 <I>DESCRIPTION:
@@ -4672,11 +4664,8 @@ NOTE that if by below default rules, <TT>ShortName</TT> is also used as
      
 </DD>
 <DT><STRONG>[TransferOfferGeomObject]</STRONG></DT>
-<DD>If the state intent of <TT>state</TT> is <TT>ESMF_STATEINTENT_EXPORT</TT>,
-       the "ProducerTransferOffer" attribute of the advertised field is set.
-       If the state intent of <TT>state</TT> is <TT>ESMF_STATEINTENT_IMPORT</TT>,
-       the "ConsumerTransferOffer" attribute of the advertised field is set.
-       NUOPC controls the vocabulary of this attribute. Valid options are 
+<DD>The "TransferOfferGeomObject" attribute of the advertised field. NUOPC 
+       controls the vocabulary of this attribute. Valid options are 
        "will provide", "can provide", "cannot provide".
        If omitted, the default is "will provide".
      
@@ -4699,10 +4688,6 @@ NOTE that if by below default rules, <TT>ShortName</TT> is also used as
 <DD>If present, the Field object used during advertising is created on the
        specified <TT>ESMF_VM</TT> object. The default is to create the Field object
        on the VM of the current component context.
-     
-</DD>
-<DT><STRONG>[field]</STRONG></DT>
-<DD>Returns the empty field object that was used to advertise.
      
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -4850,14 +4835,13 @@ The arguments are:
 <BR>
 <I>INTERFACE:</I>
 <PRE>   subroutine NUOPC_CheckSetClock(setClock, checkClock, setStartTimeToCurrent, &amp;
-     currTime, forceCurrTime, forceTimeStep, rc)
+     currTime, forceCurrTime, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_Clock),        intent(inout)         :: setClock
      type(ESMF_Clock),        intent(in)            :: checkClock
      logical,                 intent(in),  optional :: setStartTimeToCurrent
      type(ESMF_Time),         intent(in),  optional :: currTime
      logical,                 intent(in),  optional :: forceCurrTime
-     logical,                 intent(in),  optional :: forceTimeStep
      integer,                 intent(out), optional :: rc
 </PRE>
 <I>DESCRIPTION:
@@ -4902,14 +4886,6 @@ The arguments are:
 <DD>If <TT>.true.</TT> then do <EM>not</EM> check the current time of the
        <TT>setClock</TT>, but instead force it to align with the <TT>checkClock</TT>,
        or <TT>currTime</TT>, if it was provided. The default is <TT>.false.</TT>.
-     
-</DD>
-<DT><STRONG>[forceTimeStep]</STRONG></DT>
-<DD>If <TT>.true.</TT> then do <EM>not</EM> use the <TT>timeStep</TT> of the 
-       <TT>setClock</TT> to check if the next increment on the <TT>checkClock</TT>
-       can be reached in an integer number of steps. Instead set the
-       <TT>timeStep</TT> of the <TT>setClock</TT> to the <TT>timeStep</TT> of the
-       <TT>checkClock</TT>. The default is <TT>.false.</TT>.
      
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
