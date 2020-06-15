@@ -1522,6 +1522,10 @@ $key = q/sec:usage:setcommit/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/const:vmepoch_flag/;
+$external_labels{$key} = "$URL/" . q|node6.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/const:meshloc/;
 $external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
@@ -1838,7 +1842,7 @@ $external_latex_labels{$key} = q|8|;
 $noresave{$key} = "$nosave";
 
 $key = q/vm_multi_instance_esmf/;
-$external_latex_labels{$key} = q|49.2.5|; 
+$external_latex_labels{$key} = q|49.3.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:excl_destination_cpl/;
@@ -2238,7 +2242,7 @@ $external_latex_labels{$key} = q|28.6.4|;
 $noresave{$key} = "$nosave";
 
 $key = q/vm_nesting_esmf/;
-$external_latex_labels{$key} = q|49.2.4|; 
+$external_latex_labels{$key} = q|49.3.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:InternalInfo/;
@@ -2838,7 +2842,7 @@ $external_latex_labels{$key} = q|25.2.9|;
 $noresave{$key} = "$nosave";
 
 $key = q/vm_higherrank/;
-$external_latex_labels{$key} = q|49.2.10|; 
+$external_latex_labels{$key} = q|49.3.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetCoordIntoArray/;
@@ -3070,7 +3074,7 @@ $external_latex_labels{$key} = q|24.2.10|;
 $noresave{$key} = "$nosave";
 
 $key = q/vm_inside_user_mpi/;
-$external_latex_labels{$key} = q|49.2.3|; 
+$external_latex_labels{$key} = q|49.3.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/StateAttributePackages/;
@@ -3215,6 +3219,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:setcommit/;
 $external_latex_labels{$key} = q|31.3.9|; 
+$noresave{$key} = "$nosave";
+
+$key = q/const:vmepoch_flag/;
+$external_latex_labels{$key} = q|49.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:meshloc/;
