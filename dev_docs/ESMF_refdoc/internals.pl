@@ -202,6 +202,10 @@ $key = q/const:filestatusflag/;
 $ref_files{$key} = "$dir".q|node9.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/API:GridCreateMosaicReg/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/eqn:dg_forward_connect_form/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -250,12 +254,12 @@ $key = q/const:gridstatus/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:extrapolation:creep/;
-$ref_files{$key} = "$dir".q|node5.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/CplComp:SetServicesShObj/;
 $ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:extrapolation:creep/;
+$ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/cite_Zoltan/;
@@ -506,11 +510,11 @@ $key = q/sec:CompTunnelDualSide/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/ref:stagsub/;
+$key = q/fig:GridDecomps/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/fig:GridDecomps/;
+$key = q/ref:stagsub/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
