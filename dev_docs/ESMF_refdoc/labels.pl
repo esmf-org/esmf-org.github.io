@@ -6,6 +6,10 @@ $key = q/API:GridCreateFrmNCFile/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/API:GridCreateMosaicReg/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/API:GridGet/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -106,10 +110,6 @@ $key = q/Array:rest/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/ArrayAttributePackages/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/ArrayRedistStoreNF/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -138,30 +138,6 @@ $key = q/Array_regions_and_default_bounds/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/Att:Xerces/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/AttributeInternalInfo-Coord/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/AttributeInternalInfo-Get/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/AttributeInternalInfo-Item/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/CIMGridAttributePackage/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/ComponentAttributePackages/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/CplComp:SetServices/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
@@ -178,10 +154,6 @@ $key = q/DistGrid:ArbitrarySeqInd/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/ESMFGridAttributePackage/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/ESMF_FieldFill/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -190,20 +162,12 @@ $key = q/Field:rest/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/FieldAttributePackages/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/FieldRedistStoreNF/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldRedistStoreTK/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/GridAttributePackages/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/GridComp:SetServices/;
@@ -238,10 +202,6 @@ $key = q/Regrid_Interfaces/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/StateAttributePackages/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/XGrid:rest/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -263,11 +223,11 @@ $external_labels{$key} = "$URL/" . q|node5.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:AttributeRead/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
+$external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:AttributeWrite/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
+$external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DistGridConnectionGet/;
@@ -332,6 +292,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_regridweightgenfile/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/appendix_attribute_legacy_api/;
+$external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/appendix_esmf_error_codes/;
@@ -422,23 +386,51 @@ $key = q/cite_Zoltan/;
 $external_labels{$key} = "$URL/" . q|node8.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/cite_json/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_json_for_modern_cpp/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_json_for_modern_cpp_64bit_float/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_json_for_modern_cpp_64bit_int/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_json_for_modern_cpp_is_structured/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_json_for_modern_cpp_json_pointer/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_json_for_modern_cpp_memory_overhead/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_json_for_modern_cpp_null/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_json_for_modern_cpp_object/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_json_for_modern_cpp_typename/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_json_for_modern_cpp_update/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/cite_ref:SCRIP/;
-$external_labels{$key} = "$URL/" . q|node8.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_ref:cf/;
-$external_labels{$key} = "$URL/" . q|node8.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_ref:cim/;
-$external_labels{$key} = "$URL/" . q|node8.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_ref:esdoccim/;
-$external_labels{$key} = "$URL/" . q|node8.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_ref:iso/;
 $external_labels{$key} = "$URL/" . q|node8.html|; 
 $noresave{$key} = "$nosave";
 
@@ -455,11 +447,11 @@ $external_labels{$key} = "$URL/" . q|node9.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:attcopy/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
+$external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:attgetcount/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
+$external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:attnest/;
@@ -471,7 +463,7 @@ $external_labels{$key} = "$URL/" . q|node9.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:attwrite/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
+$external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:calkindflag/;
@@ -706,24 +698,20 @@ $key = q/eqn:dg_forward_pvec/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/esmf_info_class/;
+$external_labels{$key} = "$URL/" . q|node6.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/esmf_infobroadcast/;
+$external_labels{$key} = "$URL/" . q|node6.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/esmf_infosync/;
+$external_labels{$key} = "$URL/" . q|node6.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/esmfstateremovelist/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/ex:AttributeCustPackEx/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/ex:AttributeEx/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/ex:AttributeInternalInfoEx/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/ex:AttributePackageEx/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ex:TraceEx/;
@@ -762,22 +750,6 @@ $key = q/example:StateRdWr/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/fig:AttributeClassUML/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/fig:AttributeHierarchyUML/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/fig:AttributePackageUML/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/fig:CIMRepository/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/fig:GEOS5/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
@@ -788,10 +760,6 @@ $noresave{$key} = "$nosave";
 
 $key = q/fig:LogRectGrids/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/fig:LongNameXSD/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:TheESMFwich/;
@@ -918,12 +886,20 @@ $key = q/fio:unitnumbers/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/get_info_handle_from_esmf_object/;
+$external_labels{$key} = "$URL/" . q|node6.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/gridspecexample/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/io:attributeio/;
-$external_labels{$key} = "$URL/" . q|node5.html|; 
+$key = q/info_key_format/;
+$external_labels{$key} = "$URL/" . q|node6.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/info_tutorial/;
+$external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/io:dataio/;
@@ -1014,30 +990,6 @@ $key = q/sec:AppDriverSetVM/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:Att:Copy/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:Att:Dist/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:AttHier/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:AttPackNesting/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:AttPacks/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:AttributeExports/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/sec:BasicProfiling/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
@@ -1114,10 +1066,6 @@ $key = q/sec:CplSetVM/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:CustomAttPacks/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/sec:DistGrid/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -1163,10 +1111,6 @@ $external_labels{$key} = "$URL/" . q|node4.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:IOUtil/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:InternalInfo/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
 
@@ -1227,10 +1171,6 @@ $external_labels{$key} = "$URL/" . q|node6.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:TracingClocks/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:attribute:usage:cimAttPack/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
 
@@ -1754,10 +1694,6 @@ $key = q/tab:dg_ops/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/table:attTypes/;
-$external_labels{$key} = "$URL/" . q|node6.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/table:timeOpts/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
@@ -1791,6 +1727,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/API:GridCreateFrmNCFile/;
 $external_latex_labels{$key} = q|31.6.13|; 
+$noresave{$key} = "$nosave";
+
+$key = q/API:GridCreateMosaicReg/;
+$external_latex_labels{$key} = q|31.6.28|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGet/;
@@ -1893,10 +1833,6 @@ $key = q/Array:rest/;
 $external_latex_labels{$key} = q|28.3|; 
 $noresave{$key} = "$nosave";
 
-$key = q/ArrayAttributePackages/;
-$external_latex_labels{$key} = q|39.2.4|; 
-$noresave{$key} = "$nosave";
-
 $key = q/ArrayRedistStoreNF/;
 $external_latex_labels{$key} = q|28.5.33|; 
 $noresave{$key} = "$nosave";
@@ -1925,30 +1861,6 @@ $key = q/Array_regions_and_default_bounds/;
 $external_latex_labels{$key} = q|28.2.6|; 
 $noresave{$key} = "$nosave";
 
-$key = q/Att:Xerces/;
-$external_latex_labels{$key} = q|39.9.7|; 
-$noresave{$key} = "$nosave";
-
-$key = q/AttributeInternalInfo-Coord/;
-$external_latex_labels{$key} = q|15|; 
-$noresave{$key} = "$nosave";
-
-$key = q/AttributeInternalInfo-Get/;
-$external_latex_labels{$key} = q|14|; 
-$noresave{$key} = "$nosave";
-
-$key = q/AttributeInternalInfo-Item/;
-$external_latex_labels{$key} = q|16|; 
-$noresave{$key} = "$nosave";
-
-$key = q/CIMGridAttributePackage/;
-$external_latex_labels{$key} = q|39.2.5|; 
-$noresave{$key} = "$nosave";
-
-$key = q/ComponentAttributePackages/;
-$external_latex_labels{$key} = q|39.2.1|; 
-$noresave{$key} = "$nosave";
-
 $key = q/CplComp:SetServices/;
 $external_latex_labels{$key} = q|18.4.19|; 
 $noresave{$key} = "$nosave";
@@ -1965,10 +1877,6 @@ $key = q/DistGrid:ArbitrarySeqInd/;
 $external_latex_labels{$key} = q|35.3.5|; 
 $noresave{$key} = "$nosave";
 
-$key = q/ESMFGridAttributePackage/;
-$external_latex_labels{$key} = q|39.2.5|; 
-$noresave{$key} = "$nosave";
-
 $key = q/ESMF_FieldFill/;
 $external_latex_labels{$key} = q|26.6.43|; 
 $noresave{$key} = "$nosave";
@@ -1977,20 +1885,12 @@ $key = q/Field:rest/;
 $external_latex_labels{$key} = q|26.4|; 
 $noresave{$key} = "$nosave";
 
-$key = q/FieldAttributePackages/;
-$external_latex_labels{$key} = q|39.2.3|; 
-$noresave{$key} = "$nosave";
-
 $key = q/FieldRedistStoreNF/;
 $external_latex_labels{$key} = q|26.6.57|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldRedistStoreTK/;
 $external_latex_labels{$key} = q|26.6.56|; 
-$noresave{$key} = "$nosave";
-
-$key = q/GridAttributePackages/;
-$external_latex_labels{$key} = q|39.2.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/GridComp:SetServices/;
@@ -2025,10 +1925,6 @@ $key = q/Regrid_Interfaces/;
 $external_latex_labels{$key} = q|24.2|; 
 $noresave{$key} = "$nosave";
 
-$key = q/StateAttributePackages/;
-$external_latex_labels{$key} = q|39.2.2|; 
-$noresave{$key} = "$nosave";
-
 $key = q/XGrid:rest/;
 $external_latex_labels{$key} = q|34.4.1|; 
 $noresave{$key} = "$nosave";
@@ -2054,11 +1950,11 @@ $external_latex_labels{$key} = q|28.5.47|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:AttributeRead/;
-$external_latex_labels{$key} = q|39.11.34|; 
+$external_latex_labels{$key} = q|55.0.18|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:AttributeWrite/;
-$external_latex_labels{$key} = q|39.11.44|; 
+$external_latex_labels{$key} = q|55.0.26|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DistGridConnectionGet/;
@@ -2125,6 +2021,10 @@ $key = q/api:esmf_regridweightgenfile/;
 $external_latex_labels{$key} = q|24.3.1|; 
 $noresave{$key} = "$nosave";
 
+$key = q/appendix_attribute_legacy_api/;
+$external_latex_labels{$key} = q|55|; 
+$noresave{$key} = "$nosave";
+
 $key = q/appendix_esmf_error_codes/;
 $external_latex_labels{$key} = q|54|; 
 $noresave{$key} = "$nosave";
@@ -2138,11 +2038,11 @@ $external_latex_labels{$key} = q|52.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:attcopy/;
-$external_latex_labels{$key} = q|39.6.1|; 
+$external_latex_labels{$key} = q|55.0.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:attgetcount/;
-$external_latex_labels{$key} = q|39.6.2|; 
+$external_latex_labels{$key} = q|55.0.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:attnest/;
@@ -2154,7 +2054,7 @@ $external_latex_labels{$key} = q|52.6|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:attwrite/;
-$external_latex_labels{$key} = q|39.6.3|; 
+$external_latex_labels{$key} = q|55.0.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:calkindflag/;
@@ -2389,24 +2289,20 @@ $key = q/eqn:dg_forward_pvec/;
 $external_latex_labels{$key} = q|13|; 
 $noresave{$key} = "$nosave";
 
+$key = q/esmf_info_class/;
+$external_latex_labels{$key} = q|39|; 
+$noresave{$key} = "$nosave";
+
+$key = q/esmf_infobroadcast/;
+$external_latex_labels{$key} = q|39.4.26|; 
+$noresave{$key} = "$nosave";
+
+$key = q/esmf_infosync/;
+$external_latex_labels{$key} = q|39.4.27|; 
+$noresave{$key} = "$nosave";
+
 $key = q/esmfstateremovelist/;
 $external_latex_labels{$key} = q|21.7.16|; 
-$noresave{$key} = "$nosave";
-
-$key = q/ex:AttributeCustPackEx/;
-$external_latex_labels{$key} = q|39.7.3|; 
-$noresave{$key} = "$nosave";
-
-$key = q/ex:AttributeEx/;
-$external_latex_labels{$key} = q|39.7.1|; 
-$noresave{$key} = "$nosave";
-
-$key = q/ex:AttributeInternalInfoEx/;
-$external_latex_labels{$key} = q|39.7.5|; 
-$noresave{$key} = "$nosave";
-
-$key = q/ex:AttributePackageEx/;
-$external_latex_labels{$key} = q|39.7.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ex:TraceEx/;
@@ -2445,22 +2341,6 @@ $key = q/example:StateRdWr/;
 $external_latex_labels{$key} = q|21.3.7|; 
 $noresave{$key} = "$nosave";
 
-$key = q/fig:AttributeClassUML/;
-$external_latex_labels{$key} = q|35|; 
-$noresave{$key} = "$nosave";
-
-$key = q/fig:AttributeHierarchyUML/;
-$external_latex_labels{$key} = q|37|; 
-$noresave{$key} = "$nosave";
-
-$key = q/fig:AttributePackageUML/;
-$external_latex_labels{$key} = q|36|; 
-$noresave{$key} = "$nosave";
-
-$key = q/fig:CIMRepository/;
-$external_latex_labels{$key} = q|33|; 
-$noresave{$key} = "$nosave";
-
 $key = q/fig:GEOS5/;
 $external_latex_labels{$key} = q|2|; 
 $noresave{$key} = "$nosave";
@@ -2471,10 +2351,6 @@ $noresave{$key} = "$nosave";
 
 $key = q/fig:LogRectGrids/;
 $external_latex_labels{$key} = q|14|; 
-$noresave{$key} = "$nosave";
-
-$key = q/fig:LongNameXSD/;
-$external_latex_labels{$key} = q|34|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:TheESMFwich/;
@@ -2601,16 +2477,24 @@ $key = q/fio:unitnumbers/;
 $external_latex_labels{$key} = q|51.2.1|; 
 $noresave{$key} = "$nosave";
 
+$key = q/get_info_handle_from_esmf_object/;
+$external_latex_labels{$key} = q|39.3.1|; 
+$noresave{$key} = "$nosave";
+
 $key = q/gridspecexample/;
 $external_latex_labels{$key} = q|13.1|; 
 $noresave{$key} = "$nosave";
 
-$key = q/io:attributeio/;
-$external_latex_labels{$key} = q|37.2|; 
+$key = q/info_key_format/;
+$external_latex_labels{$key} = q|39.2|; 
+$noresave{$key} = "$nosave";
+
+$key = q/info_tutorial/;
+$external_latex_labels{$key} = q|39.3.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/io:dataio/;
-$external_latex_labels{$key} = q|37.3|; 
+$external_latex_labels{$key} = q|37.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/line_type_support/;
@@ -2697,30 +2581,6 @@ $key = q/sec:AppDriverSetVM/;
 $external_latex_labels{$key} = q|16.4.7|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:Att:Copy/;
-$external_latex_labels{$key} = q|39.9.6|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:Att:Dist/;
-$external_latex_labels{$key} = q|39.9.4|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:AttHier/;
-$external_latex_labels{$key} = q|39.1.4|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:AttPackNesting/;
-$external_latex_labels{$key} = q|39.3|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:AttPacks/;
-$external_latex_labels{$key} = q|39.2|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:AttributeExports/;
-$external_latex_labels{$key} = q|39.4|; 
-$noresave{$key} = "$nosave";
-
 $key = q/sec:BasicProfiling/;
 $external_latex_labels{$key} = q|50.2.1|; 
 $noresave{$key} = "$nosave";
@@ -2797,10 +2657,6 @@ $key = q/sec:CplSetVM/;
 $external_latex_labels{$key} = q|18.2.5|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:CustomAttPacks/;
-$external_latex_labels{$key} = q|39.2.7|; 
-$noresave{$key} = "$nosave";
-
 $key = q/sec:DistGrid/;
 $external_latex_labels{$key} = q|35.1|; 
 $noresave{$key} = "$nosave";
@@ -2847,10 +2703,6 @@ $noresave{$key} = "$nosave";
 
 $key = q/sec:IOUtil/;
 $external_latex_labels{$key} = q|51.1|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:InternalInfo/;
-$external_latex_labels{$key} = q|39.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:LimitProfiling/;
@@ -2911,10 +2763,6 @@ $noresave{$key} = "$nosave";
 
 $key = q/sec:TracingClocks/;
 $external_latex_labels{$key} = q|50.2.6|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:attribute:usage:cimAttPack/;
-$external_latex_labels{$key} = q|39.7.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:bundlerest/;
@@ -3435,10 +3283,6 @@ $noresave{$key} = "$nosave";
 
 $key = q/tab:dg_ops/;
 $external_latex_labels{$key} = q|3|; 
-$noresave{$key} = "$nosave";
-
-$key = q/table:attTypes/;
-$external_latex_labels{$key} = q|39.10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/table:timeOpts/;
