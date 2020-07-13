@@ -3,14 +3,14 @@ layout: splash
 
 header:
   #overlay_color: "#000"
-  overlay_filter: "0.2"
-  overlay_image: /assets/images/nasa-splash.jpg
+  #overlay_filter: "0.2"
+  #overlay_image: /assets/images/nasa-splash.jpg
   actions:
     - label: "Download"
       url: "/download"
     - label: "Docs"
       url: "http://www.google.com"
-  caption: "Photo by Adam Bouse on Unsplash"
+  #caption: "Photo by Adam Bouse on Unsplash"
 excerpt: >
   High-performance software infrastructure for Earth system modeling applications.<br/>
   <small><a href="releases/8_0">Latest release v8.0</a></small>
