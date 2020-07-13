@@ -13,7 +13,8 @@ header:
   #caption: "Photo by Adam Bouse on Unsplash"
 excerpt: >
   High-performance software infrastructure for Earth system modeling applications.<br/>
-  <small><a href="releases/8_0">Latest release v8.0</a></small>
+
+#<small><a href="releases/8_0">Latest release v8.0</a></small>
 
 intro: 
   - excerpt: 'this is the intro'
