@@ -1,6 +1,6 @@
 ---
 layout: splash
-
+title: "High Performance Modeling Infrastructure"
 header:
   overlay_color: "#34668a"
   #overlay_filter: "0.2"
