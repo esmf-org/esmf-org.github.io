@@ -12,7 +12,7 @@ header:
       url: "http://www.google.com"
   caption: "Photo by Adam Bouse on Unsplash"
 excerpt: >
-  High-performance software infrastructure for building and coupling Earth system models.<br/>
+  High-performance software infrastructure for Earth system modeling applications.<br/>
   <small><a href="releases/8_0">Latest release v8.0</a></small>
 
 intro: 
