@@ -6,7 +6,7 @@ header:
   #overlay_filter: "0.2"
   #overlay_image: /assets/images/nasa-splash.jpg
   actions:
-    - label: "Download"
+    - label: "Get Started"
       url: "/download"
     - label: "Docs"
       url: "http://www.google.com"
