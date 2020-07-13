@@ -11,7 +11,7 @@ header:
     - label: "Docs"
       url: "http://www.google.com"
   #caption: "Photo by Adam Bouse on Unsplash"
-excerpt: "A framework for model coupling and tools for parallel grid remapping."
+excerpt: "Interoperable components, high performance model coupling, and parallel grid remapping"
 
 #<small><a href="releases/8_0">Latest release v8.0</a></small>
 
