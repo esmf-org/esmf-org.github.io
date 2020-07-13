@@ -11,7 +11,7 @@ header:
     - label: "Docs"
       url: "http://www.google.com"
   #caption: "Photo by Adam Bouse on Unsplash"
-excerpt: "Interoperable components, high performance model coupling, and parallel grid remapping"
+excerpt: "A framework for building coupled Earth System Models from interoperable components."
 
 #<small><a href="releases/8_0">Latest release v8.0</a></small>
 
