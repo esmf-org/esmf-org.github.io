@@ -1,5 +1,5 @@
 ---
-permalink: /doc/dev/
+permalink: /devdoc/
 title: "Docs"
 ---
 
