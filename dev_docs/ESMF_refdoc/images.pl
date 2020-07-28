@@ -75,6 +75,12 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img86.png"
  ALT="$+1$">|; 
 
+$key = q/+;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img202.png"
+ ALT="$+$">|; 
+
 $key = q/+frac{{{rm{sN}}{{{rm{sD}};MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="35" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
@@ -301,7 +307,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/[0..petCount-1];MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="123" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|img201.png"
+ SRC="|."$dir".q|img203.png"
  ALT="$[0..petCount-1]$">|; 
 
 $key = q/[1...localDeCount];MSF=1.6;AAT/;
@@ -952,7 +958,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/scalebox{0.8}{includegraphics{Appendix_uml}};AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="461" HEIGHT="703" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|img202.png"
+ SRC="|."$dir".q|img204.png"
  ALT="\scalebox{0.8}{\includegraphics{Appendix_uml}}">|; 
 
 $key = q/scalebox{0.9}{includegraphics{ESMF_GEOS5}};AAT/;
@@ -1074,6 +1080,12 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img127.png"
  ALT="$\textstyle =$">|; 
+
+$key = q/times;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img201.png"
+ ALT="$\times$">|; 
 
 $key = q/trightarrowinfty;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG

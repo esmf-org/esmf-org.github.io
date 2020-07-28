@@ -5944,13 +5944,14 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 <PRE>   ! Private name; call using ESMF_FieldBundleRedistStore()
    subroutine ESMF_FieldBundleRedistStore&lt;type&gt;&lt;kind&gt;(srcFieldBundle, &amp;
    dstFieldBundle, routehandle, factor, &amp;
-   srcToDstTransposeMap, rc)
+   ignoreUnmatchedIndicesFlag, srcToDstTransposeMap, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>   type(ESMF_FieldBundle), intent(in) :: srcFieldBundle
    type(ESMF_FieldBundle), intent(inout) :: dstFieldBundle
    type(ESMF_RouteHandle), intent(inout) :: routehandle
    &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), intent(in) :: factor
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+   logical, intent(in), optional :: ignoreUnmatchedIndicesFlag(:)
    integer, intent(in), optional :: srcToDstTransposeMap(:)
    integer, intent(out), optional :: rc
 </PRE>
@@ -5958,7 +5959,17 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>ignoreUnmatchedIndicesFlag</TT> to support cases
+   where source and destination side do not cover the exact same index space.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -6037,6 +6048,18 @@ The arguments are:
 <DD>Factor by which to multiply source data.
    
 </DD>
+<DT><STRONG>[ignoreUnmatchedIndicesFlag]</STRONG></DT>
+<DD>If set to .false., the <EM>default</EM>, source and destination side must
+   cover the identical index space, using precisely matching sequence
+   indices. If set to .true., mismatching sequence indices between source
+   and destination side are silently ignored.
+   The size of this array argument must either be 1 or equal the number of
+   Fields in the <TT>srcFieldBundle</TT> and <TT>dstFieldBundle</TT> arguments. In
+   the latter case, the handling of unmatched indices is specified for each
+   Field pair separately. If only one element is specified, it is
+   used for <EM>all</EM> Field pairs.
+   
+</DD>
 <DT><STRONG>[srcToDstTransposeMap]</STRONG></DT>
 <DD>List with as many entries as there are dimensions in <TT>srcFieldBundle</TT>. Each
    entry maps the corresponding <TT>srcFieldBundle</TT> dimension
@@ -6055,7 +6078,7 @@ The arguments are:
 <P>
 
 <H3><A NAME="SECTION050252300000000000000">
-<SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">23</SPAN> ESMF_FieldBundleRedistStore - Precompute a FieldBundle redistribution with local factor argument</A>
+<SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">23</SPAN> ESMF_FieldBundleRedistStore - Precompute a FieldBundle redistribution without local factor argument</A>
 </H3>
 
 <P>
@@ -6065,20 +6088,32 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_FieldBundleRedistStore()
    subroutine ESMF_FieldBundleRedistStoreNF(srcFieldBundle, dstFieldBundle, &amp;
-   routehandle, factor, srcToDstTransposeMap, rc)
+     routehandle, ignoreUnmatchedIndicesFlag, &amp;
+     srcToDstTransposeMap, rc)
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>   type(ESMF_FieldBundle), intent(in) :: srcFieldBundle
-   type(ESMF_FieldBundle), intent(inout) :: dstFieldBundle
-   type(ESMF_RouteHandle), intent(inout) :: routehandle
+<PRE>     type(ESMF_FieldBundle), intent(in) :: srcFieldBundle
+     type(ESMF_FieldBundle), intent(inout) :: dstFieldBundle
+     type(ESMF_RouteHandle), intent(inout) :: routehandle
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-   integer, intent(in), optional :: srcToDstTransposeMap(:)
-   integer, intent(out), optional :: rc
+     logical, intent(in), optional :: ignoreUnmatchedIndicesFlag(:)
+     integer, intent(in), optional :: srcToDstTransposeMap(:)
+     integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>ignoreUnmatchedIndicesFlag</TT> to support cases
+   where source and destination side do not cover the exact same index space.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -6125,14 +6160,6 @@ The routine returns an <TT>ESMF_RouteHandle</TT> that can be used to call
    RouteHandle reusability.
 
 <P>
-This method is overloaded for:
-<BR>
-   <TT>ESMF_TYPEKIND_I4</TT>, <TT>ESMF_TYPEKIND_I8</TT>,
-<BR>
-   <TT>ESMF_TYPEKIND_R4</TT>, <TT>ESMF_TYPEKIND_R8</TT>.
-   <BR>
-
-<P>
 This call is collective across the current VM.
 
 <P>
@@ -6153,6 +6180,18 @@ The arguments are:
 </DD>
 <DT><STRONG>routehandle</STRONG></DT>
 <DD>Handle to the precomputed Route.
+   
+</DD>
+<DT><STRONG>[ignoreUnmatchedIndicesFlag]</STRONG></DT>
+<DD>If set to .false., the <EM>default</EM>, source and destination side must
+   cover the identical index space, using precisely matching sequence
+   indices. If set to .true., mismatching sequence indices between source
+   and destination side are silently ignored.
+   The size of this array argument must either be 1 or equal the number of
+   Fields in the <TT>srcFieldBundle</TT> and <TT>dstFieldBundle</TT> arguments. In
+   the latter case, the handling of unmatched indices is specified for each
+   Field pair separately. If only one element is specified, it is
+   used for <EM>all</EM> Field pairs.
    
 </DD>
 <DT><STRONG>[srcToDstTransposeMap]</STRONG></DT>
@@ -7053,7 +7092,7 @@ Changes made after the 5.2.0r release:
 <DT><STRONG>8.1.0</STRONG></DT>
 <DD>Added argument <TT>zeroregionflag</TT>, and deprecated
    <TT>zeroregion</TT>. The new argument allows greater flexibility
-   in setting the zero region for individual ArrayBundle members.
+   in setting the zero region for individual FieldBundle members.
    
 </DD>
 </DL>
@@ -7269,7 +7308,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 <PRE>   ! Private name; call using ESMF_FieldBundleSMMStore()
    subroutine ESMF_FieldBundleSMMStore&lt;type&gt;&lt;kind&gt;(srcFieldBundle, &amp;
    dstFieldBundle, routehandle, factorList, factorIndexList, &amp;
-   srcTermProcessing, rc)
+   ignoreUnmatchedIndicesFlag, srcTermProcessing, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>   type(ESMF_FieldBundle), intent(in) :: srcFieldBundle
    type(ESMF_FieldBundle), intent(inout) :: dstFieldBundle
@@ -7277,6 +7316,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
    &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), intent(in) :: factorList(:)
    integer, intent(in), :: factorIndexList(:,:)
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+   logical, intent(in), optional :: ignoreUnmatchedIndicesFlag(:)
    integer, intent(inout), optional :: srcTermProcessing(:)
    integer, intent(out), optional :: rc
 </PRE>
@@ -7294,6 +7334,12 @@ Changes made after the 5.2.0r release:
    The new argument gives the user access to the tuning parameter
    affecting the sparse matrix execution and bit-wise
    reproducibility.
+   
+</DD>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>ignoreUnmatchedIndicesFlag</TT> to support cases
+   where the sparse matrix includes terms with source or destination sequence
+   indices not present in the source or destination field.
    
 </DD>
 </DL>
@@ -7411,7 +7457,22 @@ The <EM>size 4 format</EM> is more general and does not require a matching
 <P>
 See section <A HREF="#Array:SparseMatMul">28.2.17</A> for details on the definition of
    <EM>sequence indices</EM> and <EM>tensor sequence indices</EM>.
-   
+
+<P>
+</DD>
+<DT><STRONG>[ignoreUnmatchedIndicesFlag]</STRONG></DT>
+<DD>If set to .false., the <EM>default</EM>, source and destination side must
+   cover all of the squence indices defined in the sparse matrix. An error
+   will be returned if a sequence index in the sparse matrix does not match
+   on either the source or destination side.
+   If set to .true., mismatching sequence indices are silently ignored.
+   The size of this array argument must either be 1 or equal the number of
+   Fieldss in the <TT>srcFieldBundle</TT> and <TT>dstFieldBundle</TT> arguments. In
+   the latter case, the handling of unmatched indices is specified for each
+   Field pair separately. If only one element is specified, it is
+   used for <EM>all</EM> Field pairs.
+
+<P>
 </DD>
 <DT><STRONG>[srcTermProcessing]</STRONG></DT>
 <DD>Source term summing options for route handle creation. See
@@ -7444,12 +7505,14 @@ See section <A HREF="#Array:SparseMatMul">28.2.17</A> for details on the definit
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_FieldBundleSMMStore()
      subroutine ESMF_FieldBundleSMMStoreNF(srcFieldBundle, dstFieldBundle, &amp;
-         routehandle, srcTermProcessing, rc)
+         routehandle, ignoreUnmatchedIndicesFlag, &amp;
+         srcTermProcessing, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>         type(ESMF_FieldBundle), intent(in) :: srcFieldBundle
          type(ESMF_FieldBundle), intent(inout) :: dstFieldBundle
          type(ESMF_RouteHandle), intent(inout) :: routehandle
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+         logical, intent(in), optional :: ignoreUnmatchedIndicesFlag(:)
          integer, intent(inout), optional :: srcTermProcessing(:)
          integer, intent(out), optional :: rc
 </PRE>
@@ -7467,6 +7530,12 @@ Changes made after the 5.2.0r release:
    The new argument gives the user access to the tuning parameter
    affecting the sparse matrix execution and bit-wise
    reproducibility.
+   
+</DD>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>ignoreUnmatchedIndicesFlag</TT> to support cases
+   where the sparse matrix includes terms with source or destination sequence
+   indices not present in the source or destination field.
    
 </DD>
 </DL>
@@ -7543,6 +7612,19 @@ The arguments are:
 <DD>Handle to the precomputed Route.
    
 </DD>
+<DT><STRONG>[ignoreUnmatchedIndicesFlag]</STRONG></DT>
+<DD>If set to .false., the <EM>default</EM>, source and destination side must
+   cover all of the squence indices defined in the sparse matrix. An error
+   will be returned if a sequence index in the sparse matrix does not match
+   on either the source or destination side.
+   If set to .true., mismatching sequence indices are silently ignored.
+   The size of this array argument must either be 1 or equal the number of
+   Fieldss in the <TT>srcFieldBundle</TT> and <TT>dstFieldBundle</TT> arguments. In
+   the latter case, the handling of unmatched indices is specified for each
+   Field pair separately. If only one element is specified, it is
+   used for <EM>all</EM> Field pairs.
+   
+</DD>
 <DT><STRONG>[srcTermProcessing]</STRONG></DT>
 <DD>Source term summing options for route handle creation. See
    <TT>ESMF_FieldRegridStore</TT> documentation for a full parameter description.
@@ -7574,13 +7656,15 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_FieldBundleSMMStore()
      subroutine ESMF_FieldBundleSMMStoreFromFile(srcFieldBundle, dstFieldBundle, &amp;
-       filename, routehandle, srcTermProcessing, rc)
+       filename, routehandle, ignoreUnmatchedIndicesFlag, &amp;
+       srcTermProcessing, rc)
    ! ARGUMENTS:
        type(ESMF_FieldBundle), intent(in) :: srcFieldBundle
        type(ESMF_FieldBundle), intent(inout) :: dstFieldBundle
        character(len=*), intent(in) :: filename
        type(ESMF_RouteHandle), intent(inout) :: routehandle
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       logical, intent(in), optional :: ignoreUnmatchedIndicesFlag(:)
        integer, intent(inout), optional :: srcTermProcessing(:)
        integer, intent(out), optional :: rc
 </PRE>
@@ -7616,6 +7700,20 @@ The arguments are:
 </DD>
 <DT><STRONG>routehandle</STRONG></DT>
 <DD>Handle to the <TT>ESMF_RouteHandle</TT>.
+
+<P>
+</DD>
+<DT><STRONG>[ignoreUnmatchedIndicesFlag]</STRONG></DT>
+<DD>If set to .false., the <EM>default</EM>, source and destination side must
+   cover all of the squence indices defined in the sparse matrix. An error
+   will be returned if a sequence index in the sparse matrix does not match
+   on either the source or destination side.
+   If set to .true., mismatching sequence indices are silently ignored.
+   The size of this array argument must either be 1 or equal the number of
+   Fieldss in the <TT>srcFieldBundle</TT> and <TT>dstFieldBundle</TT> arguments. In
+   the latter case, the handling of unmatched indices is specified for each
+   Field pair separately. If only one element is specified, it is
+   used for <EM>all</EM> Field pairs.
 
 <P>
 </DD>
@@ -8907,7 +9005,7 @@ This example is similar to example <A HREF="#sec:field:usage:create_2dgrid_3dptr
     is shown here.
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="22389"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="22474"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 12:</STRONG>
 Field dimension configuration from Grid, halos, and Fortran data array.</CAPTION>
@@ -22295,21 +22393,33 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_ArrayBundleRedistStore()
    subroutine ESMF_ArrayBundleRedistStore&lt;type&gt;&lt;kind&gt;(srcArrayBundle, &amp;
-     dstArrayBundle, routehandle, factor, srcToDstTransposeMap, rc)
+     dstArrayBundle, routehandle, factor, ignoreUnmatchedIndicesFlag, &amp;
+     srcToDstTransposeMap, rc)
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>     type(ESMF_ArrayBundle),   intent(in)            :: srcArrayBundle
-     type(ESMF_ArrayBundle),   intent(inout)         :: dstArrayBundle
-     type(ESMF_RouteHandle),   intent(inout)         :: routehandle
-     &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), intent(in)            :: factor
+<PRE>     type(ESMF_ArrayBundle),  intent(in)            :: srcArrayBundle
+     type(ESMF_ArrayBundle),  intent(inout)         :: dstArrayBundle
+     type(ESMF_RouteHandle),  intent(inout)         :: routehandle
+     &lt;type&gt;(ESMF_KIND_&lt;kind&gt;),intent(in)            :: factor
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-     integer,                  intent(in),  optional :: srcToDstTransposeMap(:)
-     integer,                  intent(out), optional :: rc
+     logical,                 intent(in),  optional :: ignoreUnmatchedIndicesFlag(:)
+     integer,                 intent(in),  optional :: srcToDstTransposeMap(:)
+     integer,                 intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>ignoreUnmatchedIndicesFlag</TT> to support cases
+      where source and destination side do not cover the exact same index space.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -22381,6 +22491,18 @@ This call is <EM>collective</EM> across the current VM.
 <DD>Factor by which to multiply source data.
      
 </DD>
+<DT><STRONG>[ignoreUnmatchedIndicesFlag]</STRONG></DT>
+<DD>If set to .false., the <EM>default</EM>, source and destination side must
+       cover the identical index space, using precisely matching sequence
+       indices. If set to .true., mismatching sequence indices between source
+       and destination side are silently ignored.
+       The size of this array argument must either be 1 or equal the number of
+       Arrays in the <TT>srcArrayBundle</TT> and <TT>dstArrayBundle</TT> arguments. In
+       the latter case, the handling of unmatched indices is specified for each
+       Array pair separately. If only one element is specified, it is
+       used for <EM>all</EM> Array pairs.
+     
+</DD>
 <DT><STRONG>[srcToDstTransposeMap]</STRONG></DT>
 <DD>List with as many entries as there are dimensions in the Arrays in
        <TT>srcArrayBundle</TT>. Each
@@ -22410,12 +22532,14 @@ This call is <EM>collective</EM> across the current VM.
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_ArrayBundleRedistStore()
    subroutine ESMF_ArrayBundleRedistStoreNF(srcArrayBundle, dstArrayBundle, &amp;
-     routehandle, srcToDstTransposeMap, rc)
+     routehandle, ignoreUnmatchedIndicesFlag, &amp;
+     srcToDstTransposeMap, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_ArrayBundle), intent(in)            :: srcArrayBundle
      type(ESMF_ArrayBundle), intent(inout)         :: dstArrayBundle
      type(ESMF_RouteHandle), intent(inout)         :: routehandle
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),  optional :: ignoreUnmatchedIndicesFlag(:)
      integer,                intent(in),  optional :: srcToDstTransposeMap(:)
      integer,                intent(out), optional :: rc
 </PRE>
@@ -22423,7 +22547,17 @@ This call is <EM>collective</EM> across the current VM.
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>ignoreUnmatchedIndicesFlag</TT> to support cases
+      where source and destination side do not cover the exact same index space.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -22481,6 +22615,18 @@ This call is <EM>collective</EM> across the current VM.
 </DD>
 <DT><STRONG>routehandle</STRONG></DT>
 <DD>Handle to the precomputed Route.
+     
+</DD>
+<DT><STRONG>[ignoreUnmatchedIndicesFlag]</STRONG></DT>
+<DD>If set to .false., the <EM>default</EM>, source and destination side must
+       cover the identical index space, using precisely matching sequence
+       indices. If set to .true., mismatching sequence indices between source
+       and destination side are silently ignored.
+       The size of this array argument must either be 1 or equal the number of
+       Arrays in the <TT>srcArrayBundle</TT> and <TT>dstArrayBundle</TT> arguments. In
+       the latter case, the handling of unmatched indices is specified for each
+       Array pair separately. If only one element is specified, it is
+       used for <EM>all</EM> Array pairs.
      
 </DD>
 <DT><STRONG>[srcToDstTransposeMap]</STRONG></DT>
@@ -22890,7 +23036,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 <PRE>   ! Private name; call using ESMF_ArrayBundleSMMStore()
    subroutine ESMF_ArrayBundleSMMStore&lt;type&gt;&lt;kind&gt;(srcArrayBundle, &amp;
      dstArrayBundle, routehandle, factorList, factorIndexList, &amp;
-     srcTermProcessing, rc)
+     ignoreUnmatchedIndicesFlag, srcTermProcessing, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_ArrayBundle),           intent(in)    :: srcArrayBundle
      type(ESMF_ArrayBundle),           intent(inout) :: dstArrayBundle
@@ -22898,6 +23044,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
      &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)    :: factorList(:)
      integer,                          intent(in)    :: factorIndexList(:,:)
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                intent(in),    optional :: ignoreUnmatchedIndicesFlag(:)
      integer,                intent(inout), optional :: srcTermProcessing(:)
      integer,                intent(out),   optional :: rc
 </PRE>
@@ -22915,6 +23062,12 @@ Changes made after the 5.2.0r release:
                 The new argument gives the user access to the tuning parameter
                 affecting the sparse matrix execution and bit-wise 
                 reproducibility.
+   
+</DD>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>ignoreUnmatchedIndicesFlag</TT> to support cases
+      where the sparse matrix includes terms with source or destination sequence
+      indices not present in the source or destination array.
    
 </DD>
 </DL>
@@ -23021,7 +23174,22 @@ The <EM>size 4 format</EM> is more general and does not require a matching
 <P>
 See section <A HREF="#Array:SparseMatMul">28.2.17</A> for details on the definition of 
        Array <EM>sequence indices</EM> and <EM>tensor sequence indices</EM>.
-     
+
+<P>
+</DD>
+<DT><STRONG>[ignoreUnmatchedIndicesFlag]</STRONG></DT>
+<DD>If set to .false., the <EM>default</EM>, source and destination side must
+       cover all of the squence indices defined in the sparse matrix. An error
+       will be returned if a sequence index in the sparse matrix does not match
+       on either the source or destination side.
+       If set to .true., mismatching sequence indices are silently ignored.
+       The size of this array argument must either be 1 or equal the number of
+       Arrays in the <TT>srcArrayBundle</TT> and <TT>dstArrayBundle</TT> arguments. In
+       the latter case, the handling of unmatched indices is specified for each
+       Array pair separately. If only one element is specified, it is
+       used for <EM>all</EM> Array pairs.
+
+<P>
 </DD>
 <DT><STRONG>[srcTermProcessing]</STRONG></DT>
 <DD>Source term summing options for route handle creation. See
@@ -23054,12 +23222,13 @@ See section <A HREF="#Array:SparseMatMul">28.2.17</A> for details on the definit
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_ArrayBundleSMMStore()
    subroutine ESMF_ArrayBundleSMMStoreNF(srcArrayBundle, dstArrayBundle, &amp;
-     routehandle, srcTermProcessing, rc)
+     routehandle, ignoreUnmatchedIndicesFlag, srcTermProcessing, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_ArrayBundle),  intent(in)              :: srcArrayBundle
      type(ESMF_ArrayBundle),  intent(inout)           :: dstArrayBundle
      type(ESMF_RouteHandle),  intent(inout)           :: routehandle
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                 intent(in),    optional :: ignoreUnmatchedIndicesFlag(:)
      integer,                 intent(inout), optional :: srcTermProcessing(:)
      integer,                 intent(out),   optional :: rc
 </PRE>
@@ -23077,6 +23246,12 @@ Changes made after the 5.2.0r release:
                 The new argument gives the user access to the tuning parameter
                 affecting the sparse matrix execution and bit-wise 
                 reproducibility.
+   
+</DD>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>ignoreUnmatchedIndicesFlag</TT> to support cases
+      where the sparse matrix includes terms with source or destination sequence
+      indices not present in the source or destination array.
    
 </DD>
 </DL>
@@ -23139,7 +23314,22 @@ This call is <EM>collective</EM> across the current VM.
 </DD>
 <DT><STRONG>routehandle</STRONG></DT>
 <DD>Handle to the precomputed Route.
-     
+
+<P>
+</DD>
+<DT><STRONG>[ignoreUnmatchedIndicesFlag]</STRONG></DT>
+<DD>If set to .false., the <EM>default</EM>, source and destination side must
+       cover all of the squence indices defined in the sparse matrix. An error
+       will be returned if a sequence index in the sparse matrix does not match
+       on either the source or destination side.
+       If set to .true., mismatching sequence indices are silently ignored.
+       The size of this array argument must either be 1 or equal the number of
+       Arrays in the <TT>srcArrayBundle</TT> and <TT>dstArrayBundle</TT> arguments. In
+       the latter case, the handling of unmatched indices is specified for each
+       Array pair separately. If only one element is specified, it is
+       used for <EM>all</EM> Array pairs.
+
+<P>
 </DD>
 <DT><STRONG>[srcTermProcessing]</STRONG></DT>
 <DD>Source term summing options for route handle creation. See
@@ -36603,7 +36793,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="53379"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="53550"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -36644,7 +36834,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="53351"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="53522"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -37017,7 +37207,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="53596"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="53767"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -37058,7 +37248,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="53607"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="53778"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -38836,7 +39026,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="54158"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="54329"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -39251,7 +39441,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="54246"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="54417"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -39381,7 +39571,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="54265"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="54436"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -53198,7 +53388,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="64220"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="64391"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -55317,7 +55507,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="65904"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="66075"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -55498,7 +55688,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="65556"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="65727"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -55721,7 +55911,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="65905"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="66076"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -56006,7 +56196,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="65669"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="65840"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -56072,7 +56262,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="65684"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="65855"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -56131,7 +56321,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="65700"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="65871"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -56381,7 +56571,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="65907"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="66078"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -56539,7 +56729,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="65908"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="66079"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -56610,7 +56800,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="65816"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="65987"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -56720,7 +56910,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="65828"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="65999"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -56792,7 +56982,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="65839"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="66010"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -56993,7 +57183,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="65871"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="66042"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -57118,7 +57308,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="65879"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="66050"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic

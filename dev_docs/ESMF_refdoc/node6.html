@@ -3289,7 +3289,7 @@ temporary or multiple Clocks and Alarms.  Sections&nbsp;<A HREF="#sec:Clock">44.
 <BR><P></P>
 <DIV ALIGN="CENTER">
 
-<A NAME="73698"></A>
+<A NAME="73869"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 4:</STRONG>
 Specifiers for Times and TimeIntervals</CAPTION>
@@ -19292,7 +19292,7 @@ The arguments are:
 <BR></I>
 
 <P>
-Collective <TT>ESMF_VM</TT> communication call that reduces a contiguous data 
+Collective <TT>ESMF_VM</TT> communication call that reduces a contiguous data
      array of &lt;type&gt;&lt;kind&gt; across the <TT>ESMF_VM</TT> object 
      into a single value of the same &lt;type&gt;&lt;kind&gt;. The result is
      returned on all PETs. Different reduction operations can be specified.
@@ -19396,8 +19396,18 @@ The arguments are:
 <BR></I>
 
 <P>
-Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data 
-     from all PETs of an <TT>ESMF_VM</TT> object into an array on all PETs.
+Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data
+     of &lt;type&gt;&lt;kind&gt; from all PETs of an <TT>ESMF_VM</TT> object into an array on
+     each PET. The data received in <TT>recvData</TT> is identical across all PETs.
+     The <TT>count</TT> elements sent from the <TT>sendData</TT> array on PET <TT>i</TT>
+     are stored contiguously in the <TT>recvData</TT> array starting at position
+     <TT>i</TT> <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img201.png"
+ ALT="$\times$"></SPAN> <TT>count</TT> <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img202.png"
+ ALT="$+$"></SPAN> 1.
 
 <P>
 This method is overloaded for:
@@ -19414,12 +19424,13 @@ The arguments are:
 </DD>
 <DT><STRONG>sendData</STRONG></DT>
 <DD>Contiguous data array holding data to be sent. All PETs must specify a
-          valid source array.
+          valid source array. The first <TT>count</TT> elements on each PET are sent.
      
 </DD>
 <DT><STRONG>recvData</STRONG></DT>
 <DD>Contiguous data array for data to be received. All PETs must specify a
-          valid <TT>recvData</TT> argument.
+          valid <TT>recvData</TT> argument large enough to accommodate the received
+          data.
      
 </DD>
 <DT><STRONG>count</STRONG></DT>
@@ -19489,8 +19500,12 @@ The arguments are:
 <BR></I>
 
 <P>
-Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data 
-     from all PETs of an <TT>ESMF_VM</TT> object into an array on all PETs.
+Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data
+     of &lt;type&gt;&lt;kind&gt; from all PETs of an <TT>ESMF_VM</TT> object into an array on
+     each PET. The data received in <TT>recvData</TT> is identical across all PETs.
+     The <TT>sendCount</TT> elements sent from the <TT>sendData</TT> array on PET
+     <TT>i</TT> are stored contiguously in the <TT>recvData</TT> array starting at
+     position <TT>recvOffsets(i)</TT>.
 
 <P>
 This method is overloaded for:
@@ -19523,11 +19538,12 @@ The arguments are:
 </DD>
 <DT><STRONG>recvData</STRONG></DT>
 <DD>Contiguous data array for data to be received. All PETs must specify a
-          valid <TT>recvData</TT> argument.
+          valid <TT>recvData</TT> argument large enough to accommodate the received
+          data.
      
 </DD>
 <DT><STRONG>recvCounts</STRONG></DT>
-<DD>Number of <TT>recvData</TT> elements to be received from corresponding
+<DD>Number of <TT>recvData</TT> elements to be received from the corresponding
           source PET.
      
 </DD>
@@ -19597,7 +19613,7 @@ The arguments are:
 <BR></I>
 
 <P>
-Collective <TT>ESMF_VM</TT> communication call that reduces a contiguous data 
+Collective <TT>ESMF_VM</TT> communication call that reduces a contiguous data
      array across the <TT>ESMF_VM</TT> object into a contiguous data array of the
      same &lt;type&gt;&lt;kind&gt;. The result array is returned on all PETs. 
      Different reduction operations can be specified.
@@ -19704,9 +19720,27 @@ The arguments are:
 
 <P>
 Collective <TT>ESMF_VM</TT> communication call that performs a total exchange
-     operation, sending pieces of the contiguous data buffer <TT>sendData</TT> to
-     all other PETs while receiving data into the contiguous data buffer
-     <TT>recvData</TT> from all other PETs.
+     operation on the contiguous data of &lt;type&gt;&lt;kind&gt;. PET <TT>i</TT> sends
+     contiguous <TT>sendCount</TT> elements of its <TT>sendData</TT> array to every
+     PET, including itself. The <TT>sendCount</TT> elements sent to PET <TT>j</TT> are
+     those starting at position <TT>j</TT> <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img201.png"
+ ALT="$\times$"></SPAN> <TT>sendCount</TT> <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img202.png"
+ ALT="$+$"></SPAN> 1, and are
+     stored in <TT>recvData</TT> on PET <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$j$"></SPAN> in position <TT>i</TT> <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img201.png"
+ ALT="$\times$"></SPAN>
+     <TT>recvCount</TT> <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img202.png"
+ ALT="$+$"></SPAN> 1.
 
 <P>
 This method is overloaded for:
@@ -19739,7 +19773,8 @@ The arguments are:
 </DD>
 <DT><STRONG>recvData</STRONG></DT>
 <DD>Contiguous data array for data to be received. All PETs must specify a
-          valid <TT>recvData</TT> argument.
+          valid <TT>recvData</TT> argument large enough to accommodate the received
+          data.
      
 </DD>
 <DT><STRONG>recvCount</STRONG></DT>
@@ -19812,9 +19847,14 @@ The arguments are:
 
 <P>
 Collective <TT>ESMF_VM</TT> communication call that performs a total exchange
-     operation, sending pieces of the contiguous data buffer <TT>sendData</TT> to
-     all other PETs while receiving data into the contiguous data buffer
-     <TT>recvData</TT> from all other PETs.
+     operation on the contiguous data of &lt;type&gt;&lt;kind&gt;. PET <TT>i</TT> sends
+     contiguous elements of its <TT>sendData</TT> array to all PETs, including
+     itself. The <TT>sendCount(j)</TT> elements sent to PET <TT>j</TT> are
+     those starting at position <TT>sendOffsets(j)</TT>, and are
+     stored in <TT>recvData</TT> on PET <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$j$"></SPAN> in position <TT>recvOffsets(i)</TT>.
 
 <P>
 This method is overloaded for:
@@ -19853,7 +19893,8 @@ The arguments are:
 </DD>
 <DT><STRONG>recvData</STRONG></DT>
 <DD>Contiguous data array for data to be received. All PETs must specify a
-          valid <TT>recvData</TT> argument.
+          valid <TT>recvData</TT> argument large enough to accommodate the received
+          data.
      
 </DD>
 <DT><STRONG>recvCounts</STRONG></DT>
@@ -19975,8 +20016,9 @@ The arguments are:
 
 <P>
 Collective <TT>ESMF_VM</TT> communication call that broadcasts a contiguous 
-     data array from <TT>rootPet</TT> to all other PETs of the <TT>ESMF_VM</TT>
-     object.
+     data array of &lt;type&gt;&lt;kind&gt; from <TT>rootPet</TT> to all other PETs of the 
+     <TT>ESMF_VM</TT> object. When the call returns, the <TT>bcstData</TT> array
+     on all PETs contains the same data as on <TT>rootPet</TT>.
 
 <P>
 This method is overloaded for:
@@ -19995,7 +20037,8 @@ The arguments are:
 <DT><STRONG>bcstData</STRONG></DT>
 <DD>Contiguous data array. On <TT>rootPet</TT> <TT>bcstData</TT> holds data that
           is to be broadcasted to all other PETs. On all other PETs 
-          <TT>bcstData</TT> is used to receive the broadcasted data.
+          <TT>bcstData</TT> is used to receive the broadcasted data and must be
+          large enough to accommodate the received data.
      
 </DD>
 <DT><STRONG>count</STRONG></DT>
@@ -20261,9 +20304,18 @@ The arguments are:
 <BR></I>
 
 <P>
-Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data 
-     from all PETs of an <TT>ESMF_VM</TT> object (including <TT>rootPet</TT>) into an
-     array on <TT>rootPet</TT>.
+Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data
+     of &lt;type&gt;&lt;kind&gt; from all PETs of an <TT>ESMF_VM</TT> object (including the 
+     <TT>rootPet</TT> itself) into an array on <TT>rootPet</TT>.
+     The <TT>count</TT> elements sent from the <TT>sendData</TT> array on PET <TT>i</TT>
+     are stored contiguously in the <TT>recvData</TT> array on <TT>rootPet</TT>
+     starting at position <TT>i</TT> <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img201.png"
+ ALT="$\times$"></SPAN> <TT>count</TT> <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img202.png"
+ ALT="$+$"></SPAN> 1.
 
 <P>
 This method is overloaded for:
@@ -20284,8 +20336,9 @@ The arguments are:
      
 </DD>
 <DT><STRONG>recvData</STRONG></DT>
-<DD>Contiguous data array for data to be received. Only the <TT>recvData</TT>
-          array specified by the <TT>rootPet</TT> will be used by this method.
+<DD>Contiguous data array for data to be received. Only <TT>recvData</TT>
+          specified by the <TT>rootPet</TT> will be used by this method, and must
+          be large enough to accommodate the received data.
      
 </DD>
 <DT><STRONG>count</STRONG></DT>
@@ -20358,8 +20411,12 @@ The arguments are:
 <BR></I>
 
 <P>
-Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data 
-     from all PETs of an <TT>ESMF_VM</TT> object into an array on rootPet.
+Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data
+     of &lt;type&gt;&lt;kind&gt; from all PETs of an <TT>ESMF_VM</TT> object (including the 
+     <TT>rootPet</TT> itself) into an array on <TT>rootPet</TT>.
+     The <TT>sendCount</TT> elements sent from the <TT>sendData</TT> array on PET
+     <TT>i</TT> are stored contiguously in the <TT>recvData</TT> array on <TT>rootPet</TT>
+     starting at position <TT>recvOffsets(i)</TT>.
 
 <P>
 This method is overloaded for:
@@ -20391,8 +20448,9 @@ The arguments are:
      
 </DD>
 <DT><STRONG>recvData</STRONG></DT>
-<DD>Contiguous data array for data to be received. Only the <TT>recvData</TT>
-          array specified by the <TT>rootPet</TT> will be used by this method.
+<DD>Contiguous data array for data to be received. Only <TT>recvData</TT>
+          specified by the <TT>rootPet</TT> will be used by this method, and must
+          be large enough to accommodate the received data.
      
 </DD>
 <DT><STRONG>recvCounts</STRONG></DT>
@@ -20500,7 +20558,7 @@ The arguments are:
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="123" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img201.png"
+ SRC="img203.png"
  ALT="$[0..petCount-1]$"></SPAN>. A value of <SPAN CLASS="MATH"><IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
  SRC="img82.png"
@@ -21056,7 +21114,7 @@ The arguments are:
 <BR></I>
 
 <P>
-Collective <TT>ESMF_VM</TT> communication call that reduces a contiguous data 
+Collective <TT>ESMF_VM</TT> communication call that reduces a contiguous data
      array across the <TT>ESMF_VM</TT> object into a contiguous data array of 
      the same &lt;type&gt;&lt;kind&gt;. The result array is returned on <TT>rootPet</TT>. 
      Different reduction operations can be specified.
@@ -21165,9 +21223,19 @@ The arguments are:
 <BR></I>
 
 <P>
-Collective <TT>ESMF_VM</TT> communication call that scatters contiguous data 
-     from the <TT>rootPet</TT> to all PETs across the <TT>ESMF_VM</TT> object
-     (including <TT>rootPet</TT>).
+Collective <TT>ESMF_VM</TT> communication call that scatters contiguous data
+     of &lt;type&gt;&lt;kind&gt; from <TT>rootPet</TT> across all the PETs of an <TT>ESMF_VM</TT>
+     object. Every PET, including <TT>rootPet</TT>, receives a portion of the data.
+     The <TT>count</TT> number of elements received by PET <TT>i</TT> originate from
+     the <TT>sendData</TT> array on <TT>rootPet</TT>, starting at position <TT>i</TT>
+     <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img201.png"
+ ALT="$\times$"></SPAN> <TT>count</TT> <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img202.png"
+ ALT="$+$"></SPAN> 1. Each PET stores the received contiguous data
+     portion at the start of its <TT>recvData</TT> array.
 
 <P>
 This method is overloaded for:
@@ -21189,7 +21257,7 @@ The arguments are:
 </DD>
 <DT><STRONG>recvData</STRONG></DT>
 <DD>Contiguous data array for data to be received. All PETs must specify a
-          valid destination array.
+          valid destination array large enough to accommodate the received data.
      
 </DD>
 <DT><STRONG>count</STRONG></DT>
@@ -21262,9 +21330,13 @@ The arguments are:
 <BR></I>
 
 <P>
-Collective <TT>ESMF_VM</TT> communication call that scatters contiguous data 
-     from the <TT>rootPet</TT> to all PETs across the <TT>ESMF_VM</TT> object
-     (including <TT>rootPet</TT>).
+Collective <TT>ESMF_VM</TT> communication call that scatters contiguous data
+     of &lt;type&gt;&lt;kind&gt; from <TT>rootPet</TT> across all the PETs of an <TT>ESMF_VM</TT>
+     object. Every PET, including <TT>rootPet</TT>, receives a portion of the data.
+     The <TT>recvCount</TT> number of elements received by PET <TT>i</TT> originate
+     from the <TT>sendData</TT> array on <TT>rootPet</TT>, starting at position
+     <TT>sendOffsets(i)</TT>. Each PET stores the received contiguous data
+     portion at the start of its <TT>recvData</TT> array.
 
 <P>
 This method is overloaded for:
@@ -21295,7 +21367,8 @@ The arguments are:
 </DD>
 <DT><STRONG>recvData</STRONG></DT>
 <DD>Contiguous data array for data to be received. All PETs must specify a
-          valid <TT>recvData</TT> argument.
+          valid <TT>recvData</TT> argument large enough to accommodate the received
+          data.
      
 </DD>
 <DT><STRONG>recvCount</STRONG></DT>
