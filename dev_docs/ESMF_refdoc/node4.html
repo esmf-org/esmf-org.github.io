@@ -1487,9 +1487,30 @@ Note that when using MPICH as the MPI library, ESMF needs to use
        <A HREF="node6.html#vm_inside_user_mpi">49.3.4</A>. It is not necessary that all MPI ranks are
        handed to ESMF. Section <A HREF="node6.html#vm_nesting_esmf">49.3.5</A> shows how an MPI
        communicator can be used to execute ESMF on a subset of MPI ranks.
-       Finally <TT>ESMF_Initialize()</TT> supports running multiple concurrent
+       <TT>ESMF_Initialize()</TT> supports running multiple concurrent
        instances of ESMF under the same user MPI program. This feature is
        discussed under <A HREF="node6.html#vm_multi_instance_esmf">49.3.6</A>.
+
+<P>
+In order to use any of the advanced resource management functions that
+       ESMF provides via the <TT>ESMF_*CompSetVM*()</TT> methods, the MPI
+       environment must be thread-safe. <TT>ESMF_Initialize()</TT> handles this
+       automatically if it is in charge of initializing MPI. However, if the
+       user code initializes MPI before calling into <TT>ESMF_Initialize()</TT>,
+       it must do so via <TT>MPI_Init_thread()</TT>, specifying
+       <TT>MPI_THREAD_SERIALIZED</TT> or above for the required level of thread
+       support.
+
+<P>
+In cases where <TT>ESMF_*CompSetVM*()</TT> methods are used to move
+       processing elements (PEs), i.e. CPU cores, between persistent execution
+       threads (PETs), ESMF uses POSIX signals between PETs. In order to do so
+       safely, the proper signal handlers must be installed before MPI is
+       initialized. For this reason, code that wants to use different threading
+       levels via OpenMP on components that run on the same set of hardware
+       resources (PEs), must <EM>not</EM> initialize MPI before calling
+       into <TT>ESMF_Initialize()</TT>. Instead <TT>ESMF_Initialize()</TT> must
+       have the opportunity to install signal handlers before initializing MPI.
 
 <P>
 By default, <TT>ESMF_Initialize()</TT> will open multiple error log files,
@@ -1508,7 +1529,9 @@ When integrating ESMF with applications where Fortran unit number conflicts
 
 <P>
 Before exiting the application the user must call <TT>ESMF_Finalize()</TT>
-       to release resources and clean up ESMF gracefully.
+       to release resources and clean up ESMF gracefully. See the
+       <TT>ESMF_Finalize()</TT> documentation about details relating to the MPI
+       environment.
 
 <P>
 The arguments are:
@@ -5645,7 +5668,7 @@ derived type within ESMF.  The user must create one of these types
 to represent a specific coupling function, such as the regular
 transfer of data between a data assimilation system and an 
 atmospheric model.  <A NAME="tex2html21"
-  HREF="footnode.html#foot7630"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="footnode.html#foot7664"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 The user-written part of a Coupler Component is associated with an
 <TT>ESMF_CplComp</TT> derived type through a routine called 
@@ -10562,7 +10585,7 @@ in that test:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12328"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12362"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10583,7 +10606,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12330"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12364"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10614,7 +10637,7 @@ Array object is empty, and the DELayout for the Grid is like this:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12332"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12366"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10635,7 +10658,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12334"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12368"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -13082,7 +13105,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="15116"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="15150"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
