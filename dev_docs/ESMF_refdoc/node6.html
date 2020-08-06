@@ -20490,25 +20490,26 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_VMGet()
    recursive subroutine ESMF_VMGetDefault(vm, localPet, &amp;
-     localPe, petCount, peCount, ssiCount, ssiMinPetCount, ssiMaxPetCount, &amp;
+     localPe, petCount, peCount, ssiCount, ssiList, ssiMinPetCount, ssiMaxPetCount, &amp;
      ssiLocalPetCount, mpiCommunicator, pthreadsEnabledFlag, openMPEnabledFlag, &amp;
      ssiSharedMemoryEnabledFlag, rc)
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>     type(ESMF_VM),      intent(in)            :: vm
+<PRE>     type(ESMF_VM),        intent(in)            :: vm
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-     integer,            intent(out), optional :: localPet
-     integer,            intent(out), optional :: localPe
-     integer,            intent(out), optional :: petCount
-     integer,            intent(out), optional :: peCount
-     integer,            intent(out), optional :: ssiCount
-     integer,            intent(out), optional :: ssiMinPetCount
-     integer,            intent(out), optional :: ssiMaxPetCount
-     integer,            intent(out), optional :: ssiLocalPetCount
-     integer,            intent(out), optional :: mpiCommunicator
-     logical,            intent(out), optional :: pthreadsEnabledFlag
-     logical,            intent(out), optional :: openMPEnabledFlag
-     logical,            intent(out), optional :: ssiSharedMemoryEnabledFlag
-     integer,            intent(out), optional :: rc
+     integer,              intent(out), optional :: localPet
+     integer,              intent(out), optional :: localPe
+     integer,              intent(out), optional :: petCount
+     integer,              intent(out), optional :: peCount
+     integer,              intent(out), optional :: ssiCount
+     integer, allocatable, intent(out), optional :: ssiList(:)
+     integer,              intent(out), optional :: ssiMinPetCount
+     integer,              intent(out), optional :: ssiMaxPetCount
+     integer,              intent(out), optional :: ssiLocalPetCount
+     integer,              intent(out), optional :: mpiCommunicator
+     logical,              intent(out), optional :: pthreadsEnabledFlag
+     logical,              intent(out), optional :: openMPEnabledFlag
+     logical,              intent(out), optional :: ssiSharedMemoryEnabledFlag
+     integer,              intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
@@ -20531,7 +20532,11 @@ Added argument <TT>ssiSharedMemoryEnabledFlag</TT> that allows the user to
    
 </DD>
 <DT><STRONG>8.1.0</STRONG></DT>
-<DD>Added argument <TT>localPe</TT> for easy access to the PE.
+<DD>Added argument <TT>localPe</TT> for easy access to the local PE
+     mapping.
+<BR>
+Added argument <TT>ssiList</TT> for a convenient way to obtain a view
+     of the mapping of PETs to single system images across the entire VM.
    
 </DD>
 </DL>
@@ -20587,6 +20592,12 @@ The arguments are:
           by <TT>vm</TT>.
      
 </DD>
+<DT><STRONG>[ssiList]</STRONG></DT>
+<DD>Upon return this array is allocated and holds the single system image
+          id for each PET across the <TT>vm</TT>. The size of <TT>ssiList</TT> is
+          equal to <TT>petCount</TT>, with lower bound 0 and upper bound petCount-1.
+     
+</DD>
 <DT><STRONG>[ssiMinPetCount]</STRONG></DT>
 <DD>Upon return this holds the smallest number of PETs running in the same
           single system images under <TT>vm</TT>.
@@ -20615,11 +20626,13 @@ The arguments are:
 <DT><STRONG>[pthreadsEnabledFlag]</STRONG></DT>
 <DD><DL>
 <DT><STRONG><TT>.TRUE.</TT></STRONG></DT>
-<DD>ESMF has been compiled with Pthreads.
+<DD>ESMF has been compiled with Pthreads, and the MPI environment
+               supports threading.
           
 </DD>
 <DT><STRONG><TT>.FALSE.</TT></STRONG></DT>
-<DD>ESMF has <EM>not</EM> been compiled with Pthreads.
+<DD>ESMF has <EM>not</EM> been compiled with Pthreads, or the MPI
+               environment does <EM>not</EM> support threading.
           
 </DD>
 </DL>
