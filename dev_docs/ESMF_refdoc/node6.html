@@ -20490,7 +20490,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_VMGet()
    recursive subroutine ESMF_VMGetDefault(vm, localPet, &amp;
-     localPe, petCount, peCount, ssiCount, ssiList, ssiMinPetCount, ssiMaxPetCount, &amp;
+     localPe, petCount, peCount, ssiCount, ssiMap, ssiMinPetCount, ssiMaxPetCount, &amp;
      ssiLocalPetCount, mpiCommunicator, pthreadsEnabledFlag, openMPEnabledFlag, &amp;
      ssiSharedMemoryEnabledFlag, rc)
 </PRE><EM>ARGUMENTS:</EM>
@@ -20501,7 +20501,7 @@ The arguments are:
      integer,              intent(out), optional :: petCount
      integer,              intent(out), optional :: peCount
      integer,              intent(out), optional :: ssiCount
-     integer, allocatable, intent(out), optional :: ssiList(:)
+     integer, allocatable, intent(out), optional :: ssiMap(:)
      integer,              intent(out), optional :: ssiMinPetCount
      integer,              intent(out), optional :: ssiMaxPetCount
      integer,              intent(out), optional :: ssiLocalPetCount
@@ -20535,7 +20535,7 @@ Added argument <TT>ssiSharedMemoryEnabledFlag</TT> that allows the user to
 <DD>Added argument <TT>localPe</TT> for easy access to the local PE
      mapping.
 <BR>
-Added argument <TT>ssiList</TT> for a convenient way to obtain a view
+Added argument <TT>ssiMap</TT> for a convenient way to obtain a view
      of the mapping of PETs to single system images across the entire VM.
    
 </DD>
@@ -20592,9 +20592,9 @@ The arguments are:
           by <TT>vm</TT>.
      
 </DD>
-<DT><STRONG>[ssiList]</STRONG></DT>
+<DT><STRONG>[ssiMap]</STRONG></DT>
 <DD>Upon return this array is allocated and holds the single system image
-          id for each PET across the <TT>vm</TT>. The size of <TT>ssiList</TT> is
+          id for each PET across the <TT>vm</TT>. The size of <TT>ssiMap</TT> is
           equal to <TT>petCount</TT>, with lower bound 0 and upper bound petCount-1.
      
 </DD>
