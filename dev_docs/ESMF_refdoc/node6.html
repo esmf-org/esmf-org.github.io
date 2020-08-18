@@ -97,9 +97,9 @@
 <LI><A NAME="tex2html2783"
   HREF="node6.html#SECTION06024900000000000000"><SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">9</SPAN> ESMF_InfoSet</A>
 <LI><A NAME="tex2html2784"
-  HREF="node6.html#SECTION060241000000000000000"><SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">10</SPAN> ESMF_InfoSet</A>
+  HREF="node6.html#SECTION060241000000000000000"><SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">10</SPAN> ESMF_InfoSetNULL</A>
 <LI><A NAME="tex2html2785"
-  HREF="node6.html#SECTION060241100000000000000"><SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">11</SPAN> ESMF_InfoSetNULL</A>
+  HREF="node6.html#SECTION060241100000000000000"><SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">11</SPAN> ESMF_InfoSetINFO</A>
 <LI><A NAME="tex2html2786"
   HREF="node6.html#SECTION060241200000000000000"><SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">12</SPAN> ESMF_InfoGet</A>
 <LI><A NAME="tex2html2787"
@@ -1776,17 +1776,16 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>   ! Private name; call using ESMF_InfoSet()
- subroutine ESMF_InfoSetI4(info, key, value, force, idx, pkey, rc)
+<PRE>  subroutine ESMF_InfoSet(info, key, value, force, idx, pkey, rc)
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>   type(ESMF_Info), intent(inout) :: info
-   character(len=*), intent(in) :: key
-   integer(ESMF_KIND_I4), intent(in) :: value
+<PRE>    type(ESMF_Info), intent(inout) :: info
+    character(len=*), intent(in) :: key
+    &lt;value&gt;, see below for supported value
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-   logical, intent(in), optional :: force
-   integer, intent(in), optional :: idx
-   character(len=*), intent(in), optional :: pkey
-   integer, intent(out), optional :: rc
+    logical, intent(in), optional :: force
+    integer, intent(in), optional :: idx
+    character(len=*), intent(in), optional :: pkey
+    integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
@@ -1863,16 +1862,15 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>   ! Private name; call using ESMF_InfoSet()
- subroutine ESMF_InfoSetArrayI4(info, key, values, force, pkey, rc)
+<PRE>  subroutine ESMF_InfoSet(info, key, values, force, pkey, rc)
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>   type(ESMF_Info), intent(inout) :: info
-   character(len=*), intent(in) :: key
-   integer(ESMF_KIND_I4), dimension(:), intent(in) :: values
+<PRE>    type(ESMF_Info), intent(inout) :: info
+    character(len=*), intent(in) :: key
+    &lt;values&gt;, see below for supported values
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-   logical, intent(in), optional :: force
-   character(len=*), intent(in), optional :: pkey
-   integer, intent(out), optional :: rc
+    logical, intent(in), optional :: force
+    character(len=*), intent(in), optional :: pkey
+    integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
@@ -1937,65 +1935,7 @@ The arguments are:
 <P>
 
 <H3><A NAME="SECTION060241000000000000000">
-<SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">10</SPAN> ESMF_InfoSet - Set a key to the contents of an Info object</A>
-</H3>
-
-<P>
-
-<P><P>
-<BR>
-<I CLASS="sans">INTERFACE:</I>
-<PRE>   ! Private name; call using ESMF_InfoSet()
- subroutine ESMF_InfoSetINFO(info, key, value, force, rc)
-</PRE><EM>ARGUMENTS:</EM>
-<PRE>   type(ESMF_Info), intent(inout) :: info
-   character(len=*), intent(in) :: key
-   type(ESMF_Info), intent(in) :: value
- -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-   logical, intent(in), optional :: force
-   integer, intent(out), optional :: rc
-</PRE>
-<I CLASS="sans">DESCRIPTION:
-<BR></I>
-
-<P>
-Set a value to the contents of an <TT>ESMF_Info</TT> object. A copy of
-       the source contents is made.
-
-<P>
-The arguments are:
-       <DL>
-<DT><STRONG>info</STRONG></DT>
-<DD>Target <TT>ESMF_Info</TT> object.
-       
-</DD>
-<DT><STRONG>key</STRONG></DT>
-<DD>String key to access in <TT>ESMF_Info</TT> storage. See section <A HREF="#info_key_format">39.2</A>
-         for an overview of the key format.
-       
-</DD>
-<DT><STRONG>value</STRONG></DT>
-<DD>The <TT>ESMF_Info</TT> object to use as source data.
-       
-</DD>
-<DT><STRONG>[force]</STRONG></DT>
-<DD>Default is true. When true, insert the key even if it already exists in
-         storage. If false, <SPAN  CLASS="textit">rc</SPAN> will not return <TT>ESMF_SUCCESS</TT> if the
-         key already exists.
-       
-</DD>
-<DT><STRONG>[rc]</STRONG></DT>
-<DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
-       
-</DD>
-</DL> 
-
-<P>
-
-<P>
-
-<H3><A NAME="SECTION060241100000000000000">
-<SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">11</SPAN> ESMF_InfoSetNULL - Set a value to null</A>
+<SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">10</SPAN> ESMF_InfoSetNULL - Set a value to null</A>
 </H3>
 
 <P>
@@ -2046,6 +1986,63 @@ The arguments are:
 
 <P>
 
+<H3><A NAME="SECTION060241100000000000000">
+<SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">11</SPAN> ESMF_InfoSetINFO - Set a key to the contents of an Info object</A>
+</H3>
+
+<P>
+
+<P><P>
+<BR>
+<I CLASS="sans">INTERFACE:</I>
+<PRE> subroutine ESMF_InfoSetINFO(info, key, value, force, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>   type(ESMF_Info), intent(inout) :: info
+   character(len=*), intent(in) :: key
+   type(ESMF_Info), intent(in) :: value
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+   logical, intent(in), optional :: force
+   integer, intent(out), optional :: rc
+</PRE>
+<I CLASS="sans">DESCRIPTION:
+<BR></I>
+
+<P>
+Set a value to the contents of an <TT>ESMF_Info</TT> object. A copy of
+       the source contents is made.
+
+<P>
+The arguments are:
+       <DL>
+<DT><STRONG>info</STRONG></DT>
+<DD>Target <TT>ESMF_Info</TT> object.
+       
+</DD>
+<DT><STRONG>key</STRONG></DT>
+<DD>String key to access in <TT>ESMF_Info</TT> storage. See section <A HREF="#info_key_format">39.2</A>
+         for an overview of the key format.
+       
+</DD>
+<DT><STRONG>value</STRONG></DT>
+<DD>The <TT>ESMF_Info</TT> object to use as source data.
+       
+</DD>
+<DT><STRONG>[force]</STRONG></DT>
+<DD>Default is true. When true, insert the key even if it already exists in
+         storage. If false, <SPAN  CLASS="textit">rc</SPAN> will not return <TT>ESMF_SUCCESS</TT> if the
+         key already exists.
+       
+</DD>
+<DT><STRONG>[rc]</STRONG></DT>
+<DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
+       
+</DD>
+</DL> 
+
+<P>
+
+<P>
+
 <H3><A NAME="SECTION060241200000000000000">
 <SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">12</SPAN> ESMF_InfoGet - Get a numeric, logical, or fixed-size character value</A>
 </H3>
@@ -2055,17 +2052,16 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>   ! Private name; call using ESMF_InfoGet()
- subroutine ESMF_InfoGetI4(info, key, value, default, idx, attnestflag, rc)
+<PRE>  subroutine ESMF_InfoGet(info, key, value, default, idx, attnestflag, rc)
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>   type(ESMF_Info), intent(in) :: info
-   character(len=*), intent(in) :: key
-   integer(ESMF_KIND_I4), intent(out) :: value
+<PRE>    type(ESMF_Info), intent(in) :: info
+    character(len=*), intent(in) :: key
+    &lt;value&gt;, see below for supported value
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-   integer(ESMF_KIND_I4), intent(in), optional :: default
-   integer, intent(in), optional :: idx
-   type(ESMF_AttNest_Flag), intent(in), optional :: attnestflag
-   integer, intent(out), optional :: rc
+    &lt;default, optional&gt; see below for supported default value
+    integer, intent(in), optional :: idx
+    type(ESMF_AttNest_Flag), intent(in), optional :: attnestflag
+    integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
@@ -2144,16 +2140,16 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE> subroutine ESMF_InfoGetCharAlloc(info, key, value, default, idx, attnestflag, rc)
+<PRE>  subroutine ESMF_InfoGetCharAlloc(info, key, value, default, idx, attnestflag, rc)
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>   type(ESMF_Info), intent(in) :: info
-   character(len=*), intent(in) :: key
-   character(:), allocatable, intent(out) :: value
+<PRE>    type(ESMF_Info), intent(in) :: info
+    character(len=*), intent(in) :: key
+    character(:), allocatable, intent(out) :: value
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-   character(len=*), intent(in), optional :: default
-   integer, intent(in), optional :: idx
-   type(ESMF_AttNest_Flag), intent(in), optional :: attnestflag
-   integer, intent(out), optional :: rc
+    character(len=*), intent(in), optional :: default
+    integer, intent(in), optional :: idx
+    type(ESMF_AttNest_Flag), intent(in), optional :: attnestflag
+    integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
@@ -2213,17 +2209,16 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>   ! Private name; call using ESMF_InfoGet()
- subroutine ESMF_InfoGetArrayI4(info, key, values, itemCount, attnestflag, scalarToArray, rc)
+<PRE>  subroutine ESMF_InfoGet(info, key, values, itemCount, attnestflag, scalarToArray, rc)
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>   type(ESMF_Info), intent(in) :: info
-   character(len=*), intent(in) :: key
-   integer(ESMF_KIND_I4), dimension(:), intent(out) :: values
+<PRE>    type(ESMF_Info), intent(in) :: info
+    character(len=*), intent(in) :: key
+    &lt;values&gt;, see below for supported values
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-   integer, intent(out), optional :: itemCount
-   type(ESMF_AttNest_Flag), intent(in), optional :: attnestflag
-   logical, intent(in), optional :: scalarToArray
-   integer, intent(out), optional :: rc
+    integer, intent(out), optional :: itemCount
+    type(ESMF_AttNest_Flag), intent(in), optional :: attnestflag
+    logical, intent(in), optional :: scalarToArray
+    integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
@@ -2305,17 +2300,16 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>   ! Private name; call using ESMF_InfoGetAlloc()
- subroutine ESMF_InfoGetArrayI4Alloc(info, key, values, itemCount, attnestflag, scalarToArray, rc)
+<PRE>  subroutine ESMF_InfoGetAlloc(info, key, values, itemCount, attnestflag, scalarToArray, rc)
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>   type(ESMF_Info), intent(in) :: info
-   character(len=*), intent(in) :: key
-   integer(ESMF_KIND_I4), dimension(:),  allocatable, intent(out) :: values
+<PRE>    type(ESMF_Info), intent(in) :: info
+    character(len=*), intent(in) :: key
+    &lt;values&gt;, see below for supported values
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-   integer, intent(out), optional :: itemCount
-   type(ESMF_AttNest_Flag), intent(in), optional :: attnestflag
-   logical, intent(in), optional :: scalarToArray
-   integer, intent(out), optional :: rc
+    integer, intent(out), optional :: itemCount
+    type(ESMF_AttNest_Flag), intent(in), optional :: attnestflag
+    logical, intent(in), optional :: scalarToArray
+    integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
