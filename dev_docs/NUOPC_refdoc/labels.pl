@@ -30,6 +30,10 @@ $key = q/Explorer/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/ExternalInterface/;
+$external_labels{$key} = "$URL/" . q|node3.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/FieldMeta/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
@@ -199,6 +203,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/Explorer/;
 $external_latex_labels{$key} = q|5.2|; 
+$noresave{$key} = "$nosave";
+
+$key = q/ExternalInterface/;
+$external_latex_labels{$key} = q|2.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldMeta/;
