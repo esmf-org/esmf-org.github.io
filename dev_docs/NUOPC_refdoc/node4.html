@@ -5819,7 +5819,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_Realize()
    subroutine NUOPC_RealizeCompleteG(state, grid, fieldName, typekind, &amp;
-     staggerloc, selection, dataFillScheme, rc)
+     staggerloc, selection, dataFillScheme, field, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_State)                                :: state
      type(ESMF_Grid),          intent(in)            :: grid
@@ -5828,6 +5828,7 @@ The arguments are:
      type(ESMF_StaggerLoc),    intent(in),  optional :: staggerloc
      character(len=*),         intent(in),  optional :: selection
      character(len=*),         intent(in),  optional :: dataFillScheme    
+     type(ESMF_Field),         intent(out), optional :: field
      integer,                  intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -5903,6 +5904,11 @@ The arguments are:
        the data in realized fields uninitialized.
      
 </DD>
+<DT><STRONG>[field]</STRONG></DT>
+<DD>Returns the completed field that was realized by this method. This option
+       is only supported if also argument <TT>fieldName</TT> was specified.
+     
+</DD>
 <DT><STRONG>[rc]</STRONG></DT>
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
      
@@ -5924,7 +5930,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_Realize()
    subroutine NUOPC_RealizeCompleteLS(state, locstream, fieldName, typekind, selection,&amp;
-     dataFillScheme, rc)
+     dataFillScheme, field, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_State)                                :: state
      type(ESMF_LocStream),     intent(in)            :: locstream
@@ -5932,6 +5938,7 @@ The arguments are:
      type(ESMF_TypeKind_Flag), intent(in),  optional :: typekind
      character(len=*),         intent(in),  optional :: selection
      character(len=*),         intent(in),  optional :: dataFillScheme    
+     type(ESMF_Field),         intent(out), optional :: field
      integer,                  intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -5998,6 +6005,11 @@ The arguments are:
        the data in realized fields uninitialized.
      
 </DD>
+<DT><STRONG>[field]</STRONG></DT>
+<DD>Returns the completed field that was realized by this method. This option
+       is only supported if also argument <TT>fieldName</TT> was specified.
+     
+</DD>
 <DT><STRONG>[rc]</STRONG></DT>
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
      
@@ -6019,7 +6031,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_Realize()
    subroutine NUOPC_RealizeCompleteM(state, mesh, fieldName, typekind, &amp;
-     meshloc, selection, dataFillScheme, rc)
+     meshloc, selection, dataFillScheme, field, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_State)                                :: state
      type(ESMF_Mesh),          intent(in)            :: mesh
@@ -6027,7 +6039,8 @@ The arguments are:
      type(ESMF_TypeKind_Flag), intent(in),  optional :: typekind
      type(ESMF_MeshLoc),       intent(in),  optional :: meshloc
      character(len=*),         intent(in),  optional :: selection
-     character(len=*),         intent(in),  optional :: dataFillScheme    
+     character(len=*),         intent(in),  optional :: dataFillScheme
+     type(ESMF_Field),         intent(out), optional :: field
      integer,                  intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -6098,6 +6111,11 @@ The arguments are:
 <DD>Realized fields will be filled according to the selected fill
        scheme. See <A HREF="#NUOPC_FillField"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A> for fill schemes. Default is to leave
        the data in realized fields uninitialized.
+     
+</DD>
+<DT><STRONG>[field]</STRONG></DT>
+<DD>Returns the completed field that was realized by this method. This option
+       is only supported if also argument <TT>fieldName</TT> was specified.
      
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
