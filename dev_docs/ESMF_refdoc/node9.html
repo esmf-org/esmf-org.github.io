@@ -596,7 +596,7 @@ The valid values are:
 </DD>
 <DT><STRONG>ESMF_EXTRAPMETHOD_NEAREST_IDAVG</STRONG></DT>
 <DD>Inverse distance weighted average. 
-      Here the value of a destination point is the weighted average
+      Here the value of an unmapped destination point is the weighted average
       of the closest N source points. The weight is 
       the reciprocal of the distance of the source point from the destination point raised to a power P.
       All the weights contributing to one destination point are normalized so that they sum to 1.0. 
@@ -606,19 +606,33 @@ The valid values are:
 </DD>
 <DT><STRONG>ESMF_EXTRAPMETHOD_NEAREST_STOD</STRONG></DT>
 <DD>Nearest source to destination. 
-      Here each destination point is mapped to the closest source point. A given source point may go 
-      to multiple destination points, but no destination point will receive input from more than
-      one source point. This extrapolation method is not supported with conservative regrid methods
+      Here the value of each unmapped destination point is set to the value of the closest source point. 
+       This extrapolation method is not supported with conservative regrid methods
+      (e.g. <TT>ESMF_REGRIDMETHOD_CONSERVE</TT>).
+</DD>
+<DT><STRONG>ESMF_EXTRAPMETHOD_NEAREST_D</STRONG></DT>
+<DD>Nearest mapped destination to unmapped destination. 
+      Here the value of each unmapped destination point is set to the value of the closest mapped (i.e. regridded) destination point. 
+      This extrapolation method is not supported with conservative regrid methods
       (e.g. <TT>ESMF_REGRIDMETHOD_CONSERVE</TT>).
 </DD>
 <DT><STRONG>ESMF_EXTRAPMETHOD_CREEP</STRONG></DT>
 <DD>Creep fill.
-      Here unmapped destination points are filled by moving data from mapped locations to neighboring unmapped locations. The data filled into a new location is the average of its already filled neighbors' values. 
+      Here unmapped destination points are filled by moving data from mapped locations to neighboring unmapped locations. 
+      The data filled into a new location is the average of its already filled neighbors' values. 
       This process is repeated for a user specified number of levels (e.g. in ESMF_FieldRegridStore() this is specified via the <TT>extrapNumLevels</TT> argument).
       This extrapolation method is not supported with conservative regrid methods 
       (e.g. <TT>ESMF_REGRIDMETHOD_CONSERVE</TT>).
-
-<P>
+</DD>
+<DT><STRONG>ESMF_EXTRAPMETHOD_CREEP_NRST_D</STRONG></DT>
+<DD>Creep fill with nearest destination.
+      Here unmapped destination points are filled using creep fill as described under that entry (see ESMF_EXTRAPMETHOD_CREEP above), any points not filled
+      by creep fill are then set to the closest filled or mapped destination point as if the nearest destination method (see ESMF_EXTRAPMETHOD_NEAREST_D above) 
+      were run after the initial regridding followed by creep fill. 
+      Like creep fill, this method is repeated for a user specified number of levels 
+      (e.g. in ESMF_FieldRegridStore() this is specified via the <TT>extrapNumLevels</TT> argument).
+      This extrapolation method is not supported with conservative regrid methods 
+      (e.g. <TT>ESMF_REGRIDMETHOD_CONSERVE</TT>).
 </DD>
 </DL>
 
