@@ -2842,12 +2842,13 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE> subroutine ESMF_InfoUpdate(lhs, rhs, recursive, rc)
+<PRE> subroutine ESMF_InfoUpdate(lhs, rhs, recursive, overwrite, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>   type(ESMF_Info), intent(inout) :: lhs
    type(ESMF_Info), intent(in) :: rhs
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
    logical, intent(in), optional :: recursive
+   logical, intent(in), optional :: overwrite
    integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -2878,6 +2879,12 @@ The arguments are:
 <DT><STRONG>[recursive]</STRONG></DT>
 <DD>Default is <TT>.false.</TT>. If <TT>.true.</TT>, descend into nested objects
          and recursively update the contents.
+       
+</DD>
+<DT><STRONG>[overwrite]</STRONG></DT>
+<DD>Default is <TT>.false.</TT>. If <TT>.true.</TT>, key-values that exist
+         in <SPAN  CLASS="textit">lhs</SPAN> will be overwritten by key-values in <SPAN  CLASS="textit">rhs</SPAN>. Flag
+         is only applicable when <SPAN  CLASS="textit">recursive</SPAN> is <TT>.true.</TT>.
        
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -3281,7 +3288,7 @@ temporary or multiple Clocks and Alarms.  Sections&nbsp;<A HREF="#sec:Clock">44.
 <BR><P></P>
 <DIV ALIGN="CENTER">
 
-<A NAME="74515"></A>
+<A NAME="74583"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 4:</STRONG>
 Specifiers for Times and TimeIntervals</CAPTION>

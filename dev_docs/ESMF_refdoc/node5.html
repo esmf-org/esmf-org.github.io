@@ -1657,7 +1657,7 @@ The rest of this section further describes the various options available in ESMF
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="16175"></A>
+<DIV ALIGN="CENTER"><A NAME="16188"></A>
 <TABLE>
 <CAPTION><STRONG>Table 1:</STRONG>
 Regrid Interfaces</CAPTION>
@@ -2519,7 +2519,7 @@ The last option (<TT>polemethod=ESMF_POLEMETHOD_TEETH</TT>) does not construct a
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="16409"></A>
+<DIV ALIGN="CENTER"><A NAME="16422"></A>
 <TABLE>
 <CAPTION><STRONG>Table 2:</STRONG>
 Line Type Support by Regrid Method (* indicates the default)</CAPTION>
@@ -9015,7 +9015,7 @@ This example is similar to example <A HREF="#sec:field:usage:create_2dgrid_3dptr
     is shown here.
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="23120"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="23133"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 12:</STRONG>
 Field dimension configuration from Grid, halos, and Fortran data array.</CAPTION>
@@ -36803,7 +36803,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="54196"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="54209"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -36844,7 +36844,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="54168"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="54181"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -37217,7 +37217,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="54413"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="54426"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -37258,7 +37258,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="54424"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="54437"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -39036,7 +39036,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="54975"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="54988"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -39451,7 +39451,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="55063"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="55076"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -39581,7 +39581,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="55082"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="55095"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -48878,17 +48878,29 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>       subroutine ESMF_LocStreamDestroy(locstream, rc)
+<PRE>       subroutine ESMF_LocStreamDestroy(locstream, noGarbage, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>       type(ESMF_LocStream), intent(inout)          :: locstream 
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       logical,              intent(in),   optional :: noGarbage
        integer,              intent(out),  optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>noGarbage</TT>.
+     The argument provides a mechanism to override the default garbage collection
+     mechanism when destroying an ESMF object.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -48905,6 +48917,27 @@ The arguments are:
        <DL>
 <DT><STRONG>locstream</STRONG></DT>
 <DD>locstream to destroy
+   
+</DD>
+<DT><STRONG>[noGarbage]</STRONG></DT>
+<DD>If set to <TT>.TRUE.</TT> the object will be fully destroyed and removed
+        from the ESMF garbage collection system. Note however that under this
+        condition ESMF cannot protect against accessing the destroyed object
+        through dangling aliases - a situation which may lead to hard to debug
+        application crashes.
+
+<P>
+It is generally recommended to leave the <TT>noGarbage</TT> argument
+        set to <TT>.FALSE.</TT> (the default), and to take advantage of the ESMF
+        garbage collection system which will prevent problems with dangling
+        aliases or incorrect sequences of destroy calls. However this level of
+        support requires that a small remnant of the object is kept in memory
+        past the destroy call. This can lead to an unexpected increase in memory
+        consumption over the course of execution in applications that use
+        temporary ESMF objects. For situations where the repeated creation and
+        destruction of temporary objects leads to memory issues, it is
+        recommended to call with <TT>noGarbage</TT> set to <TT>.TRUE.</TT>, fully
+        removing the entire temporary object from memory.
        
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -53398,7 +53431,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65037"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65074"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -54485,17 +54518,29 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE> 
-   subroutine ESMF_XGridDestroy(xgrid, rc)
+   subroutine ESMF_XGridDestroy(xgrid, noGarbage, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_XGrid), intent(inout)          :: xgrid       
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,          intent(in),   optional :: noGarbage
      integer,          intent(out),  optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>noGarbage</TT>.
+     The argument provides a mechanism to override the default garbage collection
+     mechanism when destroying an ESMF object.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -54512,6 +54557,27 @@ The arguments are:
    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD><TT>ESMF_XGrid</TT> object.
+   
+</DD>
+<DT><STRONG>[noGarbage]</STRONG></DT>
+<DD>If set to <TT>.TRUE.</TT> the object will be fully destroyed and removed
+        from the ESMF garbage collection system. Note however that under this
+        condition ESMF cannot protect against accessing the destroyed object
+        through dangling aliases - a situation which may lead to hard to debug
+        application crashes.
+
+<P>
+It is generally recommended to leave the <TT>noGarbage</TT> argument
+        set to <TT>.FALSE.</TT> (the default), and to take advantage of the ESMF
+        garbage collection system which will prevent problems with dangling
+        aliases or incorrect sequences of destroy calls. However this level of
+        support requires that a small remnant of the object is kept in memory
+        past the destroy call. This can lead to an unexpected increase in memory
+        consumption over the course of execution in applications that use
+        temporary ESMF objects. For situations where the repeated creation and
+        destruction of temporary objects leads to memory issues, it is
+        recommended to call with <TT>noGarbage</TT> set to <TT>.TRUE.</TT>, fully
+        removing the entire temporary object from memory.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -55517,7 +55583,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="66721"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="66782"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -55698,7 +55764,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="66373"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="66434"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -55921,7 +55987,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="66722"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="66783"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -56206,7 +56272,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="66486"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="66547"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -56272,7 +56338,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="66501"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="66562"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -56331,7 +56397,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="66517"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="66578"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -56581,7 +56647,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="66724"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="66785"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -56739,7 +56805,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="66725"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="66786"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -56810,7 +56876,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="66633"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="66694"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -56920,7 +56986,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="66645"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="66706"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -56992,7 +57058,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="66656"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="66717"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -57193,7 +57259,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="66688"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="66749"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -57318,7 +57384,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="66696"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="66757"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic

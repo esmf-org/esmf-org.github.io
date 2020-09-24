@@ -10378,8 +10378,7 @@ Now we have <TT>state1</TT> containing <TT>field1</TT> on PETs 0 and 1, and
 
 <P>
 <PRE>
-    call ESMF_StateReconcile(state1, vm=vm,  &amp;
-                             attreconflag=ESMF_ATTRECONCILE_OFF, rc=rc)
+    call ESMF_StateReconcile(state1, vm=vm, rc=rc)
 </PRE>
 
 <P>
@@ -11181,17 +11180,29 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>       recursive subroutine ESMF_StateDestroy(state, rc)
+<PRE>       recursive subroutine ESMF_StateDestroy(state, noGarbage, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>       type(ESMF_State), intent(inout) :: state
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       logical, intent(in), optional :: noGarbage
        integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>noGarbage</TT>.
+   The argument provides a mechanism to override the default garbage collection
+   mechanism when destroying an ESMF object.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -11210,6 +11221,27 @@ The arguments are:
    <DL>
 <DT><STRONG>state</STRONG></DT>
 <DD>Destroy contents of this <TT>ESMF_State</TT>.
+   
+</DD>
+<DT><STRONG>[noGarbage]</STRONG></DT>
+<DD>If set to <TT>.TRUE.</TT> the object will be fully destroyed and removed
+   from the ESMF garbage collection system. Note however that under this
+   condition ESMF cannot protect against accessing the destroyed object
+   through dangling aliases - a situation which may lead to hard to debug
+   application crashes.
+
+<P>
+It is generally recommended to leave the <TT>noGarbage</TT> argument
+   set to <TT>.FALSE.</TT> (the default), and to take advantage of the ESMF
+   garbage collection system which will prevent problems with dangling
+   aliases or incorrect sequences of destroy calls. However this level of
+   support requires that a small remnant of the object is kept in memory
+   past the destroy call. This can lead to an unexpected increase in memory
+   consumption over the course of execution in applications that use
+   temporary ESMF objects. For situations where the repeated creation and
+   destruction of temporary objects leads to memory issues, it is
+   recommended to call with <TT>noGarbage</TT> set to <TT>.TRUE.</TT>, fully
+   removing the entire temporary object from memory.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -11691,11 +11723,10 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>   subroutine ESMF_StateReconcile (state, vm, attreconflag, rc)
+<PRE>   subroutine ESMF_StateReconcile(state, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_State),            intent(inout)         :: state
      type(ESMF_VM),               intent(in),  optional :: vm
-     type(ESMF_AttReconcileFlag), intent(in),  optional :: attreconflag
      integer,                     intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -11711,10 +11742,6 @@ Must be called for any <TT>ESMF_State</TT> which contains ESMF objects
        before operating on any data inside that <TT>ESMF_State</TT>.
        After calling <TT>ESMF_StateReconcile</TT> all <TT>PET</TT>s will have
        a common view of all objects contained in this <TT>ESMF_State</TT>.
-       The option to reconcile the metadata associated with the objects
-       contained in this <TT>ESMF_State</TT> also exists.  The default behavior
-       for this capability is to <I>not</I> reconcile metadata unless told
-       otherwise.
 
 <P>
 This call is collective across the specified VM.
@@ -11728,12 +11755,6 @@ The arguments are:
 </DD>
 <DT><STRONG>[vm]</STRONG></DT>
 <DD><TT>ESMF_VM</TT> for this <TT>ESMF_Component</TT>.  By default, it is set to the current vm.
-       
-</DD>
-<DT><STRONG>[attreconflag]</STRONG></DT>
-<DD>Flag to tell if Attribute reconciliation is to be done as well as data reconciliation.
-         This flag is documented in section <A HREF="node9.html#const:attreconcile">52.6</A>.  Default is
-         <TT>ESMF_ATTRECONCILE_OFF</TT>.
        
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -13748,7 +13769,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="15758"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="15771"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
