@@ -246,7 +246,7 @@ $external_latex_labels{$key} = q|3.9.4|;
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_GridCompSetClock/;
-$external_latex_labels{$key} = q|3.6.34|; 
+$external_latex_labels{$key} = q|3.6.36|; 
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_RealizeCompleteG/;
