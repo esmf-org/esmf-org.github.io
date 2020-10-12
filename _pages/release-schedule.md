@@ -1,0 +1,26 @@
+---
+permalink: /release-schedule/
+title: "Release Schedule"
+---
+
+### ESMF 8.1
+
+|Task|Delivery Description|
+|--- |--- |
+|Creep fill within grid for extrapolation of data points that lie outside the source.|Updated creep fill extrapolation that supports dynamic creeping. The current version relies on a static creep depth parameter.|
+|FieldBundleCreate packing behavior.|Full support for all communication methods on packed Field Bundles and per-Field metadata.|
+|Fully functional grid to mesh interface on the ESMF level.|Fully functional Grid to Mesh public API for all grids, including 3D.|
+|Finish MOAB finite mesh database integration.|MOAB fully integrated and all regridding options supported. MOAB will be off by default, but a switch will allow for testing in applications. MOAB will be the default in the follow on release.|
+|Fix problem with duplicate proxy objects after reconcile.|ESMF_StateReconcile will be optimized to remove all duplicate proxy objects, resulting in a faster reconcile operation and smaller memory footprint.|
+|Optimize Grid, Mesh and other grid object transfer in NUOPC.|NUOPC Connectors fully optimized when transfering Grid, Mesh, or LocStream objects between Components.|
+|Move to a newer version of PIO (interfaces have all changed) in order to take advantage of new capabilities like handling non-sequential data. Review overall I/O design and remove unnecessary redistributions on the interface to PIO.|Older version of PIO inside ESMF will be replaced with the latest version of PIO and unnecessary data redistributions will be removed for efficiency.|
+|FieldWrite, GridWrite, MeshWrite and XGridWrite to write out object metadata so that all can create objects from file. All to be based on a common I/O layer on top of PIO.|ArrayBundle will be implemented as the core data structure for major ESMF I/O operations and will leverage PIO2 and the new JSON-based attributes for managing metadata output. Other data structures (e.g., Field, Grid, Mesh, XGrid) will be routed through ArrayBundle in a follow on release, thereby completing the I/O generalization and optimization.|
+|Test ESMF/NUOPC component for run very high resolution with large number of CPU tasks. E.g.: Global C3072 run with 9172 tasks hangs in the run sequence set up. CESM runs with 25km (or finer) spectral element. Optimize communication between very high resolution model grids.|New testing capability to test very large resolution grids and report on performance numbers - periodic reports provided with testing results. Performance bottlenecks will be addressed and optimizations added to the framework.|
+|Add methods/flags to validate mesh/grid quality and extra regrid checking for debugging and diagnostics (e.g., checking for unique global IDs, overlapping cells, or other issues that could lead to regridding problems). These are more expensive operations and should only be used for debugging.|A method or flag will be added to validate the quality of Meshes and Grids. The initial capability will support checking for overlapping cells. This validation check will be done in a general way so that additional quality checks can be added in the future.|
+|Add methods/flags to validate SMM execution for debugging, e.g., validating memory allocations and sequence indices before executing SMM|A method of flag will be added to validate the Sparse Matrix Multiple execution for debugging purposes. Validation will include checking sequence indices and memory allocations. Additional validations can be added in the future.|
+|Improve ESMF error reporting to help users debug.|The ESMF User's Guide will be improved to better describe how ESMF error reporting works, including information about how to properly diagnose the source of an error, including whether the actual error originates in ESMF or in other application code.|
+|Extend NUOPC with more flexible run sequences, e.g., in the case of very long coupling intervals, the coupled system might need to be restarted multiple times during one coupling interval. The run sequence should be able to restart mid-coupling interval. Add ability to pass user-defined parameters to run sequence phases and these become available in user code.|NUOPC will be extended with more flexible run sequences to support the need to restart a coupled system in the middle of a very long coupling interval. For example, a glacier model may couple only yearly, but the coupled model must be restarted every 3 months.|
+|Full support for ESMF-aware hybrid parallelism via resource idling in NUOPC|ESMF and NUOPC will be extended with full support for hybrid parallelism via resource idling. This provides a flexible mechanism to switch between coarse- and fine-grained threading without needing to introduce explicit threading directives throughout a component's code (e.g., OpenMP).|
+|Shared memory access to DEs between non-threaded PETs. Also a follow-on to Field reference sharing through NUOPC Connectors.|Full support will be provided for sharing Decomposition Elements (DEs) between coarse -and fine-grained Virtual Machines (VMs). NUOPC will be extended to support reference sharing of memory-local DEs from a provider component to an acceptor component.|
+
+
