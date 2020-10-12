@@ -5,7 +5,8 @@ classes: wide
 toc: true
 ---
 
-### ESMF 8.1
+### Upcoming
+#### Version 8.1
 
 |Task|Delivery Description|
 |--- |--- |
@@ -25,4 +26,8 @@ toc: true
 |Full support for ESMF-aware hybrid parallelism via resource idling in NUOPC|ESMF and NUOPC will be extended with full support for hybrid parallelism via resource idling. This provides a flexible mechanism to switch between coarse- and fine-grained threading without needing to introduce explicit threading directives throughout a component's code (e.g., OpenMP).|
 |Shared memory access to DEs between non-threaded PETs. Also a follow-on to Field reference sharing through NUOPC Connectors.|Full support will be provided for sharing Decomposition Elements (DEs) between coarse -and fine-grained Virtual Machines (VMs). NUOPC will be extended to support reference sharing of memory-local DEs from a provider component to an acceptor component.|
 
+
+### Previous Releases
+
+#### Version 8.0
 
