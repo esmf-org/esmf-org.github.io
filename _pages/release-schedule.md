@@ -2,6 +2,7 @@
 permalink: /release-schedule/
 title: "Release Schedule"
 classes: wide
+toc: true
 ---
 
 ### ESMF 8.1
