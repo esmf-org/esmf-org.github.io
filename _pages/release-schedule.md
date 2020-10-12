@@ -63,7 +63,7 @@ toc: true
 |Be able to set up a tripole grid more easily, using DEBlockList.|Tripole grids are used at multiple centers, most frequently to discretize ocean models. This strategy will help to save time and minimize errors when setting them up.|
 
 
-#### Version 7.2.0 "As Built"
+#### Version 7.2 "As Built"
 
 |Task|Description|
 |--- |--- |
@@ -74,7 +74,7 @@ toc: true
 |Data on edge locations for Mesh|To do this we need to be able to figure out how many edges are on each PET and build a distgrid from them, it appears the capability to have edges is already in the low level Mesh, but will need to test it and see if it provides everything, so there is some uncertainty in the time estimate. This is probably a necessary precondition for doing online regridding of edge data.|
 
 
-#### Version 7.1.0 "As Built"
+#### Version 7.1 "As Built"
 
 |Task|Description|
 |--- |--- |
@@ -99,7 +99,7 @@ toc: true
 
 
 
-#### Version 7.0.0 "As Built"
+#### Version 7.0 "As Built"
 
 |Task|Description|
 |--- |--- |
