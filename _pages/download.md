@@ -9,7 +9,8 @@ title: "Download"
 
 ### Development Snapshots
 Development snapshots (or "beta snapshots") are tagged regularly to assist in testing new features before an official release.
-The [development tags](https://github.com/esmf-org/esmf/tags) have the naming convention ESMF_<version>_beta_snapshot_<index>.  To download a beta snapshot:
+The [development tags](https://github.com/esmf-org/esmf/tags) have the naming convention ESMF_\<version\>_beta_snapshot_\<index\>.
+The following command demonstrates how to download beta snapshot `ESMF_8_1_0_beta_snapshot_33`:
 
 ```bash
 git clone https://github.com/esmf-org/esmf.git --branch ESMF_8_1_0_beta_snapshot_33 --depth 1
