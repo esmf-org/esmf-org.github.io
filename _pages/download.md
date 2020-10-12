@@ -1,6 +1,7 @@
 ---
 permalink: /download/
 title: "Download"
+classes: wide
 ---
 ### Releases
 - Latest release - [ESMF 8.0.1](https://github.com/esmf-org/esmf/releases/latest)  (May 21, 2020)
