@@ -5054,12 +5054,13 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine NUOPC_AddNestedState(state, Namespace, CplSet, nestedStateName, &amp;
-     nestedState, rc)
+     vm, nestedState, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_State), intent(inout)         :: state
      character(len=*), intent(in),  optional :: Namespace
      character(len=*), intent(in),  optional :: CplSet
      character(len=*), intent(in),  optional :: nestedStateName
+     type(ESMF_VM),    intent(in),  optional :: vm
      type(ESMF_State), intent(out), optional :: nestedState
      integer,          intent(out), optional :: rc
 </PRE>
@@ -5093,6 +5094,12 @@ The arguments are:
 <DT><STRONG>[nestedStateName]</STRONG></DT>
 <DD>Name of the nested state. Defaults to <TT>Namespace</TT>_<TT>CplSet</TT>,
        <TT>Namespace</TT>, or <TT>CplSet</TT> if arguments are provided.
+     
+</DD>
+<DT><STRONG>[vm]</STRONG></DT>
+<DD>If present, the nested state object is created on the specified
+       <TT>ESMF_VM</TT> object. The default is to create the nested state object
+       on the VM of the current component context.
      
 </DD>
 <DT><STRONG>[nestedState]</STRONG></DT>
