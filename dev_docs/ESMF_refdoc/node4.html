@@ -11090,7 +11090,7 @@ The arguments are:
                     arrayList, arraybundleList, &amp;
                     fieldList, fieldbundleList, &amp;
                     nestedStateList, &amp;
-                    routehandleList, name, rc)
+                    routehandleList, name, vm, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>       type(ESMF_State) :: ESMF_StateCreate
 </PRE><EM>ARGUMENTS:</EM>
@@ -11103,13 +11103,24 @@ The arguments are:
        type(ESMF_State), intent(in), optional :: nestedStateList(:)
        type(ESMF_RouteHandle), intent(in), optional :: routehandleList(:)
        character(len=*), intent(in), optional :: name
+       type(ESMF_VM), intent(in), optional :: vm
        integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>vm</TT> to support object creation on a
+   different VM than that of the current context.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -11159,6 +11170,12 @@ The arguments are:
 <DT><STRONG>[name]</STRONG></DT>
 <DD>Name of this <TT>ESMF_State</TT> object. A default name will be generated
    if none is specified.
+   
+</DD>
+<DT><STRONG>[vm]</STRONG></DT>
+<DD>If present, the State object is created on the specified
+   <TT>ESMF_VM</TT> object. The default is to create on the VM of the
+   current component context.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -13769,7 +13786,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="15771"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="15781"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
