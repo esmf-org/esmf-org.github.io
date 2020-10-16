@@ -126,12 +126,12 @@ included with the ESMF distribution, and your model, including
 any of its dependencies.
 
 <P>
-Acquire ESMF version 7 from SourceForge:
+Acquire the latest ESMF release from GitHub:
 
 <P>
 <PRE>
-$ git archive --remote=git://git.code.sf.net/p/esmf/esmf \ 
-    --format=tar --prefix=esmf/ ESMF\_7\_0\_0 | tar xf -
+$ git clone https://github.com/esmf-org/esmf.git \
+  --branch ESMF_8_0_1 --depth 1
 </PRE>
 
 <P>
@@ -267,7 +267,7 @@ To acquire a cap template you can:
 <P>
 </LI>
 <LI>copy code from one of the <A NAME="tex2html15"
-  HREF="https://sourceforge.net/p/esmfcontrib/svn/HEAD/tree/NUOPC/tags/ESMF_7_0_0">NUOPC Prototype Applications</A>
+  HREF="https://github.com/esmf-org/nuopc-app-prototypes">NUOPC Prototype Applications</A>
 or
 
 <P>
@@ -342,7 +342,7 @@ Object files that need to be considered as link dependencies. Must be specified 
 </DD>
 <DT><STRONG><SPAN  CLASS="textbf">ESMF_DEP_SHRD_PATH</SPAN></STRONG></DT>
 <DD>
-The path to find shared libraries during link-time (and during run-time unless overridden by LD_LIBRARY_PATH). Must be specified as absolute path.
+The path or list of paths to find shared libraries during link-time (and during run-time unless overridden by LD_LIBRARY_PATH). Must be specified as absolute paths.
 
 <P>
 </DD>
@@ -361,12 +361,12 @@ An example makefile fragment useful for statically linking against your model lo
 <PRE>
    #file: abc.mk
  
-   ESMF\_DEP\_FRONT      = ABC
-   ESMF\_DEP\_INCPATH    = &lt;absolute path to associated ABC module file&gt;
-   ESMF\_DEP\_CMPL\_OBJS  = &lt;absolute path&gt;/abc.o
-   ESMF\_DEP\_LINK\_OBJS  = &lt;absolute path&gt;/abc.o &lt;absolute path&gt;/xyz.o
-   ESMF\_DEP\_SHRD\_PATH  = 
-   ESMF\_DEP\_SHRD\_LIBS  =
+   ESMF_DEP_FRONT      = ABC
+   ESMF_DEP_INCPATH    = &lt;absolute path to associated ABC module file&gt;
+   ESMF_DEP_CMPL_OBJS  = &lt;absolute path&gt;/abc.o
+   ESMF_DEP_LINK_OBJS  = &lt;absolute path&gt;/abc.o &lt;absolute path&gt;/xyz.o
+   ESMF_DEP_SHRD_PATH  = 
+   ESMF_DEP_SHRD_LIBS  =
 </PRE>
 
 <P>
@@ -382,12 +382,12 @@ Makefile to include a new target:
    %.mk: %.o
       @echo "# ESMF self-describing build dependency makefile fragment" &gt; $@
       @echo &gt;&gt; $@
-      @echo "ESMF\_DEP\_FRONT      = ABC"                          &gt;&gt; $@
-      @echo "ESMF\_DEP\_INCPATH    = `pwd`"                        &gt;&gt; $@
-      @echo "ESMF\_DEP\_CMPL\_OBJS = `pwd`/"$&lt;                     &gt;&gt; $@
-      @echo "ESMF\_DEP\_LINK\_OBJS = "$(addprefix `pwd`/, $(OBJS)) &gt;&gt; $@
-      @echo "ESMF\_DEP\_SHRD\_PATH = "                             &gt;&gt; $@
-      @echo "ESMF\_DEP\_SHRD\_LIBS = "                             &gt;&gt; $@
+      @echo "ESMF_DEP_FRONT     = ABC"                          &gt;&gt; $@
+      @echo "ESMF_DEP_INCPATH   = `pwd`"                        &gt;&gt; $@
+      @echo "ESMF_DEP_CMPL_OBJS = `pwd`/"$&lt;                     &gt;&gt; $@
+      @echo "ESMF_DEP_LINK_OBJS = "$(addprefix `pwd`/, $(OBJS)) &gt;&gt; $@
+      @echo "ESMF_DEP_SHRD_PATH = "                             &gt;&gt; $@
+      @echo "ESMF_DEP_SHRD_LIBS = "                             &gt;&gt; $@
 
    abc.mk: $(OBJS)
 </PRE>
