@@ -1,7 +1,7 @@
 ---
 permalink: /tutorials/
 title: "Tutorials"
-#classes: wide
+classes: wide
 ---
 
 ESMF tutorials are offered on a regular basis to provide user training in both on-site and webinar formats. We are currently offering an overview tutorial that covers essential aspects of ESMF including component-based modeling, ESMF distributed data classes, grid representations and regridding, and the NUOPC Interoperability Layer.  
