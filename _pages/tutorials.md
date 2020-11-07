@@ -10,7 +10,7 @@ ESMF tutorials are offered on a regular basis to provide user training in both o
 
 *Check back soon for next training event.*
 
-Registration information is sent several weeks ahead of time to the ESMF JST mailing list.  Please visit the [JST list page](http://mailman.cgd.ucar.edu/mailman/listinfo/esmf_jst) to subscribe or email ESMF support at [esmf_support@ucar.edu](esmf_support@ucar.edu).
+Registration information is sent several weeks ahead of time to the ESMF JST mailing list.  Please visit the [JST list page](http://mailman.cgd.ucar.edu/mailman/listinfo/esmf_jst) to subscribe or email ESMF support at [esmf_support@ucar.edu](mailto:esmf_support@ucar.edu).
 
 ### Past Tutorials, Slides, and Videos
 
