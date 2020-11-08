@@ -160,4 +160,10 @@ See the "Grid File Formats" section in the reference manual for a more in-depth 
      neighbors from mapped neighbors is repeated a user specified number of times (levels).
 
 ### All tested and supported regrid methods
-(link needed)
+
+#### Online (integrated) Regridding
+![Online Regridding Status](/assets/images/RegridStatusIntegrated_8_0_0.png)
+
+#### Offline Regridding
+
+#### Status of Regridding Options
