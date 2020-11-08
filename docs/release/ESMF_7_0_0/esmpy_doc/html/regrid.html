@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Regrid &mdash; ESMPy 7.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '7.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ESMPy 7.0.0 documentation" href="index.html" />
+    <link rel="up" title="Appendices" href="appendix.html" />
+    <link rel="next" title="CoordSys" href="CoordSys.html" />
+    <link rel="prev" title="LocStream" href="locstream.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="CoordSys.html" title="CoordSys"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="locstream.html" title="LocStream"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ESMPy 7.0.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="appendix.html" accesskey="U">Appendices</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="regrid">
+<h1>Regrid<a class="headerlink" href="#regrid" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ESMF.api.regrid.Regrid">
+<em class="property">class </em><code class="descclassname">ESMF.api.regrid.</code><code class="descname">Regrid</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ESMF.api.regrid.Regrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Regrid object represents a regridding operator between two Fields.  The
+creation of this object is analogous to ESMF_FieldRegridStore(), and
+calling this object corresponds to ESMF_FieldRegrid().
+ESMF_FieldRegridRelease() is called when the Regrid object goes out of
+scope (this only happens when the Manager goes out of scope, there is a
+destroy() call for explicit deallocation of the Regrid).</p>
+<p>For more information about the ESMF Regridding functionality, please see
+the <a class="reference external" href="http://www.earthsystemmodeling.org/esmf_releases/public/last/ESMF_refdoc/node5.html#SECTION05012000000000000000">ESMF Regrid documentation</a>.</p>
+<p>The following arguments are used to create a handle to a Regridding
+operation between two Fields.</p>
+<p><em>REQUIRED:</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>srcfield</strong> (<a class="reference internal" href="field.html#ESMF.api.field.Field" title="ESMF.api.field.Field"><em>Field</em></a>) &#8211; source Field associated with an underlying Grid,
+Mesh or LocStream.</li>
+<li><strong>dstfield</strong> (<a class="reference internal" href="field.html#ESMF.api.field.Field" title="ESMF.api.field.Field"><em>Field</em></a>) &#8211; destination Field associated with an underlying
+Grid, Mesh or LocStream.  The data in this Field may be overwritten
+by this call.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><em>OPTIONAL:</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>src_mask_values</strong> (<em>ndarray</em>) &#8211; a numpy array of values that should be
+considered masked value on the source Field.</li>
+<li><strong>dst_mask_values</strong> (<em>ndarray</em>) &#8211; a numpy array of values that should be
+considered masked value on the destination Field.</li>
+<li><strong>regrid_method</strong> (<a class="reference internal" href="RegridMethod.html#ESMF.api.constants.RegridMethod" title="ESMF.api.constants.RegridMethod"><em>RegridMethod</em></a>) &#8211; specifies which
+<a class="reference internal" href="RegridMethod.html#ESMF.api.constants.RegridMethod" title="ESMF.api.constants.RegridMethod"><code class="xref py py-attr docutils literal"><span class="pre">RegridMethod</span></code></a> to use.  If <code class="docutils literal"><span class="pre">None</span></code>, defaults
+to <a class="reference internal" href="RegridMethod.html#ESMF.api.constants.RegridMethod.BILINEAR" title="ESMF.api.constants.RegridMethod.BILINEAR"><code class="xref py py-attr docutils literal"><span class="pre">BILINEAR</span></code></a>.</li>
+<li><strong>pole_method</strong> (<a class="reference internal" href="PoleMethod.html#ESMF.api.constants.PoleMethod" title="ESMF.api.constants.PoleMethod"><em>PoleMethod</em></a>) &#8211; specifies which type of artificial pole
+to construct on the source Grid for regridding.  If <code class="docutils literal"><span class="pre">None</span></code>, defaults
+to: <a class="reference internal" href="PoleMethod.html#ESMF.api.constants.PoleMethod.NONE" title="ESMF.api.constants.PoleMethod.NONE"><code class="xref py py-attr docutils literal"><span class="pre">NONE</span></code></a> for
+regridmethod == <a class="reference internal" href="RegridMethod.html#ESMF.api.constants.RegridMethod.CONSERVE" title="ESMF.api.constants.RegridMethod.CONSERVE"><code class="xref py py-attr docutils literal"><span class="pre">CONSERVE</span></code></a>, or
+<a class="reference internal" href="PoleMethod.html#ESMF.api.constants.PoleMethod.ALLAVG" title="ESMF.api.constants.PoleMethod.ALLAVG"><code class="xref py py-attr docutils literal"><span class="pre">ALLAVG</span></code></a> for
+regridmethod != <a class="reference internal" href="RegridMethod.html#ESMF.api.constants.RegridMethod.CONSERVE" title="ESMF.api.constants.RegridMethod.CONSERVE"><code class="xref py py-attr docutils literal"><span class="pre">CONSERVE</span></code></a>.</li>
+<li><strong>regrid_pole_npoints</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; specifies how many points to average over
+if polemethod == <a class="reference internal" href="PoleMethod.html#ESMF.api.constants.PoleMethod.ALLAVG" title="ESMF.api.constants.PoleMethod.ALLAVG"><code class="xref py py-attr docutils literal"><span class="pre">ALLAVG</span></code></a>.</li>
+<li><strong>line_type</strong> (<a class="reference internal" href="LineType.html#ESMF.api.constants.LineType" title="ESMF.api.constants.LineType"><em>LineType</em></a>) &#8211; select the path of the line that connects two
+points on the surface of a sphere.  This in turn controls the path along
+which distances are calculated and the shape of the edges that make up a
+cell.  If <code class="docutils literal"><span class="pre">None</span></code>, defaults to:
+<a class="reference internal" href="LineType.html#ESMF.api.constants.LineType.GREAT_CIRCLE" title="ESMF.api.constants.LineType.GREAT_CIRCLE"><code class="xref py py-attr docutils literal"><span class="pre">GREAT_CIRCLE</span></code></a> for
+regridmethod == <a class="reference internal" href="RegridMethod.html#ESMF.api.constants.RegridMethod.CONSERVE" title="ESMF.api.constants.RegridMethod.CONSERVE"><code class="xref py py-attr docutils literal"><span class="pre">CONSERVE</span></code></a>, or
+<a class="reference internal" href="LineType.html#ESMF.api.constants.LineType.CART" title="ESMF.api.constants.LineType.CART"><code class="xref py py-attr docutils literal"><span class="pre">CART</span></code></a> for
+regridmethod != <a class="reference internal" href="RegridMethod.html#ESMF.api.constants.RegridMethod.CONSERVE" title="ESMF.api.constants.RegridMethod.CONSERVE"><code class="xref py py-attr docutils literal"><span class="pre">CONSERVE</span></code></a>.</li>
+<li><strong>norm_type</strong> (<a class="reference internal" href="NormType.html#ESMF.api.constants.NormType" title="ESMF.api.constants.NormType"><em>NormType</em></a>) &#8211; control which type of normalization to do when
+generating conservative regridding weights. If <code class="docutils literal"><span class="pre">None</span></code>, defaults to
+<a class="reference internal" href="NormType.html#ESMF.api.constants.NormType.DSTAREA" title="ESMF.api.constants.NormType.DSTAREA"><code class="xref py py-attr docutils literal"><span class="pre">DSTAREA</span></code></a>.</li>
+<li><strong>unmapped_action</strong> (<a class="reference internal" href="UnmappedAction.html#ESMF.api.constants.UnmappedAction" title="ESMF.api.constants.UnmappedAction"><em>UnmappedAction</em></a>) &#8211; specifies which action to take if a
+destination point is found which does not map to any source point. If
+<code class="docutils literal"><span class="pre">None</span></code>, defaults to <a class="reference internal" href="UnmappedAction.html#ESMF.api.constants.UnmappedAction.ERROR" title="ESMF.api.constants.UnmappedAction.ERROR"><code class="xref py py-attr docutils literal"><span class="pre">ERROR</span></code></a>.</li>
+<li><strong>ignore_degenerate</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Ignore degenerate cells when checking the
+input Grids or Meshes for errors. If this is set to True, then the
+regridding proceeds, but degenerate cells will be skipped. If set to
+False, a degenerate cell produces an error. This currently only applies
+to <a class="reference internal" href="RegridMethod.html#ESMF.api.constants.RegridMethod.CONSERVE" title="ESMF.api.constants.RegridMethod.CONSERVE"><code class="xref py py-attr docutils literal"><span class="pre">CONSERVE</span></code></a>, other regrid
+methods currently always skip degenerate cells. If <code class="docutils literal"><span class="pre">None</span></code>, defaults to
+False.</li>
+<li><strong>src_frac_field</strong> (<em>ndarray</em>) &#8211; return a numpy array of values containing
+weights corresponding to the amount of each Field value which
+contributes to the total mass of the Field.</li>
+<li><strong>dst_frac_field</strong> (<em>ndarray</em>) &#8211; return a numpy array of values containing
+weights corresponding to the amount of each Field value which
+contributes to the total mass of the Field.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="ESMF.api.regrid.Regrid.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>srcfield</em>, <em>dstfield</em>, <em>zero_region=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ESMF.api.regrid.Regrid.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call a regridding operation from srcfield to dstfield.</p>
+<p><em>REQUIRED:</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>srcfield</strong> (<a class="reference internal" href="field.html#ESMF.api.field.Field" title="ESMF.api.field.Field"><em>Field</em></a>) &#8211; the Field of source data to regrid.</li>
+<li><strong>dstfield</strong> (<a class="reference internal" href="field.html#ESMF.api.field.Field" title="ESMF.api.field.Field"><em>Field</em></a>) &#8211; the Field to hold the regridded data.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><em>OPTIONAL:</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>zero_region</strong> (<a class="reference internal" href="Region.html#ESMF.api.constants.Region" title="ESMF.api.constants.Region"><em>Region</em></a>) &#8211; specify which region of the field indices
+will be zeroed out before adding the values resulting from the
+interpolation.  If <code class="docutils literal"><span class="pre">None</span></code>, defaults to
+<a class="reference internal" href="Region.html#ESMF.api.constants.Region.TOTAL" title="ESMF.api.constants.Region.TOTAL"><code class="xref py py-attr docutils literal"><span class="pre">TOTAL</span></code></a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dstfield</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ESMF.api.regrid.Regrid.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ESMF.api.regrid.Regrid.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy a <a class="reference internal" href="#ESMF.api.regrid.Regrid" title="ESMF.api.regrid.Regrid"><code class="xref py py-class docutils literal"><span class="pre">Regrid</span></code></a> in an ESMF-safe manner.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A <a class="reference internal" href="#ESMF.api.regrid.Regrid" title="ESMF.api.regrid.Regrid"><code class="xref py py-class docutils literal"><span class="pre">Regrid</span></code></a> shallow copy.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ESMF.api.regrid.Regrid.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ESMF.api.regrid.Regrid.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release the memory associated with a <a class="reference internal" href="#ESMF.api.regrid.Regrid" title="ESMF.api.regrid.Regrid"><code class="xref py py-class docutils literal"><span class="pre">Regrid</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="locstream.html"
+                        title="previous chapter">LocStream</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="CoordSys.html"
+                        title="next chapter">CoordSys</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/regrid.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="CoordSys.html" title="CoordSys"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="locstream.html" title="LocStream"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ESMPy 7.0.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="appendix.html" >Appendices</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2011-2016, University Corporation for Atmospheric Research, Massachusetts Institute of Technology, Geophysical Fluid Dynamics Laboratory, University of Michigan, National Centers for Environmental Prediction, Los Alamos National Laboratory, Argonne National Laboratory, NASA Goddard Space Flight Center.  Licensed under the University of Illinois-NCSA License.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  </body>
+</html>

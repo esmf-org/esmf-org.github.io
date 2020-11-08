@@ -1,0 +1,887 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>ESMF_refdoc</TITLE>
+<META NAME="description" CONTENT="ESMF_refdoc">
+<META NAME="keywords" CONTENT="ESMF_refdoc">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ESMF_refdoc.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
+<!--Navigation Panel-->
+<A NAME="tex2html53"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html51"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html54"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html52"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+<DIV ALIGN="CENTER">
+<FONT SIZE="+2">Earth System Modeling Framework </FONT> 
+<BR>
+<BR>
+<BR>
+<BR>
+<FONT SIZE="+2"><B>ESMF Reference Manual for Fortran&nbsp;&nbsp;</B></FONT> 
+<BR>
+<BR>
+<BR>
+<BR>
+<FONT SIZE="+1"><B>Version 5.2.0rp3</B></FONT> 
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<FONT SIZE="+1"><I>ESMF Joint Specification Team: V. Balaji, Byron Boville, Samson Cheung, Tom Clune, Nancy Collins, Tony Craig, Carlos Cruz, Arlindo da Silva, Cecelia DeLuca, Rosalinda de Fainchtein, Brian Eaton, Bob Hallberg, Tom Henderson, Chris Hill, Mark Iredell, Rob Jacob, Phil Jones, Erik Kluzek, Brian Kauffman, Jay Larson, Peggy Li, Fei Liu, John Michalakes, Sylvia Murphy, David Neckels, Ryan O Kuinghttons, Bob Oehmke, Chuck Panaccione, Jim Rosinski, Will Sawyer, Earl Schwab, Shepard Smithline, Walter Spector, Don Stark, Max Suarez, Spencer Swift, Gerhard Theurich, Atanas Trayanov, Silverio Vasquez, Jon Wolfe, Weiyu Yang, Mike Young, Leonid Zaslavsky</I></FONT> 
+<BR>
+<BR>
+<BR>
+<BR>
+<FONT SIZE="+1">September 30, 2013</FONT>
+<BR>
+<BR>
+<BR>
+
+</DIV>
+
+<P>
+
+<P>
+
+<P>
+
+
+<P>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<DIV ALIGN="CENTER">
+<B>Acknowledgements</B>
+
+</DIV>
+
+<P>
+The ESMF software is based on the contributions of a broad community.
+Below are the software packages that are included in ESMF or strongly 
+influenced our design.  We'd like to express our gratitude to the 
+developers of these codes for access to their software as well as their 
+ideas and advice.
+
+<P>
+
+<UL>
+<LI>Parallel I/O (PIO) developers at NCAR and DOE Laboratories for their 
+excellent work on this package and their help in making it work with ESMF
+
+<P>
+</LI>
+<LI>The Spherical Coordinate Remapping and Interpolation Package (SCRIP) 
+from Los Alamos, which informed the design of our regridding functionality
+
+<P>
+</LI>
+<LI>The Model Coupling Toolkit (MCT) from Argonne National Laboratory,
+on which we based our sparse matrix multiply approach to general 
+regridding
+
+<P>
+</LI>
+<LI>The Inpack configuration attributes package from NASA Goddard, 
+which was adapted for use in ESMF by members of NASA Global Modeling and 
+Assimilation group
+
+<P>
+</LI>
+<LI>The Flexible Modeling System (FMS) package from GFDL and the 
+Goddard Earth Modeling System (GEMS) from NASA Goddard, both of which 
+provided inspiration for the overall ESMF architecture 
+
+<P>
+</LI>
+<LI>The Common Component Architecture (CCA) effort within the Department
+of Energy, from which we drew many ideas about how to design components
+
+<P>
+</LI>
+<LI>The Vector Signal Image Processing Library (VSIPL) and its
+predecessors, which informed many aspects of our design, and the 
+radar system software design group at Lincoln Laboratory
+
+<P>
+</LI>
+<LI>The Portable, Extensible Toolkit for Scientific Computation (PETSc) 
+package from Argonne National Laboratories, on which we 
+based our initial makefile system
+
+<P>
+</LI>
+<LI>The Community Climate System Model (CCSM) and Weather Research and
+Forecasting (WRF) modeling groups at NCAR, who have provided valuable
+feedback on the design and implementation of the framework
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL>
+<LI><A NAME="tex2html55"
+  HREF="node1.html">Contents</A>
+<LI><A NAME="tex2html56"
+  HREF="node2.html">1 ESMF Overview</A>
+<UL>
+<LI><A NAME="tex2html57"
+  HREF="node2.html#SECTION02010000000000000000">1 What is the Earth System Modeling Framework?</A>
+<LI><A NAME="tex2html58"
+  HREF="node2.html#SECTION02020000000000000000">2 The ESMF Reference Manual for Fortran</A>
+<LI><A NAME="tex2html59"
+  HREF="node2.html#SECTION02030000000000000000">3 How to Contact User Support and Find Additional Information</A>
+<LI><A NAME="tex2html60"
+  HREF="node2.html#SECTION02040000000000000000">4 How to Submit Comments, Bug Reports, and Feature Requests</A>
+<LI><A NAME="tex2html61"
+  HREF="node2.html#SECTION02050000000000000000">5 Conventions</A>
+<UL>
+<LI><A NAME="tex2html62"
+  HREF="node2.html#SECTION02051000000000000000">5.1 Typeface and Diagram Conventions</A>
+<LI><A NAME="tex2html63"
+  HREF="node2.html#SECTION02052000000000000000">5.2 Method Name and Argument Conventions</A>
+</UL>
+<LI><A NAME="tex2html64"
+  HREF="node2.html#SECTION02060000000000000000">6 The ESMF Application Programming Interface</A>
+<UL>
+<LI><A NAME="tex2html65"
+  HREF="node2.html#SECTION02061000000000000000">6.1 Standard Methods and Interface Rules</A>
+<LI><A NAME="tex2html66"
+  HREF="node2.html#SECTION02062000000000000000">6.2 Deep and Shallow Classes</A>
+<LI><A NAME="tex2html67"
+  HREF="node2.html#SECTION02063000000000000000">6.3 Special Methods</A>
+<LI><A NAME="tex2html68"
+  HREF="node2.html#SECTION02064000000000000000">6.4 The ESMF Data Hierarchy</A>
+<LI><A NAME="tex2html69"
+  HREF="node2.html#SECTION02065000000000000000">6.5 ESMF Spatial Classes</A>
+<LI><A NAME="tex2html70"
+  HREF="node2.html#SECTION02066000000000000000">6.6 ESMF Maps</A>
+<LI><A NAME="tex2html71"
+  HREF="node2.html#SECTION02067000000000000000">6.7 ESMF Specification Classes</A>
+<LI><A NAME="tex2html72"
+  HREF="node2.html#SECTION02068000000000000000">6.8 ESMF Utility Classes</A>
+</UL>
+<LI><A NAME="tex2html73"
+  HREF="node2.html#SECTION02070000000000000000">7 Overall Rules and Behavior</A>
+<UL>
+<LI><A NAME="tex2html74"
+  HREF="node2.html#SECTION02071000000000000000">7.1 Local and Global Views and Associated Conventions</A>
+<LI><A NAME="tex2html75"
+  HREF="node2.html#SECTION02072000000000000000">7.2 Allocation Rules</A>
+<LI><A NAME="tex2html76"
+  HREF="node2.html#SECTION02073000000000000000">7.3 Assignment, Equality, Copying and Comparing Objects</A>
+<LI><A NAME="tex2html77"
+  HREF="node2.html#SECTION02074000000000000000">7.4 Attributes</A>
+</UL>
+<LI><A NAME="tex2html78"
+  HREF="node2.html#SECTION02080000000000000000">8 Integrating ESMF into Applications</A>
+<UL>
+<LI><A NAME="tex2html79"
+  HREF="node2.html#SECTION02081000000000000000">8.1 Using the ESMF Superstructure</A>
+</UL>
+<LI><A NAME="tex2html80"
+  HREF="node2.html#SECTION02090000000000000000">9 Master List of Constants</A>
+<UL>
+<LI><A NAME="tex2html81"
+  HREF="node2.html#SECTION02091000000000000000">9.1 ESMF_ALARMLIST</A>
+<LI><A NAME="tex2html82"
+  HREF="node2.html#SECTION02092000000000000000">9.2 ESMF_DIM_ARB</A>
+<LI><A NAME="tex2html83"
+  HREF="node2.html#SECTION02093000000000000000">9.3 ESMF_ATTGETCOUNT</A>
+<LI><A NAME="tex2html84"
+  HREF="node2.html#SECTION02094000000000000000">9.4 ESMF_ATTRECONCILE</A>
+<LI><A NAME="tex2html85"
+  HREF="node2.html#SECTION02095000000000000000">9.5 ESMF_ATTTREE</A>
+<LI><A NAME="tex2html86"
+  HREF="node2.html#SECTION02096000000000000000">9.6 ESMF_ATTWRITE</A>
+<LI><A NAME="tex2html87"
+  HREF="node2.html#SECTION02097000000000000000">9.7 ESMF_CALKIND</A>
+<LI><A NAME="tex2html88"
+  HREF="node2.html#SECTION02098000000000000000">9.8 ESMF_COMPTYPE</A>
+<LI><A NAME="tex2html89"
+  HREF="node2.html#SECTION02099000000000000000">9.9 ESMF_CONTEXT</A>
+<LI><A NAME="tex2html90"
+  HREF="node2.html#SECTION020910000000000000000">9.10 ESMF_COORDSYS</A>
+<LI><A NAME="tex2html91"
+  HREF="node2.html#SECTION020911000000000000000">9.11 ESMF_COPY</A>
+<LI><A NAME="tex2html92"
+  HREF="node2.html#SECTION020912000000000000000">9.12 ESMF_DATACOPY</A>
+<LI><A NAME="tex2html93"
+  HREF="node2.html#SECTION020913000000000000000">9.13 ESMF_DECOMP</A>
+<LI><A NAME="tex2html94"
+  HREF="node2.html#SECTION020914000000000000000">9.14 ESMF_DIRECTION</A>
+<LI><A NAME="tex2html95"
+  HREF="node2.html#SECTION020915000000000000000">9.15 ESMF_DISTGRIDMATCH</A>
+<LI><A NAME="tex2html96"
+  HREF="node2.html#SECTION020916000000000000000">9.16 ESMF_END</A>
+<LI><A NAME="tex2html97"
+  HREF="node2.html#SECTION020917000000000000000">9.17 ESMF_FIELDSTATUS</A>
+<LI><A NAME="tex2html98"
+  HREF="node2.html#SECTION020918000000000000000">9.18 ESMF_FILEFORMAT</A>
+<LI><A NAME="tex2html99"
+  HREF="node2.html#SECTION020919000000000000000">9.19 ESMF_GEOMTYPE</A>
+<LI><A NAME="tex2html100"
+  HREF="node2.html#SECTION020920000000000000000">9.20 ESMF_GRIDCONN</A>
+<LI><A NAME="tex2html101"
+  HREF="node2.html#SECTION020921000000000000000">9.21 ESMF_GRIDITEM</A>
+<LI><A NAME="tex2html102"
+  HREF="node2.html#SECTION020922000000000000000">9.22 ESMF_GRIDMATCH</A>
+<LI><A NAME="tex2html103"
+  HREF="node2.html#SECTION020923000000000000000">9.23 ESMF_GRIDSTATUS</A>
+<LI><A NAME="tex2html104"
+  HREF="node2.html#SECTION020924000000000000000">9.24 ESMF_INDEX</A>
+<LI><A NAME="tex2html105"
+  HREF="node2.html#SECTION020925000000000000000">9.25 ESMF_IOFMT</A>
+<LI><A NAME="tex2html106"
+  HREF="node2.html#SECTION020926000000000000000">9.26 ESMF_KIND</A>
+<LI><A NAME="tex2html107"
+  HREF="node2.html#SECTION020927000000000000000">9.27 ESMF_LOGERR</A>
+<LI><A NAME="tex2html108"
+  HREF="node2.html#SECTION020928000000000000000">9.28 ESMF_LOGKIND</A>
+<LI><A NAME="tex2html109"
+  HREF="node2.html#SECTION020929000000000000000">9.29 ESMF_LOGMSG</A>
+<LI><A NAME="tex2html110"
+  HREF="node2.html#SECTION020930000000000000000">9.30 ESMF_MESHELEMTYPE</A>
+<LI><A NAME="tex2html111"
+  HREF="node2.html#SECTION020931000000000000000">9.31 ESMF_METHOD</A>
+<LI><A NAME="tex2html112"
+  HREF="node2.html#SECTION020932000000000000000">9.32 ESMF_PIN</A>
+<LI><A NAME="tex2html113"
+  HREF="node2.html#SECTION020933000000000000000">9.33 ESMF_POLEMETHOD</A>
+<LI><A NAME="tex2html114"
+  HREF="node2.html#SECTION020934000000000000000">9.34 ESMF_POLEKIND</A>
+<LI><A NAME="tex2html115"
+  HREF="node2.html#SECTION020935000000000000000">9.35 ESMF_REDUCE</A>
+<LI><A NAME="tex2html116"
+  HREF="node2.html#SECTION020936000000000000000">9.36 ESMF_REGION</A>
+<LI><A NAME="tex2html117"
+  HREF="node2.html#SECTION020937000000000000000">9.37 ESMF_REGRIDMETHOD</A>
+<LI><A NAME="tex2html118"
+  HREF="node2.html#SECTION020938000000000000000">9.38 ESMF_ROUTESYNC</A>
+<LI><A NAME="tex2html119"
+  HREF="node2.html#SECTION020939000000000000000">9.39 ESMF_SERVICEREPLY</A>
+<LI><A NAME="tex2html120"
+  HREF="node2.html#SECTION020940000000000000000">9.40 ESMF_STAGGERLOC</A>
+<LI><A NAME="tex2html121"
+  HREF="node2.html#SECTION020941000000000000000">9.41 ESMF_STARTREGION</A>
+<LI><A NAME="tex2html122"
+  HREF="node2.html#SECTION020942000000000000000">9.42 ESMF_STATEINTENT</A>
+<LI><A NAME="tex2html123"
+  HREF="node2.html#SECTION020943000000000000000">9.43 ESMF_STATEITEM</A>
+<LI><A NAME="tex2html124"
+  HREF="node2.html#SECTION020944000000000000000">9.44 ESMF_SYNC</A>
+<LI><A NAME="tex2html125"
+  HREF="node2.html#SECTION020945000000000000000">9.45 ESMF_TYPEKIND</A>
+<LI><A NAME="tex2html126"
+  HREF="node2.html#SECTION020946000000000000000">9.46 ESMF_UNMAPPEDACTION</A>
+<LI><A NAME="tex2html127"
+  HREF="node2.html#SECTION020947000000000000000">9.47 ESMF_VERSION</A>
+<LI><A NAME="tex2html128"
+  HREF="node2.html#SECTION020948000000000000000">9.48 ESMF_XGRIDSIDE</A>
+</UL>
+<LI><A NAME="tex2html129"
+  HREF="node2.html#SECTION020100000000000000000">10 Overall Design and Implementation Notes</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html130"
+  HREF="node3.html">2 Applications</A>
+<UL>
+<LI><A NAME="tex2html131"
+  HREF="node3.html#SECTION03010000000000000000">11 ESMF_Info</A>
+<UL>
+<LI><A NAME="tex2html132"
+  HREF="node3.html#SECTION03011000000000000000">11.1 Description</A>
+</UL>
+<LI><A NAME="tex2html133"
+  HREF="node3.html#SECTION03020000000000000000">12 ESMF_RegridWeightGen</A>
+<UL>
+<LI><A NAME="tex2html134"
+  HREF="node3.html#SECTION03021000000000000000">12.1 Description</A>
+<LI><A NAME="tex2html135"
+  HREF="node3.html#SECTION03022000000000000000">12.2 Usage</A>
+<LI><A NAME="tex2html136"
+  HREF="node3.html#SECTION03023000000000000000">12.3 Examples</A>
+<LI><A NAME="tex2html137"
+  HREF="node3.html#SECTION03024000000000000000">12.4 SCRIP Grid File Format</A>
+<LI><A NAME="tex2html138"
+  HREF="node3.html#SECTION03025000000000000000">12.5 Regrid Interpolation Weight File Format</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html139"
+  HREF="node4.html">3 Superstructure</A>
+<UL>
+<LI><A NAME="tex2html140"
+  HREF="node4.html#SECTION04010000000000000000">13 Overview of Superstructure</A>
+<UL>
+<LI><A NAME="tex2html141"
+  HREF="node4.html#SECTION04011000000000000000">13.1 Superstructure Classes</A>
+<LI><A NAME="tex2html142"
+  HREF="node4.html#SECTION04012000000000000000">13.2 Hierarchical Creation of Components</A>
+<LI><A NAME="tex2html143"
+  HREF="node4.html#SECTION04013000000000000000">13.3 Sequential and Concurrent Execution of Components</A>
+<LI><A NAME="tex2html144"
+  HREF="node4.html#SECTION04014000000000000000">13.4 Intra-Component Communication</A>
+<LI><A NAME="tex2html145"
+  HREF="node4.html#SECTION04015000000000000000">13.5 Data Distribution and Scoping in Components</A>
+<LI><A NAME="tex2html146"
+  HREF="node4.html#SECTION04016000000000000000">13.6 Performance</A>
+<LI><A NAME="tex2html147"
+  HREF="node4.html#SECTION04017000000000000000">13.7 Object Model</A>
+</UL>
+<LI><A NAME="tex2html148"
+  HREF="node4.html#SECTION04020000000000000000">14 Application Driver and Required ESMF Methods</A>
+<UL>
+<LI><A NAME="tex2html149"
+  HREF="node4.html#SECTION04021000000000000000">14.1 Description</A>
+<LI><A NAME="tex2html150"
+  HREF="node4.html#SECTION04022000000000000000">14.2 Constants</A>
+<LI><A NAME="tex2html151"
+  HREF="node4.html#SECTION04023000000000000000">14.3 Use and Examples</A>
+<LI><A NAME="tex2html152"
+  HREF="node4.html#SECTION04024000000000000000">14.4 Required ESMF Methods</A>
+</UL>
+<LI><A NAME="tex2html153"
+  HREF="node4.html#SECTION04030000000000000000">15 GridComp Class</A>
+<UL>
+<LI><A NAME="tex2html154"
+  HREF="node4.html#SECTION04031000000000000000">15.1 Description</A>
+<LI><A NAME="tex2html155"
+  HREF="node4.html#SECTION04032000000000000000">15.2 Use and Examples</A>
+<LI><A NAME="tex2html156"
+  HREF="node4.html#SECTION04033000000000000000">15.3 Restrictions and Future Work</A>
+<LI><A NAME="tex2html157"
+  HREF="node4.html#SECTION04034000000000000000">15.4 Class API</A>
+</UL>
+<LI><A NAME="tex2html158"
+  HREF="node4.html#SECTION04040000000000000000">16 CplComp Class</A>
+<UL>
+<LI><A NAME="tex2html159"
+  HREF="node4.html#SECTION04041000000000000000">16.1 Description</A>
+<LI><A NAME="tex2html160"
+  HREF="node4.html#SECTION04042000000000000000">16.2 Use and Examples</A>
+<LI><A NAME="tex2html161"
+  HREF="node4.html#SECTION04043000000000000000">16.3 Restrictions and Future Work</A>
+<LI><A NAME="tex2html162"
+  HREF="node4.html#SECTION04044000000000000000">16.4 Class API</A>
+</UL>
+<LI><A NAME="tex2html163"
+  HREF="node4.html#SECTION04050000000000000000">17 State Class</A>
+<UL>
+<LI><A NAME="tex2html164"
+  HREF="node4.html#SECTION04051000000000000000">17.1 Description</A>
+<LI><A NAME="tex2html165"
+  HREF="node4.html#SECTION04052000000000000000">17.2 Constants</A>
+<LI><A NAME="tex2html166"
+  HREF="node4.html#SECTION04053000000000000000">17.3 Use and Examples</A>
+<LI><A NAME="tex2html167"
+  HREF="node4.html#SECTION04054000000000000000">17.4 Restrictions and Future Work</A>
+<LI><A NAME="tex2html168"
+  HREF="node4.html#SECTION04055000000000000000">17.5 Design and Implementation Notes</A>
+<LI><A NAME="tex2html169"
+  HREF="node4.html#SECTION04056000000000000000">17.6 Object Model</A>
+<LI><A NAME="tex2html170"
+  HREF="node4.html#SECTION04057000000000000000">17.7 Class API</A>
+</UL>
+<LI><A NAME="tex2html171"
+  HREF="node4.html#SECTION04060000000000000000">18 Attachable Methods</A>
+<UL>
+<LI><A NAME="tex2html172"
+  HREF="node4.html#SECTION04061000000000000000">18.1 Description</A>
+<LI><A NAME="tex2html173"
+  HREF="node4.html#SECTION04062000000000000000">18.2 Use and Examples</A>
+<LI><A NAME="tex2html174"
+  HREF="node4.html#SECTION04063000000000000000">18.3 Restrictions and Future Work</A>
+<LI><A NAME="tex2html175"
+  HREF="node4.html#SECTION04064000000000000000">18.4 Class API</A>
+</UL>
+<LI><A NAME="tex2html176"
+  HREF="node4.html#SECTION04070000000000000000">19 Web Services</A>
+<UL>
+<LI><A NAME="tex2html177"
+  HREF="node4.html#SECTION04071000000000000000">19.1 Description</A>
+<LI><A NAME="tex2html178"
+  HREF="node4.html#SECTION04072000000000000000">19.2 Use and Examples</A>
+<LI><A NAME="tex2html179"
+  HREF="node4.html#SECTION04073000000000000000">19.3 Restrictions and Future Work</A>
+<LI><A NAME="tex2html180"
+  HREF="node4.html#SECTION04074000000000000000">19.4 Class API</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html181"
+  HREF="node5.html">4 Infrastructure: Fields and Grids</A>
+<UL>
+<LI><A NAME="tex2html182"
+  HREF="node5.html#SECTION05010000000000000000">20 Overview of Infrastructure Data Handling</A>
+<UL>
+<LI><A NAME="tex2html183"
+  HREF="node5.html#SECTION05011000000000000000">20.1 Infrastructure Data Classes</A>
+<LI><A NAME="tex2html184"
+  HREF="node5.html#SECTION05012000000000000000">20.2 Design and Implementation Notes</A>
+</UL>
+<LI><A NAME="tex2html185"
+  HREF="node5.html#SECTION05020000000000000000">21 FieldBundle Class</A>
+<UL>
+<LI><A NAME="tex2html186"
+  HREF="node5.html#SECTION05021000000000000000">21.1 Description</A>
+<LI><A NAME="tex2html187"
+  HREF="node5.html#SECTION05022000000000000000">21.2 Use and Examples</A>
+<LI><A NAME="tex2html188"
+  HREF="node5.html#SECTION05023000000000000000">21.3 Restrictions and Future Work</A>
+<LI><A NAME="tex2html189"
+  HREF="node5.html#SECTION05024000000000000000">21.4 Design and Implementation Notes</A>
+<LI><A NAME="tex2html190"
+  HREF="node5.html#SECTION05025000000000000000">21.5 Class API: Basic FieldBundle Methods</A>
+</UL>
+<LI><A NAME="tex2html191"
+  HREF="node5.html#SECTION05030000000000000000">22 Field Class</A>
+<UL>
+<LI><A NAME="tex2html192"
+  HREF="node5.html#SECTION05031000000000000000">22.1 Description</A>
+<LI><A NAME="tex2html193"
+  HREF="node5.html#SECTION05032000000000000000">22.2 Constants</A>
+<LI><A NAME="tex2html194"
+  HREF="node5.html#SECTION05033000000000000000">22.3 Use and Examples</A>
+<LI><A NAME="tex2html195"
+  HREF="node5.html#SECTION05034000000000000000">22.4 Restrictions and Future Work</A>
+<LI><A NAME="tex2html196"
+  HREF="node5.html#SECTION05035000000000000000">22.5 Design and Implementation Notes</A>
+<LI><A NAME="tex2html197"
+  HREF="node5.html#SECTION05036000000000000000">22.6 Class API</A>
+<LI><A NAME="tex2html198"
+  HREF="node5.html#SECTION05037000000000000000">22.7 Class API: Field Utilities</A>
+</UL>
+<LI><A NAME="tex2html199"
+  HREF="node5.html#SECTION05040000000000000000">23 ArrayBundle Class</A>
+<UL>
+<LI><A NAME="tex2html200"
+  HREF="node5.html#SECTION05041000000000000000">23.1 Description</A>
+<LI><A NAME="tex2html201"
+  HREF="node5.html#SECTION05042000000000000000">23.2 Use and Examples</A>
+<LI><A NAME="tex2html202"
+  HREF="node5.html#SECTION05043000000000000000">23.3 Restrictions and Future Work</A>
+<LI><A NAME="tex2html203"
+  HREF="node5.html#SECTION05044000000000000000">23.4 Design and Implementation Notes</A>
+<LI><A NAME="tex2html204"
+  HREF="node5.html#SECTION05045000000000000000">23.5 Class API</A>
+</UL>
+<LI><A NAME="tex2html205"
+  HREF="node5.html#SECTION05050000000000000000">24 Array Class</A>
+<UL>
+<LI><A NAME="tex2html206"
+  HREF="node5.html#SECTION05051000000000000000">24.1 Description</A>
+<LI><A NAME="tex2html207"
+  HREF="node5.html#SECTION05052000000000000000">24.2 Use and Examples</A>
+<LI><A NAME="tex2html208"
+  HREF="node5.html#SECTION05053000000000000000">24.3 Restrictions and Future Work</A>
+<LI><A NAME="tex2html209"
+  HREF="node5.html#SECTION05054000000000000000">24.4 Design and Implementation Notes</A>
+<LI><A NAME="tex2html210"
+  HREF="node5.html#SECTION05055000000000000000">24.5 Class API</A>
+</UL>
+<LI><A NAME="tex2html211"
+  HREF="node5.html#SECTION05060000000000000000">25 LocalArray Class</A>
+<UL>
+<LI><A NAME="tex2html212"
+  HREF="node5.html#SECTION05061000000000000000">25.1 Description</A>
+<LI><A NAME="tex2html213"
+  HREF="node5.html#SECTION05062000000000000000">25.2 Restrictions and Future Work</A>
+<LI><A NAME="tex2html214"
+  HREF="node5.html#SECTION05063000000000000000">25.3 Class API</A>
+</UL>
+<LI><A NAME="tex2html215"
+  HREF="node5.html#SECTION05070000000000000000">26 ArraySpec Class</A>
+<UL>
+<LI><A NAME="tex2html216"
+  HREF="node5.html#SECTION05071000000000000000">26.1 Description</A>
+<LI><A NAME="tex2html217"
+  HREF="node5.html#SECTION05072000000000000000">26.2 Use and Examples</A>
+<LI><A NAME="tex2html218"
+  HREF="node5.html#SECTION05073000000000000000">26.3 Restrictions and Future Work</A>
+<LI><A NAME="tex2html219"
+  HREF="node5.html#SECTION05074000000000000000">26.4 Design and Implementation Notes</A>
+<LI><A NAME="tex2html220"
+  HREF="node5.html#SECTION05075000000000000000">26.5 Class API</A>
+</UL>
+<LI><A NAME="tex2html221"
+  HREF="node5.html#SECTION05080000000000000000">27 Grid Class</A>
+<UL>
+<LI><A NAME="tex2html222"
+  HREF="node5.html#SECTION05081000000000000000">27.1 Description</A>
+<LI><A NAME="tex2html223"
+  HREF="node5.html#SECTION05082000000000000000">27.2 Constants</A>
+<LI><A NAME="tex2html224"
+  HREF="node5.html#SECTION05083000000000000000">27.3 Use and Examples</A>
+<LI><A NAME="tex2html225"
+  HREF="node5.html#SECTION05084000000000000000">27.4 Restrictions and Future Work</A>
+<LI><A NAME="tex2html226"
+  HREF="node5.html#SECTION05085000000000000000">27.5 Design and Implementation Notes</A>
+<LI><A NAME="tex2html227"
+  HREF="node5.html#SECTION05086000000000000000">27.6 Class API: General Grid Methods</A>
+<LI><A NAME="tex2html228"
+  HREF="node5.html#SECTION05087000000000000000">27.7 Class API: StaggerLoc Methods</A>
+</UL>
+<LI><A NAME="tex2html229"
+  HREF="node5.html#SECTION05090000000000000000">28 LocStream Class</A>
+<UL>
+<LI><A NAME="tex2html230"
+  HREF="node5.html#SECTION05091000000000000000">28.1 Description</A>
+<LI><A NAME="tex2html231"
+  HREF="node5.html#SECTION05092000000000000000">28.2 Use and Examples</A>
+<LI><A NAME="tex2html232"
+  HREF="node5.html#SECTION05093000000000000000">28.3 Class API</A>
+</UL>
+<LI><A NAME="tex2html233"
+  HREF="node5.html#SECTION050100000000000000000">29 Mesh Class</A>
+<UL>
+<LI><A NAME="tex2html234"
+  HREF="node5.html#SECTION050101000000000000000">29.1 Description</A>
+<LI><A NAME="tex2html235"
+  HREF="node5.html#SECTION050102000000000000000">29.2 Constants</A>
+<LI><A NAME="tex2html236"
+  HREF="node5.html#SECTION050103000000000000000">29.3 Use and Examples</A>
+<LI><A NAME="tex2html237"
+  HREF="node5.html#SECTION050104000000000000000">29.4 Class API</A>
+</UL>
+<LI><A NAME="tex2html238"
+  HREF="node5.html#SECTION050110000000000000000">30 XGrid Class</A>
+<UL>
+<LI><A NAME="tex2html239"
+  HREF="node5.html#SECTION050111000000000000000">30.1 Description</A>
+<LI><A NAME="tex2html240"
+  HREF="node5.html#SECTION050112000000000000000">30.2 Constants</A>
+<LI><A NAME="tex2html241"
+  HREF="node5.html#SECTION050113000000000000000">30.3 Use and Examples</A>
+<LI><A NAME="tex2html242"
+  HREF="node5.html#SECTION050114000000000000000">30.4 Restrictions and Future Work</A>
+<LI><A NAME="tex2html243"
+  HREF="node5.html#SECTION050115000000000000000">30.5 Design and Implementation Notes</A>
+<LI><A NAME="tex2html244"
+  HREF="node5.html#SECTION050116000000000000000">30.6 Class API</A>
+</UL>
+<LI><A NAME="tex2html245"
+  HREF="node5.html#SECTION050120000000000000000">31 DistGrid Class</A>
+<UL>
+<LI><A NAME="tex2html246"
+  HREF="node5.html#SECTION050121000000000000000">31.1 Description</A>
+<LI><A NAME="tex2html247"
+  HREF="node5.html#SECTION050122000000000000000">31.2 Constants</A>
+<LI><A NAME="tex2html248"
+  HREF="node5.html#SECTION050123000000000000000">31.3 Use and Examples</A>
+<LI><A NAME="tex2html249"
+  HREF="node5.html#SECTION050124000000000000000">31.4 Restrictions and Future Work</A>
+<LI><A NAME="tex2html250"
+  HREF="node5.html#SECTION050125000000000000000">31.5 Design and Implementation Notes</A>
+<LI><A NAME="tex2html251"
+  HREF="node5.html#SECTION050126000000000000000">31.6 Class API</A>
+<LI><A NAME="tex2html252"
+  HREF="node5.html#SECTION050127000000000000000">31.7 Class API: DistGridConnection Methods</A>
+</UL>
+<LI><A NAME="tex2html253"
+  HREF="node5.html#SECTION050130000000000000000">32 IO Capability</A>
+<UL>
+<LI><A NAME="tex2html254"
+  HREF="node5.html#SECTION050131000000000000000">32.1 Description</A>
+<LI><A NAME="tex2html255"
+  HREF="node5.html#SECTION050132000000000000000">32.2 Attribute I/O</A>
+<LI><A NAME="tex2html256"
+  HREF="node5.html#SECTION050133000000000000000">32.3 Data I/O</A>
+<LI><A NAME="tex2html257"
+  HREF="node5.html#SECTION050134000000000000000">32.4 Data formats</A>
+<LI><A NAME="tex2html258"
+  HREF="node5.html#SECTION050135000000000000000">32.5 Restrictions and Future Work</A>
+<LI><A NAME="tex2html259"
+  HREF="node5.html#SECTION050136000000000000000">32.6 Design and Implementation Notes</A>
+</UL>
+<LI><A NAME="tex2html260"
+  HREF="node5.html#SECTION050140000000000000000">33 Overview of Distributed Data Methods</A>
+<UL>
+<LI><A NAME="tex2html261"
+  HREF="node5.html#SECTION050141000000000000000">33.1 Higher Level Functions</A>
+<LI><A NAME="tex2html262"
+  HREF="node5.html#SECTION050142000000000000000">33.2 Lower Level Functions</A>
+<LI><A NAME="tex2html263"
+  HREF="node5.html#SECTION050143000000000000000">33.3 Common Options</A>
+<LI><A NAME="tex2html264"
+  HREF="node5.html#SECTION050144000000000000000">33.4 Design and Implementation Notes</A>
+<LI><A NAME="tex2html265"
+  HREF="node5.html#SECTION050145000000000000000">33.5 Object Model</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html266"
+  HREF="node6.html">5 Infrastructure: Utilities</A>
+<UL>
+<LI><A NAME="tex2html267"
+  HREF="node6.html#SECTION06010000000000000000">34 Overview of Infrastructure Utility Classes</A>
+<LI><A NAME="tex2html268"
+  HREF="node6.html#SECTION06020000000000000000">35 Attribute Class</A>
+<UL>
+<LI><A NAME="tex2html269"
+  HREF="node6.html#SECTION06021000000000000000">35.1 Description</A>
+<LI><A NAME="tex2html270"
+  HREF="node6.html#SECTION06022000000000000000">35.2 Attribute Packages</A>
+<LI><A NAME="tex2html271"
+  HREF="node6.html#SECTION06023000000000000000">35.3 Attribute Packages Nesting</A>
+<LI><A NAME="tex2html272"
+  HREF="node6.html#SECTION06024000000000000000">35.4 Export Formats</A>
+<LI><A NAME="tex2html273"
+  HREF="node6.html#SECTION06025000000000000000">35.5 Constants</A>
+<LI><A NAME="tex2html274"
+  HREF="node6.html#SECTION06026000000000000000">35.6 Use and Examples</A>
+<LI><A NAME="tex2html275"
+  HREF="node6.html#SECTION06027000000000000000">35.7 Restrictions and Future Work</A>
+<LI><A NAME="tex2html276"
+  HREF="node6.html#SECTION06028000000000000000">35.8 Design and Implementation Notes</A>
+<LI><A NAME="tex2html277"
+  HREF="node6.html#SECTION06029000000000000000">35.9 Object Model</A>
+<LI><A NAME="tex2html278"
+  HREF="node6.html#SECTION060210000000000000000">35.10 Class API</A>
+</UL>
+<LI><A NAME="tex2html279"
+  HREF="node6.html#SECTION06030000000000000000">36 Time Manager Utility</A>
+<UL>
+<LI><A NAME="tex2html280"
+  HREF="node6.html#SECTION06031000000000000000">36.1 Time Manager Classes</A>
+<LI><A NAME="tex2html281"
+  HREF="node6.html#SECTION06032000000000000000">36.2 Calendar</A>
+<LI><A NAME="tex2html282"
+  HREF="node6.html#SECTION06033000000000000000">36.3 Time Instants and TimeIntervals</A>
+<LI><A NAME="tex2html283"
+  HREF="node6.html#SECTION06034000000000000000">36.4 Clocks and Alarms</A>
+<LI><A NAME="tex2html284"
+  HREF="node6.html#SECTION06035000000000000000">36.5 Design and Implementation Notes</A>
+<LI><A NAME="tex2html285"
+  HREF="node6.html#SECTION06036000000000000000">36.6 Object Model</A>
+</UL>
+<LI><A NAME="tex2html286"
+  HREF="node6.html#SECTION06040000000000000000">37 Calendar Class</A>
+<UL>
+<LI><A NAME="tex2html287"
+  HREF="node6.html#SECTION06041000000000000000">37.1 Description</A>
+<LI><A NAME="tex2html288"
+  HREF="node6.html#SECTION06042000000000000000">37.2 Constants</A>
+<LI><A NAME="tex2html289"
+  HREF="node6.html#SECTION06043000000000000000">37.3 Use and Examples</A>
+<LI><A NAME="tex2html290"
+  HREF="node6.html#SECTION06044000000000000000">37.4 Restrictions and Future Work</A>
+<LI><A NAME="tex2html291"
+  HREF="node6.html#SECTION06045000000000000000">37.5 Class API</A>
+</UL>
+<LI><A NAME="tex2html292"
+  HREF="node6.html#SECTION06050000000000000000">38 Time Class</A>
+<UL>
+<LI><A NAME="tex2html293"
+  HREF="node6.html#SECTION06051000000000000000">38.1 Description</A>
+<LI><A NAME="tex2html294"
+  HREF="node6.html#SECTION06052000000000000000">38.2 Use and Examples</A>
+<LI><A NAME="tex2html295"
+  HREF="node6.html#SECTION06053000000000000000">38.3 Restrictions and Future Work</A>
+<LI><A NAME="tex2html296"
+  HREF="node6.html#SECTION06054000000000000000">38.4 Class API</A>
+</UL>
+<LI><A NAME="tex2html297"
+  HREF="node6.html#SECTION06060000000000000000">39 TimeInterval Class</A>
+<UL>
+<LI><A NAME="tex2html298"
+  HREF="node6.html#SECTION06061000000000000000">39.1 Description</A>
+<LI><A NAME="tex2html299"
+  HREF="node6.html#SECTION06062000000000000000">39.2 Use and Examples</A>
+<LI><A NAME="tex2html300"
+  HREF="node6.html#SECTION06063000000000000000">39.3 Restrictions and Future Work</A>
+<LI><A NAME="tex2html301"
+  HREF="node6.html#SECTION06064000000000000000">39.4 Class API</A>
+</UL>
+<LI><A NAME="tex2html302"
+  HREF="node6.html#SECTION06070000000000000000">40 Clock Class</A>
+<UL>
+<LI><A NAME="tex2html303"
+  HREF="node6.html#SECTION06071000000000000000">40.1 Description</A>
+<LI><A NAME="tex2html304"
+  HREF="node6.html#SECTION06072000000000000000">40.2 Constants</A>
+<LI><A NAME="tex2html305"
+  HREF="node6.html#SECTION06073000000000000000">40.3 Use and Examples</A>
+<LI><A NAME="tex2html306"
+  HREF="node6.html#SECTION06074000000000000000">40.4 Restrictions and Future Work</A>
+<LI><A NAME="tex2html307"
+  HREF="node6.html#SECTION06075000000000000000">40.5 Class API</A>
+</UL>
+<LI><A NAME="tex2html308"
+  HREF="node6.html#SECTION06080000000000000000">41 Alarm Class</A>
+<UL>
+<LI><A NAME="tex2html309"
+  HREF="node6.html#SECTION06081000000000000000">41.1 Description</A>
+<LI><A NAME="tex2html310"
+  HREF="node6.html#SECTION06082000000000000000">41.2 Constants</A>
+<LI><A NAME="tex2html311"
+  HREF="node6.html#SECTION06083000000000000000">41.3 Use and Examples</A>
+<LI><A NAME="tex2html312"
+  HREF="node6.html#SECTION06084000000000000000">41.4 Restrictions and Future Work</A>
+<LI><A NAME="tex2html313"
+  HREF="node6.html#SECTION06085000000000000000">41.5 Design and Implementation Notes</A>
+<LI><A NAME="tex2html314"
+  HREF="node6.html#SECTION06086000000000000000">41.6 Class API</A>
+</UL>
+<LI><A NAME="tex2html315"
+  HREF="node6.html#SECTION06090000000000000000">42 Config Class</A>
+<UL>
+<LI><A NAME="tex2html316"
+  HREF="node6.html#SECTION06091000000000000000">42.1 Description</A>
+<LI><A NAME="tex2html317"
+  HREF="node6.html#SECTION06092000000000000000">42.2 Use and Examples</A>
+<LI><A NAME="tex2html318"
+  HREF="node6.html#SECTION06093000000000000000">42.3 Class API</A>
+</UL>
+<LI><A NAME="tex2html319"
+  HREF="node6.html#SECTION060100000000000000000">43 Log Class</A>
+<UL>
+<LI><A NAME="tex2html320"
+  HREF="node6.html#SECTION060101000000000000000">43.1 Description</A>
+<LI><A NAME="tex2html321"
+  HREF="node6.html#SECTION060102000000000000000">43.2 Constants</A>
+<LI><A NAME="tex2html322"
+  HREF="node6.html#SECTION060103000000000000000">43.3 Use and Examples</A>
+<LI><A NAME="tex2html323"
+  HREF="node6.html#SECTION060104000000000000000">43.4 Restrictions and Future Work</A>
+<LI><A NAME="tex2html324"
+  HREF="node6.html#SECTION060105000000000000000">43.5 Design and Implementation Notes</A>
+<LI><A NAME="tex2html325"
+  HREF="node6.html#SECTION060106000000000000000">43.6 Object Model</A>
+<LI><A NAME="tex2html326"
+  HREF="node6.html#SECTION060107000000000000000">43.7 Class API</A>
+</UL>
+<LI><A NAME="tex2html327"
+  HREF="node6.html#SECTION060110000000000000000">44 DELayout Class</A>
+<UL>
+<LI><A NAME="tex2html328"
+  HREF="node6.html#SECTION060111000000000000000">44.1 Description</A>
+<LI><A NAME="tex2html329"
+  HREF="node6.html#SECTION060112000000000000000">44.2 Constants</A>
+<LI><A NAME="tex2html330"
+  HREF="node6.html#SECTION060113000000000000000">44.3 Use and Examples</A>
+<LI><A NAME="tex2html331"
+  HREF="node6.html#SECTION060114000000000000000">44.4 Restrictions and Future Work</A>
+<LI><A NAME="tex2html332"
+  HREF="node6.html#SECTION060115000000000000000">44.5 Design and Implementation Notes</A>
+<LI><A NAME="tex2html333"
+  HREF="node6.html#SECTION060116000000000000000">44.6 Class API</A>
+</UL>
+<LI><A NAME="tex2html334"
+  HREF="node6.html#SECTION060120000000000000000">45 VM Class</A>
+<UL>
+<LI><A NAME="tex2html335"
+  HREF="node6.html#SECTION060121000000000000000">45.1 Description</A>
+<LI><A NAME="tex2html336"
+  HREF="node6.html#SECTION060122000000000000000">45.2 Use and Examples</A>
+<LI><A NAME="tex2html337"
+  HREF="node6.html#SECTION060123000000000000000">45.3 Restrictions and Future Work</A>
+<LI><A NAME="tex2html338"
+  HREF="node6.html#SECTION060124000000000000000">45.4 Design and Implementation Notes</A>
+<LI><A NAME="tex2html339"
+  HREF="node6.html#SECTION060125000000000000000">45.5 Class API</A>
+</UL>
+<LI><A NAME="tex2html340"
+  HREF="node6.html#SECTION060130000000000000000">46 Fortran I/O and System Utilities</A>
+<UL>
+<LI><A NAME="tex2html341"
+  HREF="node6.html#SECTION060131000000000000000">46.1 Description</A>
+<LI><A NAME="tex2html342"
+  HREF="node6.html#SECTION060132000000000000000">46.2 Use and Examples</A>
+<LI><A NAME="tex2html343"
+  HREF="node6.html#SECTION060133000000000000000">46.3 Design and Implementation Notes</A>
+<LI><A NAME="tex2html344"
+  HREF="node6.html#SECTION060134000000000000000">46.4 Utility API</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html345"
+  HREF="node7.html">6 References</A>
+<LI><A NAME="tex2html346"
+  HREF="node8.html">Bibliography</A>
+<LI><A NAME="tex2html347"
+  HREF="node9.html">7 Appendices</A>
+<UL>
+<LI><A NAME="tex2html348"
+  HREF="node9.html#SECTION09010000000000000000">47 Appendix A:  A Brief Introduction to UML</A>
+<LI><A NAME="tex2html349"
+  HREF="node9.html#SECTION09020000000000000000">48 Appendix B:  ESMF Error Return Codes</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html350"
+  HREF="node10.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html53"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html51"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html54"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html52"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+<A HREF=mailto:esmf_support@list.woc.noaa.gov>esmf_support@list.woc.noaa.gov</A>
+</ADDRESS>
+</BODY>
+</HTML>

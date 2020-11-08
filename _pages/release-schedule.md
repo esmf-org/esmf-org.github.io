@@ -1,13 +1,13 @@
 ---
 permalink: /release-schedule/
-title: "Release Schedule"
+title: "Release Schedules"
 classes: wide
 toc: true
 ---
 
 ### Upcoming
 
-#### Version 8.1
+#### December 2019 - Covers release 8.1
 
 |Task|Delivery Description|
 |--- |--- |
@@ -28,9 +28,12 @@ toc: true
 |Shared memory access to DEs between non-threaded PETs. Also a follow-on to Field reference sharing through NUOPC Connectors.|Full support will be provided for sharing Decomposition Elements (DEs) between coarse -and fine-grained Virtual Machines (VMs). NUOPC will be extended to support reference sharing of memory-local DEs from a provider component to an acceptor component.|
 
 
-### Recent Previous Releases
+### Recent Previous Release Schedules
+*Release schedules prior to 2016 are not shown, but are available upon request*
 
-#### Version 8.0 "As Built"
+
+#### February 2018 - Covers release 8.0
+**AS BUILT: September 2019 ESMF v8.0.0**
 
 |Task|Description|
 |--- |--- |
@@ -63,18 +66,33 @@ toc: true
 |Be able to set up a tripole grid more easily, using DEBlockList.|Tripole grids are used at multiple centers, most frequently to discretize ocean models. This strategy will help to save time and minimize errors when setting them up.|
 
 
-#### Version 7.2 "As Built"
+#### January 2016 - Covers releases 7.0, 7.1, 7.2
+**AS BUILT: January 2016 ESMF v7.0**
 
 |Task|Description|
 |--- |--- |
-|Convert other interpolation methods to MOAB|Part of the MOAB conversion.|
-|Convert other Mesh functionality to MOAB|Part of the MOAB conversion.|
-|Higher-order element representation|Add support for observational data streams (LocStream) to ESMPy. This will need to be added to the C interface first. Also, the regridding to/from Grids/Meshes should be added and tested for full support. Eric Hutton wanted to use this capability to represent point clouds and do regridding with them.|
-|Regrid of data on Mesh edge locations|The idea is to let the user regrid data which is on mesh edges. This should eventually be available in both the offline and online regridding, and for conservative and non-conservative. Probably the easiest way to do this right now is to create a new mesh from the edge one which has the data at nodes (for non-conservative) or cell centers (for conservative). (like a dual-mesh, but different). For the online regridding we probably need to be able to build Fields on Mesh edges, see ticket # 3371542.|
-|Data on edge locations for Mesh|To do this we need to be able to figure out how many edges are on each PET and build a distgrid from them, it appears the capability to have edges is already in the low level Mesh, but will need to test it and see if it provides everything, so there is some uncertainty in the time estimate. This is probably a necessary precondition for doing online regridding of edge data.|
+|Connect OpenClimateGIS to ESMPy|We would like to connect OpenClimateGIS and CyberGIS with ESMPy. This requires that ESMPy has a stable API, this is being done under ticket 3606829. The initial work would include a script that imports both OCGIS and ESMPy and does a conversion between data fields and coordinate structures in both applications. The CyberGIS portion of this ticket is not very well defined at this time.|
+|Evaluate OpenACC use|Enable ESMF to run with applications that use OpenACC, and evaluate where OpenACC might improve ESMF performance.|
+|Framework support for mapping accelerator resources to components|Prototype the support of components that are interleaved across compute resources to support most effective use of available cores and accelerators. Turning this into a guided process requires that the ESMF virtual machine layer becomes aware of the underlying accelerator hardware.|
+|Enable PIO to be turned on everywhere|Complete porting of the Parallel I/O package so that it can be on by default.|
+|Setup ESMF C++ Mesh to be replaceable|Modify ESMF so that an alternate internal finite element mesh can be used. This will allow the MOAB mesh software to be introduced.|
+|Replace Mesh creation and other methods to be able to build Fields|Shifts to an underlying mesh library with more capabilities.|
+|Convert conservative interpolation to work with MOAB|Create a first example and evaluate.|
+|Address advanced Field dictionary issues for NUOPC|Implement the CFSS convention.|
+|Change destination to be point list for non-conservative regridding|This will enable a regrid destination to be a single point, and will also enable Location Streams to be supported within regridding.|
+|Add per location status output to field regrid store|Increase documentation so that there is output for each data point in FieldRegridStore(). This should help users analyze and debug regridding results.|
+|Represent grids with ngons through ESMPy|This would allow the Mesh class to represent many sided polygons in the same manner as the weight generation application does.|
+|File to file regrid application|Takes data fields+grid specified in a source file and grid in a destination file and regrids the data fields to the destination grid and writes it to the file.|
+|Regrid 3D "Thick" Spherical lines|Will support the regridding of a spherical shell with vertical thickness. Using great circles.|
+|Non-conservative regridding on cell center for grid files|Support for grid files in GRIDSPEC, UGRID, and ESMF formats in ESMF_RegridWeightGen|
+|Fix problem with proxies involving multiple objects that reference a single object|Fix problem where multiple objects that reference a single object produce multiple proxies for the single referenced object after reconcile.  Change the behavior so that, for example, Fields that point to the same Grid produce a single Grid proxy that is referenced multiple times.|
+|Connect LocStreams to Regrid|Ben wanted to regrid from a grid to multiple copies of destination points. This seems like it would be a good application of grid->locstream regridding. This ticket also relates to 1893842 where locstream regridding is also mentioned as a subpiece.|
+|Regridding with point cloud as source|Eric Hutton and Scott Peckham of CSDMS at CU would like the ability to regrid using a cloud of points as a source. This could be handled like something like nearest neighbor regridding (3103729). They suggest using inverse distance weighting.|
+|Asynchronous I/O components for coupled earth systems|Implementation of asynchronous I/O components for coupled earth systems. This may end up as a new NUOPC generic component, e.g. NUOPC_IO.|
+|Added functionality to retrieve names of all ESMF deep objects using ESMF_AttributeGet().|This is the next step in implementing full access to object information through the ESMF Attribute interface. Was: Connect Attributes to class information, phase 2: connect Attributes to Component and other intrinsic class properties.|
 
 
-#### Version 7.1 "As Built"
+**ESMF v7.1.0**
 
 |Task|Description|
 |--- |--- |
@@ -98,27 +116,12 @@ toc: true
 |Connector to support reference of field data allocations for NUOPC|Currently the NUOPC_Connector prototype assumes that each Component holds on to its own memory allocation for each Field in the import and export State. This is not always the most desirable case. With ESMF 5.2.0r Field creation can be done in a multi-step process, allowing the memory allocation to be delayed, and potentially shared between Components. Need to prototype required metadata that would be used to control sharing of data allocations, and implement the feature in the generic NUOPC_Connector code.|
 
 
-
-#### Version 7.0 "As Built"
+**ESMF v7.2.0**
 
 |Task|Description|
 |--- |--- |
-|Connect OpenClimateGIS to ESMPy|We would like to connect OpenClimateGIS and CyberGIS with ESMPy. This requires that ESMPy has a stable API, this is being done under ticket 3606829. The initial work would include a script that imports both OCGIS and ESMPy and does a conversion between data fields and coordinate structures in both applications. The CyberGIS portion of this ticket is not very well defined at this time.|
-|Evaluate OpenACC use|Enable ESMF to run with applications that use OpenACC, and evaluate where OpenACC might improve ESMF performance.|
-|Framework support for mapping accelerator resources to components|Prototype the support of components that are interleaved across compute resources to support most effective use of available cores and accelerators. Turning this into a guided process requires that the ESMF virtual machine layer becomes aware of the underlying accelerator hardware.|
-|Enable PIO to be turned on everywhere|Complete porting of the Parallel I/O package so that it can be on by default.|
-|Setup ESMF C++ Mesh to be replaceable|Modify ESMF so that an alternate internal finite element mesh can be used. This will allow the MOAB mesh software to be introduced.|
-|Replace Mesh creation and other methods to be able to build Fields|Shifts to an underlying mesh library with more capabilities.|
-|Convert conservative interpolation to work with MOAB|Create a first example and evaluate.|
-|Address advanced Field dictionary issues for NUOPC|Implement the CFSS convention.|
-|Change destination to be point list for non-conservative regridding|This will enable a regrid destination to be a single point, and will also enable Location Streams to be supported within regridding.|
-|Add per location status output to field regrid store|Increase documentation so that there is output for each data point in FieldRegridStore(). This should help users analyze and debug regridding results.|
-|Represent grids with ngons through ESMPy|This would allow the Mesh class to represent many sided polygons in the same manner as the weight generation application does.|
-|File to file regrid application|Takes data fields+grid specified in a source file and grid in a destination file and regrids the data fields to the destination grid and writes it to the file.|
-|Regrid 3D "Thick" Spherical lines|Will support the regridding of a spherical shell with vertical thickness. Using great circles.|
-|Non-conservative regridding on cell center for grid files|Support for grid files in GRIDSPEC, UGRID, and ESMF formats in ESMF_RegridWeightGen|
-|Fix problem with proxies involving multiple objects that reference a single object|Fix problem where multiple objects that reference a single object produce multiple proxies for the single referenced object after reconcile.  Change the behavior so that, for example, Fields that point to the same Grid produce a single Grid proxy that is referenced multiple times.|
-|Connect LocStreams to Regrid|Ben wanted to regrid from a grid to multiple copies of destination points. This seems like it would be a good application of grid->locstream regridding. This ticket also relates to 1893842 where locstream regridding is also mentioned as a subpiece.|
-|Regridding with point cloud as source|Eric Hutton and Scott Peckham of CSDMS at CU would like the ability to regrid using a cloud of points as a source. This could be handled like something like nearest neighbor regridding (3103729). They suggest using inverse distance weighting.|
-|Asynchronous I/O components for coupled earth systems|Implementation of asynchronous I/O components for coupled earth systems. This may end up as a new NUOPC generic component, e.g. NUOPC_IO.|
-|Added functionality to retrieve names of all ESMF deep objects using ESMF_AttributeGet().|This is the next step in implementing full access to object information through the ESMF Attribute interface. Was: Connect Attributes to class information, phase 2: connect Attributes to Component and other intrinsic class properties.|
+|Convert other interpolation methods to MOAB|Part of the MOAB conversion.|
+|Convert other Mesh functionality to MOAB|Part of the MOAB conversion.|
+|Higher-order element representation|Add support for observational data streams (LocStream) to ESMPy. This will need to be added to the C interface first. Also, the regridding to/from Grids/Meshes should be added and tested for full support. Eric H. wanted to use this capability to represent point clouds and do regridding with them.|
+|Regrid of data on Mesh edge locations|The idea is to let the user regrid data which is on mesh edges. This should eventually be available in both the offline and online regridding, and for conservative and non-conservative. Probably the easiest way to do this right now is to create a new mesh from the edge one which has the data at nodes (for non-conservative) or cell centers (for conservative). (like a dual-mesh, but different). For the online regridding we probably need to be able to build Fields on Mesh edges, see ticket # 3371542.|
+|Data on edge locations for Mesh|To do this we need to be able to figure out how many edges are on each PET and build a distgrid from them, it appears the capability to have edges is already in the low level Mesh, but will need to test it and see if it provides everything, so there is some uncertainty in the time estimate. This is probably a necessary precondition for doing online regridding of edge data.|

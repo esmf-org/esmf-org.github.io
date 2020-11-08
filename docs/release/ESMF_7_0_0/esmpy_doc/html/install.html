@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation &mdash; ESMPy 7.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '7.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ESMPy 7.0.0 documentation" href="index.html" />
+    <link rel="next" title="Python API" href="api.html" />
+    <link rel="prev" title="Overview" href="intro.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="Python API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Overview"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ESMPy 7.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>The following packages are <em>required</em> to work with ESMPy:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.earthsystemmodeling.org/esmf_releases/public/last/ESMF_usrdoc/node9.html">ESMF installation</a></li>
+<li><a class="reference external" href="http://python.org/">python</a></li>
+<li><a class="reference external" href="http://www.numpy.org/">numpy</a></li>
+</ul>
+<p>The following packages are <em>optional</em>:</p>
+<ul>
+<li><p class="first"><a class="reference external" href="http://mpi4py.scipy.org/">mpi4py</a>- python bindings to MPI, needed to run the parallel regridding tests</p>
+</li>
+<li><dl class="first docutils">
+<dt>ESMF installation with NetCDF - required to create grids and meshes from file</dt>
+<dd><ul class="first last simple">
+<li>NetCDF must be built as a shared library for ESMPy installation to succeed</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><a class="reference external" href="https://nose.readthedocs.org/en/latest/">nose</a> - for nose testing</p>
+</li>
+</ul>
+</div>
+<div class="section" id="getting-the-code">
+<h2>Getting the code<a class="headerlink" href="#getting-the-code" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="http://www.earthsystemmodeling.org/esmf_releases/public/last/ESMF_usrdoc/">ESMF User&#8217;s Guide</a>
+contains information on building and installing ESMF.
+The <a class="reference external" href="http://www.earthsystemmodeling.org/esmf_releases/last/ESMF_refdoc/">ESMF Reference Manual</a>
+contains information on the architecture of ESMF, example code, and details of the API (Application Programming
+Interface).</p>
+<p>Instructions on how to download the ESMPy code can be found at the <a class="reference external" href="http://www.earthsystemcog.org/projects/esmpy/releases">ESMPy Download page</a>.</p>
+</div>
+<div class="section" id="installing-esmpy">
+<h2>Installing ESMPy<a class="headerlink" href="#installing-esmpy" title="Permalink to this headline">¶</a></h2>
+<p>Installation of ESMPy requires a pointer to a file named esmf.mk inside of an
+ESMF installation.  This file resides in a directory which looks like:</p>
+<p>&lt;ESMF_INSTALL_DIR&gt;/lib/lib&lt;g&lt;or&gt;O&gt;/&lt;platform&gt;/esmf.mk</p>
+<p>If the ESMFMKFILE flag is set when building ESMPy then it will not need to be
+referenced again.  If not, an environment variable of the same name must be set
+with the path to the esmf.mk file EVERY time that a new shell is initiated.</p>
+<p>The ESMPy build can be installed in a custom location using the
+&#8211;prefix, &#8211;home, or &#8211;install-base flags to the install command.  If this
+is done, then this location needs to be added to the PYTHONPATH environment
+variable in the user&#8217;s shell EVERY time that a new shell is initiated.  If a
+customized install location is not specified, ESMPy will be installed in the
+standard Python package installation directory on that particular machine.</p>
+<p>Note: The ESMPy build does not have to be installed to be used.  The
+PYTHONPATH environment variable can simply be pointed to the directory
+containing the ESMF module (esmf/src/addon/ESMPy/src from a default git clone)
+after the build command.</p>
+<p>As usual, any command followed by &#8211;help should print out some information
+on what options are available.</p>
+<p>An installation of ESMPy in the default location for Python packages can be done
+with the following command issued from the top level ESMPy directory:</p>
+<ul>
+<li><p class="first">default Python package installation:</p>
+<blockquote>
+<div><p>python setup.py build &#8211;ESMFMKFILE=&lt;DIR_TO_esmf.mk&gt; install</p>
+</div></blockquote>
+</li>
+<li><p class="first">custom install location:</p>
+<blockquote>
+<div><p>python setup.py build &#8211;ESMFMKFILE=&lt;DIR_TO_esmf.mk&gt;</p>
+<p>python setup.py install &#8211;prefix=&lt;custom_install_location&gt;</p>
+<p>setenv PYTHONPATH &lt;custom_install_location&gt;/lib/*/site_packages</p>
+</div></blockquote>
+</li>
+</ul>
+<p>Please contact <a class="reference external" href="mailto:esmf_support&#37;&#52;&#48;list&#46;woc&#46;noaa&#46;gov">esmf_support<span>&#64;</span>list<span>&#46;</span>woc<span>&#46;</span>noaa<span>&#46;</span>gov</a> with any questions or problems.</p>
+</div>
+<div class="section" id="importing-esmpy">
+<h2>Importing ESMPy<a class="headerlink" href="#importing-esmpy" title="Permalink to this headline">¶</a></h2>
+<p>To use ESMPy in an external program, import it with:</p>
+<blockquote>
+<div>import ESMF</div></blockquote>
+</div>
+<div class="section" id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<p>The ESMPy testing is done with the nose package, both in serial and
+parallel.  The nose commands are wrapped in the following ESMPy targets:</p>
+<blockquote>
+<div><p>python setup.py test</p>
+<p>python setup.py test_examples</p>
+<p>python setup.py test_regrid_from_file</p>
+<p>python setup.py test_parallel</p>
+<p>python setup.py test_examples_parallel</p>
+<p>python setup.py test_regrid_from_file_parallel</p>
+</div></blockquote>
+<p>NOTE: The regrid_from_file tests can take up a lot of memory and bandwidth.
+The &#8220;test_regrid_from_file_dryrun&#8221; command will simply download the test
+files without actually running them (allowing the stress on the machine to
+be applied to bandwidth first, and then memory).</p>
+<p>Alternatively, individual tests can be run with nose using the following format:</p>
+<blockquote>
+<div>nosetests &lt;file&gt;:&lt;test&gt;</div></blockquote>
+<p>e.g.</p>
+<blockquote>
+<div>nosetests src/ESMF/test/test_api/test_regrid.py:TestRegrid.test_field_regrid</div></blockquote>
+</div>
+<div class="section" id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
+<p>ESMPy doesn&#8217;t include many aspects of ESMF, including components, field bundles,
+time management, etc.  The limitations listed here are relative
+to ESMF offline and integrated regridding capabilities.</p>
+<ul class="simple">
+<li>There is no FieldBundle class, only single Fields.</li>
+<li>There is no support for multi-tile Grids, nor Grids defined across multiple
+files.</li>
+<li>ESMPy cannot use an ESMF installation that is built with external LAPACK
+support.</li>
+<li>Conservative regridding with a source Mesh created from file is not supported,
+because the Mesh cannot retrieve coordinates from the elements.</li>
+<li>Meshes can only be created in-memory (not from-file) with a Cartesian
+coordinate system.</li>
+<li>To avoid memory leaks, each ESMPy class instance should be manually released
+using the destroy() method.</li>
+</ul>
+<p>Testing related:</p>
+<ul class="simple">
+<li>Nightly regression testing is limited to a small subset of the ESMF test platforms,
+including Darwin, Linux and Cray running gfortran with openMPI.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#getting-the-code">Getting the code</a></li>
+<li><a class="reference internal" href="#installing-esmpy">Installing ESMPy</a></li>
+<li><a class="reference internal" href="#importing-esmpy">Importing ESMPy</a></li>
+<li><a class="reference internal" href="#validation">Validation</a></li>
+<li><a class="reference internal" href="#limitations">Limitations</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">Overview</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">Python API</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/install.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="Python API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Overview"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ESMPy 7.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2011-2016, University Corporation for Atmospheric Research, Massachusetts Institute of Technology, Geophysical Fluid Dynamics Laboratory, University of Michigan, National Centers for Environmental Prediction, Los Alamos National Laboratory, Argonne National Laboratory, NASA Goddard Space Flight Center.  Licensed under the University of Illinois-NCSA License.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  </body>
+</html>
