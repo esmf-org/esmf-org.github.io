@@ -1,13 +1,13 @@
 ---
 permalink: /release-schedule/
-title: "Release Schedule"
+title: "Release Schedules"
 classes: wide
 toc: true
 ---
 
 ### Upcoming
 
-#### Version 8.1
+#### December 2019 - Covers release 8.1
 
 |Task|Delivery Description|
 |--- |--- |
@@ -28,9 +28,12 @@ toc: true
 |Shared memory access to DEs between non-threaded PETs. Also a follow-on to Field reference sharing through NUOPC Connectors.|Full support will be provided for sharing Decomposition Elements (DEs) between coarse -and fine-grained Virtual Machines (VMs). NUOPC will be extended to support reference sharing of memory-local DEs from a provider component to an acceptor component.|
 
 
-### Recent Previous Releases
+### Recent Previous Release Schedules
+*Release schedules prior to 2016 are not shown, but are available upon request*
 
-#### Version 8.0 "As Built"
+
+#### February 2018 - Covers release 8.0
+**AS BUILT: September 2019 ESMF v8.0.0**
 
 |Task|Description|
 |--- |--- |
@@ -63,43 +66,8 @@ toc: true
 |Be able to set up a tripole grid more easily, using DEBlockList.|Tripole grids are used at multiple centers, most frequently to discretize ocean models. This strategy will help to save time and minimize errors when setting them up.|
 
 
-#### Version 7.2 "As Built"
-
-|Task|Description|
-|--- |--- |
-|Convert other interpolation methods to MOAB|Part of the MOAB conversion.|
-|Convert other Mesh functionality to MOAB|Part of the MOAB conversion.|
-|Higher-order element representation|Add support for observational data streams (LocStream) to ESMPy. This will need to be added to the C interface first. Also, the regridding to/from Grids/Meshes should be added and tested for full support. Eric Hutton wanted to use this capability to represent point clouds and do regridding with them.|
-|Regrid of data on Mesh edge locations|The idea is to let the user regrid data which is on mesh edges. This should eventually be available in both the offline and online regridding, and for conservative and non-conservative. Probably the easiest way to do this right now is to create a new mesh from the edge one which has the data at nodes (for non-conservative) or cell centers (for conservative). (like a dual-mesh, but different). For the online regridding we probably need to be able to build Fields on Mesh edges, see ticket # 3371542.|
-|Data on edge locations for Mesh|To do this we need to be able to figure out how many edges are on each PET and build a distgrid from them, it appears the capability to have edges is already in the low level Mesh, but will need to test it and see if it provides everything, so there is some uncertainty in the time estimate. This is probably a necessary precondition for doing online regridding of edge data.|
-
-
-#### Version 7.1 "As Built"
-
-|Task|Description|
-|--- |--- |
-|FieldBundleCreate packing behavior|The Create call would have the same input info as the ESMF_FieldCreate() plus a namelist of the Fields to be put into the FieldBundle. There should also be an internal flag that would disallow adding more Fields after a FieldBundle has been packed.|
-|Handle very high resolution grids|This task will ensure that grid remapping functions can support very high resolution grids (<1/10 degree global).|
-|Higher order conservative regridding|This second order conservative method will support climate and other modelers who need the smoothing of a higher order method along with conservation.|
-|Memory optimization for sparse matric mulltiply store and transition to 64-bit sequence indices|Since the sparse matrix multiply store operation is used to apply interpolation weights, it is a central operation in ESMF. Memory optimization is needed to avoid issues when field being interpolated are defined on large, high resolution grids.|
-|FieldWrite, GridWrite, and MeshWrite to write out object metadata|So that FieldCreate (from file), GridCreate (from file) and MeshCreate (from file) work with that file. All to be based on a common I/O layer on top of PIO.|
-|Extrapolation of data points that lie outside the source|Regrid to provide nearest neighbor extrapolation of points which lie outside the unmasked source grid.|
-|Dynamic masking during SMM execution|Support for dynamic masking of srcArray elements during ASMM executionImplementation of this feature requires rework of some of the ASMM implementation code, down inside of XXE.|
-|Support for additional SCRIP weight file format, also streamlined weight file format|Currently ESMF only supports one SCRIP weight file format. It would be good to add the other one which the Met Office (and I think other OASIS users) use. In addition, it would be good to add a weight file which doesn't have all the extra information (Grids, etc.) and which has more sensibly named variables (e.g. src_index, weight_matrix instead of S...)|
-|Move GIS capabilities in ESMPy to production|This task is to integrate the capabilities in ESMPy and the OpenClimateGIS package, which is also developed within the NESII/ESMF team.|
-|Refactor MAPL and ESMF to reduce redundancy|Locations streams and the exchange grid are objects that are targeted.|
-|Define MAPL-NUOPC translation strategy|This will be completed through prototypes and a report.|
-|Support mesh creation using ragged arrays in the ESMF unstructured file format to support regrid between GIS formats and ESMF|The ESMF unstructured file format currently uses a rectangular array (max cell corners x number of cells) to store connections for describing a grid. This is very inefficient when the one of the cells has many more corners than the others. This task is to allow the ESMF format to use a 1D connection list that only uses exactly the space necessary for the connections.|
-|Create an external demo for the application that generates and applies weights|ESMF now has an application which does regridding of data from a source file to a destination file (both generating and applying regridding weights). This task is add an external demo (similar to the one for ESMF_RegridWeightGen) which tests this application on a variety of cases.|
-|Connect Attributes to class information, phase 3: connect Attributes to Component and other intrinsic class properties|The name and other basic information that comes in through the public class interfaces should be connected to the basic Attribute hierarchy associated with that object.|
-|Complete MOAB evaluation|Produce the final report which compares the performance of the MOAB finite element library vs. the internal ESMF finite element library.|
-|Implement driver creation of interleaved resource lists, and prototypes for optimized mediator|This task is a step toward automated, optimized mapping of components and data structures to heterogeneous resources.|
-|Prototype model component negotiation and system-wide optimization|This task will be  implemented through one or more new NUOPC prorotypes and through the creation of a new mapper class.|
-|Connector to support reference of field data allocations for NUOPC|Currently the NUOPC_Connector prototype assumes that each Component holds on to its own memory allocation for each Field in the import and export State. This is not always the most desirable case. With ESMF 5.2.0r Field creation can be done in a multi-step process, allowing the memory allocation to be delayed, and potentially shared between Components. Need to prototype required metadata that would be used to control sharing of data allocations, and implement the feature in the generic NUOPC_Connector code.|
-
-
-
-#### Version 7.0 "As Built"
+#### January 2016 - Covers releases 7.0, 7.1, 7.2
+**AS BUILT: January 2016 ESMF v7.0**
 
 |Task|Description|
 |--- |--- |
@@ -122,3 +90,37 @@ toc: true
 |Regridding with point cloud as source|Eric Hutton and Scott Peckham of CSDMS at CU would like the ability to regrid using a cloud of points as a source. This could be handled like something like nearest neighbor regridding (3103729). They suggest using inverse distance weighting.|
 |Asynchronous I/O components for coupled earth systems|Implementation of asynchronous I/O components for coupled earth systems. This may end up as a new NUOPC generic component, e.g. NUOPC_IO.|
 |Added functionality to retrieve names of all ESMF deep objects using ESMF_AttributeGet().|This is the next step in implementing full access to object information through the ESMF Attribute interface. Was: Connect Attributes to class information, phase 2: connect Attributes to Component and other intrinsic class properties.|
+
+
+**ESMF v7.1.0**
+|Task|Description|
+|--- |--- |
+|FieldBundleCreate packing behavior|The Create call would have the same input info as the ESMF_FieldCreate() plus a namelist of the Fields to be put into the FieldBundle. There should also be an internal flag that would disallow adding more Fields after a FieldBundle has been packed.|
+|Handle very high resolution grids|This task will ensure that grid remapping functions can support very high resolution grids (<1/10 degree global).|
+|Higher order conservative regridding|This second order conservative method will support climate and other modelers who need the smoothing of a higher order method along with conservation.|
+|Memory optimization for sparse matric mulltiply store and transition to 64-bit sequence indices|Since the sparse matrix multiply store operation is used to apply interpolation weights, it is a central operation in ESMF. Memory optimization is needed to avoid issues when field being interpolated are defined on large, high resolution grids.|
+|FieldWrite, GridWrite, and MeshWrite to write out object metadata|So that FieldCreate (from file), GridCreate (from file) and MeshCreate (from file) work with that file. All to be based on a common I/O layer on top of PIO.|
+|Extrapolation of data points that lie outside the source|Regrid to provide nearest neighbor extrapolation of points which lie outside the unmasked source grid.|
+|Dynamic masking during SMM execution|Support for dynamic masking of srcArray elements during ASMM executionImplementation of this feature requires rework of some of the ASMM implementation code, down inside of XXE.|
+|Support for additional SCRIP weight file format, also streamlined weight file format|Currently ESMF only supports one SCRIP weight file format. It would be good to add the other one which the Met Office (and I think other OASIS users) use. In addition, it would be good to add a weight file which doesn't have all the extra information (Grids, etc.) and which has more sensibly named variables (e.g. src_index, weight_matrix instead of S...)|
+|Move GIS capabilities in ESMPy to production|This task is to integrate the capabilities in ESMPy and the OpenClimateGIS package, which is also developed within the NESII/ESMF team.|
+|Refactor MAPL and ESMF to reduce redundancy|Locations streams and the exchange grid are objects that are targeted.|
+|Define MAPL-NUOPC translation strategy|This will be completed through prototypes and a report.|
+|Support mesh creation using ragged arrays in the ESMF unstructured file format to support regrid between GIS formats and ESMF|The ESMF unstructured file format currently uses a rectangular array (max cell corners x number of cells) to store connections for describing a grid. This is very inefficient when the one of the cells has many more corners than the others. This task is to allow the ESMF format to use a 1D connection list that only uses exactly the space necessary for the connections.|
+|Create an external demo for the application that generates and applies weights|ESMF now has an application which does regridding of data from a source file to a destination file (both generating and applying regridding weights). This task is add an external demo (similar to the one for ESMF_RegridWeightGen) which tests this application on a variety of cases.|
+|Connect Attributes to class information, phase 3: connect Attributes to Component and other intrinsic class properties|The name and other basic information that comes in through the public class interfaces should be connected to the basic Attribute hierarchy associated with that object.|
+|Complete MOAB evaluation|Produce the final report which compares the performance of the MOAB finite element library vs. the internal ESMF finite element library.|
+|Implement driver creation of interleaved resource lists, and prototypes for optimized mediator|This task is a step toward automated, optimized mapping of components and data structures to heterogeneous resources.|
+|Prototype model component negotiation and system-wide optimization|This task will be  implemented through one or more new NUOPC prorotypes and through the creation of a new mapper class.|
+|Connector to support reference of field data allocations for NUOPC|Currently the NUOPC_Connector prototype assumes that each Component holds on to its own memory allocation for each Field in the import and export State. This is not always the most desirable case. With ESMF 5.2.0r Field creation can be done in a multi-step process, allowing the memory allocation to be delayed, and potentially shared between Components. Need to prototype required metadata that would be used to control sharing of data allocations, and implement the feature in the generic NUOPC_Connector code.|
+
+
+**ESMF v7.2.0**
+
+|Task|Description|
+|--- |--- |
+|Convert other interpolation methods to MOAB|Part of the MOAB conversion.|
+|Convert other Mesh functionality to MOAB|Part of the MOAB conversion.|
+|Higher-order element representation|Add support for observational data streams (LocStream) to ESMPy. This will need to be added to the C interface first. Also, the regridding to/from Grids/Meshes should be added and tested for full support. Eric H. wanted to use this capability to represent point clouds and do regridding with them.|
+|Regrid of data on Mesh edge locations|The idea is to let the user regrid data which is on mesh edges. This should eventually be available in both the offline and online regridding, and for conservative and non-conservative. Probably the easiest way to do this right now is to create a new mesh from the edge one which has the data at nodes (for non-conservative) or cell centers (for conservative). (like a dual-mesh, but different). For the online regridding we probably need to be able to build Fields on Mesh edges, see ticket # 3371542.|
+|Data on edge locations for Mesh|To do this we need to be able to figure out how many edges are on each PET and build a distgrid from them, it appears the capability to have edges is already in the low level Mesh, but will need to test it and see if it provides everything, so there is some uncertainty in the time estimate. This is probably a necessary precondition for doing online regridding of edge data.|
