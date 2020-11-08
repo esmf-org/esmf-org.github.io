@@ -3,6 +3,7 @@ permalink: /regrid/
 title: "Regridding"
 classes: wide
 toc: true
+#https://www.earthsystemcog.org/projects/esmf/regridding
 ---
 
 ### Overview
@@ -26,9 +27,9 @@ from some external source can be read in and applied.
 
 ### Regridding Options
 
-#### Integrated (Online) vs. Offline
+#### Online (Integrated) vs. Offline
 
-- Integrated: Integrated regridding means that interpolation weights are
+- Online (Integrated): Integrated regridding means that interpolation weights are
 generated via subroutine calls during the execution of user
 code. Integrated regridding can perform the parallel sparse matrix
 multiply to apply these weights to interpolate user data. The
@@ -44,8 +45,8 @@ called the ESMF_RegridWeightGen application.
 
 #### Coordinate Systems
 
-Cartesian: Sometimes used for small regional grids. Coordinates expressed in terms of distance (e.g. x,y)
-Spherical: The standard spherical Earth representation. Coordinates expressed in angles. (e.g. longitude, latitude)
+- Cartesian: Sometimes used for small regional grids. Coordinates expressed in terms of distance (e.g. x,y)
+- Spherical: The standard spherical Earth representation. Coordinates expressed in angles. (e.g. longitude, latitude)
 
 
 #### Grid Types
@@ -77,3 +78,86 @@ scattered observations). Because of the lack of cell structure,
 location streams are not appropriate as the source and destination for
 every regrid method.
 
+
+#### Regridding methods
+
+- Bilinear: Linear interpolation in 2 or 3 dimensions.
+
+- Higher-order patch recovery (Patch): Patch rendezvous method of taking the least
+squares fit of the surrounding surface patches. This is a higher order
+method that may produce interpolation weights that may be slightly
+less than 0 or slightly greater than 1.
+
+- Nearest source to destination: Each destination point is mapped to the closest source
+point. A source point can be mapped to multiple destination
+points. Some source points may not be mapped.
+
+- Nearest destination to
+source: Each source point is mapped to the closest destination
+point. A destination point can be mapped to multiple source points, in
+which case the destination is the sum of the source values. Some
+destination points may not be mapped.
+
+- First-order conservative:
+Preserves the integral of the source field across the regridding. For
+this method, weight calculation is based on the ratio of source cell
+area overlapped with the corresponding destination cell area. If the
+user areas option (see below) is not used, then the areas used in this
+calculation are those calculated by ESMF and thus the ones for which
+the conservation holds. The user areas option allows the user to
+adjust the interpolation weights so that conservation is based on
+user-supplied areas.
+
+- Second-order conservative: Like first-order
+conservative, this method preserves the integral of the source field
+across the regridding. Also like the first-order, weight calculation
+is based on the ratio of source cell area overlapped with the
+corresponding destination cell area, and allows the user to provide
+their own areas if desired. However, the second-order conservative
+calculation also includes the gradient across the source cell, so in
+general it gives a smoother, more accurate representation of the
+source field. This is particularly true when going from a coarse to
+finer grid.
+
+
+#### Grid File Formats
+
+- CF Tile: File format for representing single tile logically rectangular grids based on the
+  Climate and Forecast (CF) metadata conventions. 
+- ESMF Mesh: ESMF custom file format for representing unstructured meshes.
+- GRIDSPEC Mosiac: Proposed extension to the CF conventions to enable the representation of
+  grids consisting of multiple logically rectangular tiles (e.g. a cubed sphere grid).   
+- SCRIP: Grid file format originally used by the SCRIP interpolation weight generation package. 
+- UGRID: Proposed extension to the CF conventions to enable the representation of unstructured meshes
+See the "Grid File Formats" section in the reference manual for a more in-depth description of supported grid file formats.
+
+
+#### Options for poles
+
+- Full circle average: Use all of the latitude points directly surrounding a pole to calculate an artificial pole value.
+- N-point average: Specify the number of source points next to a given destination point to use to calculate an artificial
+  pole value. This option is useful when the full circle average may yield a zero valued vector field.
+- No pole: Do not use a pole value at all. The grid ends at the top and bottom rows of latitude points that are given.
+
+
+#### Options for masking, areas, unmapped points, etc.
+
+- Destination masking: Allow some points (usually representative of land masses) of the destination grid to not be included in the interpolation.
+- Source masking: Allow some points of the source grid to not be included in the interpolation.
+- Ignore unmapped points: Ignore points which lie outside of the interpolation space instead of issuing an error.
+- User areas: User provided areas are used to adjust conservative interpolation weights. If this option is used,
+  then the provided areas will be the ones for which the conservation holds.
+- Line type: Allows the user to control the type of the line which connects two points on a sphere.
+- Norm type: Allows the user to control the type of normalization done when calculating conservative interpolation weights.
+- Extrapolation: Allows the user to apply an extrapolation method to unmapped destination points. The extrapolation methods available are:
+   - None: Don't apply any extrapolation. This is the default. 
+   - Nearest source to destination: The value of each destination point is set to the value of the closest source point. 
+   - Inverse distance weighted average: The value of each destination point is set to the weighted average of the values of the N
+     closest source points. The weight is the reciprocal of the distance of the source from the destination raised to the power P.
+     The user can choose N and P, but defaults are also provided. 
+   - Creep fill: Unmapped destination points are filled by moving values from mapped locations to neighboring unmapped locations.
+     The value filled into a new location is the average of its already filled neighbors' values. The process of filling unmapped
+     neighbors from mapped neighbors is repeated a user specified number of times (levels).
+
+#### All tested and supported regrid methods
+(link needed)
