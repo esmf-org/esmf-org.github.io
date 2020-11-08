@@ -1,0 +1,557 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+
+<HTML>
+<HEAD>
+<meta name="description" content="ESMF Project NCAR">
+<TITLE>Regridding Status</TITLE>
+<link rel=stylesheet type="text/css" href="/esmf.css">
+
+<!--#include virtual="/header.shtml"-->
+<!--#include virtual="/esmf_releases/last/side_nav.html"-->
+<div class="main">
+
+<STYLE TYPE="text/css">
+
+td.unsupported{background-color:#00FFFF;}
+
+td.supported{background-color:#00FF00;}
+
+td.untested{background-color:#C0C0C0;}
+
+/* this is the regridding table structure */
+table.special_regrid{
+border-collapse:   collapse;
+border-style:      solid;
+border-width:      1px;
+margin-bottom:     20px;
+margin-left:       10px;
+padding:           20px;
+width:             70%;
+}
+table.special_regrid tr td{
+border-style:      solid;
+border-width:      1px;
+padding:           5px;
+margin-right:      auto;
+vertical-align:    top;
+}
+table.special_regrid th{
+border-style:      solid;
+padding:           3px;
+text-align:        left;
+vertical-align:    top;
+background:        #F7FFCE;
+font-weight:       bold;
+}
+
+/*this is the supported grids table structure */
+table.special_grids{
+border-collapse:   collapse;
+border-style:      solid;
+border-width:      1px;
+margin-bottom:     20px;
+margin-left:       10px;
+padding:           20px;
+width:             720px;
+}
+table.special_grids td{
+border-style:      solid;
+border-width:      1px;
+vertical-align:    center;
+text-align:        center;
+padding:           0px;
+}
+table.special_grids tr{
+border-style:      solid;
+border-width:      1px;
+vertical-align:    center;
+text-align:        center;
+padding:           0px;
+}
+
+td.srccell{width: 120px;vertical-align:center;}
+td.dstcell{height: 30px;vertical-align:center;}
+td.gridcell{width: 120px;height: 30px;vertical-align:center;}
+td.imgcell{width: 240px;height: 60px;vertical-align:center;}
+
+
+</STYLE>
+
+<h1>ESMF_5_2_0/ESMF_5_2_0p1 regridding: features, grids, and numerical results</h1>
+
+<p>
+There are two options for accessing ESMF regridding functionality: integrated and offline.  
+<b>Integrated regridding</b> means that the weights are generated via subroutine calls during the 
+execution of the user's code. <b>Offline regridding</b> means that the weights are generated 
+by a separate application from the user code.
+Offline weight generation is provided by the
+<a href="http://www.earthsystemmodeling.org/esmf_releases/non_public/ESMF_5_2_0/ESMF_refdoc/node3.html#SECTION03020000000000000000">ESMF_RegridWeightGen application</a>
+which internally uses the ESMF regridding API.
+The tables on this page organize the grids and capabilities supported by ESMF regridding, 
+as well some numerical results from specific cases.
+</p>
+
+<h2>Legend</h2>
+
+<table border="1" style="text-align:center;">
+
+<tr>
+<td class="supported">Supported</td>
+<td class="unsupported">Not supported</td>
+</tr>
+
+<tr>
+<td colspan="2" class="untested">Supported, but not automatically tested</td>
+</tr>
+</table>
+
+<h2>Supported regional grids in the integrated regridding</h2>
+
+<p>The 2D meshes are composed of quadrilateral and triangular elements, and the 3D meshes are composed of hexahedral elements.  Cubed sphere grids are supported as an ESMF Mesh.  Two coordinate systems are currently supported in the integrated regridding, Cartesian and spherical.</p>
+
+<h3>Cartesian</h3>
+
+<table class="special_grids">
+<tr>
+
+<td class="imgcell" colspan="2" rowspan="2"><img class="nopadding" src="/images/source_dest2.png"></img></td>
+<!--
+<td colspan="2" rowspan="2" style="border-style:none solid solid none;"></td>
+-->
+<td class="dstcell" colspan="2">2D regional grids</td>
+<td class="dstcell" colspan="2">3D regional grids</td>
+</tr>
+
+<tr>
+<td class="gridcell">Logically rectangular</td>
+<td class="gridcell">Mesh</td>
+<td class="gridcell">Logically rectangular</td>
+<td class="gridcell">Mesh</td>
+</tr>
+
+<tr>
+<td class="srccell" rowspan="2">2D regional grids</td>
+<td class="gridcell">Logically rectangular</td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td class="unsupported"></td>
+<td class="unsupported"></td>
+</tr>
+
+<td class="gridcell">Mesh</td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td class="unsupported"></td>
+<td class="unsupported"></td>
+</tr>
+
+<tr>
+<td class="srccell" rowspan="2">3D regional grids</td>
+<td class="gridcell">Logically rectangular</td>
+<td class="unsupported"></td>
+<td class="unsupported"></td>
+<td class="supported"></td>
+<td class="supported"></td>
+</tr>
+
+<td class="gridcell">Mesh</td>
+<td class="unsupported"></td>
+<td class="unsupported"></td>
+<td class="supported"></td>
+<td class="supported"></td>
+</tr>
+
+</td>
+</table>
+
+<br>
+
+<h3>Spherical</h3>
+
+<table class="special_grids">
+<tr>
+
+<td class="imgcell" colspan="2" rowspan="2"><img class="nopadding" src="/images/source_dest2.png"></img></td>
+<!--
+<td colspan="2" rowspan="2" style="border-style:none solid solid none;"></td>
+-->
+<td class="dstcell" colspan="2">2D global grids</td>
+<td class="dstcell" colspan="2">2D regional grids</td>
+</tr>
+
+<tr>
+<td class="gridcell">Logically rectangular</td>
+<td class="gridcell">Mesh</td>
+<td class="gridcell">Logically rectangular</td>
+<td class="gridcell">Mesh</td>
+</tr>
+
+
+<tr>
+<td class="srccell" rowspan="2">2D global grids</td>
+<td class="gridcell">Logically rectangular</td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td class="untested"></td>
+<td class="untested"></td>
+</tr>
+
+<td class="gridcell">Mesh</td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td class="untested"></td>
+<td class="untested"></td>
+</tr>
+
+<tr>
+<td class="srccell" rowspan="2">2D regional grids</td>
+<td class="gridcell">Logically rectangular</td>
+<td class="untested"></td>
+<td class="untested"></td>
+<td class="supported"></td>
+<td class="supported"></td>
+</tr>
+
+<td class="gridcell">Mesh</td>
+<td class="untested"></td>
+<td class="untested"></td>
+<td class="supported"></td>
+<td class="supported"></td>
+</tr>
+
+</td>
+</table>
+
+<br>
+
+<h2>Supported grids in the offline regridding</h2>
+
+<p>The 2D meshes are composed of quadrilateral and triangular elements.  Cubed sphere grids are supported as an ESMF Mesh.  The offline regridding is currently restricted to spherical coordinate systems.</p>
+
+<h3>Spherical</h3>
+
+<table class="special_grids">
+<tr>
+
+<td class="imgcell" colspan="2" rowspan="2"><img class="nopadding" src="/images/source_dest2.png"></img></td>
+<!--
+<td colspan="2" rowspan="2" style="border-style:none solid solid none;"></td>
+-->
+<td class="dstcell" colspan="2">2D global grids</td>
+<td class="dstcell" colspan="2">2D regional grids</td>
+</tr>
+
+<tr>
+<td class="gridcell">Logically rectangular</td>
+<td class="gridcell">Mesh</td>
+<td class="gridcell">Logically rectangular</td>
+<td class="gridcell">Mesh</td>
+</tr>
+
+
+<tr>
+<td class="srccell" rowspan="2">2D global grids</td>
+<td class="gridcell">Logically rectangular</td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td class="untested"></td>
+<td class="untested"></td>
+</tr>
+
+<td class="gridcell">Mesh</td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td class="untested"></td>
+<td class="untested"></td>
+</tr>
+
+<tr>
+<td class="srccell" rowspan="2">2D regional grids</td>
+<td class="gridcell">Logically rectangular</td>
+<td class="untested"></td>
+<td class="untested"></td>
+<td class="supported"></td>
+<td class="supported"></td>
+</tr>
+
+<td class="gridcell">Mesh</td>
+<td class="untested"></td>
+<td class="untested"></td>
+<td class="supported"></td>
+<td class="supported"></td>
+</tr>
+
+</td>
+</table>
+
+<h2>
+Capabilities of ESMF regridding
+</h2>
+
+<p>
+There are
+several different capabilities available in each of these applications.  The following
+symbols and keywords are used:
+</p>
+<b>Bilinear</b> - Linear interpolation in 2 or 3 dimensions. [1] <br>
+<br>
+<b>Patch</b> - Patch rendezvous method of taking the least squares fit of the surrounding surface patches. [2,3] <br>
+<br>
+<b>Conservative</b> - First order area averaged conservation is based on the ratio of source cell area overlapped with the corresponding destination cell area.<br>
+<br>
+<b>Destination masking</b> - Allow some points (usually representative of land masses) of the destination grid to not be included in the interpolation.<br>
+<br>
+<b>Source masking</b> - Allow some points of the source grid to not be included in the interpolation.<br>
+<br>
+<b>Ignore unmapped points</b> - ESMF option to ignore points which lie outside of the interpolation space instead of issuing an error.<br>
+<br>
+<b>Full circle average</b> - ESMF option to use all of the latitude points directly surrounding a pole to calculate an artificial pole value.<br>
+<br>
+<b>N-point average</b> - ESMF option for a user to specify the number of points of the latitude line directly surrounding a pole to calculate an artificial pole value.  This option is useful when the full circle average may yield a zero valued vector field. <br>
+<br>
+<b>No pole</b> - ESMF option to not use a pole value at all, the grid ends at the top and bottom rows of latitude points that are given.<br>
+<br>
+<br>
+
+<h3>Integrated regridding capabilities</h3>
+
+<table  class="special_regrid">
+<tr>
+<th width="150">Capabilities</th>
+<th width="150">Description</th>
+<th width="85" align="center">Bilinear</th>
+<th width="85" align="center">Patch</th>
+<th width="85" align="center">Conservative</th>
+</tr>
+
+<tr>
+<td>Regridding</td>
+<td></td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td class="supported"></td>
+</tr>
+
+<tr>
+<td rowspan="3">Masking<br>(Logically rectangular grids only)</td>
+<td>Destination</td>
+<td class="supported"></td>
+<td class="untested"></td>
+<td class="supported"></td>
+</tr>
+
+<td>Source</td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td class="supported"></td>
+</tr>
+
+<td>Ignore unmapped points</td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td class="supported"></td>
+</tr>
+
+<tr>
+<td rowspan="3">Pole options</td>
+<td>Full circle average</td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td>N/A</td>
+</tr>
+
+<tr>
+<td>N-point average</td>
+<td class="supported"></td>
+<td class="untested"></td>
+<td>N/A</td>
+</tr>
+
+<tr>
+<td>No pole</td>
+<td class="supported"></td>
+<td class="untested"></td>
+<td class="supported"></td>
+</tr>
+
+</td>
+</table>
+
+<h3>Offline regridding capabilities</h3>
+
+<table  class="special_regrid">
+<tr>
+<th width="150">Capabilities</th>
+<th width="150">Description</th>
+<th width="85" align="center">Bilinear</th>
+<th width="85" align="center">Patch</th>
+<th width="85" align="center">Conservative</th>
+</tr>
+
+<tr>
+<td>Regridding</td>
+<td></td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td class="supported"></td>
+</tr>
+
+<tr>
+<td rowspan="3">Masking<br>(Logically rectangular grids only)</td>
+<td>Destination</td>
+<td class="untested"></td>
+<td class="untested"></td>
+<td class="untested"></td>
+</tr>
+
+<td>Source</td>
+<td class="untested"></td>
+<td class="untested"></td>
+<td class="untested"></td>
+</tr>
+
+<td>Ignore unmapped points</td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td class="supported"></td>
+</tr>
+
+<tr>
+<td rowspan="3">Pole options</td>
+<td>Full circle average</td>
+<td class="supported"></td>
+<td class="supported"></td>
+<td>N/A</td>
+</tr>
+
+<tr>
+<td>N-point average</td>
+<td class="untested"></td>
+<td class="untested"></td>
+<td>N/A</td>
+</tr>
+
+<tr>
+<td>No pole</td>
+<td class="untested"></td>
+<td class="untested"></td>
+<td class="supported"></td>
+</tr>
+
+</td>
+</table>
+
+<br>
+
+<h1>Numerical results of ESMF regridding</h1>
+
+<p>
+The following table presents some specific examples of numerical results
+of the ESMF regridding capabilities.  The numerical test cases that were evaluated
+for this table were computed using global grids.  
+The results were collected from the 
+<a href="/users/code_examples/external_demos/ESMF_RegridWeightGenCheck_ed.shtml">ESMF_RegridWeightGenCheck external demo</a>.
+All of the results in this table were generated by regridding a second order
+spherical harmonic-like field F = 2 + cos^2(theta)*cos(2*phi).
+</p>
+
+<br>
+<br>
+
+<table  class="special" style="width:785" >
+<tr>
+<th>Methods</th>
+<th>Grids<br/>[source <b>to</b> destination]</th>
+<th>Largest negative weight</th>
+<th>Interpolation average error</th>
+<th>Conservation relative error</th>
+<th>Notes</th>
+</tr>
+
+<tr>
+<td rowspan="2">Bilinear</td>
+<td align=center>Lat-lon 1 degree<br/>to<br/>Lat-lon 2.5 degree</td>
+<td>-5.99e-15</td>
+<td>1.04e-04</td>
+<td>N/A</td>
+<td>This test was done with no masking and the full circle average pole option. </td>
+</tr>
+
+<tr>
+<td align=center>Cubed sphere grid (ne30np4-t2.nc)<br/>to<br/>Lat-lon 1.9x2.5 degree (fv1.9x2.5_050503.nc)</td>
+<td>0</td>
+<td>1.87e-04</td>
+<td>N/A</td>
+<td></td>
+</tr>
+
+<tr>
+<td rowspan="2">Patch</td>
+<td align=center>Lat-lon 1 degree<br/>to<br/>Lat-lon 2.5 degree</td>
+<td>-6.21e-02</td>
+<td>7.61e-05</td>
+<td>N/A</td>
+<td>This test was done with no masking and the full circle average pole option.</td>
+</tr>
+
+<tr>
+<td align=center>Cubed sphere grid (ne30np4-t2.nc)<br/>to<br/>Lat-lon 1.9x2.5 degree (fv1.9x2.5_050503.nc)</td>
+<td>-6.40e-02</td>
+<td>1.24e-04</td>
+<td>N/A</td>
+<td></td>
+</tr>
+
+<tr>
+<td rowspan="2">Conservative</td>
+<td align=center>Lat-lon 1 degree<br/>to<br/>Lat-lon 2.5 degree</td>
+<td>0</td>
+<td>5.49e-04</td>
+<td>8.73e-10</td>
+<td>This test was done with no masking and the no pole option.</td>
+</tr>
+
+<tr>
+<td align=center>Cubed sphere grid (ne30np4-t2.nc)<br/>to<br/>Lat-lon 1.9x2.5 degree (fv1.9x2.5_050503.nc)</td>
+<td>0</td>
+<td>1.17e-03</td>
+<td>2.48e-13</td>
+<td></td>
+</tr>
+
+</td>
+
+</table>
+
+<h2>
+References
+</h2>
+<b>[1]</b>  W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.P. Flannery. <br>
+Numerical Recipes in C - The Art of Scientific Computing, Second Edition, pp. 123-128. <br>
+New York, Cambridge University Press, 1999. <br>
+<br>
+<b>[2]</b>  Khoei S.A. Gharehbaghi A, R. <br>
+The superconvergent patch recovery technique and data transfer operators in 3d plasticity problems. <br>
+Finite Elements in Analysis and Design, 43(8), 2007. <br>
+<br>
+<b>[3]</b>  K.C. Hung, H. Gu, Z. Zong. <br>
+A modified superconvergent patch recovery method and its application to large deformation problems. <br>
+Finite Elements in Analysis and Design, 40(5-6), 2004. <br>
+<br>
+<!--<b>[4]</b>  J.F. Remacle, J.E. Flaherty, M.S. Shepard. <br>
+An adaptive discontinuous galerkin technique with an orthogonal basis applied to compressible flow problems. <br>
+SIAM Review, 45(1), 2003. <br>
+<br>
+<b>[5]</b>  Z. Zhang. <br>
+Moving Mesh Method with Conservative Interpolation Based on L2-Projection. <br>
+Communications in Computational Physics, 1(5), 2006.<br>
+<br>-->
+
+</div>
+<!--#include virtual="/footer.html"-->
+
+
+</body>
+</html>

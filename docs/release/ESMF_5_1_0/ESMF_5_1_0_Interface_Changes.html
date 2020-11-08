@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>ESMF_5_1_0_Interface_Changes</title>
+<link rel="stylesheet" type="text/css" href="/esmf.css">
+<style type="text/css">
+/*pre{font-family: sans serif; font-size: 9pt;}*/
+pre{font-size: 9pt;}
+</style>
+</head>
+<body>
+<h1>ESMF_5_1_0 Public Method Interface Additions and Modifications</h1>
+
+<h2> New interface changes for CplComp:</h2>
+<pre>
+
+	(new) subroutine ESMF_CplCompFinalize(cplcomp, importState, exportState, clock, blockingflag, phase, userRc, rc)
+
+ 	(old) subroutine ESMF_CplCompFinalize(cplcomp, importState, exportState, clock, phase, blockingflag, userRc, rc)
+
+	
+	(new) subroutine ESMF_CplCompGet(cplcomp, name, config, configFile, clock, localPet, petCount, contextflag,  &
+			currentMethod, currentPhase, vm, rc)
+
+ 	(old) subroutine ESMF_CplCompGet(cplcomp, name, config, configFile, clock, vm, contextflag, currentMethod, &
+			currentPhase, rc)
+
+
+	(new) subroutine ESMF_CplCompInitialize(cplcomp, importState, exportState, clock, blockingflag, phase, userRc, rc)
+
+ 	(old) subroutine ESMF_CplCompInitialize(cplcomp, importState,  exportState, clock, phase, blockingflag, userRc, rc)
+
+
+	(new) subroutine ESMF_CplCompReadRestart(cplcomp, importState, exportState, clock, blockingflag, phase, userRc, rc)
+
+ 	(old) subroutine ESMF_CplCompReadRestart(cplcomp, importState, exportState, clock, phase, blockingflag, userRc, rc)
+
+
+	(new) subroutine ESMF_CplCompRun(cplcomp, importState, exportState, clock, blockingflag, phase, userRc, rc)
+
+ 	(old) subroutine ESMF_CplCompRun(cplcomp, importState, exportState, clock, phase, blockingflag, userRc, rc)
+
+
+	(new) subroutine ESMF_CplCompWriteRestart(cplcomp, importState, exportState, clock, blockingflag, phase, userRc, rc)
+
+ 	(old) subroutine ESMF_CplCompWriteRestart(cplcomp, importState, exportState, clock, phase, blockingflag, userRc, rc)
+
+
+</pre>
+	
+<h2> New interface changes for GridComp:</h2>
+<pre>
+
+	(new) subroutine ESMF_GridCompFinalize(gridcomp, importState, exportState, clock, blockingflag, phase, userRc, rc)
+
+	(old) subroutine ESMF_GridCompFinalize(gridcomp, importState,  exportState, clock, phase, blockingflag, userRc, rc)
+
+
+	(new) subroutine ESMF_GridCompGet(gridcomp, name, gridcomptype, grid, config, configFile, clock, localPet, &
+			petCount, contextflag, currentMethod, currentPhase, comptype, vm, rc)
+
+	(old) subroutine ESMF_GridCompGet(gridcomp, name, gridcomptype, grid, config, configFile, clock, vm, contextflag, &
+			currentMethod, currentPhase, rc)
+
+	
+	(new) subroutine ESMF_GridCompInitialize(gridcomp, importState, exportState, clock, blockingflag, phase, userRc, rc)
+
+	(old) subroutine ESMF_GridCompInitialize(gridcomp, importState, exportState, clock, phase, blockingflag, userRc, rc)
+
+	
+	(new) subroutine ESMF_GridCompReadRestart(gridcomp, importState, exportState, clock, blockingflag, phase, userRc, rc)
+
+	(old) subroutine ESMF_GridCompReadRestart(gridcomp, importState, exportState, clock, phase, blockingflag, userRc, rc)
+
+
+	(new) subroutine ESMF_GridCompRun(gridcomp, importState, exportState, clock, blockingflag, phase, userRc, rc) 
+
+	(old) subroutine ESMF_GridCompRun(gridcomp, importState, exportState, clock, phase, blockingflag, userRc, rc)
+
+
+	(new) subroutine ESMF_GridCompWriteRestart(gridcomp, importState, exportState, clock, blockingflag, phase, userRc, rc)
+
+	(old) subroutine ESMF_GridCompWriteRestart(gridcomp, importState, exportState, clock, phase, blockingflag, userRc, rc)
+
+
+</pre>
+
+<h2> New interfaces for State:</h2>
+
+<pre>
+
+	(new) subroutine ESMF_StateGet(state, itemSearch, nestedFlag, name, statetype, itemCount, itemNameList, stateitemtypeList, rc)
+			(Note: nestedFlag is now Fortran logical type)
+
+	(old) subroutine ESMF_StateGet(state, name, nestedFlag, statetype, itemCount, itemNameList, stateitemtypeList, rc)
+
+
+	(new) subroutine ESMF_StatePrint(state, options, nestedFlag, rc)
+			(Note: nestedFlag is now Fortran logical type)
+
+	(old) subroutine ESMF_StatePrint(state, options, nestedFlag, rc)
+
+
+	(new) subroutine ESMF_StateValidate(state, options, nestedFlag, rc)
+ 			(Note: nestedFlag is now Fortran logical type)
+
+	(old) subroutine ESMF_StateValidate(state, options, nestedFlag, rc)
+	
+
+</pre>
+<h2> New interfaces for Grid:</h2>
+<pre>
+
+	(new) newGrid = ESMF_GridCreate(distGrid, filename, rc)
+
+	(new) newGrid = ESMF_GridCreate(filename, regDecomp, decompFlag, addCornerStagger, rc)
+
+</pre>
+<h2> New interfaces for XGrid:</h2>
+<pre>
+
+	(new) newXGrid = ESMF_XGridCreate(sideA, sideB, area, centroid, sparseMatA2X, sparseMatX2A, sparseMatB2X, 
+			sparseMatX2B, name, rc)
+
+	(new) subroutine ESMF_XGridDestroy(xgrid, rc)
+
+	(new) subroutine ESMF_XGridGet(xgrid, sideA, sideB, ngridA, ngridB, area, centroid, distgridA, distgridB, distgridM, &
+     			dimCount, localDECount, sparseMatA2X, sparseMatX2A, sparseMatB2X, sparseMatX2B, name, rc)
+
+	(new) subroutine ESMF_XGridGet(xgrid, distgrid, xgridSide, gridIndex, rc)
+
+	(new) subroutine ESMF_XGridGet(xgrid, localDE, elementCount, exclusiveCount, exclusiveLBound, exclusiveUBound, rc)
+
+</pre>
+
+<h2> New interfaces for Field:</h2>
+<pre>
+
+	(new) newField = ESMF_FieldCreate(xgrid, xgridSide, gridIndex, typekind, rank, gridToFieldMap, ungriddedLBound, &
+			ungriddedUBound, name, iospec, rc)
+
+	(new) newField = ESMF_FieldCreate(xgrid, xgridSide, gridIndex, arrayspec, gridToFieldMap, ungriddedLBound, &
+			ungriddedUBound, name, iospec, rc)
+
+	(new) newField = ESMF_FieldCreate(xgrid, xgridSide, gridIndex, array, copyflag, gridToFieldMap, ungriddedLBound, &
+			ungriddedUBound, name, iospec, rc)
+
+	(new) newField = ESMF_FieldCreate(xgrid, xgridSide, gridIndex, farray, indexflag, copyflag, gridToFieldMap, &
+			ungriddedLBound, ungriddedUBound, name, iospec, rc)
+
+	(new) newField = ESMF_FieldCreate(xgrid, xgridSide, gridIndex, farrayPtr, copyflag, gridToFieldMap, name, iospec, rc)
+
+	(new) newField = ESMF_FieldCreate(grid, typekind, rank, indexflag, staggerloc, gridToFieldMap, ungriddedLBound, &
+			ungriddedUBound, maxHaloLWidth, maxHaloUWidth, name, iospec, rc)
+
+	(new) newField = ESMF_FieldCreate(locstream, typekind, rank, gridToFieldMap, ungriddedLBound, ungriddedUBound, &
+     			name, iospec, rc)
+
+	(new) newField = ESMF_FieldCreate(mesh, typekind, rank, location, gridToFieldMap, ungriddedLBound, ungriddedUBound, &
+     			name, iospec, rc)
+
+	(new) subroutine ESMF_FieldRegridStore(xgrid, srcField, dstField, routeHandle, rc)
+
+</pre>
+	
+<h2>Interface changes for Field:</h2>
+<pre>
+
+	(new) newField = ESMF_FieldCreate(mesh, typekind, rank, location,  gridToFieldMap, ungriddedLBound, ungriddedUBound, &
+                   	name, iospec, rc)
+
+	(old) newField = ESMF_FieldCreate(mesh, typekind, rank, gridToFieldMap, ungriddedLBound, ungriddedUBound,  name, iospec, rc)
+
+
+	(new) newField = ESMF_FieldCreate(mesh, arrayspec, location,  gridToFieldMap, ungriddedLBound, ungriddedUBound, &
+                   	name, iospec, rc)
+
+	(old) newField = ESMF_FieldCreate(mesh, arrayspec,  gridToFieldMap, ungriddedLBound, ungriddedUBound,  name, iospec, rc)
+
+
+	(new) newField = ESMF_FieldCreate(mesh, array, location, copyflag,  gridToFieldMap, ungriddedLBound, ungriddedUBound, &
+                   	name, iospec, rc)
+
+	(old) newField = ESMF_FieldCreate(mesh, array, copyflag, gridToFieldMap, ungriddedLBound, ungriddedUBound,  name, iospec, rc)
+
+
+	(new) newField = ESMF_FieldCreate(mesh, farray, location, indexflag,  copyflag, gridToFieldMap, ungriddedLBound, 
+			ungriddedUBound,  name, iospec, rc)
+
+	(old) newField = ESMF_FieldCreate(mesh, farray, indexflag, copyflag, gridToFieldMap, ungriddedLBound, ungriddedUBound, &
+                   	name, iospec, rc)
+
+
+	(new) newField = ESMF_FieldCreate(mesh, farrayPtr, location,  copyflag, gridToFieldMap, ungriddedLBound, ungriddedUBound, &
+                   	name, iospec, rc)
+
+	(old) newField = ESMF_FieldCreate(mesh, farrayPtr, copyflag, gridToFieldMap, ungriddedLBound, ungriddedUBound, name, iospec, rc)
+
+
+	(new) subroutine ESMF_FieldGet(field, arrayspec, isCommitted, geomtype, grid, mesh, locstream, xgrid, array, typekind, &
+			dimCount, memDimCount, staggerloc, meshLocation, xgridSide, gridIndex, gridToFieldMap, ungriddedLBound, &
+			ungriddedUBound, maxHaloLWidth, maxHaloUWidth, localDeCount, name, iospec, rc)
+
+	(old) subroutine ESMF_FieldGet(field, arrayspec, isCommitted, geomtype, grid, mesh, locstream, array, typekind, dimCount, &
+			memDimCount, staggerloc, meshLocation, xgridSide, gridIndex, gridToFieldMap, ungriddedLBound, ungriddedUBound,&
+     			maxHaloLWidth, maxHaloUWidth, localDeCount, name, iospec, rc)
+
+
+	(new) subroutine ESMF_FieldRegridStore(srcField, srcMaskValues, dstField, dstMaskValues, unmappedDstAction, routeHandle, &
+			indicies, weights, regridMethod, regridPoleType, regridPoleNPnts, regridScheme, rc)
+
+	(old) subroutine ESMF_FieldRegridStore(srcField, srcMaskValues, dstField, dstMaskValues, unmappedDstAction, routeHandle, &
+			indicies, weights, regridMethod, regridConserve, regridScheme, rc)
+
+
+	(new) subroutine ESMF_FieldSetCommit(field, mesh, farray, location, indexflag, copyflag, gridToFieldMap,  ungriddedLBound, 
+			ungriddedUBound, rc)
+
+	(old) subroutine ESMF_FieldSetCommit(field, mesh, farray, indexflag, copyflag, gridToFieldMap, ungriddedLBound, ungriddedUBound, rc)
+
+
+	(new) subroutine ESMF_FieldSetCommit(field, mesh, farrayPtr, location, indexflag, copyflag, gridToFieldMap, ungriddedLBound, &
+			ungriddedUBound, rc)
+
+	(old) subroutine ESMF_FieldSetCommit(field, mesh, farrayPtr, indexflag, copyflag, gridToFieldMap, ungriddedLBound, &
+			ungriddedUBound, rc)
+
+
+</pre>
+
+<h2> New interfaces for ArrayBundle:</h2>
+<pre>
+
+	(new) subroutine ESMF_ArrayBundleRead(arraybundle, file, singleFile, iofmt, rc)
+
+
+	(new) subroutine ESMF_ArrayBundleWrite(arraybundle, file, singleFile, timeslice, iofmt, rc)
+
+</pre>
+
+<h2> New interfaces for Array:</h2>
+<pre>
+
+	(new) newArray = ESMF_ArrayCreate(farrayPtr, distgrid, haloSeqIndexList, copyflag, distgridToArrayMap, name, rc)
+
+
+	(new) newArray = ESMF_ArrayCreate(larrayList, distgrid, haloSeqIndexList, copyflag, distgridToArrayMap, undistLBound, & 
+			undistUBound, name, rc)
+
+	(new) newArray = ESMF_ArrayCreate(typekind, distgrid, indexflag, distgridToArrayMap, computationalEdgeLWidth, &
+			computationalEdgeUWidth, computationalLWidth, computationalUWidth, totalLWidth, totalUWidth, &
+   			undistLBound, undistUBound, name, rc)
+
+	(new) newArray = ESMF_ArrayCreate(typekind, distgrid, haloSeqIndexList, distgridToArrayMap, undistLBound, undistUBound, &
+			name, rc)
+
+	(new) newArray = ESMF_ArrayCreate(arrayspec, distgrid, haloSeqIndexList, distgridToArrayMap, undistLBound, undistUBound, &
+			name, rc)
+
+	(new) subroutine ESMF_ArrayRead(array, file, variableName, iofmt, rc)
+
+
+	(new) subroutine ESMF_ArraySet(array, localDe, rimSeqIndex, rc)
+
+
+	(new) subroutine ESMF_ArrayWrite(array, file, variableName, append, timeslice, iofmt, rc)
+
+
+</pre>
+
+<h2> Interface changes for Array:</h2>
+<pre>
+
+	(new) subroutine ESMF_ArrayGet(array, arrayspec, typekind, rank, larrayList, indexflag, distgridToArrayMap, &
+			distgridToPackedArrayMap, arrayToDistGridMap, undistLBound, undistUBound, exclusiveLBound, &
+			exclusiveUBound, computationalLBound, computationalUBound, totalLBound, totalUBound, &
+			computationalLWidth, computationalUWidth, totalLWidth, totalUWidth, name, distgrid, dimCount, patchCount, &
+			minIndexPDimPPatch, maxIndexPDimPPatch, patchListPDe, indexCountPDimPDe, delayout, deCount, &
+			localDeCount, localDeList, rc)
+
+	(old) subroutine ESMF_ArrayGet(array, typekind, rank, larrayList, indexflag, distgridToArrayMap, distgridToPackedArrayMap, &
+			arrayToDistGridMap, undistLBound, undistUBound, exclusiveLBound, exclusiveUBound, computationalLBound, &
+			computationalUBound, totalLBound, totalUBound, computationalLWidth, computationalUWidth, totalLWidth, &
+			totalUWidth, name, distgrid, dimCount, patchCount, minIndexPDimPPatch, maxIndexPDimPPatch, patchListPDe, &
+			indexCountPDimPDe, delayout, deCount, localDeCount, localDeList, rc)
+
+
+	(new) subroutine ESMF_ArrayHalo(array, routehandle, commflag, finishedflag, cancelledflag, checkflag, rc)
+
+	(old) subroutine ESMF_ArrayHalo(array, routehandle, commflag, finishedflag, checkflag, rc)
+
+
+	(new) subroutine ESMF_ArrayRedist(srcArray, dstArray, routehandle, commflag, finishedflag, cancelledflag, checkflag, rc)
+
+	(old) subroutine ESMF_ArrayRedist(srcArray, dstArray, routehandle, commflag, finishedflag, checkflag, rc)
+
+
+	(new) subroutine ESMF_ArraySMM(srcArray, dstArray, routehandle, commflag, finishedflag, cancelledflag, zeroflag, checkflag, rc)
+
+	(old) subroutine ESMF_ArraySMM(srcArray, dstArray, routehandle, commflag, finishedflag, zeroflag, checkflag, rc)
+
+
+</pre>
+
+
+<h2> New interfaces for Mesh:</h2>
+<pre>
+
+	(new) newMesh=ESMF_MeshCreate(filename, filetype, convert3D, convertToDual, rc)
+
+</pre>
+
+<h2> Interface changes for DistGrid:</h2>
+
+<pre>
+
+	(new) subroutine ESMF_DistGridConnection(connection, patchIndexA, patchIndexB, positionVector, orientationVector, rc)
+
+	(old) subroutine ESMF_DistGridConnection(connection, patchIndexA, patchIndexB, positionVector, orientationVector, 
+			repetitionVector, rc)
+
+</pre>
+
+<h2> New interfaces for Attribute:</h2>
+<pre>
+
+	(new) subroutine ESMF_AttributeAdd(&lt;object&gt;, convention, purpose, attrList, count, nestConvention,  &
+			nestPurpose, nestCount, rc)
+
+</pre>
+
+<h2> Interface changes for Attribute:</h2>
+
+<pre>
+
+	(new) subroutine ESMF_AttributeGet(&lt;object&gt;, name, &lt;value argument&gt;, &lt;defaultvalue argument&gt;, &
+			convention, purpose, attPackInstanceName, rc)
+
+	(old) subroutine ESMF_AttributeGet(&lt;object&gt;, name, &lt;value argument&gt;, &lt;defaultvalue argument&gt;, &
+			convention, purpose, rc)
+
+
+	(new) subroutine ESMF_AttributeGet(&lt;object&gt;, name, &lt;valueList argument&gt;, &lt;defaultvalueList argument&gt;, &
+			convention, purpose, attPackInstanceName, itemCount, rc)
+
+	(old) subroutine ESMF_AttributeGet(&lt;object&gt;, name, &lt;valueList argument&gt;, &lt;defaultvalueList argument&gt;, &
+			convention, purpose, itemCount, rc)
+
+
+	(new) subroutine ESMF_AttributeRemove(&lt;object&gt;, name, convention, purpose, attPackInstanceName, rc)
+
+	(old) subroutine ESMF_AttributeRemove(&lt;object&gt;, name, convention, purpose, rc)
+	
+
+	(new) subroutine ESMF_AttributeSet(&lt;object&gt;, name, &lt;value argument&gt;, convention, purpose, &
+			attPackInstanceName, rc)
+
+	(old) subroutine ESMF_AttributeSet(&lt;object&gt;, name, &lt;value argument&gt;, convention, purpose, rc)
+
+
+	(new) subroutine ESMF_AttributeSet(&lt;object&gt;, name, &lt;valueList argument&gt;, convention, purpose, &
+			attPackInstanceName, itemCount, rc)
+
+	(old) subroutine ESMF_AttributeSet(&lt;object&gt;, name, &lt;valueList argument&gt;, convention, &
+			purpose, itemCount, rc)
+
+</pre>
+	
+
+<h2> Interface changes for Log:</h2>
+
+<pre>
+
+	(new) subroutine ESMF_LogSet(log, verbose, flush, rootOnly, halt, stream, maxElements, msgAllow, errorMask, rc)
+
+	(old) subroutine ESMF_LogSet(log, verbose, flush, rootOnly, halt, stream, maxElements, errorMask, rc)
+
+</pre>
+</body>
+</html>
+
+
+
+
+

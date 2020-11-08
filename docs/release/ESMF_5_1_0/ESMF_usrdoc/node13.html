@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002 (1.67)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>12 ESMF COUPLED_FLOW Demonstration Program</TITLE>
+<META NAME="description" CONTENT="12 ESMF COUPLED_FLOW Demonstration Program">
+<META NAME="keywords" CONTENT="ESMF_usrdoc">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ESMF_usrdoc.css">
+
+<LINK REL="next" HREF="node14.html">
+<LINK REL="previous" HREF="node12.html">
+<LINK REL="up" HREF="ESMF_usrdoc.html">
+<LINK REL="next" HREF="node14.html">
+</HEAD>
+
+<BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
+<!--Navigation Panel-->
+<A NAME="tex2html474"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html470"
+  HREF="ESMF_usrdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html464"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html472"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html475"
+  HREF="node14.html">13 ESMF COUPLED_FLOW Demonstration</A>
+<B> Up:</B> <A NAME="tex2html471"
+  HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
+<B> Previous:</B> <A NAME="tex2html465"
+  HREF="node12.html">11 Architectural Overview</A>
+ &nbsp <B>  <A NAME="tex2html473"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html476"
+  HREF="node13.html#SECTION000131000000000000000">12.1 ESMF COUPLED_FLOW Description</A>
+<LI><A NAME="tex2html477"
+  HREF="node13.html#SECTION000132000000000000000">12.2 Program Organization</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION000130000000000000000"></A>
+<A NAME="sec:demo"></A>
+<BR>
+12 ESMF COUPLED_FLOW Demonstration Program
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION000131000000000000000">
+12.1 ESMF COUPLED_FLOW Description</A>
+</H2>
+
+<P>
+The <TT>ESMF COUPLED_FLOW</TT> application uses the ESMF framework, including 
+gridded and coupler components, Superstructure and Infrastructure. 
+The application injects a tracer from one gridded
+component into another, which then advects the flow.  Communication is handled through a
+coupler component.  Review of this demonstration should enable the user to
+understand the general structure of an ESMF application.
+
+<P>
+The application is comprised of two ESMF 
+<TT>Gridded Components</TT> and a <TT>Coupler Component</TT>.  
+The first <TT>Gridded Component</TT>, <TT>FlowSolver</TT>, solves the compressible 
+time-dependent fluid flow equations.  The algorithm 
+applies an explicit finite difference technique to a staggered, Arakawa C igrid 
+that is Cartesian and uniform.  State variables, including density, 
+pressure, viscosity and temperature, are located at cell-centers, while 
+velocities are located at the north and east cell faces.  This component is initialized 
+with a steady-state, one-dimensional flow.  The second <TT>Gridded 
+Component</TT>, <TT>Injector</TT>, injects tracer fluid into the first component normal to the 
+flow along 
+one of the boundaries.  The injected fluid can have arbitrary velocity, 
+temperature, density and duration, effectively setting some of 
+the boundary conditions for the first component.  The <TT>FlowSolver</TT> and 
+<TT>Injector Components</TT> sit on different Cartesian igrids.  The
+<TT>Coupler Component</TT> redistributes boundary condition data from 
+the <TT>Injector</TT> to the <TT>FlowSolver</TT>.
+
+<P>
+
+<H2><A NAME="SECTION000132000000000000000">
+12.2 Program Organization</A>
+</H2>
+
+<P>
+The demonstration program consists of a top level Application
+Driver, a top level Gridded Component, and nested within this Gridded
+Component are 3 subcomponents: a Coupler Component and 2 Gridded Components.
+
+<P>
+The following diagram shows this organization.  Note that there
+is no direct communication between the subcomponents; all
+interactions are mediated by the top level Gridded Component.
+
+<P>
+Each component communicates via initialize, run, and finalize
+subroutine calls.  These go through the ESMF library where
+they are checked for validity, default values are supplied,
+and only those components involved in the computation are
+invoked.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:democomps"></A><A NAME="4233"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6:</STRONG>
+Structure of the demonstration program.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\scalebox{0.70}{\includegraphics{ESMF_demo.eps}}$
+ -->
+<IMG
+ WIDTH="525" HEIGHT="382" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.png"
+ ALT="\scalebox{0.70}{\includegraphics{ESMF_demo.eps}}">
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html474"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html470"
+  HREF="ESMF_usrdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html464"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html472"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html475"
+  HREF="node14.html">13 ESMF COUPLED_FLOW Demonstration</A>
+<B> Up:</B> <A NAME="tex2html471"
+  HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
+<B> Previous:</B> <A NAME="tex2html465"
+  HREF="node12.html">11 Architectural Overview</A>
+ &nbsp <B>  <A NAME="tex2html473"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+<A HREF=mailto:esmf_support@list.woc.noaa.gov>esmf_support@list.woc.noaa.gov</A>
+</ADDRESS>
+</BODY>
+</HTML>

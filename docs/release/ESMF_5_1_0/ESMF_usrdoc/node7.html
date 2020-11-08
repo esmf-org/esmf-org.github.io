@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002 (1.67)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>6 Compiling and Linking User Code against an ESMF Installation</TITLE>
+<META NAME="description" CONTENT="6 Compiling and Linking User Code against an ESMF Installation">
+<META NAME="keywords" CONTENT="ESMF_usrdoc">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ESMF_usrdoc.css">
+
+<LINK REL="next" HREF="node8.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="ESMF_usrdoc.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
+<!--Navigation Panel-->
+<A NAME="tex2html353"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html349"
+  HREF="ESMF_usrdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html343"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html351"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html354"
+  HREF="node8.html">7 Using Bundled ESMF</A>
+<B> Up:</B> <A NAME="tex2html350"
+  HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
+<B> Previous:</B> <A NAME="tex2html344"
+  HREF="node6.html">5 Quick Start</A>
+ &nbsp <B>  <A NAME="tex2html352"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00070000000000000000"></A>
+<A NAME="sec:Use"></A>
+<BR>
+6 Compiling and Linking User Code against an ESMF Installation
+</H1>
+
+<P>
+Building user applications against an ESMF installation requires that the 
+compiler and linker be able to find the appropriate ESMF header, module and 
+library files. If this procedure has been documented by the installer of the 
+ESMF library on your system then follow the directions given. Otherwise it is up 
+to the user to determine and provide the required compiler and linker flags. 
+Every ESMF installation provides a file named <TT>esmf.mk</TT> that contains the 
+relevant information.
+
+<P>
+The location of the <TT>esmf.mk</TT> file should be documented by the party that 
+installed ESMF on the system. We recommend that a single ESMF specific 
+environment variable, <TT>ESMFMKFILE</TT>, be provided by the system that points to 
+the <TT>esmf.mk</TT> file. See section <A HREF="node9.html#InstallESMF">8.8</A> for the related discussion 
+aimed at the person that installs ESMF on a system.
+
+<P>
+The information in <TT>esmf.mk</TT> is defined in form of variables. In fact, 
+syntactically <TT>esmf.mk</TT> is a makefile fragment and can be imported by an 
+application specific makefile via the <TT>include</TT> command. All the variables 
+in <TT>esmf.mk</TT> start with the "<TT>ESMF_</TT>" prefix to prevent conflicts. The 
+information in <TT>esmf.mk</TT> is fully specified and is not affected by any 
+variables set in the user's environment.
+
+<P>
+The information defined in <TT>esmf.mk</TT> includes Fortran compiler and linker, 
+as well as C++ compiler and linker. It further includes the recommended Fortran 
+and C++ specific compiler and linker flags for building ESMF applications. One 
+way of using the <TT>esmf.mk</TT> is to glean the necessary information from it. 
+This information can then be used either directly on the command line when 
+compiling a user application, or to hardwire the settings into the application 
+specific build system. However, the recommended use of <TT>esmf.mk</TT> is to 
+include this file in the application specific makefile directly via the 
+<TT>include</TT> command.
+
+<P>
+The <TT>Makefile</TT> template below demonstrates how a user build system can be 
+constructed to leverage the <TT>esmf.mk</TT> file. In practice, most user build 
+systems will be more complex. However, this template does show that the added 
+complexity introduced by using <TT>esmf.mk</TT> is minimal. Examples of how to use 
+this build system in realistic user scenarios can be found in the 
+<A NAME="tex2html8"
+  HREF="http://www.earthsystemmodeling.org/users/code_examples/external_demos/external_demos.shtml">external demos</A>.
+
+<P>
+The advantages of using <TT>esmf.mk</TT>, over hard coding suitable compiler and 
+linker flags into the user build system directly, are robustness and portability. 
+Robustness is a consequence of the fact that everything defined in <TT>esmf.mk</TT> 
+corresponds to the exact settings used during the ESMF library build 
+(consistency) and during the ESMF test suite build. Using <TT>esmf.mk</TT> thus 
+guarantees that the user application is build in the exact same manner as the 
+ESMF test suite applications that undergo strict regression testing before every 
+ESMF release. Portability means that a user build system, which uses 
+<TT>esmf.mk</TT> in the way the template <TT>Makefile</TT> demonstrates, will function 
+as expected on any system where ESMF was successfully installed and tested, 
+without the need of modifying anything. Every <TT>esmf.mk</TT> is generated during 
+a specific ESMF installation using the ESMF tested settings for the host 
+platform.
+
+<P>
+<PRE>
+################################################################################
+### Makefile template for user ESMF application, leveraging esmf.mk mechanism ##
+################################################################################
+
+################################################################################
+### Finding and including esmf.mk ##############################################
+
+# Note: This fully portable Makefile template depends on finding environment
+#       variable "ESMFMKFILE" set to point to the appropriate "esmf.mk" file,
+#       as is discussed in the User's Guide.
+#       However, you can still use this Makefile template even if the person
+#       that installed ESMF on your system did not provide for a mechanism to
+#       automatically set the environment variable "ESMFMKFILE". In this case
+#       either manually set "ESMFMKFILE" in your environment or hard code the
+#       location of "esmf.mk" into the include statement below.
+#       Notice that the latter approach has negative impact on portability.
+
+ifneq ($(origin ESMFMKFILE), environment)
+$(error Environment variable ESMFMKFILE was not set.)
+endif
+
+include $(ESMFMKFILE)
+
+################################################################################
+### Compiler and linker rules using ESMF_ variables supplied by esmf.mk ########
+
+.SUFFIXES: .f90 .F90 .c .C
+
+.f90:
+	$(ESMF_F90COMPILER) -c $(ESMF_F90COMPILEOPTS) $(ESMF_F90COMPILEPATHS) \
+          $(ESMF_F90COMPILEFREENOCPP) $&lt;
+	$(ESMF_F90LINKER) $(ESMF_F90LINKOPTS) $(ESMF_F90LINKPATHS) \
+          $(ESMF_F90LINKRPATHS) -o $@ $*.o $(ESMF_F90ESMFLINKLIBS)        
+
+.F90:
+	$(ESMF_F90COMPILER) -c $(ESMF_F90COMPILEOPTS) $(ESMF_F90COMPILEPATHS) \
+          $(ESMF_F90COMPILEFREECPP) $(ESMF_F90COMPILECPPFLAGS) $&lt;
+	$(ESMF_F90LINKER) $(ESMF_F90LINKOPTS) $(ESMF_F90LINKPATHS) \
+          $(ESMF_F90LINKRPATHS) -o $@ $*.o $(ESMF_F90ESMFLINKLIBS)        
+        
+.c:
+	$(ESMF_CXXCOMPILER) -c $(ESMF_CXXCOMPILEOPTS) \
+          $(ESMF_CXXCOMPILEPATHSLOCAL) $(ESMF_CXXCOMPILEPATHS) \
+          $(ESMF_CXXCOMPILECPPFLAGS) $&lt;
+	$(ESMF_CXXLINKER) $(ESMF_CXXLINKOPTS) $(ESMF_CXXLINKPATHS) \
+          $(ESMF_CXXLINKRPATHS) -o $@ $*.o $(ESMF_CXXESMFLINKLIBS)
+
+.C:
+	$(ESMF_CXXCOMPILER) -c $(ESMF_CXXCOMPILEOPTS) \
+          $(ESMF_CXXCOMPILEPATHSLOCAL) $(ESMF_CXXCOMPILEPATHS) \
+          $(ESMF_CXXCOMPILECPPFLAGS) $&lt;
+	$(ESMF_CXXLINKER) $(ESMF_CXXLINKOPTS) $(ESMF_CXXLINKPATHS) \
+          $(ESMF_CXXLINKRPATHS) -o $@ $*.o $(ESMF_CXXESMFLINKLIBS)
+
+################################################################################
+### Sample targets for user ESMF applications ##################################
+
+all: esmf_UserApplication esmc_UserApplication
+
+esmf_UserApplication:
+
+esmc_UserApplication:
+
+################################################################################
+</PRE>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html353"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html349"
+  HREF="ESMF_usrdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html343"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html351"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html354"
+  HREF="node8.html">7 Using Bundled ESMF</A>
+<B> Up:</B> <A NAME="tex2html350"
+  HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
+<B> Previous:</B> <A NAME="tex2html344"
+  HREF="node6.html">5 Quick Start</A>
+ &nbsp <B>  <A NAME="tex2html352"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+<A HREF=mailto:esmf_support@list.woc.noaa.gov>esmf_support@list.woc.noaa.gov</A>
+</ADDRESS>
+</BODY>
+</HTML>

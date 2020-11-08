@@ -1,0 +1,334 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002 (1.67)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>11 How to Adapt Applications for ESMF</TITLE>
+<META NAME="description" CONTENT="11 How to Adapt Applications for ESMF">
+<META NAME="keywords" CONTENT="ESMF_usrdoc">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ESMF_usrdoc.css">
+
+<LINK REL="next" HREF="node13.html">
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="up" HREF="ESMF_usrdoc.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+
+<BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
+<!--Navigation Panel-->
+<A NAME="tex2html389"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html385"
+  HREF="ESMF_usrdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html379"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html387"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html390"
+  HREF="node13.html">12 Glossary</A>
+<B> Up:</B> <A NAME="tex2html386"
+  HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
+<B> Previous:</B> <A NAME="tex2html380"
+  HREF="node11.html">10 Architectural Overview</A>
+ &nbsp <B>  <A NAME="tex2html388"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html391"
+  HREF="node12.html#SECTION000121000000000000000">11.1 Individual Components</A>
+<LI><A NAME="tex2html392"
+  HREF="node12.html#SECTION000122000000000000000">11.2 Full Application</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION000120000000000000000"></A>
+<A NAME="sec:Adoption"></A>
+<BR>
+11 How to Adapt Applications for ESMF
+</H1>
+
+<P>
+In this section we describe how to bring existing applications 
+into the framework.
+
+<P>
+
+<H2><A NAME="SECTION000121000000000000000">
+11.1 Individual Components</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Decide what parts will become Gridded Components 
+
+<P>
+A Gridded Component is a self-contained
+piece of code which will be initialized, will be called once or many times
+to run, and then will be finalized.  It will be expected to either take in
+data from other components/models, produce data, or both.
+
+<P>
+Generally a computational model like an ocean or atmosphere model will
+map either to a single component or to a set of multiple nested
+components.
+
+<P>
+</LI>
+<LI>Decide what data is produced 
+
+<P>
+A component provides data to other components using an ESMF State
+object.  A component should fill the State object with a description of
+all possible values that it can export.  Generally, a piece of code
+external to the component (the AppDriver, or a parent component) will 
+be responsible for marking which of these items are actually going to
+be needed.  Then the component can choose to either produce all possible
+data items (simpler but less efficient) or only produce the data items
+marked as being needed.  The component should consult the <A NAME="tex2html28"
+  HREF="http://cf-pcmdi.llnl.gov/">CF data naming conventions</A>
+when it is listing
+what data it can produce.
+
+<P>
+</LI>
+<LI>Decide what data is needed 
+
+<P>
+A component gets data from other components using an ESMF State object.
+The application developer must figure out how to get any required 
+fields from other components in the application.
+
+<P>
+</LI>
+<LI>Make the data blocks private 
+
+<P>
+A component should communicate to other components only through the
+framework.  All global data items should be private to Fortran modules,
+and ideally should be isolated to a single derived type which is allocated
+at run time.   
+
+<P>
+</LI>
+<LI>Divide the code up into start/middle/end phases 
+
+<P>
+A component needs to provide 3 routines which handle
+initialization, running, and finalization.  (For codes which have
+multiple phases of initialize, run, and finalize it is possible to have
+multiple initialize, run, and finalize routines.)
+
+<P>
+The initialize routine needs to allocate space, initialize
+data items, boundary conditions, and do whatever else is necessary in
+order to prepare the component to run.
+
+<P>
+For a sequential application in which all components are on the same
+set of processors, the run phase will
+be called multiple times.  Each time the model is expected to take in
+any new data from other models, do its computation, and produce data
+needed by other components.   A concurrent model, in which different
+components are run on different processors, may execute the same 
+way.  Alternatively, it may have its run routine called
+only once and may use different parts of the framework to arrange
+data exchange with other models.  This feature is not yet implemented
+in ESMF.
+
+<P>
+The finalize routine needs to release space, write out results,
+close open files, and generally close down the computation gracefully.
+
+<P>
+</LI>
+<LI>Make a "Set Services" subroutine 
+
+<P>
+Components need to provide only a single externally visible entry point.
+It will be called at start time, and its job is to register with the
+framework which routines satisfy the initialize, run, and finalize
+requirements.  If it has a single derived type that holds its private data,
+that can be registered too.
+
+<P>
+</LI>
+<LI>Create ESMF Fields and FieldBundles for holding data
+
+<P>
+An ESMF State object is fundamentally an annotated list of other
+ESMF items, most often expected to be ESMF FieldBundles (groups of
+Fields on the same grid).  Other things which can be placed in a 
+State object are Fields, Arrays (raw data with no gridding/coordinate 
+information)
+and other States (generally used by coupling code).  Any data which is
+going to be received from other components or sent to other components
+needs to be represented as an ESMF object.
+
+<P>
+To create an ESMF Field the code must create an ESMF Array object to
+contain the data values, and usually an ESMF Grid object to describe the
+computational grid where the values are located.  If this is an
+observational data stream the locations of the data values will be held in
+an ESMF Location Stream object instead of a Grid. 
+
+<P>
+</LI>
+<LI>Be able to read an ESMF clock
+
+<P>
+During the execution of the run routine, information about time 
+is transferred between components through ESMF Clocks.  The 
+component needs to be able to at least query a Clock for the 
+current time using framework methods.
+
+<P>
+</LI>
+<LI>Decide how much of the lower level infrastructure to use
+
+<P>
+The ESMF framework provides a rich set of time management functions,
+data management and query functions, and other utility
+routines which help to insulate the user's code from the differences
+in hardware architectures, system software, and runtime environments.
+It is up to the user to select which parts of these functions they
+choose to use.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION000122000000000000000">
+11.2 Full Application</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Decide on which components to use 
+
+<P>
+Select from the set of ESMF components available.
+
+<P>
+</LI>
+<LI>Understand the data flow in order to customize a Coupler Component
+
+<P>
+Examine what data is produced by each component and what data is
+needed by each component.  The role of Coupler Components in the
+ESMF is to set up any necessary regridding and data conversions
+to match output data from one component to input data in another.
+
+<P>
+</LI>
+<LI>Write or adapt a Coupler Component
+
+<P>
+Decide on a strategy for how to do the coupling.  There can be a single
+coupler for the application or multiple couplers.
+Single couplers follow a "hub and
+spoke" model.
+Multiple couplers can couple between subsets of the components, and
+can be written to couple either only one-way
+(e.g. output of component A into input of component B), or two-way
+(both A to B and B to A).  
+
+<P>
+The coupler must understand States, Fields, FieldBundles, 
+Grids, and Arrays and ESMF execution/environment objects
+such as DELayouts.    
+
+<P>
+</LI>
+<LI>Use or adapt a main program 
+
+<P>
+The main program can be an unchanged copy of the file found in
+the <TT>AppDriver</TT> directory.  The only customization needed is to
+set the name of the top level Gridded Component, and to set the
+name of the <TT>SetServices</TT> routine.  The template file includes
+a call to <TT>ESMF_Initialize()</TT> which ensures the framework
+initialization code is run, and will
+provide the environment for components to be created and run.
+
+<P>
+Although ESMF provides source code for the main program, it is
+<B>not</B> considered part of the framework and can be changed by
+the user as needed.
+
+<P>
+The final thing the main program must do is call <TT>ESMF_Finalize()</TT>.
+This will close down the framework and release any associated resources.
+
+<P>
+The main program is responsible for creating a top-level
+Gridded Component, which in turn creates other Gridded and Coupler 
+Components.  We encourage this hierarchical design because it
+aids in extensibility - the top level Gridded Component can be
+nested in another larger application.
+The top-level component contains the main time loop and is 
+responsible for calling the
+<TT>SetServices</TT> entry point for each child component it creates.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<P>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html389"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html385"
+  HREF="ESMF_usrdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html379"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html387"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html390"
+  HREF="node13.html">12 Glossary</A>
+<B> Up:</B> <A NAME="tex2html386"
+  HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
+<B> Previous:</B> <A NAME="tex2html380"
+  HREF="node11.html">10 Architectural Overview</A>
+ &nbsp <B>  <A NAME="tex2html388"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+<A HREF=mailto:esmf_support@list.woc.noaa.gov>esmf_support@list.woc.noaa.gov</A>
+</ADDRESS>
+</BODY>
+</HTML>
