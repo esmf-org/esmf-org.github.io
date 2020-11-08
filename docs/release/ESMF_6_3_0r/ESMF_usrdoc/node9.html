@@ -1,0 +1,2403 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>8 Building and Installing the ESMF</TITLE>
+<META NAME="description" CONTENT="8 Building and Installing the ESMF">
+<META NAME="keywords" CONTENT="ESMF_usrdoc">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ESMF_usrdoc.css">
+
+<LINK REL="next" HREF="node10.html">
+<LINK REL="previous" HREF="node8.html">
+<LINK REL="up" HREF="ESMF_usrdoc.html">
+<LINK REL="next" HREF="node10.html">
+</HEAD>
+
+<BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
+<!--Navigation Panel-->
+<A NAME="tex2html320"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html316"
+  HREF="ESMF_usrdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html310"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html318"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html321"
+  HREF="node10.html">9 Porting the ESMF</A>
+<B> Up:</B> <A NAME="tex2html317"
+  HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
+<B> Previous:</B> <A NAME="tex2html311"
+  HREF="node8.html">7 Using Bundled ESMF</A>
+ &nbsp; <B>  <A NAME="tex2html319"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html322"
+  HREF="node9.html#SECTION00091000000000000000">8.1 ESMF Download Options</A>
+<LI><A NAME="tex2html323"
+  HREF="node9.html#SECTION00092000000000000000">8.2 System Requirements</A>
+<LI><A NAME="tex2html324"
+  HREF="node9.html#SECTION00093000000000000000">8.3 Third Party Libraries</A>
+<UL>
+<LI><A NAME="tex2html325"
+  HREF="node9.html#SECTION00093100000000000000">8.3.1 LAPACK</A>
+<LI><A NAME="tex2html326"
+  HREF="node9.html#SECTION00093200000000000000">8.3.2 NetCDF</A>
+<LI><A NAME="tex2html327"
+  HREF="node9.html#SECTION00093300000000000000">8.3.3 Parallel-NetCDF</A>
+<LI><A NAME="tex2html328"
+  HREF="node9.html#SECTION00093400000000000000">8.3.4 PIO</A>
+<LI><A NAME="tex2html329"
+  HREF="node9.html#SECTION00093500000000000000">8.3.5 XERCES</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html330"
+  HREF="node9.html#SECTION00094000000000000000">8.4 ESMF Environment Variables</A>
+<LI><A NAME="tex2html331"
+  HREF="node9.html#SECTION00095000000000000000">8.5 Supported Platforms</A>
+<LI><A NAME="tex2html332"
+  HREF="node9.html#SECTION00096000000000000000">8.6 Building the ESMF Library</A>
+<LI><A NAME="tex2html333"
+  HREF="node9.html#SECTION00097000000000000000">8.7 Building the ESMF Documentation</A>
+<LI><A NAME="tex2html334"
+  HREF="node9.html#SECTION00098000000000000000">8.8 Installing the ESMF</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00090000000000000000"></A>
+<A NAME="sec:TechOver"></A>
+<BR>
+8 Building and Installing the ESMF
+</H1>
+
+<P>
+This section goes into more detail about how to build and install the ESMF
+software.
+
+<P>
+
+<H2><A NAME="SECTION00091000000000000000">
+8.1 ESMF Download Options</A>
+</H2>
+
+<P>
+Major releases of the ESMF software can be downloaded by following
+the instructions on the the <B>Download</B> link on the ESMF 
+website, <A NAME="tex2html10"
+  HREF="http://www.earthsystemmodeling.org">http://www.earthsystemmodeling.org</A>.
+
+<P>
+The ESMF is distributed as a full source code tree.  You will need
+to compile the code into the <TT>libesmf.a</TT> library.
+On some platforms a shared library, <TT>libesmf.so</TT>, is also created.
+Follow the instructions in the following sections
+to build the library and link it with your application.
+
+<P>
+
+<H2><A NAME="SECTION00092000000000000000"></A>
+<A NAME="sec:systemreq"></A>
+<BR>
+8.2 System Requirements
+</H2>
+
+<P>
+The following compilers and utilities are required for compiling, linking and
+testing the ESMF software:
+
+<UL>
+<LI>Fortran90 (or later) compiler;
+</LI>
+<LI>C++ compiler;
+</LI>
+<LI>MPI implementation compatible with the above compilers (but see below);
+</LI>
+<LI>GNU's <A NAME="tex2html11"
+  HREF="http://gcc.gnu.org">gcc compiler</A>
+-
+for a standard cpp preprocessor implementation;
+</LI>
+<LI><A NAME="tex2html12"
+  HREF="http://www.gnu.org/software/make/make.html">GNU make</A>; 
+</LI>
+<LI><A NAME="tex2html13"
+  HREF="http://www.perl.com/download.csp">Perl</A>
+- for running
+test scripts.
+</LI>
+</UL> 
+
+<P>
+The following packages are optional, and only used for selected capabilities:
+
+<UL>
+<LI>LAPACK - version 3.x or newer
+</LI>
+<LI>NetCDF - version 3.6.x or newer
+</LI>
+<LI>parallel-NetCDF - version 1.2.0 or newer 
+</LI>
+<LI>Xerces - version 3.1.0 or newer
+</LI>
+</UL>
+
+<P>
+Alternatively ESMF can be built using a single-processor MPI-bypass library
+that comes with ESMF. It allows ESMF applications to be linked and run in
+single-process mode.
+
+<P>
+In order to build html and pdf versions of the ESMF documentation, 
+<A NAME="tex2html14"
+  HREF="http://www.latex-project.org">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</A>, the <A NAME="tex2html15"
+  HREF="http://www.latex2html.org">latex2html</A>
+conversion utility, and the Unix/Linux <TT>dvipdf</TT> utility must be installed.
+
+<P>
+
+<H2><A NAME="SECTION00093000000000000000"></A>
+<A NAME="sec:ThirdParty"></A>
+<BR>
+8.3 Third Party Libraries
+</H2>
+
+<P>
+Some portions of the ESMF library can offer enhanced capabilities when
+certain third party libraries are available. This section describes
+these dependencies and the associated environment settings
+that allow the user to control them.
+
+<P>
+
+<H3><A NAME="SECTION00093100000000000000"></A>
+<A NAME="sec:lapack"></A>
+<BR>
+8.3.1 LAPACK
+</H3>
+The patch recovery regridding method of the ESMF Mesh class requires solving
+local least squares problems. It uses the
+<A NAME="tex2html16"
+  HREF="http://www.netlib.org/lapack">LAPACK</A>
+<I>DGELSY</I> solver 
+to carry out this task.
+
+<P>
+The following environment variables control whether a minimal set of
+Lapack code that comes with ESMF is used, or whether ESMF should link against
+an externally available Lapack installation. Alternatively, ESMF's
+Lapack-dependent features can be turned off altogether.
+
+<P>
+<DL>
+<DT><STRONG>ESMF_LAPACK</STRONG></DT>
+<DD>Possible value: <TT>"internal"</TT> (default), <TT>"OFF"</TT>,
+ <TT>"system"</TT>, <TT>"mkl"</TT>, <TT>"netlib"</TT>, <TT>"scsl"</TT>, <I>&lt;userstring&gt;</I>.
+
+<P>
+<DL>
+<DT><STRONG><TT>"internal"</TT> (default)</STRONG></DT>
+<DD>ESMF will be compiled with Lapack-dependent
+features. A minimal set of Lapack/BLAS code included in ESMF will be used
+to satisfy the dependencies.
+
+<P>
+</DD>
+<DT><STRONG><TT>"OFF"</TT></STRONG></DT>
+<DD>Disables Lapack-dependent code.
+
+<P>
+</DD>
+<DT><STRONG><TT>"system"</TT></STRONG></DT>
+<DD>A system-dependent external Lapack/BLAS installation
+is used to satisfy the external dependencies of the Lapack-dependent ESMF code.
+Sets <TT>ESMF_LAPACK_LIBS</TT> appropriately.
+
+<P>
+</DD>
+<DT><STRONG><TT>"mkl"</TT></STRONG></DT>
+<DD>The Intel MKL library is used to satisfy the external 
+dependencies of the Lapack-dependent ESMF code. Sets <TT>ESMF_LAPACK_LIBS</TT> to
+<TT>"-lmkl_lapack -lmkl"</TT>, unless it is already defined in the user 
+environment.
+
+<P>
+</DD>
+<DT><STRONG><TT>"netlib"</TT></STRONG></DT>
+<DD>The NETLIB library is used to satisfy the external 
+dependencies of the Lapack-dependent ESMF code. Sets <TT>ESMF_LAPACK_LIBS</TT> to
+<TT>"-llapack -lblas"</TT>, unless it is already defined in the user environment.
+
+<P>
+</DD>
+<DT><STRONG><TT>"scsl"</TT></STRONG></DT>
+<DD>The SCSL library is used to satisfy the external 
+dependencies of the Lapack-dependent ESMF code. Sets <TT>ESMF_LAPACK_LIBS</TT> to
+<TT>"-lscs"</TT>, unless it is already defined in the user environment.
+
+<P>
+</DD>
+<DT><STRONG><I>&lt;userstring&gt;</I></STRONG></DT>
+<DD>Enables ESMF's Lapack-dependent code, but does not set
+a default for <TT>ESMF_LAPACK_LIBS</TT>.  <TT>ESMF_LAPACK_LIBS</TT>, and if 
+required, <TT>ESMF_LAPACK_LIBPATH</TT>, must be set explicitly in the user 
+environment.
+</DD>
+</DL>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_LAPACK_LIBPATH</STRONG></DT>
+<DD>Typical value: <TT>/usr/local/lib</TT> (no default).
+
+<P>
+Specifies the path where the LAPACK library is located.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_LAPACK_LIBS</STRONG></DT>
+<DD>Typical value: <TT>"-llapack -lblas"</TT> 
+(default is dependent on <TT>ESMF_LAPACK</TT>).
+
+<P>
+Specifies the linker directive needed to link the LAPACK library to
+the application.  On some systems, the BLAS library must also be included.
+</DD>
+</DL>
+
+<P>
+
+<H3><A NAME="SECTION00093200000000000000"></A>
+<A NAME="sec:netcdf"></A>
+<BR>
+8.3.2 NetCDF
+</H3>
+ESMF provides the ability to read Grid and Mesh data in 
+<A NAME="tex2html17"
+  HREF="http://www.unidata.ucar.edu/software/netcdf/">NetCDF</A>
+format. 
+
+<P>
+In the NetCDF 4.2 released in March 2012, the C, C++, and Fortran libraries are released as separate packages.
+To compile ESMF with NetCDF 4.2, it is required to have the NetCDF 4.2 Fortran Library, 
+the NetCDF 4.2 C Library, and the NetCDF 4.2 Legacy C++ Library installed in the same directory. 
+The <TT>ESMF_NETCDF</TT> environement variable has to be set to <TT>"split"</TT>.  Note that currently ESMF does not
+work with the new C++ API introduced in NetCDF 4.2, therefore, the Legacy C++ Library has to be 
+used.
+
+<P>
+The following environment variables enable, and specify the name and location
+of the desired NetCDF library and associated header files:
+
+<P>
+<DL>
+<DT><STRONG>ESMF_NETCDF</STRONG></DT>
+<DD>Possible value: <I>not set</I> (default), <TT>"split"</TT>, 
+<TT>"standard"</TT>, <I>&lt;userstring&gt;</I>.
+
+<P>
+<DL>
+<DT><STRONG><I>not set</I></STRONG></DT>
+<DD>(default) NetCDF-dependent features will be disabled.
+The <TT>ESMF_NETCDF_INCLUDE</TT>, <TT>ESMF_NETCDF_LIBPATH</TT>, and
+<TT>ESMF_NETCDF_LIBS</TT> environment variables will be ignored.
+
+<P>
+</DD>
+<DT><STRONG><TT>"split"</TT></STRONG></DT>
+<DD><TT>ESMF_NETCDF_LIBS</TT> will be set to 
+<TT>"-lnetcdff -lnetcdf_c++ -lnetcdf"</TT>.  This option is useful for systems 
+which have the Fortran and C bindings archived in seperate library files; 
+the C++ bindings are always in a separate library file.  
+The <TT>ESMF_NETCDF_INCLUDE</TT> and <TT>ESMF_NETCDF_LIBPATH</TT>
+environment variables will also be used, if defined.
+
+<P>
+</DD>
+<DT><STRONG><TT>"standard"</TT></STRONG></DT>
+<DD><TT>ESMF_NETCDF_LIBS</TT> will be set to 
+<TT>"-lnetcdf_c++ -lnetcdf"</TT>.  This option is useful when the Fortran and 
+C bindings are archived together in the same library file, alongside the 
+always separate C++ bindings library file.  The <TT>ESMF_NETCDF_INCLUDE</TT> 
+and <TT>ESMF_NETCDF_LIBPATH</TT> environment variables will also be used, 
+if defined.
+
+<P>
+</DD>
+<DT><STRONG><I>&lt;userstring&gt;</I></STRONG></DT>
+<DD>If set, <TT>ESMF_NETCDF_INCLUDE</TT>, 
+<TT>ESMF_NETCDF_LIBPATH</TT>, and <TT>ESMF_NETCDF_LIBS</TT> environment 
+variables will be used, if defined.
+</DD>
+</DL>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_NETCDF_INCLUDE</STRONG></DT>
+<DD>Typical value: <TT>/usr/local/include</TT> 
+(no default).
+
+<P>
+Specifies the path where the NetCDF header files are located.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_NETCDF_LIBPATH</STRONG></DT>
+<DD>Typical value: <TT>/usr/local/lib</TT> (no default).
+
+<P>
+Specifies the path where the NetCDF library file is located.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_NETCDF_LIBS</STRONG></DT>
+<DD>Typical value: <TT>"-lnetcdf_c++ -lnetcdf"</TT> 
+(no default).
+
+<P>
+Specifies the linker directives needed to link the NetCDF library to
+the application.
+
+<P>
+The default value depends on the setting of <TT>ESMF_NETCDF</TT>.  For the 
+typical case where <TT>ESMF_NETCDF</TT> is set to <TT>"standard"</TT>, 
+<TT>ESMF_NETCDF_LIBS</TT> is set to <TT>"-lnetcdf_c++ -lnetcdf"</TT>.  
+When <TT>ESMF_NETCDF</TT> is set to <TT>"split"</TT>, <TT>ESMF_NETCDF_LIBS</TT> 
+is set to <TT>"-lnetcdff -lnetcdf_c++ -lnetcdf"</TT>.
+</DD>
+</DL>
+
+<P>
+
+<H3><A NAME="SECTION00093300000000000000"></A>
+<A NAME="sec:pnetcdf"></A>
+<BR>
+8.3.3 Parallel-NetCDF
+</H3>
+ESMF provides the ability to write Mesh weights using 
+<A NAME="tex2html18"
+  HREF="http://trac.mcs.anl.gov/projects/parallel-netcdf">Parallel-NetCDF</A>. 
+The following environment variables enable and specify the name and 
+location of the desired Parallel-NetCDF library and associated header files:
+
+<P>
+<DL>
+<DT><STRONG>ESMF_PNETCDF</STRONG></DT>
+<DD>Possible value: <I>not set</I> (default), 
+<TT>"standard"</TT>, <I>&lt;userstring&gt;</I>.  
+
+<P>
+When defined, enables the use of Parallel-NetCDF.
+
+<P>
+<DL>
+<DT><STRONG><I>not set</I></STRONG></DT>
+<DD>(default) PNETCDF-dependent features will be disabled.
+The <TT>ESMF_PNETCDF_INCLUDE</TT>, <TT>ESMF_PNETCDF_LIBPATH</TT>, and
+<TT>ESMF_PNETCDF_LIBS</TT> environment variables will be ignored.
+
+<P>
+</DD>
+<DT><STRONG><TT>"standard"</TT></STRONG></DT>
+<DD><TT>ESMF_PNETCDF_LIBS</TT> will be set to 
+<TT>"-lpnetcdf"</TT>.  The <TT>ESMF_PNETCDF_INCLUDE</TT> and 
+<TT>ESMF_PNETCDF_LIBPATH</TT> environment variables will also be used, 
+if defined.
+
+<P>
+</DD>
+<DT><STRONG><I>&lt;userstring&gt;</I></STRONG></DT>
+<DD>If set, <TT>ESMF_PNETCDF_INCLUDE</TT>,
+<TT>ESMF_PNETCDF_LIBPATH</TT>, and <TT>ESMF_PNETCDF_LIBS</TT> environment
+variables will be used.
+</DD>
+</DL>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_PNETCDF_INCLUDE</STRONG></DT>
+<DD>Typical value: <TT>/usr/local/include</TT> 
+(no default).
+
+<P>
+Specifies the path where the Parallel-NetCDF header files are located.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_PNETCDF_LIBPATH</STRONG></DT>
+<DD>Typical value: <TT>/usr/local/lib</TT> (no default).
+
+<P>
+Specifies the path where the Parallel-NetCDF library file is located.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_PNETCDF_LIBS</STRONG></DT>
+<DD>Typical value: <TT>"-lpnetcdf"</TT> (no default).
+
+<P>
+Specifies the linker directives needed to link the Parallel-NetCDF library to the
+application.
+</DD>
+</DL>
+
+<P>
+
+<H3><A NAME="SECTION00093400000000000000"></A>
+<A NAME="sec:pio"></A>
+<BR>
+8.3.4 PIO
+</H3>
+ESMF provides the ability to read and write data in both binary and 
+NetCDF formats through <A NAME="tex2html19"
+  HREF="http://code.google.com/p/parallelio/">ParallelIO (PIO)</A>, a third-party IO software
+library that is integrated in the ESMF library. The following environment
+variable enables PIO functionalities inside of ESMF.
+
+<P>
+The PIO code depends on MPI I/O support by the underlying MPI
+implementation to provide the binary format. Almost all current MPI
+implementations support MPI I/O to the required degree. For NetCDF format
+support the integrated PIO code depends on <TT>ESMF_PNETCDF</TT>
+(see <A HREF="#sec:pnetcdf">8.3.3</A>) and/or <TT>ESMF_NETCDF</TT> (see <A HREF="#sec:netcdf">8.3.2</A>)
+being enabled.
+
+<P>
+<DL>
+<DT><STRONG>ESMF_PIO</STRONG></DT>
+<DD>Possible value: <I>not set</I> (default), <TT>"internal"</TT>.
+
+<P>
+<DL>
+<DT><STRONG><I>not set</I></STRONG></DT>
+<DD>(default) PIO-dependent features will be disabled.
+
+<P>
+</DD>
+<DT><STRONG><TT>"OFF"</TT></STRONG></DT>
+<DD>Disables PIO-dependent code.
+
+<P>
+</DD>
+<DT><STRONG><TT>"internal"</TT></STRONG></DT>
+<DD>PIO-dependent features will be enabled and will use the 
+PIO library that is included and built with ESMF.  
+
+<P>
+</DD>
+</DL>
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<H3><A NAME="SECTION00093500000000000000"></A>
+<A NAME="sec:xerces"></A>
+<BR>
+8.3.5 XERCES
+</H3>
+ESMF provides the ability to read Attribute data in XML file format 
+via the <A NAME="tex2html20"
+  HREF="http://xerces.apache.org/xerces-c/">XERCES C++</A>
+library.  (Writing Attribute XML files is performed with the standard C++ 
+output file stream facility, rather than with Xerces).  The following 
+environment variables enable, and specify the name and location of the 
+desired XERCES C++ library and associated header files:
+
+<P>
+<DL>
+<DT><STRONG>ESMF_XERCES</STRONG></DT>
+<DD>Possible value: <I>not set</I> (default), <TT>"standard"</TT>, 
+<I>&lt;userstring&gt;</I>.
+
+<P>
+<DL>
+<DT><STRONG><I>not set</I></STRONG></DT>
+<DD>(default) XERCES-dependent features will be disabled.
+The <TT>ESMF_XERCES_INCLUDE</TT>, <TT>ESMF_XERCES_LIBPATH</TT>, and
+<TT>ESMF_XERCES_LIBS</TT> environment variables will be ignored.
+
+<P>
+</DD>
+<DT><STRONG><TT>"standard"</TT></STRONG></DT>
+<DD><TT>ESMF_XERCES_LIBS</TT> will be set to 
+<TT>"-lxerces-c"</TT>.  The <TT>ESMF_XERCES_INCLUDE</TT> and 
+<TT>ESMF_XERCES_LIBPATH</TT> environment variables will also be used, 
+if defined.
+
+<P>
+</DD>
+<DT><STRONG><I>&lt;userstring&gt;</I></STRONG></DT>
+<DD>If set, <TT>ESMF_XERCES_INCLUDE</TT>, 
+<TT>ESMF_XERCES_LIBPATH</TT>, and <TT>ESMF_XERCES_LIBS</TT> environment 
+variables will be used, if defined.
+</DD>
+</DL>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_XERCES_INCLUDE</STRONG></DT>
+<DD>Typical value: <TT>/usr/local/include</TT> 
+(no default).
+
+<P>
+Specifies the path where the XERCES C++ header files are located.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_XERCES_LIBPATH</STRONG></DT>
+<DD>Typical value: <TT>/usr/local/lib</TT> (no default).
+
+<P>
+Specifies the path where the XERCES C++ library file is located.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_XERCES_LIBS</STRONG></DT>
+<DD>Typical value: <TT>"-lxerces-c"</TT> (no default).
+
+<P>
+Specifies the linker directives needed to link the XERCES C++ library to
+the application.
+
+<P>
+The default value depends on the setting of <TT>ESMF_XERCES</TT>.  For the
+typical case where <TT>ESMF_XERCES</TT> is set to <TT>"standard"</TT>, 
+<TT>ESMF_XERCES_LIBS</TT> is set to <TT>"-lxerces-c"</TT>. 
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00094000000000000000"></A>
+<A NAME="EnvironmentVariables"></A>
+<BR>
+8.4 ESMF Environment Variables
+</H2>
+
+<P>
+The following is a full alphabetical list of all environment variables which
+are used by the ESMF build system. In many cases only <TT>ESMF_DIR</TT> must be 
+set. On Linux and Darwin systems <TT>ESMF_COMPILER</TT> and <TT>ESMF_COMM</TT> must
+also be set to select the appropriate Fortran and C++ compilers and MPI 
+implementation. The other variables have default values which work for
+most systems.
+
+<P>
+<DL>
+<DT><STRONG>ESMF_ABI</STRONG></DT>
+<DD>Possible value: <TT>32</TT>, <TT>64</TT>, <TT>x86_64_32</TT>, <TT>x86_64_small</TT>, <TT>x86_64_medium</TT>
+
+<P>
+If a system supports 32-bit and 64-bit (pointer wordsize) application binary
+interfaces (ABIs), this variable can be set to select which ABI to use. Valid 
+values are <TT>32</TT> or <TT>64</TT>. By default the most common ABI is chosen. On
+x86_64 achitectures three additional, more specific ABI settings are available,
+<TT>x86_64_32</TT>, <TT>x86_64_small</TT> and <TT>x86_64_medium</TT>.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_ARRAY_LITE</STRONG></DT>
+<DD>Possible value: <TT>TRUE</TT>, <TT>FALSE</TT> (default)
+
+<P>
+Not normally set by user. ESMF auto-generates subroutine interfaces for a wide
+variety of data arrays of different ranks, shapes, and types. Setting this
+variable to <TT>TRUE</TT> instructs ESMF to <EM>not</EM> generating interfaces for
+5D, 6D, and 7D arrays. This shrinks the amount of autogenerated code as well
+as the number of overloaded interfaces.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_BOPT</STRONG></DT>
+<DD>Possible value: <TT>g</TT>, <TT>O</TT> (default)
+
+<P>
+This environment variable controls the build option. To make a debuggable
+version of the library set <TT>ESMF_BOPT</TT> to <TT>g</TT> before building. The 
+default is <TT>O</TT> (capital oh) which builds an optimized version of the
+library. If <TT>ESMF_BOPT</TT> is <TT>O</TT>, <TT>ESMF_OPTLEVEL</TT> can also be set
+to a numeric value between 0 and 4 to select a specific optimization level.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_COMM</STRONG></DT>
+<DD>Possible value: <EM>system-dependent</EM>
+
+<P>
+On systems with a vendor-supplied MPI communications library the vendor library 
+is chosen by default for communications and <TT>ESMF_COMM</TT> need not be set.
+For other systems (e.g. Linux or Darwin) a multitude of MPI implementations is
+available and <TT>ESMF_COMM</TT> must be set to indicate which implementation is
+used to build the ESMF library. Set <TT>ESMF_COMM</TT> according to your situation
+to: <TT>mpich, mpich2, lam, openmpi</TT> or <TT>intelmpi</TT>. <TT>ESMF_COMM</TT> may
+also be set to <TT>user</TT> indicating that the user will set all the required
+flags using advanced ESMF environment variables.
+
+<P>
+Alternatively, ESMF comes with a single-processor MPI-bypass library which is
+the default for Linux and Darwin systems. To force the use of this bypass
+library set <TT>ESMF_COMM</TT> equal to "mpiuni".
+
+<P>
+</DD>
+<DT><STRONG>ESMF_COMPILER</STRONG></DT>
+<DD>Possible value: <EM>system-dependent</EM>
+
+<P>
+The ESMF library build requires a working Fortran90 and C++ compiler. On 
+platforms that don't come with a single vendor supplied compiler suite
+(e.g. Linux or Darwin) <TT>ESMF_COMPILER</TT> must be set to select which Fortran
+and C++ compilers are being used to build the ESMF library. Notice that setting
+the <TT>ESMF_COMPILER</TT> variable does <EM>not</EM> affect how the compiler
+executables are located on the system. <TT>ESMF_COMPILER</TT> (together with
+<TT>ESMF_COMM</TT>) affect the name that is expected for the compiler executables.
+Furthermore, the <TT>ESMF_COMPILER</TT> setting is used to select compiler and
+linker flags consistent with the compilers indicated.
+
+<P>
+By default Fortran and C++ compiler executables are expected to be located in
+a location contained in the user's <TT>PATH</TT> environment variable. This means
+that if you cannot locate the correct compiler executable via the <TT>which</TT>
+command on the shell prompt the ESMF build system won't find it either!
+
+<P>
+There are advanced ESMF environment variables that can be used to select 
+specific compiler executables by specifying the full path. This can be used to
+pick specific compiler executables without having to modify the <TT>PATH</TT>
+environment variable.
+
+<P>
+Use 'gmake info' to see which compiler executables the ESMF build system will
+be using according to your environment variable settings.
+
+<P>
+To see possible values for <TT>ESMF_COMPILER</TT>, cd to 
+<TT>$ESMF_DIR/build_config</TT> and list the directories there. The first part 
+of each directory name corresponds to the output of 'uname -s' for this 
+platform. The second part contains possible values for <TT>ESMF_COMPILER</TT>. In
+some cases multiple combinations of Fortran and C++ compilers are possible, e.g.
+there is <TT>intel</TT> and <TT>intelgcc</TT> available for Linux. Setting 
+<TT>ESMF_COMPILER</TT> to <TT>intel</TT> indicates that both Intel Fortran and 
+C++ compilers are used, whereas <TT>intelgcc</TT> indicates that the Intel Fortran
+compiler is used in combination with GCC's C++ compiler.
+
+<P>
+If you do not find a configuration that matches your situation you will need to
+port ESMF.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_CXX</STRONG></DT>
+<DD>Possible value: <EM>executable</EM>
+
+<P>
+This variable can be used to override the default C++ compiler and linker
+front-end executables. The executable may be specified with absolute path
+overriding the location determined by default from the user's PATH variable.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_CXXCOMPILEOPTS</STRONG></DT>
+<DD>Possible value: <EM>list of flags</EM>
+
+<P>
+Prepend compiler flags to the list of flags the ESMF build system determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_CXXCOMPILEPATHS</STRONG></DT>
+<DD>Possible value: <EM>list of paths, each prepended with -I</EM>
+
+<P>
+Prepend compiler search paths to the list of search paths the ESMF build system
+determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_CXXCOMPILER</STRONG></DT>
+<DD>Possible value: <EM>executable</EM>
+
+<P>
+This variable can be used to override the default C++ compiler
+front-end executables. The executable may be specified with absolute path
+overriding the location determined by default from the user's PATH variable.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_CXXLINKER</STRONG></DT>
+<DD>Possible value: <EM>executable</EM>
+
+<P>
+This variable can be used to override the default C++ linker
+front-end executables. The executable may be specified with absolute path
+overriding the location determined by default from the user's PATH variable.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_CXXLINKLIBS</STRONG></DT>
+<DD>Possible value: <EM>list of libraries, each prepended with -l</EM>
+
+<P>
+Prepend libraries to the list of libraries the ESMF build system determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_CXXLINKOPTS</STRONG></DT>
+<DD>Possible value: <EM>list of flags</EM>
+
+<P>
+Prepend linker flags to the list of flags the ESMF build system determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_CXXLINKPATHS</STRONG></DT>
+<DD>Possible value: <EM>list of paths, each prepended with -L</EM>
+
+<P>
+Prepend linker search paths to the list of search paths the ESMF build system
+determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_CXXLINKRPATHS</STRONG></DT>
+<DD>Possible value: <EM>list of paths, each prepended with the correct rpath option</EM>
+
+<P>
+Prepend linker rpaths to the list of rpaths the ESMF build system determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_CXXOPTFLAG</STRONG></DT>
+<DD>Possible value: <EM>flag</EM>
+
+<P>
+This variable can be used to override the default C++ optimization flag.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_DEFER_LIB_BUILD</STRONG></DT>
+<DD>Possible value: <EM>ON</EM> (default), <EM>OFF</EM>
+
+<P>
+This variable can be used to override the deferring of the build of the
+ESMF library.  By default, the library is built after all of the source
+files have been compiled.  This speeds up the build process. It also
+allows parallel compilation of source code when the -j flag is used with
+gmake.  Setting this environment variable to <TT>OFF</TT> forces the library to
+be updated after each individual compilation, thus disabling the ability
+to use parallel compilation.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_DIR</STRONG></DT>
+<DD>Possible value: <EM>absolute path</EM>
+
+<P>
+The environment variable <TT>ESMF_DIR</TT> must be set to the full pathname 
+of the top level ESMF directory before building the framework. This is the 
+only environment variable which is required to be set on all platforms under 
+all conditions.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_F90</STRONG></DT>
+<DD>Possible value: <EM>executable</EM>
+
+<P>
+This variable can be used to override the default Fortran90 compiler and linker
+front-end executables. The executable may be specified with absolute path
+overriding the location determined by default from the user's PATH variable.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_F90COMPILEOPTS</STRONG></DT>
+<DD>Possible value: <EM>list of flags</EM>
+
+<P>
+Prepend compiler flags to the list of flags the ESMF build system determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_F90COMPILEPATHS</STRONG></DT>
+<DD>Possible value: <EM>list of paths, each prepended with -I</EM>
+
+<P>
+Prepend compiler search paths to the list of search paths the ESMF build system
+determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_F90COMPILER</STRONG></DT>
+<DD>Possible value: <EM>executable</EM>
+
+<P>
+This variable can be used to override the default Fortran90 compiler
+front-end executables. The executable may be specified with absolute path
+overriding the location determined by default from the user's PATH variable.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_F90IMOD</STRONG></DT>
+<DD>Possible value: <EM>flag</EM>
+
+<P>
+This variable can be used to override the default flag (-I) used to specify a
+Fortran module directory.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_F90LINKER</STRONG></DT>
+<DD>Possible value: <EM>executable</EM>
+
+<P>
+This variable can be used to override the default Fortran90 linker
+front-end executables. The executable may be specified with absolute path
+overriding the location determined by default from the user's PATH variable.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_F90LINKLIBS</STRONG></DT>
+<DD>Possible value: <EM>list of libraries, each prepended with -l</EM>
+
+<P>
+Prepend libraries to the list of libraries the ESMF build system determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_F90LINKOPTS</STRONG></DT>
+<DD>Possible value: <EM>list of flags</EM>
+
+<P>
+Prepend linker flags to the list of flags the ESMF build system determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_F90LINKPATHS</STRONG></DT>
+<DD>Possible value: <EM>list of paths, each prepended with -L</EM>
+
+<P>
+Prepend linker search paths to the list of search paths the ESMF build system
+determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_F90LINKRPATHS</STRONG></DT>
+<DD>Possible value: <EM>list of paths, each prepended with the correct rpath option</EM>
+
+<P>
+Prepend linker rpaths to the list of rpaths the ESMF build system determines.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_F90OPTFLAG</STRONG></DT>
+<DD>Possible value: <EM>flag</EM>
+
+<P>
+This variable can be used to override the default  Fortran90 optimization flag.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_INSTALL_BINDIR</STRONG></DT>
+<DD>Possible value: <EM>relative or absolute path</EM>
+
+<P>
+Location into which to install the ESMF apps during installation. This
+location can be specified as absolute path (starting with "/") or relative to
+<TT>ESMF_INSTALL_PREFIX</TT>.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_INSTALL_DOCDIR</STRONG></DT>
+<DD>Possible value: <EM>relative or absolute path</EM>
+
+<P>
+Location into which to install the documentation during installation. This
+location can be specified as absolute path (starting with "/") or relative to
+<TT>ESMF_INSTALL_PREFIX</TT>.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_INSTALL_HEADERDIR</STRONG></DT>
+<DD>Possible value: <EM>relative or absolute path</EM>
+
+<P>
+Location into which to install the header files during installation. This
+location can be specified as absolute path (starting with "/") or relative to
+<TT>ESMF_INSTALL_PREFIX</TT>.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_INSTALL_LIBDIR</STRONG></DT>
+<DD>Possible value: <EM>relative or absolute path</EM>
+
+<P>
+Location into which to install the library files during installation. This
+location can be specified as absolute path (starting with "/") or relative to
+<TT>ESMF_INSTALL_PREFIX</TT>.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_INSTALL_MODDIR</STRONG></DT>
+<DD>Possible value: <EM>relative or absolute path</EM>
+
+<P>
+Location into which to install the F90 module files during installation. This
+location can be specified as absolute path (starting with "/") or relative to
+<TT>ESMF_INSTALL_PREFIX</TT>.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_INSTALL_PREFIX</STRONG></DT>
+<DD>Possible value: <EM>relative or absolute path</EM>
+
+<P>
+This variable specifies the prefix of the installation path used during the
+installation process accessible thought the install target. Libraries, F90
+module files, header files and documentation all are installed relative to
+<TT>ESMF_INSTALL_PREFIX</TT> by default. The <TT>ESMF_INSTALL_PREFIX</TT> may be
+provided as absolute path (starting with "/") or relative to <TT>ESMF_DIR</TT>.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_LAPACK</STRONG></DT>
+<DD>See <A HREF="#sec:lapack">8.3.1</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_LAPACK_LIBPATH</STRONG></DT>
+<DD>See <A HREF="#sec:lapack">8.3.1</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_LAPACK_LIBS</STRONG></DT>
+<DD>See <A HREF="#sec:lapack">8.3.1</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_MACHINE</STRONG></DT>
+<DD>Possible value: output of <TT>uname -m</TT> where available.
+
+<P>
+Not normally set by user. This variable indicates achitectual details about
+the machine on which the ESMF library is being built. The value of this 
+variable will affect which ABI settings are available and what they mean. 
+<TT>ESMF_MACHINE</TT> is set automatically.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_MPIBATCHOPTIONS</STRONG></DT>
+<DD>Possible value: <EM>system-dependent</EM>
+
+<P>
+Variable used to pass system-specific queue options to the batch system. 
+Typically the queue, project and limits are set.
+See section <A HREF="node11.html#ESMFRunSetting">10.1.1</A> for a discussion of this option.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_MPILAUNCHOPTIONS</STRONG></DT>
+<DD>Possible value: <EM>system-dependent</EM>
+
+<P>
+Variable used to pass system-specific options to the MPI launch facility.
+See section <A HREF="node11.html#ESMFRunSetting">10.1.1</A> for a discussion of this option.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_MPIMPMDRUN</STRONG></DT>
+<DD>Possible value: <EM>executable</EM>
+
+<P>
+This variable can be used to override the default utility used to launch
+parallel execution of ESMF test applications in MPMD mode. The executable in
+<TT>ESMF_MPIMPMDRUN</TT> may be specified with path.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_MPIRUN</STRONG></DT>
+<DD>Possible value: <EM>executable</EM>
+
+<P>
+This variable can be used to override the default utility used to launch
+parallel ESMF test or example applications. The executable in <TT>ESMF_MPIRUN</TT>
+may be specified with path. 
+See section <A HREF="node11.html#ESMFRunSetting">10.1.1</A> for a discussion of this option.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_MPISCRIPTOPTIONS</STRONG></DT>
+<DD>Possible value: <EM>system-dependent</EM>
+
+<P>
+Variable used to pass system-specific options to the first level MPI script
+accessed by ESMF.
+See section <A HREF="node11.html#ESMFRunSetting">10.1.1</A> for a discussion of this option.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_NETCDF</STRONG></DT>
+<DD>See <A HREF="#sec:netcdf">8.3.2</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_NETCDF_INCLUDE</STRONG></DT>
+<DD>See <A HREF="#sec:netcdf">8.3.2</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_NETCDF_LIBPATH</STRONG></DT>
+<DD>See <A HREF="#sec:netcdf">8.3.2</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_NETCDF_LIBS</STRONG></DT>
+<DD>See <A HREF="#sec:netcdf">8.3.2</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_NO_INTEGER_1_BYTE</STRONG></DT>
+<DD>Possible value: <TT>TRUE</TT> (default), <TT>FALSE</TT>
+
+<P>
+Not normally set by user. Setting this variable to <TT>FALSE</TT> instructs
+ESMF to generating data array interfaces for data types of 1-byte integers.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_NO_INTEGER_2_BYTE</STRONG></DT>
+<DD>Possible value: <TT>TRUE</TT> (default), <TT>FALSE</TT>
+
+<P>
+Not normally set by user. Setting this variable to <TT>FALSE</TT> instructs
+ESMF to generating data array interfaces for data types of 2-byte integers.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_OPENACC</STRONG></DT>
+<DD>Possible value: <TT>ON</TT>, <TT>OFF</TT> (default)
+
+<P>
+Compiles and links the ESMF library with OpenACC compiler flags.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_OPENMP</STRONG></DT>
+<DD>Possible value: <TT>ON</TT>, <TT>OFF</TT> (default is system dependent)
+
+<P>
+Compiles and links the ESMF library with OpenMP compiler flags.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_OPTLEVEL</STRONG></DT>
+<DD>Possible value: <EM>numerical value</EM>
+
+<P>
+See <TT>ESMF_BOPT</TT> for details.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_OS</STRONG></DT>
+<DD>Possible value: output of <TT>uname -s</TT> except when cross-compiling or for
+<TT>UNICOS/mp</TT> where <TT>ESMF_OS</TT> is <TT>Unicos</TT>.
+
+<P>
+Not normally set by user unless cross-compiling. This variable indicates the
+target system for which the ESMF library is being built. Under normal
+circumstances, i.e. ESMF is being build on the target system, <TT>ESMF_OS</TT> is
+set automatically. However, when cross-compiling for a different target system
+<TT>ESMF_OS</TT> must be set to the respective target OS. For example, when
+compiling for the Cray X1 on an interactive X1 node <TT>ESMF_OS</TT> will be set
+automatically. However, when ESMF is being cross-compiled for the X1 on a Linux
+host the user must set <TT>ESMF_OS</TT> to <TT>Unicos</TT> manually in order to
+indicate the intended target platform.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_PNETCDF</STRONG></DT>
+<DD>See <A HREF="#sec:pnetcdf">8.3.3</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_PNETCDF_INCLUDE</STRONG></DT>
+<DD>See <A HREF="#sec:pnetcdf">8.3.3</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_PNETCDF_LIBPATH</STRONG></DT>
+<DD>See <A HREF="#sec:pnetcdf">8.3.3</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_PNETCDF_LIBS</STRONG></DT>
+<DD>See <A HREF="#sec:pnetcdf">8.3.3</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_PTHREADS</STRONG></DT>
+<DD>Possible value: <TT>ON</TT> (default on most platforms), <TT>OFF</TT>
+
+<P>
+This compile-time option controls ESMF's dependency on a functioning
+Pthreads library. The default option is set to <TT>ON</TT> with the exception
+of IRIX64 and platforms that don't provide Pthreads. On IRIX64 the use of
+Pthreads in ESMF is disabled by default because the Pthreads library conflicts
+with the use of OpenMP on this platform.
+
+<P>
+The user can override the default setting of <TT>ESMF_PTHREADS</TT> on all
+platforms that provide Pthread support. Setting the <TT>ESMF_PTHREADS</TT>
+environment variable to <TT>OFF</TT> will disable ESMF's Pthreads feature set.
+On platforms that don't support Pthreads, e.g. IBM BlueGene/L or Cray XT3, the
+default <TT>OFF</TT> setting cannot be overridden!
+
+<P>
+</DD>
+<DT><STRONG>ESMF_SITE</STRONG></DT>
+<DD>Possible value: <EM>site string</EM>, <TT>default</TT>
+
+<P>
+Build configure file site name or the value default. If not set, then the value
+of default is assumed. When including platform-specific files, this value is 
+used as the third part of the directory name (parts 1 and 2 are the
+ESMF_OS value and ESMF_COMPILER value, respectively.)
+
+<P>
+The Sourceforge <TT>esmfcontrib</TT> repository contains makefiles which have 
+already been customized for certain machines.  If one exists for your site 
+and you wish to use it, download the corresponding files into the 
+<TT>build_contrib</TT> directory and set <TT>ESMF_SITE</TT> to your location
+(which corresponds to the last part of the directory name).  See the 
+Sourceforge site 
+<A NAME="tex2html21"
+  HREF="http://sourceforge.net/projects/esmfcontrib">http://sourceforge.net/projects/esmfcontrib</A>
+for more information.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_TESTEXHAUSTIVE</STRONG></DT>
+<DD>Possible value: <TT>ON</TT>, <TT>OFF</TT> (default)
+
+<P>
+Variable specifying how to compile the unit tests. If set to the value <TT>ON</TT>,
+then all unit tests will be compiled and will be executed when the test is
+run.  If unset or set to any other value, only a subset of the unit tests
+will be included to verify basic functions. Note that this is a compile-time
+selection, not a run-time option.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_TESTFORCEOPENACC</STRONG></DT>
+<DD>Possible value: <TT>ON</TT>, <TT>OFF</TT> (default)
+
+<P>
+The <TT>ON</TT> setting enforces usage of OpenACC compiler flags when building ESMF test applications. This allows testing of user-level OpenACC usage even with <TT>ESMF_OPENACC</TT> set to <TT>OFF</TT>.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_TESTFORCEOPENMP</STRONG></DT>
+<DD>Possible value: <TT>ON</TT>, <TT>OFF</TT> (default)
+
+<P>
+The <TT>ON</TT> setting enforces usage of OpenMP compiler flags when building ESMF test applications. This allows testing of user-level OpenMP usage even with <TT>ESMF_OPENMP</TT> set to <TT>OFF</TT>.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_TESTHARNESS_ARRAY</STRONG></DT>
+<DD>Possible value: <EM>test harness make target</EM> (default not set)
+
+<P>
+Variable specifying the test harness makefile target for the array class.  If this variable is not specified, a default test scenario will be run for the array class.  See the ESMF Software Developer's Guide for instructions for selecting other test harness scenarios.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_TESTHARNESS_FIELD</STRONG></DT>
+<DD>Possible value: <EM>test harness make target</EM> (default not set)
+
+<P>
+Variable specifying the test harness makefile target for the field class.  If this variable is not specified, a default test scenario will be run for the field class.  See the ESMF Software Developer's Guide for instructions for selecting other test harness scenarios.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_TESTMPMD</STRONG></DT>
+<DD>Possible value: <TT>ON</TT>, <TT>OFF</TT> (default)
+
+<P>
+Variable specifying whether to run MPMD-style tests, i.e. test applications
+that start up as multiple separate executables.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_TESTSHAREDOBJ</STRONG></DT>
+<DD>Possible value: <TT>ON</TT>, <TT>OFF</TT> (default)
+
+<P>
+Variable specifying whether to run shared object tests. This requires that the compute environment supports shared objects, and that the ESMF library is available in form of a shared library.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_TESTWITHTHREADS</STRONG></DT>
+<DD>Possible value: <TT>ON</TT>, <TT>OFF</TT> (default)
+
+<P>
+If this environment variable is set to <TT>ON</TT> <EM>before</EM> the ESMF system
+tests are build they will activate ESMF threading in their code. Specifically
+each component will be executed using ESMF single threading instead of the
+default non-threaded mode. The difference between non-threaded and ESMF
+single threaded execution should be completely transparent. Notice that the
+setting of <TT>ESMF_TESTWITHTHREADS</TT> does <EM>not</EM> alter ESMF's dependency
+on Pthreads but tests ESMF threading features during the system tests. An
+ESMF library that was compiled with disabled Pthread features (via the <TT>ESMF_PTHREADS</TT> variable) will produce ESMF error messages during system test
+execution if the system tests were compiled with <TT>ESMF_TESTWITHTHREADS</TT>
+set to <TT>ON</TT>.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_XERCES</STRONG></DT>
+<DD>See <A HREF="#sec:xerces">8.3.5</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_XERCES_INCLUDE</STRONG></DT>
+<DD>See <A HREF="#sec:xerces">8.3.5</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_XERCES_LIBPATH</STRONG></DT>
+<DD>See <A HREF="#sec:xerces">8.3.5</A>
+
+<P>
+</DD>
+<DT><STRONG>ESMF_XERCES_LIBS</STRONG></DT>
+<DD>See <A HREF="#sec:xerces">8.3.5</A>
+
+<P>
+</DD>
+</DL>
+
+<P>
+Environment variables must be set in the user's shell or when calling gmake. It
+is <EM>not</EM> necessary to edit ESMF makefiles or other build system files to set
+these variables. Here is an example of setting an environment variable in the
+csh/tcsh shell:
+
+<P>
+<PRE>
+  setenv ESMF_ABI 32
+</PRE>
+
+<P>
+In bash/ksh shell environment variables are set this way:
+
+<P>
+<PRE>
+  export ESMF_ABI=32
+</PRE>
+
+<P>
+Environment variables can also be set from the gmake command line:
+
+<P>
+<PRE>
+  gmake ESMF_ABI=32
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00095000000000000000">
+8.5 Supported Platforms</A>
+</H2>
+
+<P>
+The following two tables list various combinations of environment 
+variable settings used by the ESMF build system. A <TT>default</TT>
+value in the compiler column indicates the vendor compiler. A <TT>mpi</TT>
+value in the comm column indicates the vendor MPI implementation.
+
+<P>
+The first table lists the exact combinations which are tested regularly and are
+fully supported. The second table lists all possible combinations which are 
+included in the build system.
+
+<P>
+<BR>
+<BR>
+<B>Fully tested combinations</B>: (See <A NAME="tex2html22"
+  HREF="http://www.earthsystemmodeling.org/download/platforms/">http://www.earthsystemmodeling.org/download/platforms/</A>
+for the most up-to-date table of supported combinations.)
+<BR>
+<BR>
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><B><FONT SIZE="-1">ESMF_OS</FONT></B></TD>
+<TD ALIGN="LEFT"><B><FONT SIZE="-1">ESMF_COMPILER</FONT></B></TD>
+<TD ALIGN="LEFT"><B><FONT SIZE="-1">ESMF_COMM</FONT></B></TD>
+<TD ALIGN="LEFT"><B><FONT SIZE="-1">ESMF_ABI</FONT></B></TD>
+<TD ALIGN="LEFT"><B><FONT SIZE="-1">F90 compiler</FONT></B></TD>
+<TD ALIGN="LEFT"><B><FONT SIZE="-1">C++ compiler</FONT></B></TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cray XC30</TD>
+<TD ALIGN="LEFT"><TT>Unicos </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>mpi        </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ftn/ifort <FONT SIZE="-1">14.0.0.080 </FONT></TD>
+<TD ALIGN="LEFT">CC/icpc <FONT SIZE="-1">14.0.0.080</FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cray XC30</TD>
+<TD ALIGN="LEFT"><TT>Unicos </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>mpi        </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ftn/ifort <FONT SIZE="-1">13.1.3.192 </FONT></TD>
+<TD ALIGN="LEFT">CC/icpc <FONT SIZE="-1">13.1.3.192</FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cray XE6</TD>
+<TD ALIGN="LEFT"><TT>Unicos </TT></TD>
+<TD ALIGN="LEFT"><TT>gfortran     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpi        </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ftn/gfortran <FONT SIZE="-1">4.7.0   </FONT></TD>
+<TD ALIGN="LEFT">CC/g++  <FONT SIZE="-1">4.7.0     </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cray XE6</TD>
+<TD ALIGN="LEFT"><TT>Unicos </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>mpi        </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ftn/ifort <FONT SIZE="-1">12.1.3.293 </FONT></TD>
+<TD ALIGN="LEFT">CC/icpc <FONT SIZE="-1">12.1.3.293</FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cray XE6</TD>
+<TD ALIGN="LEFT"><TT>Unicos </TT></TD>
+<TD ALIGN="LEFT"><TT>pgi          </TT></TD>
+<TD ALIGN="LEFT"><TT>mpi        </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ftn/pgf90 <FONT SIZE="-1">13.6-0     </FONT></TD>
+<TD ALIGN="LEFT">CC/pgCC <FONT SIZE="-1">13.6-0    </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cray XE6</TD>
+<TD ALIGN="LEFT"><TT>Unicos </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>mpi        </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ftn/ifort <FONT SIZE="-1">13.1.3.192 </FONT></TD>
+<TD ALIGN="LEFT">CC/icpc <FONT SIZE="-1">13.1.3.192</FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cray XE6</TD>
+<TD ALIGN="LEFT"><TT>Unicos </TT></TD>
+<TD ALIGN="LEFT"><TT>pgi          </TT></TD>
+<TD ALIGN="LEFT"><TT>mpi        </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ftn/pgf90 <FONT SIZE="-1">12.4-0     </FONT></TD>
+<TD ALIGN="LEFT">CC/pgCC <FONT SIZE="-1">12.4-0    </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cray XK7</TD>
+<TD ALIGN="LEFT"><TT>Unicos </TT></TD>
+<TD ALIGN="LEFT"><TT>gfortran     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpi        </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ftn/gfortran <FONT SIZE="-1">4.7.2   </FONT></TD>
+<TD ALIGN="LEFT">CC/g++ <FONT SIZE="-1">4.7.2      </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">IBM iDataPlex</TD>
+<TD ALIGN="LEFT"><TT>Unicos </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>mpich2     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ifort <FONT SIZE="-1">12.1.5.339     </FONT></TD>
+<TD ALIGN="LEFT">icpc <FONT SIZE="-1">12.1.5.339   </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">Mac Xeon (64)</TD>
+<TD ALIGN="LEFT"><TT>Darwin </TT></TD>
+<TD ALIGN="LEFT"><TT>g95          </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>32              </TT></TD>
+<TD ALIGN="LEFT">g95 <FONT SIZE="-1">0.92(4.0.3)       </FONT></TD>
+<TD ALIGN="LEFT">g++ <FONT SIZE="-1">4.2.1         </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mpich2     </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Mac Xeon (64)</TD>
+<TD ALIGN="LEFT"><TT>Darwin </TT></TD>
+<TD ALIGN="LEFT"><TT>gfortran     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpich2     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">gfortran <FONT SIZE="-1">4.5.3       </FONT></TD>
+<TD ALIGN="LEFT">g++ <FONT SIZE="-1">4.5.3         </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Mac Xeon (64)</TD>
+<TD ALIGN="LEFT"><TT>Darwin </TT></TD>
+<TD ALIGN="LEFT"><TT>nag          </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">nagfor <FONT SIZE="-1">5.3(854)       </FONT></TD>
+<TD ALIGN="LEFT">g++ <FONT SIZE="-1">4.2.1         </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mpich2     </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64)</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>g95          </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">g95 <FONT SIZE="-1">0.92(4.0.3)      </FONT></TD>
+<TD ALIGN="LEFT">g++  <FONT SIZE="-1">4.4.0        </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mpich2     </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>openmpi    </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64)</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>gfortran     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpich2     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">gfortran <FONT SIZE="-1">4.4.0       </FONT></TD>
+<TD ALIGN="LEFT">g++  <FONT SIZE="-1">4.4.0        </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>openmpi    </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64)</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>lahey        </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">lf95 <FONT SIZE="-1">L8.10b          </FONT></TD>
+<TD ALIGN="LEFT">g++  <FONT SIZE="-1">4.4.0        </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64)</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>nag          </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">nagfor <FONT SIZE="-1">5.3(854)      </FONT></TD>
+<TD ALIGN="LEFT">g++  <FONT SIZE="-1">4.4.0        </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mpich2     </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>openmpi    </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>gfortran     </TT></TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">gfortran <FONT SIZE="-1">4.7.2       </FONT></TD>
+<TD ALIGN="LEFT">g++ <FONT SIZE="-1">4.7.2         </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ifort <FONT SIZE="-1">13.1.3.192     </FONT></TD>
+<TD ALIGN="LEFT">icpc <FONT SIZE="-1">13.1.3.192   </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>g95          </TT></TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">g95 <FONT SIZE="-1">0.92(4.0.3)      </FONT></TD>
+<TD ALIGN="LEFT">g++ <FONT SIZE="-1">4.1.2         </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>gfortran     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpich2     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">gfortran <FONT SIZE="-1">4.4.6       </FONT></TD>
+<TD ALIGN="LEFT">g++ <FONT SIZE="-1">4.4.6         </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>mpich2     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ifort <FONT SIZE="-1">11.1.064       </FONT></TD>
+<TD ALIGN="LEFT">icpc <FONT SIZE="-1">11.1.064     </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>pgi          </TT></TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">pgf90 <FONT SIZE="-1">9.0-4          </FONT></TD>
+<TD ALIGN="LEFT">pgCC <FONT SIZE="-1">9.0-4        </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ifort <FONT SIZE="-1">12.1.4.319     </FONT></TD>
+<TD ALIGN="LEFT">icpc <FONT SIZE="-1">12.1.4.319   </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>openmpi    </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>lahey        </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">lf95 <FONT SIZE="-1">L8.10b          </FONT></TD>
+<TD ALIGN="LEFT">g++ <FONT SIZE="-1">4.4.6         </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>g95          </TT></TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">g95 <FONT SIZE="-1">0.93(4.0.3)      </FONT></TD>
+<TD ALIGN="LEFT">g++ <FONT SIZE="-1">4.3.4         </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>gfortran     </TT></TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">gfortran <FONT SIZE="-1">4.8.1       </FONT></TD>
+<TD ALIGN="LEFT">g++ <FONT SIZE="-1">4.8.1         </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>openmpi    </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ifort <FONT SIZE="-1">12.1.0.233     </FONT></TD>
+<TD ALIGN="LEFT">icpc <FONT SIZE="-1">12.1.0.233   </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>intelmpi   </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ifort <FONT SIZE="-1">11.1.069       </FONT></TD>
+<TD ALIGN="LEFT">icpc <FONT SIZE="-1">11.1.069     </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ifort <FONT SIZE="-1">13.1.1.163     </FONT></TD>
+<TD ALIGN="LEFT">icpc <FONT SIZE="-1">13.1.1.163   </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>openmpi    </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ifort <FONT SIZE="-1">13.1.3.192     </FONT></TD>
+<TD ALIGN="LEFT">icpc <FONT SIZE="-1">13.1.3.192   </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>nag          </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">nagfor <FONT SIZE="-1">5.3.1(907)    </FONT></TD>
+<TD ALIGN="LEFT">g++  <FONT SIZE="-1">4.3.4        </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>openmpi    </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">PC Xeon (64) Cluster</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>pgi          </TT></TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">pgf90 <FONT SIZE="-1">13.5-0         </FONT></TD>
+<TD ALIGN="LEFT">pgCC <FONT SIZE="-1">13.5-0       </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>openmpi    </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SGI Altix ICE</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>gfortran     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">gfortran <FONT SIZE="-1">4.3.4       </FONT></TD>
+<TD ALIGN="LEFT">g++ <FONT SIZE="-1">4.3.4         </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">SGI Altix ICE</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>gfortran     </TT></TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">gfortran <FONT SIZE="-1">4.4.5       </FONT></TD>
+<TD ALIGN="LEFT">g++ <FONT SIZE="-1">4.4.5         </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mpi        </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SGI Altix ICE</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>intel        </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">ifort <FONT SIZE="-1">12.0.2         </FONT></TD>
+<TD ALIGN="LEFT">icpc <FONT SIZE="-1">12.0.2       </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mvapich2   </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mpi        </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>intelmpi   </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SGI Altix ICE</TD>
+<TD ALIGN="LEFT"><TT>Linux  </TT></TD>
+<TD ALIGN="LEFT"><TT>pgi          </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>64              </TT></TD>
+<TD ALIGN="LEFT">pgf90 <FONT SIZE="-1">12.5-0         </FONT></TD>
+<TD ALIGN="LEFT">pgCC <FONT SIZE="-1">12.5-0       </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>mpi        </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SGI Altix XE Cluster</TD>
+<TD ALIGN="LEFT"><TT>Cygwin </TT></TD>
+<TD ALIGN="LEFT"><TT>g95          </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>32              </TT></TD>
+<TD ALIGN="LEFT">g95 <FONT SIZE="-1">0.92(4.1.1)      </FONT></TD>
+<TD ALIGN="LEFT">g++  <FONT SIZE="-1">4.7.3        </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">SGI Altix XE Cluster</TD>
+<TD ALIGN="LEFT"><TT>Cygwin </TT></TD>
+<TD ALIGN="LEFT"><TT>gfortran     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni     </TT></TD>
+<TD ALIGN="LEFT"><TT>32              </TT></TD>
+<TD ALIGN="LEFT">gfortran <FONT SIZE="-1">4.8.1       </FONT></TD>
+<TD ALIGN="LEFT">g++  <FONT SIZE="-1">4.8.1        </FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE>
+
+<P>
+<BR>
+<BR>
+
+<P>
+<B>All possible options</B>. Where multiple options exist, and the default is independent
+of <TT>ESMF_MACHINE</TT>, the default value is in <B>bold</B>:
+
+<P>
+<BR>
+<BR>
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><B><FONT SIZE="-1">ESMF_OS</FONT></B></TD>
+<TD ALIGN="LEFT"><B><FONT SIZE="-1">ESMF_COMPILER</FONT></B></TD>
+<TD ALIGN="LEFT"><B><FONT SIZE="-1">ESMF_COMM</FONT></B></TD>
+<TD ALIGN="LEFT"><B><FONT SIZE="-1">ESMF_ABI</FONT></B></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">AIX</TD>
+<TD ALIGN="LEFT"><TT>default     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni,<B>mpi</B>,user      </TT></TD>
+<TD ALIGN="LEFT"><TT>32, <B>64</B> </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cygwin</TD>
+<TD ALIGN="LEFT"><TT>g95         </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cygwin</TD>
+<TD ALIGN="LEFT"><TT>gfortran    </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Darwin</TD>
+<TD ALIGN="LEFT"><TT>absoft      </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,mvapich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Darwin</TD>
+<TD ALIGN="LEFT"><TT>g95         </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,mvapich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Darwin</TD>
+<TD ALIGN="LEFT"><TT>gfortran    </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,mvapich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Darwin</TD>
+<TD ALIGN="LEFT"><TT>intel       </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,mvapich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Darwin</TD>
+<TD ALIGN="LEFT"><TT>intelgcc    </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Darwin</TD>
+<TD ALIGN="LEFT"><TT>nag         </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,mvapich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Darwin</TD>
+<TD ALIGN="LEFT"><TT>xlf         </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Darwin</TD>
+<TD ALIGN="LEFT"><TT>xlfgcc      </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">IRIX64</TD>
+<TD ALIGN="LEFT"><TT>default     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni,<B>mpi</B>,user     </TT></TD>
+<TD ALIGN="LEFT"><TT>32, <B>64</B> </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>absoft      </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,mvapich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>absoftintel </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64  </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>g95         </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,mvapich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64, ia64_64, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_32, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_small, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_medium </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>gfortran    </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,mvapich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64, ia64_64, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_32, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_small, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_medium </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>intel       </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpi,mpich,mpich2,mvapich2,lam,openmpi,</TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64, ia64_64, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>user,intelmpi,scalimpi    </TT></TD>
+<TD ALIGN="LEFT"><TT>x86_64_32, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_small, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_medium </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>intelgcc    </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpi,mpich,mpich2,mvapich2,lam,openmpi,</TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64, ia64_64, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>user,intelmpi             </TT></TD>
+<TD ALIGN="LEFT"><TT>x86_64_32, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_small, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_medium </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>lahey       </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,mvapich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>nag         </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,mvapich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>nagintel    </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>pathscale   </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64, x86_64_32, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_small, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_medium </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>pgi         </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,mvapich,mvapich2 </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64, x86_64_32, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>lam,openmpi,user,scalimpi </TT></TD>
+<TD ALIGN="LEFT"><TT>x86_64_small, </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><TT>x86_64_medium </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>pgigcc      </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,mpich,mpich2,lam,openmpi,user </TT></TD>
+<TD ALIGN="LEFT"><TT>32 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Linux</TD>
+<TD ALIGN="LEFT"><TT>xlf         </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni,<B>mpi</B>,user      </TT></TD>
+<TD ALIGN="LEFT"><TT>32  </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">MinGW</TD>
+<TD ALIGN="LEFT"><TT>intel       </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,msmpi,user    </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">MinGW</TD>
+<TD ALIGN="LEFT"><TT>intelcl     </TT></TD>
+<TD ALIGN="LEFT"><TT><B>mpiuni</B>,msmpi,user    </TT></TD>
+<TD ALIGN="LEFT"><TT>32, 64 </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">OSF1</TD>
+<TD ALIGN="LEFT"><TT>default     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni,<B>mpi</B>,user      </TT></TD>
+<TD ALIGN="LEFT"><TT>64  </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SunOS</TD>
+<TD ALIGN="LEFT"><TT>default     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni,<B>mpi</B>,user      </TT></TD>
+<TD ALIGN="LEFT"><TT>32, <B>64</B> </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Unicos</TD>
+<TD ALIGN="LEFT"><TT>default     </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni,<B>mpi</B>,user      </TT></TD>
+<TD ALIGN="LEFT"><TT>64  </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Unicos</TD>
+<TD ALIGN="LEFT"><TT>cce         </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni,<B>mpi</B>,user      </TT></TD>
+<TD ALIGN="LEFT"><TT>64  </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Unicos</TD>
+<TD ALIGN="LEFT"><TT>gfortran    </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni,<B>mpi</B>,user      </TT></TD>
+<TD ALIGN="LEFT"><TT>64  </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Unicos</TD>
+<TD ALIGN="LEFT"><TT>intel       </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni,<B>mpi</B>,user      </TT></TD>
+<TD ALIGN="LEFT"><TT>64  </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Unicos</TD>
+<TD ALIGN="LEFT"><TT>pathscale   </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni,<B>mpi</B>,user      </TT></TD>
+<TD ALIGN="LEFT"><TT>64  </TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Unicos</TD>
+<TD ALIGN="LEFT"><TT>pgi         </TT></TD>
+<TD ALIGN="LEFT"><TT>mpiuni,<B>mpi</B>,user      </TT></TD>
+<TD ALIGN="LEFT"><TT>64
+
+<P>
+</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE>
+
+<P>
+<BR>
+<BR>
+
+<P>
+Building the library for multiple architectures or options at the same
+time is supported; building or running the tests or examples is restricted
+to one platform/architecture at a time.  The output from the test cases
+will be stored in a separate directories so the results will be kept 
+separate for different architectures or options.
+
+<P>
+
+<H2><A NAME="SECTION00096000000000000000"></A>
+<A NAME="BuildESMF"></A>
+<BR>
+8.6 Building the ESMF Library
+</H2>
+
+<P>
+
+<P>
+GNU make is required to build the library.  On some
+systems this will be just the command <TT>make</TT>.  On others 
+it might be installed as <TT>gmake</TT> or even <TT>gnumake</TT>.
+In any event, use the -version option with the make command
+to determine if it is GNU make.  
+
+<P>
+Build the library with the command:
+<PRE>
+  gmake
+</PRE>
+
+<P>
+Makefiles throughout the framework are configured to allow users to
+compile files only in the directory where <TT>gmake</TT> is entered. Shared
+libraries are rebuilt only if necessary. In addition the entire ESMF
+framework may be built from any directory by entering <TT>gmake all</TT>,
+assuming that all the environmental variables are set correctly as
+described in Section&nbsp;<A HREF="#EnvironmentVariables">8.4</A>.
+
+<P>
+The makefiles are also configured to allow multiple make targets to be
+compiled in parallel, via the gmake -j flag.  For example, to use eight
+parallel processes to build the library, use -j8:
+<PRE>
+  gmake -j8 lib
+</PRE>
+
+<P>
+The parallel compilation feature depends on <TT>ESMF_DEFER_LIB_BUILD=ON</TT>
+(the default) so that the library build will be deferred until all files
+have been compiled.
+
+<P>
+The -j option should only be used during the creation of the library.
+The test base and examples will not work correctly with -j set larger
+than 1.
+
+<P>
+Users may also run examples or execute unit tests of specific classes
+by changing directories to the desired class <TT>examples</TT> or <TT>tests</TT> 
+directories and entering <TT>gmake run_examples</TT> or 
+<TT>gmake run_unit_tests</TT>, respectively.  For non-multiprocessor machines,
+uni-processor targets are available as <TT>gmake run_examples_uni</TT> or
+<TT>gmake run_unit_tests_uni</TT>.
+
+<P>
+
+<H2><A NAME="SECTION00097000000000000000"></A>
+<A NAME="BuildDocumentation"></A>
+<BR>
+8.7 Building the ESMF Documentation
+</H2>
+
+<P>
+The ESMF source documentation consists of an <I>ESMF User's Guide</I>
+and an <I>ESMF Reference Manual for Fortran</I>.
+
+<P>
+The tarballs on the ESMF website for ESMF versions 3.0.1 and later do
+not contain the ESMF documentation files.  The documentation is 
+available on the ESMF website in html or pdf form and most users should
+not need to build it from the source.
+
+<P>
+If a user does want to build the documentation, they will need to 
+download the <TT>esmf</TT> module from the ESMF SourceForge repository
+(see section <A HREF="node6.html#sec:download">5.1.1</A>.  Latex and latex2html must be
+installed.
+
+<P>
+To build documentation:
+<PRE>
+  gmake doc              ! Builds the manuals, including pdf and html.
+</PRE>
+
+<P>
+The resulting documentation files will be
+located in the top level directory $ESMF_DIR/doc
+
+<P>
+
+<H2><A NAME="SECTION00098000000000000000"></A>
+<A NAME="InstallESMF"></A>
+<BR>
+8.8 Installing the ESMF
+</H2>
+
+<P>
+The ESMF build system offers the standard <TT>install</TT> target to install all
+necessary files created during the build process into user specified locations.
+The installation procedure will also install the ESMF documentation if it has
+been built successfully following the procedure outlined above.
+
+<P>
+The installation location can be customized using six <TT>ESMF_</TT> environment
+variables:
+
+<UL>
+<LI><TT>ESMF_INSTALL_PREFIX</TT> - prefix for the other five variables.
+</LI>
+<LI><TT>ESMF_INSTALL_HEADERDIR</TT> - where to install header files.
+</LI>
+<LI><TT>ESMF_INSTALL_LIBDIR</TT> - where to install library files.
+</LI>
+<LI><TT>ESMF_INSTALL_MODDIR</TT> - where to install Fortran module files.
+</LI>
+<LI><TT>ESMF_INSTALL_BINDIR</TT> - where to install application files.
+</LI>
+<LI><TT>ESMF_INSTALL_DOCDIR</TT> - where to install documentation files.
+</LI>
+</UL>
+
+<P>
+Section&nbsp;<A HREF="#EnvironmentVariables">8.4</A> describes what each of these 
+environment variables does and how to set them.
+
+<P>
+Install ESMF with the command:
+<PRE>
+  gmake install
+</PRE>
+
+<P>
+Check the ESMF installation with the command:
+<PRE>
+  gmake installcheck
+</PRE>
+
+<P>
+<EM>Advice to installers.</EM> To complete the installation of ESMF, a single ESMF specific environment variable should be set. The variable is named <TT>ESMFMKFILE</TT>, and it must point to the <TT>esmf.mk</TT> file that was generated during the installation process. Systems that support multiple ESMF installations via management software (e.g. <EM>modules, softenv, ...</EM>) should set/reset the <TT>ESMFMKFILE</TT> environment variable as part of the configuration.
+
+<P>
+Additionally, it is typically conventient to append the user's <TT>PATH</TT> environment variable to provide access to the ESMF applications that were built during the installation process. The application binaries are located in the directory that was specifyied as <TT>ESMF_INSTALL_BINDIR</TT> during the ESMF installation. The location is also stored in variable <TT>ESMF_APPSDIR</TT>, defined in file <TT>esmf.mk</TT>. Systems that make ESMF installations available through management software (e.g. <EM>modules, softenv, ...</EM>) should modify the user's <TT>PATH</TT> environment variable as part of the configuration.
+
+<P>
+<EM>Hint.</EM> By default, file <TT>esmf.mk</TT> is located next to the ESMF library file in  directory <TT>ESMF_INSTALL_LIBDIR</TT>. Consequently, unless <TT>esmf.mk</TT> has been moved to a different location after the installation, the correct setting for <TT>ESMFMKFILE</TT> is <TT>$(ESMF_INSTALL_LIBDIR)/esmf.mk</TT>.
+
+<P>
+<EM>Rationale.</EM> The only piece of information that is needed to use an ESMF installation is the exact location of the associated <TT>esmf.mk</TT> file. This file contains all of the relevant settings and flags that allow a user to build their application against the ESMF installation. Standardizing the mechanism by which the location of <TT>esmf.mk</TT> is made available to the user by the system will help users in the design of portable application build systems. (See sections <A HREF="node7.html#sec:Use">6</A> and <A HREF="node8.html#sec:Apps">7</A> for details about the usage of <TT>esmf.mk</TT>.) Further, modifying the user's <TT>PATH</TT> environment variable is optional, since the location of the ESMF application binaries is available through the <TT>esmf.mk</TT> file. However, setting the user's <TT>PATH</TT> variable so that the ESMF applications are directly and conveniently accessible from the command line is recommended, especially if managment software (e.g. <EM>modules, softenv, ...</EM>) is used on the system.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html320"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html316"
+  HREF="ESMF_usrdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html310"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html318"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html321"
+  HREF="node10.html">9 Porting the ESMF</A>
+<B> Up:</B> <A NAME="tex2html317"
+  HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
+<B> Previous:</B> <A NAME="tex2html311"
+  HREF="node8.html">7 Using Bundled ESMF</A>
+ &nbsp; <B>  <A NAME="tex2html319"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+<A HREF=mailto:esmf_support@list.woc.noaa.gov>esmf_support@list.woc.noaa.gov</A>
+</ADDRESS>
+</BODY>
+</HTML>

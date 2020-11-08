@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Manager &mdash; ESMPy ESMF_6_3_0rp1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'ESMF_6_3_0rp1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ESMPy ESMF_6_3_0rp1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">ESMPy ESMF_6_3_0rp1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<div class="section" id="manager">
+<span id="id1"></span><h1>Manager<a class="headerlink" href="#manager" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ESMF.Manager">
+<em class="property">class </em><tt class="descclassname">ESMF.</tt><tt class="descname">Manager</tt><big>(</big><em>logkind=3</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#ESMF.Manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>This singleton class and its pair of methods __init__
+and __del__ are designed to called ESMP_Initialize and
+ESMP_Finalize once, and only once, in a Python session.</p>
+<p>ESMF is initialized at ESMPyManager object creation,
+__del__ is registered with atexit to ensure ESMF is always
+finalized prior to exiting Python.  If the object is copied,
+the copy will always be an alias to the original Manager object.</p>
+<dl class="method">
+<dt id="ESMF.Manager.__del__">
+<tt class="descname">__del__</tt><big>(</big><big>)</big><a class="headerlink" href="#ESMF.Manager.__del__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls ESMP_Finalize if ESMF has been initialized.
+This function is registered with atexit
+by __init__ when it calls ESMP_Initialize to
+ensure ESMP_Finalize is always called before exiting
+Python.  However, this function can be called directly
+(presumably to delete the log file) before exiting without
+causing problems.</p>
+<p>Required Arguments:</p>
+<blockquote>
+<div>None</div></blockquote>
+<p>Optional Arguments:</p>
+<blockquote>
+<div>None</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div>None</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="ESMF.Manager.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>logkind=3</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#ESMF.Manager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls ESMP_Initialize and registers __del__ with atexit
+when called the first time.  Subsequent calls only return
+whether or not ESMF is initialized.  Registering __del__ with
+atexit ensures the ESMP_Finalize will always be called
+prior to exiting Python.  Calling __init__ explicitly
+results in a no-op.</p>
+<p>Required Arguments:</p>
+<blockquote>
+<div>None</div></blockquote>
+<p>Optional Arguments:</p>
+<blockquote>
+<div><p>logkind: allows user to specify if there should be a single
+log file, multiple log files, or none at all.  The default
+is to not have a log file.  Argument values are:</p>
+<blockquote>
+<div><p>LogKind.MULTI</p>
+<p>(default) LogKind.NONE</p>
+</div></blockquote>
+<p>debug: allows user to log after every call, instead of the
+default of every 10 calls.</p>
+<blockquote>
+<div>type: boolean (defaults to False)</div></blockquote>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div>Manager</div></blockquote>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="ESMF.Manager.__new__">
+<em class="property">static </em><tt class="descname">__new__</tt><big>(</big><em>logkind=3</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#ESMF.Manager.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the singleton instance of this class,
+creating it if it does not already exist.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/manager.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">ESMPy ESMF_6_3_0rp1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2014, University Corporation for Atmospheric Research, Massachusetts Institute of Technology, Geophysical Fluid Dynamics Laboratory, University of Michigan, National Centers for Environmental Prediction, Los Alamos National Laboratory, Argonne National Laboratory, NASA Goddard Space Flight Center.  Licensed under the University of Illinois-NCSA License.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

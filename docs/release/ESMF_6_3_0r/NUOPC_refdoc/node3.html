@@ -1,0 +1,868 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>2 Design and Implementation Notes</TITLE>
+<META NAME="description" CONTENT="2 Design and Implementation Notes">
+<META NAME="keywords" CONTENT="NUOPC_refdoc">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NUOPC_refdoc.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="NUOPC_refdoc.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
+<!--Navigation Panel-->
+<A NAME="tex2html202"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html198"
+  HREF="NUOPC_refdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html192"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html200"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html203"
+  HREF="node4.html">3 API</A>
+<B> Up:</B> <A NAME="tex2html199"
+  HREF="NUOPC_refdoc.html">NUOPC_refdoc</A>
+<B> Previous:</B> <A NAME="tex2html193"
+  HREF="node2.html">1 Description</A>
+ &nbsp; <B>  <A NAME="tex2html201"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html204"
+  HREF="node3.html#SECTION00031000000000000000">2.1 Generic Components</A>
+<LI><A NAME="tex2html205"
+  HREF="node3.html#SECTION00032000000000000000">2.2 Field Dictionary</A>
+<LI><A NAME="tex2html206"
+  HREF="node3.html#SECTION00033000000000000000">2.3 Metadata</A>
+<UL>
+<LI><A NAME="tex2html207"
+  HREF="node3.html#SECTION00033100000000000000">2.3.1 Model and Mediator Component Metadata</A>
+<LI><A NAME="tex2html208"
+  HREF="node3.html#SECTION00033200000000000000">2.3.2 Connector Component Metadata</A>
+<LI><A NAME="tex2html209"
+  HREF="node3.html#SECTION00033300000000000000">2.3.3 Field Metadata</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html210"
+  HREF="node3.html#SECTION00034000000000000000">2.4 Initialization</A>
+<UL>
+<LI><A NAME="tex2html211"
+  HREF="node3.html#SECTION00034100000000000000">2.4.1 Initialize Phase Definitions</A>
+<LI><A NAME="tex2html212"
+  HREF="node3.html#SECTION00034200000000000000">2.4.2 Data-Dependencies during Initialize</A>
+<LI><A NAME="tex2html213"
+  HREF="node3.html#SECTION00034300000000000000">2.4.3 Transfer of Grid/Mesh Objects between Components</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00030000000000000000">
+2 Design and Implementation Notes</A>
+</H1>
+
+<P>
+
+<P>
+The NUOPC Layer is implemented in Fortran on top of the public ESMF Fortran API.
+
+<P>
+The NUOPC utility routines form a very straight forward Fortran API, accessible through the <TT>NUOPC</TT> Fortran module. The interfaces only use native Fortran types and public ESMF derived types. In order to access the utility API of the NUOPC Layer, user code must include the following two <TT>use</TT> lines:
+
+<P>
+<PRE>
+  use ESMF
+  use NUOPC
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00031000000000000000">
+2.1 Generic Components</A>
+</H2>
+
+<P>
+
+<P>
+The NUOPC generic components are implemented as a <EM>collection</EM> of Fortran modules. Each module implements a single, well specified set of standard <TT>ESMF_GridComp</TT> or <TT>ESMF_CplComp</TT> methods. The nomenclature of the generic component modules starts with the <TT>NUOPC_</TT> prefix and continues with the flavor: <TT>Driver</TT>, <TT>Model</TT>, <TT>Mediator</TT>, or <TT>Connector</TT>. This is optionally followed by a string of additional descriptive terms. The four flavors of generic components implemented by the NUOPC Layer are:
+
+<P>
+
+<UL>
+<LI><TT>NUOPC_Driver</TT> - A generic driver component. It implements a child component harness, made of State and Component objects, that follows the NUOPC Common Model Architecture. It is specialized by plugging <TT>Model</TT>, <TT>Mediator</TT>, and <TT>Connector</TT> components into the harness. <TT>Driver</TT> components can be plugged into the harness to construct component hierarchies. The generic <TT>Driver</TT> initializes its child components according to a standard Initialization Phase Definition, and drives their Run() methods according a customizable run sequence.
+
+<P>
+</LI>
+<LI><TT>NUOPC_Model</TT> - A generic model component that wraps a model code so it is suitable to be plugged into a generic <TT>Driver</TT> component.
+
+<P>
+</LI>
+<LI><TT>NUOPC_Mediator</TT> - A generic mediator component that wraps custom coupling code (flux calculations, averaging, etc.) so it is suitable to be plugged into a generic <TT>Driver</TT> component.
+
+<P>
+</LI>
+<LI><TT>NUOPC_Connector</TT> - A generic component that implements Field matching based on metadata and executes simple transforms (Regrid and Redist). It can be plugged into a generic <TT>Driver</TT> component.
+
+<P>
+</LI>
+</UL>
+
+<P>
+The user code accesses the desired generic component(s) by including a <TT>use</TT> line for each one. Each generic component defines a small set of public names that are made available to the user code through the <TT>use</TT> statement. At a minimum the <TT>SetServices</TT> method is made public. Some generic components also define a public internal state type by the standard name <TT>InternalState</TT>. It is recommended that the following syntax is used when accessing a generic component (here with internal state):
+
+<P>
+<PRE>
+  use NUOPC_DriverXYZ, only: &amp;
+    DriverXYZ_SS =&gt; SetServices, &amp;
+    DriverXYZ_IS =&gt; InternalState
+</PRE>
+
+<P>
+A generic component is used by user code to implement a specialized version of the component. The user code therefore also must implement a public <TT>SetServices</TT> routine. The first thing this routine must do is call into the <TT>SetServices</TT> routine provided by the generic component. It is through this step that the specialized component <EM>inherits</EM> from the generic component.
+
+<P>
+There are three mechanisms through which user code specializes generic components.
+
+<P>
+
+<OL>
+<LI>The specializing user code must set entry points for standard component methods not implemented by the generic component. Methods (and phases) that need to be implemented are clearly documented in the generic component description. The user code may further overwrite standard methods already implemented by the generic component code. However, this should rarely be necessary, and may indicate that there is a better fitting generic component available. Finally, some generic components come with generic routines that are suitable candidates for the standard component methods, yet require that the specializing code registers them as appropriate. Setting entry points for standard component methods is done in the <TT>SetServices</TT> routine right after calling into the generic <TT>SetServices</TT> method.
+
+<P>
+</LI>
+<LI>Some generic components require that specific methods are attached to the component. If a generic component uses specialization through attachable methods, the specific method labels (i.e. the names by which these methods are registered) and the purpose of the method are clearly documented. In some cases attachable methods are optional. This is clearly documented. Further, some generic components attach a default method to a label, which then is used for all phases. This default can be overwritten with a phase specific attachable method. Attaching methods to the component should be done in the <TT>SetServices</TT> routine right after setting entry points for the standard component methods.
+
+<P>
+</LI>
+<LI>Some generic components provide access to an internal state type. The documentation of a generic component indicates which internal state members are used for specialization, and how they are expected to be set. Setting internal state members often requires the availability of other pieces of information. It may happend in the <TT>SetServices</TT> routine, but more often inside a specialized standard entry point or an attachable method.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:NUOPCGenericComp"></A><A NAME="258"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+The NUOPC Generic Component inheritance structure. The upper tree is rooted in <TT>ESMF_GridComp</TT>, while the lower tree is rooted in <TT>ESMF_CplComp</TT>. The ESMF data types are shown in green. The four main NUOPC Generic Component flavors are shown in dark blue boxes. Light blue boxes contain generic components that specialize for common cases, while the yellow box shows a parent class in the inheritance tree.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\scalebox{0.6}{\includegraphics{NUOPC_GC}}$
+ -->
+<IMG
+ WIDTH="661" HEIGHT="355" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="\scalebox{0.6}{\includegraphics{NUOPC_GC}}">
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Components that inherit from a generic component may choose to only specialize certain aspects, leaving other aspects unspecified. This allows a hierarchy of generic components to be implemented with a high degree of code re-use. The variable level of specialization supports the very differing user needs. Figure <A HREF="#fig:NUOPCGenericComp">1</A> depicts the inheritance structure of the NUOPC Generic Components. There are two trees, one is rooted in <TT>ESMF_GridComp</TT>, while the other is rooted in <TT>ESMF_CplComp</TT>.
+
+<P>
+
+<P>
+
+<P>
+
+<H2><A NAME="SECTION00032000000000000000">
+2.2 Field Dictionary</A>
+</H2>
+
+<P>
+The NUOPC Layer uses standard metadata on Fields to guide the decision making that is implemented in generic code. The generic <TT>NUOPC_Connector</TT> component, for instance, uses the <TT>StandardName</TT> Attribute to construct a list of matching Fields between the import and export States. The NUOPC Field Dictionary provides a software implementation of a controlled vocabulary for the <TT>StandardName</TT> Attribute. It also associates each registered <TT>StandardName</TT> with canonical <TT>Units</TT>, a default <TT>LongName</TT>, and a default <TT>ShortName</TT>.
+
+<P>
+The NUOPC Layer provides a number of default entries in the Field Dictionary, shown in the table below. The <TT>StandardName</TT> Attribute of all default entries complies with the Climate and Forecast (CF) conventions as documented at <A NAME="tex2html2"
+  HREF="http://cf-pcmdi.llnl.gov/">http://cf-pcmdi.llnl.gov/</A>. 
+
+<P>
+Currently it is typically that a user of the NUOPC Layer extends the Field Dictionary by calling the <TT>NUOPC_FieldDictionaryAddEntry()</TT> interface to add additional entries. It is our intention to grow the number of default entries over time, and to more strongly leverage the NUOPC Field Dictionary to ensure meta data interoperability between codes that use the NUOPC Layer.
+
+<P>
+Besides the <TT>StandardName</TT> Attribute, the NUOPC Layer currently only uses the <TT>Units</TT> entry to verify that Fields are given in their canonical units. The plan is to extend this to support unit conversion in the future. The default <TT>LongName</TT> and default <TT>ShortName</TT> associations are provided as a convenience to the implementor of NUOPC compliant components; the NUOPC Layer itself does not base any decisions on these two Attributes.
+
+<P>
+
+<P>
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><B>StandardName</B></TD>
+<TD ALIGN="LEFT"><B>Units</B></TD>
+<TD ALIGN="LEFT"><B>LongName</B></TD>
+<TD ALIGN="LEFT"><B>ShortName</B></TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">(canonical)</TD>
+<TD ALIGN="LEFT">(default)</TD>
+<TD ALIGN="LEFT">(default)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">air_pressure_at_sea_level</TD>
+<TD ALIGN="LEFT">Pa</TD>
+<TD ALIGN="LEFT">Air Pressure at Sea Level</TD>
+<TD ALIGN="LEFT">pmsl</TD>
+</TR>
+<TR><TD ALIGN="LEFT">magnitude_of_surface_downward_stress</TD>
+<TD ALIGN="LEFT">Pa</TD>
+<TD ALIGN="LEFT">Magnitude of Surface Downward Stress</TD>
+<TD ALIGN="LEFT">taum</TD>
+</TR>
+<TR><TD ALIGN="LEFT">precipitation_flux</TD>
+<TD ALIGN="LEFT">kg m-2 s-1</TD>
+<TD ALIGN="LEFT">Precipitation Flux</TD>
+<TD ALIGN="LEFT">prcf</TD>
+</TR>
+<TR><TD ALIGN="LEFT">sea_surface_height_above_sea_level</TD>
+<TD ALIGN="LEFT">m</TD>
+<TD ALIGN="LEFT">Sea Surface Height Above Sea Level</TD>
+<TD ALIGN="LEFT">ssh</TD>
+</TR>
+<TR><TD ALIGN="LEFT">sea_surface_salinity</TD>
+<TD ALIGN="LEFT">1e-3</TD>
+<TD ALIGN="LEFT">Sea Surface Salinity</TD>
+<TD ALIGN="LEFT">sss</TD>
+</TR>
+<TR><TD ALIGN="LEFT">sea_surface_temperature</TD>
+<TD ALIGN="LEFT">K</TD>
+<TD ALIGN="LEFT">Sea Surface Temperature</TD>
+<TD ALIGN="LEFT">sst</TD>
+</TR>
+<TR><TD ALIGN="LEFT">surface_eastward_sea_water_velocity</TD>
+<TD ALIGN="LEFT">m s-1</TD>
+<TD ALIGN="LEFT">Surface Eastward Sea Water Velocity</TD>
+<TD ALIGN="LEFT">sscu</TD>
+</TR>
+<TR><TD ALIGN="LEFT">surface_downward_eastward_stress</TD>
+<TD ALIGN="LEFT">Pa</TD>
+<TD ALIGN="LEFT">Surface Downward Eastward Stress</TD>
+<TD ALIGN="LEFT">tauu</TD>
+</TR>
+<TR><TD ALIGN="LEFT">surface_downward_heat_flux_in_air</TD>
+<TD ALIGN="LEFT">W m-2</TD>
+<TD ALIGN="LEFT">Surface Downward Heat Flux in Air</TD>
+<TD ALIGN="LEFT">hfns</TD>
+</TR>
+<TR><TD ALIGN="LEFT">surface_downward_water_flux</TD>
+<TD ALIGN="LEFT">kg m-2 s-1</TD>
+<TD ALIGN="LEFT">Surface Downward Water Flux</TD>
+<TD ALIGN="LEFT">wfns</TD>
+</TR>
+<TR><TD ALIGN="LEFT">surface_downward_northward_stress</TD>
+<TD ALIGN="LEFT">Pa</TD>
+<TD ALIGN="LEFT">Surface Downward Northward Stress</TD>
+<TD ALIGN="LEFT">tauv</TD>
+</TR>
+<TR><TD ALIGN="LEFT">surface_net_downward_shortwave_flux</TD>
+<TD ALIGN="LEFT">W m-2</TD>
+<TD ALIGN="LEFT">Surface Net Downward Shortwave Flux</TD>
+<TD ALIGN="LEFT">rsns</TD>
+</TR>
+<TR><TD ALIGN="LEFT">surface_net_downward_longwave_flux</TD>
+<TD ALIGN="LEFT">W m-2</TD>
+<TD ALIGN="LEFT">Surface Net Downward Longwave Flux</TD>
+<TD ALIGN="LEFT">rlns</TD>
+</TR>
+<TR><TD ALIGN="LEFT">surface_northward_sea_water_velocity</TD>
+<TD ALIGN="LEFT">m s-1</TD>
+<TD ALIGN="LEFT">Surface Northward Sea Water Velocity</TD>
+<TD ALIGN="LEFT">sscv</TD>
+</TR>
+</TABLE>
+
+<P>
+
+
+<P>
+
+<H2><A NAME="SECTION00033000000000000000">
+2.3 Metadata</A>
+</H2>
+
+<P>
+
+<H3><A NAME="SECTION00033100000000000000">
+2.3.1 Model and Mediator Component Metadata</A>
+</H3>
+
+<P>
+<A NAME="CompMeta"></A>The Model and Mediator Component metadata is implemented as an ESMF Attribute Package:
+
+<P>
+
+<UL>
+<LI>Convention: NUOPC
+</LI>
+<LI>Purpose: General
+</LI>
+<LI>Includes:
+    
+<UL>
+<LI>CIM Model Component Simulation Description (see for example the <A NAME="tex2html3"
+  HREF="http://www.earthsystemmodeling.org/esmf_releases/public/ESMF_5_2_0rp2/ESMF_refdoc/node6.html#SECTION06022100000000000000">Component Attribute packages</A>
+section in the ESMF v5.2.0rp2 documentation)
+    
+</LI>
+</UL> 
+</LI>
+<LI>Description: Model/Mediator component description and nesting metadata. 
+</LI>
+</UL>
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><B>Name</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><B>Definition</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><B>Controlled Vocabulary</B></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>Verbosity</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>String value controlling the verbosity of INFO messages.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>high, low</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>InitializePhaseMap</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>List of string values, mapping the logical NUOPC initialize phases, of a specific Initialize Phase Definition (IPD) version, to the actual ESMF initialize phase number under which the entry point is registered.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>IPDvXXpY=Z, where XX = two-digit revision number, e.g. 01, Y = logical NUOPC phase number, Z = actual ESMF phase number, with Y, Z &gt; 0 and Y, Z &lt; 10</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>NestingGeneration</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>Integer value enumerating nesting level.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>0, 1, 2, ...</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>Nestling</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>Integer value enumerating siblings within the same generation.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>0, 1, 2, ...</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>InitializeDataComplete</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>String value indicating whether all initialize data dependencies have been satisfied.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>false, true</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>InitializeDataProgress</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>String value indicating whether progress is being made resolving initialize data dependencies.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>false, true</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<H3><A NAME="SECTION00033200000000000000">
+2.3.2 Connector Component Metadata</A>
+</H3>
+
+<P>
+The Connector Component metadata is implemented as an ESMF Attribute Package:
+
+<P>
+
+<UL>
+<LI>Convention: NUOPC
+</LI>
+<LI>Purpose: General
+</LI>
+<LI>Includes:
+    
+<UL>
+<LI>ESG General (see for example the <A NAME="tex2html4"
+  HREF="http://www.earthsystemmodeling.org/esmf_releases/public/ESMF_5_2_0rp2/ESMF_refdoc/node6.html#SECTION06022100000000000000">Component Attribute packages</A>
+section in the ESMF v5.2.0rp2 documentation)
+    
+</LI>
+</UL> 
+</LI>
+<LI>Description: Basic component description and connection metadata. 
+</LI>
+</UL>
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><B>Name</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><B>Definition</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><B>Controlled Vocabulary</B></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>Verbosity</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>String value controlling the verbosity of INFO messages.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>high, low</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>InitializePhaseMap</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>List of string values, mapping the logical NUOPC initialize phases, of a specific Initialize Phase Definition (IPD) version, to the actual ESMF initialize phase number under which the entry point is registered.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>IPDvXXpY=Z, where XX = two-digit revision number, e.g. 01, Y = logical NUOPC phase number, Z = actual ESMF phase number, with Y, Z &gt; 0 and Y, Z &lt; 10</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>CplList</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>List of StandardNames of the connected Fields.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>N/A</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<H3><A NAME="SECTION00033300000000000000">
+2.3.3 Field Metadata</A>
+</H3>
+
+<P>
+<A NAME="FieldMeta"></A>The Field metadata is implemented as an ESMF Attribute Package:
+
+<P>
+
+<UL>
+<LI>Convention: NUOPC
+</LI>
+<LI>Purpose: General
+</LI>
+<LI>Includes:
+    
+<UL>
+<LI>ESG General
+    
+</LI>
+</UL> 
+</LI>
+<LI>Description: Basic Field description with connection and time stamp metadata. 
+</LI>
+</UL>
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><B>Name</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><B>Definition</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><B>Controlled Vocabulary</B></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>Connected</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>Connected status.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>false, true</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>TimeStamp</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>Nine integer values representing ESMF Time object.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>N/A</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>ProducerConnection</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>String value indicating connection details.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>open, targeted,
+<BR>
+connected</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>ConsumerConnection</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>String value indicating connection details.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>open, targeted,
+<BR>
+connected</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>Updated</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>String value indicating updated status during initialization.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>false, true</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>TransferOfferGeomObject</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>String value indicating a component's intention to transfer the underlying Grid or Mesh on which an advertised Field object is defined.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>will provide,
+<BR>
+can provide,
+<BR>
+cannot provide</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>TransferActiveGeomObject</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>String value indicating the action a component is supposed to take with respect to transferring the underlying Grid or Mesh on which an advertised Field object is defined.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99>provide, accept</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+
+<H2><A NAME="SECTION00034000000000000000">
+2.4 Initialization</A>
+</H2>
+
+<P>
+
+<H3><A NAME="SECTION00034100000000000000">
+2.4.1 Initialize Phase Definitions</A>
+</H3>
+
+<P>
+
+<P>
+<A NAME="IPD"></A>
+<P>
+The interaction between NUOPC compliant components during the initialization process is regulated by the <B>Initialize Phase Definition</B> or <B>IPD</B>. The IPDs are versioned, with a higher version number indicating backward compatibility with all previous versions.
+
+<P>
+There are two perspectives of looking at the IPD. From the driver perspective the IPD regulates the sequence in which it must call the different phases of the Initialize() routines of its child components. To this end the generic <TT>NUOPC_Driver</TT> component implements support for IPDs up to a version specified in the API documenation.
+
+<P>
+The other angle of looking at the IPD is from the driver's child components. From this perspective the IPD assigns specific meaning to each initialize phase. The child components of a driver can be divided into two groups with respect to the meaning the IPD assigns to each initialize phase. In one group are the model, mediator, and driver components, and in the other group are the connector components. The following tables document the meaning of each initialization phase for the two different child component groups for the different IPD versions. The phases are listed in the prescribed sequence used by the driver.
+<BR>
+
+<P>
+<BR>
+<BR>
+<BR>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><B>IPDv00 label</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113><B>Child Group</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><B>Meaning</B></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv00p1</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Advertise the import and export Fields.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv00p1</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Construct the <TT>CplList</TT> Attribute on the connector.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv00p2</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Realize the import and export Fields.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv00p2</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Set the <TT>Connected</TT> Attribute on each import and export Field. Precompute the RouteHandle.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv00p3</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Check compatibility of the Fields' <TT>Connected</TT> status.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv00p4</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Handle Field data initialization. Time stamp the export Fields.</TD>
+</TR>
+</TABLE>
+<BR>
+
+<P>
+<BR>
+<BR>
+<BR>
+<BR>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><B>IPDv01 label</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113><B>Child Group</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><B>Meaning</B></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv01p1</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Advertise the import and export Fields.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv01p1</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Construct the <TT>CplList</TT> Attribute on the connector.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv01p2</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><EM>unspecified</EM></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv01p2</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Set the <TT>Connected</TT> Attribute on each import and export Field.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv01p3</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Realize the import and export Fields.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv01p3</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Precompute the RouteHandle.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv01p4</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Check compatibility of the Fields' <TT>Connected</TT> status.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv01p5</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Handle Field data initialization. Time stamp the export Fields.</TD>
+</TR>
+</TABLE>
+<BR>
+
+<P>
+<BR>
+<BR>
+<BR>
+<BR>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><B>IPDv02 label</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113><B>Child Group</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><B>Meaning</B></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv02p1</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Advertise the import and export Fields.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv02p1</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Construct the <TT>CplList</TT> Attribute on the connector.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv02p2</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><EM>unspecified</EM></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv02p2</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Set the <TT>Connected</TT> Attribute on each import and export Field.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv02p3</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Realize the import and export Fields.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv02p3</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Precompute the RouteHandle.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv02p4</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Check compatibility of the Fields' <TT>Connected</TT> status.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv02p5</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Handle Field data initialization. Timestamp the export Fields.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=383 COLSPAN=3><I>A loop is entered over all those model, mediator, driver Components that use IPDv02 and have
+     unsatisfied data dependencies, repeating the following two steps:</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>Run()</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Loop over all Connectors that connect <I>to</I> the Component that is currently indexed by the outer loop.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv02p5</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Handle Field data initialization. Time stamp the export Fields.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=383 COLSPAN=3><I>Repeat these two steps until all data
+     dependencies have been statisfied, or a dead-lock situation is detected.</I></TD>
+</TR>
+</TABLE>
+<BR>
+
+<P>
+<BR>
+<BR>
+<BR>
+<BR>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><B>IPDv03 label</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113><B>Child Group</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><B>Meaning</B></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p1</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Advertise the import and export Fields, setting <TT>TransferOfferGeomObject</TT>.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p1</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Construct the <TT>CplList</TT> Attribute on the connector.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p2</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><EM>unspecified</EM></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p2</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Set the <TT>Connected</TT> Attribute on each import and export Field. Set the <TT>TransferActionGeomObject</TT> attribute.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p3</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Realize the import and export Fields that have <TT>TransferActionGeomObject</TT> equal to "provide".</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p3</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Transfer the Grid/Mesh objects (only DistGrid) for Field pairs that have a provider and an acceptor side.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p4</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Optionally modify the decomposition and distribution information of the accepted Grid/Mesh by replacing the DistGrid.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p4</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Transfer the full Grid/Mesh objects (with coordinates) for Field pairs that have a provider and an acceptor side.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p5</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Realize all Fields that have <TT>TransferActionGeomObject</TT> equal to "accept" on the transferred Grid/Mesh objects.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p5</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Precompute the RouteHandle.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p6</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Check compatibility of the Fields' <TT>Connected</TT> status.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p7</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Handle Field data initialization. Timestamp the export Fields.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=383 COLSPAN=3><I>A loop is entered over all those model, mediator, driver Components that use IPDv02 and have
+     unsatisfied data dependencies, repeating the following two steps:</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>Run()</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>connector</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Loop over all Connectors that connect <I>to</I> the Component that is currently indexed by the outer loop.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=99><TT>IPDv03p7</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>model, mediator, driver</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>Handle Field data initialization. Time stamp the export Fields.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=383 COLSPAN=3><I>Repeat these two steps until all data
+     dependencies have been statisfied, or a dead-lock situation is detected.</I></TD>
+</TR>
+</TABLE>
+<BR>
+
+<P>
+
+<H3><A NAME="SECTION00034200000000000000">
+2.4.2 Data-Dependencies during Initialize</A>
+</H3>
+
+<P>
+
+<P>
+<A NAME="DataDepInit"></A>
+<P>
+For multi-model applications it is not uncommon that during start-up one or more components depends on data from one or more other components. These type of data-dependencies during initialize can become very complex very quickly. Finding the "correct" sequence to initialize all components for a complex dependency graph is not trivial. The NUOPC Layer deals with this issue by repeatedly looping over all components that indicate that their initialization has data dependencies on other components. The loop is finally exited when either all components have indicated completion of their initialization, or a dead-lock situation is being detected by the NUOPC Layer.
+
+<P>
+The data-dependency resolution loop is implemented as part of Initialize Phase Definition version 2 (IPDv02) as defined in section <A HREF="#IPD">2.4.1</A>. Participating components communicate their current status to the NUOPC Layer via Field and Component metadata. Participants are those components that contain an <TT>IPDv02p5</TT> assignment in their <TT>InitializePhaseMap</TT> Attribute according to section <A HREF="#CompMeta">2.3.1</A>.  
+
+<P>
+Every time a component's <TT>IPDv02p5</TT> initialization phase is called it is responsible for setting the <TT>InitializeDataComplete</TT> and <TT>InitializeDataProgress</TT> Attributes according to its current status before returning. For convenience, the NUOPC Layer provides a generic implementation of an <TT>IPDv02p5</TT> phase initialize method for Models and Mediators (available as ESMF Initialize phase 5). This generic implementation takes care of setting the <TT>InitializeDataProgress</TT> Attribute automatically. It does so by inspecting the <TT>Updated</TT> Field Attribute (see section <A HREF="#FieldMeta">2.3.3</A>) on all the Fields in the component's exportState. The generic <TT>IPDv02p5</TT> implementation must be specialized by attaching a method for specialization point <TT>label_DataInitialize</TT>. This specialization method is responsible for checking the Fields in the importState and for initializing any internal data structures and Fields in the exportState. Fields that are fully initialized in the exportState must be indicated by setting their <TT>Updated</TT> Attribute to "true". Once the component is fully initialized it must further set its <TT>InitializeDataComplete</TT> Attribute to "true" before returning.
+
+<P>
+During the execution of the data-dependency resolution loop the NUOPC Layer calls all of the Connectors <EM>to</EM> a Model/Mediator component before calling the component's <TT>IPDv02p5</TT> method. Doing so ensures that all the currently available Fields are passed to the component before it tries to access them during <TT>IPDv02p5</TT>. Once a component has set its <TT>InitializeDataComplete</TT> Attribute to "true" it, and the Connectors to it, will no longer be called during the remainder of the resolution loop. 
+
+<P>
+When <EM>all</EM> of the components with an <TT>IPDv02p5</TT> initialization phase have set their <TT>InitializeDataComplete</TT> Attribute to "true", the NUOPC Layer successfully exits the data-dependency resolution loop. The loop is also interrupted before all <TT>InitializeDataComplete</TT> Attributes are set to "true" if a full cycle completes without any indicated progress. The NUOPC Layer flags this situation as a potential dead-lock and returns with error.
+
+<P>
+
+<H3><A NAME="SECTION00034300000000000000">
+2.4.3 Transfer of Grid/Mesh Objects between Components</A>
+</H3>
+
+<P>
+
+<P>
+<A NAME="TransferGeom"></A>
+<P>
+There are modeling scenarios where the need arises to transfer physical grid information from one component to another. One common situation is that of modeling systems that utilize Mediator components to implement the interactions between Model components. Here often the Mediator carries out computations on a Model's native grid. It is both cumbersome and error prone to re-defined the same physical grid in two different components. The Initialize Phase Definition version 3 (IPDv03), defined in section <A HREF="#IPD">2.4.1</A>, supports the transfer of ESMF Grid and Mesh objects between Model and/or Mediator components during initialization.
+
+<P>
+The NUOPC Layer transfer protocol for GeomObjects (i.e. ESMF Grids and Meshes) is based on two Field attributes: <TT>TransferOfferGeomObject</TT> and <TT>TransferActionGeomObject</TT>. The <TT>TransferOfferGeomObject</TT> attribute is used by the Model and/or Mediator components to indicate for each Field their intent for the associated GeomObject. The predefined values of this attribute are: "will provide", "can provide", and "cannot provide". The <TT>TransferOfferGeomObject</TT> attribute must be set during <TT>IPDv03p1</TT>.
+
+<P>
+The generic Connector uses the intents from both sides and constructs a response according to the table below. The response is provided by the Connector during <TT>IPDv03p2</TT> by setting the value of the <TT>TransferActionGeomObject</TT> attribute to either "provide" or "accept" on each Field. Fields indicating <TT>TransferActionGeomObject</TT> equal to "provide" must be realized on a Grid or Mesh object in the Model/Mediator initialize method for phase <TT>IPDv03p3</TT>.
+
+<P>
+Fields that hold "accept" for the value of the <TT>TransferActionGeomObject</TT> attribute require two additional negotiation steps. By <TT>IPDv03p4</TT> the Model/Mediator component can access the transferred Grid/Mesh on the Fields that have the "accept" value. However, only the DistGrid, i.e. the decomposition and distribution information of the Grid/Mesh is available at this stage, not the full physical grid information such as the coordinates. At this stage the Model/Mediator may modify this information by replacing the DistGrid object in the Grid/Mesh. The DistGrid that is set on the Grid/Mesh objects when leaving the Model/Mediator phase <TT>IPDv03p4</TT> will consequently be used by the generic Connector to fully transfer the Grid/Mesh object. The fully transferred objects are available on the Fields with "accept" during Model/Mediator phase <TT>IPDv03p5</TT>, where they can be used to realize the respective Field objects. Realizing typically just requires the <TT>ESMF_FieldEmptyComplete()</TT> call to be made. At this point all Field objects are fully realized and the initialization process can proceed as usual.
+
+<P>
+The following table shows how the generic Connector sets the <TT>TransferActionGeomObject</TT> attribute on the Fields according to the incoming value of <TT>TransferOfferGeomObject</TT>.
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128><B><TT>TransferOfferGeomObject</TT> Incoming side A</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128><B><TT>TransferOfferGeomObject</TT> Incoming side B</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198><B>Outgoing setting by generic Connector</B></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"will provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"will provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>A:<TT>TransferActionGeomObject</TT>="provide" B:<TT>TransferActionGeomObject</TT>="provide"</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"will provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"can provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>A:<TT>TransferActionGeomObject</TT>="provide" B:<TT>TransferActionGeomObject</TT>="accept"</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"will provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"cannot provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>A:<TT>TransferActionGeomObject</TT>="provide" B:<TT>TransferActionGeomObject</TT>="accept"</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"can provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"will provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>A:<TT>TransferActionGeomObject</TT>="accept"  B:<TT>TransferActionGeomObject</TT>="provide"</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"can provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"can provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>if (A is import side) then
+<BR>
+A:<TT>TransferActionGeomObject</TT>="provide" B:<TT>TransferActionGeomObject</TT>="accept"
+     if (B is import side) then
+<BR>
+A:<TT>TransferActionGeomObject</TT>="accept" B:<TT>TransferActionGeomObject</TT>="provide"</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"can provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"cannot provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>A:<TT>TransferActionGeomObject</TT>="provide" B:<TT>TransferActionGeomObject</TT>="accept"</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"cannot provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"will provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>A:<TT>TransferActionGeomObject</TT>="accept"  B:<TT>TransferActionGeomObject</TT>="provide"</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"cannot provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"can provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>A:<TT>TransferActionGeomObject</TT>="accept"  B:<TT>TransferActionGeomObject</TT>="provide"</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"cannot provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=128>"cannot provide"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>Flagged as error!</TD>
+</TR>
+</TABLE>
+<BR>
+
+<P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html202"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html198"
+  HREF="NUOPC_refdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html192"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html200"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html203"
+  HREF="node4.html">3 API</A>
+<B> Up:</B> <A NAME="tex2html199"
+  HREF="NUOPC_refdoc.html">NUOPC_refdoc</A>
+<B> Previous:</B> <A NAME="tex2html193"
+  HREF="node2.html">1 Description</A>
+ &nbsp; <B>  <A NAME="tex2html201"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+<A HREF=mailto:esmf_support@list.woc.noaa.gov>esmf_support@list.woc.noaa.gov</A>
+</ADDRESS>
+</BODY>
+</HTML>
