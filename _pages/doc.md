@@ -8,7 +8,7 @@ title: "Docs"
 * C Reference Manual - [html](/docs/release/ESMF_8_0_1/ESMC_crefdoc), [pdf](/docs/release/ESMF_8_0_1/ESMC_crefdoc.pdf)
 * NUOPC Reference Manual - [html](/docs/release/ESMF_8_0_1/NUOPC_refdoc), [pdf](/docs/release/ESMF_8_0_1/NUOPC_refdoc.pdf)
 * ESMPy Documentation - [html](/esmpy_doc/release/ESMF_8_0_1/html), [pdf](/esmpy_doc/release/ESMF_8_0_1/ESMPy.pdf)
-* [v8.0.1 Release Notes and Known Bugs](http://www.earthsystemmodeling.org/download/data/releases.shtml#8_0_1)
+* [v8.0.1 Release Notes and Known Bugs](/static/releases.html#8_0_1)
 
 ### Latest documentation builds (updated nightly):
 * User's Guide - [html](/docs/nightly/develop/ESMF_usrdoc/), [pdf](/docs/nightly/develop/ESMF_usrdoc.pdf)
