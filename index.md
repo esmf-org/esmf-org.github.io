@@ -9,7 +9,7 @@ header:
     - label: "Get Started"
       url: "/download"
     - label: "Docs"
-      url: "http://www.google.com"
+      url: "https://esmf-org.github.io/docs/"
   #caption: "Photo by Adam Bouse on Unsplash"
 excerpt: "A framework for building coupled Earth System Models from interoperable components."
 
