@@ -5,6 +5,8 @@ classes: wide
 toc: true
 ---
 
+Release notes from [all previous releases](/static/releases.html).
+
 ### Upcoming
 
 #### December 2019 - Covers release 8.1
