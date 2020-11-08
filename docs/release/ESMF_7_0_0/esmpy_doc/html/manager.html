@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Manager &mdash; ESMPy 7.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '7.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ESMPy 7.0.0 documentation" href="index.html" />
+    <link rel="up" title="Appendices" href="appendix.html" />
+    <link rel="next" title="Field" href="field.html" />
+    <link rel="prev" title="Appendices" href="appendix.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="field.html" title="Field"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="appendix.html" title="Appendices"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ESMPy 7.0.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="appendix.html" accesskey="U">Appendices</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="manager">
+<h1>Manager<a class="headerlink" href="#manager" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ESMF.api.esmpymanager.Manager">
+<em class="property">class </em><code class="descclassname">ESMF.api.esmpymanager.</code><code class="descname">Manager</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#ESMF.api.esmpymanager.Manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>This singleton class is designed to ensure that ESMF is properly initialized 
+and finalized.  ESMF is initialized at Manager creation, and the __del__ 
+method is registered with atexit to ensure ESMF is always finalized prior to 
+exiting Python.  If the object is copied, the copy will always be an alias 
+to the original Manager object.  The Manager will be created when the first 
+ESMPy object is created if it is not created explicitly by the user.</p>
+<p>Explicit creation of a Manager object allows for setting a flag which 
+results in the output of debug information from the ESMF logging capability 
+during the application runtime.  The output log files are named 
+PET&lt;processor number&gt;.ESMF_LogFile.</p>
+<p>The processor rank (local_pet) and total number of processers (pet_count) 
+can also be retrieved from the Manager using the following calls:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ESMF</span><span class="o">.</span><span class="n">local_pet</span><span class="p">()</span>
+<span class="n">ESMF</span><span class="o">.</span><span class="n">pet_count</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><em>local_pet</em> and <em>pet_count</em> are also properties of the Manager.</p>
+<p>Calls ESMP_Initialize and registers __del__ with atexit when called the
+first time.  Subsequent calls only return whether or not ESMF is
+initialized.  Registering __del__ with atexit ensures the ESMP_Finalize
+will always be called prior to exiting Python.  Calling __init__
+explicitly results in a no-op.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>debug</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; outputs logging information to ESMF logfiles. If
+<code class="docutils literal"><span class="pre">None</span></code>, defaults to False.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="appendix.html"
+                        title="previous chapter">Appendices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="field.html"
+                        title="next chapter">Field</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/manager.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="field.html" title="Field"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="appendix.html" title="Appendices"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ESMPy 7.0.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="appendix.html" >Appendices</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2011-2016, University Corporation for Atmospheric Research, Massachusetts Institute of Technology, Geophysical Fluid Dynamics Laboratory, University of Michigan, National Centers for Environmental Prediction, Los Alamos National Laboratory, Argonne National Laboratory, NASA Goddard Space Flight Center.  Licensed under the University of Illinois-NCSA License.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  </body>
+</html>
