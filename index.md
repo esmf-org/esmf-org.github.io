@@ -6,17 +6,27 @@ header:
   #overlay_filter: "0.2"
   #overlay_image: /assets/images/nasa-splash.jpg
   actions:
-    - label: "Get Started"
+    - label: "Download"
       url: "/download"
     - label: "Docs"
-      url: "https://esmf-org.github.io/docs/"
+      url: "/doc/"
   #caption: "Photo by Adam Bouse on Unsplash"
 excerpt: "A framework for building coupled Earth System Models from interoperable components."
 
 #<small><a href="releases/8_0">Latest release v8.0</a></small>
 
 intro: 
-  - excerpt: 'this is the intro'
+  - excerpt: >
+       The Earth System Modeling Framework (ESMF) is high-performance, flexible software infrastructure
+       for building and coupling weather, climate, and related Earth science applications. ESMF
+       defines an architecture for composing complex, coupled modeling systems and includes data
+       structures and utilities for developing individual models.
+
+       The basic idea behind ESMF is that complicated applications should be broken up into coherent
+       pieces, or components, with standard calling interfaces. In ESMF, a component may be a physical
+       domain, or a function such as a coupler or I/O system. ESMF also includes toolkits for building
+       components and applications, such as regridding software, calendar management, logging and error
+       handling, and parallel communications.
 
 feature_row:
   - image_path: assets/images/NUOPC.jpg
