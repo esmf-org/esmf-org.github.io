@@ -22,12 +22,6 @@ intro:
        defines an architecture for composing complex, coupled modeling systems and includes data
        structures and utilities for developing individual models.
 
-       The basic idea behind ESMF is that complicated applications should be broken up into coherent
-       pieces, or components, with standard calling interfaces. In ESMF, a component may be a physical
-       domain, or a function such as a coupler or I/O system. ESMF also includes toolkits for building
-       components and applications, such as regridding software, calendar management, logging and error
-       handling, and parallel communications.
-
 feature_row:
   - image_path: /assets/images/NUOPC.jpg
     alt: "NUOPC logo"
@@ -40,7 +34,7 @@ feature_row:
     btn_label: "Read More"
     btn_class: "btn--primary"
   
-  - image_path: /assets/images/isogrid.jpg
+  - image_path: /assets/images/redgrid.jpg
     alt: "Iso grid"
     title: "Grid Remapping"
     excerpt: >
@@ -57,6 +51,6 @@ feature_row:
 
 ---
 
-{% include feature_row id="intro" type="left" %}
+{% include feature_row id="intro" type="center" %}
 
 {% include feature_row %}
