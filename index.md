@@ -34,7 +34,7 @@ feature_row:
     btn_label: "Read More"
     btn_class: "btn--primary"
   
-  - image_path: /assets/images/grid-ball.jpg
+  - image_path: /assets/images/worldgrid.jpg
     alt: "Iso grid"
     title: "Grid Remapping"
     excerpt: >
