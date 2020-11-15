@@ -44,7 +44,7 @@ feature_row:
     btn_label: "Read More"
     btn_class: "btn--primary"
 
-  - image_path: /assets/images/globeteam.png
+  - image_path: /assets/images/chalkshake.jpg
     alt: "Projects"
     title: "ESMF Projects"
     excerpt: >
