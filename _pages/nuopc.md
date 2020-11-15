@@ -51,4 +51,5 @@ ways. This allows applications to implement a wide range of model
 architectures, including ensembles, component hierarchies, and simple
 connections.
 
+![NUOPC Architectural Examples](/assets/images/nuopc/nuopc_arch_opts.png)
 
