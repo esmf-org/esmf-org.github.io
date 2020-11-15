@@ -124,11 +124,52 @@ Fields in the Export State.
 
 **Run Sequence**
 
-The run sequence parametrization implemented by the NUOPC Layer
-supports time loops that are very simple, as well as complex
-architectures where the components interact on multiple
-timescales. Explicit, semi-implicit, and implicit coupling modes are
-supported.
+The NUOPC Layer is capable of implementing many different coupling
+schemes. To do so, every NUOPC Driver component parameterizes the
+dynamic aspect of driving the Model components in the form of a derived
+type called NUOPC_RunSequence. Each RunSequence is associated with a
+Clock for its own time stepping, and a chain of RunElements. A Driver
+component can store multiple run sequences, and one run sequence can
+call into another run sequence. This allows the implementation of very
+complex sequences with multiple time scales.
+
+<figure>
+  <img src="/assets/images/nuopc/coupling_explict.png"/>
+  <figcaption>
+     A very basic run sequence is that of an ATM-OCN model with simple
+     explicit coupling. In this simple model, coupling is achieved by two
+     Connector components: one going from ATM to OCN, and one going the
+     other way. After model initialization,
+     the Connector for each direction is executed at every coupling time
+     step. The "explicit" nature of this scheme is easily seen in the
+     coupling diagram above: all connections start and end at the same
+     model time.
+  </figcaption>
+</figure>
+
+<figure>
+  <img src="/assets/images/nuopc/coupling_leapfrog.png"/>
+  <figcaption>
+    The NUOPC_RunSequence derived type used by the NUOPC Driver is capable
+    of encoding complex semi-implicit and fully implicit coupling
+    scenarios. A leap-frog style interaction between ATM and OCN is a
+    common example of a semi-implicit scheme. Here, every coupling time
+    step, the OCN receives forcing fields from the ATM at one coupling
+    time step ahead of the current OCN model time.
+  </figcaption>
+</figure>
+
+<figure>
+  <img src="/assets/images/nuopc/coupling_two_timescale.png"/>
+  <figcaption>
+    It is not uncommon that coupling between multiple model components
+    occurs on different timescales. The NUOPC_RunSequence derived type
+    accommodates these situations by implementing synchronization between
+    multiple Clock objects. The following coupling diagram shows how the
+    simple explicit ATM-OCN model can be coupled to a river transport
+    model (RTM) on a slower timescale.
+  </figcaption>
+</figure>
 
 ### Prototype Applications
 
