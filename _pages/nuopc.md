@@ -26,7 +26,9 @@ No separate download or installation is required.
 
 ### Features
 
-#### Four Basic Building Blocks NUOPC applications are built on four
+#### Four Basic Building Blocks
+
+NUOPC applications are built on four
 basic kinds of generic components:
 
   - **Driver:** Provides a harness for Models, Mediators, and
