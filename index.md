@@ -23,7 +23,7 @@ intro:
        structures and utilities for developing individual models.
 
 feature_row:
-  - image_path: /assets/images/NUOPC.jpg
+  - image_path: /assets/images/puzzlemap.jpg
     alt: "NUOPC logo"
     title: "NUOPC Layer"
     excerpt: >
