@@ -33,7 +33,7 @@ feature_row:
     btn_label: "Read More"
     btn_class: "btn--primary"
   
-  - image_path: /assets/images/puzzlemap.jpg
+  - image_path: /assets/images/twospheres.jpg
     alt: "Iso grid"
     title: "Grid Remapping"
     excerpt: >
