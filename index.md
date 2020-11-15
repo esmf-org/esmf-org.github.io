@@ -48,7 +48,7 @@ feature_row:
     alt: "Projects"
     title: "ESMF Projects"
     excerpt: >
-      Learn about projects using ESMF to solve modeling challenges.
+      Learn about our current projects.
     url: "/projects"
     btn_label: "Coming Soon!"
     btn_class: "btn--primary"
