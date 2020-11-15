@@ -51,5 +51,14 @@ ways. This allows applications to implement a wide range of model
 architectures, including ensembles, component hierarchies, and simple
 connections.
 
-![NUOPC Architectural Examples](/assets/images/nuopc/nuopc_arch_opts.png)
-
+![NUOPC Architectural
+Examples](/assets/images/nuopc/nuopc_arch_opts.png)
+*Some architectural possibilities are illustrated above.  Image **a** shows a
+simple atmosphere and ocean connection, set up without a mediator.
+Image **b** is based on the Navy COAMPS modeling system.  It shows a
+mediator used to couple together atmosphere, ice, ocean and wave
+models.  It follows a typical hub and spoke pattern, but sets up a
+direct connection between the tightly coupled ocean and wave models.
+Image **c** shows a multi-model interactive ensemble configuration.  It
+includes two mediators - one set up as a hub in the usual fashion, and
+another used to stage multiple versions of an atmospheric model.*
