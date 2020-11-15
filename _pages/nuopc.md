@@ -61,3 +61,24 @@ direct connection between the tightly coupled ocean and wave models.
 Image **c** shows a multi-model interactive ensemble configuration.  It
 includes two mediators - one set up as a hub in the usual fashion, and
 another used to stage multiple versions of an atmospheric model.*
+
+**Field Brokering**
+A field dictionary supports field brokering and
+compliance checking between components.
+
+**Initialize Sequence**
+The initialize sequence
+implemented by the NUOPC Layer supports various levels of component
+negotiation. This includes field
+brokering between producer and consumer components, resolving
+data dependencies between components, transferring model grids,
+and negotiating pointer sharing.
+
+**Run Sequence**
+The run sequence parametrization implemented by the NUOPC Layer
+supports time loops that are very simple, as well as complex
+architectures where the components interact on multiple
+timescales. Explicit, semi-implicit, and implicit coupling modes are
+supported.
+
+### 
