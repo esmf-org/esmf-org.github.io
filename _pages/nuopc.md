@@ -23,6 +23,10 @@ for building coupled models using the Earth System Modeling Framework
 The NUOPC Layer is included with the [ESMF distribution](/download/).
 No separate download or installation is required.
 
+### Documentation
+
+See the [main ESMF documentation page](/doc/) for links the NUOPC technical documentation.
+
 
 ### Features
 
