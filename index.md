@@ -3,7 +3,7 @@ layout: splash
 title: "High Performance Modeling Infrastructure"
 header:
   overlay_color: "#34668a"
-  #overlay_filter: "0.2"
+  overlay_filter: "0.2"
   overlay_image: /assets/images/worldgrid.jpg
   actions:
     - label: "Download"
