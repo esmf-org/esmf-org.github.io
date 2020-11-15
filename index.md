@@ -23,7 +23,7 @@ intro:
        structures and utilities for developing individual models.
 
 feature_row:
-  - image_path: /assets/images/puzzlemap.jpg
+  - image_path: /assets/images/binarymap.png
     alt: "NUOPC logo"
     title: "NUOPC Layer"
     excerpt: >
@@ -34,7 +34,7 @@ feature_row:
     btn_label: "Read More"
     btn_class: "btn--primary"
   
-  - image_path: /assets/images/binarymap.png
+  - image_path: /assets/images/puzzlemap.jpg
     alt: "Iso grid"
     title: "Grid Remapping"
     excerpt: >
