@@ -24,6 +24,13 @@ created in 2D or 3D space, and 3D conservative regridding is fully
 supported.
 
 
+### Download and Install
+
+Download and installation information are available in the
+[ESMPy documentation](/esmpy_doc/release/ESMF_8_0_1/html/install.html).
+
+
+
 
 
 
