@@ -134,7 +134,7 @@ call into another run sequence. This allows the implementation of very
 complex sequences with multiple time scales.
 
 <figure>
-  <img src="/assets/images/nuopc/coupling_explict.png"/>
+  <img src="/assets/images/nuopc/coupling_explicit.png" style="width:200px"/>
   <figcaption>
      A very basic run sequence is that of an ATM-OCN model with simple
      explicit coupling. In this simple model, coupling is achieved by two
@@ -148,7 +148,7 @@ complex sequences with multiple time scales.
 </figure>
 
 <figure>
-  <img src="/assets/images/nuopc/coupling_leapfrog.png"/>
+  <img src="/assets/images/nuopc/coupling_leapfrog.png" style="width:200px"/>
   <figcaption>
     The NUOPC_RunSequence derived type used by the NUOPC Driver is capable
     of encoding complex semi-implicit and fully implicit coupling
@@ -160,7 +160,7 @@ complex sequences with multiple time scales.
 </figure>
 
 <figure>
-  <img src="/assets/images/nuopc/coupling_two_timescale.png"/>
+  <img src="/assets/images/nuopc/coupling_two_timescale.png" style="width:200px"/>
   <figcaption>
     It is not uncommon that coupling between multiple model components
     occurs on different timescales. The NUOPC_RunSequence derived type
