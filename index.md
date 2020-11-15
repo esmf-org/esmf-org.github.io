@@ -23,7 +23,7 @@ intro:
 
 feature_row:
   - image_path: /assets/images/puzzlemap.jpg
-    alt: "NUOPC logo"
+    alt: "NUOPC"
     title: "NUOPC Layer"
     excerpt: >
       The National Unified Operational Prediction Capability (NUOPC) Layer
@@ -33,8 +33,8 @@ feature_row:
     btn_label: "Read More"
     btn_class: "btn--primary"
   
-  - image_path: /assets/images/twospheres.jpg
-    alt: "Iso grid"
+  - image_path: /assets/images/twospheres.png
+    alt: "Regridding"
     title: "Grid Remapping"
     excerpt: >
       ESMF's grid remapping software generates and applies interpolation
@@ -43,10 +43,17 @@ feature_row:
     url: "/regrid"
     btn_label: "Read More"
     btn_class: "btn--primary"
+
+  - image_path: /assets/images/globeteam.png
+    alt: "Projects"
+    title: "ESMF Projects"
+    excerpt: >
+      Learn about projects using ESMF to solve modeling challenges.
+    url: "/projects"
+    btn_label: "Coming Soon!"
+    btn_class: "btn--primary"
   
-#  - image_path: /assets/images/unsplash-gallery-image-3-th.jpg
-#    title: "Placeholder 3"
-#    excerpt: "This is some sample content that goes here with **Markdown** formatting."
+
 
 #{% include feature_row id="intro" type="center" %}
 ---
