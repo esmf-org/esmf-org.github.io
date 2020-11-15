@@ -49,7 +49,7 @@ feature_row:
     title: "ESMF Projects"
     excerpt: >
       Learn about our current projects.
-    url: "/projects"
+    url: "#coming-soon"
     btn_label: "Coming Soon!"
     btn_class: "btn--primary"
   
