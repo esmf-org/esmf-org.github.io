@@ -171,5 +171,107 @@ complex sequences with multiple time scales.
   </figcaption>
 </figure>
 
+**Sequential vs. Concurrent Components**
+
+The NUOPC Driver facilitates both sequential and concurrent execution
+of its children. The actual mode of execution between the children is
+determined by the combination of a technical and a scientific
+restriction. On the technical side, concurrent execution of any number
+of components is supported as long as they are all defined on mutually
+exclusive petLists. The petList of each child component can be set
+during an optional specialization of its parent Driver. As soon as two
+components share one common PET (Persistent Execution Thread) they
+will run sequentially, for the simple technical reason that a PET can
+only execute one stream of instructions at a time.
+
+Even when components are defined on mutually exclusive petLists,
+scientific restrictions will typically limit the extent to which they
+can truly execute concurrently. The scientific restrictions enter the
+system through data dependencies between components. In the simplest
+case there will be an associated coupling interval that determines how
+strongly such a data dependency synchronizes components that can in
+principle proceed independently, but need forcing fields from the
+other components from a previous time step. More complicated
+semi-implicit, leap-frog, or fully implicit schemes result in even
+stronger scientific restrictions.
+
+<figure>
+  <img src="/assets/images/nuopc/simple_concurrent.png" style="width:400px"/>
+  <figcaption>
+
+    The first diagram under this heading shows how the Driver component
+    gives one half of the PETs to the ATM Model, and the other half to the
+    OCN Model. This sort of resource splitting supports concurrent
+    execution of ATM and OCN from the technical side. For simple explicit
+    coupling between the model components (see the "Driver: SIMPLE
+    EXPLICIT COUPLING" diagram under Run Sequence) the only scientific
+    restriction to concurrent execution comes from the coupling
+    interval. The exchange of the forcing fields through the generic
+    Connectors is indicated by the green arrows after each coupling time
+    interval. Within these restrictions, the ATM and OCN components can
+    execute concurrently. This case is demonstrated in the
+    AtmOcnPetListProto code.
+
+  </figcaption>
+</figure>
+
+<figure>
+  <img src="/assets/images/nuopc/simple_sequential.png" style="width:400px"/>
+  <figcaption>
+
+    Just a small modification, setting the petLists for ATM and OCN to
+    overlap in as little as a single PET, will force the same Driver to
+    run the ATM and OCN components sequentially. This scenario is shown in
+    the second diagram under this heading. It is important to realize that
+    the time axis in these diagrams is "execution time" instead of "model
+    time". Scientifically, i.e. in model time, the coupling is unchanged
+    and looks like shown in the "Driver: SIMPLE EXPLICIT COUPLING" diagram
+    under Run Sequence. However, along execution time either ATM or OCN
+    must go first due to the technical reason of overlapping
+    petLists. Here ATM was chosen to go before OCN.
+
+  </figcaption>
+</figure>
+
+
+**Multiple Instances of Components**
+
+The NUOPC Driver instantiates every child Component as its own
+object. This means that multiple instances of the same Component are
+supported. For example the same ATM component code can be instantiated
+multiple times, each instance becoming an independent component object
+with its own private memory, data distribution and petList.
+
+Being able to instantiate and manage the same component code multiple
+times within the same Driver can be leveraged in model ensembles as
+well as nested models. There are three nesting examples available:
+NestingSingleProto, NestingMultipleProto, and
+NestingTelescopeMultipleProto.
+
+
+**Component Hierarchies**
+
+Components that interact as Models on one level can be implemented as
+Drivers with their own child Model components on a lower level. For
+instance, the ATM Model component can be implemented as a Driver for
+its child components: dynamics and physics. At the same time the ATM
+component can be used as a Model component by its parent component.
+
+<figure>
+  <img src="/assets/images/nuopc/hierarchy.png" style="width:350px"/>
+</figure>
+
+Another application of component hierarchies is that of interactive
+ensembles. Here multiple Model components (maybe multiple instances of
+the same Model, or instances of different Models) are executing while
+they may appear as a single Model to the outside. For example an
+ensemble of ATM Models may interact with a single OCN Model. In this
+case it may be very convenient to pack all of the complexity of the
+ATM ensemble into an encapsulating Driver component. To the outside,
+i.e. for interaction with the OCN Model, the ensemble component
+appears as a simple ATM Model.
+
+
+
 ### Prototype Applications
 
