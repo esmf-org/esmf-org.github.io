@@ -8,7 +8,8 @@ toc: true
 ### Overview
 
 ESMPy is a Python interface to the Earth System Modeling Framework
-(ESMF) regridding utility.
+(ESMF) regridding utility.  Click [here](/regrid/) for more information
+on ESMF regridding options, most of which are supported in ESMPy.
 
 ESMPy provides a Grid to represent single-tile logically rectangular
 coordinate data, a Mesh for unstructured coordinates, and a LocStream
