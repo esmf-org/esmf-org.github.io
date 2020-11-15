@@ -26,7 +26,7 @@ No separate download or installation is required.
 
 ### Features
 
-#### Four Basic Building Blocks
+**Four Basic Building Blocks**
 
 NUOPC applications are built on four
 basic kinds of generic components:
@@ -44,15 +44,14 @@ basic kinds of generic components:
   - **Connector:** Connects pairs of components, e.g. Model to/from Model, or
     Model to/from Mediator, and executes simple transforms (i.e., regrid or redistribution).
 
-#### Many Architectural Options
+**Many Architectural Options**
 
 The four basic building blocks can be arranged in many different
 ways. This allows applications to implement a wide range of model
 architectures, including ensembles, component hierarchies, and simple
 connections.
 
-![NUOPC Architectural
-Examples](/assets/images/nuopc/nuopc_arch_opts.png)
+![NUOPC Architectural Examples](/assets/images/nuopc/nuopc_arch_opts.png)
 *Some architectural possibilities are illustrated above.  Image **a** shows a
 simple atmosphere and ocean connection, set up without a mediator.
 Image **b** is based on the Navy COAMPS modeling system.  It shows a
