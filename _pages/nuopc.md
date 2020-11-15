@@ -275,7 +275,7 @@ appears as a simple ATM Model.
 
 ### Prototype Applications
 
-<table align="center" border="1" cellpadding="1" cellspacing="1" height="1959" style="width=800px;">
+<table align="center" cellpadding="1" cellspacing="1" style="width=800px;">
   <tbody>
     <tr>
       <td style="width:260px;text-align: center;">
@@ -303,11 +303,11 @@ appears as a simple ATM Model.
         </p>
       </td>
       <td style="text-align: center;">
-        <img alt="" src="/site_media/projects/nuopc/relationship_single.png" style="width: 90px; height: 77px;">
+        <img alt="" src="/assets/images/nuopc/relationship_single.png" style="width: 90px; height: 77px;">
       </td>
       <td>
         <p style=" text-align:center;">
-          <img alt="" src="/site_media/projects/nuopc/coupling_single.png" style="width: 350px; height: 161px; margin-left: 1px; margin-right: 1px; float: left;">
+          <img alt="" src="/assets/images/nuopc/coupling_single.png" style="width: 350px; height: 161px; margin-left: 1px; margin-right: 1px; float: left;">
         </p>
         <p>
           &nbsp;
@@ -335,11 +335,11 @@ appears as a simple ATM Model.
         </p>
       </td>
       <td style="width: 170px; text-align: center;">
-        <img alt="" src="/site_media/projects/nuopc/relationship_simple.png" style="width: 90px; height: 176px;">
+        <img alt="" src="/assets/images/nuopc/relationship_simple.png" style="width: 90px; height: 176px;">
       </td>
       <td style="width: 370px;">
         <p>
-          <img alt="" src="/site_media/projects/nuopc/coupling_explicit.png" style="width: 350px; height: 219px; float: left; margin-left: 1px; margin-right: 1px;">
+          <img alt="" src="/assets/images/nuopc/coupling_explicit.png" style="width: 350px; height: 219px; float: left; margin-left: 1px; margin-right: 1px;">
         </p>
       </td>
     </tr>
@@ -361,11 +361,11 @@ appears as a simple ATM Model.
         </p>
       </td>
       <td style="width: 170px; text-align: center;">
-        <img alt="" src="/site_media/projects/nuopc/relationship_simpleMediator.png" style="width: 150px; height: 108px;">
+        <img alt="" src="/assets/images/nuopc/relationship_simpleMediator.png" style="width: 150px; height: 108px;">
       </td>
       <td style="width: 370px;">
         <p>
-          <img alt="" src="/site_media/projects/nuopc/coupling_simpleMediator.png" style="width: 350px; height: 279px; float: left; margin-left: 1px; margin-right: 1px;">
+          <img alt="" src="/assets/images/nuopc/coupling_simpleMediator.png" style="width: 350px; height: 279px; float: left; margin-left: 1px; margin-right: 1px;">
         </p>
       </td>
     </tr>
@@ -385,11 +385,11 @@ appears as a simple ATM Model.
         </p>
       </td>
       <td style="width: 170px; text-align: center;">
-        <img alt="" src="/site_media/projects/nuopc/relationship_simpleThree.png" style="width: 150px; height: 145px;">
+        <img alt="" src="/assets/images/nuopc/relationship_simpleThree.png" style="width: 150px; height: 145px;">
       </td>
       <td style="width: 370px; text-align: center;">
         <p>
-          <img alt="" src="/site_media/projects/nuopc/coupling_simpleThree.png" style="width: 350px; height: 243px; float: left; margin-left: 1px; margin-right: 1px;">
+          <img alt="" src="/assets/images/nuopc/coupling_simpleThree.png" style="width: 350px; height: 243px; float: left; margin-left: 1px; margin-right: 1px;">
         </p>
       </td>
     </tr>
@@ -408,11 +408,11 @@ appears as a simple ATM Model.
         </p>
       </td>
       <td style="width: 170px; text-align: center;">
-        <img alt="" src="/site_media/projects/nuopc/relationship_simple.png" style="width: 90px; height: 176px;">
+        <img alt="" src="/assets/images/nuopc/relationship_simple.png" style="width: 90px; height: 176px;">
       </td>
       <td style="width: 370px; text-align: center;">
         <p style="text-align: left;">
-          <img alt="" src="/site_media/projects/nuopc/coupling_simpleLeapfrog.png" style="width: 350px; height: 252px; float: left; margin-left: 1px; margin-right: 1px;">
+          <img alt="" src="/assets/images/nuopc/coupling_simpleLeapfrog.png" style="width: 350px; height: 252px; float: left; margin-left: 1px; margin-right: 1px;">
         </p>
       </td>
     </tr>
@@ -431,11 +431,11 @@ appears as a simple ATM Model.
         </p>
       </td>
       <td style="width: 170px; text-align: center;">
-        <img alt="" src="/site_media/projects/nuopc/relationship_simple.png" style="width: 90px; height: 176px;">
+        <img alt="" src="/assets/images/nuopc/relationship_simple.png" style="width: 90px; height: 176px;">
       </td>
       <td style="width: 370px; text-align: center;">
         <p>
-          <img alt="" src="/site_media/projects/nuopc/coupling_implicit.png" style="width: 350px; height: 275px; float: left; margin-left: 1px; margin-right: 1px;">
+          <img alt="" src="/assets/images/nuopc/coupling_implicit.png" style="width: 350px; height: 275px; float: left; margin-left: 1px; margin-right: 1px;">
         </p>
       </td>
     </tr>
@@ -454,11 +454,11 @@ appears as a simple ATM Model.
         </p>
       </td>
       <td style="width: 170px; text-align: center;">
-        <img alt="" src="/site_media/projects/nuopc/relationship_simpleTwotime.png" style="width: 150px; height: 161px;">
+        <img alt="" src="/assets/images/nuopc/relationship_simpleTwotime.png" style="width: 150px; height: 161px;">
       </td>
       <td style="width:370px;text-align:center;">
         <p style="text-align: left;">
-          <img alt="" src="/site_media/projects/nuopc/coupling_simpleTwotime.png" style="width: 350px; height: 302px; float: left; margin-left: 1px; margin-right: 1px;">
+          <img alt="" src="/assets/images/nuopc/coupling_simpleTwotime.png" style="width: 350px; height: 302px; float: left; margin-left: 1px; margin-right: 1px;">
         </p>
       </td>
     </tr>
