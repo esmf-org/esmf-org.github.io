@@ -3,14 +3,13 @@ layout: splash
 title: "High Performance Modeling Infrastructure"
 header:
   overlay_color: "#34668a"
-  overlay_filter: "0.2"
-  overlay_image: /assets/images/worldgrid.jpg
+  #overlay_filter: "0.2"
+  overlay_image: /assets/images/earthmoon.jpg
   actions:
     - label: "Download"
       url: "/download"
     - label: "Docs"
       url: "/doc/"
-  #caption: "Photo by Adam Bouse on Unsplash"
 excerpt: "A framework for building coupled Earth System Models from interoperable components."
 
 #<small><a href="releases/8_0">Latest release v8.0</a></small>
@@ -23,7 +22,7 @@ intro:
        structures and utilities for developing individual models.
 
 feature_row:
-  - image_path: /assets/images/binarymap.png
+  - image_path: /assets/images/puzzlemap.jpg
     alt: "NUOPC logo"
     title: "NUOPC Layer"
     excerpt: >
