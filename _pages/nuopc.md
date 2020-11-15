@@ -90,8 +90,8 @@ below for the coupled ATM-OCN model.
 ![Init Phase Sequence](/assets/images/nuopc/init_phase_seq.png)
 
 The diagram above shows an ATM preparing to send
-air_pressure_at_sea_level to an OCN, and an OCN preparing to send
-sea_surface_temperature to an ATM. The Import States (Fields to be
+`air_pressure_at_sea_level` to an OCN, and an OCN preparing to send
+`sea_surface_temperature` to an ATM. The Import States (Fields to be
 received) for the Models above are indicated with a red box and line,
 and the Export States (Fields to be sent) by a dark blue box and line.
 
