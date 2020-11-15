@@ -275,6 +275,28 @@ appears as a simple ATM Model.
 
 ### Prototype Applications
 
+This section contains descriptions and links to example codes that are
+available from the [NUOPC prototype
+repository](https://github.com/esmf-org/nuopc-app-prototypes). The
+prototype codes demonstrate how the four building blocks of the NUOPC
+Layer can be used to implement a number of different architectures.
+For each architecture class the "relationship diagram" shows the
+number and types of components involved, and how they relate to each
+other.  The "coupling diagram" shows the temporal aspect of the
+coupling between model components along the model time axis.  In a
+coupling diagram the same connectors (green arrows) show up multiple
+times.
+
+The sample prototypes linked on this page correspond to the ESMF/NUOPC
+8.0.1 release. There are dozens of other documented prototypes in the
+repository!
+
+```bash
+# clone all NUOPC prototypes for 8.0.1 release
+git clone https://github.com/esmf-org/nuopc-app-prototypes --branch ESMF_8_0_1
+```
+
+
 <table align="center" cellpadding="1" cellspacing="1" style="width=800px;">
   <tbody>
     <tr>
