@@ -196,7 +196,7 @@ semi-implicit, leap-frog, or fully implicit schemes result in even
 stronger scientific restrictions.
 
 <figure>
-  <img src="/assets/images/nuopc/simple_concurrent.png" style="width:400px"/>
+  <img src="/assets/images/nuopc/simple_concurrent.png" style="width:300px"/>
   <figcaption>
 
     The first diagram under this heading shows how the Driver component
@@ -216,7 +216,7 @@ stronger scientific restrictions.
 </figure>
 
 <figure>
-  <img src="/assets/images/nuopc/simple_sequential.png" style="width:400px"/>
+  <img src="/assets/images/nuopc/simple_sequential.png" style="width:300px"/>
   <figcaption>
 
     Just a small modification, setting the petLists for ATM and OCN to
@@ -258,7 +258,7 @@ its child components: dynamics and physics. At the same time the ATM
 component can be used as a Model component by its parent component.
 
 <figure>
-  <img src="/assets/images/nuopc/hierarchy.png" style="width:350px"/>
+  <img src="/assets/images/nuopc/hierarchy.png" style="width:150px"/>
 </figure>
 
 Another application of component hierarchies is that of interactive
