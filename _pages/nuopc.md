@@ -275,3 +275,192 @@ appears as a simple ATM Model.
 
 ### Prototype Applications
 
+<table align="center" border="1" cellpadding="1" cellspacing="1" height="1959" style="width=800px;">
+  <tbody>
+    <tr>
+      <td style="width:260px;text-align: center;">
+        <strong>Description / Links</strong>
+      </td>
+      <td style="width:170px;text-align: center;">
+        <strong>Relationship Diagram</strong>
+      </td>
+      <td style="width:370px;text-align: center;">
+        <strong>Coupling Diagram</strong>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:260px;">
+        <p>
+          A single NUOPC_Model component is driven by a NUOPC_Driver.
+        </p>
+        <ul>
+          <li>
+            <a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/main/SingleModelProto/">SingleModelProto</a>
+          </li>
+        </ul>
+        <p>
+          <strong>About the coupling</strong>: &nbsp;A single model component is being called by the driver in regular intervals. There is no coupling.
+        </p>
+      </td>
+      <td style="text-align: center;">
+        <img alt="" src="/site_media/projects/nuopc/relationship_single.png" style="width: 90px; height: 77px;">
+      </td>
+      <td>
+        <p style=" text-align:center;">
+          <img alt="" src="/site_media/projects/nuopc/coupling_single.png" style="width: 350px; height: 161px; margin-left: 1px; margin-right: 1px; float: left;">
+        </p>
+        <p>
+          &nbsp;
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:260px;">
+        <p>
+          ATM-OCN coupling through generic connectors. The dependencies in both coupling directions are explicit.
+        </p>
+        <ul>
+          <li>
+            <a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/main/AtmOcnProto/">AtmOcnProto</a>: &nbsp;ATM and OCN are defined across all PETs.
+          </li>
+          <li>
+            <a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/main/AtmOcnPetListProto/">AtmOcnPetListProto</a>: &nbsp;ATM and OCN are defined on different PETs.
+          </li>
+          <li>
+            <a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/main/AtmOcnConProto/">AtmOcnConProto</a>: &nbsp;Generic connectors are specialized by user code.
+          </li>
+        </ul>
+        <p>
+          <strong>About the coupling</strong>: &nbsp;Simple explicit coupling requires that ATM and OCN Fields are exchanged in both directions at the beginning of each coupling interval. This exchange is accomplished via connector components.
+        </p>
+      </td>
+      <td style="width: 170px; text-align: center;">
+        <img alt="" src="/site_media/projects/nuopc/relationship_simple.png" style="width: 90px; height: 176px;">
+      </td>
+      <td style="width: 370px;">
+        <p>
+          <img alt="" src="/site_media/projects/nuopc/coupling_explicit.png" style="width: 350px; height: 219px; float: left; margin-left: 1px; margin-right: 1px;">
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:260px;">
+        <p>
+          ATM-OCN coupling through a mediator. The dependencies in both coupling directions are explicit.
+        </p>
+        <ul>
+          <li>
+            <a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/main/AtmOcnMedProto/">AtmOcnMedProto</a>: &nbsp;ATM, OCN, and Mediator are defined across all PETs.
+          </li>
+          <li>
+            <a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/main/AtmOcnMedPetListProto/">AtmOcnMedPetListProto</a>: &nbsp;ATM, OCN, and Mediator are defined on different PETs.
+          </li>
+        </ul>
+        <p>
+          <strong>About the coupling</strong>: &nbsp;Connector components transfer ATM and OCN Fields to the Mediator at the beginning of each coupling interval. The Mediator processes this input and connector components transfer the Mediator output back to the model components. The model components then integrate forward for one coupling interval before the same process is repeated.
+        </p>
+      </td>
+      <td style="width: 170px; text-align: center;">
+        <img alt="" src="/site_media/projects/nuopc/relationship_simpleMediator.png" style="width: 150px; height: 108px;">
+      </td>
+      <td style="width: 370px;">
+        <p>
+          <img alt="" src="/site_media/projects/nuopc/coupling_simpleMediator.png" style="width: 350px; height: 279px; float: left; margin-left: 1px; margin-right: 1px;">
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:260px;">
+        <p>
+          ATM-OCN-LND coupling through generic connectors. The dependencies in all coupling directions are explicit.
+        </p>
+        <ul>
+          <li>
+            <a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/main/AtmOcnLndProto/">AtmOcnLndProto</a><br>
+            The driver component directly derives from NUOPC_Driver.
+          </li>
+        </ul>
+        <p>
+          <strong>About the coupling</strong>: &nbsp;All three model components participate in an all-to-all exchange via the six connector components at the beginning of every coupling interval.
+        </p>
+      </td>
+      <td style="width: 170px; text-align: center;">
+        <img alt="" src="/site_media/projects/nuopc/relationship_simpleThree.png" style="width: 150px; height: 145px;">
+      </td>
+      <td style="width: 370px; text-align: center;">
+        <p>
+          <img alt="" src="/site_media/projects/nuopc/coupling_simpleThree.png" style="width: 350px; height: 243px; float: left; margin-left: 1px; margin-right: 1px;">
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:260px;">
+        <p>
+          ATM-OCN coupling through generic connectors with semi-implicit dependencies: the OCN-to-ATM coupling direction is explicit, while the ATM-to-OCN coupling direction is implicit. The OCN requires the ATM forcing fields for time t+tc before it can take its t → t+tc forward step (tc is the coupling interval). This scheme is also referred to as leap-frog coupling.
+        </p>
+        <ul>
+          <li>
+            <a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/main/AtmOcnSimpleImplicitProto/">AtmOcnSimpleImplicitProto</a>
+          </li>
+        </ul>
+        <p>
+          <strong>About the coupling</strong>: &nbsp;The leap-frog coupling scheme requires that the connector in one direction (here ATM⇒OCN) is called&nbsp;<em>after</em>&nbsp;the producer (here ATM) has taken its forward step, but before the consumer (here OCN) can take its foward step. The connector in the other direction is executed when both model components have reached the same model time.
+        </p>
+      </td>
+      <td style="width: 170px; text-align: center;">
+        <img alt="" src="/site_media/projects/nuopc/relationship_simple.png" style="width: 90px; height: 176px;">
+      </td>
+      <td style="width: 370px; text-align: center;">
+        <p style="text-align: left;">
+          <img alt="" src="/site_media/projects/nuopc/coupling_simpleLeapfrog.png" style="width: 350px; height: 252px; float: left; margin-left: 1px; margin-right: 1px;">
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:260px;text-align:center;">
+        <p style="text-align: left;">
+          ATM-OCN coupling through generic connectors with implicit dependencies in both coupling directions. The ATM model provides Run phases for up- and down-sweep, and the OCN provides Run phases for slow and fast processes.
+        </p>
+        <ul>
+          <li style="text-align: left;">
+            <a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/main/AtmOcnImplicitProto/">AtmOcnImplicitProto</a>
+          </li>
+        </ul>
+        <p style="text-align: left;">
+          <strong>About the coupling</strong>: &nbsp;The ATM model implements an implicit scheme that requires "down" and "up" sweeps through the atmosphere. However, at the interface, i.e. after each "down" sweep it must couple to the fast processes on the OCN side (sea-ice) before it can continue with the "up" sweep. Connectors are used to correctly exchange the Fields between these processes. This process continues until the slow coupling interval has been reached. The connector ensures that the ATM Fields are available when the OCN integrates forward its slow processes.
+        </p>
+      </td>
+      <td style="width: 170px; text-align: center;">
+        <img alt="" src="/site_media/projects/nuopc/relationship_simple.png" style="width: 90px; height: 176px;">
+      </td>
+      <td style="width: 370px; text-align: center;">
+        <p>
+          <img alt="" src="/site_media/projects/nuopc/coupling_implicit.png" style="width: 350px; height: 275px; float: left; margin-left: 1px; margin-right: 1px;">
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:260px;text-align:center;">
+        <p style="text-align: left;">
+          ATM-OCN-RTM coupling through generic connectors. The dependencies in all coupling directions are explicit. Coupling of ATM and OCN with the RTM component is on a different (longer) timescale as the ATM-OCN coupling.
+        </p>
+        <ul>
+          <li style="text-align: left;">
+            <a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/main/AtmOcnRtmTwoTimescalesProto/">AtmOcnRtmTwoTimescalesProto</a>
+          </li>
+        </ul>
+        <p style="text-align: left;">
+          <strong>About the coupling</strong>:&nbsp; The ATM-OCN coupling cycle is a simple explicit scheme with a connector component for each direction, executed every 3 hours. The connectors for ATM⇒RTM and RTM⇒OCN coupling are called every 24 hours.
+        </p>
+      </td>
+      <td style="width: 170px; text-align: center;">
+        <img alt="" src="/site_media/projects/nuopc/relationship_simpleTwotime.png" style="width: 150px; height: 161px;">
+      </td>
+      <td style="width:370px;text-align:center;">
+        <p style="text-align: left;">
+          <img alt="" src="/site_media/projects/nuopc/coupling_simpleTwotime.png" style="width: 350px; height: 302px; float: left; margin-left: 1px; margin-right: 1px;">
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
