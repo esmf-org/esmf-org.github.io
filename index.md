@@ -4,13 +4,12 @@ title: "High Performance Modeling Infrastructure"
 header:
   overlay_color: "#34668a"
   #overlay_filter: "0.2"
-  overlay_image: /assets/images/worldgrid.jpg
+  overlay_image: /assets/images/earthmoon.jpg
   actions:
     - label: "Download"
       url: "/download"
     - label: "Docs"
       url: "/doc/"
-  #caption: "Photo by Adam Bouse on Unsplash"
 excerpt: "A framework for building coupled Earth System Models from interoperable components."
 
 #<small><a href="releases/8_0">Latest release v8.0</a></small>
@@ -23,8 +22,8 @@ intro:
        structures and utilities for developing individual models.
 
 feature_row:
-  - image_path: /assets/images/NUOPC.jpg
-    alt: "NUOPC logo"
+  - image_path: /assets/images/puzzlemap.jpg
+    alt: "NUOPC"
     title: "NUOPC Layer"
     excerpt: >
       The National Unified Operational Prediction Capability (NUOPC) Layer
@@ -34,8 +33,8 @@ feature_row:
     btn_label: "Read More"
     btn_class: "btn--primary"
   
-  - image_path: /assets/images/globalgrid.jpg
-    alt: "Iso grid"
+  - image_path: /assets/images/twospheres.png
+    alt: "Regridding"
     title: "Grid Remapping"
     excerpt: >
       ESMF's grid remapping software generates and applies interpolation
@@ -44,10 +43,17 @@ feature_row:
     url: "/regrid"
     btn_label: "Read More"
     btn_class: "btn--primary"
+
+  - image_path: /assets/images/chalkshake.jpg
+    alt: "Projects"
+    title: "ESMF Projects"
+    excerpt: >
+      Learn about our current projects.
+    url: "#coming-soon"
+    btn_label: "Coming Soon!"
+    btn_class: "btn--primary"
   
-#  - image_path: /assets/images/unsplash-gallery-image-3-th.jpg
-#    title: "Placeholder 3"
-#    excerpt: "This is some sample content that goes here with **Markdown** formatting."
+
 
 #{% include feature_row id="intro" type="center" %}
 ---
