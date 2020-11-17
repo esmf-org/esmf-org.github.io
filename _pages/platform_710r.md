@@ -66,7 +66,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Theia_intel.html">Cray CS400 Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Theia_intel.html">Cray CS400 Cluster</a>
           </td>
           <td>
             Theia
@@ -92,7 +92,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Theia_PGI.html">Cray CS400 Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Theia_PGI.html">Cray CS400 Cluster</a>
           </td>
           <td>
             Theia
@@ -118,7 +118,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Edison_XC30_gfortran.html">Cray XC30</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Edison_XC30_gfortran.html">Cray XC30</a>
           </td>
           <td>
             Edison
@@ -144,7 +144,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Edison_XC30_intel.html">Cray XC30</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Edison_XC30_intel.html">Cray XC30</a>
           </td>
           <td>
             Edison
@@ -170,7 +170,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Cori_XC40_gfortan.html">Cray XC40</a>&nbsp; &nbsp;
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Cori_XC40_gfortan.html">Cray XC40</a>&nbsp; &nbsp;
           </td>
           <td>
             Cori
@@ -196,7 +196,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Cray_Gaea_XE6_gfortran.html">Cray XE6</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Cray_Gaea_XE6_gfortran.html">Cray XE6</a>
           </td>
           <td>
             Gaea
@@ -222,7 +222,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Cray_Gaea_XE6_intel.html">Cray XE6</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Cray_Gaea_XE6_intel.html">Cray XE6</a>
           </td>
           <td>
             Gaea
@@ -248,7 +248,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Titan_XK7_gfortran.html">Cray XK7</a>,&nbsp;<a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Ext_Demos_Titan_XK7_gfortran.html">external_demos</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Titan_XK7_gfortran.html">Cray XK7</a>,&nbsp;<a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Ext_Demos_Titan_XK7_gfortran.html">external_demos</a>
           </td>
           <td>
             Titan
@@ -274,7 +274,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Titan_XK7_intel.html">Cray XK7</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Titan_XK7_intel.html">Cray XK7</a>
           </td>
           <td>
             Titan
@@ -300,7 +300,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Titan_XK7_PGI.html">Cray XK7</a>,&nbsp;<a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Ext_Demos_Titan_XK7_PGI.html">external_demos</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Titan_XK7_PGI.html">Cray XK7</a>,&nbsp;<a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Ext_Demos_Titan_XK7_PGI.html">external_demos</a>
           </td>
           <td>
             Titan
@@ -326,7 +326,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Eris_gfortran.html">Mac Xeon(64)</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Eris_gfortran.html">Mac Xeon(64)</a>
           </td>
           <td>
             Eris
@@ -352,7 +352,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Eris_gfortran_openmpi.html">Mac Xeon(64)</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Eris_gfortran_openmpi.html">Mac Xeon(64)</a>
           </td>
           <td>
             Eris
@@ -378,7 +378,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Eris_gfortranclang.html">Mac Xeon(64)</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Eris_gfortranclang.html">Mac Xeon(64)</a>
           </td>
           <td>
             Eris
@@ -404,7 +404,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Eris_intel.html">Mac Xeon(64)</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Eris_intel.html">Mac Xeon(64)</a>
           </td>
           <td>
             Eris
@@ -430,7 +430,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Eris_NAG.html">Mac Xeon(64)</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Eris_NAG.html">Mac Xeon(64)</a>
           </td>
           <td>
             Eris
@@ -456,7 +456,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Haumea_gfrtran.html">Mac Xeon(64)</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Haumea_gfrtran.html">Mac Xeon(64)</a>
           </td>
           <td>
             Haumea
@@ -482,7 +482,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Haumea_NAG.html">Mac Xeon(64)</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Haumea_NAG.html">Mac Xeon(64)</a>
           </td>
           <td>
             Haumea
@@ -508,7 +508,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Pluto_g95.html">PC Xeon(64)</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Pluto_g95.html">PC Xeon(64)</a>
           </td>
           <td>
             Pluto
@@ -535,10 +535,10 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Pluto_gfortran.html">PC Xeon(64)</a>,&nbsp;<a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_ESMPy2_Pluto_gfortran.html">esmpy-2.6.9</a><a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_ESMPy2_Pluto_gfortran.html">,</a><br>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_ESMPY_Pluto_gfortran.html">esmpy-2.7.2</a>,&nbsp;<a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_ESMPy3_Pluto_gfortran.html">esmpy-3.3.5</a>,<br>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Ext_Demos_Pluto_gfortran">external_demos</a>,&nbsp;<a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_NUOPC_Pluto_gfortran.html">nuopc_prototypes</a><a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_NUOPC_Pluto_gfortran.html">,</a><br>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Use_Test_Cases_Pluto_gfortran.html">use_test_cases</a>,&nbsp;<a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Tutorial_Pluto_gfortran.html">tutorial</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Pluto_gfortran.html">PC Xeon(64)</a>,&nbsp;<a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_ESMPy2_Pluto_gfortran.html">esmpy-2.6.9</a><a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_ESMPy2_Pluto_gfortran.html">,</a><br>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_ESMPY_Pluto_gfortran.html">esmpy-2.7.2</a>,&nbsp;<a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_ESMPy3_Pluto_gfortran.html">esmpy-3.3.5</a>,<br>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Ext_Demos_Pluto_gfortran">external_demos</a>,&nbsp;<a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_NUOPC_Pluto_gfortran.html">nuopc_prototypes</a><a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_NUOPC_Pluto_gfortran.html">,</a><br>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Use_Test_Cases_Pluto_gfortran.html">use_test_cases</a>,&nbsp;<a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Tutorial_Pluto_gfortran.html">tutorial</a>
           </td>
           <td>
             Pluto
@@ -565,7 +565,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_NESII-WIN1_Cygwin64_gfortran.html">PC Xeon(64)</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_NESII-WIN1_Cygwin64_gfortran.html">PC Xeon(64)</a>
           </td>
           <td>
             NESII-WIN1
@@ -591,7 +591,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Bebop_NAG.html">PC Xeon(64) Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Bebop_NAG.html">PC Xeon(64) Cluster</a>
           </td>
           <td>
             Bebop
@@ -617,7 +617,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Bebop_PGI.html">PC Xeon(64) Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Bebop_PGI.html">PC Xeon(64) Cluster</a>
           </td>
           <td>
             Bebop
@@ -643,7 +643,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Discover_gfortran.html">PC Xeon(64) Cluster</a>,&nbsp;<a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_ESMPy_Discover_gfortran.html">esmpy</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Discover_gfortran.html">PC Xeon(64) Cluster</a>,&nbsp;<a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_ESMPy_Discover_gfortran.html">esmpy</a>
           </td>
           <td>
             Discover
@@ -669,7 +669,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Discover_intel_mpiuni.html">PC Xeon(64) Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Discover_intel_mpiuni.html">PC Xeon(64) Cluster</a>
           </td>
           <td>
             Discover
@@ -695,7 +695,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Discover_intel_intelmpi.html">PC Xeon(64) Cluster</a>,&nbsp;<a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_MAPL_Discover_intel.html">mapl</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Discover_intel_intelmpi.html">PC Xeon(64) Cluster</a>,&nbsp;<a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_MAPL_Discover_intel.html">mapl</a>
           </td>
           <td>
             Discover
@@ -721,7 +721,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Discover_intel_mvapich2.html">PC Xeon(64) Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Discover_intel_mvapich2.html">PC Xeon(64) Cluster</a>
           </td>
           <td>
             Discover
@@ -747,7 +747,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Discover_intel_openmpi.html">PC Xeon(64) Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Discover_intel_openmpi.html">PC Xeon(64) Cluster</a>
           </td>
           <td>
             Discover
@@ -773,7 +773,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Discover_NAG.html">PC Xeon(64) Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Discover_NAG.html">PC Xeon(64) Cluster</a>
           </td>
           <td>
             Discover
@@ -799,7 +799,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Discover_PGI_openmpi.html">PC Xeon(64) Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Discover_PGI_openmpi.html">PC Xeon(64) Cluster</a>
           </td>
           <td>
             Discover
@@ -825,7 +825,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Discover_PGI_mvapich2.html">PC Xeon(64) Cluster</a>,&nbsp;<a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Ext_Demos_Discover_PGI.html">external_demos</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Discover_PGI_mvapich2.html">PC Xeon(64) Cluster</a>,&nbsp;<a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Ext_Demos_Discover_PGI.html">external_demos</a>
           </td>
           <td>
             Discover
@@ -851,7 +851,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Jet_intel.html">PC Xeon(64) Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Jet_intel.html">PC Xeon(64) Cluster</a>
           </td>
           <td>
             Jet
@@ -877,7 +877,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Jet_PGI.html">PC Xeon(64) Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Jet_PGI.html">PC Xeon(64) Cluster</a>
           </td>
           <td>
             Jet
@@ -903,7 +903,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Cheyenne_gfortran.html">SGI ICE XA Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Cheyenne_gfortran.html">SGI ICE XA Cluster</a>
           </td>
           <td>
             Cheyenne
@@ -929,7 +929,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Electra_gfortran.html">SGI ICE X Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Electra_gfortran.html">SGI ICE X Cluster</a>
           </td>
           <td>
             Electra
@@ -955,7 +955,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Electra_intel.html">SGI ICE X Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Electra_intel.html">SGI ICE X Cluster</a>
           </td>
           <td>
             Electra
@@ -981,7 +981,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Pleiades_gfortran.html">SGI ICE X Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Pleiades_gfortran.html">SGI ICE X Cluster</a>
           </td>
           <td>
             Pleiades
@@ -1007,7 +1007,7 @@ and does not correspond to a ESMF environment variable setting.
         </tr>
         <tr>
           <td>
-            <a href="http://www.earthsystemmodeling.org/download/platforms/reports/710r/710r_Pleiades_intel.html">SGI ICE X Cluster</a>
+            <a href="http://data.earthsystemmodeling.org/test_reports/710r/710r_Pleiades_intel.html">SGI ICE X Cluster</a>
           </td>
           <td>
             Pleiades
