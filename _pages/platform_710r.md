@@ -4,8 +4,6 @@ title: "ESMF 7.1.0r Supported Platforms"
 classes: wide
 ---
 
-### Overview
-
 The following table lists the precise combinations of platform,
 operating system, compiler, and MPI flavor the ESMF release was tested
 on. These combinations are considered fully supported. The number and
