@@ -28,19 +28,19 @@ testing. Note that the compiler information is provided as a reference
 and does not correspond to a ESMF environment variable setting.
 
 
-   <table class="tftable" border="1">
+   <table class="tighttable" border="1">
       <tbody>
         <tr colspan="3">
-          <th rowspan="2" style="width: 100px;">
+          <th rowspan="2">
             Platform
           </th>
-          <th rowspan="2" style="width: 100px;">
+          <th rowspan="2">
             Machine
           </th>
-          <th colspan="4" style="width: 160px;">
+          <th colspan="4">
             Environment Variables (ESMF_*)
           </th>
-          <th colspan="2" style="width: 200px;">
+          <th colspan="2">
             Compiler Specifics
           </th>
         </tr>
