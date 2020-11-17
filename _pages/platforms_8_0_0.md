@@ -1,5 +1,5 @@
 ---
-permalink: /release/platform_800
+permalink: /release/platforms_8_0_0
 title: "ESMF 8.0 Supported Platforms"
 classes: wide
 ---
