@@ -47,6 +47,23 @@ The top of each page has some metadata like this:
    ```
 The `permalink` attribute specifies the relative URL of the page, e.g., www.earthsystemmodeling.org/download/.
 
+The recommended approach to adding an entirely new page is to simply copy an existing *.md* file
+in the `_pages` directory and update the metadata at the top to give it a new URL.
+
+### Images
+
+Images are in the [assets/images](https://github.com/esmf-org/esmf-org.github.io/tree/master/assets/images)
+directory and subdirectories.
+
+These can be reference from a page using the HTML `<figure>` tag, e.g.,
+  
+  ```html
+    <figure>
+      <img src="/assets/images/nuopc/nuopc_arch_opts.png" alt="Arch Example"/>
+      <figcaption>My caption here.</figcaption>
+    </figure>
+  ```
+
 
 
 
