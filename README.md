@@ -16,10 +16,10 @@ about two minutes at: www.earthsystemmodeling.org
 - Edit files locally using a text editor
 - Commit and push changes back
 
-```bash
-git commit -a -m "my update"
-git push
-```
+  ```bash
+  git commit -a -m "my update"
+  git push
+  ```
 
 ### Site Template
 
@@ -31,7 +31,22 @@ layouts, etc., then these sites will be needed as a reference.
 
 ### Pages
 
-Most of the content on the site is in the `_pages` directory.  
+Most of the content on the site is in the `_pages` directory.  These
+pages use [Markdown syntax](https://www.markdownguide.org/cheat-sheet/), 
+so no HTML is required.  You can, however,
+include HTML if needed.  This can be handy for tables since these are
+a cumbersome to create with Markdown.
 
-  
-  
+The top of each page has some metadata like this:
+   ```
+   ---
+   permalink: /download/
+   title: "Download"
+   classes: wide
+   ---
+   ```
+The `permalink` attribute specifies the relative URL of the page, e.g., www.earthsystemmodeling.org/download/.
+
+
+
+
