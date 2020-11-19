@@ -1,5 +1,14 @@
 # ESMF Web Site
 
+This repository contains the contents of the ESMF web site, hosted at:
+**http://www.earthsystemmodeling.org**
+
+This is *not* the ESMF source code itself and is only intended to 
+by updated by members of the ESMF team.
+
+The ESMF source code itself is located at:
+https://github.com/esmf-org/esmf
+
 
 ## How to update the ESMF web site
 
