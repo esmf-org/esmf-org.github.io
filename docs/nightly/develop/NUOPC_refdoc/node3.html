@@ -2386,15 +2386,17 @@ The external NUOPC interface is currently defined by the Initialize, Run, and Fi
 Here <TT>methodFlag</TT> and <TT>phaseLabel</TT> corrsepond to the respective arguments of method <TT>NUOPC_CompSearchPhaseMap()</TT>. This method is used to determine the actual ESMF phase index needed when calling into <TT>ESMF_GridCompInitialize()</TT>, <TT>ESMF_GridCompRun()</TT>, or <TT>ESMF_GridCompFinalize()</TT>. In cases where no <TT>phaseLabel</TT> is indicated, the default phase is used for the implementation, accessible by not specifying the argument.
 
 <P>
-The following code example demonstrates typical use of the external interface.
+For a complete example of how the <EM>External NUOPC API</EM> is used in practice, see <TT><SMALL CLASS="SMALL">https://github.com/esmf-org/nuopc-app-prototypes/tree/develop/ExternalDriverAPIProto</SMALL></TT>. The following code snippets demonstrates the critical pieces of code from the external layer interacting with NUOPC/ESMF.
 
 <P>
 <PRE>
-  ! Create the import/export States
+  ! Create the external level import/export States
   ! NOTE: The "stateintent" must be specified, and it must be set from the
-  ! perspective of the external level!
+  ! perspective of the external level:
+  ! -&gt; state holding fields exported by the external level to the ESM component
   externalExportState = ESMF_StateCreate(stateintent=ESMF_STATEINTENT_EXPORT, rc=rc)
     ! check rc
+  ! -&gt; state holding fields imported by the external level from the ESM component
   externalImportState = ESMF_StateCreate(stateintent=ESMF_STATEINTENT_IMPORT, rc=rc)
     ! check rc
 
@@ -2428,14 +2430,16 @@ The following code example demonstrates typical use of the external interface.
     importState=externalExportState, exportState=externalImportState, userRc=urc, rc=rc)
     ! check rc and urc
 
-! Note: this is where time stepping would be implemented as a loop using clock
-
-  ! Run the earth system Component
-  call ESMF_GridCompRun(nuopcApp, clock=clock, &amp;
-    importState=externalExportState, exportState=externalImportState, userRc=urc, rc=rc)
+  ! Explicit time stepping loop on the external level, here based on ESMF_Clock
+  do while (.not.ESMF_ClockIsStopTime(clock, rc=rc))
+    ! Run the earth system Component: i.e. step ESM forward by timestep
+    call ESMF_GridCompRun(nuopcApp, clock=clock, &amp;
+      importState=externalExportState, exportState=externalImportState, userRc=urc, rc=rc)
     ! check rc and urc
-
-! End of time stepping loop if present
+    ! Advance the clock
+    call ESMF_ClockAdvance(clock, rc=rc)
+    ! check rc
+  end do
 
   ! Finalize the earth system Component
   call ESMF_GridCompFinalize(nuopcApp, clock=clock, &amp;
