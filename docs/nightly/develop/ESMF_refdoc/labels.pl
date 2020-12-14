@@ -2574,11 +2574,11 @@ $external_latex_labels{$key} = q|45.1|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:AppDriverIntProc/;
-$external_latex_labels{$key} = q|16.4.8|; 
+$external_latex_labels{$key} = q|16.4.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:AppDriverSetVM/;
-$external_latex_labels{$key} = q|16.4.7|; 
+$external_latex_labels{$key} = q|16.4.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:BasicProfiling/;
