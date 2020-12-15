@@ -5200,7 +5200,8 @@ The subroutine, when called by the framework, is expected to use any of the
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_GridCompSetVMMaxPEs(gridcomp, &amp;
-     maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, rc)
+     maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
+     minStackSize, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp), intent(inout)         :: gridcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -5208,6 +5209,7 @@ The subroutine, when called by the framework, is expected to use any of the
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
+     integer,             intent(in),  optional :: minStackSize
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -5257,6 +5259,18 @@ The arguments are:
      <EM>Currently options not documented. Use default.</EM>
    
 </DD>
+<DT><STRONG>[minStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
+     intention of executing user code. In case where OpenMP threads are used
+     under the user code, the combined stacks of all OpenMP threads must fit
+     inside each of the created Pthread stacks.
+     The default is to use the system default <EM>stacksize</EM> set by the
+     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
+     <EM>unlimited</EM> would result in usage of a very small system dependent
+     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
+     absolute minimum of 20MiB.
+   
+</DD>
 <DT><STRONG>[rc]</STRONG></DT>
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
    
@@ -5277,7 +5291,8 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_GridCompSetVMMaxThreads(gridcomp, &amp;
-     maxPetCountPerVas, prefIntraProcess, prefIntraSsi, prefInterSsi, rc)
+     maxPetCountPerVas, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
+     minStackSize, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp), intent(inout)         :: gridcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -5285,6 +5300,7 @@ The arguments are:
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
+     integer,             intent(in),  optional :: minStackSize
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -5336,6 +5352,18 @@ The arguments are:
      <EM>Currently options not documented. Use default.</EM>
    
 </DD>
+<DT><STRONG>[minStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
+     intention of executing user code. In case where OpenMP threads are used
+     under the user code, the combined stacks of all OpenMP threads must fit
+     inside each of the created Pthread stacks.
+     The default is to use the system default <EM>stacksize</EM> set by the
+     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
+     <EM>unlimited</EM> would result in usage of a very small system dependent
+     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
+     absolute minimum of 20MiB.
+   
+</DD>
 <DT><STRONG>[rc]</STRONG></DT>
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
    
@@ -5356,7 +5384,8 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_GridCompSetVMMinThreads(gridcomp, &amp;
-     maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, rc)
+     maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
+     minStackSize, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp), intent(inout)         :: gridcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -5364,6 +5393,7 @@ The arguments are:
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
+     integer,             intent(in),  optional :: minStackSize
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -5410,6 +5440,18 @@ The arguments are:
 <DT><STRONG>[prefInterSsi]</STRONG></DT>
 <DD>Communication preference between different single system images (SSIs).
      <EM>Currently options not documented. Use default.</EM>
+   
+</DD>
+<DT><STRONG>[minStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
+     intention of executing user code. In case where OpenMP threads are used
+     under the user code, the combined stacks of all OpenMP threads must fit
+     inside each of the created Pthread stacks.
+     The default is to use the system default <EM>stacksize</EM> set by the
+     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
+     <EM>unlimited</EM> would result in usage of a very small system dependent
+     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
+     absolute minimum of 20MiB.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -5747,7 +5789,7 @@ derived type within ESMF.  The user must create one of these types
 to represent a specific coupling function, such as the regular
 transfer of data between a data assimilation system and an 
 atmospheric model.  <A NAME="tex2html21"
-  HREF="footnode.html#foot7736"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="footnode.html#foot7775"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 The user-written part of a Coupler Component is associated with an
 <TT>ESMF_CplComp</TT> derived type through a routine called 
@@ -8173,7 +8215,8 @@ The subroutine, when called by the framework, is expected to use any of the
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_CplCompSetVMMaxPEs(cplcomp, &amp;
-     maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, rc)
+     maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
+     minStackSize, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_CplComp),  intent(inout)         :: cplcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -8181,6 +8224,7 @@ The subroutine, when called by the framework, is expected to use any of the
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
+     integer,             intent(in),  optional :: minStackSize
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -8230,6 +8274,18 @@ The arguments are:
      <EM>Currently options not documented. Use default.</EM>
    
 </DD>
+<DT><STRONG>[minStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
+     intention of executing user code. In case where OpenMP threads are used
+     under the user code, the combined stacks of all OpenMP threads must fit
+     inside each of the created Pthread stacks.
+     The default is to use the system default <EM>stacksize</EM> set by the
+     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
+     <EM>unlimited</EM> would result in usage of a very small system dependent
+     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
+     absolute minimum of 20MiB.
+   
+</DD>
 <DT><STRONG>[rc]</STRONG></DT>
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
    
@@ -8250,7 +8306,8 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_CplCompSetVMMaxThreads(cplcomp, &amp;
-     maxPetCountPerVas, prefIntraProcess, prefIntraSsi, prefInterSsi, rc)
+     maxPetCountPerVas, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
+     minStackSize, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_CplComp),  intent(inout)         :: cplcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -8258,6 +8315,7 @@ The arguments are:
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
+     integer,             intent(in),  optional :: minStackSize
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -8309,6 +8367,18 @@ The arguments are:
      <EM>Currently options not documented. Use default.</EM>
    
 </DD>
+<DT><STRONG>[minStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
+     intention of executing user code. In case where OpenMP threads are used
+     under the user code, the combined stacks of all OpenMP threads must fit
+     inside each of the created Pthread stacks.
+     The default is to use the system default <EM>stacksize</EM> set by the
+     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
+     <EM>unlimited</EM> would result in usage of a very small system dependent
+     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
+     absolute minimum of 20MiB.
+   
+</DD>
 <DT><STRONG>[rc]</STRONG></DT>
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
    
@@ -8329,7 +8399,8 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_CplCompSetVMMinThreads(cplcomp, &amp;
-     maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, rc)
+     maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
+     minStackSize, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_CplComp),  intent(inout)         :: cplcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -8337,6 +8408,7 @@ The arguments are:
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
+     integer,             intent(in),  optional :: minStackSize
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -8383,6 +8455,18 @@ The arguments are:
 <DT><STRONG>[prefInterSsi]</STRONG></DT>
 <DD>Communication preference between different single system images (SSIs).
      <EM>Currently options not documented. Use default.</EM>
+   
+</DD>
+<DT><STRONG>[minStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
+     intention of executing user code. In case where OpenMP threads are used
+     under the user code, the combined stacks of all OpenMP threads must fit
+     inside each of the created Pthread stacks.
+     The default is to use the system default <EM>stacksize</EM> set by the
+     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
+     <EM>unlimited</EM> would result in usage of a very small system dependent
+     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
+     absolute minimum of 20MiB.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -10663,7 +10747,7 @@ in that test:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12434"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12512"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10684,7 +10768,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12436"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12514"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10715,7 +10799,7 @@ Array object is empty, and the DELayout for the Grid is like this:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12438"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12516"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10736,7 +10820,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12440"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12518"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -13847,7 +13931,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="15847"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="15925"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
