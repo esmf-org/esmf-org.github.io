@@ -5261,14 +5261,24 @@ The arguments are:
 </DD>
 <DT><STRONG>[minStackSize]</STRONG></DT>
 <DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code. In case where OpenMP threads are used
-     under the user code, the combined stacks of all OpenMP threads must fit
-     inside each of the created Pthread stacks.
-     The default is to use the system default <EM>stacksize</EM> set by the
-     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
-     <EM>unlimited</EM> would result in usage of a very small system dependent
-     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
-     absolute minimum of 20MiB.
+     intention of executing user code as a PET. For cases where OpenMP threads
+     are used by the user code, each thread allocates its own private stack. For
+     all threads <EM>other</EM> than the master, the stack size is set via the 
+     typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
+     however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
+     affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
+     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
+     critical.
+
+<P>
+When <TT>minStackSize</TT> is absent, the default is to use the system default
+     set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
+     Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
+     <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
+     will result in setting the stack size to 20MiB (the ESMF minimum).
+     Depending on how much private data is used by the user code under
+     the master thread, the default might be too small, and <TT>minStackSize</TT>
+     must be used to allocate sufficient stack space.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -5354,14 +5364,24 @@ The arguments are:
 </DD>
 <DT><STRONG>[minStackSize]</STRONG></DT>
 <DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code. In case where OpenMP threads are used
-     under the user code, the combined stacks of all OpenMP threads must fit
-     inside each of the created Pthread stacks.
-     The default is to use the system default <EM>stacksize</EM> set by the
-     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
-     <EM>unlimited</EM> would result in usage of a very small system dependent
-     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
-     absolute minimum of 20MiB.
+     intention of executing user code as a PET. For cases where OpenMP threads
+     are used by the user code, each thread allocates its own private stack. For
+     all threads <EM>other</EM> than the master, the stack size is set via the 
+     typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
+     however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
+     affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
+     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
+     critical.
+
+<P>
+When <TT>minStackSize</TT> is absent, the default is to use the system default
+     set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
+     Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
+     <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
+     will result in setting the stack size to 20MiB (the ESMF minimum).
+     Depending on how much private data is used by the user code under
+     the master thread, the default might be too small, and <TT>minStackSize</TT>
+     must be used to allocate sufficient stack space.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -5444,14 +5464,24 @@ The arguments are:
 </DD>
 <DT><STRONG>[minStackSize]</STRONG></DT>
 <DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code. In case where OpenMP threads are used
-     under the user code, the combined stacks of all OpenMP threads must fit
-     inside each of the created Pthread stacks.
-     The default is to use the system default <EM>stacksize</EM> set by the
-     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
-     <EM>unlimited</EM> would result in usage of a very small system dependent
-     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
-     absolute minimum of 20MiB.
+     intention of executing user code as a PET. For cases where OpenMP threads
+     are used by the user code, each thread allocates its own private stack. For
+     all threads <EM>other</EM> than the master, the stack size is set via the 
+     typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
+     however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
+     affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
+     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
+     critical.
+
+<P>
+When <TT>minStackSize</TT> is absent, the default is to use the system default
+     set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
+     Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
+     <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
+     will result in setting the stack size to 20MiB (the ESMF minimum).
+     Depending on how much private data is used by the user code under
+     the master thread, the default might be too small, and <TT>minStackSize</TT>
+     must be used to allocate sufficient stack space.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -5789,7 +5819,7 @@ derived type within ESMF.  The user must create one of these types
 to represent a specific coupling function, such as the regular
 transfer of data between a data assimilation system and an 
 atmospheric model.  <A NAME="tex2html21"
-  HREF="footnode.html#foot7775"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="footnode.html#foot7844"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 The user-written part of a Coupler Component is associated with an
 <TT>ESMF_CplComp</TT> derived type through a routine called 
@@ -8276,14 +8306,24 @@ The arguments are:
 </DD>
 <DT><STRONG>[minStackSize]</STRONG></DT>
 <DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code. In case where OpenMP threads are used
-     under the user code, the combined stacks of all OpenMP threads must fit
-     inside each of the created Pthread stacks.
-     The default is to use the system default <EM>stacksize</EM> set by the
-     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
-     <EM>unlimited</EM> would result in usage of a very small system dependent
-     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
-     absolute minimum of 20MiB.
+     intention of executing user code as a PET. For cases where OpenMP threads
+     are used by the user code, each thread allocates its own private stack. For
+     all threads <EM>other</EM> than the master, the stack size is set via the 
+     typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
+     however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
+     affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
+     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
+     critical.
+
+<P>
+When <TT>minStackSize</TT> is absent, the default is to use the system default
+     set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
+     Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
+     <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
+     will result in setting the stack size to 20MiB (the ESMF minimum).
+     Depending on how much private data is used by the user code under
+     the master thread, the default might be too small, and <TT>minStackSize</TT>
+     must be used to allocate sufficient stack space.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -8369,14 +8409,24 @@ The arguments are:
 </DD>
 <DT><STRONG>[minStackSize]</STRONG></DT>
 <DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code. In case where OpenMP threads are used
-     under the user code, the combined stacks of all OpenMP threads must fit
-     inside each of the created Pthread stacks.
-     The default is to use the system default <EM>stacksize</EM> set by the
-     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
-     <EM>unlimited</EM> would result in usage of a very small system dependent
-     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
-     absolute minimum of 20MiB.
+     intention of executing user code as a PET. For cases where OpenMP threads
+     are used by the user code, each thread allocates its own private stack. For
+     all threads <EM>other</EM> than the master, the stack size is set via the 
+     typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
+     however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
+     affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
+     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
+     critical.
+
+<P>
+When <TT>minStackSize</TT> is absent, the default is to use the system default
+     set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
+     Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
+     <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
+     will result in setting the stack size to 20MiB (the ESMF minimum).
+     Depending on how much private data is used by the user code under
+     the master thread, the default might be too small, and <TT>minStackSize</TT>
+     must be used to allocate sufficient stack space.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -8459,14 +8509,24 @@ The arguments are:
 </DD>
 <DT><STRONG>[minStackSize]</STRONG></DT>
 <DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code. In case where OpenMP threads are used
-     under the user code, the combined stacks of all OpenMP threads must fit
-     inside each of the created Pthread stacks.
-     The default is to use the system default <EM>stacksize</EM> set by the
-     <TT>limit</TT> or <TT>ulimit</TT> command. However notice that a setting of
-     <EM>unlimited</EM> would result in usage of a very small system dependent
-     stack size (e.g. 2MiB on x86_64 Linux). ESMF therefore implements an
-     absolute minimum of 20MiB.
+     intention of executing user code as a PET. For cases where OpenMP threads
+     are used by the user code, each thread allocates its own private stack. For
+     all threads <EM>other</EM> than the master, the stack size is set via the 
+     typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
+     however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
+     affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
+     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
+     critical.
+
+<P>
+When <TT>minStackSize</TT> is absent, the default is to use the system default
+     set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
+     Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
+     <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
+     will result in setting the stack size to 20MiB (the ESMF minimum).
+     Depending on how much private data is used by the user code under
+     the master thread, the default might be too small, and <TT>minStackSize</TT>
+     must be used to allocate sufficient stack space.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -10747,7 +10807,7 @@ in that test:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12512"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12650"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10768,7 +10828,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12514"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12652"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10799,7 +10859,7 @@ Array object is empty, and the DELayout for the Grid is like this:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12516"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12654"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10820,7 +10880,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12518"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12656"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -13931,7 +13991,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="15925"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16063"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
