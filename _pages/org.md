@@ -1,10 +1,8 @@
 ---
 permalink: /organization/
 title: "ESMF Organization"
+classes: wide
 ---
-
-The ESMF organization is how the project coordinates across milestones, missions,
-reporting requirements and agencies.
 
 The **Executive Board** is the primary management body of the ESMF.  It sets the goals,
 scope, and strategic direction of the Project as a whole, and provides technical and
