@@ -5201,7 +5201,7 @@ The subroutine, when called by the framework, is expected to use any of the
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_GridCompSetVMMaxPEs(gridcomp, &amp;
      maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
-     minStackSize, rc)
+     minStackSize, openMpHandling, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp), intent(inout)         :: gridcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -5210,6 +5210,7 @@ The subroutine, when called by the framework, is expected to use any of the
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
      integer,             intent(in),  optional :: minStackSize
+     character(*),        intent(in),  optional :: openMpHandling
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -5279,6 +5280,10 @@ When <TT>minStackSize</TT> is absent, the default is to use the system default
      Depending on how much private data is used by the user code under
      the master thread, the default might be too small, and <TT>minStackSize</TT>
      must be used to allocate sufficient stack space.
+   
+</DD>
+<DT><STRONG>[openMpHandling]</STRONG></DT>
+<DD>Handling of OpenMP threads. Supported: "none", "set", "init", "pin" (default).
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -5819,7 +5824,7 @@ derived type within ESMF.  The user must create one of these types
 to represent a specific coupling function, such as the regular
 transfer of data between a data assimilation system and an 
 atmospheric model.  <A NAME="tex2html21"
-  HREF="footnode.html#foot7844"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="footnode.html#foot7845"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 The user-written part of a Coupler Component is associated with an
 <TT>ESMF_CplComp</TT> derived type through a routine called 
@@ -10807,7 +10812,7 @@ in that test:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12650"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12651"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10828,7 +10833,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12652"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12653"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10859,7 +10864,7 @@ Array object is empty, and the DELayout for the Grid is like this:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12654"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12655"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10880,7 +10885,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12656"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12657"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -13991,7 +13996,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16063"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16064"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
