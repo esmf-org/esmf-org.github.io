@@ -5,7 +5,7 @@ classes: wide
 ---
 
 *The ESMF organization is described in the [2020-2025 Project Plan](https://tinyurl.com/esmf-project-plan-2020).
-This page includes a brief overview of the organizational bodies* 
+This page includes a brief overview of the organizational bodies.* 
 
 ## Executive Management
 
