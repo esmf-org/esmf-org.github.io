@@ -11,7 +11,7 @@ This page includes a brief overview of the organizational bodies.*
 
 The **Executive Board** is the primary management body of the ESMF.  It sets the goals,
 scope, and strategic direction of the Project as a whole, and provides technical and
-scientific guidance on practical matters as they arise.  It's membership consists of
+scientific guidance on practical matters as they arise.  Its membership consists of
 leads from ESMF's collaborating organizations: NASA, NOAA, U.S. Navy, NCAR, and the
 National Earth System Prediction Capability (ESPC).
 
