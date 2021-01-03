@@ -29,6 +29,7 @@ about two minutes at: www.earthsystemmodeling.org
   git commit -a -m "my update"
   git push
   ```
+- The change usually takes a minutes or two to propagate so keep refreshing your browser
 
 ### Site Template
 
