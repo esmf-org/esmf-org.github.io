@@ -2,6 +2,10 @@
 # Associate internals original text with physical files.
 
 
+$key = q/AdvancedResourceControl/;
+$ref_files{$key} = "$dir".q|node3.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/Checker/;
 $ref_files{$key} = "$dir".q|node6.html|; 
 $noresave{$key} = "$nosave";

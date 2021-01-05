@@ -2,6 +2,10 @@
 # Associate labels original text with physical files.
 
 
+$key = q/AdvancedResourceControl/;
+$external_labels{$key} = "$URL/" . q|node3.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/Checker/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
@@ -177,6 +181,10 @@ $noresave{$key} = "$nosave";
 # labels from external_latex_labels array.
 
 
+$key = q/AdvancedResourceControl/;
+$external_latex_labels{$key} = q|2.7|; 
+$noresave{$key} = "$nosave";
+
 $key = q/Checker/;
 $external_latex_labels{$key} = q|5.1|; 
 $noresave{$key} = "$nosave";
@@ -206,7 +214,7 @@ $external_latex_labels{$key} = q|5.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/ExternalInterface/;
-$external_latex_labels{$key} = q|2.7|; 
+$external_latex_labels{$key} = q|2.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldMeta/;
