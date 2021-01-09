@@ -51422,8 +51422,7 @@ The parameters to this call <TT>nodeIds</TT>, <TT>nodeCoords</TT>, and
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_MeshCreate()
-     function ESMF_MeshCreate3Part(parametricDim, spatialDim, &amp;
-                                   coordSys, name, rc)
+     function ESMF_MeshCreate3Part(parametricDim, spatialDim, coordSys, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Mesh)                                 :: ESMF_MeshCreate3Part
 </PRE><EM>ARGUMENTS:</EM>
@@ -51459,7 +51458,7 @@ This call is <EM>collective</EM> across the current VM.
 <DD>The number of coordinate dimensions needed to describe the locations of the nodes
            making up the Mesh. For a manifold, the spatial dimension can be larger than the
            parametric dim (e.g. the 2D surface of a sphere in 3D space), but it can't be smaller.
-   
+     
 </DD>
 <DT><STRONG>[coordSys]</STRONG></DT>
 <DD>The coordinate system of the grid coordinate data.
@@ -51782,7 +51781,7 @@ This method currently only works for 2D Grids. In addition, this method requires
 <PRE>   ! Private name; call using ESMF_MeshCreate()
      function ESMF_MeshCreateFromFile(filename, fileformat, &amp;
                   convertToDual, addUserArea, maskFlag, varname, &amp;
-                  nodalDistgrid, elementDistgrid, rc)
+                  nodalDistgrid, elementDistgrid, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Mesh)         :: ESMF_MeshCreateFromFile
 </PRE><EM>ARGUMENTS:</EM>
@@ -51795,6 +51794,7 @@ This method currently only works for 2D Grids. In addition, this method requires
      character(len=*),           intent(in),  optional :: varname
      type(ESMF_DistGrid),        intent(in),  optional :: nodalDistgrid
      type(ESMF_DistGrid),        intent(in),  optional :: elementDistgrid
+     character(len=*),           intent(in),  optional :: name
      integer,                    intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -51860,6 +51860,10 @@ This call is <EM>collective</EM> across the current VM.
            the elements across the PETs.
      
 </DD>
+<DT><STRONG>[name]</STRONG></DT>
+<DD>The name of the Mesh.
+     
+</DD>
 <DT><STRONG>[rc]</STRONG></DT>
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
      
@@ -51881,16 +51885,17 @@ This call is <EM>collective</EM> across the current VM.
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_MeshCreate()
      function ESMF_MeshCreateRedist(mesh, nodalDistgrid, &amp;
-       elementDistgrid, vm, rc)
+       elementDistgrid, vm, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Mesh)                            :: ESMF_MeshCreateRedist
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>     type(ESMF_Mesh),     intent(in)            :: mesh
+<PRE>     type(ESMF_Mesh),          intent(in)            :: mesh
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-     type(ESMF_DistGrid), intent(in),  optional :: nodalDistgrid
-     type(ESMF_DistGrid), intent(in),  optional :: elementDistgrid
-     type(ESMF_VM),       intent(in),  optional :: vm
-     integer,             intent(out), optional :: rc
+     type(ESMF_DistGrid),      intent(in),  optional :: nodalDistgrid
+     type(ESMF_DistGrid),      intent(in),  optional :: elementDistgrid
+     type(ESMF_VM),            intent(in),  optional :: vm
+     character(len=*),         intent(in),  optional :: name
+     integer,                  intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
@@ -51912,18 +51917,22 @@ Create a copy of an existing Mesh with a new distribution. Information
 </DD>
 <DT><STRONG>[nodalDistgrid]</STRONG></DT>
 <DD>A Distgrid describing the new distribution of
-         the nodes across the PETs.
+           the nodes across the PETs.
     
 </DD>
 <DT><STRONG>[elementDistgrid]</STRONG></DT>
 <DD>A Distgrid describing the new distribution of
-         the elements across the PETs.
+           the elements across the PETs.
     
 </DD>
 <DT><STRONG>[vm]</STRONG></DT>
 <DD>If present, the Mesh object is created on the specified
-        <TT>ESMF_VM</TT> object. The default is to create on the VM of the
-        current context.
+           <TT>ESMF_VM</TT> object. The default is to create on the VM of the
+           current context.
+     
+</DD>
+<DT><STRONG>[name]</STRONG></DT>
+<DD>The name of the Mesh.
     
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -52387,13 +52396,14 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>     function ESMF_MeshEmptyCreate(nodalDistgrid, elementDistgrid, rc)
+<PRE>     function ESMF_MeshEmptyCreate(nodalDistgrid, elementDistgrid, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Mesh)         :: ESMF_MeshEmptyCreate
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>     type(ESMF_DistGrid),        intent(in), optional  :: elementdistgrid
-     type(ESMF_DistGrid),        intent(in), optional  :: nodalDistgrid
-     integer,                    intent(out), optional :: rc
+<PRE>     type(ESMF_DistGrid),      intent(in),  optional :: elementdistgrid
+     type(ESMF_DistGrid),      intent(in),  optional :: nodalDistgrid
+     character(len=*),         intent(in),  optional :: name
+     integer,                  intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
@@ -52412,6 +52422,10 @@ Create a Mesh to hold distribution information (i.e. Distgrids).
 </DD>
 <DT><STRONG>[elementDistgrid]</STRONG></DT>
 <DD>The elemental distgrid.
+     
+</DD>
+<DT><STRONG>[name]</STRONG></DT>
+<DD>The name of the Mesh.
      
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -53430,7 +53444,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65388"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65391"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -55582,7 +55596,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67096"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67099"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -55763,7 +55777,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="66748"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="66751"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -55986,7 +56000,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="67097"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="67100"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -56271,7 +56285,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="66861"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="66864"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -56337,7 +56351,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="66876"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="66879"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -56396,7 +56410,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="66892"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="66895"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -56646,7 +56660,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67099"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67102"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -56804,7 +56818,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67100"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67103"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -56875,7 +56889,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67008"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67011"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -56985,7 +56999,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67020"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67023"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -57057,7 +57071,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67031"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67034"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -57258,7 +57272,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67063"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67066"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -57383,7 +57397,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67071"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67074"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
