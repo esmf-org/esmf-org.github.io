@@ -1994,7 +1994,7 @@ $external_latex_labels{$key} = q|26.6.53|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldWrite/;
-$external_latex_labels{$key} = q|26.6.74|; 
+$external_latex_labels{$key} = q|26.6.75|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:SparseMatrixWrite/;
