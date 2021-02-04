@@ -11260,7 +11260,7 @@ The arguments are:
 <PRE>   ! Private name; call using ESMF_FieldCreate()
    function ESMF_FieldCreateGridTKR(grid, typekind, &amp;
      indexflag, staggerloc, gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
-     totalLWidth, totalUWidth, name, rc)
+     totalLWidth, totalUWidth, pinflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Field) :: ESMF_FieldCreateGridTKR
 </PRE><EM>ARGUMENTS:</EM>
@@ -11274,6 +11274,7 @@ The arguments are:
      integer, intent(in), optional :: ungriddedUBound(:)
      integer, intent(in), optional :: totalLWidth(:)
      integer, intent(in), optional :: totalUWidth(:)
+     type(ESMF_Pin_Flag), intent(in), optional :: pinflag
      character (len=*), intent(in), optional :: name
      integer, intent(out), optional :: rc
 </PRE>
@@ -11281,7 +11282,17 @@ The arguments are:
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>pinflag</TT> to provide access to DE sharing
+   between PETs.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -11392,6 +11403,13 @@ The arguments are:
    + <TT>computationalCount</TT>, <TT>exclusiveCount</TT> ).
    
 </DD>
+<DT><STRONG>[pinflag]</STRONG></DT>
+<DD>Specify which type of resource DEs are pinned to. See section
+   <A HREF="node6.html#const:pin_flag">48.2.1</A> for a list of valid pinning options.
+   The default is to pin DEs to PETs, i.e. only the PET on which a DE
+   was created considers the DE as local.
+   
+</DD>
 <DT><STRONG>[name]</STRONG></DT>
 <DD>Field name.
    
@@ -11418,7 +11436,7 @@ The arguments are:
 <PRE>   ! Private name; call using ESMF_FieldCreate()
    function ESMF_FieldCreateGridArraySpec(grid, arrayspec, &amp;
      indexflag, staggerloc, gridToFieldMap, ungriddedLBound, &amp;
-     ungriddedUBound, totalLWidth, totalUWidth, name, rc)
+     ungriddedUBound, totalLWidth, totalUWidth, pinflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Field) :: ESMF_FieldCreateGridArraySpec
 </PRE><EM>ARGUMENTS:</EM>
@@ -11432,6 +11450,7 @@ The arguments are:
      integer, intent(in), optional :: ungriddedUBound(:)
      integer, intent(in), optional :: totalLWidth(:)
      integer, intent(in), optional :: totalUWidth(:)
+     type(ESMF_Pin_Flag), intent(in), optional :: pinflag
      character (len=*), intent(in), optional :: name
      integer, intent(out), optional :: rc
 </PRE>
@@ -11439,7 +11458,17 @@ The arguments are:
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>pinflag</TT> to provide access to DE sharing
+   between PETs.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -11547,6 +11576,13 @@ The arguments are:
    the size of the <TT>field</TT>. That is, for each gridded dimension the
    <TT>field</TT> size should max( <TT>totalLWidth</TT> + <TT>totalUWidth</TT>
    + <TT>computationalCount</TT>, <TT>exclusiveCount</TT> ).
+   
+</DD>
+<DT><STRONG>[pinflag]</STRONG></DT>
+<DD>Specify which type of resource DEs are pinned to. See section
+   <A HREF="node6.html#const:pin_flag">48.2.1</A> for a list of valid pinning options.
+   The default is to pin DEs to PETs, i.e. only the PET on which a DE
+   was created considers the DE as local.
    
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
@@ -12052,8 +12088,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_FieldCreate()
    function ESMF_FieldCreateLSTKR(locstream, typekind, &amp;
-     gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
-     name, rc)
+     gridToFieldMap, ungriddedLBound, ungriddedUBound, pinflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Field) :: ESMF_FieldCreateLSTKR
 </PRE><EM>ARGUMENTS:</EM>
@@ -12063,6 +12098,7 @@ The arguments are:
      integer, intent(in), optional :: gridToFieldMap(:)
      integer, intent(in), optional :: ungriddedLBound(:)
      integer, intent(in), optional :: ungriddedUBound(:)
+     type(ESMF_Pin_Flag), intent(in), optional :: pinflag
      character (len=*), intent(in), optional :: name
      integer, intent(out), optional :: rc
 </PRE>
@@ -12131,6 +12167,13 @@ The arguments are:
    these ungridded dimensions is the same as their order in the <TT>field</TT>.
    
 </DD>
+<DT><STRONG>[pinflag]</STRONG></DT>
+<DD>Specify which type of resource DEs are pinned to. See section
+   <A HREF="node6.html#const:pin_flag">48.2.1</A> for a list of valid pinning options.
+   The default is to pin DEs to PETs, i.e. only the PET on which a DE
+   was created considers the DE as local.
+   
+</DD>
 <DT><STRONG>[name]</STRONG></DT>
 <DD>Field name.
    
@@ -12156,8 +12199,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_FieldCreate()
    function ESMF_FieldCreateLSArraySpec(locstream, arrayspec, &amp;
-     gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
-     name, rc)
+     gridToFieldMap, ungriddedLBound, ungriddedUBound, pinflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Field) :: ESMF_FieldCreateLSArraySpec
 </PRE><EM>ARGUMENTS:</EM>
@@ -12167,6 +12209,7 @@ The arguments are:
      integer, intent(in), optional :: gridToFieldMap(:)
      integer, intent(in), optional :: ungriddedLBound(:)
      integer, intent(in), optional :: ungriddedUBound(:)
+     type(ESMF_Pin_Flag), intent(in), optional :: pinflag
      character (len=*), intent(in), optional :: name
      integer, intent(out), optional :: rc
 </PRE>
@@ -12232,6 +12275,13 @@ The arguments are:
    must be specified. When both are specified the values are checked
    for consistency. Note that the the ordering of
    these ungridded dimensions is the same as their order in the <TT>field</TT>.
+   
+</DD>
+<DT><STRONG>[pinflag]</STRONG></DT>
+<DD>Specify which type of resource DEs are pinned to. See section
+   <A HREF="node6.html#const:pin_flag">48.2.1</A> for a list of valid pinning options.
+   The default is to pin DEs to PETs, i.e. only the PET on which a DE
+   was created considers the DE as local.
    
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
@@ -12580,9 +12630,9 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_FieldCreate()
-   function ESMF_FieldCreateMeshTKR(mesh, typekind, &amp;
-     indexflag, meshloc, gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
-     name, rc)
+   function ESMF_FieldCreateMeshTKR(mesh, typekind, indexflag, &amp;
+     meshloc, gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
+     pinflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Field) :: ESMF_FieldCreateMeshTKR
 </PRE><EM>ARGUMENTS:</EM>
@@ -12594,6 +12644,7 @@ The arguments are:
      integer, intent(in), optional :: gridToFieldMap(:)
      integer, intent(in), optional :: ungriddedLBound(:)
      integer, intent(in), optional :: ungriddedUBound(:)
+     type(ESMF_Pin_Flag), intent(in), optional :: pinflag
      character (len=*), intent(in), optional :: name
      integer, intent(out), optional :: rc
 </PRE>
@@ -12673,6 +12724,13 @@ The arguments are:
    these ungridded dimensions is the same as their order in the <TT>field</TT>.
    
 </DD>
+<DT><STRONG>[pinflag]</STRONG></DT>
+<DD>Specify which type of resource DEs are pinned to. See section
+   <A HREF="node6.html#const:pin_flag">48.2.1</A> for a list of valid pinning options.
+   The default is to pin DEs to PETs, i.e. only the PET on which a DE
+   was created considers the DE as local.
+   
+</DD>
 <DT><STRONG>[name]</STRONG></DT>
 <DD>Field name.
    
@@ -12699,7 +12757,7 @@ The arguments are:
 <PRE>   ! Private name; call using ESMF_FieldCreate()
    function ESMF_FieldCreateMeshArraySpec(mesh, arrayspec, &amp;
      indexflag, meshloc, gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
-     name, rc)
+     pinflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Field) :: ESMF_FieldCreateMeshArraySpec
 </PRE><EM>ARGUMENTS:</EM>
@@ -12711,6 +12769,7 @@ The arguments are:
      integer, intent(in), optional :: gridToFieldMap(:)
      integer, intent(in), optional :: ungriddedLBound(:)
      integer, intent(in), optional :: ungriddedUBound(:)
+     type(ESMF_Pin_Flag), intent(in), optional :: pinflag
      character (len=*), intent(in), optional :: name
      integer, intent(out), optional :: rc
 </PRE>
@@ -12788,6 +12847,13 @@ The arguments are:
    must be specified. When both are specified the values are checked
    for consistency. Note that the the ordering of
    these ungridded dimensions is the same as their order in the <TT>field</TT>.
+   
+</DD>
+<DT><STRONG>[pinflag]</STRONG></DT>
+<DD>Specify which type of resource DEs are pinned to. See section
+   <A HREF="node6.html#const:pin_flag">48.2.1</A> for a list of valid pinning options.
+   The default is to pin DEs to PETs, i.e. only the PET on which a DE
+   was created considers the DE as local.
    
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
@@ -13165,10 +13231,9 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_FieldCreate()
-   function ESMF_FieldCreateXGTKR(xgrid, typekind, &amp;
-     xgridside, gridindex, &amp;
-     gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
-     name, rc)
+   function ESMF_FieldCreateXGTKR(xgrid, typekind, xgridside, &amp;
+     gridindex, gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
+     pinflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Field) :: ESMF_FieldCreateXGTKR
 </PRE><EM>ARGUMENTS:</EM>
@@ -13180,6 +13245,7 @@ The arguments are:
      integer, intent(in), optional :: gridToFieldMap(:)
      integer, intent(in), optional :: ungriddedLBound(:)
      integer, intent(in), optional :: ungriddedUBound(:)
+     type(ESMF_Pin_Flag), intent(in), optional :: pinflag
      character (len=*), intent(in), optional :: name
      integer, intent(out), optional :: rc
 </PRE>
@@ -13259,6 +13325,13 @@ The arguments are:
    these ungridded dimensions is the same as their order in the <TT>field</TT>.
    
 </DD>
+<DT><STRONG>[pinflag]</STRONG></DT>
+<DD>Specify which type of resource DEs are pinned to. See section
+   <A HREF="node6.html#const:pin_flag">48.2.1</A> for a list of valid pinning options.
+   The default is to pin DEs to PETs, i.e. only the PET on which a DE
+   was created considers the DE as local.
+   
+</DD>
 <DT><STRONG>[name]</STRONG></DT>
 <DD>Field name.
    
@@ -13284,9 +13357,8 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_FieldCreate()
    function ESMF_FieldCreateXGArraySpec(xgrid, arrayspec, &amp;
-     xgridside, gridindex, &amp;
-     gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
-     name, rc)
+     xgridside, gridindex, gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
+     pinflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Field) :: ESMF_FieldCreateXGArraySpec
 </PRE><EM>ARGUMENTS:</EM>
@@ -13298,6 +13370,7 @@ The arguments are:
      integer, intent(in), optional :: gridToFieldMap(:)
      integer, intent(in), optional :: ungriddedLBound(:)
      integer, intent(in), optional :: ungriddedUBound(:)
+     type(ESMF_Pin_Flag), intent(in), optional :: pinflag
      character (len=*), intent(in), optional :: name
      integer, intent(out), optional :: rc
 </PRE>
@@ -13374,6 +13447,13 @@ The arguments are:
    must be specified. When both are specified the values are checked
    for consistency. Note that the the ordering of
    these ungridded dimensions is the same as their order in the <TT>field</TT>.
+   
+</DD>
+<DT><STRONG>[pinflag]</STRONG></DT>
+<DD>Specify which type of resource DEs are pinned to. See section
+   <A HREF="node6.html#const:pin_flag">48.2.1</A> for a list of valid pinning options.
+   The default is to pin DEs to PETs, i.e. only the PET on which a DE
+   was created considers the DE as local.
    
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
@@ -13858,9 +13938,9 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_FieldEmptyComplete()
- subroutine ESMF_FieldEmptyCompAS(field, arrayspec, &amp;
-  indexflag, gridToFieldMap, &amp;
-  ungriddedLBound, ungriddedUBound, totalLWidth, totalUWidth, rc)
+ subroutine ESMF_FieldEmptyCompAS(field, arrayspec, indexflag, &amp;
+  gridToFieldMap, ungriddedLBound, ungriddedUBound, totalLWidth, totalUWidth, &amp;
+  pinflag, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>  type(ESMF_Field), intent(inout) :: field
   type(ESMF_ArraySpec), intent(in) :: arrayspec
@@ -13871,13 +13951,24 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
   integer, intent(in), optional :: ungriddedUBound(:)
   integer, intent(in), optional :: totalLWidth(:)
   integer, intent(in), optional :: totalUWidth(:)
+  type(ESMF_Pin_Flag), intent(in), optional :: pinflag
   integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>pinflag</TT> to provide access to DE sharing
+   between PETs.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -13977,6 +14068,13 @@ The arguments are:
    + <TT>computationalCount</TT>, <TT>exclusiveCount</TT> ).
    
 </DD>
+<DT><STRONG>[pinflag]</STRONG></DT>
+<DD>Specify which type of resource DEs are pinned to. See section
+   <A HREF="node6.html#const:pin_flag">48.2.1</A> for a list of valid pinning options.
+   The default is to pin DEs to PETs, i.e. only the PET on which a DE
+   was created considers the DE as local.
+   
+</DD>
 <DT><STRONG>[rc]</STRONG></DT>
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
    
@@ -13997,9 +14095,9 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_FieldEmptyComplete()
- subroutine ESMF_FieldEmptyCompTK(field, typekind, &amp;
-  indexflag, gridToFieldMap, &amp;
-  ungriddedLBound, ungriddedUBound, totalLWidth, totalUWidth, rc)
+ subroutine ESMF_FieldEmptyCompTK(field, typekind, indexflag, &amp;
+  gridToFieldMap, ungriddedLBound, ungriddedUBound, totalLWidth, totalUWidth, &amp;
+  pinflag, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>  type(ESMF_Field), intent(inout) :: field
   type(ESMF_TypeKind_Flag), intent(in) :: typekind
@@ -14010,13 +14108,24 @@ The arguments are:
   integer, intent(in), optional :: ungriddedUBound(:)
   integer, intent(in), optional :: totalLWidth(:)
   integer, intent(in), optional :: totalUWidth(:)
+  type(ESMF_Pin_Flag), intent(in), optional :: pinflag
   integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>pinflag</TT> to provide access to DE sharing
+   between PETs.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -14119,6 +14228,13 @@ The arguments are:
    the size of the <TT>field</TT>. That is, for each gridded dimension the
    <TT>field</TT> size should max( <TT>totalLWidth</TT> + <TT>totalUWidth</TT>
    + <TT>computationalCount</TT>, <TT>exclusiveCount</TT> ).
+   
+</DD>
+<DT><STRONG>[pinflag]</STRONG></DT>
+<DD>Specify which type of resource DEs are pinned to. See section
+   <A HREF="node6.html#const:pin_flag">48.2.1</A> for a list of valid pinning options.
+   The default is to pin DEs to PETs, i.e. only the PET on which a DE
+   was created considers the DE as local.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -36867,7 +36983,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="54597"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="54641"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -36908,7 +37024,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="54569"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="54613"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -37281,7 +37397,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="54814"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="54858"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -37322,7 +37438,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="54825"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="54869"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -39100,7 +39216,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="55376"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="55420"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -39515,7 +39631,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="55464"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="55508"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -39645,7 +39761,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="55483"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="55527"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -53557,7 +53673,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65500"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65544"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -55709,7 +55825,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67208"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67252"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -55890,7 +56006,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="66860"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="66904"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -56113,7 +56229,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="67209"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="67253"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -56398,7 +56514,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="66973"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="67017"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -56464,7 +56580,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="66988"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="67032"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -56523,7 +56639,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="67004"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="67048"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -56773,7 +56889,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67211"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67255"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -56931,7 +57047,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67212"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67256"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57002,7 +57118,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67120"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67164"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -57112,7 +57228,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67132"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67176"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -57184,7 +57300,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67143"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67187"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -57385,7 +57501,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67175"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67219"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -57510,7 +57626,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67183"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67227"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
