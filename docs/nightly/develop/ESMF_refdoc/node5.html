@@ -30644,19 +30644,34 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_ArrayCreate()
-   function ESMF_ArrayCreateCopy(array, rc)
+   function ESMF_ArrayCreateCopy(array, datacopyflag, delayout, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_Array) :: ESMF_ArrayCreateCopy
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>        type(ESMF_Array), intent(in) :: array
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+        type(ESMF_DataCopy_Flag), intent(in), optional :: datacopyflag
+        type(ESMF_DELayout), intent(in), optional :: delayout
         integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.1.0</STRONG></DT>
+<DD>Added argument <TT>datacopyflag</TT> to select between different
+   copy options.
+<BR>
+Added argument <TT>delayout</TT> to create Array with different localDe -&gt; DE
+   mapping. This is identical to a change in DE -&gt; PET mapping.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -30675,6 +30690,18 @@ The arguments are:
    <DL>
 <DT><STRONG>array</STRONG></DT>
 <DD><TT>ESMF_Array</TT> object to be copied.
+   
+</DD>
+<DT><STRONG>[datacopyflag]</STRONG></DT>
+<DD>Specifies whether the created Array object references the memory
+   allocation provided by <TT>array</TT> directly or copies the data from
+   <TT>array</TT> into a new memory allocation. For valid values see
+   <A HREF="node9.html#const:datacopyflag">52.12</A>. The default is <TT>ESMF_DATACOPY_VALUE</TT>.
+   
+</DD>
+<DT><STRONG>[delayout]</STRONG></DT>
+<DD>If present, override the DELayout of the incoming <TT>distgrid</TT>.
+   By default use the DELayout defined in <TT>distgrid</TT>.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -36983,7 +37010,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="54641"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="54668"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -37024,7 +37051,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="54613"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="54640"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -37397,7 +37424,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="54858"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="54885"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -37438,7 +37465,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="54869"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="54896"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -39216,7 +39243,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="55420"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="55447"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -39631,7 +39658,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="55508"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="55535"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -39761,7 +39788,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="55527"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="55554"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -53673,7 +53700,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65544"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65571"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -55825,7 +55852,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67252"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67279"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -56006,7 +56033,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="66904"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="66931"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -56229,7 +56256,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="67253"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="67280"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -56514,7 +56541,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="67017"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="67044"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -56580,7 +56607,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="67032"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="67059"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -56639,7 +56666,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="67048"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="67075"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -56889,7 +56916,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67255"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67282"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57047,7 +57074,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67256"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67283"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57118,7 +57145,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67164"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67191"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -57228,7 +57255,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67176"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67203"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -57300,7 +57327,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67187"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67214"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -57501,7 +57528,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67219"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67246"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -57626,7 +57653,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67227"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67254"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
