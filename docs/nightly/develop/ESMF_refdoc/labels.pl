@@ -138,6 +138,10 @@ $key = q/Array_regions_and_default_bounds/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/Array_shared_memory_features/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/CplComp:SetServices/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
@@ -1790,15 +1794,15 @@ $external_latex_labels{$key} = q|33.4.8|;
 $noresave{$key} = "$nosave";
 
 $key = q/Array:ArbHalo/;
-$external_latex_labels{$key} = q|28.2.15|; 
+$external_latex_labels{$key} = q|28.2.16|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:CommNB/;
-$external_latex_labels{$key} = q|28.2.19|; 
+$external_latex_labels{$key} = q|28.2.20|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:Halo/;
-$external_latex_labels{$key} = q|28.2.14|; 
+$external_latex_labels{$key} = q|28.2.15|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:LocalArray/;
@@ -1806,19 +1810,19 @@ $external_latex_labels{$key} = q|28.2.3|;
 $noresave{$key} = "$nosave";
 
 $key = q/Array:Redist/;
-$external_latex_labels{$key} = q|28.2.16|; 
+$external_latex_labels{$key} = q|28.2.17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:ScatterGather/;
-$external_latex_labels{$key} = q|28.2.13|; 
+$external_latex_labels{$key} = q|28.2.14|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:ScatterGatherRevisited/;
-$external_latex_labels{$key} = q|28.2.18|; 
+$external_latex_labels{$key} = q|28.2.19|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:SparseMatMul/;
-$external_latex_labels{$key} = q|28.2.17|; 
+$external_latex_labels{$key} = q|28.2.18|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:fpadding/;
@@ -1859,6 +1863,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/Array_regions_and_default_bounds/;
 $external_latex_labels{$key} = q|28.2.6|; 
+$noresave{$key} = "$nosave";
+
+$key = q/Array_shared_memory_features/;
+$external_latex_labels{$key} = q|28.2.13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/CplComp:SetServices/;
