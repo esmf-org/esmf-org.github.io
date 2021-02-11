@@ -26261,11 +26261,6 @@ The same situation could have been achieved with the original <TT>array</TT>.
    extra bookkeeping needed. 
 
 <P>
-<PRE>
-  endif ! ending the ssiSharedMemoryEnabled conditional
-</PRE>
-
-<P>
 Before destroying an Array whose DEs are shared between PETs, it is
    advisable to issue one more synchronization. This prevents cases where a
    PET still might be accessing a shared DE, while the owner PET is already
@@ -26273,12 +26268,12 @@ Before destroying an Array whose DEs are shared between PETs, it is
 
 <P>
 <PRE>
-  call ESMF_ArraySync(array, rc=rc) ! prevent race condition
+    call ESMF_ArraySync(array, rc=rc) ! prevent race condition
 </PRE>
 
 <P>
 <PRE>
-  call ESMF_ArrayDestroy(array, rc=rc)
+    call ESMF_ArrayDestroy(array, rc=rc)
 </PRE>
 
 <P>
@@ -26288,7 +26283,12 @@ Remember that <TT>arrayMigrated</TT> shares the same memory allocations that wer
 
 <P>
 <PRE>
-  call ESMF_ArrayDestroy(arrayMigrated, rc=rc)
+    call ESMF_ArrayDestroy(arrayMigrated, rc=rc)
+</PRE>
+
+<P>
+<PRE>
+  endif ! ending the ssiSharedMemoryEnabled conditional
 </PRE>
 
 <P>
