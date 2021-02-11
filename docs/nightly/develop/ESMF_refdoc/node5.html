@@ -25797,8 +25797,8 @@ The <TT>array</TT> object associates the 2nd DistGrid dimension with the 2nd
 </H3>
 
 <P>
-Practically all modern computer systems utilize multi-core processors,
-   supporting the execution of multiple concurrent hardware threads.
+Practically all modern computer systems today utilize multi-core processors,
+   supporting the concurrent execution of multiple hardware threads.
    A number of these multi-core processors are commonly packaged into the same
    compute node, having access to the same physical memory. Under ESMF each
    hardware thread (or core) is identified as a unique Processing Element (PE).
@@ -25810,7 +25810,8 @@ Practically all modern computer systems utilize multi-core processors,
 <P>
 The software threads executing an ESMF application on the hardware, and that
    ESMF is aware of, are referred to as Persistent Execution Threads (PETs). In
-   practice a PET can typically be thought of as an MPI rank, i.e. an OS process.
+   practice a PET can typically be thought of as an MPI rank, i.e. an OS process,
+   defining its own private virtual address space (VAS). 
    The ESMF Virtual Machine (VM) class keeps track of the mapping between PETs
    and PEs, and their location on the available SSIs.
 
@@ -25823,12 +25824,17 @@ When an ESMF Array object is created, the specified DistGrid indicates how
    the local PET making the query.
 
 <P>
-By default DEs are <EM>pinned</EM> to the PETs on which they were created. The
-   memory allocation associated with a specific DE can only be accessed from the
-   PET to which the DE is pinned. However, on shared memory systems, ESMF allows
-   DEs to be pinned to SSIs instead. In this case the PET under which a DE was
-   created is still consider the owner, but now all PETs under the same SSI
-   have access to the DE as well.
+By default DEs are <EM>pinned</EM> to the PETs under which they were created.
+   The memory allocation associated with a specific DE is only defined in the
+   VAS of the PET to which the DE is pinned. As a consequence, only the PET
+   owning a DE has access to its memory allocation.
+
+<P>
+On shared memory systems, however, ESMF allows DEs to be pinned to SSIs
+   instead of PETs. In this case the PET under which a DE was created is still
+   consider the owner, but now <EM>all</EM> PETs under the same SSI have access to
+   the DE. For this the memory allocation associated with the DE is mapped into
+   the VAS of all the PETs under the SSI.
 
 <P>
 To create an Array with each DE pinned to SSI instead of PET, first query the
@@ -25846,7 +25852,7 @@ To create an Array with each DE pinned to SSI instead of PET, first query the
 
 <P>
 Knowing that the SSI shared memory feature is available, it is now possible
-   to create an Array object, pinning the DEs to SSI. 
+   to create an Array object with DE to SSI pinning. 
 
 <P>
 <PRE>
@@ -25884,7 +25890,7 @@ Assuming execution on 4 PETs, all located on the same SSI, the values of the
    only mapping information for those DEs <EM>owned</EM> by the local PET is filled
    in. However for <TT>size(localDeToDeMap)==ssiLocalDeCount</TT>, mapping
    information for all locally <EM>accessible</EM> DEs is returned, including
-   those owned by other PETs on the same SSI. 
+   those owned by other PETs on the same SSI.
 
 <P>
 <PRE>
@@ -37352,7 +37358,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55015"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55022"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -37393,7 +37399,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="54987"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="54994"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -37766,7 +37772,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="55232"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="55239"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -37807,7 +37813,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="55243"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="55250"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -39585,7 +39591,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="55794"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="55801"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -40000,7 +40006,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="55882"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="55889"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -40130,7 +40136,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="55901"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="55908"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -54042,7 +54048,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65918"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65925"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -56194,7 +56200,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67626"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67633"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -56375,7 +56381,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67278"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67285"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -56598,7 +56604,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="67627"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="67634"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -56883,7 +56889,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="67391"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="67398"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -56949,7 +56955,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="67406"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="67413"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -57008,7 +57014,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="67422"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="67429"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -57258,7 +57264,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67629"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67636"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57416,7 +57422,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67630"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67637"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57487,7 +57493,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67538"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67545"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -57597,7 +57603,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67550"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67557"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -57669,7 +57675,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67561"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67568"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -57870,7 +57876,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67593"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67600"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -57995,7 +58001,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67601"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67608"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
