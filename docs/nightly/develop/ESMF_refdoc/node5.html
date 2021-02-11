@@ -25798,19 +25798,21 @@ The <TT>array</TT> object associates the 2nd DistGrid dimension with the 2nd
 
 <P>
 Practically all modern computer systems utilize multi-core processors,
-   supporting the execution of multiple concurrent hardware threads. Further
-   a number of these multi-core processors are commonly packaged into
-   the same compute node, accessing the same physical memory. Under ESMF each
+   supporting the execution of multiple concurrent hardware threads.
+   A number of these multi-core processors are commonly packaged into the same
+   compute node, having access to the same physical memory. Under ESMF each
    hardware thread (or core) is identified as a unique Processing Element (PE).
-   The unit of PEs that share the same physical memory (i.e. compute node) is
-   called a Single System Image (SSI).
+   The collection of PEs that share the same physical memory (i.e. compute node)
+   is referred to as a Single System Image (SSI). The ESMF Array class implements
+   features that allow the user to leverage the shared memory within each SSI to
+   efficiently exchange data without copies or explicit communication calls.
 
 <P>
 The software threads executing an ESMF application on the hardware, and that
    ESMF is aware of, are referred to as Persistent Execution Threads (PETs). In
-   practice a PET can often be thought of as an MPI rank, i.e. an OS process. The
-   ESMF Virtual Machine (VM) class keeps track of the mapping of PETs to PEs
-   and their location on the available SSIs.
+   practice a PET can typically be thought of as an MPI rank, i.e. an OS process.
+   The ESMF Virtual Machine (VM) class keeps track of the mapping between PETs
+   and PEs, and their location on the available SSIs.
 
 <P>
 When an ESMF Array object is created, the specified DistGrid indicates how
@@ -25821,11 +25823,10 @@ When an ESMF Array object is created, the specified DistGrid indicates how
    the local PET making the query.
 
 <P>
-By default DEs are said to be <EM>pinned</EM> to the PETs on which they were
-   created. This means that the memory allocation in an Array associated with
-   a specific DE can only be accessed from the same PET - the one the
-   DE is pinned to. However, on shared memory systems with sufficient support,
-   DEs can be pinned to SSI instead. In this case the PET under which a DE was
+By default DEs are <EM>pinned</EM> to the PETs on which they were created. The
+   memory allocation associated with a specific DE can only be accessed from the
+   PET to which the DE is pinned. However, on shared memory systems, ESMF allows
+   DEs to be pinned to SSIs instead. In this case the PET under which a DE was
    created is still consider the owner, but now all PETs under the same SSI
    have access to the DE as well.
 
@@ -25861,7 +25862,7 @@ Knowing that the SSI shared memory feature is available, it is now possible
 <P>
 Just as in the cases discussed before, where the same DistGrid was used, a
    default DELayout with as many DEs as PETs in the VM is constructed. Setting
-   the <TT>pinflag</TT> to <TT>ESMF_PIN_DE_TO_SSI</TT> also does not change the
+   the <TT>pinflag</TT> to <TT>ESMF_PIN_DE_TO_SSI</TT> does not change the
    fact that each PET owns exactly one of the DEs. However, assuming that this
    code is run on a set of PETs that are all located under the same SSI, every
    PET now has <EM>access</EM> to all of the DEs. The situation can be observed by
@@ -25880,10 +25881,10 @@ Assuming execution on 4 PETs, all located on the same SSI, the values of the
    index is provided through the <TT>localDeToDeMap</TT> array argument. The amount
    of mapping information returned is dependent on how large <TT>localDeToDeMap</TT>
    has been sized by the user. For <TT>size(localDeToDeMap)==localDeCount</TT>,
-   only mapping information for those DEs owned by the local PET is filled in.
-   However for <TT>size(localDeToDeMap)==ssiLocalDeCount</TT>, mapping information
-   for <EM>all</EM> the locally accessible DEs is returned, including those owned
-   by other PETs on the same SSI. 
+   only mapping information for those DEs <EM>owned</EM> by the local PET is filled
+   in. However for <TT>size(localDeToDeMap)==ssiLocalDeCount</TT>, mapping
+   information for all locally <EM>accessible</EM> DEs is returned, including
+   those owned by other PETs on the same SSI. 
 
 <P>
 <PRE>
@@ -25924,16 +25925,20 @@ Each PET can access the memory allocations associated with <EM>all</EM> of the
 </PRE>
 
 <P>
-Now <TT>myFarray</TT> on PETs 0 and 1 both point to the <EM>same</EM> memory
-   allocation for global DE index 2. Both PETs have access to the same piece of
-   shared memory! The same is true for PETs 2 and 3, pointing to the shared memory
-   allocation of global DE index 1. All of the typical considerations surrounding
-   shared memory usage apply! In particular proper synchronization between PETs
-   accessing shared DEs is needed to avoid <EM>race conditions</EM>. Performance
-   issues like <EM>false sharing</EM> also needs to be considered for optimal use.
+Now variable <TT>myFarray</TT> on PETs 0 and 1 both point to the <EM>same</EM>
+   memory allocation for global DE 2. Both PETs have access to the same
+   piece of shared memory! The same is true for PETs 2 and 3, pointing to the
+   shared memory allocation of global DE 1.
 
 <P>
-For a simple demonstration PETs 0 and 2 fill the entire memory allocation of
+It is important to note that all of the typical considerations surrounding
+   shared memory programming apply when accessing shared DEs! Proper
+   synchronization between PETs accessing shared DEs is critical to avoid
+   <EM>race conditions</EM>. Also performance issues like <EM>false sharing</EM>
+   need to be considered for optimal use.
+
+<P>
+For a simple demonstration, PETs 0 and 2 fill the entire memory allocation of
    DE 2 and 1, respectively, to a unique value. 
 
 <P>
@@ -25948,7 +25953,7 @@ For a simple demonstration PETs 0 and 2 fill the entire memory allocation of
 <P>
 Here synchronization is needed before any PETs that share access to the same
    DEs can safely access the data without race condition. The Array class provides
-   a synchronization method. 
+   a simple synchronization method that can be used. 
 
 <P>
 <PRE>
@@ -25972,22 +25977,22 @@ Now it is safe for PETs 1 and 3 to access the shared DEs. We expect to find
 <P>
 Working with shared DEs requires additional bookkeeping on the user code
    level. In some situations, however, DE sharing is simply used as a mechanism
-   to move DEs between PETs without requiring data copies. One practical
+   to <EM>move</EM> DEs between PETs without requiring data copies. One practical
    application of this case is the transfer of an Array between two components,
    both of which use the same PEs, but run with different number of PETs.
    These would typically be sequential components that use OpenMP on the user
    level with varying threading levels.
 
 <P>
-DEs that are pinned to SSI can be <EM>migrated</EM> to any PET within the SSI.
-   This is accomplished by creating a new Array object from an existing Array
-   that was created with <TT>pinflag=ESMF_PIN_DE_TO_SSI</TT>.
+DEs that are pinned to SSI can be moved or <EM>migrated</EM> to any PET within
+   the SSI. This is accomplished by creating a new Array object from an
+   existing Array that was created with <TT>pinflag=ESMF_PIN_DE_TO_SSI</TT>.
    The information of how the DEs are to migrate between the old and the new
    Array is provided through a DELayout object. This object must have the
-   same number of DEs and describe how they map to the PET on the current VM.
+   same number of DEs and describes how they map to the PETs on the current VM.
    If this is in the context of a different component, the number of PETs might
-   differ from the original VM under which the existing Array was created. Still
-   the number of DEs must match.
+   differ from the original VM under which the existing Array was created. This
+   situation is explicitly supported, still the number of DEs must match.
 
 <P>
 Here a simple DELayout is created on the same 4 PETs, but with rotated
@@ -26010,9 +26015,9 @@ DE 3 -&gt; PET 0 (old PET 3)
 
 <P>
 The creation of the new Array is done by reference, i.e. 
-   <TT>datacopyflag=ESMF_DATACOPY_REFERENCE</TT>. The created Array does not have
-   its own memory allocations, but instead references the shared memory
-   resources held by the incoming Array object. 
+   <TT>datacopyflag=ESMF_DATACOPY_REFERENCE</TT>, since the new Array does
+   not create its own memory allocations. Instead the new Array references the
+   shared memory resources held by the incoming Array object. 
 
 <P>
 <PRE>
@@ -26054,12 +26059,13 @@ On each PET the respective Fortran array pointer is returned by the Array.
 
 <P>
 The same situation could have been achieved with the original <TT>array</TT>.
-   However, it would have required first finding the correct local DE index
+   However, it would have required first finding the correct local DE
    for the target global DE on each PET, and then querying <TT>array</TT>
    accordingly. If needed more repeatedly, this bookkeeping would need to be
    kept in a user code data structure. The DE migration feature on the other
    hand provides a formal way to create a standard ESMF Array object that can be
-   used directly in any Array level method as usual. 
+   used directly in any Array level method as usual, letting ESMF handle the
+   extra bookkeeping needed. 
 
 <P>
 <PRE>
@@ -26067,7 +26073,7 @@ The same situation could have been achieved with the original <TT>array</TT>.
 </PRE>
 
 <P>
-Before destroying an Array whose DEs are shared between PETs it is
+Before destroying an Array whose DEs are shared between PETs, it is
    advisable to issue one more synchronization. This prevents cases where a
    PET still might be accessing a shared DE, while the owner PET is already
    destroying the Array, therefore deallocating the shared memory resource. 
@@ -37346,7 +37352,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55007"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55015"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -37387,7 +37393,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="54979"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="54987"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -37760,7 +37766,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="55224"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="55232"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -37801,7 +37807,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="55235"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="55243"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -39579,7 +39585,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="55786"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="55794"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -39994,7 +40000,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="55874"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="55882"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -40124,7 +40130,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="55893"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="55901"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -54036,7 +54042,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65910"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="65918"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -56188,7 +56194,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67618"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67626"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -56369,7 +56375,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67270"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67278"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -56592,7 +56598,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="67619"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="67627"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -56877,7 +56883,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="67383"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="67391"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -56943,7 +56949,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="67398"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="67406"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -57002,7 +57008,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="67414"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="67422"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -57252,7 +57258,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67621"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67629"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57410,7 +57416,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67622"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67630"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57481,7 +57487,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67530"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67538"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -57591,7 +57597,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67542"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67550"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -57663,7 +57669,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67553"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67561"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -57864,7 +57870,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67585"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67593"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -57989,7 +57995,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67593"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67601"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
