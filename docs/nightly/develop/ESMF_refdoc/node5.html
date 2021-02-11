@@ -8869,137 +8869,8 @@ Now it is safe for PETs 1 and 3 to access the shared DEs. We expect to find
 </PRE>
 
 <P>
-Working with shared DEs requires additional bookkeeping on the user code
-   level. In some situations, however, DE sharing is simply used as a mechanism
-   to <EM>move</EM> DEs between PETs without requiring data copies. One practical
-   application of this case is the transfer of an Field between two components,
-   both of which use the same PEs, but run with different number of PETs.
-   These would typically be sequential components that use OpenMP on the user
-   level with varying threading levels.
-
-<P>
-DEs that are pinned to SSI can be moved or <EM>migrated</EM> to any PET within
-   the SSI. This is accomplished by creating a new Field object from an
-   existing Field that was created with <TT>pinflag=ESMF_PIN_DE_TO_SSI</TT>.
-   The information of how the DEs are to migrate between the old and the new
-   Field is provided through a DELayout object. This object must have the
-   same number of DEs and describes how they map to the PETs on the current VM.
-   If this is in the context of a different component, the number of PETs might
-   differ from the original VM under which the existing Field was created. This
-   situation is explicitly supported, still the number of DEs must match.
-
-<P>
-Here a simple DELayout is created on the same 4 PETs, but with rotated
-   DE ownerships:
-
-<P>
-DE 0 -&gt; PET 1 (old PET 0)
-<BR>
-DE 1 -&gt; PET 2 (old PET 1)
-<BR>
-DE 2 -&gt; PET 3 (old PET 2)
-<BR>
-DE 3 -&gt; PET 0 (old PET 3)
-<BR>
-
-<P>
-<PRE>
-    delayout = ESMF_DELayoutCreate(petMap=(/1,2,3,0/), rc=rc) ! DE-&gt;PET mapping
-</PRE>
-
-<P>
-The creation of the new Field is done by reference, i.e. 
-   <TT>datacopyflag=ESMF_DATACOPY_REFERENCE</TT>, since the new Field does
-   not create its own memory allocations. Instead the new Field references the
-   shared memory resources held by the incoming Field object. 
-
-<P>
-<PRE>
-    call ESMF_FieldGet(field, array=array, rc=rc)
-</PRE>
-
-<P>
-<PRE>
-    arrayMigrated = ESMF_ArrayCreate(array, delayout=delayout, &amp;
-      datacopyflag=ESMF_DATACOPY_REFERENCE, rc=rc)
-</PRE>
-
-<P>
-<PRE>
-    fieldMigrated = ESMF_FieldCreate(array=arrayMigrated, grid=grid, rc=rc)
-</PRE>
-
-<P>
-Querying <TT>fieldMigrated</TT> for the number of local DEs will return 1 on
-   each PET. Sizing the <TT>localDeToDeMap</TT> accordingly and querying for it. 
-
-<P>
-<PRE>
-    deallocate(localDeToDeMap) ! free previous allocation
-    allocate(localDeToDeMap(0:1))
-    call ESMF_FieldGet(fieldMigrated, localDeToDeMap=localDeToDeMap, rc=rc)
-</PRE>
-
-<P>
-This yields the following expected outcome:
-
-<P>
-PET 0: <TT>localDeToDeMap</TT>==<TT>(/1/)</TT>
-<BR>
-PET 1: <TT>localDeToDeMap</TT>==<TT>(/2/)</TT>
-<BR>
-PET 2: <TT>localDeToDeMap</TT>==<TT>(/3/)</TT>
-<BR>
-PET 3: <TT>localDeToDeMap</TT>==<TT>(/0/)</TT>
-<BR>
-
-<P>
-On each PET the respective Fortran array pointer is returned by the Farray. 
-
-<P>
-<PRE>
-    call ESMF_FieldGet(FieldMigrated, farrayPtr=myFarray, rc=rc)
-</PRE>
-
-<P>
-The same situation could have been achieved with the original <TT>field</TT>.
-   However, it would have required first finding the correct local DE
-   for the target global DE on each PET, and then querying <TT>field</TT>
-   accordingly. If needed more repeatedly, this bookkeeping would need to be
-   kept in a user code data structure. The DE migration feature on the other
-   hand provides a formal way to create a standard ESMF Field object that can be
-   used directly in any Field level method as usual, letting ESMF handle the
-   extra bookkeeping needed. 
-
-<P>
 <PRE>
   endif ! ending the ssiSharedMemoryEnabled conditional
-</PRE>
-
-<P>
-Before destroying an Field whose DEs are shared between PETs, it is
-   advisable to issue one more synchronization. This prevents cases where a
-   PET still might be accessing a shared DE, while the owner PET is already
-   destroying the Field, therefore deallocating the shared memory resource. 
-
-<P>
-<PRE>
-  call ESMF_FieldSync(field, rc=rc) ! prevent race condition
-</PRE>
-
-<P>
-<PRE>
-  call ESMF_FieldDestroy(field, rc=rc)
-</PRE>
-
-<P>
-Remember that <TT>fieldMigrated</TT> shares the same memory allocations that were
-   held by <TT>field</TT>. Field <TT>fieldMigrated</TT> must therefore not be used
-   beyond the life time of <TT>field</TT>. Best to destroy it now. 
-
-<P>
-<PRE>
-  call ESMF_FieldDestroy(fieldMigrated, rc=rc)
 </PRE>
 
 <P>
@@ -9338,7 +9209,7 @@ This example is similar to example <A HREF="#sec:field:usage:create_2dgrid_3dptr
     is shown here.
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="23770"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="23650"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 12:</STRONG>
 Field dimension configuration from Grid, halos, and Fortran data array.</CAPTION>
@@ -37674,7 +37545,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55345"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55225"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -37715,7 +37586,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55317"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55197"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -38088,7 +37959,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="55562"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="55442"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -38129,7 +38000,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="55573"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="55453"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -39907,7 +39778,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56124"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56004"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -40322,7 +40193,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56212"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56092"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -40452,7 +40323,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56231"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56111"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -54364,7 +54235,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66248"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66128"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -56516,7 +56387,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67956"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="67836"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -56697,7 +56568,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67608"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67488"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -56920,7 +56791,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="67957"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="67837"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -57205,7 +57076,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="67721"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="67601"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -57271,7 +57142,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="67736"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="67616"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -57330,7 +57201,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="67752"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="67632"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -57580,7 +57451,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67959"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="67839"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57738,7 +57609,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67960"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="67840"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57809,7 +57680,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67868"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="67748"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -57919,7 +57790,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67880"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="67760"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -57991,7 +57862,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67891"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="67771"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -58192,7 +58063,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67923"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="67803"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -58317,7 +58188,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67931"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="67811"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
