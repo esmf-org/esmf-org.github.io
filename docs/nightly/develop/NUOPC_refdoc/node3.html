@@ -2352,22 +2352,25 @@ Each instance of a NUOPC component within an application is defined on a fixed s
 The primary control of resource management under NUOPC is implemented through the <TT>petList</TT> argument that is accepted by <TT>NUOPC_DriverAddComp()</TT>. This argument holds a list of Persistent Execution Thread (PET) ids of the parent component on which the child component is to execute. By default, i.e. when <TT>petList</TT> is <EM>not</EM> specified, <EM>all</EM> of the parent PETs are associated with the added child component. Using custom <TT>petList</TT> constructions, a driver has control of exactly how its child components are sharing the available PET resources.
 
 <P>
-Notice that the <EM>order</EM> of PETs listed in a <TT>petList</TT> is significant. The local PET labeling inside a child component always goes from <TT>0</TT> to <TT>size(petList)-1</TT>. The order in which the child PETs correspond to the parent PETs is that specified by the <TT>petList</TT>. It is <EM>erroneous</EM> to list the same parent PET multiple times.
+Notice that the <EM>order</EM> of PETs listed in a <TT>petList</TT> is significant. The local PET labeling inside a child component always goes from <TT>0</TT> to <TT>size(petList)-1</TT>. The order in which the child PETs correspond to the parent PETs is that specified by the <TT>petList</TT>. It is erroneous to list the same parent PET multiple times in the <EM>same</EM> <TT>petList</TT> argument.
 
 <P>
-For the following discussion it is convenient to think of PETs as simple MPI processes. While this is not strictly correct on a technically ESMF level, there are currently no features available to NUOPC where this interpretation would lead to inconsistencies. One of the key consequences of equating each PET to a simple MPI process is that each PET can only execute a single component's code at any given time. Therefore, in order to allow components to execute concurrently, a necessary condition is to define them on exclusive petLists. Of course the data dependencies between the components must also support concurrent execution. Often this requires careful placement of Connectors in the run sequence and the introduction of time lags. However, this is more of a scientific than a resource control issue covered in this section.
+For the following discussion it is convenient to think of PETs as simple MPI processes. While this is not strictly correct on a technically ESMF level, there are currently no features available to NUOPC where this interpretation would lead to inconsistencies. One of the key consequences of equating each PET to a simple MPI process is that each PET can only execute a single component's code at any given time. Therefore, in order to allow components to execute concurrently, a necessary condition is to define them on exclusive petLists. Of course the data dependencies between components must also support concurrent execution. Often this requires careful placement of Connectors in the run sequence and the introduction of time lags. However, this is more of a scientific than the resource control question covered in this section.
 
 <P>
 Many model components today implement the hybrid MPI+OpenMP paradigm to support scalability to larger core counts than would be possible in a purely MPI or OpenMP approach. NUOPC supports hybrid MPI+OpenMP components in two ways: NUOPC <EM>aware</EM> and NUOPC <EM>unaware</EM>. In the NUOPC <EM>unaware</EM> approach, the application is launched only on those MPI ranks that are going to participate in the hybrid execution with OpenMP. Usually this means that the MPI launch system (mpirun, mpiexec, aprun, srun, etc.), and a set of environment variables get involved in correctly associating the desired number of hardware cores with each MPI process, and to assure correct affinities. In this approach NUOPC is not at all involved in the resource management, and OpenMP threading happens purely on the user level.
 
 <P>
-The NUOPC <EM>unaware</EM> hybrid MPI+OpenMP approach provides a quick way to run hybrid applications that consist of a single model component, or where all of the model components use the same hybrid approach with the same ratio of OpenMP threads per MPI rank. In this case shell-based user level resource control is often sufficient. However, for more complex coupling scenarios the NUOPC <EM>aware</EM> hybrid approach provides additional levels of control that are often needed to achieve optimal utilization of the available resources. For instance, under NUOPC <EM>aware</EM> resource control, some components might be purely MPI based, while others use the hybrid approach. Different hybrid components can be configured to run with different threading levels. This is possible independent on whether the components use the same or exclusive sets of resources.
+The NUOPC <EM>unaware</EM> hybrid MPI+OpenMP approach provides a quick way to run hybrid applications that consist of a single model component, or where all of the model components use the same hybrid approach with the same ratio of OpenMP threads per MPI rank. In this case, shell-based user level resource control is often sufficient. However, for more complex coupling scenarios the NUOPC <EM>aware</EM> hybrid approach provides additional levels of control that are often needed to achieve optimal utilization of the available resources
 
 <P>
-Besides the already discussed <TT>petList</TT> argument, there are two additional optional arguments to <TT>NUOPC_DriverAddComp()</TT> that implement the advanced resource control features under NUOPC. One of these arguments is <TT>compSetVMRoutine</TT>. This argument allows the user to point to a specific public method of the child component. The signature of this method is the same as for the <TT>compSetServicesRoutine</TT> argument. If <TT>compSetVMRoutine</TT> is provided, it will be called <EM>before</EM> <TT>compSetServicesRoutine</TT>. The purpose of <TT>compSetVMRoutine</TT> is to allow the child component to set specific aspects of its own ESMF virtual machine (VM) before instantiating it. The ESMF reference manual discusses the details of this procedure under the "User-code SetVM method" section. Based on the information provided there, a user could implement a custom <TT>compSetVMRoutine</TT> method for a component. However, for convenience, NUOPC provides a generic implementation that can be passed into <TT>compSetVMRoutine</TT>. This implementation covers most common resource control cases and is discussed below.
+Under the NUOPC <EM>aware</EM> resource control, some components might be purely MPI based, while others use the hybrid approach. Different hybrid components can be configured to run with different threading levels. This is possible independent on whether the components use the same or exclusive sets of resources.
 
 <P>
-The procedure for utilizing the generic <TT>SetVM</TT> method provided by NUOPC involves a few steps. First the component implementation must make the generic <TT>SetVM</TT> <EM>public</EM> inside its own module:
+Besides the already discussed <TT>petList</TT> argument, there are two additional optional arguments to <TT>NUOPC_DriverAddComp()</TT>. It is through those arguments that the advanced resource control features under NUOPC are implemented. One of these arguments is <TT>compSetVMRoutine</TT>. This argument allows the user to point to a specific public method of the child component. The signature of this method is the same as for the <TT>compSetServicesRoutine</TT> argument. If <TT>compSetVMRoutine</TT> is provided, it will be called <EM>before</EM> <TT>compSetServicesRoutine</TT>. The purpose of <TT>compSetVMRoutine</TT> is to allow the child component to set specific aspects of its own ESMF virtual machine (VM) before instantiating it. The ESMF reference manual discusses the details of this procedure under the "User-code SetVM method" section. Based on the information provided there, a user could implement a custom <TT>compSetVMRoutine</TT> method for a component. However, for convenience, NUOPC provides a generic implementation that can be passed into <TT>compSetVMRoutine</TT>. For most common situation, the generic implementation provided by NUOPC is sufficient, and there is no need for the user to provide a custom implementation of <TT>compSetVMRoutine</TT>.
+
+<P>
+Utilizing the generic <TT>SetVM</TT> method provided by NUOPC involves a few steps. First, the component implementation must make the generic <TT>SetVM</TT> <EM>public</EM> inside its own <EM>cap</EM> module:
 
 <P>
 <PRE>
@@ -2386,7 +2389,7 @@ module MODEL
 
   private
 
-  public SetVM, SetServices
+  public SetVM, SetServices   ! Here making SetVM and SetServices public.
 
   !-----------------------------------------------------------------------------
   contains
@@ -2396,7 +2399,7 @@ end module
 </PRE>
 
 <P>
-Second the driver component that adds MODEL via <TT>NUOPC_DriverAddComp()</TT> as a child component, must make a <TT>USE</TT> association to the <TT>SetVM</TT>:
+Second, the driver component that adds MODEL via <TT>NUOPC_DriverAddComp()</TT> as a child component, must make a <TT>USE</TT> association to the <TT>SetVM</TT>:
 
 <P>
 <PRE>
@@ -2414,7 +2417,7 @@ module driver
 
   use MODEL, only: &amp;
     modelSS     =&gt; SetServices, &amp;
-    modelSVM    =&gt; SetVM
+    modelSVM    =&gt; SetVM            ! Here making USE association to SetVM.
 
   implicit none
 
@@ -2430,7 +2433,10 @@ end module
 </PRE>
 
 <P>
-The driver can now pass the <TT>modelSVM</TT> into <TT>NUOPC_DriverAddComp()</TT> via the <TT>compSetVMRoutine</TT> argument, essentially providing the generic <TT>SetVM</TT> method. Finally the generic <TT>SetVM</TT> implementation needs to be informed about the specific resource control request. This is handled through the other optional argument to <TT>NUOPC_DriverAddComp()</TT> alluded to earlier. This is the <TT>info</TT> argument.
+Third, the driver can now pass the <TT>modelSVM</TT> into <TT>NUOPC_DriverAddComp()</TT> via the <TT>compSetVMRoutine</TT> argument, essentially providing the generic <TT>SetVM</TT> method.
+
+<P>
+Finally, the generic <TT>SetVM</TT> implementation needs to be informed about the specific resource control request. This is handled through <EM>the other</EM> optional argument to <TT>NUOPC_DriverAddComp()</TT> alluded to earlier. This is the <TT>info</TT> argument.
 
 <P>
 The <TT>info</TT> argument is of <TT>type(ESMF_Info)</TT>, which implements a structured key/value pair class. An <TT>info</TT> object must first be created via <TT>ESMF_InfoCreate()</TT> before any key/value pairs can be set.
@@ -2534,7 +2540,10 @@ If the default settings for some of the keys are not appropriate, they can be se
 </PRE>
 
 <P>
-All three child components "MODEL1", "MODEL2", and "MODEL3" use the exact same parent resources. Due to this fact all three components can only execute sequentially. However, each child component manages the resources provided by the parent differently, and independently. Through this tailored approach, NUOPC allows optimal use of the available resources by each component. <TT>NUOPC_Connector</TT> components defined between components work as usual, taking care of all the required data movements automatically and completely transparent to the user.
+In this example, all three child components "MODEL1", "MODEL2", and "MODEL3" use the exact same parent resources. Due to this fact all three components can only execute sequentially. However, each child component manages the resources provided by the parent differently, and independently. Through this tailored approach, NUOPC allows optimal use of the available resources by each component. <TT>NUOPC_Connector</TT> components defined between components work as usual, taking care of all the required data movements automatically and completely transparent to the user.
+
+<P>
+In order to obtain best performance when using NUOPC <EM>aware</EM> resource control, it is <EM>strongly recommended</EM> to set <TT>OMP_WAIT_POLICY=PASSIVE</TT> in the environment. This is one of the standard OpenMP environment variables. The <TT>PASSIVE</TT> setting ensures that OpenMP threads relinquish the hardware threads (i.e. cores) as soon as they have completed their work. Without that setting, ESMF resource control threads can be delayed, and context switching between components becomes more expensive.
 
 <H2><A NAME="SECTION00038000000000000000">
 <SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">8</SPAN> External NUOPC Interface</A>
