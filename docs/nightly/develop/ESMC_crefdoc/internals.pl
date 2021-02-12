@@ -154,7 +154,7 @@ $key = q/opt:lineType/;
 $ref_files{$key} = "$dir".q|node9.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/part:CApplications/;
+$key = q/part:CCLTs/;
 $ref_files{$key} = "$dir".q|node3.html|; 
 $noresave{$key} = "$nosave";
 

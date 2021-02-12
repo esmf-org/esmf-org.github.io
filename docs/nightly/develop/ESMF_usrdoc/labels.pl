@@ -506,16 +506,16 @@ $key = q/sec:Adoption/;
 $external_labels{$key} = "$URL/" . q|node13.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:Apps/;
-$external_labels{$key} = "$URL/" . q|node8.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/sec:ArchOver/;
 $external_labels{$key} = "$URL/" . q|node12.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:BuildOptions/;
 $external_labels{$key} = "$URL/" . q|node10.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:CLTs/;
+$external_labels{$key} = "$URL/" . q|node8.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:EsmfMkMethod/;
@@ -1125,16 +1125,16 @@ $key = q/sec:Adoption/;
 $external_latex_labels{$key} = q|12|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:Apps/;
-$external_latex_labels{$key} = q|7|; 
-$noresave{$key} = "$nosave";
-
 $key = q/sec:ArchOver/;
 $external_latex_labels{$key} = q|11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:BuildOptions/;
 $external_latex_labels{$key} = q|9.1.1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:CLTs/;
+$external_latex_labels{$key} = q|7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:EsmfMkMethod/;

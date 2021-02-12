@@ -114,7 +114,15 @@ $key = q/ArrayRedistStoreNF/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/ArrayRedistStoreNFTP/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/ArrayRedistStoreTK/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/ArrayRedistStoreTKTP/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
@@ -122,7 +130,15 @@ $key = q/ArraySMMStoreNF/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/ArraySMMStoreNFTP/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/ArraySMMStoreTK/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/ArraySMMStoreTKTP/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
@@ -246,7 +262,15 @@ $key = q/api:DistGridConnectionSet/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/api:DynamicMaskSetR4R4R4/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/api:DynamicMaskSetR4R4R4V/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetR4R8R4/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
@@ -950,7 +974,7 @@ $key = q/opt:regridstatus/;
 $external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/part:Applications/;
+$key = q/part:CLTs/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
 
@@ -1078,7 +1102,7 @@ $key = q/sec:DistGrid/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:ESMF_Info/;
+$key = q/sec:ESMF_PrintInfo/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
 
@@ -1842,18 +1866,34 @@ $external_latex_labels{$key} = q|28.3|;
 $noresave{$key} = "$nosave";
 
 $key = q/ArrayRedistStoreNF/;
+$external_latex_labels{$key} = q|28.5.32|; 
+$noresave{$key} = "$nosave";
+
+$key = q/ArrayRedistStoreNFTP/;
 $external_latex_labels{$key} = q|28.5.33|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ArrayRedistStoreTK/;
+$external_latex_labels{$key} = q|28.5.30|; 
+$noresave{$key} = "$nosave";
+
+$key = q/ArrayRedistStoreTKTP/;
 $external_latex_labels{$key} = q|28.5.31|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ArraySMMStoreNF/;
+$external_latex_labels{$key} = q|28.5.41|; 
+$noresave{$key} = "$nosave";
+
+$key = q/ArraySMMStoreNFTP/;
 $external_latex_labels{$key} = q|28.5.42|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ArraySMMStoreTK/;
+$external_latex_labels{$key} = q|28.5.39|; 
+$noresave{$key} = "$nosave";
+
+$key = q/ArraySMMStoreTKTP/;
 $external_latex_labels{$key} = q|28.5.40|; 
 $noresave{$key} = "$nosave";
 
@@ -1981,8 +2021,16 @@ $key = q/api:DistGridConnectionSet/;
 $external_latex_labels{$key} = q|35.7.2|; 
 $noresave{$key} = "$nosave";
 
+$key = q/api:DynamicMaskSetR4R4R4/;
+$external_latex_labels{$key} = q|28.6.5|; 
+$noresave{$key} = "$nosave";
+
 $key = q/api:DynamicMaskSetR4R4R4V/;
 $external_latex_labels{$key} = q|28.6.6|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetR4R8R4/;
+$external_latex_labels{$key} = q|28.6.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DynamicMaskSetR4R8R4V/;
@@ -1990,7 +2038,7 @@ $external_latex_labels{$key} = q|28.6.4|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:DynamicMaskSetR8R8R8/;
-$external_latex_labels{$key} = q|28.6.5|; 
+$external_latex_labels{$key} = q|28.6.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DynamicMaskSetR8R8R8V/;
@@ -2549,7 +2597,7 @@ $key = q/opt:regridstatus/;
 $external_latex_labels{$key} = q|52.50|; 
 $noresave{$key} = "$nosave";
 
-$key = q/part:Applications/;
+$key = q/part:CLTs/;
 $external_latex_labels{$key} = q|II|; 
 $noresave{$key} = "$nosave";
 
@@ -2677,7 +2725,7 @@ $key = q/sec:DistGrid/;
 $external_latex_labels{$key} = q|35.1|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:ESMF_Info/;
+$key = q/sec:ESMF_PrintInfo/;
 $external_latex_labels{$key} = q|11|; 
 $noresave{$key} = "$nosave";
 

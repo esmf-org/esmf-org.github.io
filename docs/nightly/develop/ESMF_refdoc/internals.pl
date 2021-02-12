@@ -114,7 +114,15 @@ $key = q/ArrayRedistStoreNF/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/ArrayRedistStoreNFTP/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/ArrayRedistStoreTK/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/ArrayRedistStoreTKTP/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
@@ -122,7 +130,15 @@ $key = q/ArraySMMStoreNF/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/ArraySMMStoreNFTP/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/ArraySMMStoreTK/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/ArraySMMStoreTKTP/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
@@ -246,7 +262,15 @@ $key = q/api:DistGridConnectionSet/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/api:DynamicMaskSetR4R4R4/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/api:DynamicMaskSetR4R4R4V/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetR4R8R4/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
@@ -950,7 +974,7 @@ $key = q/opt:regridstatus/;
 $ref_files{$key} = "$dir".q|node9.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/part:Applications/;
+$key = q/part:CLTs/;
 $ref_files{$key} = "$dir".q|node3.html|; 
 $noresave{$key} = "$nosave";
 
@@ -1078,7 +1102,7 @@ $key = q/sec:DistGrid/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:ESMF_Info/;
+$key = q/sec:ESMF_PrintInfo/;
 $ref_files{$key} = "$dir".q|node3.html|; 
 $noresave{$key} = "$nosave";
 

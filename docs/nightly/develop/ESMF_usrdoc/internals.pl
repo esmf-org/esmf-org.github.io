@@ -506,16 +506,16 @@ $key = q/sec:Adoption/;
 $ref_files{$key} = "$dir".q|node13.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:Apps/;
-$ref_files{$key} = "$dir".q|node8.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/sec:ArchOver/;
 $ref_files{$key} = "$dir".q|node12.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:BuildOptions/;
 $ref_files{$key} = "$dir".q|node10.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:CLTs/;
+$ref_files{$key} = "$dir".q|node8.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:EsmfMkMethod/;

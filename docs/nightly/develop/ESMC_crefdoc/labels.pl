@@ -154,7 +154,7 @@ $key = q/opt:lineType/;
 $external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/part:CApplications/;
+$key = q/part:CCLTs/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
 
@@ -457,7 +457,7 @@ $key = q/opt:lineType/;
 $external_latex_labels{$key} = q|33.8|; 
 $noresave{$key} = "$nosave";
 
-$key = q/part:CApplications/;
+$key = q/part:CCLTs/;
 $external_latex_labels{$key} = q|II|; 
 $noresave{$key} = "$nosave";
 
