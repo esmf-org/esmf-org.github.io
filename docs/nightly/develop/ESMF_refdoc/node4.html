@@ -1972,6 +1972,12 @@ Sections <A HREF="#sec:GridSetVM">17.2.5</A> and <A HREF="#sec:CplSetVM">18.2.5<
 simple user-written SetVM routines.
 
 <P>
+One common use of the SetVM approach is to implement hybrid parallelism based on MPI+OpenMP. Under ESMF, each component can use its own hybrid parallelism implementation. Different components, even if running on the same PE resources, do not have to agree on the number of MPI processes (i.e. PETs), or the number of OpenMP threads launched under each PET. Hybrid and non-hybrid components can be mixed within the same application. Coupling between components of any flavor is supported under ESMF.
+
+<P>
+In order to obtain best performance when using SetVM based resource control for hybrid parallelism, it is <EM>strongly recommended</EM> to set <TT>OMP_WAIT_POLICY=PASSIVE</TT> in the environment. This is one of the standard OpenMP environment variables. The <TT>PASSIVE</TT> setting ensures that OpenMP threads relinquish the PEs as soon as they have completed their work. Without that setting ESMF resource control threads can be delayed, and context switching between components becomes more expensive.
+
+<P>
 
 <H3><A NAME="SECTION04024900000000000000"></A>
 <A NAME="sec:AppDriverIntProc"></A>
@@ -5847,7 +5853,7 @@ derived type within ESMF.  The user must create one of these types
 to represent a specific coupling function, such as the regular
 transfer of data between a data assimilation system and an 
 atmospheric model.  <A NAME="tex2html21"
-  HREF="footnode.html#foot7866"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="footnode.html#foot7879"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 The user-written part of a Coupler Component is associated with an
 <TT>ESMF_CplComp</TT> derived type through a routine called 
@@ -10835,7 +10841,7 @@ in that test:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12672"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12685"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10856,7 +10862,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12674"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12687"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10887,7 +10893,7 @@ Array object is empty, and the DELayout for the Grid is like this:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12676"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12689"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10908,7 +10914,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12678"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12691"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -14019,7 +14025,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16085"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16098"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
