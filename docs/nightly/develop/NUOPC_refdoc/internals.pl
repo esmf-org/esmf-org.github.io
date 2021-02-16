@@ -51,7 +51,7 @@ $ref_files{$key} = "$dir".q|node3.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/IPD/;
-$ref_files{$key} = "$dir".q|node3.html|; 
+$ref_files{$key} = "$dir".q|node8.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/MediatorCompMeta/;
@@ -74,7 +74,27 @@ $key = q/NUOPC_AdvertiseFields/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/NUOPC_Connector/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_Driver/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/NUOPC_GridCompSetClock/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_Mediator/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_Model/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_ModelBase/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
