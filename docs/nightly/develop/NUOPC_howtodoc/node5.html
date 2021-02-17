@@ -23,26 +23,26 @@
 <BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html165"
+<A NAME="tex2html164"
   HREF="node6.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html161"
+<A NAME="tex2html160"
   HREF="NUOPC_howtodoc.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html155"
+<A NAME="tex2html154"
   HREF="node4.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html163"
+<A NAME="tex2html162"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Next:</B> <A NAME="tex2html166"
+<B> Next:</B> <A NAME="tex2html165"
   HREF="node6.html">About this document ...</A>
-<B> Up:</B> <A NAME="tex2html162"
+<B> Up:</B> <A NAME="tex2html161"
   HREF="NUOPC_howtodoc.html">NUOPC_howtodoc</A>
-<B> Previous:</B> <A NAME="tex2html156"
+<B> Previous:</B> <A NAME="tex2html155"
   HREF="node4.html">3 Writing and Testing</A>
- &nbsp; <B>  <A NAME="tex2html164"
+ &nbsp; <B>  <A NAME="tex2html163"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
@@ -51,17 +51,17 @@
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html167"
+<LI><A NAME="tex2html166"
   HREF="node5.html#SECTION00051000000000000000"><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN> Module Imports</A>
-<LI><A NAME="tex2html168"
+<LI><A NAME="tex2html167"
   HREF="node5.html#SECTION00052000000000000000"><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">2</SPAN> SetServices</A>
-<LI><A NAME="tex2html169"
+<LI><A NAME="tex2html168"
   HREF="node5.html#SECTION00053000000000000000"><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">3</SPAN> Checking Return Codes</A>
-<LI><A NAME="tex2html170"
+<LI><A NAME="tex2html169"
   HREF="node5.html#SECTION00054000000000000000"><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">4</SPAN> Initialize Phase - Advertise Fields</A>
-<LI><A NAME="tex2html171"
+<LI><A NAME="tex2html170"
   HREF="node5.html#SECTION00055000000000000000"><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">5</SPAN> Initialize Phase - Realize Fields</A>
-<LI><A NAME="tex2html172"
+<LI><A NAME="tex2html171"
   HREF="node5.html#SECTION00056000000000000000"><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">6</SPAN> Model Advance Specialization</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -131,8 +131,7 @@ module ATM
   use ESMF
   use NUOPC
   use NUOPC_Model, &amp;
-    model_routine_SS    =&gt; SetServices, &amp;
-    model_label_Advance =&gt; label_Advance
+    modelSS    =&gt; SetServices
   
   implicit none
   
@@ -159,55 +158,34 @@ module ATM
 <UL>
 <LI>indicate the generic component being specialized,
 </LI>
-<LI>register entry points for execution phases, and
-</LI>
 <LI>register any specialization points.
    
 </LI>
 </UL>
 
 <P>
-In the example code, the call to <TT>NUOPC_CompDerive</TT> indicates that
+In the example code, the call to <TT>NUOPC_CompDerive()</TT> indicates that
    this component derives from (and specializes) the generic <TT>NUOPC_Model</TT>
    component.  In other words, this is a <TT>NUOPC_Model</TT> component customized
    for a specific model.
 
 <P>
-The calls to <TT>NUOPC_CompSetEntryPoint</TT> register
-   subroutines that are implemented in the cap.  These are initialization phases
-   that are not provided by the generic NUOPC Model.
-   The <TT>phaseLabelList</TT> parameter lists a NUOPC-defined label from the <SPAN  CLASS="textit">Initialize Phase
-   Definition</SPAN>.  NUOPC defines explicitly what happens in each phase of model
-   initialization and these labels uniquely define each phase.  For example, 
-   <TT>"IPDv03p1"</TT> stands for &ldquo;Initialize Phase Definition version 03 phase 1&rdquo;. The
-   value for the parameter <TT>userRoutine</TT> is the name of the subroutine that should
-   be executed for the phase (e.g., <TT>InitializeP1</TT>).   This subroutine
-   appears later on in the cap and the name of the registered subroutine is entirely
-   up to you.
+The calls to <TT>NUOPC_CompSpecialize()</TT> register
+   subroutines that are implemented in the cap.
+   The <TT>specLabel</TT> argument specifies NUOPC-defined specialization labels.
+   NUOPC defines explicitly what happens during each phase of the
+   initialization and these labels uniquely define any specialization that might
+   be supplied by the user.  For example, 
+   <TT>label_Advertise</TT> is responsible for advertising field in the import- and
+   exportState of the component. The  <TT>NUOPC_CompSpecialize()</TT> also takes
+   the <TT>specRoutine</TT> argument to indicate what routine provides the actual
+   specialization. This subroutine appears later on in the cap and the name of
+   the registered subroutine is entirely up to you.
 
 <P>
-At this point, don't worry too much about what happens during each phase, just
-   know that some phases are not provided by NUOPC and so must be written
-   by you.  In the example code:
-   
-<UL>
-<LI>phase IPDv03p1 maps to subroutine <TT>InitializeP1</TT>, and
-</LI>
-<LI>phase IPDv03p3 maps to subroutine <TT>InitializeP2</TT>.
-   
-</LI>
-</UL>
-
-<P>
-In addition to providing subroutines for entire phases, sometimes <SPAN  CLASS="textit">part</SPAN> of
-   a phase can be specialized.  The call to <TT>NUOPC_CompSpecialize</TT> shows how
-   to register a subroutine for a particular &ldquo;specialization point.&rdquo; In this
-   case the name of the specialization point is held in the variable
-   <TT>model_label_Advance</TT> and the subroutine providing the implementation is
-   <TT>ModelAdvance</TT>.
-
-<P>
-The Advance specialization point is called by NUOPC whenever it needs
+The same specialization approach is used to specialize the generic Run method.
+   Here <TT>label_Advance</TT> is specialized by subroutine <TT>Advance</TT>.
+   The Advance specialization point is called by NUOPC whenever it needs
    your model to take a single timestep forward.  Basically, this means
    you'll need to add a call inside the specialization subroutine to your
    model's timestepping subroutine. 
@@ -221,29 +199,27 @@ The Advance specialization point is called by NUOPC whenever it needs
     rc = ESMF_SUCCESS
     
     ! the NUOPC model component will register the generic methods
-    call NUOPC_CompDerive(model, model_routine_SS, rc=rc)
+    call NUOPC_CompDerive(model, modelSS, rc=rc)
     if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &amp;
       line=__LINE__, &amp;
       file=__FILE__)) &amp;
       return  ! bail out
     
-    ! set entry point for methods that require specific implementation
-    call NUOPC_CompSetEntryPoint(model, ESMF_METHOD_INITIALIZE, &amp;
-      phaseLabelList=(/"IPDv03p1"/), userRoutine=InitializeP1, rc=rc)
+    ! specialize model
+    call NUOPC_CompSpecialize(model, specLabel=label_Advertise, &amp;
+      specRoutine=Advertise, rc=rc)
     if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &amp;
       line=__LINE__, &amp;
       file=__FILE__)) &amp;
       return  ! bail out
-    call NUOPC_CompSetEntryPoint(model, ESMF_METHOD_INITIALIZE, &amp;
-      phaseLabelList=(/"IPDv03p3"/), userRoutine=InitializeP2, rc=rc)
+    call NUOPC_CompSpecialize(model, specLabel=label_RealizeProvided, &amp;
+      specRoutine=Realize, rc=rc)
     if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &amp;
       line=__LINE__, &amp;
       file=__FILE__)) &amp;
       return  ! bail out
-    
-    ! attach specializing method(s)
-    call NUOPC_CompSpecialize(model, specLabel=model_label_Advance, &amp;
-      specRoutine=ModelAdvance, rc=rc)
+    call NUOPC_CompSpecialize(model, specLabel=label_Advance, &amp;
+      specRoutine=Advance, rc=rc)
     if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &amp;
       line=__LINE__, &amp;
       file=__FILE__)) &amp;
@@ -274,27 +250,20 @@ The Advance specialization point is called by NUOPC whenever it needs
 <BR>
 <SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">4</SPAN> Initialize Phase - Advertise Fields
 </H2>
-   In this section we see the implementation of the <TT>InitializeP1</TT> subroutine, which
-   is registered for the initialize phase with label IPDv03p1.
-   The full list of initialization phases,
-   how they are ordered, and what happens during each phase is described in the
-   <A NAME="tex2html26"
-  HREF="http://www.earthsystemmodeling.org/esmf_releases/non_public/ESMF_7_0_0/NUOPC_refdoc/node3.html#IPD">NUOPC Reference Manual</A>.
+   In this section we see the implementation of the <TT>Advertise</TT> subroutine,
+   which is registered for the <TT>label_Advertise</TT> specialization.
+   The full list of specialization labels is described in the NUOPC Reference
+   Manual.
 
 <P>
 For now you should notice a few things:
    
 <UL>
-<LI>All phase subroutines are standard ESMF methods with the same parameter list:
+<LI>All specialization subroutines are standard ESMF attachable methods
+   with the same parameter list:
      
 <UL>
 <LI><TT>model</TT> - a reference to the component itself (<TT>ESMF_GridComp</TT>)
-</LI>
-<LI><TT>importState</TT> - a container (<TT>ESMF_State</TT>) for input fields
-</LI>
-<LI><TT>exportState</TT> - a container (<TT>ESMF_State</TT>) for output fields
-</LI>
-<LI><TT>clock</TT> - keeps track of model time (<TT>ESMF_Clock</TT>)
 </LI>
 <LI><TT>rc</TT> - an <TT>integer</TT> return code
      
@@ -304,7 +273,7 @@ For now you should notice a few things:
 <LI>If the subroutine succeeds, it should return <TT>ESMF_SUCCESS</TT> in
     the return code.  Otherwise it should return an error code. The
     list of pre-defined ESMF error codes is provided in the
-    <A NAME="tex2html27"
+    <A NAME="tex2html26"
   HREF="http://www.earthsystemmodeling.org/esmf_releases/public/last/ESMF_refdoc/node9.html#SECTION09030000000000000000">ESMF Reference Manual</A>.
 
 </LI>
@@ -329,7 +298,7 @@ As shown in the code below, to advertise a field you call
 <LI>either the <TT>importState</TT> or <TT>exportState</TT> object
 </LI>
 <LI>the standard name of the field, based on the
-   <A NAME="tex2html28"
+   <A NAME="tex2html27"
   HREF="http://cfconventions.org/standard-names.html">CF conventions</A>
 </LI>
 <LI>an optional name for the field, which can be used to
@@ -364,13 +333,22 @@ Note that NUOPC does not allocate memory for fields during the
   
   !-----------------------------------------------------------------------------
 
-  subroutine InitializeP1(model, importState, exportState, clock, rc)
+  subroutine Advertise(model, rc)
     type(ESMF_GridComp)  :: model
-    type(ESMF_State)     :: importState, exportState
-    type(ESMF_Clock)     :: clock
     integer, intent(out) :: rc
-    
+
+    ! local variables
+    type(ESMF_State)        :: importState, exportState
+
     rc = ESMF_SUCCESS
+
+    ! query for importState and exportState
+    call NUOPC_ModelGet(model, importState=importState, &amp;
+      exportState=exportState, rc=rc)
+    if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &amp;
+      line=__LINE__, &amp;
+      file=__FILE__)) &amp;
+      return  ! bail out
     
     ! importable field: sea_surface_temperature
     call NUOPC_Advertise(importState, &amp;
@@ -411,8 +389,8 @@ Note that NUOPC does not allocate memory for fields during the
 </H2>
 
 <P>
-The following code fragment shows the <TT>InitializeP2</TT> subroutine, which
-   was registered for phase IPDv03p3.   During this phase, fields that
+The following code fragment shows the <TT>Realize</TT> subroutine, which
+   specializes <TT>label_RealizeProvided</TT>.   During this phase, fields that
    were previously advertised should now be <SPAN  CLASS="textbf">realized</SPAN>.  Realizing a field
    means that an <TT>ESMF_Field</TT> object is created and it is added to the appropriate
    <TT>ESMF_State</TT>, either import or export.
@@ -429,15 +407,15 @@ Describing your model's grid (physical discretization) in the
    a NUOPC cap. The ESMF geometric types are described in detail in the ESMF Reference Manual:
    
 <UL>
-<LI><A NAME="tex2html29"
+<LI><A NAME="tex2html28"
   HREF="http://www.earthsystemmodeling.org/esmf_releases/public/last/ESMF_refdoc/node5.html#SECTION05080000000000000000">ESMF_Grid</A>
 - logically rectangular grids
 </LI>
-<LI><A NAME="tex2html30"
+<LI><A NAME="tex2html29"
   HREF="http://www.earthsystemmodeling.org/esmf_releases/public/last/ESMF_refdoc/node5.html#SECTION050100000000000000000">ESMF_Mesh</A>
 - unstructured grids
 </LI>
-<LI><A NAME="tex2html31"
+<LI><A NAME="tex2html30"
   HREF="http://www.earthsystemmodeling.org/esmf_releases/public/last/ESMF_refdoc/node5.html#SECTION05090000000000000000">ESMF_LocStream</A>
 - a set of observational points
    
@@ -460,19 +438,26 @@ Fields are put into import or export States by calling <TT>NUOPC_Realize</TT>.
 
 <P>
 <PRE>
-  subroutine InitializeP2(model, importState, exportState, clock, rc)
+  subroutine Realize(model, rc)
     type(ESMF_GridComp)  :: model
-    type(ESMF_State)     :: importState, exportState
-    type(ESMF_Clock)     :: clock
     integer, intent(out) :: rc
-    
-    ! local variables    
+
+    ! local variables
+    type(ESMF_State)        :: importState, exportState
     type(ESMF_Field)        :: field
     type(ESMF_Grid)         :: gridIn
     type(ESMF_Grid)         :: gridOut
     
     rc = ESMF_SUCCESS
     
+    ! query for importState and exportState
+    call NUOPC_ModelGet(model, importState=importState, &amp;
+      exportState=exportState, rc=rc)
+    if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &amp;
+      line=__LINE__, &amp;
+      file=__FILE__)) &amp;
+      return  ! bail out
+
     ! create a Grid object for Fields
     gridIn = ESMF_GridCreateNoPeriDimUfrm(maxIndex=(/10, 100/), &amp;
       minCornerCoord=(/10._ESMF_KIND_R8, 20._ESMF_KIND_R8/), &amp;
@@ -537,7 +522,7 @@ Fields are put into import or export States by calling <TT>NUOPC_Realize</TT>.
 
 <P>
 As described in the section <A HREF="#sec:atmexample_setservices">4.2</A>,
-   the subroutine <TT>ModelAdvance</TT> (shown below) has been
+   the subroutine <TT>Advance</TT> (shown below) has been
    registered to the <SPAN  CLASS="textit">specialization point</SPAN> with the label
    <TT>model_label_Advance</TT> in the <TT>SetServices</TT> subroutine. This
    specialization point subroutine is called within the generic <TT>NUOPC_Model</TT>
@@ -582,7 +567,7 @@ With respect to specialization point subroutines in general, note that:
 
 <P>
 <PRE>
-  subroutine ModelAdvance(model, rc)
+  subroutine Advance(model, rc)
     type(ESMF_GridComp)  :: model
     integer, intent(out) :: rc
     
@@ -605,7 +590,7 @@ With respect to specialization point subroutines in general, note that:
     ! Because of the way that the internal Clock was set by default,
     ! its timeStep is equal to the parent timeStep. As a consequence the
     ! currTime + timeStep is equal to the stopTime of the internal Clock
-    ! for this call of the ModelAdvance() routine.
+    ! for this call of the Advance() routine.
     
     call ESMF_ClockPrint(clock, options="currTime", &amp;
       preString="------&gt;Advancing ATM from: ", rc=rc)
@@ -631,26 +616,26 @@ end module
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html165"
+<A NAME="tex2html164"
   HREF="node6.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html161"
+<A NAME="tex2html160"
   HREF="NUOPC_howtodoc.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html155"
+<A NAME="tex2html154"
   HREF="node4.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html163"
+<A NAME="tex2html162"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Next:</B> <A NAME="tex2html166"
+<B> Next:</B> <A NAME="tex2html165"
   HREF="node6.html">About this document ...</A>
-<B> Up:</B> <A NAME="tex2html162"
+<B> Up:</B> <A NAME="tex2html161"
   HREF="NUOPC_howtodoc.html">NUOPC_howtodoc</A>
-<B> Previous:</B> <A NAME="tex2html156"
+<B> Previous:</B> <A NAME="tex2html155"
   HREF="node4.html">3 Writing and Testing</A>
- &nbsp; <B>  <A NAME="tex2html164"
+ &nbsp; <B>  <A NAME="tex2html163"
   HREF="node1.html">Contents</A></B> </DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>

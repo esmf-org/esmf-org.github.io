@@ -23,26 +23,26 @@
 <BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html142"
+<A NAME="tex2html141"
   HREF="node5.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html138"
+<A NAME="tex2html137"
   HREF="NUOPC_howtodoc.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html132"
+<A NAME="tex2html131"
   HREF="node3.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html140"
+<A NAME="tex2html139"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Next:</B> <A NAME="tex2html143"
+<B> Next:</B> <A NAME="tex2html142"
   HREF="node5.html">4 An Example Cap</A>
-<B> Up:</B> <A NAME="tex2html139"
+<B> Up:</B> <A NAME="tex2html138"
   HREF="NUOPC_howtodoc.html">NUOPC_howtodoc</A>
-<B> Previous:</B> <A NAME="tex2html133"
+<B> Previous:</B> <A NAME="tex2html132"
   HREF="node3.html">2 The Big Idea</A>
- &nbsp; <B>  <A NAME="tex2html141"
+ &nbsp; <B>  <A NAME="tex2html140"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
@@ -51,27 +51,27 @@
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html144"
+<LI><A NAME="tex2html143"
   HREF="node4.html#SECTION00041000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN> Install ESMF and NUOPC on the Target Machine</A>
-<LI><A NAME="tex2html145"
+<LI><A NAME="tex2html144"
   HREF="node4.html#SECTION00042000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Prepare Your Model Code</A>
-<LI><A NAME="tex2html146"
+<LI><A NAME="tex2html145"
   HREF="node4.html#SECTION00043000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">3</SPAN> Choose a Configuration of Your Model for Development</A>
-<LI><A NAME="tex2html147"
+<LI><A NAME="tex2html146"
   HREF="node4.html#SECTION00044000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">4</SPAN> Integrate a Cap Template into Your Codebase</A>
-<LI><A NAME="tex2html148"
+<LI><A NAME="tex2html147"
   HREF="node4.html#SECTION00045000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">5</SPAN> Modify Your Build to Generate a NUOPC Makefile Fragment</A>
-<LI><A NAME="tex2html149"
+<LI><A NAME="tex2html148"
   HREF="node4.html#SECTION00046000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">6</SPAN> Initialize Your Model from the Cap</A>
-<LI><A NAME="tex2html150"
+<LI><A NAME="tex2html149"
   HREF="node4.html#SECTION00047000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">7</SPAN> Call Your Model's Run Subroutine from the Cap</A>
-<LI><A NAME="tex2html151"
+<LI><A NAME="tex2html150"
   HREF="node4.html#SECTION00048000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">8</SPAN> Run the Cap with a NUOPC Driver</A>
-<LI><A NAME="tex2html152"
+<LI><A NAME="tex2html151"
   HREF="node4.html#SECTION00049000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">9</SPAN> Split Up the Initialization Phases</A>
-<LI><A NAME="tex2html153"
+<LI><A NAME="tex2html152"
   HREF="node4.html#SECTION000410000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">10</SPAN> Test and Validate Your Cap</A>
-<LI><A NAME="tex2html154"
+<LI><A NAME="tex2html153"
   HREF="node4.html#SECTION000411000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">11</SPAN> Example NUOPC Model cap</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -192,10 +192,10 @@ Dictionary uses the <A NAME="tex2html14"
 for defining field standard names, but can support field name aliases.
 
 <P>
-Finally, the model should not use the global MPI_WORLD_COMM communicator
+Finally, the model should not use the global MPI_COMM_WORLD communicator
 explicitly, but should accept a communicator at some point during
 startup.  A global search and replace can be used to replace
-all uses of MPI_WORLD_COMM with a different communicator defined
+all uses of MPI_COMM_WORLD with a different communicator defined
 as a global variable in your model.
 
 <P>
@@ -435,11 +435,14 @@ initialization subroutine(s).
 <P>
 NUOPC defines a precise initialization sequence-i.e., a series of
 steps that all NUOPC components are expected to take when starting
-up.  Some of the steps are optional and some are required.
-This initialization sequence is encoded in the <SPAN  CLASS="textit">Initialize Phase
-Definition</SPAN> (IPD), which includes several different versions in
-order to allow for extension of the initialization sequence for
-future releases of NUOPC and to support backward compatibility.
+up.  A user component cap interacts with the NUOPC initialization
+sequence through specific specialization points. Specifically this means
+using the <TT>NUOPC_CompSpecialize()</TT> method during the component's
+SetServices method for each of the required specializations, and providing the
+necessary implementation. The <TT>NUOPC_CompSpecialize()</TT> method takes a
+<TT>specLabel</TT> argument to indicate the targeted specialization. All available
+specialization labels for model components are listed in the NUOPC
+reference manual under the NUOPC_Model API section.
 
 <P>
 Instead of tackling the full NUOPC initialization sequence at this point in
@@ -574,8 +577,7 @@ module MYMODEL
   use ESMF
   use NUOPC
   use NUOPC_Model, &amp;
-    model_routine_SS    =&gt; SetServices, &amp;
-    model_label_Advance =&gt; label_Advance
+    modelSS    =&gt; SetServices
     
   ! add use statements for your model's initialization
   ! and run subroutines
@@ -589,80 +591,74 @@ module MYMODEL
   !-----------------------------------------------------------------------------
   contains
   !-----------------------------------------------------------------------------
-  
+
   subroutine SetServices(model, rc)
     type(ESMF_GridComp)  :: model
     integer, intent(out) :: rc
-    
+
     rc = ESMF_SUCCESS
-    
-    ! the NUOPC model component will register the generic methods
-    call NUOPC_CompDerive(model, model_routine_SS, rc=rc)
+
+    ! derive from NUOPC_Model
+    call NUOPC_CompDerive(model, modelSS, rc=rc)
     if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &amp;
       line=__LINE__, &amp;
       file=__FILE__)) &amp;
       return  ! bail out
-    
-    ! set entry point for methods that require specific implementation
-    call NUOPC_CompSetEntryPoint(model, ESMF_METHOD_INITIALIZE, &amp;
-      phaseLabelList=(/"IPDv04p1"/), userRoutine=AdvertiseFields, rc=rc)
+
+    ! specialize model
+    call NUOPC_CompSpecialize(model, specLabel=label_Advertise, &amp;
+      specRoutine=Advertise, rc=rc)
     if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &amp;
       line=__LINE__, &amp;
       file=__FILE__)) &amp;
       return  ! bail out
-    call NUOPC_CompSetEntryPoint(model, ESMF_METHOD_INITIALIZE, &amp;
-      phaseLabelList=(/"IPDv04p3"/), userRoutine=RealizeFields, rc=rc)
+    call NUOPC_CompSpecialize(model, specLabel=label_RealizeProvided, &amp;
+      specRoutine=Realize, rc=rc)
     if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &amp;
       line=__LINE__, &amp;
       file=__FILE__)) &amp;
       return  ! bail out
-    
-    ! attach specializing method(s)
-    call NUOPC_CompSpecialize(model, specLabel=model_label_Advance, &amp;
-      specRoutine=ModelAdvance, rc=rc)
+    call NUOPC_CompSpecialize(model, specLabel=label_Advance, &amp;
+      specRoutine=Advance, rc=rc)
     if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, &amp;
       line=__LINE__, &amp;
       file=__FILE__)) &amp;
       return  ! bail out
-    
+
   end subroutine
-  
+
   !-----------------------------------------------------------------------------
 
-  subroutine AdvertiseFields(model, importState, exportState, clock, rc)
+  subroutine Advertise(model, rc)
     type(ESMF_GridComp)  :: model
-    type(ESMF_State)     :: importState, exportState
-    type(ESMF_Clock)     :: clock
     integer, intent(out) :: rc
-    
-    rc = ESMF_SUCCESS 
-    
+
+    rc = ESMF_SUCCESS
+
     ! Eventually, you will advertise your model's import and
     ! export fields in this phase.  For now, however, call
     ! your model's initialization routine(s).
-    
+
     ! call my_model_init()
-    
+
   end subroutine
-  
+
   !-----------------------------------------------------------------------------
 
-  subroutine RealizeFields(model, importState, exportState, clock, rc)
+  subroutine Realize(model, rc)
     type(ESMF_GridComp)  :: model
-    type(ESMF_State)     :: importState, exportState
-    type(ESMF_Clock)     :: clock
     integer, intent(out) :: rc
-    
+
     rc = ESMF_SUCCESS  
-    
+
     ! Eventually, you will realize your model's fields here,
     ! but leave empty for now.
 
   end subroutine
-  
+
   !-----------------------------------------------------------------------------
 
-  subroutine ModelAdvance(model, rc)
+  subroutine Advance(model, rc)
     type(ESMF_GridComp)  :: model
     integer, intent(out) :: rc
     
@@ -685,7 +681,7 @@ module MYMODEL
     ! Because of the way that the internal Clock was set by default,
     ! its timeStep is equal to the parent timeStep. As a consequence the
     ! currTime + timeStep is equal to the stopTime of the internal Clock
-    ! for this call of the ModelAdvance() routine.
+    ! for this call of the Advance() routine.
 
     call ESMF_ClockPrint(clock, options="currTime", &amp;
       preString="------&gt;Advancing MODEL from: ", rc=rc)
@@ -715,26 +711,26 @@ end module
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html142"
+<A NAME="tex2html141"
   HREF="node5.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html138"
+<A NAME="tex2html137"
   HREF="NUOPC_howtodoc.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html132"
+<A NAME="tex2html131"
   HREF="node3.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html140"
+<A NAME="tex2html139"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Next:</B> <A NAME="tex2html143"
+<B> Next:</B> <A NAME="tex2html142"
   HREF="node5.html">4 An Example Cap</A>
-<B> Up:</B> <A NAME="tex2html139"
+<B> Up:</B> <A NAME="tex2html138"
   HREF="NUOPC_howtodoc.html">NUOPC_howtodoc</A>
-<B> Previous:</B> <A NAME="tex2html133"
+<B> Previous:</B> <A NAME="tex2html132"
   HREF="node3.html">2 The Big Idea</A>
- &nbsp; <B>  <A NAME="tex2html141"
+ &nbsp; <B>  <A NAME="tex2html140"
   HREF="node1.html">Contents</A></B> </DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
