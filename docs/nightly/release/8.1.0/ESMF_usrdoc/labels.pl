@@ -522,6 +522,10 @@ $key = q/sec:EsmfMkMethod/;
 $external_labels{$key} = "$URL/" . q|node7.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:MOAB/;
+$external_labels{$key} = "$URL/" . q|node9.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:QuickStart/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
@@ -1139,6 +1143,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/sec:EsmfMkMethod/;
 $external_latex_labels{$key} = q|6.1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:MOAB/;
+$external_latex_labels{$key} = q|8.4.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:QuickStart/;
