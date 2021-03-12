@@ -12514,11 +12514,12 @@ The producer Component attaches a user defined method to <TT>exportState</TT>
     type(ESMF_State):: importState, exportState
     type(ESMF_Clock):: clock
     integer, intent(out):: rc
-    
+
+    rc = ESMF_SUCCESS
     call ESMF_MethodAdd(exportState, label="finalCalculation", &amp;
       userRoutine=finalCalc, rc=rc)
+    if (rc /= ESMF_SUCCESS) return
 
-    rc = 0
   end subroutine !--------------------------------------------------------------
 </PRE>
 
@@ -12540,11 +12541,11 @@ The producer Component implements the attached, user defined method
     type(ESMF_State):: state
     integer, intent(out):: rc
 
+    rc = ESMF_SUCCESS
+
     ! access data objects in state and perform calculation
-    
     print *, "dummy output from attached method "
 
-    rc = 0
   end subroutine !--------------------------------------------------------------
 </PRE>
 
@@ -12566,13 +12567,36 @@ The consumer Component executes the user defined method on the
     type(ESMF_State):: importState, exportState
     type(ESMF_Clock):: clock
     integer, intent(out):: rc
-    
+
     integer:: userRc
-    
+    logical:: isPresent
+
+    rc = ESMF_SUCCESS
+</PRE>
+
+<P>
+It is possible to first check the importState if the desired method is
+   attached. This allows the consumer code to implement alternatives in case
+   the method is not available. 
+
+<P>
+<PRE>
+    call ESMF_MethodGet(importState, label="finalCalculation", &amp;
+      isPresent=isPresent, rc=rc)
+    if (rc /= ESMF_SUCCESS) return
+</PRE>
+
+<P>
+Finally call into the attached method from the consumer side. 
+
+<P>
+<PRE>
     call ESMF_MethodExecute(importState, label="finalCalculation", &amp;
       userRc=userRc, rc=rc)
+    if (rc /= ESMF_SUCCESS) return
+    rc = userRc
+    if (rc /= ESMF_SUCCESS) return
 
-    rc = 0
   end subroutine !--------------------------------------------------------------
 </PRE>
 
@@ -14025,7 +14049,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16098"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16110"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
