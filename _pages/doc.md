@@ -15,5 +15,5 @@ title: "Docs"
 * Fortran Reference Manual - [html](/docs/nightly/develop/ESMF_refdoc/), [pdf](/docs/nightly/develop/ESMF_refdoc.pdf)
 * C Reference Manual - [html](/docs/nightly/develop/ESMC_crefdoc/), [pdf](/docs/nightly/develop/ESMC_crefdoc.pdf)
 * NUOPC Reference Manual - [html](/docs/nightly/develop/NUOPC_refdoc), [pdf](/docs/nightly/develop/NUOPC_refdoc.pdf)
-* ESMPy Documentation - [html](/esmpy_doc/develop/html/), [pdf](/esmpy_doc/develop/latex/ESMPy.pdf)
+* ESMPy Documentation - [html](/esmpy_doc/nightly/develop/html/), [pdf](/esmpy_doc/nightly/develop/ESMPy.pdf)
 * Developer's Guide - [html](/docs/nightly/develop/dev_guide/)
