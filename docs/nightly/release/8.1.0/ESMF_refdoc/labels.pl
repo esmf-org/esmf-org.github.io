@@ -2342,11 +2342,11 @@ $external_latex_labels{$key} = q|39|;
 $noresave{$key} = "$nosave";
 
 $key = q/esmf_infobroadcast/;
-$external_latex_labels{$key} = q|39.4.28|; 
+$external_latex_labels{$key} = q|39.4.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/esmf_infosync/;
-$external_latex_labels{$key} = q|39.4.29|; 
+$external_latex_labels{$key} = q|39.4.28|; 
 $noresave{$key} = "$nosave";
 
 $key = q/esmfstateremovelist/;
