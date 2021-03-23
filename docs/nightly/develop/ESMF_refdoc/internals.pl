@@ -246,14 +246,6 @@ $key = q/api:ArrayWrite/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/api:AttributeRead/;
-$ref_files{$key} = "$dir".q|node9.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/api:AttributeWrite/;
-$ref_files{$key} = "$dir".q|node9.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/api:DistGridConnectionGet/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";

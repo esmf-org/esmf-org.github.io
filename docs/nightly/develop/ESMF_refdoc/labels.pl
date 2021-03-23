@@ -246,14 +246,6 @@ $key = q/api:ArrayWrite/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/api:AttributeRead/;
-$external_labels{$key} = "$URL/" . q|node9.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/api:AttributeWrite/;
-$external_labels{$key} = "$URL/" . q|node9.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/api:DistGridConnectionGet/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -2005,14 +1997,6 @@ $key = q/api:ArrayWrite/;
 $external_latex_labels{$key} = q|28.5.47|; 
 $noresave{$key} = "$nosave";
 
-$key = q/api:AttributeRead/;
-$external_latex_labels{$key} = q|55.0.18|; 
-$noresave{$key} = "$nosave";
-
-$key = q/api:AttributeWrite/;
-$external_latex_labels{$key} = q|55.0.26|; 
-$noresave{$key} = "$nosave";
-
 $key = q/api:DistGridConnectionGet/;
 $external_latex_labels{$key} = q|35.7.1|; 
 $noresave{$key} = "$nosave";
@@ -2358,11 +2342,11 @@ $external_latex_labels{$key} = q|39|;
 $noresave{$key} = "$nosave";
 
 $key = q/esmf_infobroadcast/;
-$external_latex_labels{$key} = q|39.4.28|; 
+$external_latex_labels{$key} = q|39.4.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/esmf_infosync/;
-$external_latex_labels{$key} = q|39.4.29|; 
+$external_latex_labels{$key} = q|39.4.28|; 
 $noresave{$key} = "$nosave";
 
 $key = q/esmfstateremovelist/;
