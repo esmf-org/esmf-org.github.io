@@ -2,42 +2,6 @@
 # Associate internals original text with physical files.
 
 
-$key = q/cite_CCSMdevguide/;
-$ref_files{$key} = "$dir".q|node12.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_FMSdevguide/;
-$ref_files{$key} = "$dir".q|node12.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_bib:ESMFimplrep/;
-$ref_files{$key} = "$dir".q|node12.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_bib:ESMFprojectplan/;
-$ref_files{$key} = "$dir".q|node12.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_bib:ESMFreqdoc/;
-$ref_files{$key} = "$dir".q|node12.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_ieee/;
-$ref_files{$key} = "$dir".q|node12.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_mcconnell96/;
-$ref_files{$key} = "$dir".q|node12.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_protex/;
-$ref_files{$key} = "$dir".q|node12.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_ref:f95/;
-$ref_files{$key} = "$dir".q|node12.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/core/;
 $ref_files{$key} = "$dir".q|node3.html|; 
 $noresave{$key} = "$nosave";
