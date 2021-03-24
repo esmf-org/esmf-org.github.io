@@ -82,7 +82,7 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.4</td>
 			<td>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/blob/main/release/8.1.0/catania/gfortran/10.2.0/O/mpich3/3.3.2-custom/summary.dat">lib-O</a></td>
+				-</td>
 		</tr>
 		<tr>
 			<td>
@@ -114,7 +114,7 @@ contains a complete list of possible configurations.
 			<td>
 				gfortran</td>
 			<td>
-				mpt (2.22), openmpi (4.0.5)</td>
+				mpt (2.22)</td>
 			<td>
 				gfortran (9.1.0)</td>
 			<td>
@@ -134,7 +134,47 @@ contains a complete list of possible configurations.
 			<td>
 				gfortran</td>
 			<td>
-				mpt (2.23), openmpi (4.0.5)</td>
+				openmpi (4.0.5)</td>
+			<td>
+				gfortran (9.1.0)</td>
+			<td>
+				g++ (9.1.0)</td>
+			<td>
+				4.7.3</td>
+			<td>
+				-</td>
+		</tr>
+		<tr>
+			<td>
+				HPE/SGI ICE XA Cluster</td>
+			<td>
+				Cheyenne</td>
+			<td>
+				Linux</td>
+			<td>
+				gfortran</td>
+			<td>
+				mpt (2.23)</td>
+			<td>
+				gfortran (10.1.0)</td>
+			<td>
+				g++ (10.1.0)</td>
+			<td>
+				4.7.4</td>
+			<td>
+				-</td>
+		</tr>
+		<tr>
+			<td>
+				HPE/SGI ICE XA Cluster</td>
+			<td>
+				Cheyenne</td>
+			<td>
+				Linux</td>
+			<td>
+				gfortran</td>
+			<td>
+				openmpi (4.0.5)</td>
 			<td>
 				gfortran (10.1.0)</td>
 			<td>
@@ -154,7 +194,47 @@ contains a complete list of possible configurations.
 			<td>
 				intel</td>
 			<td>
-				mpt (2.19), openmpi (3.1.4), intelmpi (2018.4.274)</td>
+				mpt (2.19)</td>
+			<td>
+				ifort (18.0.5.274)</td>
+			<td>
+				icpc (18.0.5.274)</td>
+			<td>
+				4.6.3</td>
+			<td>
+				-</td>
+		</tr>
+		<tr>
+			<td>
+				HPE/SGI ICE XA Cluster</td>
+			<td>
+				Cheyenne</td>
+			<td>
+				Linux</td>
+			<td>
+				intel</td>
+			<td>
+				openmpi (3.1.4)</td>
+			<td>
+				ifort (18.0.5.274)</td>
+			<td>
+				icpc (18.0.5.274)</td>
+			<td>
+				4.6.3</td>
+			<td>
+				-</td>
+		</tr>
+		<tr>
+			<td>
+				HPE/SGI ICE XA Cluster</td>
+			<td>
+				Cheyenne</td>
+			<td>
+				Linux</td>
+			<td>
+				intel</td>
+			<td>
+				intelmpi (2018.4.274)</td>
 			<td>
 				ifort (18.0.5.274)</td>
 			<td>
@@ -194,7 +274,27 @@ contains a complete list of possible configurations.
 			<td>
 				gfortran</td>
 			<td>
-				mpt (2.17), intelmpi (19.1.3.304)</td>
+				mpt (2.17)</td>
+			<td>
+				gfortran (8.3.0)</td>
+			<td>
+				g++ (8.3.0)</td>
+			<td>
+				-</td>
+			<td>
+				-</td>
+		</tr>
+		<tr>
+			<td>
+				PC Xeon Cluster</td>
+			<td>
+				Discover</td>
+			<td>
+				Linux</td>
+			<td>
+				gfortran</td>
+			<td>
+				intelmpi (19.1.3.304)</td>
 			<td>
 				gfortran (8.3.0)</td>
 			<td>
@@ -234,7 +334,27 @@ contains a complete list of possible configurations.
 			<td>
 				intel</td>
 			<td>
-				mpt (2.17), intelmpi (19.1.3.304)</td>
+				mpt (2.17)</td>
+			<td>
+				ifort (19.1.3.304)</td>
+			<td>
+				icpc (19.1.3.304)</td>
+			<td>
+				4.8.0</td>
+			<td>
+				-</td>
+		</tr>
+		<tr>
+			<td>
+				PC Xeon Cluster</td>
+			<td>
+				Discover</td>
+			<td>
+				Linux</td>
+			<td>
+				intel</td>
+			<td>
+				intelmpi (19.1.3.304)</td>
 			<td>
 				ifort (19.1.3.304)</td>
 			<td>
@@ -254,11 +374,55 @@ contains a complete list of possible configurations.
 			<td>
 				gfortran</td>
 			<td>
-				mpiuni, mpi (cray-mpich/7.7.11)</td>
+				mpiuni</td>
 			<td>
 				ftn/gfortran (8.3.0)</td>
 			<td>
 				CC/g++ (8.3.0)</td>
+			<td>
+				4.6.3</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/O/mpiuni/summary.dat">lib-O</a></td>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/g/mpiuni/summary.dat">lib-g</a></td>
+				</td>
+		</tr>
+		<tr>
+			<td>
+				Cray XE6</td>
+			<td>
+				Gaea</td>
+			<td>
+				Unicos</td>
+			<td>
+				gfortran</td>
+			<td>
+				mpi (cray-mpich/7.7.11)</td>
+			<td>
+				ftn/gfortran (8.3.0)</td>
+			<td>
+				CC/g++ (8.3.0)</td>
+			<td>
+				4.6.3</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/O/mpi/7.7.11/summary.dat">lib-O</a></td>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/g/mpi/7.7.11/summary.dat">lib-g</a></td>
+				</td>
+		</tr>
+		<tr>
+			<td>
+				Cray XE6</td>
+			<td>
+				Gaea</td>
+			<td>
+				Unicos</td>
+			<td>
+				intel</td>
+			<td>
+				mpiuni</td>
+			<td>
+				ftn/ifort (2019.0.5.281)</td>
+			<td>
+				CC/icpc (2019.0.5.281)</td>
 			<td>
 				4.6.3</td>
 			<td>
@@ -274,7 +438,7 @@ contains a complete list of possible configurations.
 			<td>
 				intel</td>
 			<td>
-				mpiuni, mpi (cray-mpich/7.7.11)</td>
+				mpi (cray-mpich/7.7.11)</td>
 			<td>
 				ftn/ifort (2019.0.5.281)</td>
 			<td>
@@ -354,7 +518,27 @@ contains a complete list of possible configurations.
 			<td>
 				intel</td>
 			<td>
-				mpiuni, intelmpi (2018.0.4)</td>
+				mpiuni</td>
+			<td>
+				ifort (18.0.5.274)</td>
+			<td>
+				icpc (18.0.5.274)</td>
+			<td>
+				4.7.0</td>
+			<td>
+				-</td>
+		</tr>
+		<tr>
+			<td>
+				Cray Compute Cluster</td>
+			<td>
+				Hera</td>
+			<td>
+				Linux</td>
+			<td>
+				intel</td>
+			<td>
+				intelmpi (2018.0.4)</td>
 			<td>
 				ifort (18.0.5.274)</td>
 			<td>
@@ -454,7 +638,27 @@ contains a complete list of possible configurations.
 			<td>
 				gfortran</td>
 			<td>
-				mpiuni, openmpi (4.0.2)</td>
+				mpiuni</td>
+			<td>
+				gfortran (8.3.0)</td>
+			<td>
+				g++ (8.3.0)</td>
+			<td>
+				4.7.2</td>
+			<td>
+				-</td>
+		</tr>
+		<tr>
+			<td>
+				PC Xeon Cluster</td>
+			<td>
+				Orion</td>
+			<td>
+				Linux</td>
+			<td>
+				gfortran</td>
+			<td>
+				openmpi (4.0.2)</td>
 			<td>
 				gfortran (8.3.0)</td>
 			<td>
