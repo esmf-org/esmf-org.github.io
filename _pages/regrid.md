@@ -6,6 +6,7 @@ toc: true
 #https://www.earthsystemcog.org/projects/esmf/regridding
 ---
 
+
 ### Overview
 Regridding, also called remapping or interpolation, is
 the process of changing the grid that underlies data values while
