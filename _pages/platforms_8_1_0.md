@@ -120,9 +120,9 @@ contains a complete list of possible configurations.
 			<td>
 				mpich3 (3.3.2)</td>
 			<td>
-				gfortran (9.3.0)</td>
+				gfortran (10.2.0)</td>
 			<td>
-				g++ (9.3.0)</td>
+				g++ (10.2.0)</td>
 			<td>
 				4.7.4</td>
 			<td>
@@ -516,8 +516,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/intel/2019.5/O/mpiuni/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/intel/2019.5/g/mpiuni/summary.dat">lib-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -538,8 +538,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/intel/2019.5/O/mpi/7.7.11/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/intel/2019.5/g/mpi/7.7.11/summary.dat">lib-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -560,8 +560,8 @@ contains a complete list of possible configurations.
 			<td>
 				-</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaffney/gfortran/9.2.0/O/mpiuni/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaffney/gfortran/9.2.0/g/mpiuni/summary.dat">lib-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -582,8 +582,10 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.4</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaffney/intel/2018.1/O/intelmpi/18.0.1.163/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaffney/intel/2018.1/g/intelmpi/18.0.1.163/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaffney/intel/2018.1/O/intelmpi/18.0.1.163/out/nuopc.dat">nuopc-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaffney/intel/2018.1/g/intelmpi/18.0.1.163/out/nuopc.dat">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -604,8 +606,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.2</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaffney/intel/2018.1/O/mpt/2.20/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaffney/intel/2018.1/g/mpt/2.20/summary.dat">lib-g</a><br>
 			</td>
 		</tr>
 		<tr>
