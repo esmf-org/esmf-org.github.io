@@ -74,7 +74,27 @@ contains a complete list of possible configurations.
 			<td>
 				gfortran</td>
 			<td>
-				mpiuni, mpich3 (3.3.2)</td>
+				mpich3 (3.3.2)</td>
+			<td>
+				gfortran (9.3.0)</td>
+			<td>
+				g++ (9.3.0)</td>
+			<td>
+				4.7.4</td>
+			<td>
+				-</td>
+		</tr>
+		<tr>
+			<td>
+				Mac Xeon</td>
+			<td>
+				Catania</td>
+			<td>
+				Darwin</td>
+			<td>
+				gfortran</td>
+			<td>
+				mpich3 (3.3.2)</td>
 			<td>
 				gfortran (9.3.0)</td>
 			<td>
@@ -382,8 +402,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/O/mpiuni/summary.dat">lib-O</a></td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/g/mpiuni/summary.dat">lib-g</a></td>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/O/mpiuni/summary.dat">lib-O</a>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/g/mpiuni/summary.dat">lib-g</a>
 				</td>
 		</tr>
 		<tr>
@@ -404,8 +424,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/O/mpi/7.7.11/summary.dat">lib-O</a></td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/g/mpi/7.7.11/summary.dat">lib-g</a></td>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/O/mpi/7.7.11/summary.dat">lib-O</a>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaea/gfortran/8.3.0/g/mpi/7.7.11/summary.dat">lib-g</a>
 				</td>
 		</tr>
 		<tr>
