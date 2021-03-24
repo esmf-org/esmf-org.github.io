@@ -21,7 +21,9 @@ contains a complete list of possible configurations.
 
   - The three columns of environment variables represent the settings used
     to build ESMF on the supported combinations. The full variable names
-    are ESMF_OS, ESMF_COMPILER, ESMF_COMM.
+    are ESMF_OS, ESMF_COMPILER, ESMF_COMM. The version information for
+    MPI implementations is provided in parenthesis following the ESMF_COMM
+    environment variable setting.
 
   - The next two columns provide Compiler Specifics, indicating the
     executable name and version of the F90 and C++ compilers used during
