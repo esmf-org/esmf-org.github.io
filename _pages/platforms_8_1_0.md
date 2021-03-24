@@ -454,8 +454,8 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/O/mpt/2.17/summary.dat">lib-O</a><br>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/g/mpt/2.17/summary.dat">lib-g</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/O/mpt/2.17/out/nuopc.dat">nuopc-O</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/g/mpt/2.17/out/nuopc.dat">nuopc-g</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/O/mpt/2.17/out/nuopc.log">nuopc-O</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/g/mpt/2.17/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -478,8 +478,8 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/O/intelmpi/19.1.3.304/summary.dat">lib-O</a><br>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/g/intelmpi/19.1.3.304/summary.dat">lib-g</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/O/intelmpi/19.1.3.304/out/nuopc.dat">nuopc-O</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/g/intelmpi/19.1.3.304/out/nuopc.dat">nuopc-g</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/O/intelmpi/19.1.3.304/out/nuopc.log">nuopc-O</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/discover/intel/2020/g/intelmpi/19.1.3.304/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -612,8 +612,8 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/gaffney/intel/2018.1/O/intelmpi/18.0.1.163/summary.dat">lib-O</a><br>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/gaffney/intel/2018.1/g/intelmpi/18.0.1.163/summary.dat">lib-g</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/gaffney/intel/2018.1/O/intelmpi/18.0.1.163/out/nuopc.dat">nuopc-O</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/gaffney/intel/2018.1/g/intelmpi/18.0.1.163/out/nuopc.dat">nuopc-g</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/gaffney/intel/2018.1/O/intelmpi/18.0.1.163/out/nuopc.log">nuopc-O</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/gaffney/intel/2018.1/g/intelmpi/18.0.1.163/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -680,8 +680,8 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/hera/intel/18.0.4/O/intelmpi/2018.4.274/summary.dat">lib-O</a><br>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/hera/intel/18.0.4/g/intelmpi/2018.4.274/summary.dat">lib-g</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/hera/intel/18.0.4/O/intelmpi/2018.4.274/out/nuopc.dat">nuopc-O</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/hera/intel/18.0.4/g/intelmpi/2018.4.274/out/nuopc.dat">nuopc-g</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/hera/intel/18.0.4/O/intelmpi/2018.4.274/out/nuopc.log">nuopc-O</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/hera/intel/18.0.4/g/intelmpi/2018.4.274/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -748,8 +748,8 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2019.4/O/mpt/2.20/summary.dat">lib-O</a><br>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2019.4/g/mpt/2.20/summary.dat">lib-g</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2019.4/O/mpt/2.20/out/nuopc.dat">nuopc-O</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2019.4/g/mpt/2.20/out/nuopc.dat">nuopc-g</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2019.4/O/mpt/2.20/out/nuopc.log">nuopc-O</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2019.4/g/mpt/2.20/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -772,8 +772,8 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2020.2/O/intelmpi/2020.2.254/summary.dat">lib-O</a><br>
 				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2020.2/g/intelmpi/2020.2.254/summary.dat">lib-g</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2020.2/O/intelmpi/2020.2.254/out/nuopc.dat">nuopc-O</a><br>
-				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2020.2/g/intelmpi/2020.2.254/out/nuopc.dat">nuopc-g</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2020.2/O/intelmpi/2020.2.254/out/nuopc.log">nuopc-O</a><br>
+				<a href="https://github.com/esmf-org/esmf-test-artifacts/tree/main/ESMF_8_1_0/koehr/intel/2020.2/g/intelmpi/2020.2.254/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
