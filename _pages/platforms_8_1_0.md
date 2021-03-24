@@ -82,8 +82,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.4</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/catania/gfortran/9.3.0/O/mpiuni/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/catania/gfortran/9.3.0/g/mpiuni/summary.dat">lib-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -104,8 +104,30 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.4</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/catania/gfortran/9.3.0/O/mpich3/3.3.2-custom/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/catania/gfortran/9.3.0/g/mpich3/3.3.2-custom/summary.dat">lib-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Mac Xeon</td>
+			<td>
+				Catania</td>
+			<td>
+				Darwin</td>
+			<td>
+				gfortran</td>
+			<td>
+				mpich3 (3.3.2)</td>
+			<td>
+				gfortran (9.3.0)</td>
+			<td>
+				g++ (9.3.0)</td>
+			<td>
+				4.7.4</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/catania/gfortran/10.2.0/O/mpich3/3.3.2-custom/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/catania/gfortran/10.2.0/g/mpich3/3.3.2-custom/summary.dat">lib-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -126,8 +148,10 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/7.4.0/O/openmpi/4.0.3/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/7.4.0/g/openmpi/4.0.3/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/7.4.0/O/openmpi/4.0.3/out/nuopc.log">nuopc-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/7.4.0/g/openmpi/4.0.3/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -148,8 +172,10 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/9.1.0/O/mpt/2.22/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/9.1.0/g/mpt/2.22/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/9.1.0/O/mpt/2.22/out/nuopc.log">nuopc-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/9.1.0/g/mpt/2.22/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -170,8 +196,10 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/9.1.0/O/openmpi/4.0.5/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/9.1.0/g/openmpi/4.0.5/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/9.1.0/O/openmpi/4.0.5/out/nuopc.log">nuopc-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/9.1.0/g/openmpi/4.0.5/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -192,8 +220,10 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.4</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/10.1.0/O/mpt/2.23/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/10.1.0/g/mpt/2.23/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/10.1.0/O/mpt/2.23/out/nuopc.log">nuopc-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/10.1.0/g/mpt/2.23/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -214,8 +244,10 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.4</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/10.1.0/O/openmpi/4.0.5/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/10.1.0/g/openmpi/4.0.5/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/10.1.0/O/openmpi/4.0.5/out/nuopc.log">nuopc-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/gfortran/10.1.0/g/openmpi/4.0.5/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -236,8 +268,10 @@ contains a complete list of possible configurations.
 			<td>
 				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/O/mpt/2.19/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/g/mpt/2.19/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/O/mpt/2.19/out/nuopc.log">nuopc-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/g/mpt/2.19/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -258,8 +292,10 @@ contains a complete list of possible configurations.
 			<td>
 				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/O/openmpi/3.1.4/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/g/openmpi/3.1.4/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/O/openmpi/3.1.4/out/nuopc.log">nuopc-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/g/openmpi/3.1.4/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -280,8 +316,10 @@ contains a complete list of possible configurations.
 			<td>
 				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/O/intelmpi/2018.4.274/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/g/intelmpi/2018.4.274/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/O/intelmpi/2018.4.274/out/nuopc.log">nuopc-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/cheyenne/intel/18.0.5/g/intelmpi/2018.4.274/out/nuopc.log">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
