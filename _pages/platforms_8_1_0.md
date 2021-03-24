@@ -606,8 +606,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.2</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaffney/intel/2018.1/O/mpt/2.20/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/gaffney/intel/2018.1/g/mpt/2.20/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/hera/gfortran/9.2.0/O/mpiuni/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/hera/gfortran/9.2.0/g/mpiuni/summary.dat">lib-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -628,8 +628,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.0</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/hera/intel/18.0.4/O/mpiuni/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/hera/intel/18.0.4/g/mpiuni/summary.dat">lib-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -650,8 +650,10 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.0</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/hera/intel/18.0.4/O/intelmpi/2018.4.274/summary.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/hera/intel/18.0.4/g/intelmpi/2018.4.274/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/hera/intel/18.0.4/O/intelmpi/2018.4.274/out/nuopc.dat">nuopc-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/hera/intel/18.0.4/g/intelmpi/2018.4.274/out/nuopc.dat">nuopc-g</a><br>
 			</td>
 		</tr>
 		<tr>
