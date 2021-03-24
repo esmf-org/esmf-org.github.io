@@ -169,83 +169,20 @@ ESMPy Documentation <br>
 <td>
 <ul>
 
-<li>This release is backward compatible with the last major release update, ESMF 8.0.0, for all the interfaces that are marked as backward compatible in the Reference Manual. There were API changes to a few unmarked methods that may require minor modifications to user code that uses these methods. The entire list of API changes is summarized in a <a href="http://www.earthsystemmodeling.org/esmf_releases/public/ESMF_8_1_0/API-800-810.pdf">table showing interface changes since ESMF_8_0_0</a>, including the rationale and impact for each change.
+<li>To be copied from Release Work Doc.
 
-<li>Some bit-for-bit changes are expected for this release compared to release ESMF 8.0.0 and patch release ESMF 8.0.1. We observe the following impact with Intel compilers using "<code>-O2 -fp-model precise</code>": 
-<ul>
- 
-<li>&lt;need items here, copy from Bob's BFB tracking page>
-</li> 
-</ul>
-
-<li>Tables summarizing the <a href="https://www.earthsystemcog.org/projects/esmf/regridding_8_0_0">ESMF regridding status</a> have been updated. These include  supported grids and capabilities of the offline and integrated regridding, and numerical results of some specific test cases.
-
-<li>The <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/ESMF_refdoc/node6.html#SECTION06020000000000000000">ESMF_Info</a> class was introduced as a replacement for ESMF_Attribute. ESMF_Info is based on a modern C++ JSON implementation to provide efficient key-value pair storage. Most of the <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/ESMF_refdoc/node9.html#SECTION09040000000000000000">legacy ESMF_Attribute API</a> is preserved for backward compatibility.
-
-<li>ESMF is in the process of upgrading the internal Mesh representation to use the <a href="http://www.mcs.anl.gov/~fathom/moab-docs/html/index.html">MOAB</a> mesh library developed by the U.S. Department of Energy. In this release, ESMF capabilities using MOAB have been significantly optimized and expanded, allowing for application-level testing of ESMF with MOAB as the underlying mesh representation. MOAB is built into the ESMF library by default, but its use must be enabled at run-time by calling <a href="http://earthsystemmodeling.org/docs/nightly/develop/ESMF_refdoc/node5.html#SECTION0501042000000000000000">ESMF_MeshSetMOAB()</a>. When MOAB is activated, the following new capabilities are supported in this release: 
-<ul>
- 
-<li>The Mesh creation, conservative regridding, and bilinear regridding algorithms when using MOAB have been optimized to reduce their memory use and expand the size of Meshes they can be used on.  
- 
-<li>Grids can now be explicitly converted to a Mesh using MOAB using the <a href="http://earthsystemmodeling.org/docs/nightly/develop/ESMF_refdoc/node5.html#SECTION050104800000000000000">ESMF_MeshCreate()</a> method.
- 
-<li>Grids can be used to do first-order conservative regridding using MOAB.
- 
-<li>Grids can be used for bilinear regridding on cell centers or corners using MOAB. 
-</li> 
-</ul>
-
-<li>The <a href="http://earthsystemmodeling.org/nuopc/">NUOPC Layer</a> contained in this release has been improved in the following specific technical areas: 
-<ul>
- 
-<li>The NUOPC API has been simplified through the introduction of <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/NUOPC_refdoc/node3.html#SECTION00034100000000000000">semantic specialization labels</a>. The new approach leads to clearer and more concise NUOPC “cap” implementations that do not require specifying an <a href="http://earthsystemmodeling.org/docs/nightly/develop/NUOPC_refdoc/node8.html">Initialize Phase Definition (IPD) version or using the IPDvXXpY nomenclature</a> when registering methods in the SetServices() method. Existing caps do not have to be re-written or updated, although updating to the new semantic specialization labels is recommended for existing and new NUOPC caps. The older IPD version based approach is supported for backward compatibility. 
- 
-<li>The NUOPC layer now provides features for <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/NUOPC_refdoc/node3.html#SECTION00037000000000000000">resource control and handling of threaded components</a>. This mechanism supports mixing of hybrid MPI+OpenMP components with different threading levels and mixing with standard MPI components on the same processing elements (PEs), i.e. cores. It allows each component to fully utilize HPC resources independently. Coupling between threaded components is supported automatically via the standard NUOPC Connectors.
- 
-<li>The <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/NUOPC_refdoc/node3.html#SECTION00038000000000000000">external NUOPC interface</a> that supports interaction between an entire NUOPC application and a layer outside of NUOPC (e.g. a Data Assimilation system) was further refined. The associated prototype code (<a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/release/8.1.0/ExternalDriverAPIProto">ExternalDriverAPIProto</a>) has been updated to reflect the current status.
- 
-<li>The NUOPC Profiling attribute, available in the <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/NUOPC_refdoc/node3.html#SECTION00033100000000000000">Driver Metadata</a>, <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/NUOPC_refdoc/node3.html#SECTION00033200000000000000">Model Metadata</a>, <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/NUOPC_refdoc/node3.html#SECTION00033300000000000000">Mediator Metadata</a>, and <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/NUOPC_refdoc/node3.html#SECTION00033400000000000000">Connector Metadata</a>, has been re-implemented. The NUOPC layer profiling features now integrate with the <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/ESMF_refdoc/node6.html#SECTION060130000000000000000">ESMF profiling infrastructure</a>.
- 
-<li>The NUOPC transfer protocol for geometry objects (Grid, Mesh, LocStream) has been made more efficient. Geometries used for multiple Fields are only transferred once, reducing the initialization overhead associated with the transfer.
- 
-<li>Several optimizations were implemented in the NUOPC layer to reduce overhead.  All applications using NUOPC benefit from these optimizations without requiring code changes.
- 
-<li>Added the <code>creep_nrst_d </code>value to the <code>extrapMethod </code><a href="http://earthsystemmodeling.org/docs/nightly/develop/NUOPC_refdoc/node3.html#SECTION00034400000000000000">NUOPC connection options</a>. This is equivalent to the ESMF_EXTRAPMETHOD_CREEP_NRST_D option in ESMF_FieldRegridStore() discussed below. 
-</ul>
-
-<li>Added the <a href="http://earthsystemmodeling.org/esmpy_doc/nightly/release/8.1.0/html/ExtrapMethod.html">extrapolation option: CREEP_FILL</a> to ESMPy. This option fills unmapped destination points by repeatedly moving data from mapped locations to neighboring unmapped locations.
-
-<li>The implementation of the ESMF_StateReconcile() method was redesigned to improve performance, and scalability. Most users do not interact with this method directly, however, the NUOPC initialization time has been reduced as a consequence, which is most pronounced in applications with large Field and PET counts.
-
-<li>Added the optional checkFlag argument to <a href="http://earthsystemmodeling.org/docs/nightly/develop/ESMF_refdoc/node5.html#SECTION050366000000000000000">ESMF_FieldRegridStore()</a>. The intention behind this flag is to allow the user to turn on more expensive error checking that may not be appropriate for an operational run. Initially this flag turns on a check for grid self-intersection during conservative regridding.
-
-<li>Added a new extrapolation method called "nearest destination" to the regrid weight generation system. This capability fills destination points that were not filled by an initial regridding by using the nearest regridded destination point. The nearest destination method is accessible by specifying the extrapMethod=<a href="http://earthsystemmodeling.org/docs/nightly/develop/ESMF_refdoc/node9.html#SECTION090117000000000000000">ESMF_EXTRAPMETHOD_NEAREST_D</a> option in any of the ESMF_*RegridStore() methods or the --extrap_method nearestd option when using the ESMF_RegridWeightGen application).
-
-<li>Added a new extrapolation method called "creep nearest destination" to the regrid weight generation system. This capability fills destination points that were not filled by an initial regridding by first applying a creep fill extrapolation and then filling the remaining unmapped destination points using nearest destination extrapolation. The creep nearest destination method is accessible by specifying the extrapMethod=<a href="http://earthsystemmodeling.org/docs/nightly/develop/ESMF_refdoc/node9.html#SECTION090117000000000000000">ESMF_EXTRAPMETHOD_CREEP_NRST_D</a> option in any of the ESMF_*RegridStore() methods or the --extrap_method creepnrstd option when using the ESMF_RegridWeightGen application).
-
-<li>The creep fill extrapolation has been optimized so that it uses less memory per level extrapolated. This allows the creep fill method to extrapolate several times further into unmapped parts of the destination Field. 
-
-<li>The <a href="http://earthsystemmodeling.org/docs/nightly/develop/ESMF_refdoc/node5.html#SECTION0501041700000000000000">ESMF_MeshGet()</a> call has been expanded to allow the user to query a full set of information for most Meshes. The exception is 2D Meshes with cells of more than four sides for which the element information (e.g. element connectivity) is not yet available.
-
-<li>A new shared memory feature was introduced that allows sharing of decomposition elements (DEs) between PETs that execute on the same single system image (SSI), i.e. node. This feature provides an efficient way to access data by reference between components that are running on the same PEs (cores), but with different threading levels. Both <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/ESMF_refdoc/node5.html#SECTION050331000000000000000">Field-level DE sharing</a> and <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/ESMF_refdoc/node5.html#SECTION050521300000000000000">Array-level DE sharing</a> are supported.
-
-<li>Key-value pair storage was added to the ESMF_Mesh and ESMF_LocStream classes through the overloaded <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/ESMF_refdoc/node6.html#SECTION060241600000000000000">ESMF_InfoGetFromHost()</a> method.
-
-<li>A section discussing <a href="http://earthsystemmodeling.org/docs/nightly/release/8.1.0/ESMF_usrdoc/node8.html">"Debugging of ESMF User Applications"</a> has been added to the User's Guide. This section is designed to help users interpret error traces and efficiently locate issues in failing ESMF applications.
-</li>
 </ul>
 </td>
 
 <td>
 
 <ul>
-<li>
+<li>To be copied from Release Work Doc.
 </ul>
 
 <b>Platform-specific bugs:</b>
 <ul>
-<li>The GNU and Intel compilers require GCC>=4.8 for C++11 support (Intel uses the GCC headers). By default ESMF now uses the C++11 standard and cannot be downgraded. If you run into build issues due to the C++11 dependency, you must make sure a GCC>=4.8 is loaded.
-<li>For GNU compilers GCC>=10.x, the default Fortran argument mismatch checking has become stricter. This will result in build failures. Setting environment variable ESMF_F90COMPILEOPTS="-fallow-argument-mismatch -fallow-invalid-boz", during the ESMF build, can be used as a work around for this issue.
+<li>To be copied from Release Work Doc.
 </ul>
 </tr>
 
