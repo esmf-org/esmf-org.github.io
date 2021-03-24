@@ -452,6 +452,8 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/discover/intel/2020/O/mpt/2.17/summary.dat">lib-O</a><br>
 				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/discover/intel/2020/g/mpt/2.17/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/discover/intel/2020/O/mpt/2.17/out/nuopc.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/discover/intel/2020/g/mpt/2.17/out/nuopc.dat">lib-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -474,6 +476,8 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/discover/intel/2020/O/intelmpi/19.1.3.304/summary.dat">lib-O</a><br>
 				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/discover/intel/2020/g/intelmpi/19.1.3.304/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/discover/intel/2020/O/intelmpi/19.1.3.304/out/nuopc.dat">lib-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/download/platforms/reports/810/discover/intel/2020/g/intelmpi/19.1.3.304/out/nuopc.dat">lib-g</a><br>
 			</td>
 		</tr>
 		<tr>
