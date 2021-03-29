@@ -169,7 +169,106 @@ ESMPy Documentation <br>
 <td>
 <ul>
 
-<li>To be copied from Release Work Doc.
+<li>This release is backward compatible with the last major release update, ESMF 8.0.0, for all the interfaces that are marked as backward compatible in the Reference Manual. There were API changes to a few unmarked methods that may require minor modifications to user code that uses these methods. The entire list of API changes is summarized in a <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/API-800-810.pdf">table showing interface changes since ESMF_8_0_0</a>, including the rationale and impact for each change.
+
+<li>Some bit-for-bit changes are expected for this release compared to release ESMF 8.0.0 and patch release ESMF 8.0.1. We observe the following impact with Intel compilers using “<code>-O2 -fp-model precise</code>”: 
+<ul>
+ 
+<li>Fixed a problem that could result in erroneously unmapped destinations when going from a very fine source grid to a coarse destination grid (e.g. 1/20 degree to 10x15 degree). Expected bit-for-bit changes:  
+<ul>
+  
+<li>ESMF_REGRIDMETHOD_CONSERVE_2ND: roundoff level changes in weight values because of a change in the order of calculation.
+  
+<li>All regrid methods: Missing weights being added for very fine source grid to coarse destination grid regridding cases as this fix comes into play.
+</li>  
+</ul>
+ 
+<li>Fixed a problem where using the bilinear method between two identical grids doesn't result in an identity matrix for the regridding weights. It also improves the efficiency of the code when using bilinear or patch between identical grids. Expected bit-for-bit changes:  
+<ul>
+  
+<li>ESMF_REGRIDMETHOD_BILINEAR: small changes in regridding weights when a destination point exactly matches a source point.
+  
+<li>ESMF_REGRIDMETHOD_PATCH: small changes in regridding weights when a destination point exactly matches a source point.
+</li>  
+</ul>
+ 
+<li>Fixed a problem where a set of points with latitudes set at exactly -90.0 are not all mapped to the same point. Expected bit-for-bit changes:  
+<ul>
+  
+<li>All regrid methods: Small weight changes when a point in the grid lies at exactly -90.0 latitude.
+</li>  
+</ul>
+ 
+<li>Optimized the creep fill so the memory doesn't increase as quickly for large numbers of creep levels. Expected bit-for-bit changes:  
+<ul>
+  
+<li>ESMF_EXTRAPMETHOD_CREEP: Small weight changes for the extrapolated destination locations.
+</li>  
+</ul>
+ 
+<li>Fixed an issue where in some cases creep fill weights can trigger an assertion in the code that redistributes weights to their final decomposition. Expected bit-for-bit changes:  
+<ul>
+  
+<li>ESMF_EXTRAPMETHOD_CREEP: Small weight changes for the extrapolated destination locations.
+</li>  
+</ul>
+</li>  
+</ul>
+
+<li>Tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-810">ESMF regridding status</a> have been updated. These include  supported grids and capabilities of the offline and integrated regridding, and numerical results of some specific test cases.
+
+<li>The <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node6.html#SECTION06020000000000000000">ESMF_Info</a> class was introduced as a replacement for ESMF_Attribute. ESMF_Info is based on a modern C++ JSON implementation to provide efficient key-value pair storage. Most of the <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node9.html#SECTION09040000000000000000">legacy ESMF_Attribute API</a> is preserved for backward compatibility.
+
+<li>ESMF is in the process of upgrading the internal mesh representation to use the <a href="http://www.mcs.anl.gov/~fathom/moab-docs/html/index.html">MOAB</a> mesh library developed by the U.S. Department of Energy. In this release, ESMF capabilities using MOAB have been significantly optimized and expanded, allowing for application-level testing of ESMF with MOAB as the underlying mesh representation. MOAB is built into the ESMF library by default, but its use must be enabled at run-time by calling <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node5.html#SECTION0501042000000000000000">ESMF_MeshSetMOAB()</a>. When MOAB is activated, the following new capabilities are supported in this release: 
+<ul>
+ 
+<li>The Mesh creation, conservative regridding, and bilinear regridding algorithms when MOAB is active have been optimized to reduce their memory use and expand the size of Meshes they can be used on.  
+ 
+<li>Grids can now be explicitly converted to a Mesh when MOAB is active, using the <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node5.html#SECTION050104800000000000000">ESMF_MeshCreate()</a> method.
+ 
+<li>Grids can be used to do first-order conservative regridding using MOAB.
+ 
+<li>Grids can be used for bilinear regridding on cell centers or corners using MOAB. 
+</li> 
+</ul>
+
+<li>The <a href="https://earthsystemmodeling.org/nuopc/">NUOPC Layer</a> contained in this release has been improved in the following specific technical areas: 
+<ul>
+ 
+<li>The NUOPC API has been simplified through the introduction of <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00034100000000000000">semantic specialization labels</a>. The new approach leads to clearer and more concise NUOPC “cap” implementations that do not require specifying an <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node8.html">Initialize Phase Definition (IPD) version or using the IPDvXXpY nomenclature</a> when registering methods in the SetServices() method. Existing caps do not have to be re-written or updated, although updating to the new semantic specialization labels is recommended for existing and new NUOPC caps. The older IPD version based approach is supported for backward compatibility. 
+ 
+<li>The NUOPC layer now provides features for <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00037000000000000000">resource control and handling of threaded components</a>. This mechanism supports mixing of hybrid MPI+OpenMP components with different threading levels and mixing with standard MPI components on the same processing elements (PEs), i.e. cores. It allows each component to fully utilize HPC resources independently. Coupling between threaded components is supported automatically via the standard NUOPC Connectors.
+ 
+<li>The <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00038000000000000000">external NUOPC interface</a> that supports interaction between an entire NUOPC application and a layer outside of NUOPC (e.g. a Data Assimilation system) was further refined. The associated prototype code (<a href="https://github.com/esmf-org/nuopc-app-prototypes/tree/main/ExternalDriverAPIProto">ExternalDriverAPIProto</a>) has been updated to reflect the current status.
+ 
+<li>The NUOPC Profiling attribute, available in the <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00033100000000000000">Driver Metadata</a>, <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00033200000000000000">Model Metadata</a>, <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00033300000000000000">Mediator Metadata</a>, and <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00033400000000000000">Connector Metadata</a>, has been re-implemented. The NUOPC layer profiling features now integrate with the <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node6.html#SECTION060130000000000000000">ESMF profiling infrastructure</a>.
+ 
+<li>The <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00034600000000000000">NUOPC transfer protocol for geometry objects</a> (Grid, Mesh, LocStream) has been made more efficient. Geometries used for multiple Fields are only transferred once, reducing the initialization overhead associated with the transfer.
+ 
+<li>Several optimizations were implemented in the NUOPC layer to reduce overhead.  All applications using NUOPC benefit from these optimizations without requiring code changes.
+ 
+<li>Added the <code>creep_nrst_d </code>value to the <code>extrapMethod </code><a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00034400000000000000">NUOPC connection options</a>. This is equivalent to the ESMF_EXTRAPMETHOD_CREEP_NRST_D option in ESMF_FieldRegridStore() discussed below. 
+</ul>
+
+<li>Added the <a href="https://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_1_0/html/ExtrapMethod.html">extrapolation option: CREEP_FILL</a> to ESMPy. This option fills unmapped destination points by repeatedly moving data from mapped locations to neighboring unmapped locations.
+
+<li>The implementation of the ESMF_StateReconcile() method was redesigned to improve performance, and scalability. Most users do not interact with this method directly, however, the NUOPC initialization time has been reduced as a consequence, which is most pronounced in applications with large Field and PET counts.
+
+<li>Added a new extrapolation method called "nearest destination" to the regrid weight generation system. This capability fills destination points that were not filled by an initial regridding by using the nearest regridded destination point. The nearest destination method is accessible by specifying the extrapMethod=<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node9.html#SECTION090117000000000000000">ESMF_EXTRAPMETHOD_NEAREST_D</a> option in any of the ESMF_*RegridStore() methods or the --extrap_method nearestd option when using the ESMF_RegridWeightGen application).
+
+<li>Added a new extrapolation method called "creep nearest destination" to the regrid weight generation system. This capability fills destination points that were not filled by an initial regridding by first applying a creep fill extrapolation and then filling the remaining unmapped destination points using nearest destination extrapolation. The creep nearest destination method is accessible by specifying the extrapMethod=<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node9.html#SECTION090117000000000000000">ESMF_EXTRAPMETHOD_CREEP_NRST_D</a> option in any of the ESMF_*RegridStore() methods or the --extrap_method creepnrstd option when using the ESMF_RegridWeightGen application).
+
+<li>The creep fill extrapolation has been optimized so that it uses less memory per level extrapolated. This allows the creep fill method to extrapolate several times further into unmapped parts of the destination Field. 
+
+<li>Added the optional checkFlag argument to <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node5.html#SECTION050366000000000000000">ESMF_FieldRegridStore()</a>. The intention behind this flag is to allow the user to turn on more expensive error checking that may not be appropriate for an operational run. Initially this flag turns on a check for grid self-intersection during conservative regridding.
+
+<li>The <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node5.html#SECTION0501041700000000000000">ESMF_MeshGet()</a> call has been expanded to allow the user to query a full set of information for most Meshes. The exception is 2D Meshes with cells of more than four sides for which the element information (e.g. element connectivity) is not yet available.
+
+<li>A new shared memory feature was introduced that allows sharing of decomposition elements (DEs) between PETs that execute on the same single system image (SSI), i.e. node. This feature provides an efficient way to access data by reference between components that are running on the same PEs (cores), but with different threading levels. Both <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node5.html#SECTION050331000000000000000">Field-level DE sharing</a> and <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node5.html#SECTION050521300000000000000">Array-level DE sharing</a> are supported.
+
+<li>Key-value pair storage was added to the ESMF_Mesh and ESMF_LocStream classes through the overloaded <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node6.html#SECTION060241600000000000000">ESMF_InfoGetFromHost()</a> method.
+
+<li>A section discussing “<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_usrdoc/node8.html">Debugging of ESMF User Applications</a>” has been added to the User’s Guide. This section is designed to help users interpret error traces and efficiently locate issues in failing ESMF applications.
 
 </ul>
 </td>
@@ -177,12 +276,54 @@ ESMPy Documentation <br>
 <td>
 
 <ul>
-<li>To be copied from Release Work Doc.
+
+<li>FieldBundles don't currently enforce that every contained Field is built on the same Grid, Mesh, LocStream, or XGrid object, although the documentation says that this should be so.
+
+<li>The packed FieldBundle implementation uses a concatenated string to create a base object. When this string has more than 255 characters, e.g. a large number of Fields with long individual names is packed, the base object is not created correctly resulting in incorrect behavior at the FieldBundle level.
+
+<li>When the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a> are used with nearest destination to source interpolation method, the unmapped destination point detection does not work. Even if the option is set to return an error for unmapped destination points (the default) no error will be returned.
+
+<li>The <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a> do not currently work for source Fields created on Grids which contain a DE of width less than 2 elements. For conservative regridding the destination Field also has this restriction.
+
+<li>The <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a> do not currently work on Fields created on Grids with arbitrary distribution.
+
+<li>The ESMF_GridCreate() interface that allows the user to create a copy of an existing Grid with a new distribution will give incorrect results when used on a Grid with 3 or more dimensions and whose coordinate arrays are less than the full dimension of the Grid (i.e. it contains factorized coordinates).
+
+<li>The ESMF_XGrid construction can lead to degenerate cells for cases where the source and destination grids have edges that are almost the same. Often these cells don't produce weights and are benign, but when weights are produced can lead to low accuracy results when transferring data to/from the XGrid.
 </ul>
 
 <b>Platform-specific bugs:</b>
 <ul>
-<li>To be copied from Release Work Doc.
+
+<li>The GNU and Intel compilers require GCC>=4.8 for C++11 support (Intel uses the GCC headers). By default ESMF now uses the C++11 standard and cannot be downgraded. If you run into build issues due to the C++11 dependency, you must make sure a GCC>=4.8 is loaded.
+
+<li>For GNU compilers GCC>=10.x, the default Fortran argument mismatch checking has become stricter. This results in build failures in some of the code that comes with ESMF. Setting environment variable ESMF_F90COMPILEOPTS="-fallow-argument-mismatch -fallow-invalid-boz", during the ESMF build, can be used as a work around for this issue.
+
+<li>On Darwin, with the GNU gfortran+gcc combination, when building MPICH3 from source, it is important to specify the "--enable-two-level-namespace" configure option. By default, i.e. without this option, on Darwin, the produced MPICH compiler wrappers include a linker flag (-flat_namespace) that causes issues with C++ exception handling. Building and linking ESMF applications with MPICH compiler wrappers that specify this linker option leads to “mysterious” application aborts during execution.
+
+<li>On Darwin, with the Intel Fortran compiler, command line arguments cannot be accessed from ESMF applications when linked against the shared library version of libesmf. There is no issue when linked against the static libesmf.a version. Setting environment variable ESMF_SHARED_LIB_BUILD=OFF, during the ESMF build, can be used as a work around for this issue.
+
+<li>Currently the ESMPy interface to retrieve regridding weights from Python is only supported under the GNU compiler. On all other compilers the method will flag an error.
+
+<li>There is an issue with intercepting the MPI calls for profiling on some of the supported platforms. This results in a single FAIL reported for ESMF_TraceMPIUTest.F90. The affected platforms are: 
+<ul>
+ 
+<li>Catania: Darwin+GNU+MPICH3
+ 
+<li>Gaea: Unicos+GNU+cray-mpich
+</li> 
+</ul>
+
+<li>There is an issue with loading the <code>libesmftrace_preload.so </code>library on some of the supported platforms. This results in a reported CRASH for ESMF_TraceIOUTest.F90 and ESMF_TraceMPIUTest.F90. The affected platforms are: 
+<ul>
+ 
+<li>Discover: Linux+GNU+intelmpi
+ 
+<li>Gaea: Unicos+Intel+cray-mpich
+ 
+<li>Gaea: Unicos+Intel+mpiuni
+ 
+<li>Orion: Linux+GNU+mpiuni
 </ul>
 </tr>
 
@@ -243,7 +384,6 @@ ESMPy Documentation <br>
 <li>The ESMF_DistGridGet() method now correctly returns "de" and "tile" information for a "localDe".
 <li>ESMF now correctly links against the Fortran bindings of NetCDF, even when the C and Fortran bindings of NetCDF are provided in different locations.
 <li>The ESMF install target now reliably works when installing ESMF into a location that is shared with other library installations.
-<li>The Darwin.intelclang.default build configuration now works correctly.
 </ul>
 </ul>
 
@@ -252,6 +392,7 @@ ESMPy Documentation <br>
 <li>The same as ESMF_8_0_0 with the following exceptions:</li>
 <ul>
 <li>The GNU and Intel compilers require GCC>=4.8 for C++11 support (Intel uses the GCC headers). By default ESMF now uses the C++11 standard and cannot be downgraded. If you run into build issues due to the C++11 dependency, you must make sure a GCC>=4.8 is loaded.
+<li>The Darwin.intelclang.default build configuration now works correctly.
 </ul>
 </ul>
 </tr>
@@ -388,6 +529,10 @@ ESMPy Documentation <br>
 <li>The <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a> do not currently work for source Fields created on Grids which contain a DE of width less than 2 elements. For conservative regridding the destination Field also has this restriction.
 <li>The <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a> do not currently work on Fields created on Grids with arbitrary distribution.
 <li>There is a race condition in the ESMF_FileRegrid() method and the ESMF_Regrid application when the destination grid is of GRIDSPEC Mosaic format and >=12 PETs are used. This issue leads to intermittent failures in the external_demos tests for the GRIDSPEC_1x1_time_to_C48_mosaic_bilinear case when run on the 16 PET configuration.
+<li>When regridding from a very fine source grid (e.g. 1/20th degree) to a fairly coarse grid (e.g. 15 degree) using conservative regridding, source and destination fractions can be erroneously less than they should be.
+<li>When using creep fill extrapolation sometimes the extrapolation will not cross from a piece of a Field on one PET to a piece on another. This can lead to places in the Field not being properly extrapolated to. 
+<li>The exact identity matrix is not returned when using bilinear regridding from a grid that extends all the way to the poles, to an identical grid.
+<li>The regridding can hang when doing bilinear or patch regridding on the centers of a mesh and the mesh contains a cell whose center is at the exact same position as one of the corners of the cell.
 <li>Applying the sparse matrix multiplication to cases where the local data allocation is above the 32-bit limit will fail with a memory allocation error. This affects all Regrid(), Redist(), Halo(), and SMM() calls.
 <li>The ESMF_GridCreate() interface that allows the user to create a copy of an existing Grid with a new distribution will give incorrect results when used on a Grid with 3 or more dimensions and whose coordinate arrays are less than the full dimension of the Grid (i.e. it contains factorized coordinates).
 <li>Using the ESMF_GridCreate1PeriDim() method to create a grid with a bipole connection on the lower side (typically referring to the southern hemisphere) resulted in no connection there.
@@ -397,7 +542,6 @@ ESMPy Documentation <br>
 <li>ESMF_AttributeWrite() has only been verified to work for ESMF standard Attribute packages. Non-standard Attribute packages may trigger a crash inside the ESMF_AttributeWrite() implementation.
 <li>For NetCDF installations that have the C and Fortran bindings installed in different locations, a NetCDF enabled build of ESMF does not correctly include the Fortran NetCDF library during linking.
 <li>When installing ESMF into a location that is shared with other libraries, it can happen that executing the ESMF install target fails with a "permission denied" error.
-<li>The Darwin.intelclang.default build configuration is broken.
 
 </ul>
 <b>Platform-specific bugs:</b>
@@ -422,6 +566,7 @@ However, we do not observe these failures or crashes on:
 <li>Currently the ESMPy interface to retrieve regridding weights from Python is only supported under the GNU compiler. On all other compilers the method will flag an error.
 <li>On Darwin, with the Intel Fortran compiler, command line arguments cannot be accessed from ESMF applications when linked against the shared library version of libesmf. There is no issue when linked against the static libesmf.a version. Setting environment variable ESMF_SHARED_LIB_BUILD=OFF, during the ESMF build, can be used as a work around for this issue.
 <li>On some systems with the Cray compiler (CCE version 8.x), the ESMF library fails to build. The error can be prevented by setting the ESMF build environment variable ESMF_MOAB=OFF.
+<li>The Darwin.intelclang.default build configuration is broken.
 </ul>
 </td>
 </tr>

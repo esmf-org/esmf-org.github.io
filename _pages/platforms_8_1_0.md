@@ -166,6 +166,29 @@ contains a complete list of possible configurations.
 			<td>
 				gfortran</td>
 			<td>
+				openmpi (4.0.3)</td>
+			<td>
+				gfortran (8.3.0)</td>
+			<td>
+				g++ (8.3.0)</td>
+			<td>
+				4.7.3</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/810/manual_reports/810_Cheyenne_RegridCheck_gnu830openmpi-g.txt">RegridCheck-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/810/manual_reports/810_Cheyenne_RWGCheck_gnu830openmpi-g.txt">RWGCheck-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/810/manual_reports/810_Cheyenne_ESMPy_gnu830openmpi-g.txt">ESMPy-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				HPE/SGI ICE XA Cluster</td>
+			<td>
+				Cheyenne</td>
+			<td>
+				Linux</td>
+			<td>
+				gfortran</td>
+			<td>
 				mpt (2.22)</td>
 			<td>
 				gfortran (9.1.0)</td>
@@ -274,6 +297,9 @@ contains a complete list of possible configurations.
 				<a href="http://data.earthsystemmodeling.org/test_reports/810/cheyenne/intel/18.0.5/g/mpt/2.19/summary.dat">lib-g</a><br>
 				<a href="http://data.earthsystemmodeling.org/test_reports/810/cheyenne/intel/18.0.5/O/mpt/2.19/out/nuopc.log">nuopc-O</a><br>
 				<a href="http://data.earthsystemmodeling.org/test_reports/810/cheyenne/intel/18.0.5/g/mpt/2.19/out/nuopc.log">nuopc-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/810/manual_reports/810_Cheyenne_BFB_intel19mpt-O.txt">BFB-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/810/manual_reports/810_Cheyenne_RegridCheck_intel19mpt-g.txt">RegridCheck-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/810/manual_reports/810_Cheyenne_RWGCheck_intel19mpt-g.txt">RWGCheck-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -840,6 +866,27 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="http://data.earthsystemmodeling.org/test_reports/810/orion/intel/2020/O/intelmpi/2020.2/summary.dat">lib-O</a><br>
 				<a href="http://data.earthsystemmodeling.org/test_reports/810/orion/intel/2020/g/intelmpi/2020.2/summary.dat">lib-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				PC</td>
+			<td>
+				-</td>
+			<td>
+				Linux</td>
+			<td>
+				gfortran</td>
+			<td>
+				openmpi</td>
+			<td>
+				gfortran (10.2.0)</td>
+			<td>
+				g++ (10.2.0)</td>
+			<td>
+				?.?.?</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/810/manual_reports/810_Linux_ESMPy_gnu10.2.0openmpi-g.txt">ESMPy-g</a><br>
 			</td>
 		</tr>
 	</tbody>
