@@ -712,6 +712,27 @@ contains a complete list of possible configurations.
 		</tr>
 		<tr>
 			<td>
+				PC</td>
+			<td>
+				Kik</td>
+			<td>
+				Linux</td>
+			<td>
+				gfortran</td>
+			<td>
+				openmpi (4.1.0)</td>
+			<td>
+				gfortran (10.2.0)</td>
+			<td>
+				g++ (10.2.0)</td>
+			<td>
+				4.7.4</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/810/manual_reports/810_Linux_ESMPy_gnu10.2.0openmpi-g.txt">ESMPy-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				HPE SGI 8600 system</td>
 			<td>
 				Koehr</td>
@@ -866,27 +887,6 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="http://data.earthsystemmodeling.org/test_reports/810/orion/intel/2020/O/intelmpi/2020.2/summary.dat">lib-O</a><br>
 				<a href="http://data.earthsystemmodeling.org/test_reports/810/orion/intel/2020/g/intelmpi/2020.2/summary.dat">lib-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				PC</td>
-			<td>
-				-</td>
-			<td>
-				Linux</td>
-			<td>
-				gfortran</td>
-			<td>
-				openmpi</td>
-			<td>
-				gfortran (10.2.0)</td>
-			<td>
-				g++ (10.2.0)</td>
-			<td>
-				?.?.?</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/810/manual_reports/810_Linux_ESMPy_gnu10.2.0openmpi-g.txt">ESMPy-g</a><br>
 			</td>
 		</tr>
 	</tbody>
