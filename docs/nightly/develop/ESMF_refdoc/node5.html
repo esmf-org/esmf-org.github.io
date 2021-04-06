@@ -1212,13 +1212,13 @@
 <LI><A NAME="tex2html2689"
   HREF="node5.html#SECTION0501041700000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">17</SPAN> ESMF_MeshGet</A>
 <LI><A NAME="tex2html2690"
-  HREF="node5.html#SECTION0501041800000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">18</SPAN> ESMF_MeshIsCreated</A>
+  HREF="node5.html#SECTION0501041800000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">18</SPAN> ESMF_MeshGetMOAB</A>
 <LI><A NAME="tex2html2691"
-  HREF="node5.html#SECTION0501041900000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">19</SPAN> ESMF_MeshSet</A>
+  HREF="node5.html#SECTION0501041900000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">19</SPAN> ESMF_MeshIsCreated</A>
 <LI><A NAME="tex2html2692"
-  HREF="node5.html#SECTION0501042000000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">20</SPAN> ESMF_MeshSetMOAB</A>
+  HREF="node5.html#SECTION0501042000000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">20</SPAN> ESMF_MeshSet</A>
 <LI><A NAME="tex2html2693"
-  HREF="node5.html#SECTION0501042100000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">21</SPAN> ESMF_MeshGetMOAB</A>
+  HREF="node5.html#SECTION0501042100000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">21</SPAN> ESMF_MeshSetMOAB</A>
 </UL>
 </UL>
 <LI><A NAME="tex2html2694"
@@ -53479,7 +53479,55 @@ The arguments are:
 <P>
 
 <H3><A NAME="SECTION0501041800000000000000">
-<SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">18</SPAN> ESMF_MeshIsCreated - Check whether a Mesh object has been created</A>
+<SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">18</SPAN> ESMF_MeshGetMOAB - Check on status of using MOAB library internally.</A>
+</H3>
+
+<P>
+
+<P><P>
+<BR>
+<I CLASS="sans">INTERFACE:</I>
+<PRE>    subroutine ESMF_MeshGetMOAB(moabOn, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     logical, intent(out)                      :: moabOn
+     integer, intent(out), optional            :: rc
+</PRE>
+<I CLASS="sans">DESCRIPTION:
+<BR></I>
+
+<P>
+This method is only temporary. It was created to enable testing during the stage in ESMF development while
+     we have two internal mesh implementations. At some point it will be removed.
+
+<P>
+This method can be used to check whether the MOAB library is being used
+     to hold the internal structure of the Mesh. When set to .true. the following
+     Mesh create calls create a Mesh using MOAB internally. When set to .false. the following
+     Mesh create calls use the ESMF native internal mesh respresentation. Note that ESMF Meshes
+     created on MOAB are only supported in a limited set of operations and should be used
+     with caution as they haven't yet been tested as thoroughly as the native version.
+     Also, operations that use a pair of Meshes (e.g. regrid weight generation) are only supported between
+     meshes of the same type (e.g. you can regrid between two MOAB meshes, but not between a MOAB and
+     a native mesh).
+
+<P>
+<DL>
+<DT><STRONG>moabOn</STRONG></DT>
+<DD>Output variable which indicates current state of MOAB.
+     
+</DD>
+<DT><STRONG>[rc]</STRONG></DT>
+<DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
+     
+</DD>
+</DL>
+
+<P>
+
+<P>
+
+<H3><A NAME="SECTION0501041900000000000000">
+<SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">19</SPAN> ESMF_MeshIsCreated - Check whether a Mesh object has been created</A>
 </H3>
 
 <P>
@@ -53520,8 +53568,8 @@ The arguments are:
 
 <P>
 
-<H3><A NAME="SECTION0501041900000000000000">
-<SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">19</SPAN> ESMF_MeshSet - Set some Mesh information</A>
+<H3><A NAME="SECTION0501042000000000000000">
+<SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">20</SPAN> ESMF_MeshSet - Set some Mesh information</A>
 </H3>
 
 <P>
@@ -53572,8 +53620,8 @@ The arguments are:
 
 <P>
 
-<H3><A NAME="SECTION0501042000000000000000">
-<SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">20</SPAN> ESMF_MeshSetMOAB - Toggle using the MOAB library internally.</A>
+<H3><A NAME="SECTION0501042100000000000000">
+<SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">21</SPAN> ESMF_MeshSetMOAB - Toggle using the MOAB library internally.</A>
 </H3>
 
 <P>
@@ -53608,54 +53656,6 @@ This method can be employed to turn on or off using the MOAB library
 <DL>
 <DT><STRONG>moabOn</STRONG></DT>
 <DD>Variable used to turn MOAB on or off
-     
-</DD>
-<DT><STRONG>[rc]</STRONG></DT>
-<DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
-     
-</DD>
-</DL>
-
-<P>
-
-<P>
-
-<H3><A NAME="SECTION0501042100000000000000">
-<SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">21</SPAN> ESMF_MeshGetMOAB - Check on status of using MOAB library internally.</A>
-</H3>
-
-<P>
-
-<P><P>
-<BR>
-<I CLASS="sans">INTERFACE:</I>
-<PRE>    subroutine ESMF_MeshGetMOAB(moabOn, rc)
-</PRE><EM>ARGUMENTS:</EM>
-<PRE>     logical, intent(out)                      :: moabOn
-     integer, intent(out), optional            :: rc
-</PRE>
-<I CLASS="sans">DESCRIPTION:
-<BR></I>
-
-<P>
-This method is only temporary. It was created to enable testing during the stage in ESMF development while
-     we have two internal mesh implementations. At some point it will be removed.
-
-<P>
-This method can be used to check whether the MOAB library is being used
-     to hold the internal structure of the Mesh. When set to .true. the following
-     Mesh create calls create a Mesh using MOAB internally. When set to .false. the following
-     Mesh create calls use the ESMF native internal mesh respresentation. Note that ESMF Meshes
-     created on MOAB are only supported in a limited set of operations and should be used
-     with caution as they haven't yet been tested as thoroughly as the native version.
-     Also, operations that use a pair of Meshes (e.g. regrid weight generation) are only supported between
-     meshes of the same type (e.g. you can regrid between two MOAB meshes, but not between a MOAB and
-     a native mesh).
-
-<P>
-<DL>
-<DT><STRONG>moabOn</STRONG></DT>
-<DD>Output variable which indicates current state of MOAB.
      
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
