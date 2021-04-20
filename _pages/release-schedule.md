@@ -9,9 +9,25 @@ Release notes from [all previous releases](/static/releases.html).
 
 ### Upcoming
 
+#### April 2021 - Covers releases 8.2, 8.3
+NOTE: Starting with release 8.2, the ESMF Change Review Board (CRB) approved
+moving to a more rapid, fixed release process with a new release every
+six months.  Development priorities set by the CRB are no longer tied
+to a specific release number, but represent approximately one year of tasks
+distributed among the releases that year.
+
+|Task|Description|
+|--- |--- |
+|Task|Description|
+
+
+
+### Recent Previous Release Schedules
+*Release schedules prior to 2016 are not shown, but are available upon request*
+
 #### December 2019 - Covers release 8.1
 
-|Task|Delivery Description|
+|Task|Description|
 |--- |--- |
 |Creep fill within grid for extrapolation of data points that lie outside the source.|Updated creep fill extrapolation that supports dynamic creeping. The current version relies on a static creep depth parameter.|
 |FieldBundleCreate packing behavior.|Full support for all communication methods on packed Field Bundles and per-Field metadata.|
@@ -28,10 +44,6 @@ Release notes from [all previous releases](/static/releases.html).
 |Extend NUOPC with more flexible run sequences, e.g., in the case of very long coupling intervals, the coupled system might need to be restarted multiple times during one coupling interval. The run sequence should be able to restart mid-coupling interval. Add ability to pass user-defined parameters to run sequence phases and these become available in user code.|NUOPC will be extended with more flexible run sequences to support the need to restart a coupled system in the middle of a very long coupling interval. For example, a glacier model may couple only yearly, but the coupled model must be restarted every 3 months.|
 |Full support for ESMF-aware hybrid parallelism via resource idling in NUOPC|ESMF and NUOPC will be extended with full support for hybrid parallelism via resource idling. This provides a flexible mechanism to switch between coarse- and fine-grained threading without needing to introduce explicit threading directives throughout a component's code (e.g., OpenMP).|
 |Shared memory access to DEs between non-threaded PETs. Also a follow-on to Field reference sharing through NUOPC Connectors.|Full support will be provided for sharing Decomposition Elements (DEs) between coarse -and fine-grained Virtual Machines (VMs). NUOPC will be extended to support reference sharing of memory-local DEs from a provider component to an acceptor component.|
-
-
-### Recent Previous Release Schedules
-*Release schedules prior to 2016 are not shown, but are available upon request*
 
 
 #### February 2018 - Covers release 8.0
