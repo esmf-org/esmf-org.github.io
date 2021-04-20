@@ -16,6 +16,9 @@ six months.  Development priorities set by the CRB are no longer tied
 to a specific release number, but represent approximately one year of tasks
 distributed among the releases that year.
 
+The release schedule includes items priotirized by the CRB.  Additional
+release items not listed come from contractual obligations.
+
 |Task|Description|
 |--- |--- |
 |Complete the integration of the MOAB mesh library into ESMF. | Includes support for all grid, mesh, and regridding functions. MOAB will be optionally turned on in 8.2 and turned on by default in 8.3.|
