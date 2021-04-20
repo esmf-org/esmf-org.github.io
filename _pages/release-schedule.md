@@ -18,7 +18,15 @@ distributed among the releases that year.
 
 |Task|Description|
 |--- |--- |
-|Task|Description|
+|Complete the integration of the MOAB mesh library into ESMF. | Includes support for all grid, mesh, and regridding functions. MOAB will be optionally turned on in 8.2 and turned on by default in 8.3.|
+|Update PIO|Update to the latest version of PIO and refactor layers in ESMF that call PIO.  Remove extra communication and redistribution operations.|
+|Support for very high resolution grids and meshes.| Includes creation of grids and meshes and regridding functions.  Focus on reduced memory footprint.|
+|ESMF-aware threading.|Full support for ESMF-aware hybrid parallelism via resource idling in NUOPC.|
+|Reduce NUOPC overhead||
+|Implement horizontal mass flux conservative regridding.|This can be used to support exact mass conservation for applications such as regridding of tracers in chemical transport models.|
+|Resolve all issues with time manager and alarms.|Some applications are facing issues when alarms are used with clocks running in reverse.  Parameters that result in ambiguous alarm semantics should be identified and errors reported in the ESMF log files.|
+|Add option to ESMPy to write "verbose" weight files that include additional information such as cell centers||
+|Implement monotonic second order conservative regridding|Ensures that destination values stay within the range of the source values.|
 
 
 
