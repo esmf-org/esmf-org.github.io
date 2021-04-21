@@ -1906,16 +1906,6 @@ Note that this procedure only then results in every child PET holding exactly <T
 <P>
 Parent PETs that for the child VM gave up their PEs, and are not executing as child PETs, are paused for the duration of the child component execution. They resume execution under the parent VM once the child component returns control to the parent.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><TT>MinStackSize</TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=100>Positive integer</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>The minimum stack size in <EM>byte</EM> of each child PET. On the ESMF level, during resource control, all child PETs are instantiated as Pthreads. This means that the stack size <EM>cannot</EM> be <EM>unlimited</EM>. ESMF implements a default minimum stack size for child PETs of 20MiB. This minimum default can be changed (up or down) via the <TT>MinStackSize</TT> key.
-
-<P>
-The system <TT>limit</TT> or <TT>ulimit</TT> commands can be used to further <EM>increase</EM> the stack size of child PETs. Any limit set lower than the <TT>MinStackSize</TT>, or set to <EM>unlimited</EM>, will result in usage of the <TT>MinStackSize</TT> if set, or the 20MiB default.
-
-<P>
-Note further that when OpenMP is used inside the child component, each child PET becomes the root thread of each of the OpenMP thread teams. It is therefore the root thread stack size that is affected by <TT>MinStackSize</TT>. The stack size of all the <EM>other</EM> OpenMP threads in each team is set via environment variable <TT>OMP_STACKSIZE</TT> as usual.</TD>
-</TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><TT>OpenMpHandling</TT></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=100>String: <EM>none</EM>, <EM>set</EM>, <EM>init</EM>, or <EM>pin</EM> (the default)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>For "none", OpenMP handling is completely left to the user. In this case the user child component code will typically want to query the child VM for the local number of PEs under each child PET. This number then would be used in an explicit call to <TT>omp_set_num_threads()</TT> in order to set the OpenMP thread number according to the available PEs under each child PET.
@@ -1932,6 +1922,20 @@ For "pin", the NUOPC/ESMF layers sets the number of OpenMP threads in each team,
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><TT>OpenMpNumThreads</TT></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=100>Positive integer</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>By default the "set", "init", or "pin" option under <TT>OpenMpHandling</TT> sets the number of OpenMP threads in each team equal to the number of PEs under each PET. Setting <TT>OpenMpNumThreads</TT>, this default can be overwritten. The option allows the user to under- or oversubscribe the PEs held by each PET.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><TT>ForceChildPthreads</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=100>Logical: <TT>.true.</TT>, or <TT>.false.</TT> (the default)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>By default (<TT>.false.</TT>) each PET executes under the same thread as its parent PET. Typically this means that PETs execute directly as the MPI process under which they were created. In some cases it is beneficial to create a separate Pthread for each child PET. This can be accomplished by setting the value to <TT>.true.</TT>.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><TT>PthreadMinStackSize</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=100>Positive integer</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>The minimum stack size in <EM>byte</EM> of each child PET that is executing as Pthread. By default child PETs do <EM>not</EM> execute as Pthreads. Therefore the stack size by default is equal to that of the parent PET. However, if <TT>ForceChildPthreads</TT> is set to <TT>true</TT>, all child PETs are instantiated as Pthreads. This means that the stack size <EM>cannot</EM> be <EM>unlimited</EM>. ESMF implements a default minimum stack size for child PETs of 20MiB. This minimum default can be changed (up or down) via the <TT>PthreadMinStackSize</TT> key.
+
+<P>
+The system <TT>limit</TT> or <TT>ulimit</TT> commands can be used to further <EM>increase</EM> the stack size of child PETs. Any limit set lower than the <TT>PthreadMinStackSize</TT>, or set to <EM>unlimited</EM>, will result in usage of the <TT>PthreadMinStackSize</TT> if set, or the 20MiB default.
+
+<P>
+Note further that when OpenMP is used inside the child component, each child PET becomes the root thread of each of the OpenMP thread teams. It is therefore the root thread stack size that is affected by <TT>PthreadMinStackSize</TT>. The stack size of all the <EM>other</EM> OpenMP threads in each team is set via environment variable <TT>OMP_STACKSIZE</TT> as usual.</TD>
 </TR>
 </TABLE>
 
@@ -1958,14 +1962,11 @@ A second child component can be created that uses the same parent resources as t
 </PRE>
 
 <P>
-If the default settings for some of the keys are not appropriate, they can be set explicitly. Here for instance a child component with the same number of PETs as the previous 4-way OpenMP threaded case is created, but is instructed to not handle any of the OpenMP aspects. Further the stack size of each child PET is set to 16MiB (smaller than the ESMF default).
+If the default settings for some of the keys are not appropriate, they can be set explicitly. Here for instance a child component with the same number of PETs as the previous 4-way OpenMP threaded case is created, but is instructed to not handle any of the OpenMP aspects.
 
 <P>
 <PRE>
     call ESMF_InfoSet(info, key="/NUOPC/Hint/PePerPet/MaxCount", value=4, rc=rc)
-    ! check rc
-    call ESMF_InfoSet(info, key="/NUOPC/Hint/PePerPet/MinStackSize", &amp;
-      value=16*1024*1024, rc=rc)
     ! check rc
     call ESMF_InfoSet(info, key="/NUOPC/Hint/PePerPet/OpenMpHandling", &amp;
       value="none", rc=rc)
