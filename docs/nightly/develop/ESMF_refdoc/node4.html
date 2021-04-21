@@ -5207,7 +5207,8 @@ The subroutine, when called by the framework, is expected to use any of the
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_GridCompSetVMMaxPEs(gridcomp, &amp;
      maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
-     minStackSize, openMpHandling, openMpNumThreads, rc)
+     pthreadMinStackSize, openMpHandling, openMpNumThreads, &amp;
+     forceChildPthreads, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp), intent(inout)         :: gridcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -5215,9 +5216,10 @@ The subroutine, when called by the framework, is expected to use any of the
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
-     integer,             intent(in),  optional :: minStackSize
+     integer,             intent(in),  optional :: pthreadMinStackSize
      character(*),        intent(in),  optional :: openMpHandling
      integer,             intent(in),  optional :: openMpNumThreads
+     logical,             intent(in),  optional :: forceChildPthreads
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -5267,26 +5269,33 @@ The arguments are:
      <EM>Currently options not documented. Use default.</EM>
    
 </DD>
-<DT><STRONG>[minStackSize]</STRONG></DT>
-<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code as a PET. For cases where OpenMP threads
+<DT><STRONG>[pthreadMinStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any child PET executing as Pthread. By default
+     single threaded child PETs do <EM>not</EM> execute as Pthread, and their stack
+     size is unaffected by this argument. However, for multi-threaded child PETs,
+     or if <TT>forceChildPthreads</TT> is <TT>.true.</TT>, child PETs execute
+     as Pthreads with their own private stack.
+
+<P>
+For cases where OpenMP threads
      are used by the user code, each thread allocates its own private stack. For
      all threads <EM>other</EM> than the master, the stack size is set via the 
      typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
      however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
      affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
-     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
-     critical.
+     sized via the <TT>pthreadMinStackSize</TT> argument, and a large enough size
+     is often critical.
 
 <P>
-When <TT>minStackSize</TT> is absent, the default is to use the system default
+When <TT>pthreadMinStackSize</TT>
+     is absent, the default is to use the system default
      set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
      Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
      <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
      will result in setting the stack size to 20MiB (the ESMF minimum).
      Depending on how much private data is used by the user code under
-     the master thread, the default might be too small, and <TT>minStackSize</TT>
-     must be used to allocate sufficient stack space.
+     the master thread, the default might be too small, and
+     <TT>pthreadMinStackSize</TT> must be used to allocate sufficient stack space.
    
 </DD>
 <DT><STRONG>[openMpHandling]</STRONG></DT>
@@ -5315,6 +5324,14 @@ When <TT>minStackSize</TT> is absent, the default is to use the system default
      PET sets the number of OpenMP threads to its local peCount.
    
 </DD>
+<DT><STRONG>[forceChildPthreads]</STRONG></DT>
+<DD>For <TT>.true.</TT>, force each child PET to execute in its own Pthread.
+     By default, <TT>.false.</TT>, single PETs spawned from a parent PET
+     execute in the same thread (or MPI process) as the parent PET. Multiple
+     child PETs spawned by the same parent PET always execute as their own
+     Pthreads.
+   
+</DD>
 <DT><STRONG>[rc]</STRONG></DT>
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
    
@@ -5336,7 +5353,7 @@ When <TT>minStackSize</TT> is absent, the default is to use the system default
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_GridCompSetVMMaxThreads(gridcomp, &amp;
      maxPetCountPerVas, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
-     minStackSize, rc)
+     pthreadMinStackSize, forceChildPthreads, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp), intent(inout)         :: gridcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -5344,7 +5361,8 @@ When <TT>minStackSize</TT> is absent, the default is to use the system default
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
-     integer,             intent(in),  optional :: minStackSize
+     integer,             intent(in),  optional :: pthreadMinStackSize
+     logical,             intent(in),  optional :: forceChildPthreads
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -5396,26 +5414,41 @@ The arguments are:
      <EM>Currently options not documented. Use default.</EM>
    
 </DD>
-<DT><STRONG>[minStackSize]</STRONG></DT>
-<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code as a PET. For cases where OpenMP threads
+<DT><STRONG>[pthreadMinStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any child PET executing as Pthread. By default
+     single threaded child PETs do <EM>not</EM> execute as Pthread, and their stack
+     size is unaffected by this argument. However, for multi-threaded child PETs,
+     or if <TT>forceChildPthreads</TT> is <TT>.true.</TT>, child PETs execute
+     as Pthreads with their own private stack.
+
+<P>
+For cases where OpenMP threads
      are used by the user code, each thread allocates its own private stack. For
      all threads <EM>other</EM> than the master, the stack size is set via the 
      typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
      however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
      affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
-     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
-     critical.
+     sized via the <TT>pthreadMinStackSize</TT> argument, and a large enough size
+     is often critical.
 
 <P>
-When <TT>minStackSize</TT> is absent, the default is to use the system default
+When <TT>pthreadMinStackSize</TT>
+     is absent, the default is to use the system default
      set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
      Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
      <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
      will result in setting the stack size to 20MiB (the ESMF minimum).
      Depending on how much private data is used by the user code under
-     the master thread, the default might be too small, and <TT>minStackSize</TT>
-     must be used to allocate sufficient stack space.
+     the master thread, the default might be too small, and
+     <TT>pthreadMinStackSize</TT> must be used to allocate sufficient stack space.
+   
+</DD>
+<DT><STRONG>[forceChildPthreads]</STRONG></DT>
+<DD>For <TT>.true.</TT>, force each child PET to execute in its own Pthread.
+     By default, <TT>.false.</TT>, single PETs spawned from a parent PET
+     execute in the same thread (or MPI process) as the parent PET. Multiple
+     child PETs spawned by the same parent PET always execute as their own
+     Pthreads.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -5439,7 +5472,7 @@ When <TT>minStackSize</TT> is absent, the default is to use the system default
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_GridCompSetVMMinThreads(gridcomp, &amp;
      maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
-     minStackSize, rc)
+     pthreadMinStackSize, forceChildPthreads, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp), intent(inout)         :: gridcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -5447,7 +5480,8 @@ When <TT>minStackSize</TT> is absent, the default is to use the system default
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
-     integer,             intent(in),  optional :: minStackSize
+     integer,             intent(in),  optional :: pthreadMinStackSize
+     logical,             intent(in),  optional :: forceChildPthreads
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -5496,26 +5530,41 @@ The arguments are:
      <EM>Currently options not documented. Use default.</EM>
    
 </DD>
-<DT><STRONG>[minStackSize]</STRONG></DT>
-<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code as a PET. For cases where OpenMP threads
+<DT><STRONG>[pthreadMinStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any child PET executing as Pthread. By default
+     single threaded child PETs do <EM>not</EM> execute as Pthread, and their stack
+     size is unaffected by this argument. However, for multi-threaded child PETs,
+     or if <TT>forceChildPthreads</TT> is <TT>.true.</TT>, child PETs execute
+     as Pthreads with their own private stack.
+
+<P>
+For cases where OpenMP threads
      are used by the user code, each thread allocates its own private stack. For
      all threads <EM>other</EM> than the master, the stack size is set via the 
      typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
      however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
      affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
-     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
-     critical.
+     sized via the <TT>pthreadMinStackSize</TT> argument, and a large enough size
+     is often critical.
 
 <P>
-When <TT>minStackSize</TT> is absent, the default is to use the system default
+When <TT>pthreadMinStackSize</TT>
+     is absent, the default is to use the system default
      set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
      Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
      <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
      will result in setting the stack size to 20MiB (the ESMF minimum).
      Depending on how much private data is used by the user code under
-     the master thread, the default might be too small, and <TT>minStackSize</TT>
-     must be used to allocate sufficient stack space.
+     the master thread, the default might be too small, and
+     <TT>pthreadMinStackSize</TT> must be used to allocate sufficient stack space.
+   
+</DD>
+<DT><STRONG>[forceChildPthreads]</STRONG></DT>
+<DD>For <TT>.true.</TT>, force each child PET to execute in its own Pthread.
+     By default, <TT>.false.</TT>, single PETs spawned from a parent PET
+     execute in the same thread (or MPI process) as the parent PET. Multiple
+     child PETs spawned by the same parent PET always execute as their own
+     Pthreads.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -5853,7 +5902,7 @@ derived type within ESMF.  The user must create one of these types
 to represent a specific coupling function, such as the regular
 transfer of data between a data assimilation system and an 
 atmospheric model.  <A NAME="tex2html21"
-  HREF="footnode.html#foot7879"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="footnode.html#foot7933"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 The user-written part of a Coupler Component is associated with an
 <TT>ESMF_CplComp</TT> derived type through a routine called 
@@ -8280,7 +8329,7 @@ The subroutine, when called by the framework, is expected to use any of the
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_CplCompSetVMMaxPEs(cplcomp, &amp;
      maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
-     minStackSize, rc)
+     pthreadMinStackSize, forceChildPthreads, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_CplComp),  intent(inout)         :: cplcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -8288,7 +8337,8 @@ The subroutine, when called by the framework, is expected to use any of the
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
-     integer,             intent(in),  optional :: minStackSize
+     integer,             intent(in),  optional :: pthreadMinStackSize
+     logical,             intent(in),  optional :: forceChildPthreads
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -8338,26 +8388,41 @@ The arguments are:
      <EM>Currently options not documented. Use default.</EM>
    
 </DD>
-<DT><STRONG>[minStackSize]</STRONG></DT>
-<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code as a PET. For cases where OpenMP threads
+<DT><STRONG>[pthreadMinStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any child PET executing as Pthread. By default
+     single threaded child PETs do <EM>not</EM> execute as Pthread, and their stack
+     size is unaffected by this argument. However, for multi-threaded child PETs,
+     or if <TT>forceChildPthreads</TT> is <TT>.true.</TT>, child PETs execute
+     as Pthreads with their own private stack.
+
+<P>
+For cases where OpenMP threads
      are used by the user code, each thread allocates its own private stack. For
      all threads <EM>other</EM> than the master, the stack size is set via the 
      typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
      however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
      affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
-     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
-     critical.
+     sized via the <TT>pthreadMinStackSize</TT> argument, and a large enough size
+     is often critical.
 
 <P>
-When <TT>minStackSize</TT> is absent, the default is to use the system default
+When <TT>pthreadMinStackSize</TT>
+     is absent, the default is to use the system default
      set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
      Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
      <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
      will result in setting the stack size to 20MiB (the ESMF minimum).
      Depending on how much private data is used by the user code under
-     the master thread, the default might be too small, and <TT>minStackSize</TT>
-     must be used to allocate sufficient stack space.
+     the master thread, the default might be too small, and
+     <TT>pthreadMinStackSize</TT> must be used to allocate sufficient stack space.
+   
+</DD>
+<DT><STRONG>[forceChildPthreads]</STRONG></DT>
+<DD>For <TT>.true.</TT>, force each child PET to execute in its own Pthread.
+     By default, <TT>.false.</TT>, single PETs spawned from a parent PET
+     execute in the same thread (or MPI process) as the parent PET. Multiple
+     child PETs spawned by the same parent PET always execute as their own
+     Pthreads.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -8381,7 +8446,7 @@ When <TT>minStackSize</TT> is absent, the default is to use the system default
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_CplCompSetVMMaxThreads(cplcomp, &amp;
      maxPetCountPerVas, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
-     minStackSize, rc)
+     pthreadMinStackSize, forceChildPthreads, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_CplComp),  intent(inout)         :: cplcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -8389,7 +8454,8 @@ When <TT>minStackSize</TT> is absent, the default is to use the system default
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
-     integer,             intent(in),  optional :: minStackSize
+     integer,             intent(in),  optional :: pthreadMinStackSize
+     logical,             intent(in),  optional :: forceChildPthreads
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -8441,26 +8507,41 @@ The arguments are:
      <EM>Currently options not documented. Use default.</EM>
    
 </DD>
-<DT><STRONG>[minStackSize]</STRONG></DT>
-<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code as a PET. For cases where OpenMP threads
+<DT><STRONG>[pthreadMinStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any child PET executing as Pthread. By default
+     single threaded child PETs do <EM>not</EM> execute as Pthread, and their stack
+     size is unaffected by this argument. However, for multi-threaded child PETs,
+     or if <TT>forceChildPthreads</TT> is <TT>.true.</TT>, child PETs execute
+     as Pthreads with their own private stack.
+
+<P>
+For cases where OpenMP threads
      are used by the user code, each thread allocates its own private stack. For
      all threads <EM>other</EM> than the master, the stack size is set via the 
      typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
      however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
      affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
-     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
-     critical.
+     sized via the <TT>pthreadMinStackSize</TT> argument, and a large enough size
+     is often critical.
 
 <P>
-When <TT>minStackSize</TT> is absent, the default is to use the system default
+When <TT>pthreadMinStackSize</TT>
+     is absent, the default is to use the system default
      set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
      Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
      <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
      will result in setting the stack size to 20MiB (the ESMF minimum).
      Depending on how much private data is used by the user code under
-     the master thread, the default might be too small, and <TT>minStackSize</TT>
-     must be used to allocate sufficient stack space.
+     the master thread, the default might be too small, and
+     <TT>pthreadMinStackSize</TT> must be used to allocate sufficient stack space.
+   
+</DD>
+<DT><STRONG>[forceChildPthreads]</STRONG></DT>
+<DD>For <TT>.true.</TT>, force each child PET to execute in its own Pthread.
+     By default, <TT>.false.</TT>, single PETs spawned from a parent PET
+     execute in the same thread (or MPI process) as the parent PET. Multiple
+     child PETs spawned by the same parent PET always execute as their own
+     Pthreads.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -8484,7 +8565,7 @@ When <TT>minStackSize</TT> is absent, the default is to use the system default
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_CplCompSetVMMinThreads(cplcomp, &amp;
      maxPeCountPerPet, prefIntraProcess, prefIntraSsi, prefInterSsi, &amp;
-     minStackSize, rc)
+     pthreadMinStackSize, forceChildPthreads, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_CplComp),  intent(inout)         :: cplcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -8492,7 +8573,8 @@ When <TT>minStackSize</TT> is absent, the default is to use the system default
      integer,             intent(in),  optional :: prefIntraProcess
      integer,             intent(in),  optional :: prefIntraSsi
      integer,             intent(in),  optional :: prefInterSsi
-     integer,             intent(in),  optional :: minStackSize
+     integer,             intent(in),  optional :: pthreadMinStackSize
+     logical,             intent(in),  optional :: forceChildPthreads
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -8541,26 +8623,41 @@ The arguments are:
      <EM>Currently options not documented. Use default.</EM>
    
 </DD>
-<DT><STRONG>[minStackSize]</STRONG></DT>
-<DD>Minimum stack size in byte of any Pthread that is created in the VM with the
-     intention of executing user code as a PET. For cases where OpenMP threads
+<DT><STRONG>[pthreadMinStackSize]</STRONG></DT>
+<DD>Minimum stack size in byte of any child PET executing as Pthread. By default
+     single threaded child PETs do <EM>not</EM> execute as Pthread, and their stack
+     size is unaffected by this argument. However, for multi-threaded child PETs,
+     or if <TT>forceChildPthreads</TT> is <TT>.true.</TT>, child PETs execute
+     as Pthreads with their own private stack.
+
+<P>
+For cases where OpenMP threads
      are used by the user code, each thread allocates its own private stack. For
      all threads <EM>other</EM> than the master, the stack size is set via the 
      typical <TT>OMP_STACKSIZE</TT> environment variable mechanism. The PET itself,
      however, becomes the <EM>master</EM> of the OpenMP thread team, and is not
      affected by <TT>OMP_STACKSIZE</TT>. It is the master's stack that can be
-     sized via the <TT>minStackSize</TT> argument, and a large enough size is often
-     critical.
+     sized via the <TT>pthreadMinStackSize</TT> argument, and a large enough size
+     is often critical.
 
 <P>
-When <TT>minStackSize</TT> is absent, the default is to use the system default
+When <TT>pthreadMinStackSize</TT>
+     is absent, the default is to use the system default
      set by the <TT>limit</TT> or <TT>ulimit</TT> command. However, the stack of a
      Pthread cannot be unlimited, and a shell <EM>stacksize</EM> setting of
      <EM>unlimited</EM>, or any setting below the ESMF implemented minimum,
      will result in setting the stack size to 20MiB (the ESMF minimum).
      Depending on how much private data is used by the user code under
-     the master thread, the default might be too small, and <TT>minStackSize</TT>
-     must be used to allocate sufficient stack space.
+     the master thread, the default might be too small, and
+     <TT>pthreadMinStackSize</TT> must be used to allocate sufficient stack space.
+   
+</DD>
+<DT><STRONG>[forceChildPthreads]</STRONG></DT>
+<DD>For <TT>.true.</TT>, force each child PET to execute in its own Pthread.
+     By default, <TT>.false.</TT>, single PETs spawned from a parent PET
+     execute in the same thread (or MPI process) as the parent PET. Multiple
+     child PETs spawned by the same parent PET always execute as their own
+     Pthreads.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -10841,7 +10938,7 @@ in that test:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12685"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12793"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10862,7 +10959,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12687"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12795"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10893,7 +10990,7 @@ Array object is empty, and the DELayout for the Grid is like this:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12689"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12797"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -10914,7 +11011,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12691"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12799"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -14049,7 +14146,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16110"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16218"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
