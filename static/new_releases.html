@@ -165,43 +165,32 @@ ESMPy Documentation <br>
 <br><br>
 <a href="/release/platforms_8_1_1">Supported Platforms</a>
 <br><br>
-<a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-810">Regridding Status</a>
+<a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-810811">Regridding Status</a>
 </td>
 
 <td>04/23/21</td>
 
 <td>
 <ul>
-<li>This release is backward compatible with ESMF 8.0.0. Two new interfaces were added to the Fortran API: ESMF_VMEpochEnter() and ESMF_VMEpochExit().
-<li>No bit-for-bit changes are expected for this release compared to ESMF 8.0.0. This has been verified for a large number of regridding tests with Intel compilers using flags "-O2 -fp-model precise".
-<li>No changes were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. The ESMF tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-800801">ESMF regridding status</a> are unchanged.
-<li>The ESMF Virtual Machine (ESMF_VM) now supports message aggregation to improve performance for some very common communication patterns. Two new methods,  ESMF_VMEpochEnter() and ESMF_VMEpochExit(), allow explicit use of this feature. <li>The generic NUOPC_Connector automatically takes advantage of VMEpoch message aggregation when used between components on disjoint petLists.
-<li>The ability to write/read ESMF RouteHandles to/from file was added to the ESMPy layer. This allows a user to perform the costly RouteHandle generation once, and re-use it in subsequent runs. This provides a more efficient approach to Regridding in the situation where the number of PETs does not change between runs.
-<li>The pole_kind parameter was added to allow specification of pole behavior when creating an ESMPy Grid.
+<li>This patch release is backward compatible with ESMF 8.1.0.
+<li>No bit-for-bit changes are expected for this release compared to ESMF 8.1.0.
+<li>No changes were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. The ESMF tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-810811">ESMF regridding status</a> are unchanged.
+<li>This patch release corrects a regression in the handling user level OpenMP threads. See the Known Bugs column for details.
 </td>
 
 <td>
 
 <ul>
-<li>Same as ESMF_8_0_0 with the following exceptions:
+<li>Same as ESMF_8_1_0 with the following exceptions:
 <ul>
-<li>The race condition in the ESMF_FileRegrid() method and ESMF_Regrid application has been fixed. Now if the destination grid is a multi-tile grid in GRIDSPEC MOSAIC format and the tile is distributed into multiple PETs, the regridded field is written correctly into the output file.
-<li>Applying the sparse matrix multiplication to cases where the local data allocation is above the 32-bit limit now works reliably.
-<li>The ESMF_GridCreate1PeriDim() method can now be used to create a bipole connection on the lower side.
-<li>The ESMF_ArrayCreate() method now succeeds when called from inside a component, requesting DE sharing.
-<li>The ESMF_DistGridGet() method now correctly returns "de" and "tile" information for a "localDe".
-<li>ESMF now correctly links against the Fortran bindings of NetCDF, even when the C and Fortran bindings of NetCDF are provided in different locations.
-<li>The ESMF install target now reliably works when installing ESMF into a location that is shared with other library installations.
+<li>The issue with OpenMP thread count being reset to 1 within all ESMF components has been fixed.
+<li>The PETs of all ESMF components, and any potentially created OpenMP threads under such PETs, are no longer pinned automatically to any specific PEs.
 </ul>
 </ul>
 
 <b>Platform-specific bugs:</b>
 <ul>
-<li>The same as ESMF_8_0_0 with the following exceptions:</li>
-<ul>
-<li>The GNU and Intel compilers require GCC>=4.8 for C++11 support (Intel uses the GCC headers). By default ESMF now uses the C++11 standard and cannot be downgraded. If you run into build issues due to the C++11 dependency, you must make sure a GCC>=4.8 is loaded.
-<li>The Darwin.intelclang.default build configuration now works correctly.
-</ul>
+<li>The same as ESMF_8_1_0.</li>
 </ul>
 </tr>
 
@@ -239,7 +228,7 @@ ESMPy Documentation <br>
 <br><br>
 <a href="/release/platforms_8_1_0">Supported Platforms</a>
 <br><br>
-<a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-810">Regridding Status</a>
+<a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-810811">Regridding Status</a>
 </td>
 
 <td>03/29/21</td>
@@ -293,7 +282,7 @@ ESMPy Documentation <br>
 </li>  
 </ul>
 
-<li>Tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-810">ESMF regridding status</a> have been updated. These include  supported grids and capabilities of the offline and integrated regridding, and numerical results of some specific test cases.
+<li>Tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-810811">ESMF regridding status</a> have been updated. These include  supported grids and capabilities of the offline and integrated regridding, and numerical results of some specific test cases.
 
 <li>The <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node6.html#SECTION06020000000000000000">ESMF_Info</a> class was introduced as a replacement for ESMF_Attribute. ESMF_Info is based on a modern C++ JSON implementation to provide efficient key-value pair storage. Most of the <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node9.html#SECTION09040000000000000000">legacy ESMF_Attribute API</a> is preserved for backward compatibility.
 
@@ -368,6 +357,10 @@ ESMPy Documentation <br>
 <li>The ESMF_GridCreate() interface that allows the user to create a copy of an existing Grid with a new distribution will give incorrect results when used on a Grid with 3 or more dimensions and whose coordinate arrays are less than the full dimension of the Grid (i.e. it contains factorized coordinates).
 
 <li>The ESMF_XGrid construction can lead to degenerate cells for cases where the source and destination grids have edges that are almost the same. Often these cells don't produce weights and are benign, but when weights are produced can lead to low accuracy results when transferring data to/from the XGrid.
+
+<li>The OpenMP thread count is being reset to 1 within all ESMF components. This affects user code that leverages OpenMP threading inside of components, and uses the <tt>OMP_NUM_THREADS</tt> environment variable to set the desired number of OpenMP threads. As a consequence the expected speed up from OpenMP threading in user code will not be present.
+
+<li>The PETs of all ESMF components, and any potentially created OpenMP threads under such PETs, are pinned to the PE on the respective shared memory node, corresponding to the PET number. As a consequence, even if a user overcomes the OpenMP thread count reset to 1 bug, e.g. by using <tt>omp_set_num_threads()</tt> API directly, the performance of OpenMP threaded user code is far below that of the expected speed up.
 </ul>
 
 <b>Platform-specific bugs:</b>
@@ -446,7 +439,7 @@ ESMPy Documentation <br>
 
 <td>
 <ul>
-<li>This release is backward compatible with ESMF 8.0.0. Two new interfaces were added to the Fortran API: ESMF_VMEpochEnter() and ESMF_VMEpochExit().
+<li>This patch release is backward compatible with ESMF 8.0.0. Two new interfaces were added to the Fortran API: ESMF_VMEpochEnter() and ESMF_VMEpochExit().
 <li>No bit-for-bit changes are expected for this release compared to ESMF 8.0.0. This has been verified for a large number of regridding tests with Intel compilers using flags "-O2 -fp-model precise".
 <li>No changes were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. The ESMF tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-800801">ESMF regridding status</a> are unchanged.
 <li>The ESMF Virtual Machine (ESMF_VM) now supports message aggregation to improve performance for some very common communication patterns. Two new methods,  ESMF_VMEpochEnter() and ESMF_VMEpochExit(), allow explicit use of this feature. <li>The generic NUOPC_Connector automatically takes advantage of VMEpoch message aggregation when used between components on disjoint petLists.
