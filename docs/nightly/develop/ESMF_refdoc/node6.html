@@ -20730,7 +20730,7 @@ The arguments are:
    recursive subroutine ESMF_VMGetDefault(vm, localPet, &amp;
      currentSsiPe, petCount, peCount, ssiCount, ssiMap, ssiMinPetCount, ssiMaxPetCount, &amp;
      ssiLocalPetCount, mpiCommunicator, pthreadsEnabledFlag, openMPEnabledFlag, &amp;
-     ssiSharedMemoryEnabledFlag, rc)
+     ssiSharedMemoryEnabledFlag, esmfComm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_VM),        intent(in)            :: vm
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -20747,6 +20747,7 @@ The arguments are:
      logical,              intent(out), optional :: pthreadsEnabledFlag
      logical,              intent(out), optional :: openMPEnabledFlag
      logical,              intent(out), optional :: ssiSharedMemoryEnabledFlag
+     character(:), allocatable, intent(out), optional :: esmfComm
      integer,              intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
@@ -20775,6 +20776,11 @@ Added argument <TT>ssiSharedMemoryEnabledFlag</TT> that allows the user to
 <BR>
 Added argument <TT>ssiMap</TT> for a convenient way to obtain a view
      of the mapping of PETs to single system images across the entire VM.
+   
+</DD>
+<DT><STRONG>8.2.0</STRONG></DT>
+<DD>Added argument <TT>esmfComm</TT> to provide easy access to the
+     <TT>ESMF_COMM</TT> setting used by the ESMF installation.
    
 </DD>
 </DL>
@@ -20902,6 +20908,13 @@ The arguments are:
           
 </DD>
 </DL>
+     
+</DD>
+<DT><STRONG>[esmfComm]</STRONG></DT>
+<DD>Upon return this string is allocated to the appropriate size and holds
+          the exact value of the <TT>ESMF_COMM</TT> build environment variable used
+          by the ESMF installation. This provides a convenient way for the user
+          to determine the underlying MPI implementation.
      
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
