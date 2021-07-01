@@ -2086,11 +2086,11 @@ $external_latex_labels{$key} = q|52.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:attcopy/;
-$external_latex_labels{$key} = q|55.0.1|; 
+$external_latex_labels{$key} = q|55.1.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:attgetcount/;
-$external_latex_labels{$key} = q|55.0.2|; 
+$external_latex_labels{$key} = q|55.1.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:attnest/;
@@ -2102,7 +2102,7 @@ $external_latex_labels{$key} = q|52.6|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:attwrite/;
-$external_latex_labels{$key} = q|55.0.3|; 
+$external_latex_labels{$key} = q|55.1.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:calkindflag/;
