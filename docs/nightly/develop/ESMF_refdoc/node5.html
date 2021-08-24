@@ -61622,11 +61622,12 @@ The RouteHandle based communication calls of the Array and Field classes
    Building on these primitives, asynchronous communications patterns can be
    implemented in user code. However, a more elegant option to achive
    asynchronous behavior between sending and receiving PETs of RouteHandle based
-   communications is provided by the VMEpoch feature.
+   communications is provided by the VMEpoch feature discussed here.
 
 <P>
 The VMEpoch is a low level message aggregation and buffering approach.
-   The VM level details are discussed under the ESMF_VM section in <A HREF="node6.html#VM:NBVMEpoch">49.3.10</A>.
+   The VM level details are discussed under the ESMF_VM section in
+   <A HREF="node6.html#VM:NBVMEpoch">49.3.10</A>.
 
 <P>
 There are several advantages of VMEpoch over the direct use of non-blocking
@@ -61636,8 +61637,8 @@ There are several advantages of VMEpoch over the direct use of non-blocking
 
 <UL>
 <LI>Multiple different RouteHandles can be aggregated within the same epoch.
-    This allows e.g. to mix Redist(), Regrid(), and SMM() operations,
-    aggregating all of the messages.
+    This allows mixing of Redist(), Regrid(), and SMM() operations, and the
+    aggregating of all messages.
 
 <P>
 </LI>
@@ -61646,7 +61647,7 @@ There are several advantages of VMEpoch over the direct use of non-blocking
 
 <P>
 </LI>
-<LI>ArrayBundle and FieldBundle communications are support. This is not
+<LI>ArrayBundle and FieldBundle communications are supported. This is not
     available for the direct non-blocking execution.
 
 <P>
@@ -61655,19 +61656,17 @@ There are several advantages of VMEpoch over the direct use of non-blocking
 
 <P>
 The <TT>ESMF_VMEpoch</TT> API consists of two interfaces:
-   <TT>ESMF_VMEpochEnter()</TT> and <TT>ESMF_VMEpochExit()</TT>. When entering an
-   epoch, the user specifies the type of epoch that is to be entered. Currently
-   only <TT>ESMF_VMEPOCH_BUFFER</TT> is available. Inside an epoch,
+   <TT>ESMF_VMEpochEnter()</TT> and <TT>ESMF_VMEpochExit()</TT>. Inside an epoch,
    communication calls are aggregated. Data transfers on the 
-   <TT>src</TT> side are not issued until the epoch is exited. On the <TT>dst</TT> side
-   a single data transfer is received, and then divided over the individual
-   receive calls.
+   <TT>src</TT> side are not issued until the epoch is exited. On the <TT>dst</TT>
+   side, a single data transfer is received from any of the sending PETs, and
+   then divided over the individual receive calls.
 
 <P>
-In the following code the <TT>srcArray</TT> has DEs on PET 0 and 1, while
-   <TT>dstArray</TT> has DEs on PET 2 and 3. Both Arrays are operating on the same
-   global index space. A Redist() RouteHandle <TT>rh</TT> is created in the usual
-   manner. 
+In the following code example, the <TT>srcArray</TT> has DEs on PET 0 and 1, 
+   while <TT>dstArray</TT> has DEs on PET 2 and 3. Both Arrays are operating on
+   the same global index space. A Redist() RouteHandle <TT>rh</TT> is created in
+   the usual manner. 
 
 <P>
 <PRE>
@@ -61680,7 +61679,8 @@ The precomputed <TT>rh</TT> can be used as usual. Here the use inside an active
 
 <P>
 First enter the VMEpoch using <TT>ESMF_VMEpochEnter()</TT>, specifying the kind
-   of epoch. Currently only <TT>ESMF_VMEPOCH_BUFFER</TT> is available. 
+   of epoch. Currently only a single VMEpoch kind is available:
+   <TT>ESMF_VMEPOCH_BUFFER</TT>. 
 
 <P>
 <PRE>
@@ -61699,15 +61699,16 @@ First enter the VMEpoch using <TT>ESMF_VMEpochEnter()</TT>, specifying the kind
 Notice that ESMF implements a throttle on the VMEpoch as to limit the number
    of queued message between PETs. This is necessary to protect the receiving
    side in the <TT>EAGER</TT> regime where MPI implementations send the
-   data to the receiving side, assuming it will be able to buffer. In cases where
-   the sending side runs ahead of the receiving side, this behavior can lead to
+   data from the sending to the receiving side, assuming the receiving side
+   will always be able to buffer. In cases where the sending side runs far
+   ahead of the receiving side, this strategy can lead to
    increasing memory pressure on the receiving side, ultimatily resulting in
-   out-of-memory conditions. The default throttle is set to <SPAN CLASS="MATH"><IMG
+   out-of-memory conditions. The default throttle in VMEpoch is set to <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
  SRC="img191.png"
- ALT="$10$"></SPAN> outstanding
-   message between any two PETs. It can be adjusted by specifying the
-   <TT>throttle</TT> argument to <TT>ESMF_VMEpochEnter()</TT>.
+ ALT="$10$"></SPAN>
+   outstanding message between any two PETs. It can be adjusted by specifying
+   the <TT>throttle</TT> argument when calling <TT>ESMF_VMEpochEnter()</TT>.
 
 <P>
 Next the actual communication method, <TT>ESMF_ArrayRedist()</TT>, is called in
@@ -61727,30 +61728,39 @@ Next the actual communication method, <TT>ESMF_ArrayRedist()</TT>, is called in
 <P>
 Waiting for the send buffers comes into play when a VMEpoch is entered and
    exited multiple times. The same send buffer is reused each time for the 
-   same src-dst-PET pairs (and grown automatically if needed). Each send buffer becomes
-   available once the MPI layer has indicated that the associated
-   <TT>MPI_Isend()</TT> has completed locally.
+   same src-dst-PET pairs (and grown automatically if needed). Each send buffer
+   becomes available once the MPI layer has indicated that the associated,
+   previous <TT>MPI_Isend()</TT> has completed locally.
 
 <P>
 Once the send buffer for a specific PET pair is available, the local data
-   movements defined by the <TT>rh</TT> must complete before returning. For 
-   <TT>Regrid()</TT> and <TT>SMM()</TT> operations the <TT>srcTermProcessing</TT> argument
-   specified during <TT>Store()</TT> determines the amount of local data processing.
-   Once returned, it is safe to modify the <TT>srcArray</TT> data on the local PET.
+   movements defined by the <TT>rh</TT> and message aggregation must complete before
+   returning. For <TT>Regrid()</TT> and <TT>SMM()</TT> operations the
+   <TT>srcTermProcessing</TT> argument specified during <TT>Store()</TT> determines the
+   amount of local data processing. Once returned, it is safe to modify the
+   <TT>srcArray</TT> data on the local PET.
 
 <P>
 <B>DST side (PET 2 &amp; 3):</B>
    The receiving PETs block on the aggregated data from the src side for which
    the local PET has a dependency defined via the <TT>rh</TT>. Once received, the
-   data is processed locally, and moved into the final location.
-   On return, it is safe to access the data in <TT>dstArray</TT> on the local PET.
+   data is processed locally, and moved into the final location under the
+   <TT>dstArray</TT>. On return, it is safe to access the data in <TT>dstArray</TT>
+   on the local PET.
 
 <P>
-Notice that several more RouteHandle based communication calls could be made inside
-   the same active VMEpoch. In fact, aggregating messages from multiple exchanges
-   is the typical use case of the VMEpoch approach. Additional communication calls
-   could either involve different RouteHandles, or even the same <TT>rh</TT> for
-   different src/dst Array pairs.
+Notice that any number of RouteHandle based communication calls can be made
+   inside the same active VMEpoch. In fact, aggregating messages from multiple
+   exchanges is the typical use case of the VMEpoch approach. Additional
+   communication calls cam either involve different RouteHandles, or even the
+   same <TT>rh</TT> for different src/dst Array pairs.
+
+<P>
+When using communication calls that allow the specification of the
+   <TT>termorderflag</TT>, e.g. <TT>ESMF_FieldRegrid()</TT>, <TT>ESMF_ArraySMM()</TT>,
+   etc. inside a VMEpoch, it is important to set it to either 
+   <TT>ESMF_TERMORDER_SRCPET</TT> or <TT>ESMF_TERMORDER_SRCSEQ</TT>. The default
+   value of <TT>ESMF_TERMORDER_FREE</TT> is <EM>not</EM> compatible with VMEpoch.
 
 <P>
 Finally the active VMEpoch is exited by calling <TT>ESMF_VMEpochExit()</TT>. 
