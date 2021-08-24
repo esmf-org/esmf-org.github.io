@@ -78,13 +78,13 @@ $cached_env_img{$key} = q|<IMG
 $key = q/+;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|img202.png"
+ SRC="|."$dir".q|img203.png"
  ALT="$+$">|; 
 
 $key = q/+frac{{{rm{sN}}{{{rm{sD}};MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="35" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|img192.png"
+ SRC="|."$dir".q|img193.png"
  ALT="$+
 \frac{{\rm sN}}{{\rm sD}}$">|; 
 
@@ -123,6 +123,12 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="41" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img189.png"
  ALT="$1+n$">|; 
+
+$key = q/10;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="20" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img191.png"
+ ALT="$10$">|; 
 
 $key = q/10^{8};MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -169,13 +175,13 @@ $cached_env_img{$key} = q|<IMG
 $key = q/2^{31};MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="26" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|img196.png"
+ SRC="|."$dir".q|img197.png"
  ALT="$2^{31}$">|; 
 
 $key = q/2^{63};MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="26" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|img195.png"
+ SRC="|."$dir".q|img196.png"
  ALT="$2^{63}$">|; 
 
 $key = q/2times3=6;MSF=1.6;AAT/;
@@ -301,19 +307,19 @@ $cached_env_img{$key} = q|<IMG
 $key = q/[0...localDeCount-1];MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="160" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|img198.png"
+ SRC="|."$dir".q|img199.png"
  ALT="$[0...localDeCount-1]$">|; 
 
 $key = q/[0..petCount-1];MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="123" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|img203.png"
+ SRC="|."$dir".q|img204.png"
  ALT="$[0..petCount-1]$">|; 
 
 $key = q/[1...localDeCount];MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="133" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|img199.png"
+ SRC="|."$dir".q|img200.png"
  ALT="$[1...localDeCount]$">|; 
 
 $key = q/[];MSF=1.6;AAT/;
@@ -325,7 +331,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/^{14};MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|img194.png"
+ SRC="|."$dir".q|img195.png"
  ALT="$^{14}$">|; 
 
 $key = q/c_{d};MSF=1.6;AAT/;
@@ -557,7 +563,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/includegraphics{Log_obj};AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="125" HEIGHT="306" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|img197.png"
+ SRC="|."$dir".q|img198.png"
  ALT="\includegraphics{Log_obj}">|; 
 
 $key = q/includegraphics{State_obj};AAT/;
@@ -569,13 +575,13 @@ $cached_env_img{$key} = q|<IMG
 $key = q/includegraphics{TimeMgr_desc};AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="691" HEIGHT="202" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|img191.png"
+ SRC="|."$dir".q|img192.png"
  ALT="\includegraphics{TimeMgr_desc}">|; 
 
 $key = q/includegraphics{TimeMgr_obj};AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="687" HEIGHT="315" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|img193.png"
+ SRC="|."$dir".q|img194.png"
  ALT="\includegraphics{TimeMgr_obj}">|; 
 
 $key = q/includegraphics{dgconnect_1tile_not_connected.eps};AAT/;
@@ -916,7 +922,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/scalebox{0.6}{includegraphics{VM_design}};AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="723" HEIGHT="527" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|img200.png"
+ SRC="|."$dir".q|img201.png"
  ALT="\scalebox{0.6}{\includegraphics{VM_design}}">|; 
 
 $key = q/scalebox{0.6}{includegraphics{XGridEx1}};AAT/;
@@ -958,7 +964,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/scalebox{0.8}{includegraphics{Appendix_uml}};AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="461" HEIGHT="703" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|img204.png"
+ SRC="|."$dir".q|img205.png"
  ALT="\scalebox{0.8}{\includegraphics{Appendix_uml}}">|; 
 
 $key = q/scalebox{0.9}{includegraphics{ESMF_GEOS5}};AAT/;
@@ -1084,7 +1090,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/times;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|img201.png"
+ SRC="|."$dir".q|img202.png"
  ALT="$\times$">|; 
 
 $key = q/trightarrowinfty;MSF=1.6;AAT/;

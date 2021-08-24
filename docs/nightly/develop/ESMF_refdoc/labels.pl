@@ -218,12 +218,20 @@ $key = q/RH:Reusability/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/RH:asyncVMEpoch/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/RH:bfb/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Regrid_Interfaces/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/VM:NBVMEpoch/;
+$external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/XGrid:rest/;
@@ -1950,19 +1958,23 @@ $external_latex_labels{$key} = q|17.4.20|;
 $noresave{$key} = "$nosave";
 
 $key = q/RH:DynMask/;
-$external_latex_labels{$key} = q|36.2.5|; 
+$external_latex_labels{$key} = q|36.2.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/RH:RHfromFile/;
-$external_latex_labels{$key} = q|36.2.3|; 
+$external_latex_labels{$key} = q|36.2.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/RH:RHfromRH/;
-$external_latex_labels{$key} = q|36.2.2|; 
+$external_latex_labels{$key} = q|36.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/RH:Reusability/;
-$external_latex_labels{$key} = q|36.2.4|; 
+$external_latex_labels{$key} = q|36.2.5|; 
+$noresave{$key} = "$nosave";
+
+$key = q/RH:asyncVMEpoch/;
+$external_latex_labels{$key} = q|36.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/RH:bfb/;
@@ -1971,6 +1983,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/Regrid_Interfaces/;
 $external_latex_labels{$key} = q|24.2|; 
+$noresave{$key} = "$nosave";
+
+$key = q/VM:NBVMEpoch/;
+$external_latex_labels{$key} = q|49.3.10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/XGrid:rest/;
