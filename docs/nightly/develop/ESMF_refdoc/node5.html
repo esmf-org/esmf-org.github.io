@@ -52023,7 +52023,7 @@ This call is <EM>collective</EM> across the current VM.
 <DT><STRONG>[elementCoords]</STRONG></DT>
 <DD>An array containing the physical coordinates of the elements to be created on this
             PET. This input consists of a 1D array the size of the number of elements on this PET times the Mesh's
-            spatial dimension (<TT>spatialDim</TT>). The coordinates in this array are ordered
+            spatial dimension. The coordinates in this array are ordered
             so that the coordinates for an element lie in sequence in memory. (e.g. for a
             Mesh with spatial dimension 2, the coordinates for element 1 are in elementCoords(1) and
             elementCoords(2), the coordinates for element 2 are in elementCoords(3) and elementCoords(4),
@@ -54235,7 +54235,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66496"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66493"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -55412,6 +55412,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
  
  subroutine ESMF_XGridGetDefault(xgrid, &amp;
      sideAGridCount, sideBGridCount, sideAMeshCount, sideBMeshCount, &amp;
+     coordSys, &amp;
      dimCount, elementCount, &amp;
      sideAGrid, sideBGrid, sideAMesh, sideBMesh, &amp;
      mesh, &amp;
@@ -55425,6 +55426,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
  integer,              intent(out), optional :: sideAGridCount, sideBGridCount
  integer,              intent(out), optional :: sideAMeshCount, sideBMeshCount
+ type(ESMF_CoordSys_Flag), intent(out), optional :: coordSys
  integer,              intent(out), optional :: dimCount
  integer,              intent(out), optional :: elementCount
  type(ESMF_Grid),      intent(out), optional :: sideAGrid(:), sideBGrid(:)
@@ -55469,6 +55471,10 @@ The arguments are:
 </DD>
 <DT><STRONG>[sideBMeshCount]</STRONG></DT>
 <DD>Total Number of Meshes on the B side.
+       
+</DD>
+<DT><STRONG>[coordSys]</STRONG></DT>
+<DD>The coordinate system of the XGrid's coordinate data.
        
 </DD>
 <DT><STRONG>[dimCount]</STRONG></DT>
@@ -56387,7 +56393,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68204"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68202"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -56568,7 +56574,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67856"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67854"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -56791,7 +56797,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="68205"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="68203"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -57076,7 +57082,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="67969"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="67967"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -57142,7 +57148,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="67984"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="67982"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -57201,7 +57207,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="68000"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="67998"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -57451,7 +57457,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68207"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68205"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57609,7 +57615,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68208"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68206"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57680,7 +57686,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68116"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68114"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -57790,7 +57796,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68128"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68126"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -57862,7 +57868,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68139"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68137"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -58063,7 +58069,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68171"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68169"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -58188,7 +58194,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68179"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68177"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
