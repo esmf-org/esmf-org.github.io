@@ -1442,20 +1442,27 @@ The following sections discuss the above mentioned aspects in more detail.
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>       subroutine ESMF_Initialize(defaultConfigFileName, defaultCalKind, &amp;
-         defaultLogFileName, logAppendFlag, logKindFlag, mpiCommunicator,  &amp;
-         ioUnitLBound, ioUnitUBound, globalResourceControl, vm, rc)
+<PRE>       subroutine ESMF_Initialize(configFilename, &amp;
+         defaultCalKind, defaultDefaultLogFilename, defaultLogFilename, &amp;
+         defaultLogAppendFlag, logAppendFlag, defaultLogKindFlag, logKindFlag, &amp;
+         mpiCommunicator,  ioUnitLBound, ioUnitUBound, &amp;
+         defaultGlobalResourceControl, globalResourceControl, config, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE> -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-       character(len=*),        intent(in),  optional :: defaultConfigFileName
+       character(len=*),        intent(in),  optional :: configFilename
        type(ESMF_CalKind_Flag), intent(in),  optional :: defaultCalKind
-       character(len=*),        intent(in),  optional :: defaultLogFileName
+       character(len=*),        intent(in),  optional :: defaultDefaultLogFilename
+       character(len=*),        intent(in),  optional :: defaultLogFilename
+       logical,                 intent(in),  optional :: defaultLogAppendFlag
        logical,                 intent(in),  optional :: logAppendFlag
+       type(ESMF_LogKind_Flag), intent(in),  optional :: defaultLogKindFlag
        type(ESMF_LogKind_Flag), intent(in),  optional :: logKindFlag
        integer,                 intent(in),  optional :: mpiCommunicator
        integer,                 intent(in),  optional :: ioUnitLBound
        integer,                 intent(in),  optional :: ioUnitUBound
+       logical,                 intent(in),  optional :: defaultGlobalResourceControl
        logical,                 intent(in),  optional :: globalResourceControl
+       type(ESMF_Config),       intent(out), optional :: config
        type(ESMF_VM),           intent(out), optional :: vm
        integer,                 intent(out), optional :: rc
 </PRE>
@@ -1471,12 +1478,27 @@ Changes made after the 5.2.0r release:
 <DT><STRONG>7.0.0</STRONG></DT>
 <DD>Added argument <TT>logAppendFlag</TT> to allow specifying that the existing
                 log files will be overwritten.
-<BR>
    
 </DD>
 <DT><STRONG>8.2.0</STRONG></DT>
 <DD>Added argument <TT>globalResourceControl</TT> to support ESMF-aware
                 threading and resource control on the global VM level.
+<BR>
+Added argument <TT>config</TT> to return default handle to the
+                defaultConfig.
+                Renamed argument <TT>defaultConfigFilename</TT> to
+                <TT>configFilename</TT>, in order to clarify that provided settings
+                in the Config file are <EM>not</EM> defaults, but final
+                overrides.
+<BR>
+Introduce <TT>default</TT> prefixed arguments:
+                <TT>defaultDefaultLogFilename</TT>,
+                <TT>defaultLogAppendFlag</TT>, <TT>defaultLogKindFlag</TT>,
+                <TT>defaultGlobalResourceControl</TT>. These arguments allow
+                specification of defaults for the associated settings. This
+                default can be overridden via the associated argument, without
+                the extra <TT>default</TT> prefix, either specified in the call, or
+                within the specified Config file.
    
 </DD>
 </DL>
@@ -1568,19 +1590,20 @@ Before exiting the application the user must call <TT>ESMF_Finalize()</TT>
 <P>
 The arguments are:
        <DL>
-<DT><STRONG>[defaultConfigFilename]</STRONG></DT>
-<DD>Name of the default configuration file for the entire application.
+<DT><STRONG>[configFilename]</STRONG></DT>
+<DD>Name of the configuration file for the entire application.
              If this argument is specified, the configuration file must exist,
              and its content is read during <TT>ESMF_Initialize()</TT>.
              If any of the following labels are found in the specified
-             configuration file, and the associated argument of the same name
-             was <EM>not</EM> specified explicitly in the call to
-             <TT>ESMF_Initialize()</TT>, then the value specified in the
-             configuration file is used as the default. The supported config
-             labels are:
+             configuration file, their values are used to set the associated
+             <TT>ESMF_Initialize()</TT> argument, overriding any defaults.
+             If the same argument is also specified in the
+             <TT>ESMF_Initialize()</TT> call directly, an error is return,
+             and ESMF is not initialized.
+             The supported config labels are:
              
 <UL>
-<LI><TT>defaultLogFileName:</TT>
+<LI><TT>defaultLogFilename:</TT>
 </LI>
 <LI><TT>logAppendFlag:</TT>
 </LI>
@@ -1598,11 +1621,22 @@ The arguments are:
              If not specified, defaults to <TT>ESMF_CALKIND_NOCALENDAR</TT>.
        
 </DD>
-<DT><STRONG>[defaultLogFileName]</STRONG></DT>
+<DT><STRONG>[defaultDefaultLogFilename]</STRONG></DT>
+<DD>Default value for argument <TT>defaultLogFilename</TT>, the name of
+             the default log file for warning and error messages.
+             If not specified, the default is <TT>ESMF_LogFile</TT>.
+       
+</DD>
+<DT><STRONG>[defaultLogFilename]</STRONG></DT>
 <DD>Name of the default log file for warning and error messages.
              If not specified,
-             defaults to specification in <TT>defaultConfigFilename</TT>, or
-             <TT>ESMF_LogFile</TT>.
+             defaults according to <TT>defaultDefaultLogFilename</TT>.
+       
+</DD>
+<DT><STRONG>[defaultLogAppendFlag]</STRONG></DT>
+<DD>Default value for argument <TT>logAppendFlag</TT>, indicating the
+             overwrite behavior in case the default log file already exists.
+             If not specified, the default is <TT>.true.</TT>.
        
 </DD>
 <DT><STRONG>[logAppendFlag]</STRONG></DT>
@@ -1610,16 +1644,20 @@ The arguments are:
              will set the file position to the beginning of the file.  A value
              of <TT>.true.</TT> sets the position to the end of the file.
              If not specified,
-             defaults to specification in <TT>defaultConfigFilename</TT>, or
-             <TT>.true.</TT>.
+             defaults according to <TT>defaultLogAppendFlag</TT>.
+       
+</DD>
+<DT><STRONG>[defaultLogKindFlag]</STRONG></DT>
+<DD>Default value for argument <TT>logKindFlag</TT>, setting the LogKind
+             of the default ESMF log.
+             If not specified, the default is <TT>ESMF_LOGKIND_MULTI</TT>.
        
 </DD>
 <DT><STRONG>[logKindFlag]</STRONG></DT>
-<DD>Sets the default Log Type to be used by ESMF Log Manager.
-             See section <A HREF="node6.html#const:logkindflag">47.2.2</A> for a list of valid options.
+<DD>Sets the LogKind of the default ESMF log. See section
+             <A HREF="node6.html#const:logkindflag">47.2.2</A> for a list of valid options.
              If not specified,
-             defaults to specification in <TT>defaultConfigFilename</TT>, or
-             <TT>ESMF_LOGKIND_MULTI</TT>.
+             defaults according to <TT>defaultLogKindFlag</TT>.
        
 </DD>
 <DT><STRONG>[mpiCommunicator]</STRONG></DT>
@@ -1647,9 +1685,17 @@ The arguments are:
              distributed with a value of 99.
        
 </DD>
+<DT><STRONG>[defaultGlobalResourceControl]</STRONG></DT>
+<DD>Default value for argument <TT>globalResourceControl</TT>, indicating
+             whether PETs of the global VM are pinned to PEs and the OpenMP
+             threading level is reset.
+             If not specified, the default is <TT>.false.</TT>.
+       
+</DD>
 <DT><STRONG>[globalResourceControl]</STRONG></DT>
 <DD>For <TT>.true.</TT>, each global PET is pinned to the corresponding
-             PE (i.e. CPU core) in order. If OpenMP support is enabled,
+             PE (i.e. CPU core) in order. Furter, if OpenMP support is enabled
+             for the ESMF installation (during build time), the
              <TT>OMP_NUM_THREADS</TT> is set to <TT>1</TT> on every PET, regardless
              of the setting in the launching environment. The <TT>.true.</TT>
              setting is recommended for applications that utilize the ESMF-aware
@@ -1657,8 +1703,13 @@ The arguments are:
              For <TT>.false.</TT>, global PETs are <EM>not</EM> pinned by ESMF, and
              <TT>OMP_NUM_THREADS</TT> is <EM>not</EM> modified.
              If not specified,
-             defaults to specification in <TT>defaultConfigFilename</TT>, or
-             <TT>.false.</TT>.
+             defaults according to <TT>defaultGlobalResourceControl</TT>.
+       
+</DD>
+<DT><STRONG>[config]</STRONG></DT>
+<DD>Returns the default <TT>ESMF_Config</TT> if the
+             <TT>configFilename</TT> argument was provided. Otherwise the
+             presence of this argument triggers an error.
        
 </DD>
 <DT><STRONG>[vm]</STRONG></DT>
@@ -5958,7 +6009,7 @@ derived type within ESMF.  The user must create one of these types
 to represent a specific coupling function, such as the regular
 transfer of data between a data assimilation system and an 
 atmospheric model.  <A NAME="tex2html21"
-  HREF="footnode.html#foot8015"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="footnode.html#foot8068"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 The user-written part of a Coupler Component is associated with an
 <TT>ESMF_CplComp</TT> derived type through a routine called 
@@ -10998,7 +11049,7 @@ in that test:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12875"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12928"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11019,7 +11070,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12877"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12930"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11050,7 +11101,7 @@ Array object is empty, and the DELayout for the Grid is like this:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12879"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12932"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11071,7 +11122,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12881"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12934"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -14367,7 +14418,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16444"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16497"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
