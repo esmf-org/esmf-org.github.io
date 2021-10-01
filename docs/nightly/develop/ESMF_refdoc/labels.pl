@@ -2058,7 +2058,7 @@ $external_latex_labels{$key} = q|26.6.53|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldWrite/;
-$external_latex_labels{$key} = q|26.6.75|; 
+$external_latex_labels{$key} = q|26.6.76|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:SparseMatrixWrite/;
@@ -2070,7 +2070,7 @@ $external_latex_labels{$key} = q|25.5.26|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_fieldregridstorenx/;
-$external_latex_labels{$key} = q|26.6.60|; 
+$external_latex_labels{$key} = q|26.6.61|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_fileregrid/;
