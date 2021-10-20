@@ -4340,6 +4340,24 @@ Section <A HREF="#Array:Halo">28.2.15</A> provides a detailed discussion of the
 <P>
 
 <OL>
+<LI><B>No enforcement of the <EM>same</EM> Grid, Mesh, LocStream, or XGrid 
+restriction.</B>
+While the documentation indicates in several places (including the Design and
+Implementation Notes) that a FieldBundle can only contain Fields that are built
+on the same Grid, Mesh, LocStream, or XGrid, and all Fields must have the same
+distribution, the actual FieldBundle implementation is more general and
+supports bundling of any Fields. The documentation, however, is
+in line with the long term plan of making the restrictive FieldBundle definition
+the default behavior. The more general bundling option would then be retained
+as a special case that requires explicit specification by the user.
+There is currently no functional difference in the FieldBundle implementation
+that profits from the documented restrictive approach. In addition, the general
+bundling option has been supported for a long time. Note however that the
+documented restrictive behavior is the anticipated long term default for
+FieldBundles.
+
+<P>
+</LI>
 <LI><B>No mathematical operators.</B>
 The FieldBundle class does not support differential or other
 mathematical operators.  We do not anticipate providing this 
@@ -9251,7 +9269,7 @@ This example is similar to example <A HREF="#sec:field:usage:create_2dgrid_3dptr
     is shown here.
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="24092"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="24102"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 12:</STRONG>
 Field dimension configuration from Grid, halos, and Fortran data array.</CAPTION>
@@ -37585,7 +37603,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55676"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55686"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -37626,7 +37644,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55648"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55658"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -37999,7 +38017,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="55893"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="55903"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -38040,7 +38058,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="55904"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="55914"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -39817,7 +39835,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56455"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56465"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -40232,7 +40250,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56543"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56553"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -40362,7 +40380,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56562"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56572"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -54269,7 +54287,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66576"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66586"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -56427,7 +56445,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68285"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68295"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -56608,7 +56626,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67937"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67947"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -56831,7 +56849,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="68286"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="68296"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -57116,7 +57134,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="68050"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="68060"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -57182,7 +57200,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="68065"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="68075"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -57241,7 +57259,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="68081"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="68091"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -57491,7 +57509,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68288"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68298"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57649,7 +57667,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected"><IMG  ALIGN="BOTTOM" 
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68289"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68299"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57720,7 +57738,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68197"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68207"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -57830,7 +57848,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68209"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68219"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -57902,7 +57920,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68220"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68230"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -58103,7 +58121,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec"><IMG  ALIGN="BOTTOM" BORDER
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68252"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68262"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -58228,7 +58246,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68260"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68270"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
