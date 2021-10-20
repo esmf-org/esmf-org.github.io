@@ -1935,12 +1935,7 @@ In 3D, ESMF supports nearest source to destination regridding between any combin
 <P>
 <SPAN  CLASS="textbf">Restrictions:</SPAN>
 <BR>
-
-<UL>
-<LI>The unmapped destination point detection doesn't currently work for this method. Even if there are unmapped points, no error will be returned. 
- 
-</LI>
-</UL>
+<SPAN  CLASS="textit">NONE</SPAN>
 
 <P>
 
@@ -1949,7 +1944,7 @@ In 3D, ESMF supports nearest source to destination regridding between any combin
 <P>
 To use the nearest source to destination method the user may create their Fields on any stagger location (e.g. <TT>ESMF_STAGGERLOC_CENTER</TT>) for a Grid, or
  any Mesh location (e.g. <TT>ESMF_MESHLOC_NODE</TT>) for a Mesh. For either a Grid or a Mesh, the location upon which the Field is built 
- must contain coordinates. This method will also work with a source or destination Field built on a LocStream that contains coordinates or when the source 
+ must contain coordinates. This method will also work with a source or destination Field built on a LocStream that contains coordinates, or when the source 
 or destination Field is built on an XGrid.
 
 <P>
@@ -2003,7 +1998,11 @@ In 3D, ESMF supports nearest destination to source regridding between any combin
 <P>
 <SPAN  CLASS="textbf">Restrictions:</SPAN>
 <BR>
-<SPAN  CLASS="textit">NONE</SPAN>
+
+<UL>
+<LI>The unmapped destination point detection doesn't currently work for this method. Even if there are unmapped points, no error will be returned. 
+</LI>
+</UL>
 
 <P>
 
@@ -2012,7 +2011,7 @@ In 3D, ESMF supports nearest destination to source regridding between any combin
 <P>
 To use the nearest destination to source method the user may create their Fields on any stagger location (e.g. <TT>ESMF_STAGGERLOC_CENTER</TT>) for a Grid, or
  any Mesh location (e.g. <TT>ESMF_MESHLOC_NODE</TT>) for a Mesh. For either a Grid or a Mesh, the location upon which the Field is built 
- must contain coordinates. This method will also work with a source or destination Field built on a LocStream that contains coordinates or when the source 
+ must contain coordinates. This method will also work with a source or destination Field built on a LocStream that contains coordinates, or when the source 
 or destination Field is built on an XGrid.
 
 <P>
@@ -2732,12 +2731,12 @@ This section contains restrictions that apply to the entire regridding system. F
 
 <P>
 
-<OL>
+<UL>
 <LI><B>Regridding doesn't work on a Field created on a Grid with an arbitrary distribution:</B> Using a Field built on a Grid with an arbitrary distribution will cause the regridding to stop with an error.  
 
 <P>
 </LI>
-</OL>
+</UL>
 
 <P>
 
@@ -9922,7 +9921,7 @@ This section describes the Field regrid methods. For an in depth description of 
 
 <P>
 The basic flow of ESMF Field regridding is as follows. First a source and destination geometry object are created, depending on 
-   the regrid method they can be either a Grid, a Mesh, or a LocStream. 
+   the regrid method they can be either a Grid, a Mesh, an XGrid, or a LocStream. 
    Next Fields are built on the source and destination grid objects. These Fields are then passed into <TT>ESMF_FieldRegridStore()</TT>. The user can either get a 
    sparse matrix from this call and/or a <TT>routeHandle</TT>. If the user gets the sparse matrix then they are responsible for deallocating it, but other than that
    can use it as they wish. The <TT>routeHandle</TT> can be used in the <TT>ESMF_FieldRegrid()</TT> call to perform the actual interpolation of data from the source 
@@ -40546,11 +40545,11 @@ To indicate how the data at a particular stagger location is aligned with the
 <P>
 
 <UL>
-<LI><B>7D limit.</B>  Only grids up to 7D will be supported.
+<LI><B>Grids with factorized coordinates can only be redisted when they are 2D.</B>  Using the ESMF_GridCreate() interface that allows the user to create a copy of an existing Grid with a new distribution will give incorrect results when used on a Grid with 3 or more dimensions and whose coordinate arrays are less than the full dimension of the Grid (i.e. it contains factorized coordinates).
 
 <P>
 </LI>
-<LI><B>Grids with factorized coordinates can only be redisted when they are 2D</B>  Using the ESMF_GridCreate() interface that allows the user to create a copy of an existing Grid with a new distribution will give incorrect results when used on a Grid with 3 or more dimensions and whose coordinate arrays are less than the full dimension of the Grid (i.e. it contains factorized coordinates).
+<LI><B>7D limit.</B>  Only grids up to 7D will be supported.
 
 <P>
 </LI>
