@@ -18555,7 +18555,7 @@ The <TT>ESMF_FieldRegridStore()</TT> method implements an auto-tuning scheme
 <P>
 
 <H3><A NAME="SECTION050366100000000000000">
-<SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">61</SPAN> ESMF_FieldRegridStore - Precompute a Field regridding operation and return a RouteHandle using XGrid</A>
+<SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">61</SPAN> ESMF_FieldRegridStore - Precompute a Field regridding operation between an XGrid and one of its side Grids or Meshes</A>
 </H3>
 
 <P>
@@ -18609,10 +18609,14 @@ Changes made after the 5.2.0r release:
 <BR></I>
 
 <P>
-Creates a sparse matrix operation (stored in <TT>routehandle</TT>) that contains the calculations and 
-         communications necessary to interpolate from <TT>srcField</TT> to <TT>dstField</TT>. 
-         The routehandle can then be used in the call
-         <TT>ESMF_FieldRegrid()</TT> to interpolate between the <TT>ESMF_Field</TT>s. Information such as
+This method creates a RouteHandle to do conservative interpolation specifically between a
+         Field built on an XGrid and a Field build on one of the Grids or Meshes used to create that XGrid. 
+         To do more general interpolation see the <TT>ESMF_FieldRegridStore()</TT> call
+         in section&nbsp;<A HREF="#api:esmf_fieldregridstorenx">26.6.60</A>.
+
+<P>
+The RouteHandle produced by this method can then be used in the call
+         <TT>ESMF_FieldRegrid()</TT> to interpolate from the <TT>srcField</TT> to the <TT>dstField</TT> . Information such as
          index mapping and weights are obtained from the XGrid by matching the Field Grids or Meshes in the XGrid. 
          It's erroneous to have matching Grid or Mesh objects in the <TT>srcField</TT> and <TT>dstField</TT>. 
          They must be different in either topological or geometric characteristics. For <TT>ESMF_Field</TT>s 
@@ -18643,11 +18647,12 @@ The arguments are:
        
 </DD>
 <DT><STRONG>srcField</STRONG></DT>
-<DD>Source Field.
+<DD>Source Field built on either <TT>xgrid</TT> or one of the Grids or Meshes used to create <TT>xgrid</TT>.
        
 </DD>
 <DT><STRONG>dstField</STRONG></DT>
-<DD>Destination Field. The data in this Field may be overwritten by this call. 
+<DD>Destination Field built on either <TT>xgrid</TT> or one of the Grids or Meshes used to create <TT>xgrid</TT>. 
+             The data in this Field may be overwritten by this call. 
        
 </DD>
 <DT><STRONG>[regridmethod]</STRONG></DT>
@@ -37603,7 +37608,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55686"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55698"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -37644,7 +37649,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55658"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55670"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -38017,7 +38022,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="55903"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="55915"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -38058,7 +38063,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="55914"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="55926"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -39835,7 +39840,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56465"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56477"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -40250,7 +40255,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56553"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56565"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -40380,7 +40385,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56572"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56584"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -54287,7 +54292,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66586"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66598"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -56445,7 +56450,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68295"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68307"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -56626,7 +56631,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67947"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="67959"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -56849,7 +56854,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="68296"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="68308"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -57134,7 +57139,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="68060"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="68072"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -57200,7 +57205,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="68075"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="68087"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -57259,7 +57264,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="68091"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="68103"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -57509,7 +57514,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68298"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68310"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57667,7 +57672,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected"><IMG  ALIGN="BOTTOM" 
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68299"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68311"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57738,7 +57743,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68207"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68219"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -57848,7 +57853,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68219"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68231"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -57920,7 +57925,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68230"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68242"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -58121,7 +58126,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec"><IMG  ALIGN="BOTTOM" BORDER
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68262"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68274"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -58246,7 +58251,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68270"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68282"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
