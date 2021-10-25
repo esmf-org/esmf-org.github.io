@@ -1,6 +1,6 @@
 ---
-permalink: /release/platforms_8_1_0
-title: "ESMF 8.1.0 Supported Platforms"
+permalink: /release/platforms_8_2_0
+title: "ESMF 8.2.0 Supported Platforms"
 classes: wide
 ---
 
@@ -10,7 +10,7 @@ on. These combinations are considered fully supported. The number and
 variety of supported combinations are limited by access to appropriate
 systems, not by any specific limitation within ESMF. The ESMF build
 system provides many more combinations, but these have not been
-rigorously tested for this ESMF release. The [8.1.0 User's Guide](https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_usrdoc)
+rigorously tested for this ESMF release. The [8.2.0 User's Guide](https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_usrdoc)
 contains a complete list of possible configurations.
 
 **How to read the table**
