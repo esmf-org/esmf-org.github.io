@@ -38,7 +38,7 @@ contains a complete list of possible configurations.
 
 <table class="tighttable" border="1">
        <tbody>
-		<tr class="first" colspan="3">
+		<tr>
 			<th rowspan="2">
 				Platform</th>
 			<th rowspan="2">
@@ -49,7 +49,7 @@ contains a complete list of possible configurations.
 				Compiler Specifics</th>
 			<th colspan="1">
 				3rd Party Libs</th>
-			<th colspan="1" rowspan="2">
+			<th rowspan="2">
 				Reports</th>
 		</tr>
 		<tr>
