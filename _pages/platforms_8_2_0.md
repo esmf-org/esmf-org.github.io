@@ -68,29 +68,7 @@ contains a complete list of possible configurations.
 		</tr>
 		<tr>
 			<td>
-				Mac Xeon</td>
-			<td>
-				Catania</td>
-			<td>
-				Darwin</td>
-			<td>
-				gfortran</td>
-			<td>
-				mpiuni</td>
-			<td>
-				gfortran (9.3.0)</td>
-			<td>
-				g++ (9.3.0)</td>
-			<td>
-				4.7.4</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/catania/gfortran/9.3.0/O/mpiuni/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/catania/gfortran/9.3.0/g/mpiuni/summary.dat">lib-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Mac Xeon</td>
+				Mac Intel Xeon</td>
 			<td>
 				Catania</td>
 			<td>
@@ -106,30 +84,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.4</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/catania/gfortran/9.3.0/O/mpich3/3.3.2-custom/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/catania/gfortran/9.3.0/g/mpich3/3.3.2-custom/summary.dat">lib-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Mac Xeon</td>
-			<td>
-				Catania</td>
-			<td>
-				Darwin</td>
-			<td>
-				gfortran</td>
-			<td>
-				mpich3 (3.3.2)</td>
-			<td>
-				gfortran (10.2.0)</td>
-			<td>
-				g++ (10.2.0)</td>
-			<td>
-				4.7.4</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/catania/gfortran/10.2.0/O/mpich3/3.3.2-custom/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/catania/gfortran/10.2.0/g/mpich3/3.3.2-custom/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/catania/gfortran/9.3.0/O/mpich3/3.3.2-custom/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/catania/gfortran/9.3.0/g/mpich3/3.3.2-custom/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -150,33 +106,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/7.4.0/O/openmpi/4.0.3/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/7.4.0/g/openmpi/4.0.3/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/7.4.0/O/openmpi/4.0.3/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/7.4.0/g/openmpi/4.0.3/out/nuopc.log">nuopc-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				HPE/SGI ICE XA Cluster</td>
-			<td>
-				Cheyenne</td>
-			<td>
-				Linux</td>
-			<td>
-				gfortran</td>
-			<td>
-				openmpi (4.0.3)</td>
-			<td>
-				gfortran (8.3.0)</td>
-			<td>
-				g++ (8.3.0)</td>
-			<td>
-				4.7.3</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/manual_reports/820_Cheyenne_RegridCheck_gnu830openmpi-g.txt">RegridCheck-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/manual_reports/820_Cheyenne_RWGCheck_gnu830openmpi-g.txt">RWGCheck-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/manual_reports/820_Cheyenne_ESMPy_gnu830openmpi-g.txt">ESMPy-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/7.4.0/O/openmpi/4.0.3/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/7.4.0/g/openmpi/4.0.3/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -197,10 +128,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/O/mpt/2.22/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/g/mpt/2.22/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/O/mpt/2.22/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/g/mpt/2.22/out/nuopc.log">nuopc-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/O/mpt/2.22/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/g/mpt/2.22/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -221,10 +150,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/O/openmpi/4.0.5/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/g/openmpi/4.0.5/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/O/openmpi/4.0.5/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/g/openmpi/4.0.5/out/nuopc.log">nuopc-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/O/openmpi/4.0.5/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/9.1.0/g/openmpi/4.0.5/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -245,10 +172,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.4</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/O/mpt/2.23/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/g/mpt/2.23/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/O/mpt/2.23/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/g/mpt/2.23/out/nuopc.log">nuopc-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/O/mpt/2.23/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/g/mpt/2.23/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -269,61 +194,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.4</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/O/openmpi/4.0.5/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/g/openmpi/4.0.5/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/O/openmpi/4.0.5/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/g/openmpi/4.0.5/out/nuopc.log">nuopc-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				HPE/SGI ICE XA Cluster</td>
-			<td>
-				Cheyenne</td>
-			<td>
-				Linux</td>
-			<td>
-				intel</td>
-			<td>
-				mpt (2.19)</td>
-			<td>
-				ifort (18.0.5.274)</td>
-			<td>
-				icpc (18.0.5.274)</td>
-			<td>
-				4.6.3</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/mpt/2.19/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/mpt/2.19/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/mpt/2.19/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/mpt/2.19/out/nuopc.log">nuopc-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/manual_reports/820_Cheyenne_BFB_intel19mpt-O.txt">BFB-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/manual_reports/820_Cheyenne_RegridCheck_intel19mpt-g.txt">RegridCheck-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/manual_reports/820_Cheyenne_RWGCheck_intel19mpt-g.txt">RWGCheck-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				HPE/SGI ICE XA Cluster</td>
-			<td>
-				Cheyenne</td>
-			<td>
-				Linux</td>
-			<td>
-				intel</td>
-			<td>
-				openmpi (3.1.4)</td>
-			<td>
-				ifort (18.0.5.274)</td>
-			<td>
-				icpc (18.0.5.274)</td>
-			<td>
-				4.6.3</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/openmpi/3.1.4/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/openmpi/3.1.4/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/openmpi/3.1.4/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/openmpi/3.1.4/out/nuopc.log">nuopc-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/O/openmpi/4.0.5/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/gfortran/10.1.0/g/openmpi/4.0.5/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -344,10 +216,52 @@ contains a complete list of possible configurations.
 			<td>
 				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/intelmpi/2018.4.274/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/intelmpi/2018.4.274/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/intelmpi/2018.4.274/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/intelmpi/2018.4.274/out/nuopc.log">nuopc-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/intelmpi/2018.4.274/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/intelmpi/2018.4.274/summary.dat">summary-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				HPE/SGI ICE XA Cluster</td>
+			<td>
+				Cheyenne</td>
+			<td>
+				Linux</td>
+			<td>
+				intel</td>
+			<td>
+				mpt (2.19)</td>
+			<td>
+				ifort (18.0.5.274)</td>
+			<td>
+				icpc (18.0.5.274)</td>
+			<td>
+				4.6.3</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/mpt/2.19/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/mpt/2.19/summary.dat">summary-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				HPE/SGI ICE XA Cluster</td>
+			<td>
+				Cheyenne</td>
+			<td>
+				Linux</td>
+			<td>
+				intel</td>
+			<td>
+				openmpi (3.1.4)</td>
+			<td>
+				ifort (18.0.5.274)</td>
+			<td>
+				icpc (18.0.5.274)</td>
+			<td>
+				4.6.3</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/openmpi/3.1.4/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/openmpi/3.1.4/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -360,65 +274,87 @@ contains a complete list of possible configurations.
 			<td>
 				gfortran</td>
 			<td>
-				openmpi (3.1.3)</td>
+				openmpi (4.0.5)</td>
 			<td>
 				gfortran (9.3.0)</td>
 			<td>
 				g++ (9.3.0)</td>
 			<td>
-				4.7.4</td>
+				4.8.0</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/chianti/gfortran/9.3.0/O/openmpi/3.1.3-gcc-9.3.0/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/chianti/gfortran/9.3.0/g/openmpi/3.1.3-gcc-9.3.0/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/chianti/gfortran/9.3.0/O/openmpi/4.0.5-gcc-9.3.0/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/chianti/gfortran/9.3.0/g/openmpi/4.0.5-gcc-9.3.0/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				PC Xeon Cluster</td>
+				Intel(R) Core(TM) i7-9700K</td>
 			<td>
-				Discover</td>
+				Chianti</td>
 			<td>
 				Linux</td>
 			<td>
-				gfortran</td>
+				intel</td>
+			<td>
+				intelmpi (2021.2.0)</td>
+			<td>
+				ifort (2021.2.0)</td>
+			<td>
+				icpc (2021.2.0)</td>
+			<td>
+				4.8.0</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/chianti/intel/2021.2/O/intelmpi/2021.2.0-gcc-9.3.0/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/chianti/intel/2021.2/O/intelmpi/2021.2.0-gcc-9.3.0/summary.dat">summary-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Cray XC40</td>
+			<td>
+				Cori</td>
+			<td>
+				Unicos</td>
+			<td>
+				intel</td>
+			<td>
+				mpi (cray-mpich/7.7.10)</td>
+			<td>
+				ftn/ifort (19.0.3.199)</td>
+			<td>
+				CC/icpc (19.0.3.1991)</td>
+			<td>
+				4.6.3</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cori/intel/19.0.3/O/mpi/7.7.10/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cori/intel/19.0.3/O/mpi/7.7.10/summary.dat">summary-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Cray XC40</td>
+			<td>
+				Cori</td>
+			<td>
+				Unicos</td>
+			<td>
+				intel</td>
 			<td>
 				mpiuni</td>
 			<td>
-				gfortran (8.3.0)</td>
+				ftn/ifort (19.0.3.199)</td>
 			<td>
-				g++ (8.3.0)</td>
+				CC/icpc (19.0.3.199)</td>
 			<td>
-				-</td>
+				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/O/mpiuni/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/g/mpiuni/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cori/intel/19.0.3/O/mpiuni/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cori/intel/19.0.3/g/mpiuni/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				PC Xeon Cluster</td>
-			<td>
-				Discover</td>
-			<td>
-				Linux</td>
-			<td>
-				gfortran</td>
-			<td>
-				mpt (2.17)</td>
-			<td>
-				gfortran (8.3.0)</td>
-			<td>
-				g++ (8.3.0)</td>
-			<td>
-				-</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/O/mpt/2.17/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/g/mpt/2.17/summary.dat">lib-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				PC Xeon Cluster</td>
+				PC Intel Xeon Cluster</td>
 			<td>
 				Discover</td>
 			<td>
@@ -434,13 +370,57 @@ contains a complete list of possible configurations.
 			<td>
 				-</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/O/intelmpi/19.1.3.304/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/g/intelmpi/19.1.3.304/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/O/intelmpi/19.1.3.304/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/g/intelmpi/19.1.3.304/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				PC Xeon Cluster</td>
+				PC Intel Xeon Cluster</td>
+			<td>
+				Discover</td>
+			<td>
+				Linux</td>
+			<td>
+				gfortran</td>
+			<td>
+				mpiuni</td>
+			<td>
+				gfortran (8.3.0)</td>
+			<td>
+				g++ (8.3.0)</td>
+			<td>
+				-</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/O/mpiuni/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/g/mpiuni/summary.dat">summary-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				PC Intel Xeon Cluster</td>
+			<td>
+				Discover</td>
+			<td>
+				Linux</td>
+			<td>
+				gfortran</td>
+			<td>
+				mpt (2.17)</td>
+			<td>
+				gfortran (8.3.0)</td>
+			<td>
+				g++ (8.3.0)</td>
+			<td>
+				-</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/O/mpt/2.17/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/8.3.0/g/mpt/2.17/summary.dat">summary-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				PC Intel Xeon Cluster</td>
 			<td>
 				Discover</td>
 			<td>
@@ -456,37 +436,13 @@ contains a complete list of possible configurations.
 			<td>
 				-</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/10.1.0/O/intelmpi/19.1.3.304/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/10.1.0/g/intelmpi/19.1.3.304/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/10.1.0/O/intelmpi/19.1.3.304/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/gfortran/10.1.0/g/intelmpi/19.1.3.304/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				PC Xeon Cluster</td>
-			<td>
-				Discover</td>
-			<td>
-				Linux</td>
-			<td>
-				intel</td>
-			<td>
-				mpt (2.17)</td>
-			<td>
-				ifort (19.1.3.304)</td>
-			<td>
-				icpc (19.1.3.304)</td>
-			<td>
-				4.8.0</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/O/mpt/2.17/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/g/mpt/2.17/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/O/mpt/2.17/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/g/mpt/2.17/out/nuopc.log">nuopc-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				PC Xeon Cluster</td>
+				PC Intel Xeon Cluster</td>
 			<td>
 				Discover</td>
 			<td>
@@ -502,33 +458,31 @@ contains a complete list of possible configurations.
 			<td>
 				4.8.0</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/O/intelmpi/19.1.3.304/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/g/intelmpi/19.1.3.304/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/O/intelmpi/19.1.3.304/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/g/intelmpi/19.1.3.304/out/nuopc.log">nuopc-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/O/intelmpi/19.1.3.304/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/g/intelmpi/19.1.3.304/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				Cray XE6</td>
+				PC Intel Xeon Cluster</td>
 			<td>
-				Gaea</td>
+				Discover</td>
 			<td>
-				Unicos</td>
+				Linux</td>
 			<td>
-				gfortran</td>
+				intel</td>
 			<td>
-				mpiuni</td>
+				mpt (2.17)</td>
 			<td>
-				ftn/gfortran (8.3.0)</td>
+				ifort (19.1.3.304)</td>
 			<td>
-				CC/g++ (8.3.0)</td>
+				icpc (19.1.3.304)</td>
 			<td>
-				4.6.3</td>
+				4.8.0</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/gfortran/8.3.0/O/mpiuni/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/gfortran/8.3.0/g/mpiuni/summary.dat">lib-g</a><br>
-				</td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/O/mpt/2.17/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/discover/intel/2020/g/mpt/2.17/summary.dat">summary-g</a><br>
+			</td>
 		</tr>
 		<tr>
 			<td>
@@ -548,8 +502,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/gfortran/8.3.0/O/mpi/7.7.11/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/gfortran/8.3.0/g/mpi/7.7.11/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/gfortran/8.3.0/O/mpi/7.7.11/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/gfortran/8.3.0/g/mpi/7.7.11/summary.dat">summary-g</a><br>
 				</td>
 		</tr>
 		<tr>
@@ -560,19 +514,19 @@ contains a complete list of possible configurations.
 			<td>
 				Unicos</td>
 			<td>
-				intel</td>
+				gfortran</td>
 			<td>
 				mpiuni</td>
 			<td>
-				ftn/ifort (2019.0.5.281)</td>
+				ftn/gfortran (8.3.0)</td>
 			<td>
-				CC/icpc (2019.0.5.281)</td>
+				CC/g++ (8.3.0)</td>
 			<td>
 				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/intel/2019.5/O/mpiuni/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/intel/2019.5/g/mpiuni/summary.dat">lib-g</a><br>
-			</td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/gfortran/8.3.0/O/mpiuni/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/gfortran/8.3.0/g/mpiuni/summary.dat">summary-g</a><br>
+				</td>
 		</tr>
 		<tr>
 			<td>
@@ -586,27 +540,49 @@ contains a complete list of possible configurations.
 			<td>
 				mpi (cray-mpich/7.7.11)</td>
 			<td>
-				ftn/ifort (2019.0.5.281)</td>
+				ftn/ifort (19.0.5.281)</td>
 			<td>
-				CC/icpc (2019.0.5.281)</td>
+				CC/icpc (19.0.5.281)</td>
 			<td>
 				4.6.3</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/intel/2019.5/O/mpi/7.7.11/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/intel/2019.5/g/mpi/7.7.11/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/intel/2019.5/O/mpi/7.7.11/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/intel/2019.5/g/mpi/7.7.11/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				HPE SGI 8600 system</td>
+				Cray XE6</td>
 			<td>
-				Gaffney</td>
+				Gaea</td>
+			<td>
+				Unicos</td>
+			<td>
+				intel</td>
+			<td>
+				mpiuni</td>
+			<td>
+				ftn/ifort (19.0.5.281)</td>
+			<td>
+				CC/icpc (19.0.5.281)</td>
+			<td>
+				4.6.3</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/intel/2019.5/O/mpiuni/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaea/intel/2019.5/g/mpiuni/summary.dat">summary-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Cray Compute Cluster</td>
+			<td>
+				Hera</td>
 			<td>
 				Linux</td>
 			<td>
 				gfortran</td>
 			<td>
-				mpiuni</td>
+				intelmpi (2020)</td>
 			<td>
 				gfortran (9.2.0)</td>
 			<td>
@@ -614,32 +590,8 @@ contains a complete list of possible configurations.
 			<td>
 				-</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaffney/gfortran/9.2.0/O/mpiuni/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaffney/gfortran/9.2.0/g/mpiuni/summary.dat">lib-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				HPE SGI 8600 system</td>
-			<td>
-				Gaffney</td>
-			<td>
-				Linux</td>
-			<td>
-				intel</td>
-			<td>
-				intelmpi (18.0.1.163)</td>
-			<td>
-				ifort (18.0.1.163)</td>
-			<td>
-				icpc (18.0.1.163)</td>
-			<td>
-				4.7.4</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaffney/intel/2018.1/O/intelmpi/18.0.1.163/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaffney/intel/2018.1/g/intelmpi/18.0.1.163/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaffney/intel/2018.1/O/intelmpi/18.0.1.163/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/gaffney/intel/2018.1/g/intelmpi/18.0.1.163/out/nuopc.log">nuopc-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0b/O/intelmpi/2020/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0b/g/intelmpi/2020/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -660,8 +612,8 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.2</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/O/mpiuni/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/g/mpiuni/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/O/mpiuni/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/g/mpiuni/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -672,18 +624,18 @@ contains a complete list of possible configurations.
 			<td>
 				Linux</td>
 			<td>
-				intel</td>
+				gfortran</td>
 			<td>
-				mpiuni</td>
+				openmpi (3.1.4)</td>
 			<td>
-				ifort (18.0.5.274)</td>
+				gfortran (9.2.0)</td>
 			<td>
-				icpc (18.0.5.274)</td>
+				g++ (9.2.0)</td>
 			<td>
-				4.7.0</td>
+				4.7.2</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/O/mpiuni/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/g/mpiuni/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/O/openmpi/3.1.4/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/g/openmpi/3.1.4/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -704,107 +656,101 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.0</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/O/intelmpi/2018.4.274/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/g/intelmpi/2018.4.274/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/O/intelmpi/2018.4.274/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/g/intelmpi/2018.4.274/out/nuopc.log">nuopc-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/O/intelmpi/2018.4.274/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/g/intelmpi/2018.4.274/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				HPE SGI 8600 system</td>
+				Cray Compute Cluster</td>
 			<td>
-				Koehr</td>
-			<td>
-				Linux</td>
-			<td>
-				gfortran</td>
-			<td>
-				mpt (2.20)</td>
-			<td>
-				gfortran (7.3.0)</td>
-			<td>
-				g++ (7.3.0)</td>
-			<td>
-				4.3.3.1</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/gfortran/7.3.0/O/mpt/2.20/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/gfortran/7.3.0/g/mpt/2.20/summary.dat">lib-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				HPE SGI 8600 system</td>
-			<td>
-				Koehr</td>
-			<td>
-				Linux</td>
-			<td>
-				gfortran</td>
-			<td>
-				mpt (2.20)</td>
-			<td>
-				gfortran (10.1.0)</td>
-			<td>
-				g++ (10.1.0)</td>
-			<td>
-				-</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/gfortran/10.1.0/O/mpt/2.20/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/gfortran/10.1.0/g/mpt/2.20/summary.dat">lib-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				HPE SGI 8600 system</td>
-			<td>
-				Koehr</td>
+				Hera</td>
 			<td>
 				Linux</td>
 			<td>
 				intel</td>
 			<td>
-				mpt (2.20)</td>
+				mpiuni</td>
 			<td>
-				ifort (19.0.4.243)</td>
+				ifort (18.0.5.274)</td>
 			<td>
-				icpc (19.0.4.243)</td>
+				icpc (18.0.5.274)</td>
 			<td>
-				4.3.3.1</td>
+				4.7.0</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/intel/2019.4/O/mpt/2.20/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/intel/2019.4/g/mpt/2.20/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/intel/2019.4/O/mpt/2.20/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/intel/2019.4/g/mpt/2.20/out/nuopc.log">nuopc-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/O/mpiuni/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/g/mpiuni/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				HPE SGI 8600 system</td>
+				Cluster</td>
 			<td>
-				Koehr</td>
+				Jet</td>
+			<td>
+				Linux</td>
+			<td>
+				gfortran</td>
+			<td>
+				openmpi (3.1.4)</td>
+			<td>
+				gfortran (9.2.0)</td>
+			<td>
+				g++ (9.2.0)</td>
+			<td>
+				4.7.2</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/jet/gfortran/9.2.0/O/openmpi/3.1.4/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/jet/gfortran/9.2.0/g/openmpi/3.1.4/summary.dat">summary-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Cluster</td>
+			<td>
+				Jet</td>
 			<td>
 				Linux</td>
 			<td>
 				intel</td>
 			<td>
-				intelmpi (2020.2.254)</td>
+				intelmpi (2020.2)</td>
 			<td>
 				ifort (19.1.2.254)</td>
 			<td>
 				icpc (19.1.2.254)</td>
 			<td>
-				4.3.3.1</td>
+				4.7.0</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/intel/2020.2/O/intelmpi/2020.2.254/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/intel/2020.2/g/intelmpi/2020.2.254/summary.dat">lib-g</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/intel/2020.2/O/intelmpi/2020.2.254/out/nuopc.log">nuopc-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/koehr/intel/2020.2/g/intelmpi/2020.2.254/out/nuopc.log">nuopc-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/jet/intel/2020.2/O/intelmpi/2020.2/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/jet/intel/2020.2/g/intelmpi/2020.2/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				PC Xeon Cluster</td>
+				Cluster</td>
+			<td>
+				Jet</td>
+			<td>
+				Linux</td>
+			<td>
+				intel</td>
+			<td>
+				mvapich2 (2.3)</td>
+			<td>
+				ifort (19.1.2.254)</td>
+			<td>
+				icpc (19.1.2.254)</td>
+			<td>
+				4.7.0</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/jet/intel/2020.2/O/mvapich2/2.3/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/jet/intel/2020.2/g/mvapich2/2.3/summary.dat">summary-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				PC Intel Xeon Cluster</td>
 			<td>
 				Orion</td>
 			<td>
@@ -820,13 +766,13 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.2</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/O/mpiuni/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/g/mpiuni/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/O/mpiuni/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/g/mpiuni/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				PC Xeon Cluster</td>
+				PC Intel Xeon Cluster</td>
 			<td>
 				Orion</td>
 			<td>
@@ -842,13 +788,13 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.2</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/O/openmpi/4.0.2/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/g/openmpi/4.0.2/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/O/openmpi/4.0.2/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/g/openmpi/4.0.2/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				PC Xeon Cluster</td>
+				PC Intel Xeon Cluster</td>
 			<td>
 				Orion</td>
 			<td>
@@ -864,8 +810,30 @@ contains a complete list of possible configurations.
 			<td>
 				4.7.4</td>
 			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/intel/2020/O/intelmpi/2020.2/summary.dat">lib-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/intel/2020/g/intelmpi/2020.2/summary.dat">lib-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/intel/2020/O/intelmpi/2020.2/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/intel/2020/g/intelmpi/2020.2/summary.dat">summary-g</a><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				PC Intel Xeon Cluster</td>
+			<td>
+				S4</td>
+			<td>
+				Linux</td>
+			<td>
+				intel</td>
+			<td>
+				intelmpi (2019.0.5)</td>
+			<td>
+				ifort (19.0.5.281)</td>
+			<td>
+				icpc (19.0.5.281)</td>
+			<td>
+				4.7.3</td>
+			<td>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/s4/intel/2019.0.5/O/intelmpi/19.0.5/summary.dat">summary-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/s4/intel/2019.0.5/O/intelmpi/19.0.5/summary.dat">summary-g</a><br>
 			</td>
 		</tr>
 	</tbody>
