@@ -218,6 +218,12 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/intelmpi/2018.4.274/summary.dat">summary-O</a><br>
 				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/intelmpi/2018.4.274/summary.dat">summary-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/intelmpi/2018.4.274/python_examples.log">ESMPy-examples-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/intelmpi/2018.4.274/python_test.log">ESMPy-tests-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/intelmpi/2018.4.274/python_regrid.log">ESMPy-regrids-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/intelmpi/2018.4.274/python_examples.log">ESMPy-examples-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/intelmpi/2018.4.274/python_test.log">ESMPy-tests-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/intelmpi/2018.4.274/python_regrid.log">ESMPy-regrids-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -262,6 +268,12 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/openmpi/3.1.4/summary.dat">summary-O</a><br>
 				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/openmpi/3.1.4/summary.dat">summary-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/openmpi/3.1.4/python_examples.log">ESMPy-examples-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/openmpi/3.1.4/python_test.log">ESMPy-tests-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/O/openmpi/3.1.4/python_regrid.log">ESMPy-regrids-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/openmpi/3.1.4/python_examples.log">ESMPy-examples-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/openmpi/3.1.4/python_test.log">ESMPy-tests-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/cheyenne/intel/18.0.5/g/openmpi/3.1.4/python_regrid.log">ESMPy-regrids-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -636,6 +648,12 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/O/openmpi/3.1.4/summary.dat">summary-O</a><br>
 				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/g/openmpi/3.1.4/summary.dat">summary-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/O/openmpi/3.1.4/python_examples.log">ESMPy-examples-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/O/openmpi/3.1.4/python_test.log">ESMPy-tests-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/O/openmpi/3.1.4/python_regrid.log">ESMPy-regrids-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/g/openmpi/3.1.4/python_examples.log">ESMPy-examples-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/g/openmpi/3.1.4/python_test.log">ESMPy-tests-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/gfortran/9.2.0/g/openmpi/3.1.4/python_regrid.log">ESMPy-regrids-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -658,6 +676,12 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/O/intelmpi/2018.4.274/summary.dat">summary-O</a><br>
 				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/g/intelmpi/2018.4.274/summary.dat">summary-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/O/intelmpi/2018.4.274/python_examples.log">ESMPy-examples-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/O/intelmpi/2018.4.274/python_test.log">ESMPy-tests-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/O/intelmpi/2018.4.274/python_regrid.log">ESMPy-regrids-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/g/intelmpi/2018.4.274/python_examples.log">ESMPy-examples-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/g/intelmpi/2018.4.274/python_test.log">ESMPy-tests-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/hera/intel/18.0.4/g/intelmpi/2018.4.274/python_regrid.log">ESMPy-regrids-g</a><br>
 			</td>
 		</tr>
 		<tr>
@@ -790,6 +814,12 @@ contains a complete list of possible configurations.
 			<td>
 				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/O/openmpi/4.0.2/summary.dat">summary-O</a><br>
 				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/g/openmpi/4.0.2/summary.dat">summary-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/O/openmpi/4.0.2/python_examples.log">ESMPy-examples-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/O/openmpi/4.0.2/python_test.log">ESMPy-tests-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/O/openmpi/4.0.2/python_regrid.log">ESMPy-regrids-O</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/g/openmpi/4.0.2/python_examples.log">ESMPy-examples-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/g/openmpi/4.0.2/python_test.log">ESMPy-tests-g</a><br>
+				<a href="http://data.earthsystemmodeling.org/test_reports/820/orion/gfortran/8.3.0/g/openmpi/4.0.2/python_regrid.log">ESMPy-regrids-g</a><br>
 			</td>
 		</tr>
 		<tr>
