@@ -738,28 +738,6 @@ contains a complete list of possible configurations.
 			<td>
 				intel</td>
 			<td>
-				intelmpi (2020.2)</td>
-			<td>
-				ifort (19.1.2.254)</td>
-			<td>
-				icpc (19.1.2.254)</td>
-			<td>
-				4.7.0</td>
-			<td>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/jet/intel/2020.2/O/intelmpi/2020.2/summary.dat">summary-O</a><br>
-				<a href="http://data.earthsystemmodeling.org/test_reports/820/jet/intel/2020.2/g/intelmpi/2020.2/summary.dat">summary-g</a><br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Cluster</td>
-			<td>
-				Jet</td>
-			<td>
-				Linux</td>
-			<td>
-				intel</td>
-			<td>
 				mvapich2 (2.3)</td>
 			<td>
 				ifort (19.1.2.254)</td>
