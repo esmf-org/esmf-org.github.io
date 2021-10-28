@@ -3,12 +3,12 @@ permalink: /doc/
 title: "Docs"
 ---
 ### Last release documentation: ESMF 8.1.1
-* User's Guide - [html](/docs/release/ESMF_8_1_1/ESMF_usrdoc), [pdf](/docs/release/ESMF_8_1_1/ESMF_usrdoc.pdf)
-* Fortran Reference Manual - [html](/docs/release/ESMF_8_1_1/ESMF_refdoc/), [pdf](/docs/release/ESMF_8_1_1/ESMF_refdoc.pdf)
-* C Reference Manual - [html](/docs/release/ESMF_8_1_1/ESMC_crefdoc), [pdf](/docs/release/ESMF_8_1_1/ESMC_crefdoc.pdf)
-* NUOPC Reference Manual - [html](/docs/release/ESMF_8_1_1/NUOPC_refdoc), [pdf](/docs/release/ESMF_8_1_1/NUOPC_refdoc.pdf)
-* ESMPy Documentation - [html](/esmpy_doc/release/ESMF_8_1_1/html), [pdf](/esmpy_doc/release/ESMF_8_1_1/ESMPy.pdf)
-* [8.1.1 Release Notes and Known Bugs](/static/releases.html#8_1_1)
+* User's Guide - [html](/docs/release/latest/ESMF_usrdoc), [pdf](/docs/release/latest/ESMF_usrdoc.pdf)
+* Fortran Reference Manual - [html](/docs/release/latest/ESMF_refdoc/), [pdf](/docs/release/latest/ESMF_refdoc.pdf)
+* C Reference Manual - [html](/docs/release/latest/ESMC_crefdoc), [pdf](/docs/release/latest/ESMC_crefdoc.pdf)
+* NUOPC Reference Manual - [html](/docs/release/latest/NUOPC_refdoc), [pdf](/docs/release/latest/NUOPC_refdoc.pdf)
+* ESMPy Documentation - [html](/esmpy_doc/release/latest/html), [pdf](/esmpy_doc/release/latest/ESMPy.pdf)
+* [Release Notes and Known Bugs](/static/releases.html#8_1_1)
 
 ### Latest documentation builds (develop branch, updated nightly):
 * User's Guide - [html](/docs/nightly/develop/ESMF_usrdoc/), [pdf](/docs/nightly/develop/ESMF_usrdoc.pdf)
