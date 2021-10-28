@@ -28,7 +28,7 @@ supported.
 ### Download and Install
 
 Download and installation information are available in the
-[ESMPy documentation](/esmpy_doc/release/ESMF_8_1_0/html/install.html).
+[ESMPy documentation](/esmpy_doc/release/latest/html/install.html).
 
 
 
