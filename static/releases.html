@@ -132,6 +132,120 @@ missing or have formatting errors.
 </tr>
 
 
+<!--ESMF_8_2_0-->
+<tr valign="top">
+<td ><a name="8_2_0"></a>
+<a href="https://github.com/esmf-org/esmf/releases/tag/ESMF_8_2_0">
+ESMF_8_2_0</a>
+<br>
+<br>
+Reference Manual for Fortran<br>
+<a href="/docs/release/ESMF_8_2_0/ESMF_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_2_0/ESMF_refdoc.pdf">(pdf)</a>
+<br><br>
+Reference Manual for C<br>
+<a href="/docs/release/ESMF_8_2_0/ESMC_crefdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_2_0/ESMC_crefdoc.pdf">(pdf)</a>
+<br><br>
+User's Guide<br>
+<a href="/docs/release/ESMF_8_2_0/ESMF_usrdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_2_0/ESMF_usrdoc.pdf">(pdf)</a>
+<br><br>
+NUOPC Layer Reference Manual<br>
+<a href="/docs/release/ESMF_8_2_0/NUOPC_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_2_0/NUOPC_refdoc.pdf">(pdf)</a>
+<br><br>
+Building a NUOPC Model Manual<br>
+<a href="/docs/release/ESMF_8_2_0/NUOPC_howtodoc/">(html)</a>
+<a href="/docs/release/ESMF_8_2_0/NUOPC_howtodoc.pdf">(pdf)</a>
+<br><br>
+ESMPy Documentation <br>
+<a href="/esmpy_doc/release/ESMF_8_2_0/html">(html)</a>
+<a href="/esmpy_doc/release/ESMF_8_2_0/ESMPy.pdf">(pdf)</a>
+<br><br>
+<a href="/release/platforms_8_2_0">Supported Platforms</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-release-820">Regridding Status</a>
+</td>
+
+<td>10/28/21</td>
+
+<td>
+<ul>
+<li>This release is backward compatible with the last major release update, ESMF 8.1.0 and patch release ESMF 8.1.1, for all the interfaces that are marked as backward compatible in the Reference Manual. There were API changes to a few unmarked methods that may require minor modifications to user code that uses these methods. The entire list of API changes is summarized in a <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_2_0/API-810-820.pdf">table showing interface changes since ESMF_8_1_0</a>, including the rationale and impact for each change.
+
+<li>No bit-for-bit changes were observed for this release compared to release ESMF 8.1.0 and patch release ESMF 8.1.1, with Intel compilers using "-O2 -fp-model precise". However, the release contains code changes to the regridding implementation that have the potential to lead to bit-for-bit changes in regridding weights. Any release item with the potential to introduce a bit-for-bit change is indicated in the respective release note. 
+
+<li>Tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-820">ESMF regridding status</a> have been updated. These include supported grids and capabilities of the offline and integrated regridding.
+
+<li>The <a href="http://earthsystemmodeling.org/docs/nightly/release/8.2.0/NUOPC_refdoc/node4.html#SECTION000411300000000000000">NUOPC RunSequence syntax</a> was extended to support Alarm Blocks. An alarm block specifies the time interval at which the elements within the block are executed. This adds additional flexibility to the RunSequence approach, e.g. to write restart files at certain intervals that are multiples of the parent timestep.
+
+<li>Fields created on XGrids can now be used as either source, destination, or both when calling the general ESMF regrid methods (<a href="https://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node5.html#SECTION050366000000000000000">ESMF_FieldRegridStore()</a>, <a href="https://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node5.html#SECTION050365800000000000000">ESMF_FieldRegrid()</a>, <a href="https://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node5.html#SECTION050252600000000000000">ESMF_FieldBundleRegridStore()</a>, <a href="https://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node5.html#SECTION050252400000000000000">ESMF_FieldBundleRegrid()</a>). This enables the use of all ESMF regridding methods (bilinear, patch, etc.) and options (extrapolation, regridding status, etc.) when regridding to or from Fields on an XGrid.  Prior to this release, regridding to or from Fields on an XGrid was only supported when going from one of the grids used to originally create the XGrid. Also, only conservative methods were supported.  
+
+<li>A change in the 3D spherical bilinear weight calculation to handle more complex cells lead to a decrease in performance in releases 8.0.0, 8.1.0, and 8.1.1. The current release restores the performance to the level of ESMF 7.1.0r, and better, while retaining support for the complex cells. (Note that this change has the potential to introduce round off level changes in weights calculated for the 3D spherical bilinear method compared to previous ESMF releases. However, bit-for-bit testing with the Intel compiler using "-O2 -fp-model precise" did not detect any changes.)
+
+<li>A number of issues that were found with ESMF-managed threading under real application usage, as released with ESMF 8.1.0, have been addressed: (1) PETs that execute a threaded component are no longer instantiated as Pthreads by default but instead execute under the original MPI process. This resolves the issue of not being able to set an unlimited stack size. (2) Issues within the automatic garbage collection of ESMF objects have been resolved, which lead to memory corruption issues during ESMF_Finalize() when Grids or Meshes were transferred between threaded components. (3) Thread affinities and number of OpenMP threads are reset when exiting from a threaded component method, and global resource control can be turned on/off via the optional argument <code>globalResourceControl</code> during <a href="http://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node4.html#SECTION04024100000000000000">ESMF_Initialize()</a>.
+
+<li>It is now possible to override the defaults of a number of global ESMF settings by specifying an ESMF_Config file during <a href="http://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node4.html#SECTION04024100000000000000">ESMF_Initialize()</a>. This is particularly useful for adjusting log specific settings, or to turn on/off resource control on the global VM.
+
+<li>A new section was added to the ESMF Reference Manual that discusses use of <a href="http://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node5.html#SECTION050132200000000000000">VMEpoch for asynchronous RouteHandle communications</a>.
+
+<li>The VMEpoch feature allows sending PETs to fill the message queue up to the limit set by the MPI implementation. For message sizes where an MPI implementation chooses to use the EAGER protocol, this can lead to memory exhaustion on the receiving PETs. To prevent this issue, VMEpoch now limits the number of outstanding send cycles to ten by default. This default can be overridden by the user through the optional argument <code>throttle</code> to <a href="http://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node6.html#SECTION0601261400000000000000">ESMF_VMEpochEnter()</a>.
+
+<li>The process of replacing the native ESMF mesh implementation with the <a href="https://sigma.mcs.anl.gov/moab-library/">MOAB</a> library is continuing. The MOAB mesh backend is now available to ESMPy by calling <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_2_0/html/manager.html">Manager.set_moab()</a>. This allows the user to test ESMPy regridding features with the new MOAB backend in preparation for MOAB becoming the default. Manager.moab returns a boolean value to indicate if the MOAB backend is currently in use. The default is to use the native ESMF mesh backend.
+
+</ul>
+</td>
+
+<td>
+
+<ul>
+<li>The ESMF_XGrid construction can lead to degenerate cells in cases where the source and destination grids have edges that are almost the same. Often these cells don't produce weights and are benign, but when weights are produced, they can lead to low accuracy results when transferring data to/from the XGrid.
+
+<li>Attempting to write weight files from the ESMPy Regrid object when using <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_2_0/html/FileMode.html">filemode=FileMode.WITHAUX</a> currently crashes.
+<p>
+
+    <br><strong>Platform-specific bugs:</strong>
+</p>
+
+<li>The GNU and Intel compilers require GCC>=4.8 for C++11 support (Intel uses the GCC headers). By default, ESMF uses the C++11 standard and cannot be downgraded. If you run into build issues due to the C++11 dependency, you must make sure a GCC>=4.8 is loaded.
+
+<li>For GNU compilers GCC>=10.x, the default Fortran argument mismatch checking has become stricter. This results in build failures in some of the code that comes with ESMF. Setting environment variable ESMF_F90COMPILEOPTS="-fallow-argument-mismatch -fallow-invalid-boz", during the ESMF build, can be used as a work-around for this issue.
+
+<li>On Darwin, with the GNU gfortran+gcc combination, when building MPICH3 from source, it is important to specify the "--enable-two-level-namespace" configure option. By default, i.e. without this option, on Darwin, the produced MPICH compiler wrappers include a linker flag (-flat_namespace) that causes issues with C++ exception handling. Building and linking ESMF applications with MPICH compiler wrappers that specify this linker option leads to "mysterious" application aborts during execution.
+
+<li>On Darwin, with the Intel Fortran compiler, command line arguments cannot be accessed from ESMF applications when linked against the shared library version of libesmf. There is no issue when linked against the static libesmf.a version. Setting the environment variable ESMF_SHARED_LIB_BUILD=OFF, during the ESMF build, can be used as a work around for this issue.
+
+<li>The ESMF_ArrayIOUTest unit test fails the binary read test on the S4 test system (Linux+Intel+IntelMPI).
+
+<li>There is an issue with intercepting the MPI calls for profiling on some of the supported platforms. This results in a single FAIL reported for ESMF_TraceMPIUTest.F90. The affected platforms are: 
+<ul>
+ 
+<li>Catania: Darwin+GNU+MPICH3
+ 
+<li>Gaea: Unicos+GNU+cray-mpich
+</li> 
+</ul>
+
+<li>There is an issue with loading the libesmftrace_preload.so library on some of the supported platforms. This results in a reported CRASH for ESMF_TraceIOUTest.F90 and ESMF_TraceMPIUTest.F90. The affected platforms are: 
+<ul>
+ 
+<li>Cori: Unicos+Intel+cray-mpich
+ 
+<li>Cori: Unicos+Intel+mpiuni
+ 
+<li>Discover: Linux+GNU+intelmpi
+ 
+<li>Gaea: Unicos+Intel+cray-mpich
+ 
+<li>Gaea: Unicos+Intel+mpiuni
+ 
+<li>Hera: Linux+GNU+intelmpi
+ 
+<li>Orion: Linux+GNU+mpiuni</ul>
+</tr>
+
+
 <!--ESMF_8_1_1-->
 <tr valign="top">
 <td ><a name="8_1_1"></a>
@@ -238,7 +352,7 @@ ESMPy Documentation <br>
 
 <li>This release is backward compatible with the last major release update, ESMF 8.0.0, for all the interfaces that are marked as backward compatible in the Reference Manual. There were API changes to a few unmarked methods that may require minor modifications to user code that uses these methods. The entire list of API changes is summarized in a <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/API-800-810.pdf">table showing interface changes since ESMF_8_0_0</a>, including the rationale and impact for each change.
 
-<li>Some bit-for-bit changes are expected for this release compared to release ESMF 8.0.0 and patch release ESMF 8.0.1. We observe the following impact with Intel compilers using “<code>-O2 -fp-model precise</code>”: 
+<li>Some bit-for-bit changes are expected for this release compared to release ESMF 8.0.0 and patch release ESMF 8.0.1. We observe the following impact with Intel compilers using "<code>-O2 -fp-model precise</code>": 
 <ul>
  
 <li>Fixed a problem that could result in erroneously unmapped destinations when going from a very fine source grid to a coarse destination grid (e.g. 1/20 degree to 10x15 degree). Expected bit-for-bit changes:  
@@ -302,7 +416,7 @@ ESMPy Documentation <br>
 <li>The <a href="https://earthsystemmodeling.org/nuopc/">NUOPC Layer</a> contained in this release has been improved in the following specific technical areas: 
 <ul>
  
-<li>The NUOPC API has been simplified through the introduction of <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00034100000000000000">semantic specialization labels</a>. The new approach leads to clearer and more concise NUOPC “cap” implementations that do not require specifying an <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node8.html">Initialize Phase Definition (IPD) version or using the IPDvXXpY nomenclature</a> when registering methods in the SetServices() method. Existing caps do not have to be re-written or updated, although updating to the new semantic specialization labels is recommended for existing and new NUOPC caps. The older IPD version based approach is supported for backward compatibility. 
+<li>The NUOPC API has been simplified through the introduction of <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00034100000000000000">semantic specialization labels</a>. The new approach leads to clearer and more concise NUOPC "cap" implementations that do not require specifying an <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node8.html">Initialize Phase Definition (IPD) version or using the IPDvXXpY nomenclature</a> when registering methods in the SetServices() method. Existing caps do not have to be re-written or updated, although updating to the new semantic specialization labels is recommended for existing and new NUOPC caps. The older IPD version based approach is supported for backward compatibility. 
  
 <li>The NUOPC layer now provides features for <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/NUOPC_refdoc/node3.html#SECTION00037000000000000000">resource control and handling of threaded components</a>. This mechanism supports mixing of hybrid MPI+OpenMP components with different threading levels and mixing with standard MPI components on the same processing elements (PEs), i.e. cores. It allows each component to fully utilize HPC resources independently. Coupling between threaded components is supported automatically via the standard NUOPC Connectors.
  
@@ -335,7 +449,7 @@ ESMPy Documentation <br>
 
 <li>Key-value pair storage was added to the ESMF_Mesh and ESMF_LocStream classes through the overloaded <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_refdoc/node6.html#SECTION060241600000000000000">ESMF_InfoGetFromHost()</a> method.
 
-<li>A section discussing “<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_usrdoc/node8.html">Debugging of ESMF User Applications</a>” has been added to the User’s Guide. This section is designed to help users interpret error traces and efficiently locate issues in failing ESMF applications.
+<li>A section discussing <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_1_0/ESMF_usrdoc/node8.html">"Debugging of ESMF User Applications"</a> has been added to the User's Guide. This section is designed to help users interpret error traces and efficiently locate issues in failing ESMF applications.
 
 </ul>
 </td>
@@ -354,9 +468,15 @@ ESMPy Documentation <br>
 
 <li>The <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a> do not currently work on Fields created on Grids with arbitrary distribution.
 
+<li>When using the ESMF_RegridWeightGen application to generate conservative weights for a Mesh with > 16 million cells, the weight file produced has some of its factors scrambled in a subtle way. This can lead to higher than usual conservation error (>1.0E-7).
+
+<li>When pole extrapolation is used during regridding operations and a quadrilateral cell that degenerates into a triangle is in the top or bottom row of the grid, the error "Condition {etopo->num_nodes == 4} failed..." is incorrectly returned. 
+
 <li>The ESMF_GridCreate() interface that allows the user to create a copy of an existing Grid with a new distribution will give incorrect results when used on a Grid with 3 or more dimensions and whose coordinate arrays are less than the full dimension of the Grid (i.e. it contains factorized coordinates).
 
 <li>The ESMF_XGrid construction can lead to degenerate cells for cases where the source and destination grids have edges that are almost the same. Often these cells don't produce weights and are benign, but when weights are produced can lead to low accuracy results when transferring data to/from the XGrid.
+
+<li>When any of the Redist() methods are used inside a VMEpoch, the execution crashes with an MPI error.
 
 <li>The OpenMP thread count is being reset to 1 within all ESMF components. This affects user code that leverages OpenMP threading inside of components, and uses the <tt>OMP_NUM_THREADS</tt> environment variable to set the desired number of OpenMP threads. As a consequence the expected speed up from OpenMP threading in user code will not be present.
 
@@ -370,7 +490,7 @@ ESMPy Documentation <br>
 
 <li>For GNU compilers GCC>=10.x, the default Fortran argument mismatch checking has become stricter. This results in build failures in some of the code that comes with ESMF. Setting environment variable ESMF_F90COMPILEOPTS="-fallow-argument-mismatch -fallow-invalid-boz", during the ESMF build, can be used as a work around for this issue.
 
-<li>On Darwin, with the GNU gfortran+gcc combination, when building MPICH3 from source, it is important to specify the "--enable-two-level-namespace" configure option. By default, i.e. without this option, on Darwin, the produced MPICH compiler wrappers include a linker flag (-flat_namespace) that causes issues with C++ exception handling. Building and linking ESMF applications with MPICH compiler wrappers that specify this linker option leads to “mysterious” application aborts during execution.
+<li>On Darwin, with the GNU gfortran+gcc combination, when building MPICH3 from source, it is important to specify the "--enable-two-level-namespace" configure option. By default, i.e. without this option, on Darwin, the produced MPICH compiler wrappers include a linker flag (-flat_namespace) that causes issues with C++ exception handling. Building and linking ESMF applications with MPICH compiler wrappers that specify this linker option leads to "mysterious" application aborts during execution.
 
 <li>On Darwin, with the Intel Fortran compiler, command line arguments cannot be accessed from ESMF applications when linked against the shared library version of libesmf. There is no issue when linked against the static libesmf.a version. Setting environment variable ESMF_SHARED_LIB_BUILD=OFF, during the ESMF build, can be used as a work around for this issue.
 
@@ -608,6 +728,8 @@ ESMPy Documentation <br>
 <li>When using creep fill extrapolation sometimes the extrapolation will not cross from a piece of a Field on one PET to a piece on another. This can lead to places in the Field not being properly extrapolated to. 
 <li>The exact identity matrix is not returned when using bilinear regridding from a grid that extends all the way to the poles, to an identical grid.
 <li>The regridding can hang when doing bilinear or patch regridding on the centers of a mesh and the mesh contains a cell whose center is at the exact same position as one of the corners of the cell.
+<li>When using the ESMF_RegridWeightGen application to generate conservative weights for a Mesh with > 16 million cells, the weight file produced has some of its factors scrambled in a subtle way. This can lead to higher than usual conservation error (>1.0E-7).
+<li>When pole extrapolation is used during regridding operations and a quadrilateral cell that degenerates into a triangle is in the top or bottom row of the grid, the error "Condition {etopo->num_nodes == 4} failed..." is incorrectly returned. 
 <li>Applying the sparse matrix multiplication to cases where the local data allocation is above the 32-bit limit will fail with a memory allocation error. This affects all Regrid(), Redist(), Halo(), and SMM() calls.
 <li>The ESMF_GridCreate() interface that allows the user to create a copy of an existing Grid with a new distribution will give incorrect results when used on a Grid with 3 or more dimensions and whose coordinate arrays are less than the full dimension of the Grid (i.e. it contains factorized coordinates).
 <li>Using the ESMF_GridCreate1PeriDim() method to create a grid with a bipole connection on the lower side (typically referring to the southern hemisphere) resulted in no connection there.
