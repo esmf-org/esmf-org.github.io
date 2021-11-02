@@ -1,4 +1,4 @@
-# LaTeX2HTML 2018 (Released Feb 1, 2018)
+# LaTeX2HTML 2017.2 (Released Jan 23, 2017)
 # Associate internals original text with physical files.
 
 
@@ -8,6 +8,18 @@ $noresave{$key} = "$nosave";
 
 $key = q/appendix_esmf_error_codes/;
 $ref_files{$key} = "$dir".q|node9.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_BalajiXGrid/;
+$ref_files{$key} = "$dir".q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_ref:SCRIP/;
+$ref_files{$key} = "$dir".q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_uml/;
+$ref_files{$key} = "$dir".q|node8.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:calkindflag_c/;

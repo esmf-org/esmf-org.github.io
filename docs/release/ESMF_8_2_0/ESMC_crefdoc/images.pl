@@ -1,4 +1,4 @@
-# LaTeX2HTML 2018 (Released Feb 1, 2018)
+# LaTeX2HTML 2017.2 (Released Jan 23, 2017)
 # Associate images original text with physical files.
 
 
@@ -40,7 +40,7 @@ $cached_env_img{$key} = q|<IMG
 
 $key = q/includegraphics{Comp_obj};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="623" HEIGHT="191" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="692" HEIGHT="224" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img7.png"
  ALT="\includegraphics{Comp_obj}">|; 
 
@@ -59,67 +59,67 @@ $cached_env_img{$key} = q|<IMG
 
 $key = q/scalebox{0.75}{includegraphics{GridStaggerLoc2D}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="465" HEIGHT="275" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="561" HEIGHT="345" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img12.png"
  ALT="\scalebox{0.75}{\includegraphics{GridStaggerLoc2D}}">|; 
 
 $key = q/scalebox{0.8}{includegraphics{Appendix_uml}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="461" HEIGHT="703" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="565" HEIGHT="762" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img21.png"
  ALT="\scalebox{0.8}{\includegraphics{Appendix_uml}}">|; 
 
 $key = q/scalebox{0.9}{includegraphics{ESMF_GEOS5}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="708" HEIGHT="395" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="726" HEIGHT="440" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img2.png"
  ALT="\scalebox{0.9}{\includegraphics{ESMF_GEOS5}}">|; 
 
 $key = q/scalebox{0.9}{includegraphics{GridDecomps}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="630" HEIGHT="192" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="726" HEIGHT="221" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img10.png"
  ALT="\scalebox{0.9}{\includegraphics{GridDecomps}}">|; 
 
 $key = q/scalebox{0.9}{includegraphics{LogRectGrids}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="636" HEIGHT="210" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="726" HEIGHT="220" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img11.png"
  ALT="\scalebox{0.9}{\includegraphics{LogRectGrids}}">|; 
 
 $key = q/scalebox{1.0}{includegraphics{ESMF_appunit}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="723" HEIGHT="498" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="749" HEIGHT="548" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img3.png"
  ALT="\scalebox{1.0}{\includegraphics{ESMF_appunit}}">|; 
 
 $key = q/scalebox{1.0}{includegraphics{ESMF_concurrent}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="587" HEIGHT="576" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="621" HEIGHT="604" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img5.png"
  ALT="\scalebox{1.0}{\includegraphics{ESMF_concurrent}}">|; 
 
 $key = q/scalebox{1.0}{includegraphics{ESMF_reconcile}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="585" HEIGHT="627" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="633" HEIGHT="662" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img6.png"
  ALT="\scalebox{1.0}{\includegraphics{ESMF_reconcile}}">|; 
 
 $key = q/scalebox{1.0}{includegraphics{ESMF_sandwich}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="577" HEIGHT="301" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="605" HEIGHT="332" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img1.png"
  ALT="\scalebox{1.0}{\includegraphics{ESMF_sandwich}}">|; 
 
 $key = q/scalebox{1.0}{includegraphics{ESMF_serial}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="587" HEIGHT="677" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="621" HEIGHT="704" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img4.png"
  ALT="\scalebox{1.0}{\includegraphics{ESMF_serial}}">|; 
 
 $key = q/scalebox{1.0}{includegraphics{GridStaggerLoc3D}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="433" HEIGHT="333" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="533" HEIGHT="417" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img13.png"
  ALT="\scalebox{1.0}{\includegraphics{GridStaggerLoc3D}}">|; 
 
@@ -127,7 +127,7 @@ $key = q/times1times...times1;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="85" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img19.png"
- ALT="$\times 1 \times ... \times 1$">|; 
+ ALT="$ \times 1 \times ... \times 1$">|; 
 
 1;
 
