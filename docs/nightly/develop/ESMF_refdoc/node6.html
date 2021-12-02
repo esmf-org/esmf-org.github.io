@@ -20425,11 +20425,12 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>   subroutine ESMF_VMEpochEnter(vm, epoch, throttle, rc)
+<PRE>   subroutine ESMF_VMEpochEnter(vm, epoch, keepAlloc, throttle, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE> -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      type(ESMF_VM),            intent(in),  optional :: vm
      type(ESMF_VMEpoch_Flag),  intent(in),  optional :: epoch
+     logical,                  intent(in),  optional :: keepAlloc
      integer,                  intent(in),  optional :: throttle
      integer,                  intent(out), optional :: rc
 </PRE>
@@ -20452,6 +20453,13 @@ The arguments are:
 <DT><STRONG>[epoch]</STRONG></DT>
 <DD>The epoch to be entered. See section <A HREF="#const:vmepoch_flag">49.2.1</A> for a
           complete list of options. Defaults to <TT>ESMF_VMEPOCH_NONE</TT>.
+     
+</DD>
+<DT><STRONG>[keepAlloc]</STRONG></DT>
+<DD>For <TT>.true.</TT>, keep internal allocations to be reused by consecutive
+          epoch phases. For <TT>.false.</TT>, deallocate all internal buffers not
+          actively used.
+          The flag only affects the local PET. Defaults to <TT>.true.</TT>.
      
 </DD>
 <DT><STRONG>[throttle]</STRONG></DT>
@@ -20500,8 +20508,9 @@ The arguments are:
      
 </DD>
 <DT><STRONG>[keepAlloc]</STRONG></DT>
-<DD>For <TT>.true.</TT>, keep internal allocations to be reused during the 
-          epoch phase. For <TT>.false.</TT>, deallocate all internal buffers.
+<DD>For <TT>.true.</TT>, keep internal allocations to be reused by consecutive
+          epoch phases. For <TT>.false.</TT>, deallocate all internal buffers not
+          actively used.
           The flag only affects the local PET. Defaults to <TT>.true.</TT>.
      
 </DD>
