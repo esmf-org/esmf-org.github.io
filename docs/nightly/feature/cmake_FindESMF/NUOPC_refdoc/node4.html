@@ -7009,11 +7009,9 @@ The arguments are:
      
 </DD>
 <DT><STRONG>[iofmt]</STRONG></DT>
-<DD>The I/O format.  Valid options are  <TT>ESMF_IOFMT_BIN</TT> and
-      <TT>ESMF_IOFMT_NETCDF</TT>. If not present, file names with a <TT>.bin</TT> 
-      extension will use <TT>ESMF_IOFMT_BIN</TT>, and file names with a <TT>.nc</TT>
-      extension will use <TT>ESMF_IOFMT_NETCDF</TT>.  Other files default to
-      <TT>ESMF_IOFMT_NETCDF</TT>.
+<DD>The I/O format.  Supported options are <TT>ESMF_IOFMT_NETCDF</TT>,
+       <TT>ESMF_IOFMT_NETCDF4P</TT>, and <TT>ESMF_IOFMT_NETCDF4C</TT>. If not
+       present, defaults to <TT>ESMF_IOFMT_NETCDF</TT>.
      
 </DD>
 <DT><STRONG>[relaxedflag]</STRONG></DT>
@@ -7043,7 +7041,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_Write()
    subroutine NUOPC_StateWrite(state, fieldNameList, fileNamePrefix, overwrite, &amp;
-     status, timeslice, relaxedflag, rc)
+     status, timeslice, iofmt, relaxedflag, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_State),           intent(in)            :: state
      character(len=*),           intent(in),  optional :: fieldNameList(:)
@@ -7051,6 +7049,7 @@ The arguments are:
      logical,                    intent(in),  optional :: overwrite
      type(ESMF_FileStatus_Flag), intent(in),  optional :: status
      integer,                    intent(in),  optional :: timeslice
+     type(ESMF_IOFmt_Flag),      intent(in),  optional :: iofmt
      logical,                    intent(in),  optional :: relaxedflag
      integer,                    intent(out), optional :: rc
 </PRE>
@@ -7114,6 +7113,12 @@ The arguments are:
        a timeslice one greater than the maximum will be written.
      
 </DD>
+<DT><STRONG>[iofmt]</STRONG></DT>
+<DD>The I/O format.  Supported options are <TT>ESMF_IOFMT_NETCDF</TT>,
+       <TT>ESMF_IOFMT_NETCDF4P</TT>, and <TT>ESMF_IOFMT_NETCDF4C</TT>. If not
+       present, defaults to <TT>ESMF_IOFMT_NETCDF</TT>.
+     
+</DD>
 <DT><STRONG>[relaxedflag]</STRONG></DT>
 <DD>If <TT>.true.</TT>, then no error is returned even if the call cannot write
        the file due to library limitations. Default is <TT>.false.</TT>.
@@ -7140,7 +7145,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_Write()
    subroutine NUOPC_FieldBundleWrite(fieldbundle, fieldNameList, fileNamePrefix, overwrite, &amp;
-     status, timeslice, relaxedflag, rc)
+     status, timeslice, iofmt, relaxedflag, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_FieldBundle),     intent(in)            :: fieldbundle
      character(len=*),           intent(in),  optional :: fieldNameList(:)
@@ -7148,6 +7153,7 @@ The arguments are:
      logical,                    intent(in),  optional :: overwrite
      type(ESMF_FileStatus_Flag), intent(in),  optional :: status
      integer,                    intent(in),  optional :: timeslice
+     type(ESMF_IOFmt_Flag),      intent(in),  optional :: iofmt
      logical,                    intent(in),  optional :: relaxedflag
      integer,                    intent(out), optional :: rc
 </PRE>
@@ -7209,6 +7215,12 @@ The arguments are:
        provisions for time slicing are made in the output file,
        however, if the file already contains a time axis for the variable,
        a timeslice one greater than the maximum will be written.
+     
+</DD>
+<DT><STRONG>[iofmt]</STRONG></DT>
+<DD>The I/O format.  Supported options are <TT>ESMF_IOFMT_NETCDF</TT>,
+       <TT>ESMF_IOFMT_NETCDF4P</TT>, and <TT>ESMF_IOFMT_NETCDF4C</TT>. If not
+       present, defaults to <TT>ESMF_IOFMT_NETCDF</TT>.
      
 </DD>
 <DT><STRONG>[relaxedflag]</STRONG></DT>
