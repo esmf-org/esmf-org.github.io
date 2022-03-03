@@ -58592,15 +58592,23 @@ Added argument <TT>balanceflag</TT> to support rebalancing of the
 
 <P>
 Create a new DistGrid from an existing DistGrid, keeping the decomposition
-       unchanged. The <TT>firstExtra</TT> and <TT>lastExtra</TT> arguments allow extra
+       unchanged, unless <TT>balanceflag=.true.</TT> (see below).
+       The <TT>firstExtraPTile</TT> and <TT>lastExtraPTile</TT> arguments allow extra
        elements to be added at the first/last edge DE in each dimension. The 
        method also allows the <TT>indexflag</TT> to be set. Further, if the 
-       <TT>connectionList</TT> argument is provided it will be used to set 
+       <TT>connectionList</TT> argument provided in it will be used to set 
        connections in the newly created DistGrid, otherwise the connections of
        the incoming DistGrid will be used.
-       If neither <TT>firstExtra</TT>, <TT>lastExtra</TT>, <TT>indexflag</TT>, nor 
-       <TT>connectionList</TT> arguments are specified, the method reduces to a 
-       deep copy of the incoming DistGrid object.
+
+<P>
+The <TT>balanceflag</TT> argument allows a change in the decomposition, and
+       thus of the number of DEs. An attempt is made to decompose the index
+       space into as many DEs as there are PETs in the VM for which the DistGrid
+       is created. See the argument description for details.
+
+<P>
+Setting the <TT>balanceflag</TT> argument to <TT>.true.</TT> is currently
+       incompatible with providing any of the other optional arguments.
 
 <P>
 The arguments are:
@@ -58642,7 +58650,12 @@ The arguments are:
 </DD>
 <DT><STRONG>[balanceflag]</STRONG></DT>
 <DD>If set to <TT>.true</TT>, rebalance the incoming <TT>distgrid</TT>
-            decompositon. The default is <TT>.false.</TT>.
+            decompositon to exactly one DE per PET. The DEs along each dimension
+            are chosen to provide the most balanced decomposition across all
+            dimensions.
+            The default is <TT>.false.</TT>, leaving the decomposition, and
+            therefore the number of DEs unchanged. For this case, PETs might end
+            up with no DE, one DE, or multiple DEs.
        
 </DD>
 <DT><STRONG>[delayout]</STRONG></DT>
@@ -58725,15 +58738,23 @@ Added argument <TT>balanceflag</TT> to support rebalancing of the
 
 <P>
 Create a new DistGrid from an existing DistGrid, keeping the decomposition
-       unchanged. The <TT>firstExtraPTile</TT> and <TT>lastExtraPTile</TT> arguments allow extra
+       unchanged, unless <TT>balanceflag=.true.</TT> (see below).
+       The <TT>firstExtraPTile</TT> and <TT>lastExtraPTile</TT> arguments allow extra
        elements to be added at the first/last edge DE in each dimension. The 
        method also allows the <TT>indexflag</TT> to be set. Further, if the 
        <TT>connectionList</TT> argument provided in it will be used to set 
        connections in the newly created DistGrid, otherwise the connections of
        the incoming DistGrid will be used.
-       If neither <TT>firstExtraPTile</TT>, <TT>lastExtraPTile</TT>, <TT>indexflag</TT>, nor 
-       <TT>connectionList</TT> arguments are specified, the method reduces to a 
-       deep copy of the incoming DistGrid object.
+
+<P>
+The <TT>balanceflag</TT> argument allows a change in the decomposition, and
+       thus of the number of DEs. An attempt is made to decompose the index
+       space into as many DEs as there are PETs in the VM for which the DistGrid
+       is created. See the argument description for details.
+
+<P>
+Setting the <TT>balanceflag</TT> argument to <TT>.true.</TT> is currently
+       incompatible with providing any of the other optional arguments.
 
 <P>
 The arguments are:
@@ -58775,7 +58796,14 @@ The arguments are:
 </DD>
 <DT><STRONG>[balanceflag]</STRONG></DT>
 <DD>If set to <TT>.true</TT>, rebalance the incoming <TT>distgrid</TT>
-            decompositon. The default is <TT>.false.</TT>.
+            decompositon. An attempt is made to come out at exactly one DE per
+            PET. However, if there are more tiles than PETs, the lower PETs will
+            hold more than one DE. For cases where there are more PETs than
+            tiles, each tile is decomposed into DEs as to provide the most
+            balanced decomposition across all dimensions.
+            The default is <TT>.false.</TT>, leaving the decomposition, and
+            therefore the number of DEs unchanged. For this case, PETs might end
+            up with no DE, one DE, or multiple DEs.
        
 </DD>
 <DT><STRONG>[delayout]</STRONG></DT>
