@@ -78,7 +78,15 @@ $key = q/NUOPC_Connector/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/NUOPC_CplCompAttributeIng/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/NUOPC_Driver/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_GridCompAttributeIng/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
