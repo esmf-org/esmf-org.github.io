@@ -22,6 +22,10 @@ $key = q/ConnectorCompMeta/;
 $ref_files{$key} = "$dir".q|node3.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/CplSets/;
+$ref_files{$key} = "$dir".q|node3.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/DataDepInit/;
 $ref_files{$key} = "$dir".q|node3.html|; 
 $noresave{$key} = "$nosave";
@@ -64,6 +68,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/ModelCompMeta/;
 $ref_files{$key} = "$dir".q|node3.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_AddNestedState/;
+$ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_AdvertiseField/;
