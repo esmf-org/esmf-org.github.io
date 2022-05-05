@@ -897,14 +897,30 @@ The type of this flag is:
 <P>
 The valid values are:
 <DL>
-<DT><STRONG>ESMF_IOFMT_BIN</STRONG></DT>
-<DD>Binary format.
-</DD>
 <DT><STRONG>ESMF_IOFMT_NETCDF</STRONG></DT>
-<DD>NETCDF and PNETCDF format.
+<DD>NETCDF and PNETCDF (cdf1) format in NETCDF-3 &ldquo;classic&rdquo; format. Use
+      of PNETCDF is prioritized if available.
 </DD>
 <DT><STRONG>ESMF_IOFMT_NETCDF_64BIT_OFFSET</STRONG></DT>
-<DD>NETCDF and PNETCDF 64-bit format.
+<DD>NETCDF and PNETCDF (cdf2) format.  This format allows files greater
+      than 4GiB in NETCDF-3 &ldquo;classic&rdquo; format.  Use of PNETCDF is prioritized
+      if available.
+</DD>
+<DT><STRONG>ESMF_IOFMT_NETCDF_64BIT_DATA</STRONG></DT>
+<DD>NETCDF and PNETCDF (cdf5) format.  This allows individual records greater
+      than 4GiB in NETCDF-3 &ldquo;classic&rdquo; format.  Use of PNETCDF is prioritized
+      if available.
+</DD>
+<DT><STRONG>ESMF_IOFMT_NETCDF4P</STRONG></DT>
+<DD>NETCDF-4 (HDF-5) format.  If a NETCDF parallel library is available,
+      writes will be in parallel. Writes will use one I/O PET per
+      SSI (node) of the ESMF VM that calls the I/O operation. Otherwise writes
+      will be serial.
+</DD>
+<DT><STRONG>ESMF_IOFMT_NETCDF4C</STRONG></DT>
+<DD>NETCDF-4 (HDF-5) format with lossless compression from HDF-5 applied.
+      This is only available as a serial option, even if a parallel NETCDF
+      library is available.  
 </DD>
 </DL>
 
@@ -959,7 +975,7 @@ The type of this flag is:
 The valid values are:
 <DL>
 <DT><STRONG>.true.</STRONG></DT>
-<DD>PIO features are enabled..
+<DD>PIO features are enabled.
 </DD>
 <DT><STRONG>.false.</STRONG></DT>
 <DD>PIO  features are not enabled.
@@ -988,10 +1004,10 @@ The type of this flag is:
 The valid values are:
 <DL>
 <DT><STRONG>.true.</STRONG></DT>
-<DD>Parallel netcdf features are enabled.
+<DD>Parallel NETCDF features are enabled.
 </DD>
 <DT><STRONG>.false.</STRONG></DT>
-<DD>Parallel netcdf features are not enabled.
+<DD>Parallel NETCDF features are not enabled.
 </DD>
 </DL>
 
