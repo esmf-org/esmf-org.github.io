@@ -66,10 +66,6 @@ $key = q/API:MeshCreateFromFile/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/API:MeshCreateFromFileOld/;
-$external_labels{$key} = "$URL/" . q|node5.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/Array:ArbHalo/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -1823,10 +1819,6 @@ $noresave{$key} = "$nosave";
 
 $key = q/API:MeshCreateFromFile/;
 $external_latex_labels{$key} = q|33.4.8|; 
-$noresave{$key} = "$nosave";
-
-$key = q/API:MeshCreateFromFileOld/;
-$external_latex_labels{$key} = q|33.4.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:ArbHalo/;
