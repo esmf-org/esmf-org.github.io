@@ -40,7 +40,7 @@ contains a complete list of possible configurations.
   - The "artifacts" column provides a link to all of the test artifacts associated with a particular test combination.
 
 <br>
-<span style="font-size:1.5ex;">
+
 
 | host     | compiler        | mpi                         | netcdf      | o_g   | os     | build   | u_pass   | u_fail   | s_pass   | s_fail   | e_pass   | e_fail   | nuopc_pass   | nuopc_fail   | artifacts |
 |----------|-----------------|-----------------------------|-------------|-------|--------|---------|----------|----------|----------|----------|----------|----------|--------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -111,4 +111,3 @@ contains a complete list of possible configurations.
 | orion    | intel 2020.2    | intelmpi 2020.2             | 4.7.4 4.5.3 | O     | Linux  | pass    | 13665    | 0        | 49       | 0        | 80       | 0        | 50           | 0            | [artifacts](https://github.com/esmf-org/esmf-test-artifacts/tree/b66114c0341af3636ba5875102600fe74efe7fe5/v8.3.0/orion/intel/2020.2/O/intelmpi/2020.2)               |
 | orion    | intel 2020.2    | intelmpi 2020.2             | 4.7.4 4.5.3 | g     | Linux  | pass    | 13665    | 0        | 49       | 0        | 80       | 0        | 50           | 0            | [artifacts](https://github.com/esmf-org/esmf-test-artifacts/tree/4e47a66776fa9ac6b904a446fc2ab078b77c8c7d/v8.3.0/orion/intel/2020.2/g/intelmpi/2020.2)               |
 
-</span>
