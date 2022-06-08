@@ -83,7 +83,7 @@ padding-right:         0;
 <th>Version</th>
 <th>Date</th>
 <th>Release Notes</th>
-<th>Known Bugs</th>
+<th>Known Issues</th>
 </tr>
 
 <!-- HEAD -->
@@ -127,7 +127,141 @@ version number below. The documentation available at left is auto-generated dail
 missing or have formatting errors.
 
 </td>
-<td class="col4">Known bugs are only listed for official releases.
+<td class="col4">Known issues are only listed for official releases.
+</td>
+</tr>
+
+
+<!--ESMF_8_3_0-->
+<tr valign="top">
+<td ><a name="8_3_0"></a>
+<a href="https://github.com/esmf-org/esmf/releases/tag/v8.3.0">
+v8.3.0</a>
+<br>
+<br>
+Reference Manual for Fortran<br>
+<a href="/docs/release/ESMF_8_3_0/ESMF_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_3_0/ESMF_refdoc.pdf">(pdf)</a>
+<br><br>
+Reference Manual for C<br>
+<a href="/docs/release/ESMF_8_3_0/ESMC_crefdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_3_0/ESMC_crefdoc.pdf">(pdf)</a>
+<br><br>
+User's Guide<br>
+<a href="/docs/release/ESMF_8_3_0/ESMF_usrdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_3_0/ESMF_usrdoc.pdf">(pdf)</a>
+<br><br>
+NUOPC Layer Reference Manual<br>
+<a href="/docs/release/ESMF_8_3_0/NUOPC_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_3_0/NUOPC_refdoc.pdf">(pdf)</a>
+<br><br>
+Building a NUOPC Model Manual<br>
+<a href="/docs/release/ESMF_8_3_0/NUOPC_howtodoc/">(html)</a>
+<a href="/docs/release/ESMF_8_3_0/NUOPC_howtodoc.pdf">(pdf)</a>
+<br><br>
+ESMPy Documentation <br>
+<a href="/esmpy_doc/release/ESMF_8_3_0/html">(html)</a>
+<a href="/esmpy_doc/release/ESMF_8_3_0/ESMPy.pdf">(pdf)</a>
+<br><br>
+<a href="/release/platforms_8_3_0">Supported Platforms</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-release-830">Regridding Status</a>
+</td>
+
+<td>06/08/22</td>
+
+<td>
+<ul>
+
+<li>This release is backward compatible with the last release ESMF 8.2.0, for all the interfaces that are marked as backward compatible in the Reference Manual. There were API changes to a few unmarked methods that may require minor modifications to user code that uses these methods. The entire list of API changes is summarized in a <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_3_0/API-820-830.pdf">table showing interface changes since ESMF 8.2.0</a>, including the rationale and impact for each change.
+
+<li>No bit-for-bit changes were observed for this release compared to release ESMF v8.2.0 with Intel compilers using "-O2 -fp-model precise".
+
+<li>Tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-release-830">ESMF regridding status</a> have been updated. These include supported grids and capabilities of the offline and integrated regridding.
+
+<li>A new section was added to the NUOPC Reference Manual describing the use of <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/NUOPC_refdoc/node3.html#SECTION00034400000000000000">NUOPC_AddNestedState()</a> for the coupling of multiple nests or multiple data sets between components.
+
+<li>The option to profile the execution time of each individual iteration through a NUOPC run sequence has been implemented in the <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_3_0/NUOPC_refdoc/node3.html#SECTION00033100000000000000">Driver Component Metadata</a> Profiling attribute. Setting the appropriate profiling bit results in a profile where the timing for each individual run sequence iteration is reported in the timing profile under a unique label. This information can be helpful for cases where the cost per iteration changes throughout the execution.
+
+<li>An issue in the <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_refdoc/node4.html#SECTION040771400000000000000">ESMF_StateReconcile()</a> method used by ESMF and NUOPC to generate a consistent object view across multiple components was fixed. The optimization implemented in v8.1.0 introduced the unintended behavior of switching out geom objects (Grid, Mesh, etc.) for Fields contained in States that are used in multiple ESMF_StateReconcile() operations.  The incorrect association of geom objects with Fields resulted in unexpected results during subsequent operations using those Fields, such as creating a RouteHandle for regridding.
+
+<li>Progress was made in full adoption of <a href="https://sigma.mcs.anl.gov/moab-library/">MOAB</a> as the internal mesh representation in ESMF.  This includes updating the internal MOAB library included with ESMF to version 5.3.1 and the addition of combinatorial testing designed to ensure consistency and backward compatibility between the native mesh implementation and the MOAB-based implementation.  Several consistency issues were resolved as a result of the new testing.
+
+<li>The previous version of <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_refdoc/node5.html#SECTION050104900000000000000">ESMF_MeshCreate()</a> from a file used to read all the node coordinate information on every processor. For large mesh files this global read can lead to high memory consumption and prevent reading in certain large meshes entirely. To reduce the memory footprint, a fully distributed read of mesh coordinate information was implemented. This change allows the creation of much larger meshes from file.
+
+<li>The <code>nodeOwners</code> argument for method <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_refdoc/node5.html#SECTION050104700000000000000">ESMF_MeshCreate()</a> and <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_refdoc/node5.html#SECTION050104500000000000000">ESMF_MeshAddNodes()</a> was made optional. This allows the user to defer specification of node ownership to ESMF in cases where a specific ownership assignment is not needed to match the application data distribution. When this argument is absent, ESMF generates a consistent assignment of node owners.
+
+<li>The <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_refdoc/node5.html#SECTION05086600000000000000">ESMF_GridCreate()</a> method that creates a new Grid from an existing Grid with new DistGrid was extended to optionally return a RouteHandle object. The RouteHandle allows subsequent calls into the new <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_refdoc/node5.html#SECTION050865300000000000000">ESMF_GridRedist()</a> method to redistribute the coordinate values from the original source grid to the new destination grid. This feature supports efficient handling of dynamically changing grids between components.
+
+<li>The implementation of the exchange grid (<a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_refdoc/node5.html#SECTION050110000000000000000">ESMF_XGrid</a>) class that supports efficient conservative regridding between multiple grids on source and destination sides has been improved: 
+<ul>
+ 
+<li>Element areas can now be set in a Field built on an XGrid by using the <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_refdoc/node5.html#SECTION050366200000000000000">ESMF_FieldRegridGetArea()</a> method. Previously, this capability was only supported for a Field built on a Grid or Mesh.  
+ 
+<li>The algorithm used to generate interpolation weights was improved to guarantee that exchange grid cells are exactly overlapping exactly one cell on each side.  Prior to this change, small numerical errors prevented this property from holding.
+</li> 
+</ul>
+
+<li>Added the optional --<code>checkFlag</code> argument to <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_refdoc/node3.html#SECTION03020000000000000000">ESMF_RegridWeightGen</a> application. This flag allows the user to turn on more expensive error checking that may not be appropriate for an operational run. Initially this flag turns on a check for grid self-intersection during conservative regridding.
+
+<li>The VM Epoch implementation now provides an option to reduce the memory pressure on the sending side PETs. By default, internal send buffers, once allocated, are kept until the VM is destroyed. This can lead to high memory pressure for cases where the same sending PETs participate in communication with multiple sets of receiving PETs. Setting <code>keepAlloc=.false.</code> when calling <a href="http://earthsystemmodeling.org/docs/nightly/release/ESMF_8_3_0/ESMF_refdoc/node6.html#SECTION0601261400000000000000">ESMF_VMEpochEnter()</a>, instructs ESMF to immediately deallocate internal send buffers once the data has been transferred. This is in analogy to the handling of internal receive buffers with <code>keepAlloc=.false.</code> when calling <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_refdoc/node6.html#SECTION0601261500000000000000">ESMF_VMEpochExit()</a>. The default remains .false. for both sides for efficiency.
+
+<li>Two internal fixed size buffers that caused issues when precomputing RouteHandles (e.g. via RegridStore()) for high-resolution, high PET count cases (~10,000 and above) were modified. The size of one of the buffers was doubled, while the other fixed size limitation was removed. The symptom of the first buffer size issue (now increased in size) was an error trace in the ESMF Log starting with <code>"ESMCI_DELayout.C:9616 ESMCI::XXE::storeBufferInfo() Internal error: Bad condition - bufferInfoList overflow!!!".</code> The second buffer size issue (now eliminated) was an error trace starting with <code>"ESMCI_DELayout.C:8416 ESMCI::XXE::execReady() Internal error: Bad condition - sendnbCount out of range"</code>.
+
+<li>ESMF uses a library called <a href="https://github.com/NCAR/ParallelIO">ParallelIO (PIO)</a> for its internal I/O operations, such as reading in mesh files and writing out fields. During this release, the version of PIO used internally was upgraded from a very outdated 1.x version to version 2.5. As a result, the binary output option ESMF_IOFMT_BIN is no longer supported and has been removed. A new option was also added to the ESMF build system to allow linking to an external build of the PIO library, as long as the external build is at least version 2.5.8. The upgrade eliminates the need to pass the compiler flags "-fallow-argument-mismatch -fallow-invalid-boz" when building with GNU 10.x or newer compilers. If the internal build of PIO is used, CMake version 2.8.12 or newer must be available in the system path. See the User's Guide for information about the environment variables used to configure PIO build and linking options.
+
+<li>An extra column was added to the <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_refdoc/node6.html#SECTION060132200000000000000">ESMF profiler summary output</a>, reporting the number of PEs (CPU cores) associated with the executing PETs. This information is helpful for example when profiling components that run with ESMF-managed threading. In the single-threaded case, each PET is associated with a single PE, and the number of PEs equals that of PETs. However, for the multi-threaded case, where N threads (e.g. OpenMP) are spawned under each PET, the number of PEs will be N times the number of PETs.
+
+<li>The <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_3_0/ESMF_usrdoc/node10.html#SECTION000105000000000000000">ESMF_COMM</a> build setting for MPICH has been reworked to better align with the current state of the MPICH project, and other ESMF_COMM settings. ESMF_COMM=mpich now covers the current MPICH versions 3 and 4. ESMF_COMM=mpich3 is still supported for backward compatibility. The old MPICH2 continues to be supported via ESMF_COMM=mpich2.
+
+<li>A problem with ESMF library installation linking for dylibs under Darwin was fixed. Previously the installed ESMF library remained dependent on files under the src directory of the ESMF build tree.
+
+<li>The FindESMF.cmake file included with ESMF, which is provided as a convenience to users that use CMake in their projects, has been updated. The module now searches ESMF_ROOT if ESMFMKFILE is not provided by the environment. Option USE_ESMF_STATIC_LIBS has been added to use the static ESMF library when building executables. This module requires CMake v3.12 and above.
+</ul>
+</td>
+
+<td>
+<ul>
+
+<li>Attempting to write weight files from the ESMPy Regrid object when using <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_3_0/html/FileMode.html">filemode=FileMode.WITHAUX</a> currently crashes.
+</ul>
+<p>
+    <br><strong>Platform-specific issues:</strong>
+</p>
+<ul>
+
+<li>The GNU and Intel compilers require GCC>=4.8 for C++11 support (Intel uses the GCC headers). By default, ESMF uses the C++11 standard and cannot be downgraded. If you run into build issues due to the C++11 dependency, you must make sure a GCC>=4.8 is loaded.
+
+<li>On Darwin, with the GNU gfortran+gcc combination, when building MPICH3 from source, it is important to specify the "--enable-two-level-namespace" configure option. By default, i.e. without this option, on Darwin, the produced MPICH compiler wrappers include a linker flag (-flat_namespace) that causes issues with C++ exception handling. Building and linking ESMF applications with MPICH compiler wrappers that specify this linker option leads to "mysterious" application aborts during execution.
+
+<li>On Darwin, with the Intel Fortran compiler, command line arguments cannot be accessed from ESMF applications when linked against the shared library version of libesmf. There is no issue when linked against the static libesmf.a version. Setting the environment variable ESMF_SHARED_LIB_BUILD=OFF, during the ESMF build, can be used as a work around for this issue.
+
+<li>There is an issue with intercepting the MPI calls for profiling on some of the supported platforms. This results in a single FAIL reported for ESMF_TraceMPIUTest.F90. The affected platforms are: 
+<ul>
+ 
+<li>Catania: Darwin+GNU+MPICH3
+ 
+<li>Gaea: Unicos+GNU+cray-mpich
+</li> 
+</ul>
+
+<li>There is an issue with loading the libesmftrace_preload.so library on some of the supported platforms. This results in a reported CRASH for ESMF_TraceIOUTest.F90 and ESMF_TraceMPIUTest.F90. The affected platforms are: 
+<ul>
+ 
+<li>Cori: Unicos+Intel+cray-mpich
+ 
+<li>Cori: Unicos+Intel+mpiuni
+ 
+<li>Discover: Linux+GNU+intelmpi
+ 
+<li>Gaea: Unicos+Intel+cray-mpich
+ 
+<li>Gaea: Unicos+Intel+mpiuni
+ 
+<li>Hera: Linux+GNU+intelmpi
+ 
+<li>Orion: Linux+GNU+mpiuni
+</ul>
 </td>
 </tr>
 
@@ -178,19 +312,19 @@ ESMPy Documentation <br>
 
 <li>Tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-820">ESMF regridding status</a> have been updated. These include supported grids and capabilities of the offline and integrated regridding.
 
-<li>The <a href="http://earthsystemmodeling.org/docs/nightly/release/8.2.0/NUOPC_refdoc/node4.html#SECTION000411300000000000000">NUOPC RunSequence syntax</a> was extended to support Alarm Blocks. An alarm block specifies the time interval at which the elements within the block are executed. This adds additional flexibility to the RunSequence approach, e.g. to write restart files at certain intervals that are multiples of the parent timestep.
+<li>The <a href="http://earthsystemmodeling.org/docs/nightly/release/8.3.0/NUOPC_refdoc/node4.html#SECTION000411300000000000000">NUOPC RunSequence syntax</a> was extended to support Alarm Blocks. An alarm block specifies the time interval at which the elements within the block are executed. This adds additional flexibility to the RunSequence approach, e.g. to write restart files at certain intervals that are multiples of the parent timestep.
 
-<li>Fields created on XGrids can now be used as either source, destination, or both when calling the general ESMF regrid methods (<a href="https://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node5.html#SECTION050366000000000000000">ESMF_FieldRegridStore()</a>, <a href="https://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node5.html#SECTION050365800000000000000">ESMF_FieldRegrid()</a>, <a href="https://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node5.html#SECTION050252600000000000000">ESMF_FieldBundleRegridStore()</a>, <a href="https://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node5.html#SECTION050252400000000000000">ESMF_FieldBundleRegrid()</a>). This enables the use of all ESMF regridding methods (bilinear, patch, etc.) and options (extrapolation, regridding status, etc.) when regridding to or from Fields on an XGrid.  Prior to this release, regridding to or from Fields on an XGrid was only supported when going from one of the grids used to originally create the XGrid. Also, only conservative methods were supported.  
+<li>Fields created on XGrids can now be used as either source, destination, or both when calling the general ESMF regrid methods (<a href="https://earthsystemmodeling.org/docs/nightly/release/8.3.0/ESMF_refdoc/node5.html#SECTION050366000000000000000">ESMF_FieldRegridStore()</a>, <a href="https://earthsystemmodeling.org/docs/nightly/release/8.3.0/ESMF_refdoc/node5.html#SECTION050365800000000000000">ESMF_FieldRegrid()</a>, <a href="https://earthsystemmodeling.org/docs/nightly/release/8.3.0/ESMF_refdoc/node5.html#SECTION050252600000000000000">ESMF_FieldBundleRegridStore()</a>, <a href="https://earthsystemmodeling.org/docs/nightly/release/8.3.0/ESMF_refdoc/node5.html#SECTION050252400000000000000">ESMF_FieldBundleRegrid()</a>). This enables the use of all ESMF regridding methods (bilinear, patch, etc.) and options (extrapolation, regridding status, etc.) when regridding to or from Fields on an XGrid.  Prior to this release, regridding to or from Fields on an XGrid was only supported when going from one of the grids used to originally create the XGrid. Also, only conservative methods were supported.  
 
 <li>A change in the 3D spherical bilinear weight calculation to handle more complex cells lead to a decrease in performance in releases 8.0.0, 8.1.0, and 8.1.1. The current release restores the performance to the level of ESMF 7.1.0r, and better, while retaining support for the complex cells. (Note that this change has the potential to introduce round off level changes in weights calculated for the 3D spherical bilinear method compared to previous ESMF releases. However, bit-for-bit testing with the Intel compiler using "-O2 -fp-model precise" did not detect any changes.)
 
-<li>A number of issues that were found with ESMF-managed threading under real application usage, as released with ESMF 8.1.0, have been addressed: (1) PETs that execute a threaded component are no longer instantiated as Pthreads by default but instead execute under the original MPI process. This resolves the issue of not being able to set an unlimited stack size. (2) Issues within the automatic garbage collection of ESMF objects have been resolved, which lead to memory corruption issues during ESMF_Finalize() when Grids or Meshes were transferred between threaded components. (3) Thread affinities and number of OpenMP threads are reset when exiting from a threaded component method, and global resource control can be turned on/off via the optional argument <code>globalResourceControl</code> during <a href="http://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node4.html#SECTION04024100000000000000">ESMF_Initialize()</a>.
+<li>A number of issues that were found with ESMF-managed threading under real application usage, as released with ESMF 8.1.0, have been addressed: (1) PETs that execute a threaded component are no longer instantiated as Pthreads by default but instead execute under the original MPI process. This resolves the issue of not being able to set an unlimited stack size. (2) Issues within the automatic garbage collection of ESMF objects have been resolved, which lead to memory corruption issues during ESMF_Finalize() when Grids or Meshes were transferred between threaded components. (3) Thread affinities and number of OpenMP threads are reset when exiting from a threaded component method, and global resource control can be turned on/off via the optional argument <code>globalResourceControl</code> during <a href="http://earthsystemmodeling.org/docs/nightly/release/8.3.0/ESMF_refdoc/node4.html#SECTION04024100000000000000">ESMF_Initialize()</a>.
 
-<li>It is now possible to override the defaults of a number of global ESMF settings by specifying an ESMF_Config file during <a href="http://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node4.html#SECTION04024100000000000000">ESMF_Initialize()</a>. This is particularly useful for adjusting log specific settings, or to turn on/off resource control on the global VM.
+<li>It is now possible to override the defaults of a number of global ESMF settings by specifying an ESMF_Config file during <a href="http://earthsystemmodeling.org/docs/nightly/release/8.3.0/ESMF_refdoc/node4.html#SECTION04024100000000000000">ESMF_Initialize()</a>. This is particularly useful for adjusting log specific settings, or to turn on/off resource control on the global VM.
 
-<li>A new section was added to the ESMF Reference Manual that discusses use of <a href="http://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node5.html#SECTION050132200000000000000">VMEpoch for asynchronous RouteHandle communications</a>.
+<li>A new section was added to the ESMF Reference Manual that discusses use of <a href="http://earthsystemmodeling.org/docs/nightly/release/8.3.0/ESMF_refdoc/node5.html#SECTION050132200000000000000">VMEpoch for asynchronous RouteHandle communications</a>.
 
-<li>The VMEpoch feature allows sending PETs to fill the message queue up to the limit set by the MPI implementation. For message sizes where an MPI implementation chooses to use the EAGER protocol, this can lead to memory exhaustion on the receiving PETs. To prevent this issue, VMEpoch now limits the number of outstanding send cycles to ten by default. This default can be overridden by the user through the optional argument <code>throttle</code> to <a href="http://earthsystemmodeling.org/docs/nightly/release/8.2.0/ESMF_refdoc/node6.html#SECTION0601261400000000000000">ESMF_VMEpochEnter()</a>.
+<li>The VMEpoch feature allows sending PETs to fill the message queue up to the limit set by the MPI implementation. For message sizes where an MPI implementation chooses to use the EAGER protocol, this can lead to memory exhaustion on the receiving PETs. To prevent this issue, VMEpoch now limits the number of outstanding send cycles to ten by default. This default can be overridden by the user through the optional argument <code>throttle</code> to <a href="http://earthsystemmodeling.org/docs/nightly/release/8.3.0/ESMF_refdoc/node6.html#SECTION0601261400000000000000">ESMF_VMEpochEnter()</a>.
 
 <li>The process of replacing the native ESMF mesh implementation with the <a href="https://sigma.mcs.anl.gov/moab-library/">MOAB</a> library is continuing. The MOAB mesh backend is now available to ESMPy by calling <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_2_0/html/manager.html">Manager.set_moab()</a>. This allows the user to test ESMPy regridding features with the new MOAB backend in preparation for MOAB becoming the default. Manager.moab returns a boolean value to indicate if the MOAB backend is currently in use. The default is to use the native ESMF mesh backend.
 
@@ -203,11 +337,12 @@ ESMPy Documentation <br>
 <li>The ESMF_XGrid construction can lead to degenerate cells in cases where the source and destination grids have edges that are almost the same. Often these cells don't produce weights and are benign, but when weights are produced, they can lead to low accuracy results when transferring data to/from the XGrid.
 
 <li>Attempting to write weight files from the ESMPy Regrid object when using <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_2_0/html/FileMode.html">filemode=FileMode.WITHAUX</a> currently crashes.
+</ul>
 <p>
 
-    <br><strong>Platform-specific bugs:</strong>
+    <br><strong>Platform-specific issues:</strong>
 </p>
-
+<ul>
 <li>The GNU and Intel compilers require GCC>=4.8 for C++11 support (Intel uses the GCC headers). By default, ESMF uses the C++11 standard and cannot be downgraded. If you run into build issues due to the C++11 dependency, you must make sure a GCC>=4.8 is loaded.
 
 <li>For GNU compilers GCC>=10.x, the default Fortran argument mismatch checking has become stricter. This results in build failures in some of the code that comes with ESMF. Setting environment variable ESMF_F90COMPILEOPTS="-fallow-argument-mismatch -fallow-invalid-boz", during the ESMF build, can be used as a work-around for this issue.
@@ -242,7 +377,9 @@ ESMPy Documentation <br>
  
 <li>Hera: Linux+GNU+intelmpi
  
-<li>Orion: Linux+GNU+mpiuni</ul>
+<li>Orion: Linux+GNU+mpiuni
+</ul>
+</td>
 </tr>
 
 
@@ -302,10 +439,11 @@ ESMPy Documentation <br>
 </ul>
 </ul>
 
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
 <li>The same as ESMF_8_1_0.</li>
 </ul>
+</td>
 </tr>
 
 
@@ -483,7 +621,7 @@ ESMPy Documentation <br>
 <li>The PETs of all ESMF components, and any potentially created OpenMP threads under such PETs, are pinned to the PE on the respective shared memory node, corresponding to the PET number. As a consequence, even if a user overcomes the OpenMP thread count reset to 1 bug, e.g. by using <tt>omp_set_num_threads()</tt> API directly, the performance of OpenMP threaded user code is far below that of the expected speed up.
 </ul>
 
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
 
 <li>The GNU and Intel compilers require GCC>=4.8 for C++11 support (Intel uses the GCC headers). By default ESMF now uses the C++11 standard and cannot be downgraded. If you run into build issues due to the C++11 dependency, you must make sure a GCC>=4.8 is loaded.
@@ -516,6 +654,7 @@ ESMPy Documentation <br>
  
 <li>Orion: Linux+GNU+mpiuni
 </ul>
+</td>
 </tr>
 
 
@@ -582,7 +721,7 @@ ESMPy Documentation <br>
 </ul>
 </ul>
 
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
 <li>The same as ESMF_8_0_0 with the following exceptions:</li>
 <ul>
@@ -590,6 +729,7 @@ ESMPy Documentation <br>
 <li>The Darwin.intelclang.default build configuration now works correctly.
 </ul>
 </ul>
+</td>
 </tr>
 
 
@@ -741,7 +881,7 @@ ESMPy Documentation <br>
 <li>When installing ESMF into a location that is shared with other libraries, it can happen that executing the ESMF install target fails with a "permission denied" error.
 
 </ul>
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
 <li>The GNU and Intel compilers require GCC>=4.8 for C++11 support (Intel uses the GCC headers). By default ESMF now uses the C++11 standard. If you run into build issues due to the C++11 dependency, you can either (1) make sure a GCC>=4.8 is loaded, or (2) set ESMF_YAMLCPP=OFF. In the latter case the YAML-dependent features in ESMF will not be available.
 <li>For GNU compilers GCC>=10.x, the default Fortran argument mismatch checking has become stricter. This will result in build failures. Setting environment variable ESMF_F90COMPILEOPTS="-fallow-argument-mismatch -fallow-invalid-boz", during the ESMF build, can be used as a work around for this issue.
@@ -900,7 +1040,7 @@ ESMPy Documentation <br>
   <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 -->
 </ul>
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
   <li>When building the library with the PGI C++ compiler, the ESMF_MOAB=OFF environment variable may need to be set. The issue seems to be with the PGI pgc++ compiler front-end, and the associated libraries. The symptoms are errors during linking. The older (but deprecated) PGI pgCC compiler front-end does not seem to be affected.
   <li>Linux with PGI (Discover): Fails the ESMF_FieldBundleCrGetUTest.F90 unit test with ESMF_COMM=mvapich2 and ESMF_BOPT=O.
@@ -962,7 +1102,7 @@ ESMPy Documentation <br>
 -->  
 </ul>
 
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
   <li>Same as ESMF_7_0_1 with the following exceptions:
   <ul>
@@ -1033,7 +1173,7 @@ ESMPy Documentation <br>
 -->  
 </ul>
 
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
   <li>The same as ESMF_7_0_0.</li>
 </ul>
@@ -1170,7 +1310,7 @@ ESMPy Documentation <br>
 -->
 </ul>
 
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
   <li>All platforms using GNU g++: The library build fails with GNU g++ 6.1 (and newer) by default. The offending source code is in a section of code that can be disabled by setting ESMF_MOAB=OFF.</li>
   <li>Linux with g95 (Fusion): Fails the ESMF_ArrayIOUTest.F90 unit test.
@@ -1282,7 +1422,7 @@ ESMPy Documentation <br>
 <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 -->
 </ul>
-<B>Platform-specific bugs:</B>
+<B>Platform-specific issues:</B>
 <ul>
      <li>Linux with PGI (Discover, Fusion, Jet): Systems tests hang intermittently with ESMF_COMM=mvapich2 due to a system level issue with the mvapich2/PGI combination.  </li>
 
@@ -1469,7 +1609,7 @@ NUOPC Layer Reference Manual<br>
   <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 -->
  </ul>
-<B>Platform-specific bugs:</B>
+<B>Platform-specific issues:</B>
 <ul>
   <li>Linux with PGI (Discover, Fusion, Jet): Systems tests hang intermittently with ESMF_COMM=mvapich2 due to a system level issue with the mvapich2/PGI combination.</li>
 
@@ -1521,7 +1661,7 @@ User's Guide<br>
 </ul>
 <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
  </ul>
-<B>Platform-specific bugs:</B>
+<B>Platform-specific issues:</B>
 <ul>
 <li>The same as ESMF_5_2_0rp2.</li>
 </ul>
@@ -1623,7 +1763,7 @@ NUOPC Layer Reference Manual<br>
 
           
 
-</ul><b>Platform-specific bugs:</b>
+</ul><b>Platform-specific issues:</b>
 <ul>
 
      <li>Linux with PGI (Discover, Fusion, Jet): Systems tests hang intermittently with ESMF_COMM=mvapich2 due to a system level issue with the mvapich2/PGI combination.</li>
@@ -1783,7 +1923,7 @@ User's Guide<br><a href="/docs/release/ESMF_6_1_0/ESMF_usrdoc/">(html)</a>
 
     <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 
-</ul><b>Platform-specific bugs:</b>
+</ul><b>Platform-specific issues:</b>
 <ul>
        <li>AIX/IBM (Bluefire): Fails the ESMF_ArrayRedistOpenMPSTest.F90 system test intermittently.</li>
 
@@ -1998,7 +2138,7 @@ can be used to define calendars for other planets, such as Mars, as well as cust
 
 </ul>
 
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
     <li>AIX/IBM (Bluefire): Fails the ESMF_ArrayRedistOpenMPSTest.F90 system test intermittently.</li>
 
@@ -2073,7 +2213,7 @@ User's Guide<br>
 <ul><li>The same as ESMF_5_2_0rp1.</li>
 <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
  </ul>
-<B>Platform-specific bugs:</B> 
+<B>Platform-specific issues:</B> 
 <ul>
   <li>Same as ESMF_5_2_0rp1 with the following exceptions:</li>
   <ul>
@@ -2221,7 +2361,7 @@ CIM XML output can be ingested into a gateway such as Earth System Grid (ESG).</
 
 </ul>
 
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
 <li>Same as ESMF_5_2_0r with the following exceptions:
 <ul>
@@ -2420,7 +2560,7 @@ All changes since ESMF_5_1_0 are summarized in two tables including the rational
      <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 
      </ul>
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
    <li>IBM Bluefire AIX: Fails the ESMF_ArrayRedistOpenMPSTest.F90 system test intermittently. </li>
 
@@ -2604,7 +2744,7 @@ These are summarized in a <a href="/docs/release/ESMF_5_2_0/ESMF_5_2_0_Interface
 <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 
      </ul>
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
 	<li> IBM Bluefire AIX: Fails the ESMF_ArrayRedistOpenMPSTest.F90 system test with ESMF_BOPT=O. </li>
 	<li> Linux Pluto with g95: Fails the ESMF_FieldRegridXGUTest.F90 unit test with ESMF_COMM=mvapich2. </li>
@@ -2749,7 +2889,7 @@ User's Guide<br>
 <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 
      </ul>
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
 	<li> Discover with intel: Fails ESMF_CompCreateSTest.F90 with ESMF_COMM=mvapich2 and ESMF_BOPT=O.</li>
 
@@ -2865,7 +3005,7 @@ represent true errors.</li>
 <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 </ul>
      </ul>
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
 	<li> Discover: ESMF_ArrayRedistOpenMPSTest.F90 fails with intelmpi when run by an automatic test script, but runs correctly when executed manually.</li>
 	<li> SunOS test platform: the C interfaces do not work (seg fault).</li>
@@ -2911,7 +3051,7 @@ User's Guide<br>
 <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 </ul>
      </ul>
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
 	<li> Windows/Cygwin g95: ESMF_MeshUTest.F90 fails with what appears to be an incompatibility between C++ exceptions and the g95 driver on Cygwin. </li>
 </ul>
@@ -2962,7 +3102,7 @@ ESMF interface changes since ESMF_4_0_0r.</a>
      </ul>
 <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 <br>
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <li> Windows/Cygwin g95: ESMF_LogErrUTest.F90 fails intermittently. </li>
 
 <ul> 
@@ -3108,7 +3248,7 @@ For details please see the "Field Regrid" section in the "Infrastructure: Fields
 <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 </ul>
 
-<b>Platform-specific bugs:</b>
+<b>Platform-specific issues:</b>
 <ul>
 <li> IBM Bluefire: all the ArrayHarness unit tests fail with ESMF_ABI=32. </li>
 <li> Discover: ESMF_ArrayRedistOpenMPSTest.F90 fails with intelmpi when run by an automatic test script, but runs correctly when executed manually. </li>
@@ -3257,7 +3397,7 @@ The benefit of the SetServices change is that the child SetServices routine may 
 <li> In the API description of ESMF_AttributeLink() and ESMF_AttributeLinkRemove(), in the ESMF Reference Manual, the argument keyword should be "comp1" instead of "comp".</li>
 <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29" target="_blank">SourceForge bugs list</a>.</li>
 </ul>
-<B> Platform-specific bugs: </B>
+<B> Platform-specific issues: </B>
 <ul> 
 <li> The Mesh and ESMF_FieldRegrid() code is unstable when compiled with PGI. </li>
 <li> ESMF_DistGridCreateGetUTest.F90 fails on IBM Lightning with PGI. </li>
