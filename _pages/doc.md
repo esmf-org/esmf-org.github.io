@@ -2,7 +2,7 @@
 permalink: /doc/
 title: "Docs"
 ---
-### Last release documentation: ESMF 8.2.0
+### Last release documentation: ESMF 8.3.0
 * User's Guide - [html](/docs/release/latest/ESMF_usrdoc), [pdf](/docs/release/latest/ESMF_usrdoc.pdf)
 * Fortran Reference Manual - [html](/docs/release/latest/ESMF_refdoc/), [pdf](/docs/release/latest/ESMF_refdoc.pdf)
 * C Reference Manual - [html](/docs/release/latest/ESMC_crefdoc), [pdf](/docs/release/latest/ESMC_crefdoc.pdf)
