@@ -8,7 +8,7 @@ title: "Docs"
 * C Reference Manual - [html](/docs/release/latest/ESMC_crefdoc), [pdf](/docs/release/latest/ESMC_crefdoc.pdf)
 * NUOPC Reference Manual - [html](/docs/release/latest/NUOPC_refdoc), [pdf](/docs/release/latest/NUOPC_refdoc.pdf)
 * ESMPy Documentation - [html](/esmpy_doc/release/latest/html), [pdf](/esmpy_doc/release/latest/ESMPy.pdf)
-* [Release Notes and Known Bugs](/static/releases.html#8_3_0)
+* [Release Notes and Known Issues](/static/releases.html#8_3_0)
 
 ### Latest documentation builds (develop branch, updated nightly):
 * User's Guide - [html](/docs/nightly/develop/ESMF_usrdoc/), [pdf](/docs/nightly/develop/ESMF_usrdoc.pdf)
