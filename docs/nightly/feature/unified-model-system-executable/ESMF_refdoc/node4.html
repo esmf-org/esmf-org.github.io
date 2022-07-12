@@ -8361,12 +8361,13 @@ The subroutine, when called by the framework, is expected to use any of the
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_CplCompSetVM()
    recursive subroutine ESMF_CplCompSetVMShObj(cplcomp, userRoutine, &amp;
-     sharedObj, userRc, rc)
+     sharedObj, userRoutineFound, userRc, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_CplComp),  intent(inout)         :: cplcomp
      character(len=*),    intent(in)            :: userRoutine
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      character(len=*),    intent(in),  optional :: sharedObj
+     logical,             intent(out), optional :: userRoutineFound
      integer,             intent(out), optional :: userRc
      integer,             intent(out), optional :: rc
 </PRE>
@@ -8374,7 +8375,18 @@ The subroutine, when called by the framework, is expected to use any of the
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.4.0</STRONG></DT>
+<DD>Added argument <TT>userRoutineFound</TT>.
+                The new argument provides a way to test availability without
+                causing error conditions.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -8433,6 +8445,13 @@ The subroutine, when called by the framework, is expected to use any of the
 <DD>Name of shared object that contains <TT>userRoutine</TT>. If the
      <TT>sharedObj</TT> argument is not provided the executable itself will be
      searched for <TT>userRoutine</TT>.
+   
+</DD>
+<DT><STRONG>[userRoutineFound]</STRONG></DT>
+<DD>Report back whether the specified <TT>userRoutine</TT> was found and executed,
+     or was not available. If this argument is present, not finding the
+     <TT>userRoutine</TT> will not result in returning an error in <TT>rc</TT>.
+     The default is to return an error if the <TT>userRoutine</TT> cannot be found.
    
 </DD>
 <DT><STRONG>[userRc]</STRONG></DT>
@@ -11065,7 +11084,7 @@ in that test:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12944"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="12963"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11086,7 +11105,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12946"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="12965"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11117,7 +11136,7 @@ Array object is empty, and the DELayout for the Grid is like this:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12948"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="12967"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11138,7 +11157,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12950"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="12969"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -14434,7 +14453,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16513"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16532"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
