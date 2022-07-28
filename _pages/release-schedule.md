@@ -9,6 +9,21 @@ Release notes from [all previous releases](/static/releases.html).
 
 ### Upcoming
 
+#### April 2022 - Covers releases 8.4, 8.5
+
+|Task|Description|
+|--- |--- |
+|Mesh write capability | Add the ability to write out an in-memory mesh in ESMFMESH file format. |
+|Remove 32-bit constraints | Update several layers of the framework that have assumptions and/or limitations to 32-bit sequence indices that limit use of ESMF grid/mesh operations for very high resolution grids.  |
+|Spherical vector regridding | Bring spherical vector regridding via 3D Cartesian space into the regridding system, including a way to represent vector fields. |
+|Field merging | Add new options for combining ESMF Fields, including field arithmetic and blending/merging of Fields.  This capability can be used to blend climatological fields with active model fields and smooth out sharp gradients.|
+|Continue integration of the MOAB finite element mesh to replace the existing native mesh within ESMF  | This is part of a long term strategy to leverage a more efficient mesh representation, reducing the memory footprint and increasing computational efficiency of mesh related functions. |
+|Complete the time manager fixes | Addresses several known issues with current API, including incorrect Alarm implementation and issues when changing Clock direction.  Also includes updating the API to support adding alarms based on a list of times. |
+
+
+### Recent Previous Release Schedules
+*Release schedules prior to 2016 are not shown, but are available upon request*
+
 #### April 2021 - Covers releases 8.2, 8.3
 NOTE: Starting with release 8.2, the ESMF Change Review Board (CRB) approved
 moving to a more rapid, fixed release process with a new release every
@@ -31,10 +46,6 @@ release items not listed come from contractual obligations.
 |Add option to ESMPy to write "verbose" weight files that include additional information such as cell centers||
 |Implement monotonic second order conservative regridding|Ensures that destination values stay within the range of the source values|
 
-
-
-### Recent Previous Release Schedules
-*Release schedules prior to 2016 are not shown, but are available upon request*
 
 #### December 2019 - Covers release 8.1
 
