@@ -18757,7 +18757,7 @@ There is no garantee at this point that the data transfer has actually
    started, let along completed. For this reason it is unsafe to overwrite
    the data in the <TT>localData</TT> array on <TT>src</TT> PET, or to access
    the <TT>localData</TT> array on <TT>dst</TT> PET. However both PETs are free
-   to engage in other work while the data transfer my proceed concurrently. 
+   to engage in other work while the data transfer may proceed concurrently. 
 
 <P>
 <PRE>
@@ -18893,13 +18893,12 @@ Finally the <TT>commhandle</TT> elements on the <TT>src</TT> side need to be
 
 <P>
 For cases where multiple messages are being sent between the same
-   <TT>src</TT>-<TT>dst</TT>
-   pairs using non-blocking communications, performance can often
-   be improved by aggregating individual messages. An extra buffer
-   is needed to hold the collected messages, resulting in only a single data
+   <TT>src</TT>-<TT>dst</TT> pairs using non-blocking communications, performance
+   can often be improved by aggregating individual messages. An extra buffer
+   is needed to hold the collected messages. The result is a single data
    transfer for each PET pair. In many cases this can significantly reduce the
    time spent in communications. The ESMF VM class provides access to such a
-   buffer technique through the <TT>ESMF_VMEpoch</TT> API.
+   buffering technique through the <TT>ESMF_VMEpoch</TT> API.
 
 <P>
 The <TT>ESMF_VMEpoch</TT> API consists of two interfaces:
@@ -18907,7 +18906,7 @@ The <TT>ESMF_VMEpoch</TT> API consists of two interfaces:
    epoch, the user specifies the type of epoch that is to be entered. Currently
    only <TT>ESMF_VMEPOCH_BUFFER</TT> is available. Inside this epoch,
    non-blocking communication calls are aggregated and data transfers on the 
-   <TT>src</TT> side are not issued until the epoch is exited. On the <TT>dst side</TT>
+   <TT>src</TT> side are not issued until the epoch is exited. On the <TT>dst</TT> side
    a single data transfer is received, and then divided over the actual
    non-blocking receive calls.
 
