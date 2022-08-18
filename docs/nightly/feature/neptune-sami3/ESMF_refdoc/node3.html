@@ -260,7 +260,24 @@ the ESMF unstructured grid format&nbsp;<A HREF="#sec:fileformat:esmf">12.8.2</A>
 
 <P>
 In the latest ESMF implementation, the <TT>ESMF_RegridWeightGen</TT> command line toll can detect the type of the input grid files automatically.  The user
-doesn't need to provide the source and destination grid file type arguments anymore.  The following arguments <TT>-t</TT>, <TT>-src_type</TT>, <TT>-dst_type</TT>, <TT>-src_meshname</TT>, and <TT>-dst_meshname</TT> are no longer needed.  If provided, the application will simply ingore them.
+doesn't need to provide the source and destination grid file type arguments anymore.  The following arguments <TT>-t</TT>, <TT>-src_type</TT>, <TT>-dst_type</TT>, <TT>-src_meshname</TT>, and <TT>-dst_meshname</TT> are no longer needed.  If provided, the application will simply ingore them. The rule to determine the file format is the following:
+
+<P>
+
+<UL>
+<LI>ESMF_FILEFORMAT_SCRIP:  variables grid_corner_lon and grid_corner_lat exists
+</LI>
+<LI>ESMF_FILEFORMAT_UGRID: a variable with attribute "cf_role" or "standard_name" set to "mesh_topology"
+</LI>
+<LI>ESMF_FILEFORMAT_ESMFMESH: variables nodeCoords and elementConn exists
+</LI>
+<LI>ESMF_FILEFORMAT_CFGRID: variables with attributes "degree_north" and "degree_east" exists
+</LI>
+<LI>ESMF_FILEFORMAT_MOSAIC: a variable with attribute "standard_name" set to "grid_mosaic_spec"
+</LI>
+<LI>ESMF_FILEFORMAT_TILE:  a varilable with attribute "standard_name" set to "grid_tile_spec"
+</LI>
+</UL>
 
 <P>
 This command line tool can do regrid weight generation from a global or regional source grid to a global or regional destination grid.
