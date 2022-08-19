@@ -226,6 +226,10 @@ $key = q/sec:TimeInterval/;
 $ref_files{$key} = "$dir".q|node6.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:aliases/;
+$ref_files{$key} = "$dir".q|node2.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:concurrency/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";

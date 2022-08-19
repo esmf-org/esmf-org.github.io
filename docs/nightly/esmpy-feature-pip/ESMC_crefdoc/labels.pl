@@ -226,6 +226,10 @@ $key = q/sec:TimeInterval/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:aliases/;
+$external_labels{$key} = "$URL/" . q|node2.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:concurrency/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
@@ -529,6 +533,10 @@ $key = q/sec:TimeInterval/;
 $external_latex_labels{$key} = q|28.1|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:aliases/;
+$external_latex_labels{$key} = q|5.3|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:concurrency/;
 $external_latex_labels{$key} = q|9.3|; 
 $noresave{$key} = "$nosave";
@@ -590,7 +598,7 @@ $external_latex_labels{$key} = q|9.5|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:spatialclasses/;
-$external_latex_labels{$key} = q|5.5|; 
+$external_latex_labels{$key} = q|5.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:items/;

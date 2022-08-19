@@ -1206,6 +1206,10 @@ $key = q/sec:TracingClocks/;
 $ref_files{$key} = "$dir".q|node6.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:aliases/;
+$ref_files{$key} = "$dir".q|node2.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:bundlerest/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
