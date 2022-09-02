@@ -107,8 +107,3 @@ To update data files on this site, follow these steps:
 ```
 
 Files uploaded there will be available under data.earthsystemmodeling.org.
-   
-   
-
-
-
