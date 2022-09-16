@@ -169,7 +169,7 @@ See the "Grid File Formats" section in the reference manual for a more in-depth 
 
 
 
-### <a name="regridstatus"/> Status of Regridding Methods (covers release 8.3.0)
+### <a name="regridstatus-830-etc"/> Status of Regridding Methods (covers release 8.3.0)
 
 #### Online (integrated) Regridding
 ![Online Regridding Status](/assets/images/RegridStatusIntegrated_8_3_0.png)
