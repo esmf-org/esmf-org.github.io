@@ -132,6 +132,85 @@ missing or have formatting errors.
 </tr>
 
 
+<!--ESMF_8_3_1-->
+<tr valign="top">
+<td ><a name="8_3_1"></a>
+<a href="https://github.com/esmf-org/esmf/releases/tag/v8.3.1">
+v8.3.1</a>
+<br>
+<br>
+Reference Manual for Fortran<br>
+<a href="/docs/release/ESMF_8_3_1/ESMF_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_3_1/ESMF_refdoc.pdf">(pdf)</a>
+<br><br>
+Reference Manual for C<br>
+<a href="/docs/release/ESMF_8_3_1/ESMC_crefdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_3_1/ESMC_crefdoc.pdf">(pdf)</a>
+<br><br>
+User's Guide<br>
+<a href="/docs/release/ESMF_8_3_1/ESMF_usrdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_3_1/ESMF_usrdoc.pdf">(pdf)</a>
+<br><br>
+NUOPC Layer Reference Manual<br>
+<a href="/docs/release/ESMF_8_3_1/NUOPC_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_3_1/NUOPC_refdoc.pdf">(pdf)</a>
+<br><br>
+Building a NUOPC Model Manual<br>
+<a href="/docs/release/ESMF_8_3_1/NUOPC_howtodoc/">(html)</a>
+<a href="/docs/release/ESMF_8_3_1/NUOPC_howtodoc.pdf">(pdf)</a>
+<br><br>
+ESMPy Documentation <br>
+<a href="/esmpy_doc/release/ESMF_8_3_1/html">(html)</a>
+<a href="/esmpy_doc/release/ESMF_8_3_1/ESMPy.pdf">(pdf)</a>
+<br><br>
+<a href="/release/platforms_8_3_1">Supported Platforms</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/regrid/#regridstatus-830-etc">Regridding Status</a>
+</td>
+
+<td>09/21/22</td>
+
+<td>
+
+<ul>
+
+<li>This patch release is backward compatible with ESMF 8.3.0.
+
+<li>No bit-for-bit changes are expected for this release compared to ESMF 8.3.0.
+
+<li>No changes were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. The ESMF tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#regridstatus-830-etc">ESMF regridding status</a> are unchanged.
+
+<li>The ESMF communication layer now supports single messages that are above the previous 2GiB limit. This applies to the direct usage of ESMF_VM communication calls, but also extends to ESMF_RouteHandle based communication methods: Regrid, Redist, Halo, and SMM. User applications have been observed to push over the previous 32-bit message limit when each PET addresses a substantial amount of memory and calls into the ESMF communication methods. Before this fix, a user could experience application crashes in the MPI layer due to ESMF attempting to send messages that exceed the 32-bit size limit.
+
+<li>An issue inside ESMF_Info was fixed in which the data type and precision of attributes was not properly set when querying for an attribute through ESMF_InfoGet(). This led to a downstream issue of writing NetCDF attributes with a precision inconsistent with the attribute's precision inside the ESMF_Info object.
+
+<li>Fixed an issue in which the IO layer was incorrectly querying for the number of compute cores on a node. In some cases, the bug led to application hangs during IO operations (e.g. ArrayWrite) that span multiple nodes.
+
+<li>An issue was fixed in the IO layer that occurred when reading through PNetCDF into a destination with repeating elements (e.g. halo points). When used to read a Mesh from file, this problem caused bad coordinate values to be set in the created mesh. This in turn led to very poor performance when subsequently using the Mesh in a regrid weight generation operation.
+
+<li>The IO performance and memory requirement for the Read() operation was significantly improved by eliminating a costly check only relevant for Write() operations.
+
+<li>An issue observed under Darwin M1 systems with ESMP_Initailize() called by ESMPy was fixed.
+
+<li>The ESMPy syntax was corrected to allow for calls with property accessor Manager.local_pet.
+
+<li>The internal MOAB library included with ESMF now builds under old GCC 5.4.x.
+
+</ul>
+
+
+
+</td>
+
+<td>
+<ul>
+
+<li>Same as ESMF 8.3.0.
+</ul>
+</td>
+</tr>
+
+
 <!--ESMF_8_3_0-->
 <tr valign="top">
 <td ><a name="8_3_0"></a>
