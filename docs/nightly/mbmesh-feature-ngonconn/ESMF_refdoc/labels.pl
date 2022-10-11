@@ -66,10 +66,6 @@ $key = q/API:MeshCreateFromFile/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/API:MeshCreateFromFileOld/;
-$external_labels{$key} = "$URL/" . q|node5.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/Array:ArbHalo/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -1210,6 +1206,10 @@ $key = q/sec:TracingClocks/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:aliases/;
+$external_labels{$key} = "$URL/" . q|node2.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:bundlerest/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -1823,10 +1823,6 @@ $noresave{$key} = "$nosave";
 
 $key = q/API:MeshCreateFromFile/;
 $external_latex_labels{$key} = q|33.4.8|; 
-$noresave{$key} = "$nosave";
-
-$key = q/API:MeshCreateFromFileOld/;
-$external_latex_labels{$key} = q|33.4.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:ArbHalo/;
@@ -2837,6 +2833,10 @@ $key = q/sec:TracingClocks/;
 $external_latex_labels{$key} = q|50.2.6|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:aliases/;
+$external_latex_labels{$key} = q|6.3|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:bundlerest/;
 $external_latex_labels{$key} = q|25.3|; 
 $noresave{$key} = "$nosave";
@@ -3266,7 +3266,7 @@ $external_latex_labels{$key} = q|15.5|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:spatialclasses/;
-$external_latex_labels{$key} = q|6.5|; 
+$external_latex_labels{$key} = q|6.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:adv:create/;
