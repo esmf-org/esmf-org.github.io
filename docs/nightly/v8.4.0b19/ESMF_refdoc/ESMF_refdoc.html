@@ -1,0 +1,982 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2018 (Released Feb 1, 2018) -->
+<HTML>
+<HEAD>
+<TITLE>ESMF_refdoc</TITLE>
+<META NAME="description" CONTENT="ESMF_refdoc">
+<META NAME="keywords" CONTENT="ESMF_refdoc">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ESMF_refdoc.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html79"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html77"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html80"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html78"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+
+<P>
+
+<P>
+<DIV ALIGN="CENTER">
+<BIG CLASS="XLARGE">Earth System Modeling Framework </BIG> 
+<BR>
+<BR>
+<BR>
+<BR>
+<BIG CLASS="XLARGE"><B>ESMF Reference Manual for Fortran&nbsp;&nbsp;</B></BIG> 
+<BR>
+<BR>
+<BR>
+<BR>
+<BIG CLASS="LARGE"><B>Version 8.4.0 beta snapshot</B></BIG> 
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BIG CLASS="LARGE"><I>ESMF Joint Specification Team: V. Balaji, Byron Boville, Samson Cheung, Tom Clune, Nancy Collins, Tony Craig, Carlos Cruz, Arlindo da Silva, Cecelia DeLuca, Rosalinda de Fainchtein, Rocky Dunlap, Brian Eaton, Steve Goldhaber, Bob Hallberg, Tom Henderson, Chris Hill, Mark Iredell, Joseph Jacob, Rob Jacob, Phil Jones, Brian Kauffman, Erik Kluzek, Ben Koziol, Jay Larson, Peggy Li, Fei Liu, John Michalakes, Raffaele Montuoro, Sylvia Murphy, David Neckels, Ryan O Kuinghttons, Bob Oehmke, Chuck Panaccione, Daniel Rosen, Jim Rosinski, Mathew Rothstein, Kathy Saint, Will Sawyer, Earl Schwab, Shepard Smithline, Walter Spector, Don Stark, Max Suarez, Spencer Swift, Gerhard Theurich, Atanas Trayanov, Silverio Vasquez, Jon Wolfe, Weiyu Yang, Mike Young, Leonid Zaslavsky</I></BIG> 
+<BR>
+<BR>
+<BR>
+<BR>
+<BIG CLASS="LARGE">October 13, 2022</BIG>
+<BR>
+<BR>
+<BR>
+
+</DIV>
+
+<P>
+
+<P>
+
+
+<P>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<DIV ALIGN="CENTER">
+<B>Acknowledgements</B>
+
+</DIV>
+
+<P>
+The ESMF software is based on the contributions of a broad community.
+Below are the software packages that are included in ESMF or strongly 
+influenced our design.  We'd like to express our gratitude to the 
+developers of these codes for access to their software as well as their 
+ideas and advice.
+
+<P>
+
+<UL>
+<LI>Parallel I/O (PIO) developers at NCAR and DOE Laboratories for their 
+excellent work on this package and their help in making it work with ESMF
+
+<P>
+</LI>
+<LI>The Spherical Coordinate Remapping and Interpolation Package (SCRIP) 
+from Los Alamos, which informed the design of our regridding functionality
+
+<P>
+</LI>
+<LI>The Model Coupling Toolkit (MCT) from Argonne National Laboratory,
+on which we based our sparse matrix multiply approach to general 
+regridding
+
+<P>
+</LI>
+<LI>The Inpack configuration attributes package from NASA Goddard, 
+which was adapted for use in ESMF by members of NASA Global Modeling and 
+Assimilation group
+
+<P>
+</LI>
+<LI>The Flexible Modeling System (FMS) package from GFDL and the 
+Goddard Earth Modeling System (GEMS) from NASA Goddard, both of which 
+provided inspiration for the overall ESMF architecture 
+
+<P>
+</LI>
+<LI>The Common Component Architecture (CCA) effort within the Department
+of Energy, from which we drew many ideas about how to design components
+
+<P>
+</LI>
+<LI>The Vector Signal Image Processing Library (VSIPL) and its
+predecessors, which informed many aspects of our design, and the 
+radar system software design group at Lincoln Laboratory
+
+<P>
+</LI>
+<LI>The Portable, Extensible Toolkit for Scientific Computation (PETSc) 
+package from Argonne National Laboratories, on which we 
+based our initial makefile system
+
+<P>
+</LI>
+<LI>The Community Climate System Model (CCSM) and Weather Research and
+Forecasting (WRF) modeling groups at NCAR, who have provided valuable
+feedback on the design and implementation of the framework
+
+<P>
+</LI>
+</UL>
+
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html81"
+  HREF="node1.html">Contents</A>
+<LI><A NAME="tex2html82"
+  HREF="node2.html"><SPAN CLASS="arabic">1</SPAN> ESMF Overview</A>
+<UL>
+<LI><A NAME="tex2html83"
+  HREF="node2.html#SECTION02010000000000000000"><SPAN CLASS="arabic">1</SPAN> What is the Earth System Modeling Framework?</A>
+<LI><A NAME="tex2html84"
+  HREF="node2.html#SECTION02020000000000000000"><SPAN CLASS="arabic">2</SPAN> The ESMF Reference Manual for Fortran</A>
+<LI><A NAME="tex2html85"
+  HREF="node2.html#SECTION02030000000000000000"><SPAN CLASS="arabic">3</SPAN> How to Contact User Support and Find Additional Information</A>
+<LI><A NAME="tex2html86"
+  HREF="node2.html#SECTION02040000000000000000"><SPAN CLASS="arabic">4</SPAN> How to Submit Comments, Bug Reports, and Feature Requests</A>
+<LI><A NAME="tex2html87"
+  HREF="node2.html#SECTION02050000000000000000"><SPAN CLASS="arabic">5</SPAN> Conventions</A>
+<UL>
+<LI><A NAME="tex2html88"
+  HREF="node2.html#SECTION02051000000000000000"><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN> Typeface and Diagram Conventions</A>
+<LI><A NAME="tex2html89"
+  HREF="node2.html#SECTION02052000000000000000"><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN> Method Name and Argument Conventions</A>
+</UL>
+<LI><A NAME="tex2html90"
+  HREF="node2.html#SECTION02060000000000000000"><SPAN CLASS="arabic">6</SPAN> The ESMF Application Programming Interface</A>
+<UL>
+<LI><A NAME="tex2html91"
+  HREF="node2.html#SECTION02061000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">1</SPAN> Standard Methods and Interface Rules</A>
+<LI><A NAME="tex2html92"
+  HREF="node2.html#SECTION02062000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">2</SPAN> Deep and Shallow Classes</A>
+<LI><A NAME="tex2html93"
+  HREF="node2.html#SECTION02063000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">3</SPAN> Aliases and Named Aliases</A>
+<LI><A NAME="tex2html94"
+  HREF="node2.html#SECTION02064000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">4</SPAN> Special Methods</A>
+<LI><A NAME="tex2html95"
+  HREF="node2.html#SECTION02065000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">5</SPAN> The ESMF Data Hierarchy</A>
+<LI><A NAME="tex2html96"
+  HREF="node2.html#SECTION02066000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">6</SPAN> ESMF Spatial Classes</A>
+<LI><A NAME="tex2html97"
+  HREF="node2.html#SECTION02067000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">7</SPAN> ESMF Maps</A>
+<LI><A NAME="tex2html98"
+  HREF="node2.html#SECTION02068000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">8</SPAN> ESMF Specification Classes</A>
+<LI><A NAME="tex2html99"
+  HREF="node2.html#SECTION02069000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">9</SPAN> ESMF Utility Classes</A>
+</UL>
+<LI><A NAME="tex2html100"
+  HREF="node2.html#SECTION02070000000000000000"><SPAN CLASS="arabic">7</SPAN> Integrating ESMF into Applications</A>
+<UL>
+<LI><A NAME="tex2html101"
+  HREF="node2.html#SECTION02071000000000000000"><SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN> Using the ESMF Superstructure</A>
+</UL>
+<LI><A NAME="tex2html102"
+  HREF="node2.html#SECTION02080000000000000000"><SPAN CLASS="arabic">8</SPAN> Overall Rules and Behavior</A>
+<UL>
+<LI><A NAME="tex2html103"
+  HREF="node2.html#SECTION02081000000000000000"><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN> Return Code Handling</A>
+<LI><A NAME="tex2html104"
+  HREF="node2.html#SECTION02082000000000000000"><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">2</SPAN> Local and Global Views and Associated Conventions</A>
+<LI><A NAME="tex2html105"
+  HREF="node2.html#SECTION02083000000000000000"><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">3</SPAN> Allocation Rules</A>
+<LI><A NAME="tex2html106"
+  HREF="node2.html#SECTION02084000000000000000"><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">4</SPAN> Assignment, Equality, Copying and Comparing Objects</A>
+<LI><A NAME="tex2html107"
+  HREF="node2.html#SECTION02085000000000000000"><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">5</SPAN> Attributes</A>
+<LI><A NAME="tex2html108"
+  HREF="node2.html#SECTION02086000000000000000"><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">6</SPAN> Constants</A>
+</UL>
+<LI><A NAME="tex2html109"
+  HREF="node2.html#SECTION02090000000000000000"><SPAN CLASS="arabic">9</SPAN> Overall Design and Implementation Notes</A>
+<LI><A NAME="tex2html110"
+  HREF="node2.html#SECTION020100000000000000000"><SPAN CLASS="arabic">10</SPAN> Overall Restrictions and Future Work</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html111"
+  HREF="node3.html"><SPAN CLASS="arabic">2</SPAN> Command Line Tools</A>
+<UL>
+<LI><A NAME="tex2html112"
+  HREF="node3.html#SECTION03010000000000000000"><SPAN CLASS="arabic">11</SPAN> ESMF_PrintInfo</A>
+<UL>
+<LI><A NAME="tex2html113"
+  HREF="node3.html#SECTION03011000000000000000"><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+</UL>
+<LI><A NAME="tex2html114"
+  HREF="node3.html#SECTION03020000000000000000"><SPAN CLASS="arabic">12</SPAN> ESMF_RegridWeightGen</A>
+<UL>
+<LI><A NAME="tex2html115"
+  HREF="node3.html#SECTION03021000000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html116"
+  HREF="node3.html#SECTION03022000000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">2</SPAN> Regridding Options</A>
+<LI><A NAME="tex2html117"
+  HREF="node3.html#SECTION03023000000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">3</SPAN> Regridding Methods</A>
+<LI><A NAME="tex2html118"
+  HREF="node3.html#SECTION03024000000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">4</SPAN> Conservation</A>
+<LI><A NAME="tex2html119"
+  HREF="node3.html#SECTION03025000000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">5</SPAN> The effect of normalization options on integrals and values produced by conservative methods</A>
+<LI><A NAME="tex2html120"
+  HREF="node3.html#SECTION03026000000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">6</SPAN> Usage</A>
+<LI><A NAME="tex2html121"
+  HREF="node3.html#SECTION03027000000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">7</SPAN> Examples</A>
+<LI><A NAME="tex2html122"
+  HREF="node3.html#SECTION03028000000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">8</SPAN> Grid File Formats</A>
+<LI><A NAME="tex2html123"
+  HREF="node3.html#SECTION03029000000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">9</SPAN> Regrid Weight File Format</A>
+<LI><A NAME="tex2html124"
+  HREF="node3.html#SECTION030210000000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">10</SPAN> ESMF_RegridWeightGenCheck</A>
+</UL>
+<LI><A NAME="tex2html125"
+  HREF="node3.html#SECTION03030000000000000000"><SPAN CLASS="arabic">13</SPAN> ESMF_Regrid</A>
+<UL>
+<LI><A NAME="tex2html126"
+  HREF="node3.html#SECTION03031000000000000000"><SPAN CLASS="arabic">13</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html127"
+  HREF="node3.html#SECTION03032000000000000000"><SPAN CLASS="arabic">13</SPAN>.<SPAN CLASS="arabic">2</SPAN> Usage</A>
+<LI><A NAME="tex2html128"
+  HREF="node3.html#SECTION03033000000000000000"><SPAN CLASS="arabic">13</SPAN>.<SPAN CLASS="arabic">3</SPAN> Examples</A>
+</UL>
+<LI><A NAME="tex2html129"
+  HREF="node3.html#SECTION03040000000000000000"><SPAN CLASS="arabic">14</SPAN> ESMF_Scrip2Unstruct</A>
+<UL>
+<LI><A NAME="tex2html130"
+  HREF="node3.html#SECTION03041000000000000000"><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html131"
+  HREF="node4.html"><SPAN CLASS="arabic">3</SPAN> Superstructure</A>
+<UL>
+<LI><A NAME="tex2html132"
+  HREF="node4.html#SECTION04010000000000000000"><SPAN CLASS="arabic">15</SPAN> Overview of Superstructure</A>
+<UL>
+<LI><A NAME="tex2html133"
+  HREF="node4.html#SECTION04011000000000000000"><SPAN CLASS="arabic">15</SPAN>.<SPAN CLASS="arabic">1</SPAN> Superstructure Classes</A>
+<LI><A NAME="tex2html134"
+  HREF="node4.html#SECTION04012000000000000000"><SPAN CLASS="arabic">15</SPAN>.<SPAN CLASS="arabic">2</SPAN> Hierarchical Creation of Components</A>
+<LI><A NAME="tex2html135"
+  HREF="node4.html#SECTION04013000000000000000"><SPAN CLASS="arabic">15</SPAN>.<SPAN CLASS="arabic">3</SPAN> Sequential and Concurrent Execution of Components</A>
+<LI><A NAME="tex2html136"
+  HREF="node4.html#SECTION04014000000000000000"><SPAN CLASS="arabic">15</SPAN>.<SPAN CLASS="arabic">4</SPAN> Intra-Component Communication</A>
+<LI><A NAME="tex2html137"
+  HREF="node4.html#SECTION04015000000000000000"><SPAN CLASS="arabic">15</SPAN>.<SPAN CLASS="arabic">5</SPAN> Data Distribution and Scoping in Components</A>
+<LI><A NAME="tex2html138"
+  HREF="node4.html#SECTION04016000000000000000"><SPAN CLASS="arabic">15</SPAN>.<SPAN CLASS="arabic">6</SPAN> Performance</A>
+<LI><A NAME="tex2html139"
+  HREF="node4.html#SECTION04017000000000000000"><SPAN CLASS="arabic">15</SPAN>.<SPAN CLASS="arabic">7</SPAN> Object Model</A>
+</UL>
+<LI><A NAME="tex2html140"
+  HREF="node4.html#SECTION04020000000000000000"><SPAN CLASS="arabic">16</SPAN> Application Driver and Required ESMF Methods</A>
+<UL>
+<LI><A NAME="tex2html141"
+  HREF="node4.html#SECTION04021000000000000000"><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html142"
+  HREF="node4.html#SECTION04022000000000000000"><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html143"
+  HREF="node4.html#SECTION04023000000000000000"><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html144"
+  HREF="node4.html#SECTION04024000000000000000"><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">4</SPAN> Required ESMF Methods</A>
+</UL>
+<LI><A NAME="tex2html145"
+  HREF="node4.html#SECTION04030000000000000000"><SPAN CLASS="arabic">17</SPAN> GridComp Class</A>
+<UL>
+<LI><A NAME="tex2html146"
+  HREF="node4.html#SECTION04031000000000000000"><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html147"
+  HREF="node4.html#SECTION04032000000000000000"><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html148"
+  HREF="node4.html#SECTION04033000000000000000"><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html149"
+  HREF="node4.html#SECTION04034000000000000000"><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html150"
+  HREF="node4.html#SECTION04040000000000000000"><SPAN CLASS="arabic">18</SPAN> CplComp Class</A>
+<UL>
+<LI><A NAME="tex2html151"
+  HREF="node4.html#SECTION04041000000000000000"><SPAN CLASS="arabic">18</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html152"
+  HREF="node4.html#SECTION04042000000000000000"><SPAN CLASS="arabic">18</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html153"
+  HREF="node4.html#SECTION04043000000000000000"><SPAN CLASS="arabic">18</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html154"
+  HREF="node4.html#SECTION04044000000000000000"><SPAN CLASS="arabic">18</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html155"
+  HREF="node4.html#SECTION04050000000000000000"><SPAN CLASS="arabic">19</SPAN> SciComp Class</A>
+<UL>
+<LI><A NAME="tex2html156"
+  HREF="node4.html#SECTION04051000000000000000"><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html157"
+  HREF="node4.html#SECTION04052000000000000000"><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html158"
+  HREF="node4.html#SECTION04053000000000000000"><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html159"
+  HREF="node4.html#SECTION04054000000000000000"><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html160"
+  HREF="node4.html#SECTION04060000000000000000"><SPAN CLASS="arabic">20</SPAN> Fault-tolerant Component Tunnel</A>
+<UL>
+<LI><A NAME="tex2html161"
+  HREF="node4.html#SECTION04061000000000000000"><SPAN CLASS="arabic">20</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html162"
+  HREF="node4.html#SECTION04062000000000000000"><SPAN CLASS="arabic">20</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html163"
+  HREF="node4.html#SECTION04063000000000000000"><SPAN CLASS="arabic">20</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+</UL>
+<LI><A NAME="tex2html164"
+  HREF="node4.html#SECTION04070000000000000000"><SPAN CLASS="arabic">21</SPAN> State Class</A>
+<UL>
+<LI><A NAME="tex2html165"
+  HREF="node4.html#SECTION04071000000000000000"><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html166"
+  HREF="node4.html#SECTION04072000000000000000"><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html167"
+  HREF="node4.html#SECTION04073000000000000000"><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html168"
+  HREF="node4.html#SECTION04074000000000000000"><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html169"
+  HREF="node4.html#SECTION04075000000000000000"><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html170"
+  HREF="node4.html#SECTION04076000000000000000"><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">6</SPAN> Object Model</A>
+<LI><A NAME="tex2html171"
+  HREF="node4.html#SECTION04077000000000000000"><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">7</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html172"
+  HREF="node4.html#SECTION04080000000000000000"><SPAN CLASS="arabic">22</SPAN> Attachable Methods</A>
+<UL>
+<LI><A NAME="tex2html173"
+  HREF="node4.html#SECTION04081000000000000000"><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html174"
+  HREF="node4.html#SECTION04082000000000000000"><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html175"
+  HREF="node4.html#SECTION04083000000000000000"><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html176"
+  HREF="node4.html#SECTION04084000000000000000"><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html177"
+  HREF="node4.html#SECTION04090000000000000000"><SPAN CLASS="arabic">23</SPAN> Web Services</A>
+<UL>
+<LI><A NAME="tex2html178"
+  HREF="node4.html#SECTION04091000000000000000"><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html179"
+  HREF="node4.html#SECTION04092000000000000000"><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html180"
+  HREF="node4.html#SECTION04093000000000000000"><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html181"
+  HREF="node4.html#SECTION04094000000000000000"><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html182"
+  HREF="node5.html"><SPAN CLASS="arabic">4</SPAN> Infrastructure: Fields and Grids</A>
+<UL>
+<LI><A NAME="tex2html183"
+  HREF="node5.html#SECTION05010000000000000000"><SPAN CLASS="arabic">24</SPAN> Overview of Data Classes</A>
+<UL>
+<LI><A NAME="tex2html184"
+  HREF="node5.html#SECTION05011000000000000000"><SPAN CLASS="arabic">24</SPAN>.<SPAN CLASS="arabic">1</SPAN> Bit-for-Bit Considerations</A>
+<LI><A NAME="tex2html185"
+  HREF="node5.html#SECTION05012000000000000000"><SPAN CLASS="arabic">24</SPAN>.<SPAN CLASS="arabic">2</SPAN> Regrid</A>
+<LI><A NAME="tex2html186"
+  HREF="node5.html#SECTION05013000000000000000"><SPAN CLASS="arabic">24</SPAN>.<SPAN CLASS="arabic">3</SPAN> File-based Regrid API</A>
+<LI><A NAME="tex2html187"
+  HREF="node5.html#SECTION05014000000000000000"><SPAN CLASS="arabic">24</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+</UL>
+<LI><A NAME="tex2html188"
+  HREF="node5.html#SECTION05020000000000000000"><SPAN CLASS="arabic">25</SPAN> FieldBundle Class</A>
+<UL>
+<LI><A NAME="tex2html189"
+  HREF="node5.html#SECTION05021000000000000000"><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html190"
+  HREF="node5.html#SECTION05022000000000000000"><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html191"
+  HREF="node5.html#SECTION05023000000000000000"><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html192"
+  HREF="node5.html#SECTION05024000000000000000"><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">4</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html193"
+  HREF="node5.html#SECTION05025000000000000000"><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">5</SPAN> Class API: Basic FieldBundle Methods</A>
+</UL>
+<LI><A NAME="tex2html194"
+  HREF="node5.html#SECTION05030000000000000000"><SPAN CLASS="arabic">26</SPAN> Field Class</A>
+<UL>
+<LI><A NAME="tex2html195"
+  HREF="node5.html#SECTION05031000000000000000"><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html196"
+  HREF="node5.html#SECTION05032000000000000000"><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html197"
+  HREF="node5.html#SECTION05033000000000000000"><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html198"
+  HREF="node5.html#SECTION05034000000000000000"><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html199"
+  HREF="node5.html#SECTION05035000000000000000"><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">5</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html200"
+  HREF="node5.html#SECTION05036000000000000000"><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">6</SPAN> Class API</A>
+<LI><A NAME="tex2html201"
+  HREF="node5.html#SECTION05037000000000000000"><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">7</SPAN> Class API: Field Utilities</A>
+</UL>
+<LI><A NAME="tex2html202"
+  HREF="node5.html#SECTION05040000000000000000"><SPAN CLASS="arabic">27</SPAN> ArrayBundle Class</A>
+<UL>
+<LI><A NAME="tex2html203"
+  HREF="node5.html#SECTION05041000000000000000"><SPAN CLASS="arabic">27</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html204"
+  HREF="node5.html#SECTION05042000000000000000"><SPAN CLASS="arabic">27</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html205"
+  HREF="node5.html#SECTION05043000000000000000"><SPAN CLASS="arabic">27</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html206"
+  HREF="node5.html#SECTION05044000000000000000"><SPAN CLASS="arabic">27</SPAN>.<SPAN CLASS="arabic">4</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html207"
+  HREF="node5.html#SECTION05045000000000000000"><SPAN CLASS="arabic">27</SPAN>.<SPAN CLASS="arabic">5</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html208"
+  HREF="node5.html#SECTION05050000000000000000"><SPAN CLASS="arabic">28</SPAN> Array Class</A>
+<UL>
+<LI><A NAME="tex2html209"
+  HREF="node5.html#SECTION05051000000000000000"><SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html210"
+  HREF="node5.html#SECTION05052000000000000000"><SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html211"
+  HREF="node5.html#SECTION05053000000000000000"><SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html212"
+  HREF="node5.html#SECTION05054000000000000000"><SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">4</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html213"
+  HREF="node5.html#SECTION05055000000000000000"><SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">5</SPAN> Class API</A>
+<LI><A NAME="tex2html214"
+  HREF="node5.html#SECTION05056000000000000000"><SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">6</SPAN> Class API: DynamicMask Methods</A>
+</UL>
+<LI><A NAME="tex2html215"
+  HREF="node5.html#SECTION05060000000000000000"><SPAN CLASS="arabic">29</SPAN> LocalArray Class</A>
+<UL>
+<LI><A NAME="tex2html216"
+  HREF="node5.html#SECTION05061000000000000000"><SPAN CLASS="arabic">29</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html217"
+  HREF="node5.html#SECTION05062000000000000000"><SPAN CLASS="arabic">29</SPAN>.<SPAN CLASS="arabic">2</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html218"
+  HREF="node5.html#SECTION05063000000000000000"><SPAN CLASS="arabic">29</SPAN>.<SPAN CLASS="arabic">3</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html219"
+  HREF="node5.html#SECTION05070000000000000000"><SPAN CLASS="arabic">30</SPAN> ArraySpec Class</A>
+<UL>
+<LI><A NAME="tex2html220"
+  HREF="node5.html#SECTION05071000000000000000"><SPAN CLASS="arabic">30</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html221"
+  HREF="node5.html#SECTION05072000000000000000"><SPAN CLASS="arabic">30</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html222"
+  HREF="node5.html#SECTION05073000000000000000"><SPAN CLASS="arabic">30</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html223"
+  HREF="node5.html#SECTION05074000000000000000"><SPAN CLASS="arabic">30</SPAN>.<SPAN CLASS="arabic">4</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html224"
+  HREF="node5.html#SECTION05075000000000000000"><SPAN CLASS="arabic">30</SPAN>.<SPAN CLASS="arabic">5</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html225"
+  HREF="node5.html#SECTION05080000000000000000"><SPAN CLASS="arabic">31</SPAN> Grid Class</A>
+<UL>
+<LI><A NAME="tex2html226"
+  HREF="node5.html#SECTION05081000000000000000"><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html227"
+  HREF="node5.html#SECTION05082000000000000000"><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html228"
+  HREF="node5.html#SECTION05083000000000000000"><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html229"
+  HREF="node5.html#SECTION05084000000000000000"><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html230"
+  HREF="node5.html#SECTION05085000000000000000"><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">5</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html231"
+  HREF="node5.html#SECTION05086000000000000000"><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">6</SPAN> Class API: General Grid Methods</A>
+<LI><A NAME="tex2html232"
+  HREF="node5.html#SECTION05087000000000000000"><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">7</SPAN> Class API: StaggerLoc Methods</A>
+</UL>
+<LI><A NAME="tex2html233"
+  HREF="node5.html#SECTION05090000000000000000"><SPAN CLASS="arabic">32</SPAN> LocStream Class</A>
+<UL>
+<LI><A NAME="tex2html234"
+  HREF="node5.html#SECTION05091000000000000000"><SPAN CLASS="arabic">32</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html235"
+  HREF="node5.html#SECTION05092000000000000000"><SPAN CLASS="arabic">32</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html236"
+  HREF="node5.html#SECTION05093000000000000000"><SPAN CLASS="arabic">32</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html237"
+  HREF="node5.html#SECTION05094000000000000000"><SPAN CLASS="arabic">32</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html238"
+  HREF="node5.html#SECTION050100000000000000000"><SPAN CLASS="arabic">33</SPAN> Mesh Class</A>
+<UL>
+<LI><A NAME="tex2html239"
+  HREF="node5.html#SECTION050101000000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html240"
+  HREF="node5.html#SECTION050102000000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html241"
+  HREF="node5.html#SECTION050103000000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html242"
+  HREF="node5.html#SECTION050104000000000000000"><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html243"
+  HREF="node5.html#SECTION050110000000000000000"><SPAN CLASS="arabic">34</SPAN> XGrid Class</A>
+<UL>
+<LI><A NAME="tex2html244"
+  HREF="node5.html#SECTION050111000000000000000"><SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html245"
+  HREF="node5.html#SECTION050112000000000000000"><SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html246"
+  HREF="node5.html#SECTION050113000000000000000"><SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html247"
+  HREF="node5.html#SECTION050114000000000000000"><SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html248"
+  HREF="node5.html#SECTION050115000000000000000"><SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">5</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html249"
+  HREF="node5.html#SECTION050116000000000000000"><SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">6</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html250"
+  HREF="node5.html#SECTION050120000000000000000"><SPAN CLASS="arabic">35</SPAN> DistGrid Class</A>
+<UL>
+<LI><A NAME="tex2html251"
+  HREF="node5.html#SECTION050121000000000000000"><SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html252"
+  HREF="node5.html#SECTION050122000000000000000"><SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html253"
+  HREF="node5.html#SECTION050123000000000000000"><SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html254"
+  HREF="node5.html#SECTION050124000000000000000"><SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html255"
+  HREF="node5.html#SECTION050125000000000000000"><SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">5</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html256"
+  HREF="node5.html#SECTION050126000000000000000"><SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">6</SPAN> Class API</A>
+<LI><A NAME="tex2html257"
+  HREF="node5.html#SECTION050127000000000000000"><SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">7</SPAN> Class API: DistGridConnection Methods</A>
+<LI><A NAME="tex2html258"
+  HREF="node5.html#SECTION050128000000000000000"><SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">8</SPAN> Class API: DistGridRegDecomp Methods</A>
+</UL>
+<LI><A NAME="tex2html259"
+  HREF="node5.html#SECTION050130000000000000000"><SPAN CLASS="arabic">36</SPAN> RouteHandle Class</A>
+<UL>
+<LI><A NAME="tex2html260"
+  HREF="node5.html#SECTION050131000000000000000"><SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html261"
+  HREF="node5.html#SECTION050132000000000000000"><SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html262"
+  HREF="node5.html#SECTION050133000000000000000"><SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html263"
+  HREF="node5.html#SECTION050134000000000000000"><SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">4</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html264"
+  HREF="node5.html#SECTION050135000000000000000"><SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">5</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html265"
+  HREF="node5.html#SECTION050140000000000000000"><SPAN CLASS="arabic">37</SPAN> I/O Capability</A>
+<UL>
+<LI><A NAME="tex2html266"
+  HREF="node5.html#SECTION050141000000000000000"><SPAN CLASS="arabic">37</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html267"
+  HREF="node5.html#SECTION050142000000000000000"><SPAN CLASS="arabic">37</SPAN>.<SPAN CLASS="arabic">2</SPAN> Data I/O</A>
+<LI><A NAME="tex2html268"
+  HREF="node5.html#SECTION050143000000000000000"><SPAN CLASS="arabic">37</SPAN>.<SPAN CLASS="arabic">3</SPAN> Data formats</A>
+<LI><A NAME="tex2html269"
+  HREF="node5.html#SECTION050144000000000000000"><SPAN CLASS="arabic">37</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html270"
+  HREF="node5.html#SECTION050145000000000000000"><SPAN CLASS="arabic">37</SPAN>.<SPAN CLASS="arabic">5</SPAN> Design and Implementation Notes</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html271"
+  HREF="node6.html"><SPAN CLASS="arabic">5</SPAN> Infrastructure: Utilities</A>
+<UL>
+<LI><A NAME="tex2html272"
+  HREF="node6.html#SECTION06010000000000000000"><SPAN CLASS="arabic">38</SPAN> Overview of Infrastructure Utility Classes</A>
+<LI><A NAME="tex2html273"
+  HREF="node6.html#SECTION06020000000000000000"><SPAN CLASS="arabic">39</SPAN> Info Class (Object Attributes)</A>
+<UL>
+<LI><A NAME="tex2html274"
+  HREF="node6.html#SECTION06021000000000000000"><SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">1</SPAN> Migrating from Attribute</A>
+<LI><A NAME="tex2html275"
+  HREF="node6.html#SECTION06022000000000000000"><SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">2</SPAN> Key Format Overview</A>
+<LI><A NAME="tex2html276"
+  HREF="node6.html#SECTION06023000000000000000"><SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">3</SPAN> Usage and Examples</A>
+<LI><A NAME="tex2html277"
+  HREF="node6.html#SECTION06024000000000000000"><SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html278"
+  HREF="node6.html#SECTION06030000000000000000"><SPAN CLASS="arabic">40</SPAN> Time Manager Utility</A>
+<UL>
+<LI><A NAME="tex2html279"
+  HREF="node6.html#SECTION06031000000000000000"><SPAN CLASS="arabic">40</SPAN>.<SPAN CLASS="arabic">1</SPAN> Time Manager Classes</A>
+<LI><A NAME="tex2html280"
+  HREF="node6.html#SECTION06032000000000000000"><SPAN CLASS="arabic">40</SPAN>.<SPAN CLASS="arabic">2</SPAN> Calendar</A>
+<LI><A NAME="tex2html281"
+  HREF="node6.html#SECTION06033000000000000000"><SPAN CLASS="arabic">40</SPAN>.<SPAN CLASS="arabic">3</SPAN> Time Instants and TimeIntervals</A>
+<LI><A NAME="tex2html282"
+  HREF="node6.html#SECTION06034000000000000000"><SPAN CLASS="arabic">40</SPAN>.<SPAN CLASS="arabic">4</SPAN> Clocks and Alarms</A>
+<LI><A NAME="tex2html283"
+  HREF="node6.html#SECTION06035000000000000000"><SPAN CLASS="arabic">40</SPAN>.<SPAN CLASS="arabic">5</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html284"
+  HREF="node6.html#SECTION06036000000000000000"><SPAN CLASS="arabic">40</SPAN>.<SPAN CLASS="arabic">6</SPAN> Object Model</A>
+</UL>
+<LI><A NAME="tex2html285"
+  HREF="node6.html#SECTION06040000000000000000"><SPAN CLASS="arabic">41</SPAN> Calendar Class</A>
+<UL>
+<LI><A NAME="tex2html286"
+  HREF="node6.html#SECTION06041000000000000000"><SPAN CLASS="arabic">41</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html287"
+  HREF="node6.html#SECTION06042000000000000000"><SPAN CLASS="arabic">41</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html288"
+  HREF="node6.html#SECTION06043000000000000000"><SPAN CLASS="arabic">41</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html289"
+  HREF="node6.html#SECTION06044000000000000000"><SPAN CLASS="arabic">41</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html290"
+  HREF="node6.html#SECTION06045000000000000000"><SPAN CLASS="arabic">41</SPAN>.<SPAN CLASS="arabic">5</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html291"
+  HREF="node6.html#SECTION06050000000000000000"><SPAN CLASS="arabic">42</SPAN> Time Class</A>
+<UL>
+<LI><A NAME="tex2html292"
+  HREF="node6.html#SECTION06051000000000000000"><SPAN CLASS="arabic">42</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html293"
+  HREF="node6.html#SECTION06052000000000000000"><SPAN CLASS="arabic">42</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html294"
+  HREF="node6.html#SECTION06053000000000000000"><SPAN CLASS="arabic">42</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html295"
+  HREF="node6.html#SECTION06054000000000000000"><SPAN CLASS="arabic">42</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html296"
+  HREF="node6.html#SECTION06060000000000000000"><SPAN CLASS="arabic">43</SPAN> TimeInterval Class</A>
+<UL>
+<LI><A NAME="tex2html297"
+  HREF="node6.html#SECTION06061000000000000000"><SPAN CLASS="arabic">43</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html298"
+  HREF="node6.html#SECTION06062000000000000000"><SPAN CLASS="arabic">43</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html299"
+  HREF="node6.html#SECTION06063000000000000000"><SPAN CLASS="arabic">43</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html300"
+  HREF="node6.html#SECTION06064000000000000000"><SPAN CLASS="arabic">43</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html301"
+  HREF="node6.html#SECTION06070000000000000000"><SPAN CLASS="arabic">44</SPAN> Clock Class</A>
+<UL>
+<LI><A NAME="tex2html302"
+  HREF="node6.html#SECTION06071000000000000000"><SPAN CLASS="arabic">44</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html303"
+  HREF="node6.html#SECTION06072000000000000000"><SPAN CLASS="arabic">44</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html304"
+  HREF="node6.html#SECTION06073000000000000000"><SPAN CLASS="arabic">44</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html305"
+  HREF="node6.html#SECTION06074000000000000000"><SPAN CLASS="arabic">44</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html306"
+  HREF="node6.html#SECTION06075000000000000000"><SPAN CLASS="arabic">44</SPAN>.<SPAN CLASS="arabic">5</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html307"
+  HREF="node6.html#SECTION06080000000000000000"><SPAN CLASS="arabic">45</SPAN> Alarm Class</A>
+<UL>
+<LI><A NAME="tex2html308"
+  HREF="node6.html#SECTION06081000000000000000"><SPAN CLASS="arabic">45</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html309"
+  HREF="node6.html#SECTION06082000000000000000"><SPAN CLASS="arabic">45</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html310"
+  HREF="node6.html#SECTION06083000000000000000"><SPAN CLASS="arabic">45</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html311"
+  HREF="node6.html#SECTION06084000000000000000"><SPAN CLASS="arabic">45</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html312"
+  HREF="node6.html#SECTION06085000000000000000"><SPAN CLASS="arabic">45</SPAN>.<SPAN CLASS="arabic">5</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html313"
+  HREF="node6.html#SECTION06086000000000000000"><SPAN CLASS="arabic">45</SPAN>.<SPAN CLASS="arabic">6</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html314"
+  HREF="node6.html#SECTION06090000000000000000"><SPAN CLASS="arabic">46</SPAN> Config Class</A>
+<UL>
+<LI><A NAME="tex2html315"
+  HREF="node6.html#SECTION06091000000000000000"><SPAN CLASS="arabic">46</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html316"
+  HREF="node6.html#SECTION06092000000000000000"><SPAN CLASS="arabic">46</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html317"
+  HREF="node6.html#SECTION06093000000000000000"><SPAN CLASS="arabic">46</SPAN>.<SPAN CLASS="arabic">3</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html318"
+  HREF="node6.html#SECTION060100000000000000000"><SPAN CLASS="arabic">47</SPAN> Log Class</A>
+<UL>
+<LI><A NAME="tex2html319"
+  HREF="node6.html#SECTION060101000000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html320"
+  HREF="node6.html#SECTION060102000000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html321"
+  HREF="node6.html#SECTION060103000000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html322"
+  HREF="node6.html#SECTION060104000000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html323"
+  HREF="node6.html#SECTION060105000000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">5</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html324"
+  HREF="node6.html#SECTION060106000000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">6</SPAN> Object Model</A>
+<LI><A NAME="tex2html325"
+  HREF="node6.html#SECTION060107000000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">7</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html326"
+  HREF="node6.html#SECTION060110000000000000000"><SPAN CLASS="arabic">48</SPAN> DELayout Class</A>
+<UL>
+<LI><A NAME="tex2html327"
+  HREF="node6.html#SECTION060111000000000000000"><SPAN CLASS="arabic">48</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html328"
+  HREF="node6.html#SECTION060112000000000000000"><SPAN CLASS="arabic">48</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html329"
+  HREF="node6.html#SECTION060113000000000000000"><SPAN CLASS="arabic">48</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html330"
+  HREF="node6.html#SECTION060114000000000000000"><SPAN CLASS="arabic">48</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html331"
+  HREF="node6.html#SECTION060115000000000000000"><SPAN CLASS="arabic">48</SPAN>.<SPAN CLASS="arabic">5</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html332"
+  HREF="node6.html#SECTION060116000000000000000"><SPAN CLASS="arabic">48</SPAN>.<SPAN CLASS="arabic">6</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html333"
+  HREF="node6.html#SECTION060120000000000000000"><SPAN CLASS="arabic">49</SPAN> VM Class</A>
+<UL>
+<LI><A NAME="tex2html334"
+  HREF="node6.html#SECTION060121000000000000000"><SPAN CLASS="arabic">49</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html335"
+  HREF="node6.html#SECTION060122000000000000000"><SPAN CLASS="arabic">49</SPAN>.<SPAN CLASS="arabic">2</SPAN> Constants</A>
+<LI><A NAME="tex2html336"
+  HREF="node6.html#SECTION060123000000000000000"><SPAN CLASS="arabic">49</SPAN>.<SPAN CLASS="arabic">3</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html337"
+  HREF="node6.html#SECTION060124000000000000000"><SPAN CLASS="arabic">49</SPAN>.<SPAN CLASS="arabic">4</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html338"
+  HREF="node6.html#SECTION060125000000000000000"><SPAN CLASS="arabic">49</SPAN>.<SPAN CLASS="arabic">5</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html339"
+  HREF="node6.html#SECTION060126000000000000000"><SPAN CLASS="arabic">49</SPAN>.<SPAN CLASS="arabic">6</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html340"
+  HREF="node6.html#SECTION060130000000000000000"><SPAN CLASS="arabic">50</SPAN> Profiling and Tracing</A>
+<UL>
+<LI><A NAME="tex2html341"
+  HREF="node6.html#SECTION060131000000000000000"><SPAN CLASS="arabic">50</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html342"
+  HREF="node6.html#SECTION060132000000000000000"><SPAN CLASS="arabic">50</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html343"
+  HREF="node6.html#SECTION060133000000000000000"><SPAN CLASS="arabic">50</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
+<LI><A NAME="tex2html344"
+  HREF="node6.html#SECTION060134000000000000000"><SPAN CLASS="arabic">50</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
+</UL>
+<LI><A NAME="tex2html345"
+  HREF="node6.html#SECTION060140000000000000000"><SPAN CLASS="arabic">51</SPAN> Fortran I/O and System Utilities</A>
+<UL>
+<LI><A NAME="tex2html346"
+  HREF="node6.html#SECTION060141000000000000000"><SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
+<LI><A NAME="tex2html347"
+  HREF="node6.html#SECTION060142000000000000000"><SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
+<LI><A NAME="tex2html348"
+  HREF="node6.html#SECTION060143000000000000000"><SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">3</SPAN> Design and Implementation Notes</A>
+<LI><A NAME="tex2html349"
+  HREF="node6.html#SECTION060144000000000000000"><SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">4</SPAN> Utility API</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html350"
+  HREF="node7.html"><SPAN CLASS="arabic">6</SPAN> References</A>
+<LI><A NAME="tex2html351"
+  HREF="node8.html">Bibliography</A>
+<LI><A NAME="tex2html352"
+  HREF="node9.html"><SPAN CLASS="arabic">7</SPAN> Appendices</A>
+<UL>
+<LI><A NAME="tex2html353"
+  HREF="node9.html#SECTION09010000000000000000"><SPAN CLASS="arabic">52</SPAN> Appendix A:  Master List of Constants</A>
+<UL>
+<LI><A NAME="tex2html354"
+  HREF="node9.html#SECTION09011000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">1</SPAN> ESMF_ALARMLIST</A>
+<LI><A NAME="tex2html355"
+  HREF="node9.html#SECTION09012000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">2</SPAN> ESMF_DIM_ARB</A>
+<LI><A NAME="tex2html356"
+  HREF="node9.html#SECTION09013000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">3</SPAN> ESMF_ATTCOPY</A>
+<LI><A NAME="tex2html357"
+  HREF="node9.html#SECTION09014000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">4</SPAN> ESMF_ATTGETCOUNT</A>
+<LI><A NAME="tex2html358"
+  HREF="node9.html#SECTION09015000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">5</SPAN> ESMF_ATTNEST</A>
+<LI><A NAME="tex2html359"
+  HREF="node9.html#SECTION09016000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">6</SPAN> ESMF_ATTRECONCILE</A>
+<LI><A NAME="tex2html360"
+  HREF="node9.html#SECTION09017000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">7</SPAN> ESMF_ATTWRITE</A>
+<LI><A NAME="tex2html361"
+  HREF="node9.html#SECTION09018000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">8</SPAN> ESMF_CALKIND</A>
+<LI><A NAME="tex2html362"
+  HREF="node9.html#SECTION09019000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">9</SPAN> ESMF_COMPTYPE</A>
+<LI><A NAME="tex2html363"
+  HREF="node9.html#SECTION090110000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">10</SPAN> ESMF_CONTEXT</A>
+<LI><A NAME="tex2html364"
+  HREF="node9.html#SECTION090111000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">11</SPAN> ESMF_COORDSYS</A>
+<LI><A NAME="tex2html365"
+  HREF="node9.html#SECTION090112000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">12</SPAN> ESMF_DATACOPY</A>
+<LI><A NAME="tex2html366"
+  HREF="node9.html#SECTION090113000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">13</SPAN> ESMF_DECOMP</A>
+<LI><A NAME="tex2html367"
+  HREF="node9.html#SECTION090114000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">14</SPAN> ESMF_DIRECTION</A>
+<LI><A NAME="tex2html368"
+  HREF="node9.html#SECTION090115000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">15</SPAN> ESMF_DISTGRIDMATCH</A>
+<LI><A NAME="tex2html369"
+  HREF="node9.html#SECTION090116000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">16</SPAN> ESMF_END</A>
+<LI><A NAME="tex2html370"
+  HREF="node9.html#SECTION090117000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">17</SPAN> ESMF_EXTRAPMETHOD</A>
+<LI><A NAME="tex2html371"
+  HREF="node9.html#SECTION090118000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">18</SPAN> ESMF_FIELDSTATUS</A>
+<LI><A NAME="tex2html372"
+  HREF="node9.html#SECTION090119000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">19</SPAN> ESMF_FILEFORMAT</A>
+<LI><A NAME="tex2html373"
+  HREF="node9.html#SECTION090120000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">20</SPAN> ESMF_FILEMODE</A>
+<LI><A NAME="tex2html374"
+  HREF="node9.html#SECTION090121000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">21</SPAN> ESMF_FILESTATUS</A>
+<LI><A NAME="tex2html375"
+  HREF="node9.html#SECTION090122000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">22</SPAN> ESMF_GEOMTYPE</A>
+<LI><A NAME="tex2html376"
+  HREF="node9.html#SECTION090123000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">23</SPAN> ESMF_GRIDCONN</A>
+<LI><A NAME="tex2html377"
+  HREF="node9.html#SECTION090124000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">24</SPAN> ESMF_GRIDITEM</A>
+<LI><A NAME="tex2html378"
+  HREF="node9.html#SECTION090125000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">25</SPAN> ESMF_GRIDMATCH</A>
+<LI><A NAME="tex2html379"
+  HREF="node9.html#SECTION090126000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">26</SPAN> ESMF_GRIDSTATUS</A>
+<LI><A NAME="tex2html380"
+  HREF="node9.html#SECTION090127000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">27</SPAN> ESMF_INDEX</A>
+<LI><A NAME="tex2html381"
+  HREF="node9.html#SECTION090128000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">28</SPAN> ESMF_IOFMT</A>
+<LI><A NAME="tex2html382"
+  HREF="node9.html#SECTION090129000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">29</SPAN> ESMF_IO_NETCDF_PRESENT</A>
+<LI><A NAME="tex2html383"
+  HREF="node9.html#SECTION090130000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">30</SPAN> ESMF_IO_PIO_PRESENT</A>
+<LI><A NAME="tex2html384"
+  HREF="node9.html#SECTION090131000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">31</SPAN> ESMF_IO_PNETCDF_PRESENT</A>
+<LI><A NAME="tex2html385"
+  HREF="node9.html#SECTION090132000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">32</SPAN> ESMF_ITEMORDER</A>
+<LI><A NAME="tex2html386"
+  HREF="node9.html#SECTION090133000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">33</SPAN> ESMF_KIND</A>
+<LI><A NAME="tex2html387"
+  HREF="node9.html#SECTION090134000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">34</SPAN> ESMF_LINETYPE</A>
+<LI><A NAME="tex2html388"
+  HREF="node9.html#SECTION090135000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">35</SPAN> ESMF_LOGERR</A>
+<LI><A NAME="tex2html389"
+  HREF="node9.html#SECTION090136000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">36</SPAN> ESMF_LOGKIND</A>
+<LI><A NAME="tex2html390"
+  HREF="node9.html#SECTION090137000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">37</SPAN> ESMF_LOGMSG</A>
+<LI><A NAME="tex2html391"
+  HREF="node9.html#SECTION090138000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">38</SPAN> ESMF_MESHELEMTYPE</A>
+<LI><A NAME="tex2html392"
+  HREF="node9.html#SECTION090139000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">39</SPAN> ESMF_MESHLOC</A>
+<LI><A NAME="tex2html393"
+  HREF="node9.html#SECTION090140000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">40</SPAN> ESMF_MESHOP</A>
+<LI><A NAME="tex2html394"
+  HREF="node9.html#SECTION090141000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">41</SPAN> ESMF_MESHSTATUS</A>
+<LI><A NAME="tex2html395"
+  HREF="node9.html#SECTION090142000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">42</SPAN> ESMF_METHOD</A>
+<LI><A NAME="tex2html396"
+  HREF="node9.html#SECTION090143000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">43</SPAN> ESMF_NORMTYPE</A>
+<LI><A NAME="tex2html397"
+  HREF="node9.html#SECTION090144000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">44</SPAN> ESMF_PIN</A>
+<LI><A NAME="tex2html398"
+  HREF="node9.html#SECTION090145000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">45</SPAN> ESMF_POLEKIND</A>
+<LI><A NAME="tex2html399"
+  HREF="node9.html#SECTION090146000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">46</SPAN> ESMF_POLEMETHOD</A>
+<LI><A NAME="tex2html400"
+  HREF="node9.html#SECTION090147000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">47</SPAN> ESMF_REDUCE</A>
+<LI><A NAME="tex2html401"
+  HREF="node9.html#SECTION090148000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">48</SPAN> ESMF_REGION</A>
+<LI><A NAME="tex2html402"
+  HREF="node9.html#SECTION090149000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">49</SPAN> ESMF_REGRIDMETHOD</A>
+<LI><A NAME="tex2html403"
+  HREF="node9.html#SECTION090150000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">50</SPAN> ESMF_REGRIDSTATUS</A>
+<LI><A NAME="tex2html404"
+  HREF="node9.html#SECTION090151000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">51</SPAN> ESMF_ROUTESYNC</A>
+<LI><A NAME="tex2html405"
+  HREF="node9.html#SECTION090152000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">52</SPAN> ESMF_SERVICEREPLY</A>
+<LI><A NAME="tex2html406"
+  HREF="node9.html#SECTION090153000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">53</SPAN> ESMF_STAGGERLOC</A>
+<LI><A NAME="tex2html407"
+  HREF="node9.html#SECTION090154000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">54</SPAN> ESMF_STARTREGION</A>
+<LI><A NAME="tex2html408"
+  HREF="node9.html#SECTION090155000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">55</SPAN> ESMF_STATEINTENT</A>
+<LI><A NAME="tex2html409"
+  HREF="node9.html#SECTION090156000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">56</SPAN> ESMF_STATEITEM</A>
+<LI><A NAME="tex2html410"
+  HREF="node9.html#SECTION090157000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">57</SPAN> ESMF_SYNC</A>
+<LI><A NAME="tex2html411"
+  HREF="node9.html#SECTION090158000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">58</SPAN> ESMF_TERMORDER</A>
+<LI><A NAME="tex2html412"
+  HREF="node9.html#SECTION090159000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">59</SPAN> ESMF_TYPEKIND</A>
+<LI><A NAME="tex2html413"
+  HREF="node9.html#SECTION090160000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">60</SPAN> ESMF_UNMAPPEDACTION</A>
+<LI><A NAME="tex2html414"
+  HREF="node9.html#SECTION090161000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">61</SPAN> ESMF_VERSION</A>
+<LI><A NAME="tex2html415"
+  HREF="node9.html#SECTION090162000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">62</SPAN> ESMF_VMEPOCH</A>
+<LI><A NAME="tex2html416"
+  HREF="node9.html#SECTION090163000000000000000"><SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">63</SPAN> ESMF_XGRIDSIDE</A>
+</UL>
+<LI><A NAME="tex2html417"
+  HREF="node9.html#SECTION09020000000000000000"><SPAN CLASS="arabic">53</SPAN> Appendix B:  A Brief Introduction to UML</A>
+<LI><A NAME="tex2html418"
+  HREF="node9.html#SECTION09030000000000000000"><SPAN CLASS="arabic">54</SPAN> Appendix C:  ESMF Error Return Codes</A>
+<LI><A NAME="tex2html419"
+  HREF="node9.html#SECTION09040000000000000000"><SPAN CLASS="arabic">55</SPAN> Appendix D: Attribute Class Legacy API</A>
+<UL>
+<LI><A NAME="tex2html420"
+  HREF="node9.html#SECTION09041000000000000000"><SPAN CLASS="arabic">55</SPAN>.<SPAN CLASS="arabic">1</SPAN> Constants</A>
+<LI><A NAME="tex2html421"
+  HREF="node9.html#SECTION09042000000000000000"><SPAN CLASS="arabic">55</SPAN>.<SPAN CLASS="arabic">2</SPAN> Class API</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html422"
+  HREF="node10.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html79"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html77"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html80"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html78"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<A HREF=mailto:esmf_support@ucar.edu>esmf_support@ucar.edu</A>
+</ADDRESS>
+</BODY>
+</HTML>
