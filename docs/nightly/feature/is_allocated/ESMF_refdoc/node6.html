@@ -3463,7 +3463,7 @@ temporary or multiple Clocks and Alarms.  Sections&nbsp;<A HREF="#sec:Clock">44.
 <BR><P></P>
 <DIV ALIGN="CENTER">
 
-<A NAME="76723"></A>
+<A NAME="76751"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 4:</STRONG>
 Specifiers for Times and TimeIntervals</CAPTION>
@@ -18757,7 +18757,7 @@ There is no garantee at this point that the data transfer has actually
    started, let along completed. For this reason it is unsafe to overwrite
    the data in the <TT>localData</TT> array on <TT>src</TT> PET, or to access
    the <TT>localData</TT> array on <TT>dst</TT> PET. However both PETs are free
-   to engage in other work while the data transfer my proceed concurrently. 
+   to engage in other work while the data transfer may proceed concurrently. 
 
 <P>
 <PRE>
@@ -18893,13 +18893,12 @@ Finally the <TT>commhandle</TT> elements on the <TT>src</TT> side need to be
 
 <P>
 For cases where multiple messages are being sent between the same
-   <TT>src</TT>-<TT>dst</TT>
-   pairs using non-blocking communications, performance can often
-   be improved by aggregating individual messages. An extra buffer
-   is needed to hold the collected messages, resulting in only a single data
+   <TT>src</TT>-<TT>dst</TT> pairs using non-blocking communications, performance
+   can often be improved by aggregating individual messages. An extra buffer
+   is needed to hold the collected messages. The result is a single data
    transfer for each PET pair. In many cases this can significantly reduce the
    time spent in communications. The ESMF VM class provides access to such a
-   buffer technique through the <TT>ESMF_VMEpoch</TT> API.
+   buffering technique through the <TT>ESMF_VMEpoch</TT> API.
 
 <P>
 The <TT>ESMF_VMEpoch</TT> API consists of two interfaces:
@@ -18907,7 +18906,7 @@ The <TT>ESMF_VMEpoch</TT> API consists of two interfaces:
    epoch, the user specifies the type of epoch that is to be entered. Currently
    only <TT>ESMF_VMEPOCH_BUFFER</TT> is available. Inside this epoch,
    non-blocking communication calls are aggregated and data transfers on the 
-   <TT>src</TT> side are not issued until the epoch is exited. On the <TT>dst side</TT>
+   <TT>src</TT> side are not issued until the epoch is exited. On the <TT>dst</TT> side
    a single data transfer is received, and then divided over the actual
    non-blocking receive calls.
 
@@ -21374,7 +21373,7 @@ The arguments are:
       syncflag, commhandle, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>      type(ESMF_VM),                     intent(in)            :: vm
-      &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target,  intent(out)           :: recvData(:)  
+      &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target,  intent(out)           :: recvData(:)
       integer,                           intent(in)            :: count
       integer,                           intent(in)            :: srcPet
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -21775,7 +21774,7 @@ The arguments are:
       syncflag, commhandle, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>      type(ESMF_VM),                    intent(in)            :: vm
-      &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)            :: sendData(:)  
+      &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)            :: sendData(:)
       integer,                          intent(in)            :: count
       integer,                          intent(in)            :: dstPet
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -21863,10 +21862,10 @@ The arguments are:
       recvData, recvCount, srcPet, syncflag, commhandle, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>      type(ESMF_VM),                    intent(in)            :: vm
-      &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)            :: sendData(:)  
+      &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)            :: sendData(:)
       integer,                          intent(in)            :: sendCount
       integer,                          intent(in)            :: dstPet
-      &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(out)           :: recvData(:)  
+      &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(out)           :: recvData(:)
       integer,                          intent(in)            :: recvCount
       integer,                          intent(in)            :: srcPet
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -22183,9 +22182,9 @@ different formats:
 </LI>
 <LI>in a single summary text file that aggregates timings over multiple PETs
 </LI>
-<LI>in a binary format for import into <A NAME="tex2html61"
-  HREF="https://cupid.readthedocs.io/en/latest/">Cupid</A>
-for detailed analysis
+<LI>in a binary format for import into the <A NAME="tex2html61"
+  HREF="https://github.com/esmf-org/esmf-profiler">esmf-profiler</A>
+for profile visualization
 </LI>
 </UL>
 
@@ -22253,9 +22252,9 @@ for working with all CTF traces.
 
 <UL>
 <LI><A NAME="tex2html63"
-  HREF="https://cupid.readthedocs.io/en/latest/">Cupid</A>
-is a plugin for the Eclipse Integrated Development Environment
-  that can read and analyze ESMF traces.
+  HREF="https://github.com/esmf-org/esmf-profiler">esmf-profiler</A>
+is a tool that ingests traces from an ESMF application and generates
+  performance profile plots.
 </LI>
 <LI><A NAME="tex2html64"
   HREF="http://tracecompass.org/">TraceCompass</A>
@@ -22284,9 +22283,6 @@ are recorded with a high-precision timestamp to allow timing analyses.
 </DD>
 <DT><STRONG>region_exit</STRONG></DT>
 <DD>indicates exit from a user-defined code region
-</DD>
-<DT><STRONG>mem</STRONG></DT>
-<DD>records current memory usage information
 </DD>
 </DL>
 

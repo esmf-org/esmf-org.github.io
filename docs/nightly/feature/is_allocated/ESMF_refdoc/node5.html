@@ -1671,7 +1671,7 @@ The rest of this section further describes the various options available in ESMF
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="17170"></A>
+<DIV ALIGN="CENTER"><A NAME="17174"></A>
 <TABLE>
 <CAPTION><STRONG>Table 1:</STRONG>
 Regrid Interfaces</CAPTION>
@@ -2562,7 +2562,7 @@ The last option (<TT>polemethod=ESMF_POLEMETHOD_TEETH</TT>) does not construct a
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="17411"></A>
+<DIV ALIGN="CENTER"><A NAME="17415"></A>
 <TABLE>
 <CAPTION><STRONG>Table 2:</STRONG>
 Line Type Support by Regrid Method (* indicates the default)</CAPTION>
@@ -5792,14 +5792,15 @@ The arguments are:
 <P>
 Read field data to a FieldBundle object from file(s).
    For this API to be functional, the environment variable <TT>ESMF_PIO</TT>
-   should be set to "internal" when the ESMF library is built.
+   should be set to either "internal" or "external" when the ESMF library is built.
    Please see the section on Data I/O,&nbsp;<A HREF="#io:dataio">37.2</A>.
 
 <P>
 Limitations:
    
 <UL>
-<LI>Only single tile Arrays within Fields are supported.
+<LI>For multi-tile Fields, all Fields in the FieldBundle must contain
+   the same number of tiles.
 </LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
    
@@ -5814,7 +5815,13 @@ The arguments are:
    
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
-<DD>The name of the file from which fieldbundle data is read.
+<DD>The name of the file from which FieldBundle data is read.
+   If the FieldBundle contains multi-tile Arrays, then fileName must contain
+   exactly one instance of "#"; this is a placeholder that will be replaced
+   by the tile number, with each tile being read from a separate file. (For
+   example, for a fileName of "myfile#.nc", tile 1 will be read from
+   "myfile1.nc", tile 2 from "myfile2.nc", etc.)
+   (This handling of the fileName for multi-tile I/O is subject to change.)
    
 </DD>
 <DT><STRONG>[singleFile]</STRONG></DT>
@@ -7896,7 +7903,7 @@ The arguments are:
 
 <P>
 Write the Fields into a file. For this API to be functional,
-   the environment variable <TT>ESMF_PIO</TT> should be set to "internal"
+   the environment variable <TT>ESMF_PIO</TT> should be set to either "internal" or "external"
    when the ESMF library is built. Please see the section on
    Data I/O,&nbsp;<A HREF="#io:dataio">37.2</A>.
 
@@ -7914,7 +7921,8 @@ When <TT>convention</TT> and <TT>purpose</TT> arguments are specified, NetCDF di
 Limitations:
    
 <UL>
-<LI>Only single tile Fields are supported.
+<LI>For multi-tile Fields, all Fields in the FieldBundle must contain
+   the same number of tiles.
 </LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
    
@@ -7930,6 +7938,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the output file to which field bundle data is written.
+   If the FieldBundle contains multi-tile Arrays, then fileName must contain
+   exactly one instance of "#"; this is a placeholder that will be replaced
+   by the tile number, with each tile being written to a separate file. (For
+   example, for a fileName of "myfile#.nc", tile 1 will be written to
+   "myfile1.nc", tile 2 to "myfile2.nc", etc.)
+   (This handling of the fileName for multi-tile I/O is subject to change.)
    
 </DD>
 <DT><STRONG>[convention]</STRONG></DT>
@@ -9265,7 +9279,7 @@ This example is similar to example <A HREF="#sec:field:usage:create_2dgrid_3dptr
     is shown here.
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="24321"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="24325"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 12:</STRONG>
 Field dimension configuration from Grid, halos, and Fortran data array.</CAPTION>
@@ -16141,8 +16155,8 @@ The arguments are:
    
 </DD>
 <DT><STRONG>[dataFillScheme]</STRONG></DT>
-<DD>The fill scheme. The available options are "sincos", "one", and "const".
-   Defaults to "sincos".
+<DD>The fill scheme. The available options are "sincos", "one", "const", and
+   "random". Defaults to "sincos".
    
 </DD>
 <DT><STRONG>[const1]</STRONG></DT>
@@ -17366,15 +17380,13 @@ The arguments are:
 <P>
 Read Field data from a file and put it into an ESMF_Field object.
      For this API to be functional, the environment variable <TT>ESMF_PIO</TT>
-     should be set to "internal" when the ESMF library is built.
+     should be set to either "internal" or "external" when the ESMF library is built.
      Please see the section on Data I/O,&nbsp;<A HREF="#io:dataio">37.2</A>.
 
 <P>
 Limitations:
      
 <UL>
-<LI>Only single tile Fields are supported.
-</LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
 </LI>
@@ -17389,6 +17401,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the file from which Field data is read.
+       If the Field is a multi-tile Array, then fileName must contain
+       exactly one instance of "#"; this is a placeholder that will be replaced
+       by the tile number, with each tile being read from a separate file. (For
+       example, for a fileName of "myfile#.nc", tile 1 will be read from
+       "myfile1.nc", tile 2 from "myfile2.nc", etc.)
+       (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[variableName]</STRONG></DT>
@@ -20529,7 +20547,7 @@ The arguments are:
 
 <P>
 Write Field data into a file.  For this API to be functional, the 
-     environment variable <TT>ESMF_PIO</TT> should be set to "internal" when 
+     environment variable <TT>ESMF_PIO</TT> should be set to either "internal" or "external" when
      the ESMF library is built.  Please see the section on 
      Data I/O,&nbsp;<A HREF="#io:dataio">37.2</A>.
 
@@ -20556,8 +20574,6 @@ NetCDF attributes for the variable can also be specified.  As with dimension lab
 Limitations:
      
 <UL>
-<LI>Only single tile Fields are supported.
-</LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
 </LI>
@@ -20572,6 +20588,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the output file to which Field data is written.
+       If the Field is a multi-tile Array, then fileName must contain
+       exactly one instance of "#"; this is a placeholder that will be replaced
+       by the tile number, with each tile being written to a separate file. (For
+       example, for a fileName of "myfile#.nc", tile 1 will be written to
+       "myfile1.nc", tile 2 to "myfile2.nc", etc.)
+       (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[variableName]</STRONG></DT>
@@ -22612,14 +22634,15 @@ The arguments are:
 <P>
 Read Array data to an ArrayBundle object from file(s).
      For this API to be functional, the environment variable <TT>ESMF_PIO</TT> 
-     should be set to "internal" when the ESMF library is built.
+     should be set to either "internal" or "external" when the ESMF library is built.
      Please see the section on Data I/O,&nbsp;<A HREF="#io:dataio">37.2</A>.
 
 <P>
 Limitations:
      
 <UL>
-<LI>Only single tile Arrays are supported.
+<LI>For multi-tile Arrays, all Arrays in the ArrayBundle must contain
+       the same number of tiles.
 </LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
@@ -22635,6 +22658,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the file from which ArrayBundle data is read.
+       If the ArrayBundle contains multi-tile Arrays, then fileName must contain
+       exactly one instance of "#"; this is a placeholder that will be replaced
+       by the tile number, with each tile being read from a separate file. (For
+       example, for a fileName of "myfile#.nc", tile 1 will be read from
+       "myfile1.nc", tile 2 from "myfile2.nc", etc.)
+       (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[singleFile]</STRONG></DT>
@@ -23823,7 +23852,7 @@ This call is <EM>collective</EM> across the current VM.
 
 <P>
 Write the Arrays into a file. For this API to be functional,
-     the environment variable <TT>ESMF_PIO</TT> should be set to "internal"
+     the environment variable <TT>ESMF_PIO</TT> should be set to either "internal" or "external"
      when the ESMF library is built. Please see the section on 
      Data I/O,&nbsp;<A HREF="#io:dataio">37.2</A>.
 
@@ -23841,7 +23870,8 @@ When <TT>convention</TT> and <TT>purpose</TT> arguments are specified, NetCDF di
 Limitations:
      
 <UL>
-<LI>Only single tile Arrays are supported.
+<LI>For multi-tile Arrays,all Arrays in the ArrayBundle must contain
+       the same number of tiles.
 </LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
@@ -23857,6 +23887,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the output file to which array bundle data is written.
+       If the ArrayBundle contains multi-tile Arrays, then fileName must contain
+       exactly one instance of "#"; this is a placeholder that will be replaced
+       by the tile number, with each tile being written to a separate file. (For
+       example, for a fileName of "myfile#.nc", tile 1 will be written to
+       "myfile1.nc", tile 2 to "myfile2.nc", etc.)
+       (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[convention]</STRONG></DT>
@@ -32456,15 +32492,13 @@ The arguments are:
 <P>
 Read Array data from file and put it into an <TT>ESMF_Array</TT> object.
      For this API to be functional, the environment variable <TT>ESMF_PIO</TT>
-     should be set to "internal" when the ESMF library is built.
+     should be set to either "internal" or "external" when the ESMF library is built.
      Please see the section on Data I/O,&nbsp;<A HREF="#io:dataio">37.2</A>.
 
 <P>
 Limitations:
      
 <UL>
-<LI>Only single tile Arrays are supported.
-</LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
 </LI>
@@ -32479,6 +32513,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the file from which Array data is read.
+      If this is a multi-tile Array, then fileName must contain
+      exactly one instance of "#"; this is a placeholder that will be replaced
+      by the tile number, with each tile being read from a separate file. (For
+      example, for a fileName of "myfile#.nc", tile 1 will be read from
+      "myfile1.nc", tile 2 from "myfile2.nc", etc.)
+      (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[variableName]</STRONG></DT>
@@ -35344,7 +35384,7 @@ The arguments are:
 
 <P>
 Write Array data into a file. For this API to be functional, the 
-     environment variable <TT>ESMF_PIO</TT> should be set to "internal" when 
+     environment variable <TT>ESMF_PIO</TT> should be set to either "internal" or "external" when
      the ESMF library is built.  Please see the section on 
      Data I/O,&nbsp;<A HREF="#io:dataio">37.2</A>. 
 
@@ -35371,8 +35411,6 @@ NetCDF attributes for the variable can also be specified.  As with dimension lab
 Limitations:
      
 <UL>
-<LI>Only single tile Arrays are supported.
-</LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
 </LI>
@@ -35387,6 +35425,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the output file to which Array data is written.
+      If this is a multi-tile Array, then fileName must contain
+      exactly one instance of "#"; this is a placeholder that will be replaced
+      by the tile number, with each tile being written to a separate file. (For
+      example, for a fileName of "myfile#.nc", tile 1 will be written to
+      "myfile1.nc", tile 2 to "myfile2.nc", etc.)
+      (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[variableName]</STRONG></DT>
@@ -37585,7 +37629,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55807"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55811"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -37626,7 +37670,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55779"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55783"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -37999,7 +38043,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="56024"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="56028"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -38040,7 +38084,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="56035"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="56039"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -39818,7 +39862,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56586"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56590"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -40233,7 +40277,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56674"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56678"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -40363,7 +40407,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56693"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56697"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -52840,7 +52884,10 @@ Create a Mesh object in one step by just specifying the corner coordinates of ea
      a bit easier.
      After this call the Mesh is usable, for
      example, a Field may be built on the created Mesh object and
-     this Field may be used in a <TT>ESMF_FieldRegridStore()</TT> call.
+     this Field may be used in <TT>ESMF_FieldRegridStore()</TT>. However, the Mesh created by this
+     call consists of a set of disconnected elements, and so shouldn't be used in a situation where
+     connections between elements are necessary (e.g. bilinear regridding on element centers, patch regridding,
+     or second-order conservative regridding). 
 
 <P>
 This call sets the dimension of the elements in the Mesh
@@ -52979,7 +53026,10 @@ Create a Mesh object in one step by just specifying the corner coordinates of ea
      Internally these corners are turned into nodes forming the outside edges of the elements.
      After this call the Mesh is usable, for
      example, a Field may be built on the created Mesh object and
-     this Field may be used in a <TT>ESMF_FieldRegridStore()</TT> call.
+     this Field may be used in <TT>ESMF_FieldRegridStore()</TT>. However, the Mesh created by this
+     call consists of a set of disconnected elements, and so shouldn't be used in a situation where
+     connections between elements are necessary (e.g. bilinear regridding on element centers, patch regridding,
+     or second-order conservative regridding). 
 
 <P>
 This call sets the dimension of the elements in the Mesh
@@ -54349,7 +54399,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66781"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66785"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -55175,31 +55225,39 @@ The arguments are:
        
 </DD>
 <DT><STRONG>[sideAGridPriority]</STRONG></DT>
-<DD>Priority array of Grids on <TT>sideA</TT> during overlay generation.
-             The priority arrays describe the priorities of Grids at the overlapping region.
-             Flux contributions at the overlapping region are computed in the order from the Grid of the
-             highest priority to the lowest priority.
+<DD>Priority array of Grids on sideA during overlay generation.
+             The <TT>sideAGridPriority</TT> array should be the same size as the <TT>sideAGrid</TT> array. The values
+             in the array should range from 1 to size(sideAGrid)+size(sideAMesh). A Grid whose corresponding
+             value in this array is lower than another side A Grid or Mesh, will take precedence over that Grid or Mesh
+             during side A merging. In other words, if both have parts in the same region, then the object with the lower value will win, and
+             the other Grid or Mesh part will be clipped away.
        
 </DD>
 <DT><STRONG>[sideAMeshPriority]</STRONG></DT>
-<DD>Priority array of Meshes on <TT>sideA</TT> during overlay generation.
-             The priority arrays describe the priorities of Meshes at the overlapping region.
-             Flux contributions at the overlapping region are computed in the order from the Mesh of the
-             highest priority to the lowest priority.
+<DD>Priority array of Meshes on sideA during overlay generation.
+             The <TT>sideAMeshPriority</TT> array should be the same size as the <TT>sideAMesh</TT> array. The values
+             in the array should range from 1 to size(sideAGrid)+size(sideAMesh). A Mesh whose corresponding
+             value in this array is lower than another side A Grid or Mesh, will take precedence over that Grid or Mesh
+             during side A merging. In other words, if both have parts in the same region, then the object with the lower value will win, and
+             the other Grid or Mesh part will be clipped away.
        
 </DD>
 <DT><STRONG>[sideBGridPriority]</STRONG></DT>
-<DD>Priority of Grids on <TT>sideB</TT> during overlay generation
-             The priority arrays describe the priorities of Grids at the overlapping region.
-             Flux contributions at the overlapping region are computed in the order from the Grid of the
-             highest priority to the lowest priority.
+<DD>Priority array of Grids on sideB during overlay generation.
+             The <TT>sideBGridPriority</TT> array should be the same size as the <TT>sideBGrid</TT> array. The values
+             in the array should range from 1 to size(sideBGrid)+size(sideBMesh). A Grid whose corresponding
+             value in this array is lower than another side B Grid or Mesh, will take precedence over that Grid or Mesh
+             during side B merging. In other words, if both have parts in the same region, then the object with the lower value will win, and
+             the other Grid or Mesh part will be clipped away.
        
 </DD>
 <DT><STRONG>[sideBMeshPriority]</STRONG></DT>
-<DD>Priority array of Meshes on <TT>sideB</TT> during overlay generation.
-             The priority arrays describe the priorities of Meshes at the overlapping region.
-             Flux contributions at the overlapping region are computed in the order from the Mesh of the
-             highest priority to the lowest priority.
+<DD>Priority array of Meshes on sideB during overlay generation.
+             The <TT>sideBMeshPriority</TT> array should be the same size as the <TT>sideBMesh</TT> array. The values
+             in the array should range from 1 to size(sideBGrid)+size(sideBMesh). A Mesh whose corresponding
+             value in this array is lower than another side B Grid or Mesh, will take precedence over that Grid or Mesh
+             during side B merging. In other words, if both have parts in the same region, then the object with the lower value will win, and
+             the other Grid or Mesh part will be clipped away.
        
 </DD>
 <DT><STRONG>[sideAMaskValues]</STRONG></DT>
@@ -55314,31 +55372,39 @@ The arguments are:
        
 </DD>
 <DT><STRONG>[sideAGridPriority]</STRONG></DT>
-<DD>Priority array of Grids on <TT>sideA</TT> during overlay generation.
-             The priority arrays describe the priorities of Grids at the overlapping region.
-             Flux contributions at the overlapping region are computed in the order from the Grid of the
-             highest priority to the lowest priority.
+<DD>Priority array of Grids on sideA during overlay generation.
+             The <TT>sideAGridPriority</TT> array should be the same size as the <TT>sideAGrid</TT> array. The values
+             in the array should range from 1 to size(sideAGrid)+size(sideAMesh). A Grid whose corresponding
+             value in this array is lower than another side A Grid or Mesh, will take precedence over that Grid or Mesh
+             during side A merging. In other words, if both have parts in the same region, then the object with the lower value will win, and
+             the other Grid or Mesh part will be clipped away.
        
 </DD>
 <DT><STRONG>[sideAMeshPriority]</STRONG></DT>
-<DD>Priority array of Meshes on <TT>sideA</TT> during overlay generation.
-             The priority arrays describe the priorities of Meshes at the overlapping region.
-             Flux contributions at the overlapping region are computed in the order from the Mesh of the
-             highest priority to the lowest priority.
+<DD>Priority array of Meshes on sideA during overlay generation.
+             The <TT>sideAMeshPriority</TT> array should be the same size as the <TT>sideAMesh</TT> array. The values
+             in the array should range from 1 to size(sideAGrid)+size(sideAMesh). A Mesh whose corresponding
+             value in this array is lower than another side A Grid or Mesh, will take precedence over that Grid or Mesh
+             during side A merging. In other words, if both have parts in the same region, then the object with the lower value will win, and
+             the other Grid or Mesh part will be clipped away.
        
 </DD>
 <DT><STRONG>[sideBGridPriority]</STRONG></DT>
-<DD>Priority of Grids on <TT>sideB</TT> during overlay generation
-             The priority arrays describe the priorities of Grids at the overlapping region.
-             Flux contributions at the overlapping region are computed in the order from the Grid of the
-             highest priority to the lowest priority.
+<DD>Priority array of Grids on sideB during overlay generation.
+             The <TT>sideBGridPriority</TT> array should be the same size as the <TT>sideBGrid</TT> array. The values
+             in the array should range from 1 to size(sideBGrid)+size(sideBMesh). A Grid whose corresponding
+             value in this array is lower than another side B Grid or Mesh, will take precedence over that Grid or Mesh
+             during side B merging. In other words, if both have parts in the same region, then the object with the lower value will win, and
+             the other Grid or Mesh part will be clipped away.
        
 </DD>
 <DT><STRONG>[sideBMeshPriority]</STRONG></DT>
-<DD>Priority array of Meshes on <TT>sideB</TT> during overlay generation.
-             The priority arrays describe the priorities of Meshes at the overlapping region.
-             Flux contributions at the overlapping region are computed in the order from the Mesh of the
-             highest priority to the lowest priority.
+<DD>Priority array of Meshes on sideB during overlay generation.
+             The <TT>sideBMeshPriority</TT> array should be the same size as the <TT>sideBMesh</TT> array. The values
+             in the array should range from 1 to size(sideBGrid)+size(sideBMesh). A Mesh whose corresponding
+             value in this array is lower than another side B Grid or Mesh, will take precedence over that Grid or Mesh
+             during side B merging. In other words, if both have parts in the same region, then the object with the lower value will win, and
+             the other Grid or Mesh part will be clipped away.
        
 </DD>
 <DT><STRONG>[sparseMatA2X]</STRONG></DT>
@@ -56507,7 +56573,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68490"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68518"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -56688,7 +56754,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="68142"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="68170"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -56911,7 +56977,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="68491"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="68519"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -57196,7 +57262,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="68255"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="68283"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -57262,7 +57328,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="68270"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="68298"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -57321,7 +57387,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="68286"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="68314"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -57571,7 +57637,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68493"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68521"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57729,7 +57795,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68494"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68522"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57800,7 +57866,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68402"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68430"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -57910,7 +57976,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68414"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68442"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -57982,7 +58048,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68425"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68453"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -58183,7 +58249,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68457"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68485"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -58308,7 +58374,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68465"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68493"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
