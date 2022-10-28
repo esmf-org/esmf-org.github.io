@@ -132,6 +132,128 @@ missing or have formatting errors.
 </tr>
 
 
+<!--ESMF_8_4_0-->
+<tr valign="top">
+<td ><a name="8_4_0"></a>
+<a href="https://github.com/esmf-org/esmf/releases/tag/v8.4.0">
+v8.4.0</a>
+<br>
+<br>
+Reference Manual for Fortran<br>
+<a href="/docs/release/ESMF_8_4_0/ESMF_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_4_0/ESMF_refdoc.pdf">(pdf)</a>
+<br><br>
+Reference Manual for C<br>
+<a href="/docs/release/ESMF_8_4_0/ESMC_crefdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_4_0/ESMC_crefdoc.pdf">(pdf)</a>
+<br><br>
+User's Guide<br>
+<a href="/docs/release/ESMF_8_4_0/ESMF_usrdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_4_0/ESMF_usrdoc.pdf">(pdf)</a>
+<br><br>
+NUOPC Layer Reference Manual<br>
+<a href="/docs/release/ESMF_8_4_0/NUOPC_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_4_0/NUOPC_refdoc.pdf">(pdf)</a>
+<br><br>
+Building a NUOPC Model Manual<br>
+<a href="/docs/release/ESMF_8_4_0/NUOPC_howtodoc/">(html)</a>
+<a href="/docs/release/ESMF_8_4_0/NUOPC_howtodoc.pdf">(pdf)</a>
+<br><br>
+ESMPy Documentation <br>
+<a href="/esmpy_doc/release/ESMF_8_4_0/html">(html)</a>
+<a href="/esmpy_doc/release/ESMF_8_4_0/ESMPy.pdf">(pdf)</a>
+<br><br>
+<a href="/release/platforms_8_4_0">Supported Platforms</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/regrid/#regridstatus-840">Regridding Status</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_4_0/API-830-840.pdf">API changes since v8.3.0</a>
+</td>
+
+<td>10/28/22</td>
+
+<td>
+<ul>
+
+<li>The public Fortran API in this release is backward compatible with the last release of ESMF 8.3.0 and patch release ESMF 8.3.1. There were a few minor API changes, none of which require user code changes. The list of API changes is summarized in a <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_4_0/API-830-840.pdf">table showing interface changes since ESMF 8.3.0</a>, including the rationale and impact for each change.
+
+<li>The Python module name for ESMPy was changed in this release from "ESMF" to "esmpy" for better alignment with <a href="https://peps.python.org/">Python Enhancement Proposal (PEP)</a> guidelines. This change will require user code changes! ESMPy users  will have to do a global search and replace on their scripts to adjust to the module name change. Also notice that the internal ESMF source tree directory structure has changed, moving ./src/addon/ESMPy to ./src/addon/esmpy. This might affect anybody keeping an ESMF repository clone, and maintaining scripts that depend on the internal directory naming.
+
+<li>No bit-for-bit changes were observed for this release compared to release ESMF 8.3.0. This is based on test runs with the Intel compilers using options "-O2 -fp-model precise".
+
+<li>No changes were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. The ESMF tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#regridstatus-840">ESMF regridding status</a> are unchanged.
+
+<li>All of the fixes and improvements released with <a href="https://github.com/esmf-org/esmf/releases/tag/v8.3.1">patch 8.3.1</a> are also included in release 8.4.0. Of particular note is support for messages above the 2GiB limit by the ESMF VM communication layer.
+
+<li>The <a href="https://github.com/esmf-org/esmf/tree/develop/src/addon/ESMX">Earth System Model eXecutable (ESMX)</a> layer was added to ESMF. ESMX removes technical hurdles that impede hierarchical NUOPC model testing. It includes a unified executable capable of driving multiple configurations of model components: single component, one-way forced, and fully dynamic two-way coupled. A simple YAML file is used to list the component build dependencies (CMake based). A standard NUOPC run configuration file is used to specify the processor layout, run sequence, the field dictionary, and model component options. ESMX supports hierarchical testing by allowing decentralized testing at the component level before integration into larger coupling systems, as well as testing on the integration level.
+
+<li>The concept of <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_4_0/ESMF_refdoc/node2.html#SECTION02063000000000000000">"Named Aliases"</a> has been introduced. Regular aliases of deep ESMF objects continue being created using a simple assignment operator. Changing the name of a regular alias affects the object and thus all other aliases. Named aliases are created using the new <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_4_0/ESMF_refdoc/node2.html#SECTION02063100000000000000">ESMF_NamedAlias()</a> function. Named aliases manage their own private name. Changing the name of a named alias does not affect the object or other aliases.
+
+<li>Using a Mesh that contains one or more elements with greater than 4 sides when creating an XGrid is now supported. Previously doing so would result in an error when data was transferred into or out of the XGrid.
+
+<li>LocStreams can now be created from a Cartesian Mesh file. Previously the attempt to do so would result in an error.
+
+<li>Attempting to create a Grid from a GRIDSPEC mosaic file that doesn't contain variables with standard_name set to "grid_tile_spec", "geographic_latitude", or "geographic_longitude" now triggers clear ERROR log messages before returning with an error. Previously no ERROR messages were logged, making this situation hard to debug.
+
+<li>Read and Write operations are now permitted for multi-tile Arrays and Fields. A common use case for this is representing a cubed sphere grid as a six-tile grid. This change applies to <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_4_0/ESMF_refdoc/node5.html#SECTION050552700000000000000">ESMF_ArrayRead()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_4_0/ESMF_refdoc/node5.html#SECTION050554700000000000000">ESMF_ArrayWrite()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_4_0/ESMF_refdoc/node5.html#SECTION050451600000000000000">ESMF_ArrayBundleRead()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_4_0/ESMF_refdoc/node5.html#SECTION050452700000000000000">ESMF_ArrayBundleWrite()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_4_0/ESMF_refdoc/node5.html#SECTION050365300000000000000">ESMF_FieldRead()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_4_0/ESMF_refdoc/node5.html#SECTION050367500000000000000">ESMF_FieldWrite()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_4_0/ESMF_refdoc/node5.html#SECTION050251900000000000000">ESMF_FieldBundleRead()</a>, and <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_4_0/ESMF_refdoc/node5.html#SECTION050253900000000000000">ESMF_FieldBundleWrite()</a>. Each of these methods reads or writes to multiple files in the multi-tile case. See the respective API documentation for details of how the tile-specific file names are constructed.<br>Current limitations are: 
+<ul>
+ 
+<li>For I/O of ArrayBundles and FieldBundles, all Arrays / Fields in the bundle must contain the same number of tiles; 
+ 
+<li>I/O is not yet permitted for multi-tile Arrays / Fields with ungridded / undistributed dimensions; 
+ 
+<li>I/O is currently only permitted for multi-tile Arrays / Fields with 1 DE per PET.
+</li> 
+</ul>
+
+<li>ESMF profiles now include a summary of the full application run time for convenience. Previously user instrumentation was required to introduce an end-to-end profiling level.
+
+<li>The configuration for ESMF_COMPILER=gfortranclang now works on Darwin systems (Mac OS X). Note that on Darwin, the system-level g++ invokes clang++, and unless you ensure that you have a true g++ early in your path (or build the MPI compiler wrappers to ensure that they wrap the true g++), you will end up using clang++ even if you think you are using the GNU C++ compiler. Setting ESMF_COMPILER=gfortranclang is correct for this typical situation. Attempting to use ESMF_COMPILER=gfortran when the C++ compiler is actually clang++ now issues an error message.
+
+</ul>
+</td>
+
+<td>
+<ul>
+
+<li>Attempting to write weight files from the ESMPy Regrid object when using <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_4_0/html/FileMode.html">filemode=FileMode.WITHAUX</a> currently crashes.
+<p>
+
+    <strong>Platform-specific issues:</strong>
+</p>
+
+<li>The GNU and Intel compilers require GCC>=4.8 for C++11 support (Intel uses the GCC headers). By default, ESMF uses the C++11 standard and cannot be downgraded. If you run into build issues due to the C++11 dependency, you must make sure a GCC>=4.8 is loaded.
+
+<li>On Darwin, with the GNU gfortran+gcc combination, when building MPICH3 from source, it is important to specify the "--enable-two-level-namespace" configure option. By default, i.e. without this option, on Darwin, the produced MPICH compiler wrappers include a linker flag (-flat_namespace) that causes issues with C++ exception handling. Building and linking ESMF applications with MPICH compiler wrappers that specify this linker option leads to "mysterious" application aborts during execution.
+
+<li>On Darwin, with the Intel Fortran compiler, command line arguments cannot be accessed from ESMF applications when linked against the shared library version of libesmf. There is no issue when linked against the static libesmf.a version. Setting the environment variable ESMF_SHARED_LIB_BUILD=OFF, during the ESMF build, can be used as a work around for this issue.
+
+<li>There is an issue with intercepting the MPI calls for profiling on some of the supported platforms. This results in a single FAIL reported for ESMF_TraceMPIUTest.F90. The affected platforms are: 
+<ul>
+ 
+<li>Catania: Darwin+GNU+mpich
+ 
+<li>Green: Darwin+gfortranclang+mpich/openmpi
+ 
+<li>Gaea: Unicos+GNU+cray-mpich
+</li> 
+</ul>
+
+<li>There is an issue with loading the libesmftrace_preload.so library on some of the supported platforms. This results in a reported CRASH for ESMF_TraceIOUTest.F90 and ESMF_TraceMPIUTest.F90. The affected platforms are: 
+<ul>
+ 
+<li>Discover: Linux+GNU+intelmpi
+ 
+<li>Gaea: Unicos+Intel+cray-mpich
+ 
+<li>Gaea: Unicos+Intel+mpiuni
+
+</ul>
+</td>
+
+</tr>
+
+
 <!--ESMF_8_3_1-->
 <tr valign="top">
 <td ><a name="8_3_1"></a>
@@ -245,6 +367,8 @@ ESMPy Documentation <br>
 <a href="/release/platforms_8_3_0">Supported Platforms</a>
 <br><br>
 <a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-release-830">Regridding Status</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_3_0/API-820-830.pdf">API changes since v8.2.0</a>
 </td>
 
 <td>06/08/22</td>
