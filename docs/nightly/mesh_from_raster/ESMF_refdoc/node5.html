@@ -5788,14 +5788,15 @@ The arguments are:
 <P>
 Read field data to a FieldBundle object from file(s).
    For this API to be functional, the environment variable <TT>ESMF_PIO</TT>
-   should be set to "internal" when the ESMF library is built.
+   should be set to either "internal" or "external" when the ESMF library is built.
    Please see the section on Data I/O,&nbsp;<A HREF="#io:dataio"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
 
 <P>
 Limitations:
    
 <UL>
-<LI>Only single tile Arrays within Fields are supported.
+<LI>For multi-tile Fields, all Fields in the FieldBundle must contain
+   the same number of tiles.
 </LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
    
@@ -5810,7 +5811,13 @@ The arguments are:
    
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
-<DD>The name of the file from which fieldbundle data is read.
+<DD>The name of the file from which FieldBundle data is read.
+   If the FieldBundle contains multi-tile Arrays, then fileName must contain
+   exactly one instance of "#"; this is a placeholder that will be replaced
+   by the tile number, with each tile being read from a separate file. (For
+   example, for a fileName of "myfile#.nc", tile 1 will be read from
+   "myfile1.nc", tile 2 from "myfile2.nc", etc.)
+   (This handling of the fileName for multi-tile I/O is subject to change.)
    
 </DD>
 <DT><STRONG>[singleFile]</STRONG></DT>
@@ -7892,7 +7899,7 @@ The arguments are:
 
 <P>
 Write the Fields into a file. For this API to be functional,
-   the environment variable <TT>ESMF_PIO</TT> should be set to "internal"
+   the environment variable <TT>ESMF_PIO</TT> should be set to either "internal" or "external"
    when the ESMF library is built. Please see the section on
    Data I/O,&nbsp;<A HREF="#io:dataio"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
 
@@ -7910,7 +7917,8 @@ When <TT>convention</TT> and <TT>purpose</TT> arguments are specified, NetCDF di
 Limitations:
    
 <UL>
-<LI>Only single tile Fields are supported.
+<LI>For multi-tile Fields, all Fields in the FieldBundle must contain
+   the same number of tiles.
 </LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
    
@@ -7926,6 +7934,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the output file to which field bundle data is written.
+   If the FieldBundle contains multi-tile Arrays, then fileName must contain
+   exactly one instance of "#"; this is a placeholder that will be replaced
+   by the tile number, with each tile being written to a separate file. (For
+   example, for a fileName of "myfile#.nc", tile 1 will be written to
+   "myfile1.nc", tile 2 to "myfile2.nc", etc.)
+   (This handling of the fileName for multi-tile I/O is subject to change.)
    
 </DD>
 <DT><STRONG>[convention]</STRONG></DT>
@@ -17349,15 +17363,13 @@ The arguments are:
 <P>
 Read Field data from a file and put it into an ESMF_Field object.
      For this API to be functional, the environment variable <TT>ESMF_PIO</TT>
-     should be set to "internal" when the ESMF library is built.
+     should be set to either "internal" or "external" when the ESMF library is built.
      Please see the section on Data I/O,&nbsp;<A HREF="#io:dataio"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
 
 <P>
 Limitations:
      
 <UL>
-<LI>Only single tile Fields are supported.
-</LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
 </LI>
@@ -17372,6 +17384,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the file from which Field data is read.
+       If the Field is a multi-tile Array, then fileName must contain
+       exactly one instance of "#"; this is a placeholder that will be replaced
+       by the tile number, with each tile being read from a separate file. (For
+       example, for a fileName of "myfile#.nc", tile 1 will be read from
+       "myfile1.nc", tile 2 from "myfile2.nc", etc.)
+       (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[variableName]</STRONG></DT>
@@ -20512,7 +20530,7 @@ The arguments are:
 
 <P>
 Write Field data into a file.  For this API to be functional, the 
-     environment variable <TT>ESMF_PIO</TT> should be set to "internal" when 
+     environment variable <TT>ESMF_PIO</TT> should be set to either "internal" or "external" when
      the ESMF library is built.  Please see the section on 
      Data I/O,&nbsp;<A HREF="#io:dataio"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
 
@@ -20539,8 +20557,6 @@ NetCDF attributes for the variable can also be specified.  As with dimension lab
 Limitations:
      
 <UL>
-<LI>Only single tile Fields are supported.
-</LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
 </LI>
@@ -20555,6 +20571,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the output file to which Field data is written.
+       If the Field is a multi-tile Array, then fileName must contain
+       exactly one instance of "#"; this is a placeholder that will be replaced
+       by the tile number, with each tile being written to a separate file. (For
+       example, for a fileName of "myfile#.nc", tile 1 will be written to
+       "myfile1.nc", tile 2 to "myfile2.nc", etc.)
+       (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[variableName]</STRONG></DT>
@@ -22595,14 +22617,15 @@ The arguments are:
 <P>
 Read Array data to an ArrayBundle object from file(s).
      For this API to be functional, the environment variable <TT>ESMF_PIO</TT> 
-     should be set to "internal" when the ESMF library is built.
+     should be set to either "internal" or "external" when the ESMF library is built.
      Please see the section on Data I/O,&nbsp;<A HREF="#io:dataio"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
 
 <P>
 Limitations:
      
 <UL>
-<LI>Only single tile Arrays are supported.
+<LI>For multi-tile Arrays, all Arrays in the ArrayBundle must contain
+       the same number of tiles.
 </LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
@@ -22618,6 +22641,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the file from which ArrayBundle data is read.
+       If the ArrayBundle contains multi-tile Arrays, then fileName must contain
+       exactly one instance of "#"; this is a placeholder that will be replaced
+       by the tile number, with each tile being read from a separate file. (For
+       example, for a fileName of "myfile#.nc", tile 1 will be read from
+       "myfile1.nc", tile 2 from "myfile2.nc", etc.)
+       (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[singleFile]</STRONG></DT>
@@ -23806,7 +23835,7 @@ This call is <EM>collective</EM> across the current VM.
 
 <P>
 Write the Arrays into a file. For this API to be functional,
-     the environment variable <TT>ESMF_PIO</TT> should be set to "internal"
+     the environment variable <TT>ESMF_PIO</TT> should be set to either "internal" or "external"
      when the ESMF library is built. Please see the section on 
      Data I/O,&nbsp;<A HREF="#io:dataio"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
 
@@ -23824,7 +23853,8 @@ When <TT>convention</TT> and <TT>purpose</TT> arguments are specified, NetCDF di
 Limitations:
      
 <UL>
-<LI>Only single tile Arrays are supported.
+<LI>For multi-tile Arrays,all Arrays in the ArrayBundle must contain
+       the same number of tiles.
 </LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
@@ -23840,6 +23870,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the output file to which array bundle data is written.
+       If the ArrayBundle contains multi-tile Arrays, then fileName must contain
+       exactly one instance of "#"; this is a placeholder that will be replaced
+       by the tile number, with each tile being written to a separate file. (For
+       example, for a fileName of "myfile#.nc", tile 1 will be written to
+       "myfile1.nc", tile 2 to "myfile2.nc", etc.)
+       (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[convention]</STRONG></DT>
@@ -32427,15 +32463,13 @@ The arguments are:
 <P>
 Read Array data from file and put it into an <TT>ESMF_Array</TT> object.
      For this API to be functional, the environment variable <TT>ESMF_PIO</TT>
-     should be set to "internal" when the ESMF library is built.
+     should be set to either "internal" or "external" when the ESMF library is built.
      Please see the section on Data I/O,&nbsp;<A HREF="#io:dataio"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
 
 <P>
 Limitations:
      
 <UL>
-<LI>Only single tile Arrays are supported.
-</LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
 </LI>
@@ -32450,6 +32484,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the file from which Array data is read.
+      If this is a multi-tile Array, then fileName must contain
+      exactly one instance of "#"; this is a placeholder that will be replaced
+      by the tile number, with each tile being read from a separate file. (For
+      example, for a fileName of "myfile#.nc", tile 1 will be read from
+      "myfile1.nc", tile 2 from "myfile2.nc", etc.)
+      (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[variableName]</STRONG></DT>
@@ -35315,7 +35355,7 @@ The arguments are:
 
 <P>
 Write Array data into a file. For this API to be functional, the 
-     environment variable <TT>ESMF_PIO</TT> should be set to "internal" when 
+     environment variable <TT>ESMF_PIO</TT> should be set to either "internal" or "external" when
      the ESMF library is built.  Please see the section on 
      Data I/O,&nbsp;<A HREF="#io:dataio"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>. 
 
@@ -35342,8 +35382,6 @@ NetCDF attributes for the variable can also be specified.  As with dimension lab
 Limitations:
      
 <UL>
-<LI>Only single tile Arrays are supported.
-</LI>
 <LI>Not supported in <TT>ESMF_COMM=mpiuni</TT> mode.
      
 </LI>
@@ -35358,6 +35396,12 @@ The arguments are:
 </DD>
 <DT><STRONG>fileName</STRONG></DT>
 <DD>The name of the output file to which Array data is written.
+      If this is a multi-tile Array, then fileName must contain
+      exactly one instance of "#"; this is a placeholder that will be replaced
+      by the tile number, with each tile being written to a separate file. (For
+      example, for a fileName of "myfile#.nc", tile 1 will be written to
+      "myfile1.nc", tile 2 to "myfile2.nc", etc.)
+      (This handling of the fileName for multi-tile I/O is subject to change.)
      
 </DD>
 <DT><STRONG>[variableName]</STRONG></DT>
@@ -52855,7 +52899,10 @@ Create a Mesh object in one step by just specifying the corner coordinates of ea
      a bit easier.
      After this call the Mesh is usable, for
      example, a Field may be built on the created Mesh object and
-     this Field may be used in a <TT>ESMF_FieldRegridStore()</TT> call.
+     this Field may be used in <TT>ESMF_FieldRegridStore()</TT>. However, the Mesh created by this
+     call consists of a set of disconnected elements, and so shouldn't be used in a situation where
+     connections between elements are necessary (e.g. bilinear regridding on element centers, patch regridding,
+     or second-order conservative regridding). 
 
 <P>
 This call sets the dimension of the elements in the Mesh
@@ -52994,7 +53041,10 @@ Create a Mesh object in one step by just specifying the corner coordinates of ea
      Internally these corners are turned into nodes forming the outside edges of the elements.
      After this call the Mesh is usable, for
      example, a Field may be built on the created Mesh object and
-     this Field may be used in a <TT>ESMF_FieldRegridStore()</TT> call.
+     this Field may be used in <TT>ESMF_FieldRegridStore()</TT>. However, the Mesh created by this
+     call consists of a set of disconnected elements, and so shouldn't be used in a situation where
+     connections between elements are necessary (e.g. bilinear regridding on element centers, patch regridding,
+     or second-order conservative regridding). 
 
 <P>
 This call sets the dimension of the elements in the Mesh
