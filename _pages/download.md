@@ -15,6 +15,9 @@ classes: wide
     - [ESMF 8.0.0](https://github.com/esmf-org/esmf/releases/tag/ESMF_8_0_0)    (October 15, 2019)
 - Master list of [all previous releases](/static/releases.html)
 
+### Release Notification
+Please subscribe to the [ESMF_Info](https://mailman.cgd.ucar.edu/mailman/listinfo/esmf_info) mailing list in order to receive email notification each time a new ESMF version is released. This is an extremely very low volume list, exclusively used for ESMF release announcements. It is fully moderated to prevent any other use of this list.
+
 ### Development Snapshots
 Development snapshots (or "beta snapshots") are tagged regularly to assist in testing new features before an official release.
 The [development tags](https://github.com/esmf-org/esmf/tags) have the naming convention `vX.Y.ZbNN`.
@@ -28,6 +31,3 @@ git clone https://github.com/esmf-org/esmf.git --branch v8.5.0b01 --depth 1
 ```bash
 git clone https://github.com/esmf-org/esmf.git
 ```
-
-### Release Notification
-Please subscribe to the [ESMF_Info](https://mailman.cgd.ucar.edu/mailman/listinfo/esmf_info) mailing list in order to receive email notification each time a new ESMF version is released. This is an extremely very low volume list, exclusively used for ESMF release announcements. It is fully moderated to prevent any other use of this list.
