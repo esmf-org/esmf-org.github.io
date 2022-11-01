@@ -28,3 +28,6 @@ git clone https://github.com/esmf-org/esmf.git --branch v8.5.0b01 --depth 1
 ```bash
 git clone https://github.com/esmf-org/esmf.git
 ```
+
+### Release Notification
+Please subscribe to the [ESMF_Info](https://mailman.cgd.ucar.edu/mailman/listinfo/esmf_info) mailing list in order to receive email notification when a new ESMF version is released. This is an extremely very low volume list, exclusively used for ESMF release announcements. It is fully moderated to prevent any other use of this list.
