@@ -16,7 +16,7 @@ classes: wide
 - Master list of [all previous releases](/static/releases.html)
 
 ### Release Notification
-Please subscribe to the [ESMF_Info](https://mailman.cgd.ucar.edu/mailman/listinfo/esmf_info) mailing list in order to receive email notification each time a new ESMF version is released. This is an extremely very low volume list, exclusively used for ESMF release announcements. It is fully moderated to prevent any other use of this list.
+Please subscribe to the [ESMF_Info](https://mailman.cgd.ucar.edu/mailman/listinfo/esmf_info) mailing list in order to receive email notification each time a new ESMF version is released. This is an extremely low volume list, exclusively used for ESMF release announcements. It is fully moderated to prevent any other use of this list.
 
 ### Development Snapshots
 Development snapshots (or "beta snapshots") are tagged regularly to assist in testing new features before an official release.
