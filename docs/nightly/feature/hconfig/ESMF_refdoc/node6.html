@@ -14623,12 +14623,13 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>     subroutine ESMF_ConfigLoadFile(config, filename, &amp;
-       delayout, unique, rc)
+       delayout, &amp; ! DEPRECATED ARGUMENT
+       unique, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>       type(ESMF_Config),   intent(inout)         :: config
        character(len=*),    intent(in)            :: filename
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-       type(ESMF_DELayout), intent(in),  optional :: delayout
+       type(ESMF_DELayout), intent(in),  optional :: delayout  ! DEPRECATED ARGUMENT
        logical,             intent(in),  optional :: unique
        integer,             intent(out), optional :: rc
 </PRE>
@@ -14636,7 +14637,19 @@ The arguments are:
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.5.0</STRONG></DT>
+<DD>Added support for loading basic YAML files.
+<BR>
+Marked argument <TT>delayout</TT> as deprecated. This argument was
+      never used internally, and it is unclear what the original intention was.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -14645,7 +14658,26 @@ The arguments are:
 <BR></I>
 
 <P>
-Resource file with <TT>filename</TT> is loaded into memory.
+The resource file named <TT>filename</TT> is loaded into memory. Both the
+    classic Config file format, described in this document, and the YAML file
+    format are supported. YAML support is limited to a small subset of the full
+    YAML language specification, allowing access through the classic Config API.
+    Specifically, in YAML mode, the top level is expected to be a mapping
+    (dictionary) of scalar keys to the following value options:
+    
+<UL>
+<LI>Scalars
+</LI>
+<LI>List of scalars
+</LI>
+<LI>List of lists of scalars
+    
+</LI>
+</UL>
+    All other YAML constructs are silently ignored when loaded through this
+    interface. Constructs successfully ingested become available in the
+    <TT>config</TT> object, and can be accessed via the regular <TT>ESMF_Config</TT>
+    methods.
 
 <P>
 The arguments are:
@@ -14655,11 +14687,16 @@ The arguments are:
      
 </DD>
 <DT><STRONG>filename</STRONG></DT>
-<DD>Configuration file name.
+<DD>Name of the configuration file. Files ending in <TT>.yaml</TT>, <TT>.yml</TT>,
+       or any combination of upper and lower case letters that can be mapped
+       to these two options, are interpreted as YAML files. All other names
+       are interpreted as classic Config files.
      
 </DD>
 <DT><STRONG>[delayout]</STRONG></DT>
-<DD><TT>ESMF_DELayout</TT> associated with this <TT>config</TT> object.
+<DD>! DEPRECATED ARGUMENT
+       <TT>ESMF_DELayout</TT> associated with this <TT>config</TT> object.
+       This argument is not currently used.
      
 </DD>
 <DT><STRONG>[unique]</STRONG></DT>
@@ -14871,6 +14908,10 @@ Sets a value in the <TT>config</TT> object.
 <P>
 Supported values for &lt;value argument&gt; are:
         <DL>
+<DT></DT>
+<DD>character(len=*),        intent(in)            :: value
+        
+</DD>
 <DT></DT>
 <DD>integer(ESMF_KIND_I4), intent(in)            :: value
         
