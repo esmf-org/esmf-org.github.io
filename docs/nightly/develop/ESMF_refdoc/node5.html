@@ -16352,7 +16352,8 @@ The arguments are:
      gridindex, gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
      totalLWidth, totalUWidth, localDeCount, ssiLocalDeCount, &amp;
      localDeToDeMap, minIndex, maxIndex, elementCount, &amp;
-     localMinIndex, localMaxIndex, localElementCount, name, vm, rc)
+     localMinIndex, localMaxIndex, localElementCount, isESMFAllocated, &amp;
+     name, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_Field), intent(in) :: field
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -16386,6 +16387,7 @@ The arguments are:
      integer, intent(out), optional :: localMinIndex(:)
      integer, intent(out), optional :: localMaxIndex(:)
      integer, intent(out), optional :: localElementCount(:)
+     logical, intent(out), optional :: isESMFAllocated
      character(len=*), intent(out), optional :: name
      type(ESMF_VM), intent(out), optional :: vm
      integer, intent(out), optional :: rc
@@ -16429,6 +16431,12 @@ Added argument <TT>ssiLocalDeCount</TT> and <TT>localarrayList</TT> to
 <BR>
 Added argument <TT>localDeToDeMap</TT> to support DE handling from
    the Field level rather than require user to go to Array level.
+   
+</DD>
+<DT><STRONG>8.5.0</STRONG></DT>
+<DD>Added argument <TT>isESMFAllocated</TT> to support user query of
+   whether ESMF or user is responsible for the data allocation
+   referenced by this object.
    
 </DD>
 </DL>
@@ -16657,8 +16665,13 @@ If xgridside is <TT>ESMF_XGRIDSIDE_A</TT> or <TT>ESMF_XGRIDSIDE_B</TT>
    <TT>localElementCount</TT> must be allocated to be of size equal to the field rank.
    
 </DD>
+<DT><STRONG>[isESMFAllocated]</STRONG></DT>
+<DD>Set to <TT>.true.</TT> for data allocations held by ESMF. Set to
+   <TT>.false.</TT> otherwise.
+   
+</DD>
 <DT><STRONG>[name]</STRONG></DT>
-<DD>Name of queried item.
+<DD>Name of the Field object.
    
 </DD>
 <DT><STRONG>[vm]</STRONG></DT>
@@ -31502,7 +31515,7 @@ The arguments are:
      tileCount, minIndexPTile, maxIndexPTile, deToTileMap, indexCountPDe, &amp;
      delayout, deCount, localDeCount, ssiLocalDeCount, localDeToDeMap, &amp;
      localDeList, &amp; ! DEPRECATED ARGUMENT
-     name, vm, rc)
+     isESMFAllocated, name, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_Array), intent(in) :: array
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -31539,6 +31552,7 @@ The arguments are:
      integer, intent(out), optional :: ssiLocalDeCount
      integer, intent(out), optional :: localDeToDeMap(:)
      integer, intent(out), optional :: localDeList(:) ! DEPRECATED ARGUMENT
+     logical, intent(out), optional :: isESMFAllocated
      character(len=*), intent(out), optional :: name
      type(ESMF_VM), intent(out), optional :: vm
      integer, intent(out), optional :: rc
@@ -31566,6 +31580,12 @@ Changes made after the 5.2.0r release:
 <BR>
 Added argument <TT>vm</TT> in order to offer information about the
    VM on which the Array was created.
+   
+</DD>
+<DT><STRONG>8.5.0</STRONG></DT>
+<DD>Added argument <TT>isESMFAllocated</TT> to support user query of
+   whether ESMF or user is responsible for the data allocation
+   referenced by this object.
    
 </DD>
 </DL>
@@ -31778,6 +31798,11 @@ The arguments are:
 </DD>
 <DT><STRONG>[localDeList]</STRONG></DT>
 <DD><B>DEPRECATED ARGUMENT!</B> Please use the argument <TT>localDeToDeMap</TT> instead.
+   
+</DD>
+<DT><STRONG>[isESMFAllocated]</STRONG></DT>
+<DD>Set to <TT>.true.</TT> for data allocations held by ESMF. Set to
+   <TT>.false.</TT> otherwise.
    
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
@@ -36628,7 +36653,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_LocalArrayGet()
    subroutine ESMF_LocalArrayGetDefault(localarray, &amp;
-     typekind, rank, totalCount, totalLBound, totalUBound, rc)
+     typekind, rank, totalCount, totalLBound, totalUBound, isESMFAllocated, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_LocalArray), intent(in) :: localarray
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -36637,13 +36662,25 @@ The arguments are:
      integer, intent(out), optional :: totalCount(:)
      integer, intent(out), optional :: totalLBound(:)
      integer, intent(out), optional :: totalUBound(:)
+     logical, intent(out), optional :: isESMFAllocated
      integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.5.0</STRONG></DT>
+<DD>Added argument <TT>isESMFAllocated</TT> to support user query of
+   whether ESMF or user is responsible for the data allocation
+   referenced by this object.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -36679,6 +36716,11 @@ The arguments are:
 </DD>
 <DT><STRONG>[totalUBound]</STRONG></DT>
 <DD>Upper bound per dimension.
+   
+</DD>
+<DT><STRONG>[isESMFAllocated]</STRONG></DT>
+<DD>Set to <TT>.true.</TT> for data allocations held by ESMF. Set to
+   <TT>.false.</TT> otherwise.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -37587,7 +37629,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55778"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55811"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -37628,7 +37670,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55750"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55783"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -38001,7 +38043,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="55995"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="56028"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -38042,7 +38084,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="56006"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="56039"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -39820,7 +39862,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56557"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56590"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -40235,7 +40277,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56645"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56678"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -40365,7 +40407,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56664"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56697"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -54357,7 +54399,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66752"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66785"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -56531,7 +56573,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68485"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68518"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -56712,7 +56754,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="68137"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="68170"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -56935,7 +56977,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="68486"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="68519"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -57220,7 +57262,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="68250"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="68283"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -57286,7 +57328,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="68265"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="68298"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -57345,7 +57387,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="68281"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="68314"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -57595,7 +57637,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68488"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68521"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57753,7 +57795,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68489"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68522"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57824,7 +57866,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68397"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68430"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -57934,7 +57976,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68409"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68442"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -58006,7 +58048,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68420"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68453"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -58207,7 +58249,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68452"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68485"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -58332,7 +58374,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68460"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68493"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
