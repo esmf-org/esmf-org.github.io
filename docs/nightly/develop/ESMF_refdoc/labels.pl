@@ -1990,7 +1990,7 @@ $external_latex_labels{$key} = q|24.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/VM:NBVMEpoch/;
-$external_latex_labels{$key} = q|49.3.10|; 
+$external_latex_labels{$key} = q|49.3.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/XGrid:rest/;
@@ -3366,19 +3366,19 @@ $external_latex_labels{$key} = q|13.1|;
 $noresave{$key} = "$nosave";
 
 $key = q/vm_higherrank/;
-$external_latex_labels{$key} = q|49.3.11|; 
+$external_latex_labels{$key} = q|49.3.12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/vm_inside_user_mpi/;
-$external_latex_labels{$key} = q|49.3.4|; 
+$external_latex_labels{$key} = q|49.3.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/vm_multi_instance_esmf/;
-$external_latex_labels{$key} = q|49.3.6|; 
+$external_latex_labels{$key} = q|49.3.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/vm_nesting_esmf/;
-$external_latex_labels{$key} = q|49.3.5|; 
+$external_latex_labels{$key} = q|49.3.6|; 
 $noresave{$key} = "$nosave";
 
 1;
