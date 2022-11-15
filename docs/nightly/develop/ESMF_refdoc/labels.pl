@@ -86,6 +86,14 @@ $key = q/Array:Redist/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/Array:Redist:DefaultMode/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/Array:Redist:TransposeMode/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/Array:ScatterGather/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -1842,6 +1850,14 @@ $external_latex_labels{$key} = q|28.2.3|;
 $noresave{$key} = "$nosave";
 
 $key = q/Array:Redist/;
+$external_latex_labels{$key} = q|28.2.17|; 
+$noresave{$key} = "$nosave";
+
+$key = q/Array:Redist:DefaultMode/;
+$external_latex_labels{$key} = q|28.2.17|; 
+$noresave{$key} = "$nosave";
+
+$key = q/Array:Redist:TransposeMode/;
 $external_latex_labels{$key} = q|28.2.17|; 
 $noresave{$key} = "$nosave";
 

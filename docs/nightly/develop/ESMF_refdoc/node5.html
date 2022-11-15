@@ -17695,14 +17695,19 @@ Source Field, destination Field, and the factor may be of different
    however, the number of elements must match. 
 
 <P>
-If <TT>srcToDstTransposeMap</TT> is not specified the redistribution corresponds
-   to an identity mapping of the sequentialized source Field to the
-   sequentialized destination Field. If the <TT>srcToDstTransposeMap</TT>
-   argument is provided it must be identical on all PETs. The
-   <TT>srcToDstTransposeMap</TT> allows source and destination Field dimensions to
-   be transposed during the redistribution. The number of source and destination
-   Field dimensions must be equal under this condition and the size of mapped
-   dimensions must match.
+The default redistribution operation, when <TT>srcToDstTransposeMap</TT> is not
+   specified, corresponds to the identity mapping: each element of the
+   sequentialized source Field is copied to the sequentialized
+   destination Field element in order.
+
+<P>
+If the <TT>srcToDstTransposeMap</TT> argument is provided it must be identical
+   across all PETs. The <TT>srcToDstTransposeMap</TT> allows source and destination
+   Field dimensions to be transposed during the redistribution. To support this
+   option, the number of source and destination Field dimensions must be equal
+   and the size of the associated dimensions must match.
+   See section <A HREF="#Array:Redist:TransposeMode">28.2.17</A> for more details about the
+   use of the <TT>srcToDstTransposeMap</TT> argument.
 
 <P>
 It is erroneous to specify the identical Field object for <TT>srcField</TT> and
@@ -17754,10 +17759,23 @@ The arguments are:
    
 </DD>
 <DT><STRONG>[srcToDstTransposeMap]</STRONG></DT>
-<DD>List with as many entries as there are dimensions in <TT>srcField</TT>. Each
-     entry maps the corresponding <TT>srcField</TT> dimension against the specified
-     <TT>dstField</TT> dimension. Mixing of distributed and undistributed
-     dimensions is supported.
+<DD>A list with as many entries as there are dimensions in <TT>srcField</TT>, or
+     <TT>tileCount</TT> times this many entries.
+     Each entry maps the corresponding <TT>srcField</TT> dimension against the
+     specified <TT>dstField</TT> dimension. Mixing distributed and
+     undistributed dimensions is supported.
+     Negative entries reverse the order of elements along the specified
+     dimension when going from source to destination.
+     When providing <!-- MATH
+ $rank \times tileCount$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$rank \times tileCount$"></SPAN> elements in
+     <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
+     with the corresponding tile (in order), and interpreted as the
+     tile-specific transpose map.
    
 </DD>
 <DT><STRONG>[ignoreUnmatchedIndices]</STRONG></DT>
@@ -17845,14 +17863,19 @@ Source Field, destination Field, and the factor may be of different
    however, the number of elements must match. 
 
 <P>
-If <TT>srcToDstTransposeMap</TT> is not specified the redistribution corresponds
-   to an identity mapping of the sequentialized source Field to the
-   sequentialized destination Field. If the <TT>srcToDstTransposeMap</TT>
-   argument is provided it must be identical on all PETs. The
-   <TT>srcToDstTransposeMap</TT> allows source and destination Field dimensions to
-   be transposed during the redistribution. The number of source and destination
-   Field dimensions must be equal under this condition and the size of mapped
-   dimensions must match.
+The default redistribution operation, when <TT>srcToDstTransposeMap</TT> is not
+   specified, corresponds to the identity mapping: each element of the
+   sequentialized source Field is copied to the sequentialized
+   destination Field element in order.
+
+<P>
+If the <TT>srcToDstTransposeMap</TT> argument is provided it must be identical
+   across all PETs. The <TT>srcToDstTransposeMap</TT> allows source and destination
+   Field dimensions to be transposed during the redistribution. To support this
+   option, the number of source and destination Field dimensions must be equal
+   and the size of the associated dimensions must match.
+   See section <A HREF="#Array:Redist:TransposeMode">28.2.17</A> for more details about the
+   use of the <TT>srcToDstTransposeMap</TT> argument.
 
 <P>
 It is erroneous to specify the identical Field object for <TT>srcField</TT> and
@@ -17891,10 +17914,23 @@ The arguments are:
    
 </DD>
 <DT><STRONG>[srcToDstTransposeMap]</STRONG></DT>
-<DD>List with as many entries as there are dimensions in <TT>srcField</TT>. Each
-     entry maps the corresponding <TT>srcField</TT> dimension against the specified
-     <TT>dstField</TT> dimension. Mixing of distributed and undistributed
-     dimensions is supported.
+<DD>A list with as many entries as there are dimensions in <TT>srcField</TT>, or
+     <TT>tileCount</TT> times this many entries.
+     Each entry maps the corresponding <TT>srcField</TT> dimension against the
+     specified <TT>dstField</TT> dimension. Mixing distributed and
+     undistributed dimensions is supported.
+     Negative entries reverse the order of elements along the specified
+     dimension when going from source to destination.
+     When providing <!-- MATH
+ $rank \times tileCount$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$rank \times tileCount$"></SPAN> elements in
+     <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
+     with the corresponding tile (in order), and interpreted as the
+     tile-specific transpose map.
    
 </DD>
 <DT><STRONG>[ignoreUnmatchedIndices]</STRONG></DT>
@@ -24095,7 +24131,7 @@ None of the concerns discussed above are an issue in this example where the
    First <TT>farrayE</TT> is defined as a 2D explicit-shape array on each PET which 
    will automatically provide memory for <SPAN CLASS="MATH"><IMG
  WIDTH="55" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img61.png"
+ SRC="img62.png"
  ALT="$10\times 10$"></SPAN> elements. 
 
 <P>
@@ -24950,7 +24986,7 @@ Access to a specific local memory allocation of an Array object is still
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="132" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img62.png"
+ SRC="img63.png"
  ALT="$localDeCount &gt; 1 $"></SPAN> the formally optional <TT>localDe</TT> argument to
    <TT>ESMF_ArrayGet()</TT> turns into a practically required argument. While
    in general the <TT>localDe</TT> in ESMF is simply a local index variable that 
@@ -25465,7 +25501,7 @@ The index space covered by the Array and the decomposition description is
    provided to the Array create method by the <TT>distgrid</TT> argument. The index
    space in this example has 16 elements and covers the interval <SPAN CLASS="MATH"><IMG
  WIDTH="56" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img63.png"
+ SRC="img64.png"
  ALT="$[-10, 5]$"></SPAN>. It is 
    decomposed into as many DEs as there are PETs in the current context. 
 
@@ -25516,7 +25552,7 @@ The <TT>distgrid3D</TT> object decomposes the 3-dimensional index space into
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="104" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img64.png"
+ SRC="img65.png"
  ALT="$4\times 4\times 4 = 64$"></SPAN> DEs. These DEs are laid out across the computational
    resources (PETs) of the current component according to a default DELayout that
    is created during the DistGrid create call. Notice that in the index space 
@@ -26737,7 +26773,7 @@ The exclusive region on each DE is of shape 5 x 10, while the total region
    owns the DE. In this example the exclusive elements on every DE are
    initialized to the value <SPAN CLASS="MATH"><IMG
  WIDTH="46" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img65.png"
+ SRC="img66.png"
  ALT="$f(i,j)$"></SPAN> of the geometric function
    <BR>
 <DIV ALIGN="RIGHT" CLASS="mathdisplay">
@@ -26750,7 +26786,7 @@ f(i,j) = \sin(\alpha i)\cos(\beta j),
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="168" HEIGHT="29" BORDER="0"
- SRC="img66.png"
+ SRC="img67.png"
  ALT="\begin{displaymath}
 f(i,j) = \sin(\alpha i)\cos(\beta j),
 \end{displaymath}"></TD>
@@ -26770,7 +26806,7 @@ where
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="153" HEIGHT="29" BORDER="0"
- SRC="img67.png"
+ SRC="img68.png"
  ALT="\begin{displaymath}
 \alpha = 2\pi/N_i, i=1,...N_i
 \end{displaymath}"></TD>
@@ -26790,7 +26826,7 @@ and
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="162" HEIGHT="30" BORDER="0"
- SRC="img68.png"
+ SRC="img69.png"
  ALT="\begin{displaymath}
 \beta = 2\pi/N_j, j=1,...N_j,
 \end{displaymath}"></TD>
@@ -26800,10 +26836,10 @@ and
 <BR CLEAR="ALL"></DIV><P></P>
 with <SPAN CLASS="MATH"><IMG
  WIDTH="59" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img69.png"
+ SRC="img70.png"
  ALT="$N_i = 10$"></SPAN> and <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img70.png"
+ SRC="img71.png"
  ALT="$N_j = 20$"></SPAN>. 
 
 <P>
@@ -27797,10 +27833,18 @@ The number of elements covered by <TT>srcDistgrid</TT> is identical to the numbe
 </PRE>
 
 <P>
+
+<H4><A NAME="SECTION050521710000000000000"></A>
+   <A NAME="Array:Redist:DefaultMode"></A>
+<BR>
+<SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">1</SPAN> Default Mode
+</H4>
+
+<P>
 By construction <TT>srcArray</TT> and <TT>dstArray</TT> are of identical type and
    kind. Further the number of exclusive elements matches between both Arrays.
    These are the prerequisites for the application of an Array redistribution
-   in default mode. In order to increase performance of the actual 
+   in <EM>default</EM> mode. In order to increase performance of the actual 
    redistribution the communication pattern is precomputed once, and stored in
    an <TT>ESMF_RouteHandle</TT> object. 
 
@@ -27873,12 +27917,28 @@ For the current case, the <TT>redistHandle</TT> was precomputed for simple 2D
 
 <P>
 The following variation of the code shows that the same RouteHandle can be
-   applied to an Array pair where the number of undistributed dimensions does
-   not match between source and destination Array. Here we prepare a source
-   Array with <EM>two</EM> undistributed dimensions, in position 1 and 3, that 
-   multiply out to 2x5=10 undistributed elements. The destination array is the
-   same as before with only a <EM>single</EM> undistributed dimension in position 1
-   of size 10. 
+   applied to an Array pair even when the number of undistributed dimensions does
+   not match between source and destination Array, as long as to the total
+   <EM>number</EM> of undistributed <EM>elements</EM> matches.
+
+<P>
+We prepare a source Array with <EM>two</EM> undistributed dimensions, in position
+   1 and 3, of size <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img72.png"
+ ALT="$2$"></SPAN> and <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img73.png"
+ ALT="$5$"></SPAN>, respectively. Thus there are <SPAN CLASS="MATH"><IMG
+ WIDTH="77" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img74.png"
+ ALT="$2 \times 5=10$"></SPAN>
+   undistributed source elements. The destination array is the same as before
+   with only a <EM>single</EM> undistributed dimension in position 1
+   of size <SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img75.png"
+ ALT="$10$"></SPAN>. 
 
 <P>
 <PRE>
@@ -27908,7 +27968,15 @@ When done, the resources held by <TT>redistHandle</TT> need to be deallocated
 </PRE>
 
 <P>
-In <EM>default</EM> mode, i.e. without providing the optional
+
+<H4><A NAME="SECTION050521720000000000000"></A>
+   <A NAME="Array:Redist:TransposeMode"></A>
+<BR>
+<SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">2</SPAN> Transpose Mode
+</H4>
+
+<P>
+In default mode, i.e. without providing the optional
    <TT>srcToDstTransposeMap</TT> argument, <TT>ESMF_ArrayRedistStore()</TT> does not
    require equal number of dimensions in source and destination Array. Only the
    total number of elements must match.
@@ -28071,8 +28139,8 @@ Finally consider the case where <TT>dstArray</TT> is constructed on a
 By construction <TT>srcArray</TT> and <TT>dstArray</TT> hold the same number of
    elements, albeit in a very different layout. Nevertheless, with a
    <TT>srcToDstTransposeMap</TT> that maps matching dimensions from source to
-   destination an Array redistribution becomes a well defined operation between
-   <TT>srcArray</TT> and <TT>dstArray</TT>. 
+   destination, the following Array redistribution becomes a well defined
+   operation between <TT>srcArray</TT> and <TT>dstArray</TT>. 
 
 <P>
 <PRE>
@@ -28087,124 +28155,48 @@ By construction <TT>srcArray</TT> and <TT>dstArray</TT> hold the same number of
 </PRE>
 
 <P>
-The default mode of Array redistribution, i.e. without providing a
-   <TT>srcToDstTransposeMap</TT> to <TT>ESMF_ArrayRedistStore()</TT>, also supports
-   undistributed Array dimensions. The requirement in this case is that the 
-   total undistributed element count, i.e. the product of the sizes of all
-   undistributed dimensions, be the same for source and destination Array.
-   In this mode the number of undistributed dimensions need not match between
-   source and destination.
+The <TT>srcToDstTransposeMap</TT> mechanism supports negative map entries.
+   Negative entries indicate that the order of elements is to be reversed when
+   going from source to destination.
+   Using the same <TT>srcArray</TT> and <TT>dstArray</TT> objects as in the previous
+   example, the following code maps the first <TT>srcArray</TT> dimension to the
+   third <TT>dstArray</TT> dimension, as before. However, the ordering of
+   the elements along this dimension is reversed between source and destination. 
 
 <P>
 <PRE>
-  call ESMF_ArraySpecSet(arrayspec, typekind=ESMF_TYPEKIND_R8, rank=4, rc=rc)
+  call ESMF_ArrayRedistStore(srcArray=srcArray, dstArray=dstArray, &amp;
+    routehandle=redistHandle, srcToDstTransposeMap=(/-3,1,4,2/), rc=rc)
 </PRE>
 
 <P>
 <PRE>
-  srcDistgrid = ESMF_DistGridCreate(minIndex=(/1,1/), maxIndex=(/10,20/), &amp;
-    regDecomp=(/4,1/), rc=rc)
+  call ESMF_ArrayRedist(srcArray=srcArray, dstArray=dstArray, &amp;
+    routehandle=redistHandle, rc=rc)
 </PRE>
 
 <P>
-<PRE>
-  srcArray = ESMF_ArrayCreate(arrayspec=arrayspec, distgrid=srcDistgrid, &amp;
-    undistLBound=(/1,1/), undistUBound=(/2,4/), rc=rc)
-</PRE>
+Redistribution of multi-tile Arrays is supported, although not shown as an
+   example here. In <EM>default</EM> mode, the
+   index space defined by both source and destination Arrays must match,
+   regardless of how it is comprised by tiles. In particular, there is no
+   restriction on the number of source and desination tiles, as long as both
+   sides define the same global index space.
 
 <P>
-<PRE>
-  dstDistgrid = ESMF_DistGridCreate(minIndex=(/1,1/), maxIndex=(/10,20/), &amp;
-    regDecomp=(/1,4/), rc=rc)
-</PRE>
-
-<P>
-<PRE>
-  dstArray = ESMF_ArrayCreate(arrayspec=arrayspec, distgrid=dstDistgrid, &amp;
-    distgridToArrayMap=(/2,3/), undistLBound=(/1,1/), undistUBound=(/2,4/), &amp;
-    rc=rc)
-</PRE>
-
-<P>
-Both <TT>srcArray</TT> and <TT>dstArray</TT> have two undistributed dimensions and
-   a total count of undistributed elements of <!-- MATH
- $2 \times 4 = 8$
+The situation is different in <EM>transpose</EM> mode. Here the number of source
+   and destination tiles must match. In this case, the redistribution is defined
+   tile-by-tile in order. If the provided 
+   <TT>srcToDstTransposeMap</TT> is of size <TT>rank</TT>, it is used for all of the
+   tiles. The other supported option is where <TT>srcToDstTransposeMap</TT> is of
+   size <!-- MATH
+ $rank \times tileCount$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="69" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img71.png"
- ALT="$2 \times 4 = 8$"></SPAN>.
-
-<P>
-The Array redistribution operation is defined in terms of sequentialized
-   undistributed dimensions. In the above case this means that a unique sequence
-   index will be assigned to each of the 8 undistributed elements. The sequence
-   indices will be 1, 2, ..., 8, where sequence index 1 is assigned to the first
-   element in the first (i.e. fastest varying in memory) undistributed dimension.
-   The following undistributed elements are labeled in consecutive order as they
-   are stored in memory. 
-
-<P>
-<PRE>
-  call ESMF_ArrayRedistStore(srcArray=srcArray, dstArray=dstArray, &amp;
-    routehandle=redistHandle, rc=rc)
-</PRE>
-
-<P>
-The redistribution operation by default applies the identity operation between
-   the elements of undistributed dimensions. This means that source element with
-   sequence index 1 will be mapped against destination element with sequence
-   index 1 and so forth. Because of the way source and destination Arrays
-   in the current example were constructed this corresponds to a mapping of
-   dimensions 3 and 4 on <TT>srcArray</TT> to dimensions 1 and 4 on <TT>dstArray</TT>,
-   respectively. 
-
-<P>
-<PRE>
-  call ESMF_ArrayRedist(srcArray=srcArray, dstArray=dstArray, &amp;
-    routehandle=redistHandle, rc=rc)
-</PRE>
-
-<P>
-Array redistribution does <EM>not</EM> require the same number of undistributed
-   dimensions in source and destination Array, merely the total number of
-   undistributed elements must match. 
-
-<P>
-<PRE>
-  call ESMF_ArraySpecSet(arrayspec, typekind=ESMF_TYPEKIND_R8, rank=3, rc=rc)
-</PRE>
-
-<P>
-<PRE>
-  dstArray = ESMF_ArrayCreate(arrayspec=arrayspec, distgrid=dstDistgrid, &amp;
-    distgridToArrayMap=(/1,3/), undistLBound=(/11/), undistUBound=(/18/), &amp;
-    rc=rc)
-</PRE>
-
-<P>
-This <TT>dstArray</TT> object only has a single undistributed dimension, while
-   the <TT>srcArray</TT>, defined further back, has two undistributed dimensions.
-   However, the total undistributed element count for both Arrays is 8. 
-
-<P>
-<PRE>
-  call ESMF_ArrayRedistStore(srcArray=srcArray, dstArray=dstArray, &amp;
-    routehandle=redistHandle, rc=rc)
-</PRE>
-
-<P>
-In this case the default identity operation between the elements of
-   undistributed dimensions corresponds to a <EM>merging</EM> of dimensions
-   3 and 4 on <TT>srcArray</TT> into dimension 2 on <TT>dstArray</TT>. 
-
-<P>
-<PRE>
-  call ESMF_ArrayRedist(srcArray=srcArray, dstArray=dstArray, &amp;
-    routehandle=redistHandle, rc=rc)
-</PRE>
-
-<P>
+ WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$rank \times tileCount$"></SPAN>. In that case each source-destination tile-pair
+   has its own transpose map.
 
 
 <P>
@@ -28252,12 +28244,12 @@ Both problems can be circumvented by <EM>interpreting</EM> source and destinatio
 <P>
 The default sequence index rule assigns index <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img72.png"
+ SRC="img76.png"
  ALT="$1$"></SPAN> to the <TT>minIndex</TT> corner
    element of the first tile of the DistGrid on which the Array is defined. It then
    increments the sequence index by <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img72.png"
+ SRC="img76.png"
  ALT="$1$"></SPAN> for each element running through the
    DistGrid dimensions by order. The index space position of the DistGrid tiles
    does not affect the sequence labeling of elements. The default sequence indices
@@ -28753,10 +28745,10 @@ and
 <P>
 Here indices in <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img73.png"
+ SRC="img77.png"
  ALT="$()$"></SPAN> refer to distributed dimensions while indices in <SPAN CLASS="MATH"><IMG
  WIDTH="13" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img74.png"
+ SRC="img78.png"
  ALT="$[]$"></SPAN>
    correspond to undistributed dimensions.
 
@@ -32868,14 +32860,19 @@ Source Array, destination Array, and the factor may be of different
    however, the number of elements must match. 
 
 <P>
-If <TT>srcToDstTransposeMap</TT> is not specified the redistribution corresponds
-   to an identity mapping of the sequentialized source Array to the
-   sequentialized destination Array. If the <TT>srcToDstTransposeMap</TT>
-   argument is provided it must be identical on all PETs. The
-   <TT>srcToDstTransposeMap</TT> allows source and destination Array dimensions to
-   be transposed during the redistribution. The number of source and destination
-   Array dimensions must be equal under this condition and the size of mapped
-   dimensions must match.
+The default redistribution operation, when <TT>srcToDstTransposeMap</TT> is not
+   specified, corresponds to the identity mapping: each element of the
+   sequentialized source Array is copied to the sequentialized
+   destination Array element in order.
+
+<P>
+If the <TT>srcToDstTransposeMap</TT> argument is provided it must be identical
+   across all PETs. The <TT>srcToDstTransposeMap</TT> allows source and destination
+   Array dimensions to be transposed during the redistribution. To support this
+   option, the number of source and destination Array dimensions must be equal
+   and the size of the associated dimensions must match.
+   See section <A HREF="#Array:Redist:TransposeMode">28.2.17</A> for more details about the
+   use of the <TT>srcToDstTransposeMap</TT> argument.
 
 <P>
 It is erroneous to specify the identical Array object for <TT>srcArray</TT> and
@@ -32925,10 +32922,23 @@ This call is <EM>collective</EM> across the current VM.
 <P>
 </DD>
 <DT><STRONG>[srcToDstTransposeMap]</STRONG></DT>
-<DD>List with as many entries as there are dimensions in <TT>srcArray</TT>. Each
-       entry maps the corresponding <TT>srcArray</TT> dimension against the 
-       specified <TT>dstArray</TT> dimension. Mixing of distributed and
+<DD>A list with as many entries as there are dimensions in <TT>srcArray</TT>, or
+       <TT>tileCount</TT> times this many entries.
+       Each entry maps the corresponding <TT>srcArray</TT> dimension against the
+       specified <TT>dstArray</TT> dimension. Mixing distributed and
        undistributed dimensions is supported.
+       Negative entries reverse the order of elements along the specified
+       dimension when going from source to destination.
+       When providing <!-- MATH
+ $rank \times tileCount$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$rank \times tileCount$"></SPAN> elements in
+       <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
+       with the corresponding tile (in order), and interpreted as the
+       tile-specific transpose map.
 
 <P>
 </DD>
@@ -33046,14 +33056,19 @@ Source Array, destination Array, and the factor may be of different
    however, the number of elements must match. 
 
 <P>
-If <TT>srcToDstTransposeMap</TT> is not specified the redistribution corresponds
-   to an identity mapping of the sequentialized source Array to the
-   sequentialized destination Array. If the <TT>srcToDstTransposeMap</TT>
-   argument is provided it must be identical on all PETs. The
-   <TT>srcToDstTransposeMap</TT> allows source and destination Array dimensions to
-   be transposed during the redistribution. The number of source and destination
-   Array dimensions must be equal under this condition and the size of mapped
-   dimensions must match.
+The default redistribution operation, when <TT>srcToDstTransposeMap</TT> is not
+   specified, corresponds to the identity mapping: each element of the
+   sequentialized source Array is copied to the sequentialized
+   destination Array element in order.
+
+<P>
+If the <TT>srcToDstTransposeMap</TT> argument is provided it must be identical
+   across all PETs. The <TT>srcToDstTransposeMap</TT> allows source and destination
+   Array dimensions to be transposed during the redistribution. To support this
+   option, the number of source and destination Array dimensions must be equal
+   and the size of the associated dimensions must match.
+   See section <A HREF="#Array:Redist:TransposeMode">28.2.17</A> for more details about the
+   use of the <TT>srcToDstTransposeMap</TT> argument.
 
 <P>
 It is erroneous to specify the identical Array object for <TT>srcArray</TT> and
@@ -33110,10 +33125,23 @@ This call is <EM>collective</EM> across the current VM.
 <P>
 </DD>
 <DT><STRONG>[srcToDstTransposeMap]</STRONG></DT>
-<DD>List with as many entries as there are dimensions in <TT>srcArray</TT>. Each
-       entry maps the corresponding <TT>srcArray</TT> dimension against the 
-       specified <TT>dstArray</TT> dimension. Mixing of distributed and
+<DD>A list with as many entries as there are dimensions in <TT>srcArray</TT>, or
+       <TT>tileCount</TT> times this many entries.
+       Each entry maps the corresponding <TT>srcArray</TT> dimension against the
+       specified <TT>dstArray</TT> dimension. Mixing distributed and
        undistributed dimensions is supported.
+       Negative entries reverse the order of elements along the specified
+       dimension when going from source to destination.
+       When providing <!-- MATH
+ $rank \times tileCount$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$rank \times tileCount$"></SPAN> elements in
+       <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
+       with the corresponding tile (in order), and interpreted as the
+       tile-specific transpose map.
 
 <P>
 </DD>
@@ -33264,14 +33292,19 @@ Source Array, destination Array, and the factor may be of different
    however, the number of elements must match. 
 
 <P>
-If <TT>srcToDstTransposeMap</TT> is not specified the redistribution corresponds
-   to an identity mapping of the sequentialized source Array to the
-   sequentialized destination Array. If the <TT>srcToDstTransposeMap</TT>
-   argument is provided it must be identical on all PETs. The
-   <TT>srcToDstTransposeMap</TT> allows source and destination Array dimensions to
-   be transposed during the redistribution. The number of source and destination
-   Array dimensions must be equal under this condition and the size of mapped
-   dimensions must match.
+The default redistribution operation, when <TT>srcToDstTransposeMap</TT> is not
+   specified, corresponds to the identity mapping: each element of the
+   sequentialized source Array is copied to the sequentialized
+   destination Array element in order.
+
+<P>
+If the <TT>srcToDstTransposeMap</TT> argument is provided it must be identical
+   across all PETs. The <TT>srcToDstTransposeMap</TT> allows source and destination
+   Array dimensions to be transposed during the redistribution. To support this
+   option, the number of source and destination Array dimensions must be equal
+   and the size of the associated dimensions must match.
+   See section <A HREF="#Array:Redist:TransposeMode">28.2.17</A> for more details about the
+   use of the <TT>srcToDstTransposeMap</TT> argument.
 
 <P>
 It is erroneous to specify the identical Array object for <TT>srcArray</TT> and
@@ -33308,10 +33341,23 @@ This call is <EM>collective</EM> across the current VM.
 <P>
 </DD>
 <DT><STRONG>[srcToDstTransposeMap]</STRONG></DT>
-<DD>List with as many entries as there are dimensions in <TT>srcArray</TT>. Each
-       entry maps the corresponding <TT>srcArray</TT> dimension against the 
-       specified <TT>dstArray</TT> dimension. Mixing of distributed and
+<DD>A list with as many entries as there are dimensions in <TT>srcArray</TT>, or
+       <TT>tileCount</TT> times this many entries.
+       Each entry maps the corresponding <TT>srcArray</TT> dimension against the
+       specified <TT>dstArray</TT> dimension. Mixing distributed and
        undistributed dimensions is supported.
+       Negative entries reverse the order of elements along the specified
+       dimension when going from source to destination.
+       When providing <!-- MATH
+ $rank \times tileCount$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$rank \times tileCount$"></SPAN> elements in
+       <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
+       with the corresponding tile (in order), and interpreted as the
+       tile-specific transpose map.
 
 <P>
 </DD>
@@ -33428,14 +33474,19 @@ Source Array, destination Array, and the factor may be of different
    however, the number of elements must match. 
 
 <P>
-If <TT>srcToDstTransposeMap</TT> is not specified the redistribution corresponds
-   to an identity mapping of the sequentialized source Array to the
-   sequentialized destination Array. If the <TT>srcToDstTransposeMap</TT>
-   argument is provided it must be identical on all PETs. The
-   <TT>srcToDstTransposeMap</TT> allows source and destination Array dimensions to
-   be transposed during the redistribution. The number of source and destination
-   Array dimensions must be equal under this condition and the size of mapped
-   dimensions must match.
+The default redistribution operation, when <TT>srcToDstTransposeMap</TT> is not
+   specified, corresponds to the identity mapping: each element of the
+   sequentialized source Array is copied to the sequentialized
+   destination Array element in order.
+
+<P>
+If the <TT>srcToDstTransposeMap</TT> argument is provided it must be identical
+   across all PETs. The <TT>srcToDstTransposeMap</TT> allows source and destination
+   Array dimensions to be transposed during the redistribution. To support this
+   option, the number of source and destination Array dimensions must be equal
+   and the size of the associated dimensions must match.
+   See section <A HREF="#Array:Redist:TransposeMode">28.2.17</A> for more details about the
+   use of the <TT>srcToDstTransposeMap</TT> argument.
 
 <P>
 It is erroneous to specify the identical Array object for <TT>srcArray</TT> and
@@ -33479,10 +33530,23 @@ This call is <EM>collective</EM> across the current VM.
 <P>
 </DD>
 <DT><STRONG>[srcToDstTransposeMap]</STRONG></DT>
-<DD>List with as many entries as there are dimensions in <TT>srcArray</TT>. Each
-       entry maps the corresponding <TT>srcArray</TT> dimension against the 
-       specified <TT>dstArray</TT> dimension. Mixing of distributed and
+<DD>A list with as many entries as there are dimensions in <TT>srcArray</TT>, or
+       <TT>tileCount</TT> times this many entries.
+       Each entry maps the corresponding <TT>srcArray</TT> dimension against the
+       specified <TT>dstArray</TT> dimension. Mixing distributed and
        undistributed dimensions is supported.
+       Negative entries reverse the order of elements along the specified
+       dimension when going from source to destination.
+       When providing <!-- MATH
+ $rank \times tileCount$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$rank \times tileCount$"></SPAN> elements in
+       <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
+       with the corresponding tile (in order), and interpreted as the
+       tile-specific transpose map.
 
 <P>
 </DD>
@@ -37629,7 +37693,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55811"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="55895"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -37640,7 +37704,7 @@ a grid <B>b</B> that is 6x3.</CAPTION>
  -->
 <IMG
  WIDTH="630" HEIGHT="192" ALIGN="BOTTOM" BORDER="0"
- SRC="img75.png"
+ SRC="img79.png"
  ALT="\scalebox{0.9}{\includegraphics{GridDecomps}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -37670,7 +37734,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55783"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="55867"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -37680,7 +37744,7 @@ values needed to specify grid coordinates for each type.</CAPTION>
  -->
 <IMG
  WIDTH="636" HEIGHT="210" ALIGN="BOTTOM" BORDER="0"
- SRC="img76.png"
+ SRC="img80.png"
  ALT="\scalebox{0.9}{\includegraphics{LogRectGrids}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -38043,7 +38107,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="56028"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="56112"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -38052,7 +38116,7 @@ following are the valid predefined stagger locations.
  -->
 <IMG
  WIDTH="465" HEIGHT="275" ALIGN="BOTTOM" BORDER="0"
- SRC="img77.png"
+ SRC="img81.png"
  ALT="\scalebox{0.75}{\includegraphics{GridStaggerLoc2D}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -38084,7 +38148,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="56039"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="56123"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -38093,7 +38157,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
  -->
 <IMG
  WIDTH="433" HEIGHT="333" ALIGN="BOTTOM" BORDER="0"
- SRC="img78.png"
+ SRC="img82.png"
  ALT="\scalebox{1.0}{\includegraphics{GridStaggerLoc3D}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -39862,7 +39926,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56590"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="56674"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -39871,7 +39935,7 @@ An example of a Grid's exclusive region for the corner stagger</CAPTION>
  -->
 <IMG
  WIDTH="577" HEIGHT="234" ALIGN="BOTTOM" BORDER="0"
- SRC="img79.png"
+ SRC="img83.png"
  ALT="\scalebox{0.75}{\includegraphics{GridExclusiveReg}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -40250,26 +40314,26 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
    positive x-axis oriented <EM>East</EM> and the positive y-axis oriented <EM>North</EM>.
    The resulting coordinate for the lower left corner is at <SPAN CLASS="MATH"><IMG
  WIDTH="64" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img80.png"
+ SRC="img84.png"
  ALT="$(-1,-1)$"></SPAN>, and upper right
    corner at <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img81.png"
+ SRC="img85.png"
  ALT="$(1,1)$"></SPAN>.
    However, because our staggers are symmetric they don't need to distinguish between
    the <SPAN CLASS="MATH"><IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img82.png"
+ SRC="img86.png"
  ALT="$-1$"></SPAN>, and the <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img72.png"
+ SRC="img76.png"
  ALT="$1$"></SPAN>, so we only need to concern ourselves with the first quadrant of
    this cell. We only need to use the <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img72.png"
+ SRC="img76.png"
  ALT="$1$"></SPAN>, and the <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img83.png"
+ SRC="img87.png"
  ALT="$0$"></SPAN>, and many of the cell locations
    collapse together (e.g. we only need to represent one corner). See figure&nbsp;<A HREF="#fig:gridcuststaggerloc">18</A>
    for an illustration of these concepts.
@@ -40277,7 +40341,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56678"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="56762"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -40286,7 +40350,7 @@ An example of specifying 2D stagger locations using coordinates.</CAPTION>
  -->
 <IMG
  WIDTH="545" HEIGHT="272" ALIGN="BOTTOM" BORDER="0"
- SRC="img84.png"
+ SRC="img88.png"
  ALT="\scalebox{0.75}{\includegraphics{GridCustStaggerLoc}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -40296,21 +40360,21 @@ An example of specifying 2D stagger locations using coordinates.</CAPTION>
 <P>
 The cell center is represented by the coordinate pair <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img85.png"
+ SRC="img89.png"
  ALT="$(0,0)$"></SPAN> indicating the origin.
    The cell corner is <SPAN CLASS="MATH"><IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img86.png"
+ SRC="img90.png"
  ALT="$+1$"></SPAN> in each direction, giving a coordinate pair of <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img81.png"
+ SRC="img85.png"
  ALT="$(1,1)$"></SPAN>.
    The edges are each <SPAN CLASS="MATH"><IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img86.png"
+ SRC="img90.png"
  ALT="$+1$"></SPAN> in one dimension and <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img83.png"
+ SRC="img87.png"
  ALT="$0$"></SPAN> in the other indicating that
    they're even with the center in one dimension and offset in the other.
 
@@ -40319,14 +40383,14 @@ For three dimensions, the vertical component of the stagger location can be adde
    simply adding an additional coordinate. The three dimensional generalization of the
    cell center becomes <SPAN CLASS="MATH"><IMG
  WIDTH="54" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img87.png"
+ SRC="img91.png"
  ALT="$(0,0,0)$"></SPAN> and the cell corner becomes <SPAN CLASS="MATH"><IMG
  WIDTH="54" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img88.png"
+ SRC="img92.png"
  ALT="$(1,1,1)$"></SPAN>. The rest of
    the 3D stagger locations are combinations of <SPAN CLASS="MATH"><IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img86.png"
+ SRC="img90.png"
  ALT="$+1$"></SPAN> offsets from the center.
 
 <P>
@@ -40342,21 +40406,21 @@ To generalize this to <SPAN CLASS="MATH"><IMG
  SRC="img26.png"
  ALT="$d$"></SPAN> <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img83.png"
+ SRC="img87.png"
  ALT="$0$"></SPAN> and <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img72.png"
+ SRC="img76.png"
  ALT="$1$"></SPAN> is used to specify for each dimension
    whether a stagger location is aligned with the cell center in that dimension (<SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img83.png"
+ SRC="img87.png"
  ALT="$0$"></SPAN>),
    or offset by <SPAN CLASS="MATH"><IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img86.png"
+ SRC="img90.png"
  ALT="$+1$"></SPAN> in that dimension (<SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img72.png"
+ SRC="img76.png"
  ALT="$1$"></SPAN>). Using this scheme we can represent
    any symmetric stagger location.
 
@@ -40407,7 +40471,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56697"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="56781"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -40416,7 +40480,7 @@ An example 2D Grid with cell centers and corners.</CAPTION>
  -->
 <IMG
  WIDTH="351" HEIGHT="179" ALIGN="BOTTOM" BORDER="0"
- SRC="img89.png"
+ SRC="img93.png"
  ALT="\scalebox{0.75}{\includegraphics{GridCellsAndCorners}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -40464,18 +40528,18 @@ The <TT>gridEdgeLWidth</TT> and
    the default behavior. The resulting Grid will have
    an exclusive region which extends from <SPAN CLASS="MATH"><IMG
  WIDTH="64" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img80.png"
+ SRC="img84.png"
  ALT="$(-1,-1)$"></SPAN> to
    <SPAN CLASS="MATH"><IMG
  WIDTH="55" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img90.png"
+ SRC="img94.png"
  ALT="$(10,10)$"></SPAN>, however, the cell center stagger location
    will still extend from <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img81.png"
+ SRC="img85.png"
  ALT="$(1,1)$"></SPAN> to <SPAN CLASS="MATH"><IMG
  WIDTH="55" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img90.png"
+ SRC="img94.png"
  ALT="$(10,10)$"></SPAN>. 
 
 <P>
@@ -48059,7 +48123,7 @@ chosen must be maintained in each of the keys.
 LocStreams can be very large. Data assimilation systems might use
 LocStreams with up to <SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="img91.png"
+ SRC="img95.png"
  ALT="$10^{8}$"></SPAN> observations, so efficiency is critical.
 LocStreams can be created from file, see <A HREF="#locstream:createfromfile">32.4.14</A>.
 
@@ -52095,7 +52159,7 @@ The parameters to this call <TT>elementIds</TT>, <TT>elementTypes</TT>, and
      and <TT>elementTypes</TT>. Each entry in <TT>elementConn</TT> consists of the list of
      nodes used to create that element, so the connections for element <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img92.png"
+ SRC="img96.png"
  ALT="$e$"></SPAN> in the
      <TT>elementIds</TT> array will start at <!-- MATH
  $number\_of\_nodes\_in\_element(1) + number\_of\_nodes\_in\_element(2) +
@@ -52103,7 +52167,7 @@ The parameters to this call <TT>elementIds</TT>, <TT>elementTypes</TT>, and
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="840" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="img93.png"
+ SRC="img97.png"
  ALT="$number\_of\_nodes\_in\_element(1) + number\_of\_nodes\_in\_element(2) +
 \cdots + number\_of\_nodes\_in\_element(e-1) + 1$"></SPAN> in <TT>elementConn</TT>.
 
@@ -52232,13 +52296,13 @@ The parameters to this call <TT>nodeIds</TT>, <TT>nodeCoords</TT>, and
      in <TT>nodeCoords</TT> consists of spatial dimension coordinates, so the coordinates
      for node <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img94.png"
+ SRC="img98.png"
  ALT="$n$"></SPAN> in the <TT>nodeIds</TT> array will start at <!-- MATH
  $(n-1)*spatialDim+1$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="177" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img95.png"
+ SRC="img99.png"
  ALT="$(n-1)*spatialDim+1$"></SPAN>.
 
 <P>
@@ -52426,13 +52490,13 @@ The parameters to this call <TT>nodeIds</TT>, <TT>nodeCoords</TT>, and
      in <TT>nodeCoords</TT> consists of spatial dimension coordinates, so the coordinates
      for node <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img94.png"
+ SRC="img98.png"
  ALT="$n$"></SPAN> in the <TT>nodeIds</TT> array will start at <!-- MATH
  $(n-1)*spatialDim+1$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="177" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img95.png"
+ SRC="img99.png"
  ALT="$(n-1)*spatialDim+1$"></SPAN>.
 
 <P>
@@ -52442,7 +52506,7 @@ The parameters to this call <TT>elementIds</TT>, <TT>elementTypes</TT>, and
      and <TT>elementTypes</TT>. Each entry in <TT>elementConn</TT> consists of the list of
      nodes used to create that element, so the connections for element <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img92.png"
+ SRC="img96.png"
  ALT="$e$"></SPAN> in the
      <TT>elementIds</TT> array will start at <!-- MATH
  $number\_of\_nodes\_in\_element(1) + number\_of\_nodes\_in\_element(2) +
@@ -52450,7 +52514,7 @@ The parameters to this call <TT>elementIds</TT>, <TT>elementTypes</TT>, and
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="840" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="img93.png"
+ SRC="img97.png"
  ALT="$number\_of\_nodes\_in\_element(1) + number\_of\_nodes\_in\_element(2) +
 \cdots + number\_of\_nodes\_in\_element(e-1) + 1$"></SPAN> in <TT>elementConn</TT>.
 
@@ -53043,7 +53107,7 @@ The parameters to this call <TT>elementIds</TT>, <TT>elementTypes</TT>, and
      and <TT>elementTypes</TT>. The argument <TT>elementCornerCoords</TT> consists of a list of
      all the corners used to create all the elements, so the corners for element <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img92.png"
+ SRC="img96.png"
  ALT="$e$"></SPAN> in the
      <TT>elementTypes</TT> array will start at <!-- MATH
  $number\_of\_corners\_in\_element(1)
@@ -53052,7 +53116,7 @@ The parameters to this call <TT>elementIds</TT>, <TT>elementTypes</TT>, and
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="882" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="img96.png"
+ SRC="img100.png"
  ALT="$number\_of\_corners\_in\_element(1)
 + number\_of\_corners\_in\_element(2) +
 \cdots + number\_of\_corners\_in\_element(e-1) + 1$"></SPAN> in <TT>elementCornerCoords</TT>.
@@ -53886,15 +53950,15 @@ involved in its creation. The following description applies to both <TT>ESMF_Gri
 and <TT>ESMF_Mesh</TT> involved in the <TT>ESMF_XGrid</TT> creation process.
 The first fraction quantity <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img97.png"
+ SRC="img101.png"
  ALT="$f_1$"></SPAN> is the same as defined in direct
 Field regrid between a source and destination <TT>ESMF_Field</TT> pair, namely the fraction
 of a total Grid cell area <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img98.png"
+ SRC="img102.png"
  ALT="$A$"></SPAN> that is used in weight generation. The second fraction quantity <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img99.png"
+ SRC="img103.png"
  ALT="$f_2$"></SPAN>
 is a result of the Grid merging process when multiple <TT>ESMF_Grid</TT>s or model components
 exist on one side of the exchange grid. To compute XGrid, the multiple <TT>ESMF_Grid</TT>s
@@ -53908,31 +53972,31 @@ a typical practice in earth system modelling, e.g. to handle land and ocean boun
 In addition to the matrix multiply communication routehandle, 
 <TT>ESMF_XGrid</TT> exports both <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img97.png"
+ SRC="img101.png"
  ALT="$f_1$"></SPAN> and <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img99.png"
+ SRC="img103.png"
  ALT="$f_2$"></SPAN> to the user through the <TT>ESMF_FieldRegridStore()</TT> method
 because each remapping pair has different <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img97.png"
+ SRC="img101.png"
  ALT="$f_1$"></SPAN> and <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img99.png"
+ SRC="img103.png"
  ALT="$f_2$"></SPAN> associated with it. <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img99.png"
+ SRC="img103.png"
  ALT="$f_2$"></SPAN> from source Grid is 
 folded directly in the calculated weight matrices since its used to calculate destination point flux
 density <SPAN CLASS="MATH"><IMG
  WIDTH="17" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img100.png"
+ SRC="img104.png"
  ALT="$F$"></SPAN>. The global source flux is defined as <!-- MATH
  $\sum_{g=1}^{g=n\_srcgrid}\sum_{s=1}^{s=n\_srccell}{ f_{1s} f_{2s} A_s F_s }$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="266" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="img101.png"
+ SRC="img105.png"
  ALT="$\sum_{g=1}^{g=n\_srcgrid}\sum_{s=1}^{s=n\_srccell}{ f_{1s} f_{2s} A_s F_s }$"></SPAN>.
 The global destination flux is defined as: 
 <!-- MATH
@@ -53940,20 +54004,20 @@ The global destination flux is defined as:
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="384" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="img102.png"
+ SRC="img106.png"
  ALT="$\sum_{g=1}^{g=n\_dstgrid}\sum_{d=1}^{d=n\_dstcell}{ \sum_{s=1}^{s=n\_intersect}(w_{sd} F_s) f_{2d} A_d}$"></SPAN>, <SPAN CLASS="MATH"><IMG
  WIDTH="29" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img103.png"
+ SRC="img107.png"
  ALT="$w_{sd}$"></SPAN> is the
 <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img99.png"
+ SRC="img103.png"
  ALT="$f_2$"></SPAN> modified weight intersecting s-th source Grid cell with d-th destination Grid cell.
 It can be proved that this formulation of the fractions and 
 weight calculation ensures first order global conservation of
 flux <SPAN CLASS="MATH"><IMG
  WIDTH="17" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img104.png"
+ SRC="img108.png"
  ALT="$\mathcal{F}$"></SPAN> transferred from source grids to exchange grid, and from exchange grid to destination grids.
 
 <H2><A NAME="SECTION050112000000000000000">
@@ -54399,7 +54463,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66785"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="66869"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -54412,7 +54476,7 @@ Grid layout for simple XGrid creation example. Overlapping of 3 Grids
  -->
 <IMG
  WIDTH="678" HEIGHT="453" ALIGN="BOTTOM" BORDER="0"
- SRC="img105.png"
+ SRC="img109.png"
  ALT="\scalebox{0.6}{\includegraphics{XGridEx1}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -55884,7 +55948,7 @@ A default DELayout with 1 DE per PET will be created during the
    PETs (same number as DEs by default).
    Assuming execution on 4 PETs, the (min) <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img106.png"
+ SRC="img110.png"
  ALT="$\sim$"></SPAN> (max) indices of the DE-local
    blocks will be:
    <PRE>
@@ -55907,29 +55971,29 @@ DistGrids with rank &gt; 1 can also be created with default decompositions,
 <P>
 The default decomposition for a DistGrid of rank <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img107.png"
+ SRC="img111.png"
  ALT="$N$"></SPAN> will be <!-- MATH
  $(nDEs \times 1
    \times ... \times 1)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="147" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img108.png"
+ SRC="img112.png"
  ALT="$(nDEs \times 1
 \times ... \times 1) $"></SPAN>, where <SPAN CLASS="MATH"><IMG
  WIDTH="47" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img109.png"
+ SRC="img113.png"
  ALT="$nDEs$"></SPAN> is the number of DEs in the DELayout
    and there are <SPAN CLASS="MATH"><IMG
  WIDTH="46" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img110.png"
+ SRC="img114.png"
  ALT="$N-1$"></SPAN> factors of <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img72.png"
+ SRC="img76.png"
  ALT="$1$"></SPAN>. For the 2D example above this means
    a <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img111.png"
+ SRC="img115.png"
  ALT="$4 \times 1$"></SPAN> regular decomposition if executed on 4 PETs and will result
    in the following DE-local LR regions:
    <PRE>
@@ -55949,7 +56013,7 @@ In many cases the default decomposition will not suffice for higher rank
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="69" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img112.png"
+ SRC="img116.png"
  ALT="$2 \times 3 = 6 $"></SPAN> DEs. 
 
 <P>
@@ -55974,7 +56038,7 @@ By default grid points along all dimensions are homogeneously divided between
    the DEs. The maximum element count difference between DEs along any dimension
    is 1. The (min) <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img106.png"
+ SRC="img110.png"
  ALT="$\sim$"></SPAN> (max) indices of the DE-local blocks of the above
    example are as follows:
    <PRE>
@@ -56573,7 +56637,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68518"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="68602"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -56587,7 +56651,7 @@ Two 10x10 index space tiles next to each other without
 
 </DIV>     <IMG
  WIDTH="698" HEIGHT="342" ALIGN="BOTTOM" BORDER="0"
- SRC="img113.png"
+ SRC="img117.png"
  ALT="\includegraphics{dgconnect_2tiles_not_connected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -56634,7 +56698,7 @@ The underlying principle of the DistGrid connections is that all supported
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eqn:dg_forward_connect_form"></A><IMG
  WIDTH="116" HEIGHT="57" BORDER="0"
- SRC="img114.png"
+ SRC="img118.png"
  ALT="\begin{displaymath}
 \vec a \rightarrow \vec b = \hat R \vec a + \vec P.
 \end{displaymath}"></TD>
@@ -56644,26 +56708,26 @@ The underlying principle of the DistGrid connections is that all supported
 <BR CLEAR="ALL"></DIV><P></P>
 This transform takes the index space tuple <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img115.png"
+ SRC="img119.png"
  ALT="$\vec a$"></SPAN> of a point in the 
    reference frame of tile "A" and expresses it as tuple <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img116.png"
+ SRC="img120.png"
  ALT="$\vec b$"></SPAN> in terms of
    the index space defined by tile "B". Here <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img117.png"
+ SRC="img121.png"
  ALT="$\hat R$"></SPAN>
    is a general rotation operator, and <SPAN CLASS="MATH"><IMG
  WIDTH="17" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="img118.png"
+ SRC="img122.png"
  ALT="$\vec P$"></SPAN> is a translation vector in index
    space. <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img117.png"
+ SRC="img121.png"
  ALT="$\hat R$"></SPAN> and <SPAN CLASS="MATH"><IMG
  WIDTH="17" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="img118.png"
+ SRC="img122.png"
  ALT="$\vec P$"></SPAN> correspond to the <TT>orientationVector</TT> and
    <TT>positionVector</TT>, respectively.
 
@@ -56679,13 +56743,13 @@ As an example consider the index space point marked by the black circle in
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="48" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img119.png"
+ SRC="img123.png"
  ALT="$\hat R ={1\!\!1}$"></SPAN> (default orientation) and <!-- MATH
  $\vec P = (0,0)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="73" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="img120.png"
+ SRC="img124.png"
  ALT="$\vec P = (0,0)$"></SPAN>. Therefore 
    the connection can be set by the following code. The resulting situation is
    shown in figure <A HREF="#fig:dgconnect_2tiles_connected">22</A>. 
@@ -56735,7 +56799,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="269" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="img121.png"
+ SRC="img125.png"
  ALT="$\vec P = \vec b - \vec a = (1,3) - (11,3) = (-10,0)$"></SPAN>. 
 
 <P>
@@ -56754,7 +56818,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="68170"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="68254"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -56766,7 +56830,7 @@ Two 10x10 index space tiles next to each other with a single
 
 </DIV>     <IMG
  WIDTH="698" HEIGHT="342" ALIGN="BOTTOM" BORDER="0"
- SRC="img122.png"
+ SRC="img126.png"
  ALT="\includegraphics{dgconnect_2tiles_connected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -56786,7 +56850,7 @@ Further note that every forward transformation has an associated inverse, or
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="161" HEIGHT="26" BORDER="0"
- SRC="img123.png"
+ SRC="img127.png"
  ALT="\begin{displaymath}
 \vec b \rightarrow \vec a = \hat R^{-1} \vec b - \hat R^{-1} \vec P.
 \end{displaymath}"></TD>
@@ -56802,10 +56866,10 @@ The DistGrid implicitly considers the corresponding backward connection for
 Before going into the details of how the <TT>orientationVector</TT> and 
    <TT>positionVector</TT> arguments correspond to <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img117.png"
+ SRC="img121.png"
  ALT="$\hat R$"></SPAN> and <SPAN CLASS="MATH"><IMG
  WIDTH="17" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="img118.png"
+ SRC="img122.png"
  ALT="$\vec P$"></SPAN> for more
    complex cases, it is useful to explore what class of connections are covered
    by the above introduced form (<A HREF="#eqn:dg_forward_connect_form">4</A>) of
@@ -56814,17 +56878,17 @@ Before going into the details of how the <TT>orientationVector</TT> and
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="44" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img124.png"
+ SRC="img128.png"
  ALT="$\vec a \rightarrow \vec b$"></SPAN>.
 
 <P>
 First consider the case where tile "A" is rotated by <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img117.png"
+ SRC="img121.png"
  ALT="$\hat R$"></SPAN>
    relative to tile "B" around a general pivot point <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img125.png"
+ SRC="img129.png"
  ALT="$\vec p$"></SPAN> given in terms 
    of the index space of tile "A":
 
@@ -56840,26 +56904,26 @@ First consider the case where tile "A" is rotated by <SPAN CLASS="MATH"><IMG
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
 <TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
  WIDTH="44" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="img126.png"
+ SRC="img130.png"
  ALT="$\displaystyle \vec a \rightarrow \vec b$"></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img127.png"
+ SRC="img131.png"
  ALT="$\textstyle =$"></TD>
 <TD ALIGN="LEFT" NOWRAP><IMG
  WIDTH="92" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="img128.png"
+ SRC="img132.png"
  ALT="$\displaystyle \hat R (\vec a - \vec p) + \vec p$"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 &nbsp;</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT">&nbsp;</TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img127.png"
+ SRC="img131.png"
  ALT="$\textstyle =$"></TD>
 <TD ALIGN="LEFT" NOWRAP><IMG
  WIDTH="107" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="img129.png"
+ SRC="img133.png"
  ALT="$\displaystyle \hat R \vec a + ({1\!\!1} - \hat R) \vec p$"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 (<SPAN CLASS="arabic">6</SPAN>)</TD></TR>
@@ -56879,7 +56943,7 @@ With substitution
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="98" HEIGHT="29" BORDER="0"
- SRC="img130.png"
+ SRC="img134.png"
  ALT="\begin{displaymath}
 \vec P = ({1\!\!1} - \hat R) \vec p
 \end{displaymath}"></TD>
@@ -56893,7 +56957,7 @@ form (<A HREF="#eqn:dg_forward_connect_form">4</A>) is recovered.
 Next consider transform (<A HREF="#eqn:dg_forward_connect_pivot">6</A>) followed by
    a translation <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="23" ALIGN="BOTTOM" BORDER="0"
- SRC="img131.png"
+ SRC="img135.png"
  ALT="$\vec t$"></SPAN> of tile "B" relative to tile "A":
 
 <P>
@@ -56910,7 +56974,7 @@ Next consider transform (<A HREF="#eqn:dg_forward_connect_pivot">6</A>) followed
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eqn:dg_forward_connect_pivot_trans"></A><IMG
  WIDTH="192" HEIGHT="61" BORDER="0"
- SRC="img132.png"
+ SRC="img136.png"
  ALT="\begin{displaymath}
 \vec a \rightarrow \vec b =
 \hat R \vec a + ({1\!\!1} - \hat R) \vec p + \vec t.
@@ -56935,7 +56999,7 @@ Again form (<A HREF="#eqn:dg_forward_connect_form">4</A>) is recovered with the
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eqn:dg_forward_connect_pivot_trans_pv"></A><IMG
  WIDTH="124" HEIGHT="61" BORDER="0"
- SRC="img133.png"
+ SRC="img137.png"
  ALT="\begin{displaymath}
 \vec P = ({1\!\!1} - \hat R) \vec p + \vec t.
 \end{displaymath}"></TD>
@@ -56963,10 +57027,10 @@ By definition, DistGrid connections associate an index tuple of one tile
    with exactly one index tuple expressed in the reference frame of another tile.
    This restricts the supported rotations <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img117.png"
+ SRC="img121.png"
  ALT="$\hat R$"></SPAN> to multiples of <SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img134.png"
+ SRC="img138.png"
  ALT="$90^{\circ}$"></SPAN>.
    Also allowing invesion of index space dimensions leads to 8 unique 
    operations in two dimension shown in table <A HREF="#tab:dg_ops">3</A>.
@@ -56977,7 +57041,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="68519"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="68603"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -56985,13 +57049,13 @@ The 8 unique rotational operations in 2 dimensional index space. The
 <TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER">&nbsp;</TD>
 <TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img117.png"
+ SRC="img121.png"
  ALT="$\hat R$"></SPAN></TD>
 <TD ALIGN="CENTER"><TT>orientationVector</TT></TD>
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 <TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img135.png"
+ SRC="img139.png"
  ALT="$0^{\circ}$"></SPAN></TD>
 <TD ALIGN="CENTER"><!-- MATH
  $\left( \begin{array}{rr}
@@ -57000,7 +57064,7 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="75" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img136.png"
+ SRC="img140.png"
  ALT="$\left( \begin{array}{rr}
 1 &amp; 0 \\
 0 &amp; 1 \end{array} \right)$"></SPAN></TD>
@@ -57011,14 +57075,14 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="51" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img137.png"
+ SRC="img141.png"
  ALT="$\left( \begin{array}{r}
 1 \\
 2 \end{array} \right)$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 <TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img134.png"
+ SRC="img138.png"
  ALT="$90^{\circ}$"></SPAN></TD>
 <TD ALIGN="CENTER"><!-- MATH
  $\left( \begin{array}{rr}
@@ -57027,7 +57091,7 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="88" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img138.png"
+ SRC="img142.png"
  ALT="$\left( \begin{array}{rr}
 0 &amp; -1 \\
 1 &amp; 0 \end{array} \right)$"></SPAN></TD>
@@ -57038,14 +57102,14 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img139.png"
+ SRC="img143.png"
  ALT="$\left( \begin{array}{r}
 -2 \\
 1 \end{array} \right)$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 <TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="35" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img140.png"
+ SRC="img144.png"
  ALT="$180^{\circ}$"></SPAN></TD>
 <TD ALIGN="CENTER"><!-- MATH
  $\left( \begin{array}{rr}
@@ -57054,7 +57118,7 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="100" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img141.png"
+ SRC="img145.png"
  ALT="$\left( \begin{array}{rr}
 -1 &amp; 0 \\
 0 &amp; -1 \end{array} \right)$"></SPAN></TD>
@@ -57065,14 +57129,14 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img142.png"
+ SRC="img146.png"
  ALT="$\left( \begin{array}{r}
 -1 \\
 -2 \end{array} \right)$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 <TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="35" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img143.png"
+ SRC="img147.png"
  ALT="$270^{\circ}$"></SPAN></TD>
 <TD ALIGN="CENTER"><!-- MATH
  $\left( \begin{array}{rr}
@@ -57081,7 +57145,7 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="88" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img144.png"
+ SRC="img148.png"
  ALT="$\left( \begin{array}{rr}
 0 &amp; 1 \\
 -1 &amp; 0 \end{array} \right)$"></SPAN></TD>
@@ -57092,14 +57156,14 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img145.png"
+ SRC="img149.png"
  ALT="$\left( \begin{array}{r}
 2 \\
 -1 \end{array} \right)$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 <TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img135.png"
+ SRC="img139.png"
  ALT="$0^{\circ}$"></SPAN> + inversion dim 1</TD>
 <TD ALIGN="CENTER"><!-- MATH
  $\left( \begin{array}{rr}
@@ -57108,7 +57172,7 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="88" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img146.png"
+ SRC="img150.png"
  ALT="$\left( \begin{array}{rr}
 -1 &amp; 0 \\
 0 &amp; 1 \end{array} \right)$"></SPAN></TD>
@@ -57119,14 +57183,14 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img147.png"
+ SRC="img151.png"
  ALT="$\left( \begin{array}{r}
 -1 \\
 2 \end{array} \right)$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 <TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img135.png"
+ SRC="img139.png"
  ALT="$0^{\circ}$"></SPAN> + inversion dim 2</TD>
 <TD ALIGN="CENTER"><!-- MATH
  $\left( \begin{array}{rr}
@@ -57135,7 +57199,7 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="88" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img148.png"
+ SRC="img152.png"
  ALT="$\left( \begin{array}{rr}
 1 &amp; 0 \\
 0 &amp; -1 \end{array} \right)$"></SPAN></TD>
@@ -57146,14 +57210,14 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img149.png"
+ SRC="img153.png"
  ALT="$\left( \begin{array}{r}
 1 \\
 -2 \end{array} \right)$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 <TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img134.png"
+ SRC="img138.png"
  ALT="$90^{\circ}$"></SPAN> + inversion dim 1</TD>
 <TD ALIGN="CENTER"><!-- MATH
  $\left( \begin{array}{rr}
@@ -57162,7 +57226,7 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="75" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img150.png"
+ SRC="img154.png"
  ALT="$\left( \begin{array}{rr}
 0 &amp; 1 \\
 1 &amp; 0 \end{array} \right)$"></SPAN></TD>
@@ -57173,14 +57237,14 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="51" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img151.png"
+ SRC="img155.png"
  ALT="$\left( \begin{array}{r}
 2 \\
 1 \end{array} \right)$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 <TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img134.png"
+ SRC="img138.png"
  ALT="$90^{\circ}$"></SPAN> + inversion dim 2</TD>
 <TD ALIGN="CENTER"><!-- MATH
  $\left( \begin{array}{rr}
@@ -57189,7 +57253,7 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="100" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img152.png"
+ SRC="img156.png"
  ALT="$\left( \begin{array}{rr}
 0 &amp; -1 \\
 -1 &amp; 0 \end{array} \right)$"></SPAN></TD>
@@ -57200,7 +57264,7 @@ The 8 unique rotational operations in 2 dimensional index space. The
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img153.png"
+ SRC="img157.png"
  ALT="$\left( \begin{array}{r}
 -2 \\
 -1 \end{array} \right)$"></SPAN></TD>
@@ -57248,21 +57312,21 @@ In order to better visualize the topology, the first index space
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="59" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img154.png"
+ SRC="img158.png"
  ALT="$0^{\circ}..360^{\circ}$"></SPAN>), and
    the second dimension with latitude (<!-- MATH
  $-80^{\circ}..+80^{\circ}$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="91" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img155.png"
+ SRC="img159.png"
  ALT="$-80^{\circ}..+80^{\circ}$"></SPAN>) of the unit
    sphere (using an ESMF_Grid object) as shown in figure 
    <A HREF="#fig:dgconnect_1tile_not_connected">23</A>.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="68283"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="68367"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -57275,7 +57339,7 @@ A single 50x20 index space tile without connections. For better
 
 </DIV>     <IMG
  WIDTH="455" HEIGHT="489" ALIGN="BOTTOM" BORDER="0"
- SRC="img156.png"
+ SRC="img160.png"
  ALT="\includegraphics{dgconnect_1tile_not_connected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -57307,7 +57371,7 @@ The <TT>positionVector</TT> is determined by transformation
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="268" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="img157.png"
+ SRC="img161.png"
  ALT="$\vec P = \vec b - \vec a = (1,j) - (51,j) =
 (-50,0)$"></SPAN>. Here <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
@@ -57328,7 +57392,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="68298"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="68382"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -57338,7 +57402,7 @@ A single 50x20 index space tile with periodic connection along
 
 </DIV>     <IMG
  WIDTH="455" HEIGHT="489" ALIGN="BOTTOM" BORDER="0"
- SRC="img158.png"
+ SRC="img162.png"
  ALT="\includegraphics{dgconnect_1tile_periodic1_connected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -57387,7 +57451,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="68314"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="68398"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -57399,7 +57463,7 @@ A single 50x20 index space tile with periodic connections
 
 </DIV>     <IMG
  WIDTH="496" HEIGHT="481" ALIGN="BOTTOM" BORDER="0"
- SRC="img159.png"
+ SRC="img163.png"
  ALT="\includegraphics{dgconnect_1tile_periodic2_connected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -57430,7 +57494,7 @@ For the orientation vector associated with a regular pole connection at
  ALT="$i$"></SPAN> along the first dimension, and a second point
    <SPAN CLASS="MATH"><IMG
  WIDTH="37" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img160.png"
+ SRC="img164.png"
  ALT="$i+1$"></SPAN> that is just to the right of the first point, we see that as the 
    pole is being crossed, the second point maps just right of the first point.
    Therefore, the orientation of the first index space dimension is unaffected
@@ -57460,24 +57524,24 @@ In order to find the position vector of the polar connection we consider
    Crossing the pole this takes us to a point that is again right on the 
    top edge with <SPAN CLASS="MATH"><IMG
  WIDTH="66" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img161.png"
+ SRC="img165.png"
  ALT="$j=j_{max}$"></SPAN>, and is <SPAN CLASS="MATH"><IMG
  WIDTH="35" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img162.png"
+ SRC="img166.png"
  ALT="$180^\circ$"></SPAN> rotated along the first 
    dimension. This means <!-- MATH
  $i=mod(i+i_{size}/2, i_{size})$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="180" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img163.png"
+ SRC="img167.png"
  ALT="$i=mod(i+i_{size}/2, i_{size})$"></SPAN>, with <!-- MATH
  $i_{size}=i_{max}
    -i_{min}+1$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="163" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img164.png"
+ SRC="img168.png"
  ALT="$i_{size}=i_{max}
 -i_{min}+1$"></SPAN>.
    In practice the modulo operation is automatically taken care of by the
@@ -57504,7 +57568,7 @@ In order to find the position vector of the polar connection we consider
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="297" HEIGHT="45" BORDER="0"
- SRC="img165.png"
+ SRC="img169.png"
  ALT="\begin{displaymath}
 \vec a = \left( \begin{array}{l}
 i \\
@@ -57523,7 +57587,7 @@ Using this observation, together with table <A HREF="#tab:dg_ops">3</A> to
    translate the polar <TT>orientationVector</TT> into a standard rotation 
    operation <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img117.png"
+ SRC="img121.png"
  ALT="$\hat R$"></SPAN>, we get the position vector from equation
    (<A HREF="#eqn:dg_forward_connect_form">4</A>):
 
@@ -57551,26 +57615,26 @@ Using this observation, together with table <A HREF="#tab:dg_ops">3</A> to
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
 <TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
  WIDTH="17" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="img166.png"
+ SRC="img170.png"
  ALT="$\displaystyle \vec P$"></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img127.png"
+ SRC="img131.png"
  ALT="$\textstyle =$"></TD>
 <TD ALIGN="LEFT" NOWRAP><IMG
  WIDTH="51" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="img167.png"
+ SRC="img171.png"
  ALT="$\displaystyle \vec b - \hat R \vec a$"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 &nbsp;</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT">&nbsp;</TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img127.png"
+ SRC="img131.png"
  ALT="$\textstyle =$"></TD>
 <TD ALIGN="LEFT" NOWRAP><IMG
  WIDTH="319" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img168.png"
+ SRC="img172.png"
  ALT="$\displaystyle \left( \begin{array}{l}
 i + i_{size}/2\\
 j_{max} \end{array} \ri...
@@ -57583,11 +57647,11 @@ j_{max}+1 \end{array} \right)$"></TD>
 <TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT">&nbsp;</TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img127.png"
+ SRC="img131.png"
  ALT="$\textstyle =$"></TD>
 <TD ALIGN="LEFT" NOWRAP><IMG
  WIDTH="119" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img169.png"
+ SRC="img173.png"
  ALT="$\displaystyle \left( \begin{array}{l}
 i_{size}/2\\
 2j_{max} +1 \end{array} \right).$"></TD>
@@ -57637,7 +57701,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68521"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="68605"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57657,7 +57721,7 @@ A single 50x20 index space tile with periodic connection
 
 </DIV>     <IMG
  WIDTH="505" HEIGHT="485" ALIGN="BOTTOM" BORDER="0"
- SRC="img170.png"
+ SRC="img174.png"
  ALT="\includegraphics{dgconnect_1tile_peripole_connected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -57682,14 +57746,14 @@ Topologically a bipole connection can be thought of folding the respective
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="222" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img171.png"
+ SRC="img175.png"
  ALT="$(i_{min}, j_{max}+1) \rightarrow (i_{max}, j_{max})$"></SPAN>,
    <!-- MATH
  $(i_{min}+1, j_{max}+1) \rightarrow (i_{max}-1, j_{max})$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="277" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img172.png"
+ SRC="img176.png"
  ALT="$(i_{min}+1, j_{max}+1) \rightarrow (i_{max}-1, j_{max})$"></SPAN>, and so forth. 
    This means that 
    compared to the regular pole connection, the bipolar orientation vector
@@ -57705,12 +57769,12 @@ Topologically a bipole connection can be thought of folding the respective
 <P>
 Using the bipolar mapping just mentioned for a point at <SPAN CLASS="MATH"><IMG
  WIDTH="34" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img173.png"
+ SRC="img177.png"
  ALT="$i_{min}$"></SPAN>, together
    with table <A HREF="#tab:dg_ops">3</A> to translate the polar <TT>orientationVector</TT>
    into a standard rotation  operation <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img117.png"
+ SRC="img121.png"
  ALT="$\hat R$"></SPAN>, we can solve for the position
    vector according to equation (<A HREF="#eqn:dg_forward_connect_form">4</A>):
 
@@ -57738,26 +57802,26 @@ Using the bipolar mapping just mentioned for a point at <SPAN CLASS="MATH"><IMG
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
 <TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
  WIDTH="17" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="img166.png"
+ SRC="img170.png"
  ALT="$\displaystyle \vec P$"></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img127.png"
+ SRC="img131.png"
  ALT="$\textstyle =$"></TD>
 <TD ALIGN="LEFT" NOWRAP><IMG
  WIDTH="51" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="img167.png"
+ SRC="img171.png"
  ALT="$\displaystyle \vec b - \hat R \vec a$"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 &nbsp;</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT">&nbsp;</TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img127.png"
+ SRC="img131.png"
  ALT="$\textstyle =$"></TD>
 <TD ALIGN="LEFT" NOWRAP><IMG
  WIDTH="294" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img174.png"
+ SRC="img178.png"
  ALT="$\displaystyle \left( \begin{array}{l}
 i_{max}\\
 j_{max} \end{array} \right)
@@ -57771,11 +57835,11 @@ j_{max}+1 \end{array} \right)$"></TD>
 <TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT">&nbsp;</TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img127.png"
+ SRC="img131.png"
  ALT="$\textstyle =$"></TD>
 <TD ALIGN="LEFT" NOWRAP><IMG
  WIDTH="132" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img175.png"
+ SRC="img179.png"
  ALT="$\displaystyle \left( \begin{array}{l}
 i_{max}+i_{min}\\
 2j_{max} +1 \end{array} \right).$"></TD>
@@ -57795,7 +57859,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68522"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="68606"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -57815,7 +57879,7 @@ A single 50x20 index space tile with periodic connection
 
 </DIV>     <IMG
  WIDTH="505" HEIGHT="486" ALIGN="BOTTOM" BORDER="0"
- SRC="img176.png"
+ SRC="img180.png"
  ALT="\includegraphics{dgconnect_1tile_peribipole_connected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -57866,7 +57930,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68430"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="68514"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -57876,7 +57940,7 @@ Six 10x10 square index space tiles without connections. The tile
 
 </DIV>     <IMG
  WIDTH="555" HEIGHT="422" ALIGN="BOTTOM" BORDER="0"
- SRC="img177.png"
+ SRC="img181.png"
  ALT="\includegraphics{dgconnect_cusph_not_connected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -57976,7 +58040,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68442"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="68526"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -57985,7 +58049,7 @@ The six tiles of an unfolded cube with five connections defined.</CAPTION>
 
 </DIV>     <IMG
  WIDTH="555" HEIGHT="422" ALIGN="BOTTOM" BORDER="0"
- SRC="img178.png"
+ SRC="img182.png"
  ALT="\includegraphics{dgconnect_cusph_5connected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -58023,11 +58087,11 @@ in terms of tile 6. However,
 According to the general transformation relationship 
    (<A HREF="#eqn:dg_forward_connect_form">4</A>) the position vector <SPAN CLASS="MATH"><IMG
  WIDTH="17" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="img118.png"
+ SRC="img122.png"
  ALT="$\vec P$"></SPAN> for the 
    forward transform tile 1 <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img179.png"
+ SRC="img183.png"
  ALT="$\rightarrow$"></SPAN> tile 6 is then given as the 
    difference between these two representations. Figure 
    <A HREF="#fig:dgconnect_cusph_6connected">30</A> visualizes the situation. 
@@ -58048,7 +58112,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68453"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="68537"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -58058,7 +58122,7 @@ The six tiles of an unfolded cube with all six connections that
 
 </DIV>     <IMG
  WIDTH="556" HEIGHT="422" ALIGN="BOTTOM" BORDER="0"
- SRC="img180.png"
+ SRC="img184.png"
  ALT="\includegraphics{dgconnect_cusph_6connected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -58070,28 +58134,28 @@ The six remaining connections all involve rotations. The procedure for finding
    to be formulated. This is important because for the forward connection the
    rotation applies to tile "A". Once the correct rotation operation <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img117.png"
+ SRC="img121.png"
  ALT="$\hat R$"></SPAN> is
    pinned down, an arbitrary point close to the connection is chosen. This point
    can either be on tile "A" or "B". It is written then written in terms of tile
    "A" index space <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img115.png"
+ SRC="img119.png"
  ALT="$\vec a$"></SPAN>, and in terms of tile "B" index space <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img116.png"
+ SRC="img120.png"
  ALT="$\vec b$"></SPAN>. 
    Obviously one of those formulations (either <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img115.png"
+ SRC="img119.png"
  ALT="$\vec a$"></SPAN> or <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img116.png"
+ SRC="img120.png"
  ALT="$\vec b$"></SPAN>) will take
    advantage of the connection, i.e. it will actually step outside the reference
    tile in order to reach the chosen point. Finally the position vector <SPAN CLASS="MATH"><IMG
  WIDTH="17" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="img118.png"
+ SRC="img122.png"
  ALT="$\vec P$"></SPAN> 
    of the connection is determined by expression 
    (<A HREF="#eqn:dg_forward_connect_form">4</A>) as the difference:
@@ -58109,7 +58173,7 @@ The six remaining connections all involve rotations. The procedure for finding
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eqn:dg_forward_pvec"></A><IMG
  WIDTH="83" HEIGHT="57" BORDER="0"
- SRC="img181.png"
+ SRC="img185.png"
  ALT="\begin{displaymath}
 \vec P = \vec b - \hat R \vec a.
 \end{displaymath}"></TD>
@@ -58121,20 +58185,20 @@ The six remaining connections all involve rotations. The procedure for finding
 <P>
 Following the above outlined procedure for connection tile 1 <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img179.png"
+ SRC="img183.png"
  ALT="$\rightarrow$"></SPAN>
    tile 3, we find first that tile 1 needs to be rotated clockwise by <SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img182.png"
+ SRC="img186.png"
  ALT="$90^\circ$"></SPAN>.
    This rotation lines up the top edge of tile 1 with the left edge of
    tile 3. A clockwise rotation of <SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img182.png"
+ SRC="img186.png"
  ALT="$90^\circ$"></SPAN> corresponds to a counterclockwise
    rotation by <SPAN CLASS="MATH"><IMG
  WIDTH="35" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img183.png"
+ SRC="img187.png"
  ALT="$270^\circ$"></SPAN> given in table <A HREF="#tab:dg_ops">3</A>. We therefore know
    that <TT>orientationVector</TT>=(2,-1) for this connection, and the associated
    operation is <!-- MATH
@@ -58144,7 +58208,7 @@ Following the above outlined procedure for connection tile 1 <SPAN CLASS="MATH">
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="121" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img184.png"
+ SRC="img188.png"
  ALT="$\hat R=\left(\begin{array}{rr}
 0 &amp; 1 \\
 -1 &amp; 0 \end{array} \right)$"></SPAN>.
@@ -58156,7 +58220,7 @@ Next we chose the first point on the top edge of tile 1 as a reference point.
 <P>
 <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img115.png"
+ SRC="img119.png"
  ALT="$\vec a$"></SPAN> = <TT>( minIndexPTile(1,1) , maxIndexPTile(2,1) )</TT>.
 
 <P>
@@ -58166,7 +58230,7 @@ The same point in terms of tile 3 (going through the connection) has
 <P>
 <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img116.png"
+ SRC="img120.png"
  ALT="$\vec b$"></SPAN> = <TT>( minIndexPTile(1,3)-1 , maxIndexPTile(2,3) )</TT>.
 
 <P>
@@ -58195,7 +58259,7 @@ For greater clarity figure <A HREF="#fig:dgconnect_cusph_2rotconnected">31</A> o
    edge of tile 6. This requires a counterclockwise rotation of tile 4 by
    <SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img182.png"
+ SRC="img186.png"
  ALT="$90^\circ$"></SPAN>. From table <A HREF="#tab:dg_ops">3</A> we then get 
    <TT>orientationVector</TT>=(-2,1), and <!-- MATH
  $\hat R=\left(\begin{array}{rr}
@@ -58204,7 +58268,7 @@ For greater clarity figure <A HREF="#fig:dgconnect_cusph_2rotconnected">31</A> o
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="121" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
- SRC="img185.png"
+ SRC="img189.png"
  ALT="$\hat R=\left(\begin{array}{rr}
 0 &amp; -1 \\
 1 &amp; 0 \end{array} \right)$"></SPAN>.
@@ -58216,7 +58280,7 @@ Choosing the left most point on the bottom edge of tile 6 as the reference
 <P>
 <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img115.png"
+ SRC="img119.png"
  ALT="$\vec a$"></SPAN> = <TT>( maxIndexPTile(1,4)+1 , maxIndexPTile(2,4) )</TT>,
 
 <P>
@@ -58225,7 +58289,7 @@ and in terms of tile 6
 <P>
 <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="img116.png"
+ SRC="img120.png"
  ALT="$\vec b$"></SPAN> = <TT>( minIndexPTile(1,6) , minIndexPTile(2,6) )</TT>.
 
 <P>
@@ -58249,7 +58313,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68485"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="68569"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -58259,7 +58323,7 @@ The six tiles of an unfolded cube with two connections that
 
 </DIV>     <IMG
  WIDTH="555" HEIGHT="422" ALIGN="BOTTOM" BORDER="0"
- SRC="img186.png"
+ SRC="img190.png"
  ALT="\includegraphics{dgconnect_cusph_2rotconnected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -58374,7 +58438,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68493"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="68577"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
@@ -58385,7 +58449,7 @@ Six index space tiles with all 12 connections to form a cubic
 
 </DIV>     <IMG
  WIDTH="595" HEIGHT="494" ALIGN="BOTTOM" BORDER="0"
- SRC="img187.png"
+ SRC="img191.png"
  ALT="\includegraphics{dgconnect_cusph_12connected.eps}"></TD></TR>
 </TABLE>
 </DIV>
@@ -59051,7 +59115,7 @@ The arguments are:
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="192" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="img188.png"
+ SRC="img192.png"
  ALT="$&gt; 2^{31}-1 = 2,147,483,647$"></SPAN> will switch to 64-bit 
             indexing.
        
@@ -59247,7 +59311,7 @@ The arguments are:
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="192" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="img188.png"
+ SRC="img192.png"
  ALT="$&gt; 2^{31}-1 = 2,147,483,647$"></SPAN> will switch to 64-bit 
             indexing.
        
@@ -59397,7 +59461,7 @@ The arguments are:
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="192" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="img188.png"
+ SRC="img192.png"
  ALT="$&gt; 2^{31}-1 = 2,147,483,647$"></SPAN> will switch to 64-bit 
             indexing.
        
@@ -59537,7 +59601,7 @@ The arguments are:
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="192" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="img188.png"
+ SRC="img192.png"
  ALT="$&gt; 2^{31}-1 = 2,147,483,647$"></SPAN> will switch to 64-bit 
             indexing.
        
@@ -59746,11 +59810,11 @@ The arguments are:
 <P>
 Create an <TT>ESMF_DistGrid</TT> of <TT>dimCount</TT> <SPAN CLASS="MATH"><IMG
  WIDTH="41" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img189.png"
+ SRC="img193.png"
  ALT="$1+n$"></SPAN>, where 
        <SPAN CLASS="MATH"><IMG
  WIDTH="30" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img190.png"
+ SRC="img194.png"
  ALT="$n=$"></SPAN> <TT>size(minIndexPTile)</TT> = <TT>size(maxIndexPTile)</TT>.
 
 <P>
@@ -59767,11 +59831,11 @@ In addition to the arbitrarily distributed dimension, regular DistGrid
        dimensions can be specified in <TT>minIndexPTile</TT> and <TT>maxIndexPTile</TT>. The
        <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img94.png"
+ SRC="img98.png"
  ALT="$n$"></SPAN> dimensional subspace spanned by the regular dimensions is "multiplied"
        with the arbitrary dimension on each DE, to form a <SPAN CLASS="MATH"><IMG
  WIDTH="41" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img189.png"
+ SRC="img193.png"
  ALT="$1+n$"></SPAN> dimensional
        total index space described by the DistGrid object. The <TT>arbDim</TT>
        argument allows to specify which dimension in the resulting DistGrid
@@ -61919,7 +61983,7 @@ Notice that ESMF implements a throttle on the VMEpoch as to limit the number
    increasing memory pressure on the receiving side, ultimatily resulting in
    out-of-memory conditions. The default throttle in VMEpoch is set to <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img191.png"
+ SRC="img75.png"
  ALT="$10$"></SPAN>
    outstanding message between any two PETs. It can be adjusted by specifying
    the <TT>throttle</TT> argument when calling <TT>ESMF_VMEpochEnter()</TT>.
