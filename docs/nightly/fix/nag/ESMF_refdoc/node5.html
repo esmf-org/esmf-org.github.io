@@ -6541,8 +6541,9 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_FieldBundle), intent(in) :: srcFieldBundle
      type(ESMF_FieldBundle), intent(inout) :: dstFieldBundle
-     integer(ESMF_KIND_I4), intent(in), optional :: srcMaskValues(:)
-     integer(ESMF_KIND_I4), intent(in), optional :: dstMaskValues(:)
+  TODO: why is there no ESMF_KeywordEnforcer here???
+     integer(ESMF_KIND_I4), target, intent(in), optional :: srcMaskValues(:)
+     integer(ESMF_KIND_I4), target, intent(in), optional :: dstMaskValues(:)
      type(ESMF_RegridMethod_Flag), intent(in), optional :: regridmethod
      type(ESMF_PoleMethod_Flag), intent(in), optional :: polemethod
      integer, intent(in), optional :: regridPoleNPnts
@@ -6570,14 +6571,14 @@ Changes made after the 5.2.0r release:
    <DL>
 <DT><STRONG>7.0.0</STRONG></DT>
 <DD>Added arguments <TT>ignoreDegenerate</TT>, <TT>lineType</TT>,
-   and <TT>normType</TT>. The argument <TT>ignoreDegenerate</TT> allows the user to skip degenerate
-   cells in the regridding instead of stopping with an error.
-   The argument <TT>lineType</TT> allows the user to
-   control the path of the line between two points on a sphere surface.
-   This allows the user to use their preferred line path for the calculation
-   of distances and the shape of cells during regrid weight calculation on
-   a sphere. The argument <TT>normType</TT> allows the user to
-   control the type of normalization done during conservative weight generation.
+   and <TT>normType</TT>. The argument <TT>ignoreDegenerate</TT> allows the user to
+   skip degenerate cells in the regridding instead of stopping with an error.
+   The argument <TT>lineType</TT> allows the user to control the path of the line
+   between two points on a sphere surface. This allows the user to use their
+   preferred line path for the calculation of distances and the shape of cells
+   during regrid weight calculation on a sphere. The argument <TT>normType</TT>
+   allows the user to control the type of normalization done during
+   conservative weight generation.
    
 </DD>
 <DT><STRONG>7.1.0r</STRONG></DT>
@@ -6593,14 +6594,14 @@ Added arguments <TT>extrapMethod</TT>, <TT>extrapNumSrcPnts</TT>, and
    user to extrapolate destination points not mapped by the regrid method.
    <TT>extrapMethod</TT> allows the user to choose the extrapolation method.
    <TT>extrapNumSrcPnts</TT> and <TT>extrapDistExponent</TT> are parameters that
-   allow the user to tune the behavior of the <TT>ESMF_EXTRAPMETHOD_NEAREST_IDAVG</TT>
-   method.
+   allow the user to tune the behavior of the
+   <TT>ESMF_EXTRAPMETHOD_NEAREST_IDAVG</TT> method.
    
 </DD>
 <DT><STRONG>8.0.0</STRONG></DT>
-<DD>Added argument <TT>extrapNumLevels</TT>. For level based extrapolation methods
-   (e.g. <TT>ESMF_EXTRAPMETHOD_CREEP</TT>) this argument allows the user to
-   set how many levels to extrapolate.
+<DD>Added argument <TT>extrapNumLevels</TT>. For level based
+   extrapolation methods (e.g. <TT>ESMF_EXTRAPMETHOD_CREEP</TT>) this argument
+   allows the user to set how many levels to extrapolate.
   !
    
 </DD>
@@ -6613,8 +6614,8 @@ Added arguments <TT>extrapMethod</TT>, <TT>extrapNumSrcPnts</TT>, and
 <BR></I>
 
 <P>
-Store a FieldBundle regrid operation over the data in <TT>srcFieldBundle</TT> and
-   <TT>dstFieldBundle</TT> pair.
+Store a FieldBundle regrid operation over the data in <TT>srcFieldBundle</TT>
+   and <TT>dstFieldBundle</TT> pair.
 
 <P>
 The routine returns an <TT>ESMF_RouteHandle</TT> that can be used to call
@@ -6635,23 +6636,28 @@ This call is <EM>collective</EM> across the current VM.
    
 </DD>
 <DT><STRONG>dstFieldbundle</STRONG></DT>
-<DD>Destination <TT>ESMF_FieldBundle</TT>. The data in this FieldBundle may be overwritten by this call.
+<DD>Destination <TT>ESMF_FieldBundle</TT>. The data in this FieldBundle may be
+   overwritten by this call.
    
 </DD>
 <DT><STRONG>[srcMaskValues]</STRONG></DT>
-<DD>Mask information can be set in the Grids (see&nbsp;<A HREF="#sec:usage:items">31.3.17</A>) or Meshes (see&nbsp;<A HREF="#sec:mesh:mask">33.3.11</A>) upon which
-   the Fields in the <TT>srcFieldbundle</TT> are built.
-   The <TT>srcMaskValues</TT> argument specifies the values in that mask information which indicate a source point should be masked out.
-   In other words, a location is masked if and only if the value for that location in the mask information matches
-   one of the values listed in <TT>srcMaskValues</TT>.
+<DD>Mask information can be set in the Grids (see&nbsp;<A HREF="#sec:usage:items">31.3.17</A>)
+   or Meshes (see&nbsp;<A HREF="#sec:mesh:mask">33.3.11</A>) upon which the Fields in the
+   <TT>srcFieldbundle</TT> are built. The <TT>srcMaskValues</TT> argument
+   specifies the values in that mask information which indicate a source
+   point should be masked out. In other words, a location is masked if and
+   only if the value for that location in the mask information matches one
+   of the values listed in <TT>srcMaskValues</TT>.
    If <TT>srcMaskValues</TT> is not specified, no masking will occur.
    
 </DD>
 <DT><STRONG>[dstMaskValues]</STRONG></DT>
 <DD>Mask information can be set in the Grids (see&nbsp;<A HREF="#sec:usage:items">31.3.17</A>) or Meshes (see&nbsp;<A HREF="#sec:mesh:mask">33.3.11</A>)
    upon which the Fields in the <TT>dstFieldbundle</TT> are built.
-   The <TT>dstMaskValues</TT> argument specifies the values in that mask information which indicate a destination point should be masked out.
-   In other words, a location is masked if and only if the value for that location in the mask information matches
+   The <TT>dstMaskValues</TT> argument specifies the values in that mask
+   information which indicate a destination point should be masked out.
+   In other words, a location is masked if and only if the value for that
+   location in the mask information matches
    one of the values listed in <TT>dstMaskValues</TT>.
    If <TT>dstMaskValues</TT> is not specified, no masking will occur.
    
@@ -6663,8 +6669,9 @@ This call is <EM>collective</EM> across the current VM.
 </DD>
 <DT><STRONG>[polemethod]</STRONG></DT>
 <DD>Which type of artificial pole
-   to construct on the source Grid for regridding. Please see Section&nbsp;<A HREF="node9.html#const:polemethod">52.46</A> for a list of
-   valid options. If not specified, defaults to <TT>ESMF_POLEMETHOD_ALLAVG</TT>.
+   to construct on the source Grid for regridding. Please see
+   section&nbsp;<A HREF="node9.html#const:polemethod">52.46</A> for a list of valid options. If not
+   specified, defaults to <TT>ESMF_POLEMETHOD_ALLAVG</TT>.
    
 </DD>
 <DT><STRONG>[regridPoleNPnts]</STRONG></DT>
