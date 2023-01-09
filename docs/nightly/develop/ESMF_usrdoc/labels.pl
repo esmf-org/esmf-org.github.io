@@ -1126,7 +1126,7 @@ $external_latex_labels{$key} = q|14|;
 $noresave{$key} = "$nosave";
 
 $key = q/quickapps/;
-$external_latex_labels{$key} = q|5.4.6|; 
+$external_latex_labels{$key} = q|5.3.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Adoption/;
@@ -1194,7 +1194,7 @@ $external_latex_labels{$key} = q|9.4.5|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:download/;
-$external_latex_labels{$key} = q|5.1.1|; 
+$external_latex_labels{$key} = q|5.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:glos/;

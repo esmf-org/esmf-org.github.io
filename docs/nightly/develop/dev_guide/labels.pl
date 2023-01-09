@@ -121,13 +121,5 @@ $key = q/sec:intro/;
 $external_latex_labels{$key} = q|1|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:life_cycle/;
-$external_latex_labels{$key} = q|4|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:testing/;
-$external_latex_labels{$key} = q|4.4|; 
-$noresave{$key} = "$nosave";
-
 1;
 
