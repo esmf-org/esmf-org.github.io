@@ -510,7 +510,12 @@ Component that drives and coordinates initialization of its child components: Mo
 <LI><B>label_SetRunClock</B>
       
 <UL>
-<LI>Optional. By default driver clock is not modified each time its Run is entered.
+<LI>Optional. By default driver clock is left unchanged if the parent component has no valid clock.
+          If there is a valid parent clock, the current time is checked between it and the driver clock. An
+          error is returned if the current time does not agree. Otherwise (current time does agree between
+          both clocks), the driver clock stop time is adjusted to a single time step of the parent clock in
+          the future. This ensures that the driver returns at the appropriate parent time step, even if that
+          might change dynamically during the run.
 </LI>
 <LI>Modify the driver clock before executing RunSequence. This is very rarely needed.
       
