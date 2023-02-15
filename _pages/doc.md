@@ -10,7 +10,7 @@ title: "Docs"
 * ESMPy Documentation - [html](/esmpy_doc/release/latest/html), [pdf](/esmpy_doc/release/latest/ESMPy.pdf)
 * [Release Notes and Known Issues](/static/releases.html#8_4_0)
 
-### Nightly documentation builds (develop branch, updated nightly):
+### Develop documentation builds (develop branch, updated on each push):
 * User's Guide - [html](/docs/nightly/develop/ESMF_usrdoc/), [pdf](/docs/nightly/develop/ESMF_usrdoc.pdf)
 * Fortran Reference Manual - [html](/docs/nightly/develop/ESMF_refdoc/), [pdf](/docs/nightly/develop/ESMF_refdoc.pdf)
 * C Reference Manual - [html](/docs/nightly/develop/ESMC_crefdoc/), [pdf](/docs/nightly/develop/ESMC_crefdoc.pdf)
@@ -19,4 +19,4 @@ title: "Docs"
 * Developer's Guide - [html](/docs/nightly/develop/dev_guide/)
 
 ### Previous releases documentation:
-* Documentation links for all releases are available in the first column of the [Releases Table](/static/releases.html)
+* Documentation links for all releases are available in the first column of the [Releases Table](/static/releases.html).
