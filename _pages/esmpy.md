@@ -30,6 +30,13 @@ supported.
 Download and installation information are available in the
 [ESMPy documentation](/esmpy_doc/release/latest/html/install.html).
 
+### Documentation
+* Latest release - [html](/esmpy_doc/release/latest/html), [pdf](/esmpy_doc/release/latest/ESMPy.pdf)
+* Nightly build of develop branch - [html](/esmpy_doc/nightly/develop/html/), [pdf](/esmpy_doc/nightly/develop/ESMPy.pdf)
+* Documentation links for all releases are available in the first column
+of the [Releases Table](/static/releases.html)
+
+
 
 
 
