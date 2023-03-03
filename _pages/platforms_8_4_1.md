@@ -10,7 +10,7 @@ on. These combinations are considered fully supported. The number and
 variety of supported combinations are limited by access to appropriate
 systems, not by any specific limitation within ESMF. The ESMF build
 system provides many more combinations, but these have not been
-rigorously tested for this ESMF release. The [8.4.1 User's Guide](https://earthsystemmodeling.org/docs/release/ESMF_8_4_0/ESMF_usrdoc)
+rigorously tested for this ESMF release. The [8.4.1 User's Guide](https://earthsystemmodeling.org/docs/release/ESMF_8_4_1/ESMF_usrdoc)
 contains a complete list of possible configurations under the
 "Supported Platforms" section.
 
