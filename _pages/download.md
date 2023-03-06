@@ -4,8 +4,9 @@ title: "Download"
 classes: wide
 ---
 ### Releases
-[Download ESMF 8.4.0](https://github.com/esmf-org/esmf/releases/latest){: .btn .btn--info} (Latest release - October 28, 2022)
+[Download ESMF 8.4.1](https://github.com/esmf-org/esmf/releases/latest){: .btn .btn--info} (Latest release - March 06, 2023)
 - Recent previous releases:
+    - [ESMF 8.4.0](https://github.com/esmf-org/esmf/releases/tag/v8.4.0)        (October 28, 2022)
     - [ESMF 8.3.1](https://github.com/esmf-org/esmf/releases/tag/v8.3.1)        (September 21, 2022)
     - [ESMF 8.3.0](https://github.com/esmf-org/esmf/releases/tag/v8.3.0)        (June 08, 2022)
     - [ESMF 8.2.0](https://github.com/esmf-org/esmf/releases/tag/ESMF_8_2_0)    (October 28, 2021)
