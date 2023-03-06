@@ -510,7 +510,12 @@ Component that drives and coordinates initialization of its child components: Mo
 <LI><B>label_SetRunClock</B>
       
 <UL>
-<LI>Optional. By default driver clock is not modified each time its Run is entered.
+<LI>Optional. By default driver clock is left unchanged if the parent component has no valid clock.
+          If there is a valid parent clock, the current time is checked between it and the driver clock. An
+          error is returned if the current time does not agree. Otherwise (current time does agree between
+          both clocks), the driver clock stop time is adjusted to a single time step of the parent clock in
+          the future. This ensures that the driver returns at the appropriate parent time step, even if that
+          might change dynamically during the run.
 </LI>
 <LI>Modify the driver clock before executing RunSequence. This is very rarely needed.
       
@@ -598,7 +603,7 @@ Component that drives and coordinates initialization of its child components: Mo
 <BR></I>
 
 <P>
-Create and add a GridComp (i.e. Model, Mediator, or Driver) as a child 
+Create and add a GridComp (i.e. Model, Mediator, or Driver) as a child
    component to a Driver. The component is created on the provided <TT>petList</TT>,
    or by default across all of the Driver PETs.
 
@@ -607,11 +612,11 @@ The specified <TT>compSetServicesRoutine()</TT> is called back immediately after
    the new child component has been created internally. Very little around the
    component is set up at that time (e.g. NUOPC component attributes will not be
    available). The routine should therefore be very light weight, with the sole
-   purpose of setting the entry points of the component - typically by deriving 
+   purpose of setting the entry points of the component - typically by deriving
    from a generic component followed by the appropriate specilizations.
 
 <P>
-If provided, the <TT>compSetVMRoutine()</TT> is called back before the 
+If provided, the <TT>compSetVMRoutine()</TT> is called back before the
    <TT>compSetServicesRoutine()</TT>. This allows the child component to set
    aspects of its own VM, such as threading or the PE distribution among PETs.
 
@@ -661,9 +666,9 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
 <BR></I>
 
 <P>
-Create and add a GridComp (i.e. Model, Mediator, or Driver) as a child 
+Create and add a GridComp (i.e. Model, Mediator, or Driver) as a child
    component to a Driver. The component is created on the provided <TT>petList</TT>,
-   or by default across all of the Driver PETs. 
+   or by default across all of the Driver PETs.
 
 <P>
 The <TT>SetServices()</TT> routine in the <TT>sharedObj</TT> is called back
@@ -671,7 +676,7 @@ The <TT>SetServices()</TT> routine in the <TT>sharedObj</TT> is called back
    new child component has been created internally. Very little around the
    component is set up at that time (e.g. NUOPC component attributes will not be
    available). The routine should therefore be very light weight, with the sole
-   purpose of setting the entry points of the component - typically by deriving 
+   purpose of setting the entry points of the component - typically by deriving
    from a generic component followed by the appropriate specilizations.
 
 <P>
@@ -739,7 +744,7 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
 
 <P>
 Create and add a CplComp (i.e. Connector) as a child component to a Driver.
-   The component is created on the provided <TT>petList</TT>, or by default across 
+   The component is created on the provided <TT>petList</TT>, or by default across
    the union of PETs of the components indicated by <TT>srcCompLabel</TT>
    and <TT>dstCompLabel</TT>.
 
@@ -748,7 +753,7 @@ The specified <TT>SetServices()</TT> routine is called back immediately after th
    new child component has been created internally. Very little around the
    component is set up at that time (e.g. NUOPC component attributes will not be
    available). The routine should therefore be very light weight, with the sole
-   purpose of setting the entry points of the component - typically by deriving 
+   purpose of setting the entry points of the component - typically by deriving
    from a generic component followed by the appropriate specilizations.
 
 <P>
@@ -760,7 +765,7 @@ The <TT>info</TT> argument can be used to pass custom attributes to the child
    child components without conflict.
 
 <P>
-The <TT>compLabel</TT> must uniquely identify the child component within the 
+The <TT>compLabel</TT> must uniquely identify the child component within the
    context of the Driver component.
 
 <P>
@@ -802,11 +807,11 @@ Add an element associated with a Model, Mediator, or Driver component to the
 
 <P>
 If <TT>phaseLabel</TT> was not specified, the first entry in the
-   <TT>RunPhaseMap</TT> attribute of the referenced component will be used to 
+   <TT>RunPhaseMap</TT> attribute of the referenced component will be used to
    determine the run phase of the added element.
 
 <P>
-By default an error is returned if no component is associated with the 
+By default an error is returned if no component is associated with the
    specified <TT>compLabel</TT>. This error can be suppressed by setting
    <TT>relaxedflag=.true.</TT>, and no entry will be added to the run sequence.
 
@@ -851,11 +856,11 @@ Add an element associated with a Connector component to the
 
 <P>
 If <TT>phaseLabel</TT> was not specified, the first entry in the
-   <TT>RunPhaseMap</TT> attribute of the referenced component will be used to 
+   <TT>RunPhaseMap</TT> attribute of the referenced component will be used to
    determine the run phase of the added element.
 
 <P>
-By default an error is returned if no component is associated with the 
+By default an error is returned if no component is associated with the
    specified <TT>compLabel</TT>. This error can be suppressed by setting
    <TT>relaxedflag=.true.</TT>, and no entry will be added to the run sequence.
 
@@ -977,16 +982,17 @@ Access Driver information.
 <BR></I>
 
 <P>
-Query the Driver for a GridComp (i.e. Model, Mediator, or Driver) child 
+Query the Driver for a GridComp (i.e. Model, Mediator, or Driver) child
    component that was added under <TT>compLabel</TT>.
 
 <P>
 If provided, the <TT>petList</TT> argument will be associated with the petList
-   that was used to create the referenced component. This pointer must not be
-   deallocated by the user!
+   that was used to create the referenced component. This is an internal
+   allocation owned by the library. This pointer must <B>not</B> be deallocated
+   by the user!
 
 <P>
-By default an error is returned if no component is associated with the 
+By default an error is returned if no component is associated with the
    specified <TT>compLabel</TT>. This error can be suppressed by setting
    <TT>relaxedflag=.true.</TT>, and unassociated arguments will be returned. 
 
@@ -1019,16 +1025,17 @@ By default an error is returned if no component is associated with the
 <BR></I>
 
 <P>
-Query the Driver for a CplComp (i.e. Connector) child 
+Query the Driver for a CplComp (i.e. Connector) child
    component that was added under <TT>compLabel</TT>.
 
 <P>
 If provided, the <TT>petList</TT> argument will be associated with the petList
-   that was used to create the referenced component. This pointer must not be
-   deallocated by the user!
+   that was used to create the referenced component. This is an internal
+   allocation owned by the library. This pointer must <B>not</B> be deallocated
+   by the user!
 
 <P>
-By default an error is returned if no component is associated with the 
+By default an error is returned if no component is associated with the
    specified <TT>compLabel</TT>. This error can be suppressed by setting
    <TT>relaxedflag=.true.</TT>, and unassociated arguments will be returned. 
 
@@ -1059,11 +1066,26 @@ By default an error is returned if no component is associated with the
 
 <P>
 Get all the GridComp (i.e. Model, Mediator, or Driver) child components from a
-   Driver. The incoming <TT>compList</TT> and <TT>petLists</TT> arguments must be 
+   Driver.
+
+<P>
+The incoming <TT>compList</TT> and <TT>petLists</TT> arguments must enter
    unassociated. This means that the user code must explicitly call
    <TT>nullify()</TT> or use the <TT>=&gt; null()</TT> syntax on the variables passed in
-   as the actual arguments. On return it becomes the responsibility of the caller
-   to deallocate any associated <TT>compList</TT> and <TT>petLists</TT> arguments. 
+   as the actual arguments.
+
+<P>
+On return it becomes the responsibility of the caller to deallocate
+   associated <TT>compList</TT> and <TT>petLists</TT> arguments:
+   <PRE>
+     if (associated(compList)) deallocate(compList)
+     if (associated(petLists)) deallocate(petLists)
+</PRE>
+
+<P>
+Notice that the <TT>petLists(i)%ptr</TT> members, if associated, are pointing to
+   an internal allocation owned by the library. These pointers must <B>not</B> be
+   deallocated by the user! 
 
 <P>
 
@@ -1090,12 +1112,26 @@ Get all the GridComp (i.e. Model, Mediator, or Driver) child components from a
 <BR></I>
 
 <P>
-Get all the CplComp (i.e. Connector) child components from a
-   Driver. The incoming <TT>compList</TT> and <TT>petLists</TT> arguments must be 
+Get all the CplComp (i.e. Connector) child components from a Driver.
+
+<P>
+The incoming <TT>compList</TT> and <TT>petLists</TT> arguments must enter
    unassociated. This means that the user code must explicitly call
    <TT>nullify()</TT> or use the <TT>=&gt; null()</TT> syntax on the variables passed in
-   as the actual arguments. On return it becomes the responsibility of the caller
-   to deallocate any associated <TT>compList</TT> and <TT>petLists</TT> arguments. 
+   as the actual arguments.
+
+<P>
+On return it becomes the responsibility of the caller to deallocate
+   associated <TT>compList</TT> and <TT>petLists</TT> arguments:
+   <PRE>
+     if (associated(compList)) deallocate(compList)
+     if (associated(petLists)) deallocate(petLists)
+</PRE>
+
+<P>
+Notice that the <TT>petLists(i)%ptr</TT> members, if associated, are pointing to
+   an internal allocation owned by the library. These pointers must <B>not</B> be
+   deallocated by the user! 
 
 <P>
 
@@ -1179,7 +1215,7 @@ An example of executing the connector
 
 <P>
 By default <TT>autoAddConnectors</TT> is <TT>.false.</TT>, which means that all
-   components referenced in the <TT>freeFormat</TT> run sequence, including 
+   components referenced in the <TT>freeFormat</TT> run sequence, including
    connectors, must already be available as child components of the <TT>driver</TT>
    component. An error will be returned if this is not the case.
    However, when <TT>autoAddConnectors</TT> is set to <TT>.true.</TT>, connector
@@ -1359,7 +1395,7 @@ Nesting of time loops and alarm blocks is supported.
 <BR></I>
 
 <P>
-Replace the current run sequence of the Driver with a new one that has 
+Replace the current run sequence of the Driver with a new one that has
    <TT>slotCount</TT> slots. Each slot uses its own clock for time keeping. 
 
 <P>
@@ -1386,7 +1422,7 @@ Replace the current run sequence of the Driver with a new one that has
 
 <P>
 Print internal Driver information. If <TT>orderflag</TT> is provided and set
-   to <TT>.true.</TT>, the output is ordered from lowest to highest PET. Setting 
+   to <TT>.true.</TT>, the output is ordered from lowest to highest PET. Setting
    this flag makes the method collective. 
 
 <P>
