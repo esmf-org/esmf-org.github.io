@@ -132,6 +132,75 @@ missing or have formatting errors.
 </tr>
 
 
+<!--ESMF_8_4_1-->
+<tr valign="top">
+<td ><a name="8_4_1"></a>
+<a href="https://github.com/esmf-org/esmf/releases/tag/v8.4.1">
+v8.4.1</a>
+<br>
+<br>
+Reference Manual for Fortran<br>
+<a href="/docs/release/ESMF_8_4_1/ESMF_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_4_1/ESMF_refdoc.pdf">(pdf)</a>
+<br><br>
+Reference Manual for C<br>
+<a href="/docs/release/ESMF_8_4_1/ESMC_crefdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_4_1/ESMC_crefdoc.pdf">(pdf)</a>
+<br><br>
+User's Guide<br>
+<a href="/docs/release/ESMF_8_4_1/ESMF_usrdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_4_1/ESMF_usrdoc.pdf">(pdf)</a>
+<br><br>
+NUOPC Layer Reference Manual<br>
+<a href="/docs/release/ESMF_8_4_1/NUOPC_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_4_1/NUOPC_refdoc.pdf">(pdf)</a>
+<br><br>
+Building a NUOPC Model Manual<br>
+<a href="/docs/release/ESMF_8_4_1/NUOPC_howtodoc/">(html)</a>
+<a href="/docs/release/ESMF_8_4_1/NUOPC_howtodoc.pdf">(pdf)</a>
+<br><br>
+ESMPy Documentation <br>
+<a href="/esmpy_doc/release/ESMF_8_4_1/html">(html)</a>
+<a href="/esmpy_doc/release/ESMF_8_4_1/ESMPy.pdf">(pdf)</a>
+<br><br>
+<a href="/release/platforms_8_4_1">Supported Platforms</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/regrid/#regridstatus-841">Regridding Status</a>
+</td>
+
+<td>03/06/23</td>
+
+<td>
+
+<ul>
+
+<li>This patch release is backward compatible with ESMF 8.4.0.
+
+<li>No bit-for-bit changes are expected for this release compared to ESMF 8.4.0.
+
+<li>No changes were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. The ESMF tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#regridstatus-841">ESMF regridding status</a> are unchanged.
+
+<li>A bug in the implementation of method <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_4_1/ESMF_refdoc/node5.html#SECTION050364500000000000000">ESMF_FieldGet()</a> was fixed. The problematic code was accessing the optional, intent(out) "name" argument without the proper present() check. As a consequence, code not specifying an actual "name" argument when making this call was at risk of suffering from memory corruption issues. Due to the fact that the ESMF library internally is making calls to ESMF_FieldGet() without passing the "name" argument, it must be assumed that all user code is at risk of memory corruption issues when using ESMF 8.4.0.
+
+<li>A problem of incorrect ESMPy project metadata was fixed. This issue was causing failures during installation when using python's setuptools module v67.1.0 or later: ("configuration error: `project.maintainers[{data__maintainers_x}]` must not contain {'author'} properties"). The fix allows ESMPy installation to work with the latest setuptools. We recommend this release for anyone doing a new installation of ESMPy.
+
+<li>The NUOPC_Driver code responsible for stepping components through the initialization protocol has been optimized to reduce the amount of synchronization needed between components. This allows for a greater level of concurrency between components during initialization, resulting in a reduction of execution time.
+
+<li>A number of code adjustments were made to support Intel's LLVM based OneAPI compiler suite under the common ESMF_COMPILER=intel setting. Classic and OneAPI Intel compiler flavors are now supported under the same setting.
+
+</ul>
+
+</td>
+
+<td>
+<ul>
+
+<li>Same as ESMF 8.4.0.
+</ul>
+</td>
+</tr>
+
+
 <!--ESMF_8_4_0-->
 <tr valign="top">
 <td ><a name="8_4_0"></a>
