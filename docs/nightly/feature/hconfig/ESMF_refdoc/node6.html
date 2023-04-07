@@ -597,9 +597,9 @@
 <LI><A NAME="tex2html3196"
   HREF="node6.html#SECTION060102200000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Set HConfig from string using YAML syntax</A>
 <LI><A NAME="tex2html3197"
-  HREF="node6.html#SECTION060102300000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN> Iterator based HConfig list parsing</A>
+  HREF="node6.html#SECTION060102300000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN> Iterator based HConfig sequence parsing</A>
 <LI><A NAME="tex2html3198"
-  HREF="node6.html#SECTION060102400000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN> Index based random access HConfig list parsing</A>
+  HREF="node6.html#SECTION060102400000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN> Index based random access HConfig sequence parsing</A>
 <LI><A NAME="tex2html3199"
   HREF="node6.html#SECTION060102500000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN> Destroy an HConfig object</A>
 <LI><A NAME="tex2html3200"
@@ -617,7 +617,7 @@
 <LI><A NAME="tex2html3206"
   HREF="node6.html#SECTION0601021200000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">12</SPAN> Tags and Schemas</A>
 <LI><A NAME="tex2html3207"
-  HREF="node6.html#SECTION0601021300000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">13</SPAN> Building and Editing HConfig structures</A>
+  HREF="node6.html#SECTION0601021300000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">13</SPAN> Adding, Setting, and Removing elements from HConfig objects</A>
 </UL>
 <LI><A NAME="tex2html3208"
   HREF="node6.html#SECTION060103000000000000000"><SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
@@ -15351,12 +15351,12 @@ An empty HConfig object can be set directly from a string using YAML
 
 <P>
 The syntax used for the <TT>content</TT> argument is YAML. The above case
-   creates a <EM>list</EM> of six scalar members. 
+   creates a <EM>sequence</EM> of six scalar members. 
 
 <P>
 
 <H3><A NAME="SECTION060102300000000000000">
-<SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN> Iterator based HConfig list parsing</A>
+<SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN> Iterator based HConfig sequence parsing</A>
 </H3>
 
 <P>
@@ -15456,7 +15456,7 @@ Iterating over <TT>hconfig</TT> is straight forward:
 <P>
 
 <H3><A NAME="SECTION060102400000000000000">
-<SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN> Index based random access HConfig list parsing</A>
+<SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN> Index based random access HConfig sequence parsing</A>
 </H3>
 
 <P>
@@ -15609,8 +15609,8 @@ Here a map is created. In this case, all of the keys are scalars (car,
 
 <P>
 The elements of the <EM>map</EM> contained in <TT>hconfig</TT> can be iterated over
-   similar to the the <EM>list</EM> case demonstrated earlier. Again two iterator
-   variables are employed.
+   similar to the the <EM>sequence</EM> case demonstrated earlier. Again two
+   iterator variables are employed.
 <P>
 <PRE>
   ! type(ESMF_HConfig) :: hconfigIter, hconfigIterEnd
@@ -15624,7 +15624,7 @@ The elements of the <EM>map</EM> contained in <TT>hconfig</TT> can be iterated o
 
 <P>
 Then iterate over <TT>hconfig</TT> using the iterator variables as before.
-   Notice, however, in the code below, compared to the <EM>list</EM> case, all 
+   Notice, however, in the code below, compared to the <EM>sequence</EM> case, all 
    of the <TT>As</TT> access methods now are either of the form <TT>As*MapKey</TT> or
    <TT>As*MapVal</TT> to selectively access the <EM>map key</EM> or <EM>map value</EM>,
    respectively.
@@ -15936,7 +15936,10 @@ An HConfig object can be saved to a YAML file by calling the
    # An example of YAML configuration file
   
    simple_list: [1, 2, 3, abc, b, TRUE]
-   simple_map: {car: red, [bike, {p1: 10, p2: 20}]: [bmx, mountain, street], plane: [TRUE, FALSE]}
+   simple_map:
+     car: red
+     [bike, {p1: 10, p2: 20}]: [bmx, mountain, street]
+     plane: [TRUE, FALSE]
 </PRE>
 
 <P>
@@ -15959,7 +15962,10 @@ Notice that the resulting contents of file <TT>saveMe.yml</TT> does <EM>not</EM>
    contain the comments of the original file. The YAML structure is saved.
    <PRE>
    simple_list: [1, 2, 3, abc, b, TRUE]
-   simple_map: {car: red, [bike, {p1: 10, p2: 20}]: [bmx, mountain, street], plane: [TRUE, FALSE]}
+   simple_map:
+     car: red
+     [bike, {p1: 10, p2: 20}]: [bmx, mountain, street]
+     plane: [TRUE, FALSE]
 </PRE>
 
 <P>
@@ -15988,22 +15994,22 @@ Here <TT>hconfigIter</TT> cannot be be saved to file directly. To write the
    <TT>ESMF_HConfigCreateAtMapKey()</TT>.
 <P>
 <PRE>
-  ! type(ESMF_HConfig) :: hconfigNode
-  hconfigNode = ESMF_HConfigCreateAtMapKey(hconfigIter, rc=rc)
+  ! type(ESMF_HConfig) :: hconfigTemp
+  hconfigTemp = ESMF_HConfigCreateAtMapKey(hconfigIter, rc=rc)
 </PRE>
 
 <P>
 Then save it.
 <P>
 <PRE>
-  call ESMF_HConfigSaveFile(hconfigNode, filename="mapKeyBegin.yaml", rc=rc)
+  call ESMF_HConfigSaveFile(hconfigTemp, filename="mapKeyBegin.yaml", rc=rc)
 </PRE>
 
 <P>
-And finally destroy <TT>hconfigNode</TT> again.
+And finally destroy <TT>hconfigTemp</TT> again.
 <P>
 <PRE>
-  call ESMF_HConfigDestroy(hconfigNode, rc=rc)
+  call ESMF_HConfigDestroy(hconfigTemp, rc=rc)
 </PRE>
 
 <P>
@@ -16011,22 +16017,22 @@ Similarily, to write the <EM>value</EM> node to file, first create a HConfig
    object for it using method <TT>ESMF_HConfigCreateAtMapVal()</TT>.
 <P>
 <PRE>
-  ! type(ESMF_HConfig) :: hconfigNode
-  hconfigNode = ESMF_HConfigCreateAtMapVal(hconfigIter, rc=rc)
+  ! type(ESMF_HConfig) :: hconfigTemp
+  hconfigTemp = ESMF_HConfigCreateAtMapVal(hconfigIter, rc=rc)
 </PRE>
 
 <P>
 Then save it.
 <P>
 <PRE>
-  call ESMF_HConfigSaveFile(hconfigNode, filename="mapValBegin.yaml", rc=rc)
+  call ESMF_HConfigSaveFile(hconfigTemp, filename="mapValBegin.yaml", rc=rc)
 </PRE>
 
 <P>
 And destroy it.
 <P>
 <PRE>
-  call ESMF_HConfigDestroy(hconfigNode, rc=rc)
+  call ESMF_HConfigDestroy(hconfigTemp, rc=rc)
 </PRE>
 
 <P>
@@ -16035,55 +16041,57 @@ Since <TT>hconfig</TT> is a <EM>map</EM> node, it is also possible to directly
    on it, using the desired <EM>key</EM>.
 <P>
 <PRE>
-  ! type(ESMF_HConfig) :: hconfigNode
-  hconfigNode = ESMF_HConfigCreateAt(hconfig, keyString="simple_map", rc=rc)
+  ! type(ESMF_HConfig) :: hconfigTemp
+  hconfigTemp = ESMF_HConfigCreateAt(hconfig, keyString="simple_map", rc=rc)
 </PRE>
 
 <P>
-Now <TT>hconfigNode</TT> points to the <EM>value</EM> node, that is
+Now <TT>hconfigTemp</TT> points to the <EM>value</EM> node, that is
    associated with the "simple_map" key, which is in turn a map:
    <PRE>
-   {car: red, [bike, {p1: 10, p2: 20}]: [bmx, mountain, street], plane: [TRUE, FALSE]}
+   car: red
+   [bike, {p1: 10, p2: 20}]: [bmx, mountain, street]
+   plane: [TRUE, FALSE]
 </PRE>
    It can be saved to file as usual.
 <P>
 <PRE>
-  call ESMF_HConfigSaveFile(hconfigNode, filename="mapValAtKey.yaml", rc=rc)
+  call ESMF_HConfigSaveFile(hconfigTemp, filename="mapValAtKey.yaml", rc=rc)
 </PRE>
 
 <P>
-Any of the <EM>value</EM> nodes of <TT>hconfigNode</TT> can be accessed through
+Any of the <EM>value</EM> nodes of <TT>hconfigTemp</TT> can be accessed through
    recursive usage of the <TT>ESMF_HConfigCreateAt()</TT> method.
    For example, the following call accesses the <EM>value</EM> node that is
    associated with <TT>keyString="[bike, p1: 10, p2: 20]"</TT>. Here the
    <TT>keyString</TT> is interpreted as YAML syntax, for which an internal HConfig
-   representation is created, and finally the map held by <TT>hconfigNode</TT> is
+   representation is created, and finally the map held by <TT>hconfigTemp</TT> is
    searched for a matching key.
 <P>
 <PRE>
-  ! type(ESMF_HConfig) :: hconfigNode2
-  hconfigNode2 = ESMF_HConfigCreateAt(hconfigNode, &amp;
+  ! type(ESMF_HConfig) :: hconfigTemp2
+  hconfigTemp2 = ESMF_HConfigCreateAt(hconfigTemp, &amp;
     keyString="[bike, {p1: 10, p2: 20}]", rc=rc)
 </PRE>
 
 <P>
-Now <TT>hconfigNode2</TT> points to the <EM>list node</EM> with contents
+Now <TT>hconfigTemp2</TT> points to the <EM>sequence node</EM> with contents
    <TT>[bmx, mountain, street]</TT>. It, too, can be saved to file.
 <P>
 <PRE>
-  call ESMF_HConfigSaveFile(hconfigNode2, filename="mapValRecursive.yaml", rc=rc)
+  call ESMF_HConfigSaveFile(hconfigTemp2, filename="mapValRecursive.yaml", rc=rc)
 </PRE>
 
 <P>
-Finally <TT>hconfigNode2</TT>, <TT>hconfigNode</TT> and <TT>hconfig</TT> should be destroyed.
+Finally <TT>hconfigTemp2</TT>, <TT>hconfigTemp</TT> and <TT>hconfig</TT> should be destroyed.
 <P>
 <PRE>
-  call ESMF_HConfigDestroy(hconfigNode2, rc=rc)
+  call ESMF_HConfigDestroy(hconfigTemp2, rc=rc)
 </PRE>
 
 <P>
 <PRE>
-  call ESMF_HConfigDestroy(hconfigNode, rc=rc)
+  call ESMF_HConfigDestroy(hconfigTemp, rc=rc)
 </PRE>
 
 <P>
@@ -16193,10 +16201,10 @@ results in the JSON schema tag of <TT><B>tag:yaml.org,2002:map</B></TT>.
 <P>
 
 <H4><A NAME="SECTION0601021230000000000000">
-<SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">3</SPAN> List</A>
+<SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">3</SPAN> Sequence</A>
 </H4>
    The value associated with <EM>map key</EM> "value_two" in the current
-   <TT>hconfig</TT> object is a list. The tag for this node can be obtained
+   <TT>hconfig</TT> object is a sequence. The tag for this node can be obtained
    directly by supplying the <TT>keyString</TT> argument.
 <P>
 <PRE>
@@ -16204,7 +16212,7 @@ results in the JSON schema tag of <TT><B>tag:yaml.org,2002:map</B></TT>.
 </PRE>
 
 <P>
-The resolved JSON schema tag for a list is <TT><B>tag:yaml.org,2002:seq</B></TT>.
+The resolved JSON schema tag for a sequence is <TT><B>tag:yaml.org,2002:seq</B></TT>.
 
 <P>
 
@@ -16356,11 +16364,330 @@ Finally clean up <TT>hconfig</TT>.
 <P>
 
 <H3><A NAME="SECTION0601021300000000000000">
-<SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">13</SPAN> Building and Editing HConfig structures</A>
+<SPAN CLASS="arabic">47</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">13</SPAN> Adding, Setting, and Removing elements from HConfig objects</A>
 </H3>
 
 <P>
-Here describe how to do it...
+After creating an HConfig object without specifying <TT>content</TT> or
+   <TT>filename</TT>, it is empty.
+<P>
+<PRE>
+  ! type(ESMF_HConfig) :: hconfig
+  hconfig = ESMF_HConfigCreate(rc=rc)
+</PRE>
+
+<P>
+Now the <TT>ESMF_HConfigAdd()</TT> method can be used to add new elements to
+   an existing HConfig object. The <TT>Add()</TT> interfaces are heavily overloaded,
+   each specific entry point featuring a number of optional arguments. The two
+   fundamentally different ways of using <TT>Add()</TT> are: (1) adding an element
+   at the end of a <EM>sequence</EM> or (2) adding an element to a <EM>map</EM>.
+   Here, where <TT>hconfig</TT> is empty, either option is possible. The way the
+   first element is added determines whether <TT>hconfig</TT> is a sequence or
+   a map.
+
+<P>
+The following call adds an element to <TT>hconfig</TT> without specifying the
+   <TT>addKey</TT> or <TT>addKeyString</TT> argument. This indicates that a sequence
+   element is added to the end, and as a consequence rendering <TT>hconfig</TT>
+   a <EM>sequence</EM>.
+<P>
+<PRE>
+  call ESMF_HConfigAdd(hconfig, "first added item", rc=rc)
+</PRE>
+
+<P>
+Additional elements can be added at the end of <TT>hconfig</TT>.
+<P>
+<PRE>
+  call ESMF_HConfigAdd(hconfig, 12.57_ESMF_KIND_R8, rc=rc)
+</PRE>
+
+<P>
+At this point, the content of <TT>hconfig</TT> is a sequence with two elements.
+   <PRE>
+   - first added item
+   - 12.5700000000
+</PRE>
+
+<P>
+It is also possible to add an entire HConfig structure as an item to the
+   existing sequence. One way to do this is to use standar YAML syntax when
+   adding the element. Here a <EM>map</EM> is added to the end of <TT>hconfig</TT>.
+<P>
+<PRE>
+  call ESMF_HConfigAdd(hconfig, "{k1: 7, k2: 25}", rc=rc)
+</PRE>
+
+<P>
+This results in the following content, where the third element of the sequence
+   is the map that was just added.
+   <PRE>
+   - first added item
+   - 12.5700000000
+   - {k1: 7, k2: 25}
+</PRE>
+
+<P>
+An HConfig structure can even be loaded from file and added to the end of 
+   <TT>hconfig</TT>. This requires a temporary HConfig object.
+<P>
+<PRE>
+  ! type(ESMF_HConfig) :: hconfigTemp
+  hconfigTemp = ESMF_HConfigCreate(filename="example.yaml", rc=rc)
+</PRE>
+
+<P>
+<PRE>
+  call ESMF_HConfigAdd(hconfig, hconfigTemp, rc=rc)
+</PRE>
+
+<P>
+<PRE>
+  call ESMF_HConfigDestroy(hconfigTemp, rc=rc)
+</PRE>
+
+<P>
+The result is the following content for <TT>hconfig</TT>.
+   <PRE>
+   - first added item
+   - 12.5700000000
+   - {k1: 7, k2: 25}
+   - simple_list: [1, 2, 3, abc, b, TRUE]
+     simple_map:
+       car: red
+       [bike, {p1: 10, p2: 20}]: [bmx, mountain, street]
+       plane: [TRUE, FALSE]
+</PRE>
+
+<P>
+Using the <TT>CreateAt()</TT> method, it easy to gain access to any specific
+   element in <TT>hconfig</TT>. Since <TT>hconfig</TT> is a <EM>sequence</EM>, the proper
+   access is by <EM>index</EM>.
+<P>
+<PRE>
+  ! type(ESMF_HConfig) :: hconfigTemp
+  hconfigTemp = ESMF_HConfigCreateAt(hconfig, index=3, rc=rc)
+</PRE>
+
+<P>
+This creates a temporary HConfig object that <EM>references</EM> the 3rd element
+   of the sequence stored by <TT>hconfig</TT>. If <TT>hconfigTemp</TT> were to be
+   saved to file, it would have the following content.
+   <PRE>
+   {k1: 7, k2: 25}
+</PRE>
+
+<P>
+Using the <TT>Set()</TT> methods, contents in <TT>hconfigTemp</TT>, and thus in
+   the 3rd element of <TT>hconfig</TT> can be modified. The content of
+   <TT>hconfigTemp</TT> is a <EM>map</EM>, and the proper access is by <EM>map key</EM>.
+   Here key "k2" is being modified.
+<P>
+<PRE>
+  call ESMF_HConfigSet(hconfigTemp, 12.5, keyString="k2", rc=rc)
+</PRE>
+
+<P>
+The <TT>hconfigTemp</TT> is reference to a <EM>map</EM>, and new elements can be
+   added using the <TT>addKeyString</TT> argument.
+<P>
+<PRE>
+  call ESMF_HConfigAdd(hconfigTemp, .true., addKeyString="k3", rc=rc)
+</PRE>
+
+<P>
+<PRE>
+  call ESMF_HConfigDestroy(hconfigTemp, rc=rc)
+</PRE>
+
+<P>
+After these operations, the content of <TT>hconfig</TT> has changed to
+   <PRE>
+   - first added item
+   - 12.5700000000
+   - {k1: 7, k2: 12.5000000000, k3: True}
+   - simple_list: [1, 2, 3, abc, b, TRUE]
+     simple_map:
+       car: red
+       [bike, {p1: 10, p2: 20}]: [bmx, mountain, street]
+       plane: [TRUE, FALSE]
+</PRE>
+   Notice that while <TT>hconfigTemp</TT> should be destroyed explicitly, as in the
+   example above, doing so does <EM>not</EM> affect the referenced node inside the
+   <TT>hconfig</TT> object. In other words, <TT>hconfigTemp</TT> was a reference, and
+   <EM>not</EM> a deep copy of the node! There is some allocated memory associated
+   with the <TT>hconfigTemp</TT> reference that gets cleaned up with the
+   <TT>Destroy()</TT> call, but it does not affect the reference itself.
+
+<P>
+The <TT>Set()</TT> method can also be used to edit the element referenced
+   itself. Here the 4th element in the <TT>hconfig</TT> sequence is set to be a
+   simple scalar string value using this approach.
+<P>
+<PRE>
+  ! type(ESMF_HConfig) :: hconfigTemp
+  hconfigTemp = ESMF_HConfigCreateAt(hconfig, index=4, rc=rc)
+</PRE>
+
+<P>
+<PRE>
+  call ESMF_HConfigSet(hconfigTemp, "Simple scalar string value", rc=rc)
+</PRE>
+
+<P>
+<PRE>
+  call ESMF_HConfigDestroy(hconfigTemp, rc=rc)
+</PRE>
+
+<P>
+The content of <TT>hconfig</TT> has updated as below.
+   <PRE>
+   - first added item
+   - 12.5700000000
+   - {k1: 7, k2: 12.5000000000, k3: True}
+   - Simple scalar string value
+</PRE>
+
+<P>
+There is a simpler alternative for <EM>direct</EM> element editing in an
+   HConfig object via the <TT>Set()</TT> method. Using the <TT>index</TT> or
+   <TT>keyString</TT> argument, a sequence or map element, respectively, can
+   be edited directly. For instance,
+<P>
+<PRE>
+  call ESMF_HConfigSet(hconfig, "[a, b, c]", index=4, rc=rc)
+</PRE>
+
+<P>
+sets the 4th element of <TT>hconfig</TT> directly, without the need of a
+   temporary HConfig variable. This updates the content to:
+   <PRE>
+   - first added item
+   - 12.5700000000
+   - {k1: 7, k2: 12.5000000000, k3: True}
+   - [a, b, c]
+</PRE>
+
+<P>
+Elements can be deleted from an HConfig object holding a sequence or map
+   using the <TT>Remove()</TT> method, specifying the <EM>index</EM> or
+   <EM>map key</EM>, respectively. Here the 2nd element of the sequence held by
+   <TT>hconfig</TT> is removed.
+<P>
+<PRE>
+  call ESMF_HConfigRemove(hconfig, index=2, rc=rc)
+</PRE>
+
+<P>
+The result is a sequence with only three remaining elements.
+   <PRE>
+   - first added item
+   - {k1: 7, k2: 12.5000000000, k3: True}
+   - [a, b, c]
+</PRE>
+
+<P>
+To demonstrate removal of an element from a <EM>map</EM>, the second
+   <TT>hconfig</TT> element is referenced by a temporary HConfig object. The element
+   with key "k2" is then removed using the respective <TT>Remove()</TT> method.
+<P>
+<PRE>
+  ! type(ESMF_HConfig) :: hconfigTemp
+  hconfigTemp = ESMF_HConfigCreateAt(hconfig, index=2, rc=rc)
+</PRE>
+
+<P>
+<PRE>
+  call ESMF_HConfigRemove(hconfigTemp, keyString="k2", rc=rc)
+</PRE>
+
+<P>
+<PRE>
+  call ESMF_HConfigDestroy(hconfigTemp, rc=rc)
+</PRE>
+
+<P>
+The resulting <TT>hconfig</TT> content is as expected.
+   <PRE>
+   - first added item
+   - {k1: 7, k3: True}
+   - [a, b, c]
+</PRE>
+
+<P>
+Finally the entire contents of <TT>hconfig</TT> can be deleted by setting the
+   node itself to one of the special NULL values.
+<P>
+<PRE>
+  call ESMF_HConfigSet(hconfig, "NULL", rc=rc)
+</PRE>
+
+<P>
+If saved to file, the contents of <TT>hconfig</TT> shows up as a simple tilde
+   character, indicating its NULL value.
+   <PRE>
+   ~
+</PRE>
+
+<P>
+At this point <TT>hconfig</TT> is neither a <EM>sequence</EM> nor <EM>map</EM>. It is
+   NULL. Adding a map element, i.e. an element with <EM>key</EM>, turns
+   <TT>hconfig</TT> into a map.
+<P>
+<PRE>
+  call ESMF_HConfigAdd(hconfig, "first added item", addKeyString="item1", rc=rc)
+</PRE>
+
+<P>
+The contents of <TT>hconfig</TT> now is a map with a single entry:
+   character, indicating its NULL value.
+   <PRE>
+   item1: first added item
+</PRE>
+
+<P>
+As in other contexts before, the content as well as the specified
+   <TT>addKeyString</TT> can be of any legal YAML syntax. This is demonstrated
+   in the following <TT>Add()</TT> calls.
+<P>
+<PRE>
+  ! Add YAML sequence content with simple scalar key.
+  call ESMF_HConfigAdd(hconfig, "[2, added, item]", addKeyString="item2", rc=rc)
+</PRE>
+
+<P>
+<PRE>
+  ! Add simple scalar content with a YAML map as key.
+  call ESMF_HConfigAdd(hconfig, "third added item", addKeyString="{item: 3}", &amp;
+    rc=rc)
+</PRE>
+
+<P>
+<PRE>
+  ! Add complex YAML content with YAML sequence as key.
+  call ESMF_HConfigAdd(hconfig, "{4th: item, 5th: [true, false]}", &amp;
+    addKeyString="[1, 2, 3, 4]", rc=rc)
+</PRE>
+
+<P>
+Resulting in the final contents of <TT>hconfig</TT>:
+   <PRE>
+   item1: first added item
+   item2: [2, added, item]
+   {item: 3}: third added item
+   [1, 2, 3, 4]: {4th: item, 5th: [true, false]}
+</PRE>
+
+<P>
+Finally clean up <TT>hconfig</TT>.
+<P>
+<PRE>
+  ! Destroy hconfig when done with it.
+  call ESMF_HConfigDestroy(hconfig, rc=rc)
+</PRE>
+
+<P>
 
 
 <H2><A NAME="SECTION060103000000000000000">
@@ -16375,7 +16702,7 @@ Here describe how to do it...
   for tag resolution.
 </LI>
 <LI>Currently the only available removal method for HConfig <EM>map</EM>
-  objects requires the <EM>keys</EM> to be scalar string.
+  objects requires that <EM>keys</EM> be simple scalar strings.
 </LI>
 </UL>
 
