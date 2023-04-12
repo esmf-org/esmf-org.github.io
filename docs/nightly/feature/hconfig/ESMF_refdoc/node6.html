@@ -1451,6 +1451,9 @@ call ESMF_InfoSet(info, "aKey", 15, rc=rc)
 </PRE>
 
 <P>
+Notice that the legacy <TT>ESMF_Attribute</TT> API expects the usage of what was called an "Attribute Package". This essentially corresponds to a namespace similar to what <TT>ESMF_Info</TT> provides for keys via the JSON Pointer syntax (see <A HREF="#info_key_format">39.2</A>). In the above <TT>ESMF_AttributeSet()</TT> call, without specification of <TT>convention</TT> and <TT>purpose</TT> arguments, the resulting JSON pointer of the key is "/ESMF/General/aKey". This is important to account for when mixing deprecated <TT>ESMF_Attribute</TT> calls with the <TT>ESMF_Info</TT> API.
+
+<P>
 
 <H3><A NAME="SECTION06021200000000000000">
 <SPAN CLASS="arabic">39</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN> Getting an Attribute</A>
@@ -1464,6 +1467,9 @@ With <TT>ESMF_Info</TT>:
 call ESMF_InfoGetFromHost(array, info, rc=rc)
 call ESMF_InfoGet(info, "aKey", aKeyValue, rc=rc)
 </PRE>
+
+<P>
+Notice again that the <TT>ESMF_Attribute</TT> API automatically prepends "/ESMF/General/" to the JSON pointer used for key in the absence of <TT>convention</TT> and <TT>purpose</TT> arguments.
 
 <P>
 
@@ -3829,7 +3835,7 @@ temporary or multiple Clocks and Alarms.  Sections&nbsp;<A HREF="#sec:Clock">44.
 <BR><P></P>
 <DIV ALIGN="CENTER">
 
-<A NAME="76805"></A>
+<A NAME="76840"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 4:</STRONG>
 Specifiers for Times and TimeIntervals</CAPTION>
@@ -17123,14 +17129,16 @@ Finally clean up <TT>hconfig</TT> as usual.
 <P>
 
 <UL>
-<LI>The JSON schema is implemented and used to resolve non-specific tags.
+<LI>The YAML Core schema, which is an extension of the JSON schema, is
+  implemented and used to resolve non-specific tags under HConfig.
   There is currently no mechanism implemented to switch to a different schema
   for tag resolution.
 </LI>
 <LI>Currently the only available removal method for HConfig <EM>map</EM>
   objects requires that <EM>keys</EM> be simple scalar strings.
 </LI>
-<LI>There is currently no method implemented to set or modify tags.
+<LI>There is currently no method implemented that allows setting of tags from
+  from the API.
 </LI>
 </UL>
 
