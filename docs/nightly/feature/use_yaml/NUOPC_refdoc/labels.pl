@@ -98,6 +98,10 @@ $key = q/NUOPC_GridCompAttributeIng/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/NUOPC_GridCompAttributeIngHC/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/NUOPC_GridCompSetClock/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
@@ -313,8 +317,12 @@ $key = q/NUOPC_GridCompAttributeIng/;
 $external_latex_labels{$key} = q|3.6.15|; 
 $noresave{$key} = "$nosave";
 
+$key = q/NUOPC_GridCompAttributeIngHC/;
+$external_latex_labels{$key} = q|3.6.18|; 
+$noresave{$key} = "$nosave";
+
 $key = q/NUOPC_GridCompSetClock/;
-$external_latex_labels{$key} = q|3.6.36|; 
+$external_latex_labels{$key} = q|3.6.38|; 
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_Mediator/;
