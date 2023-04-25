@@ -4,8 +4,9 @@ title: "Download"
 classes: wide
 ---
 ### Releases
-[Download ESMF 8.4.1](https://github.com/esmf-org/esmf/releases/latest){: .btn .btn--info} (Latest release - March 06, 2023)
+[Download ESMF 8.4.2](https://github.com/esmf-org/esmf/releases/latest){: .btn .btn--info} (Latest release - April 25, 2023)
 - Recent previous releases:
+    - [ESMF 8.4.1](https://github.com/esmf-org/esmf/releases/tag/v8.4.1)        (March 06, 2023)
     - [ESMF 8.4.0](https://github.com/esmf-org/esmf/releases/tag/v8.4.0)        (October 28, 2022)
     - [ESMF 8.3.1](https://github.com/esmf-org/esmf/releases/tag/v8.3.1)        (September 21, 2022)
     - [ESMF 8.3.0](https://github.com/esmf-org/esmf/releases/tag/v8.3.0)        (June 08, 2022)
@@ -17,7 +18,7 @@ classes: wide
 - Master list of [all previous releases](/static/releases.html)
 
 ### Release Notification
-Please subscribe to the [ESMF_Info](https://mailman.cgd.ucar.edu/mailman/listinfo/esmf_info) mailing list in order to receive email notification each time a new ESMF version is released. This is an extremely low volume list, exclusively used for ESMF release announcements. It is fully moderated to prevent any other use of this list.
+Please subscribe to the [ESMF_Info](https://groups.google.com/a/ucar.edu/g/esmf_info) mailing list in order to receive email notification each time a new ESMF version is released. This is an extremely low volume list, exclusively used for ESMF release announcements. It is fully moderated to prevent any other use of this list.
 
 ### Development Snapshots
 Development snapshots (or "beta snapshots") are tagged regularly to assist in testing new features before an official release.

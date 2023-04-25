@@ -2,13 +2,13 @@
 permalink: /doc/
 title: "Docs"
 ---
-### Last release documentation: ESMF 8.4.1
+### Last release documentation: ESMF 8.4.2
 * User's Guide - [html](/docs/release/latest/ESMF_usrdoc), [pdf](/docs/release/latest/ESMF_usrdoc.pdf)
 * Fortran Reference Manual - [html](/docs/release/latest/ESMF_refdoc/), [pdf](/docs/release/latest/ESMF_refdoc.pdf)
 * C Reference Manual - [html](/docs/release/latest/ESMC_crefdoc), [pdf](/docs/release/latest/ESMC_crefdoc.pdf)
 * NUOPC Reference Manual - [html](/docs/release/latest/NUOPC_refdoc), [pdf](/docs/release/latest/NUOPC_refdoc.pdf)
 * ESMPy Documentation - [html](/esmpy_doc/release/latest/html), [pdf](/esmpy_doc/release/latest/ESMPy.pdf)
-* [Release Notes and Known Issues](/static/releases.html#8_4_1)
+* [Release Notes and Known Issues](/static/releases.html#8_4_2)
 
 ### Development documentation (develop branch, updated on each push):
 * User's Guide - [html](/docs/nightly/develop/ESMF_usrdoc/), [pdf](/docs/nightly/develop/ESMF_usrdoc.pdf)
