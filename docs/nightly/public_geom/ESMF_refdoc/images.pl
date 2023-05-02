@@ -44,11 +44,30 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img92.png"
  ALT="$(10,10)$">|; 
 
+$key = q/(i_{min}+1,j_{max}+1)rightarrow(i_{max}-1,j_{max});MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="277" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img176.png"
+ ALT="$(i_{min}+1, j_{max}+1) \rightarrow (i_{max}-1, j_{max})$">|; 
+
+$key = q/(i_{min},j_{max}+1)rightarrow(i_{max},j_{max});MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="222" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img175.png"
+ ALT="$(i_{min}, j_{max}+1) \rightarrow (i_{max}, j_{max})$">|; 
+
 $key = q/(n-1)*spatialDim+1;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="177" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img97.png"
  ALT="$(n-1)*spatialDim+1$">|; 
+
+$key = q/(nDEstimes1times...times1);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="147" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img110.png"
+ ALT="$(nDEs \times 1
+\times ... \times 1) $">|; 
 
 $key = q/+1;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -56,17 +75,54 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img88.png"
  ALT="$+1$">|; 
 
+$key = q/+;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img206.png"
+ ALT="$+$">|; 
+
+$key = q/+frac{{{rm{sN}}{{{rm{sD}};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="35" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img196.png"
+ ALT="$+
+\frac{{\rm sN}}{{\rm sD}}$">|; 
+
 $key = q/-1;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img84.png"
  ALT="$-1$">|; 
 
+$key = q/-80^{circ}..+80^{circ};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="91" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img157.png"
+ ALT="$-80^{\circ}..+80^{\circ}$">|; 
+
 $key = q/0;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="12" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img85.png"
  ALT="$0$">|; 
+
+$key = q/0^{circ}..360^{circ};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="59" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img156.png"
+ ALT="$0^{\circ}..360^{\circ}$">|; 
+
+$key = q/0^{circ};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="19" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img137.png"
+ ALT="$0^{\circ}$">|; 
+
+$key = q/1+n;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="41" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img193.png"
+ ALT="$1+n$">|; 
 
 $key = q/10;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -86,11 +142,35 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img60.png"
  ALT="$10\times 10$">|; 
 
+$key = q/180^circ;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="35" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img165.png"
+ ALT="$180^\circ$">|; 
+
+$key = q/180^{circ};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="35" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img142.png"
+ ALT="$180^{\circ}$">|; 
+
 $key = q/1;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img74.png"
  ALT="$1$">|; 
+
+$key = q/270^circ;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="35" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img187.png"
+ ALT="$270^\circ$">|; 
+
+$key = q/270^{circ};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="35" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img145.png"
+ ALT="$270^{\circ}$">|; 
 
 $key = q/2;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -98,11 +178,35 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img70.png"
  ALT="$2$">|; 
 
+$key = q/2^{31};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="26" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img200.png"
+ ALT="$2^{31}$">|; 
+
+$key = q/2^{63};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="26" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img199.png"
+ ALT="$2^{63}$">|; 
+
+$key = q/2times3=6;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="69" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img114.png"
+ ALT="$2 \times 3 = 6 $">|; 
+
 $key = q/2times5=10;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="77" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img72.png"
  ALT="$2 \times 5=10$">|; 
+
+$key = q/4times1;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="39" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img113.png"
+ ALT="$4 \times 1$">|; 
 
 $key = q/4times4times4=64;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -116,11 +220,29 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img71.png"
  ALT="$5$">|; 
 
+$key = q/90^circ;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="27" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img186.png"
+ ALT="$90^\circ$">|; 
+
+$key = q/90^{circ};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="27" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img136.png"
+ ALT="$90^{\circ}$">|; 
+
 $key = q/<0;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="29" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img40.png"
  ALT="$&lt; 0$">|; 
+
+$key = q/>2^{31}-1=2,147,483,647;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="192" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img192.png"
+ ALT="$&gt; 2^{31}-1 = 2,147,483,647$">|; 
 
 $key = q/>=0;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -164,6 +286,18 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img52.png"
  ALT="$M_{i,j}$">|; 
 
+$key = q/N-1;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="46" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img112.png"
+ ALT="$N-1$">|; 
+
+$key = q/N;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="19" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img109.png"
+ ALT="$N$">|; 
+
 $key = q/N_i=10;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="59" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
@@ -182,11 +316,35 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img62.png"
  ALT="$[-10, 5]$">|; 
 
+$key = q/[0...localDeCount-1];MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="160" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img202.png"
+ ALT="$[0...localDeCount-1]$">|; 
+
+$key = q/[0..petCount-1];MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="123" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img207.png"
+ ALT="$[0..petCount-1]$">|; 
+
+$key = q/[1...localDeCount];MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="133" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img203.png"
+ ALT="$[1...localDeCount]$">|; 
+
 $key = q/[];MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="13" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img76.png"
  ALT="$[]$">|; 
+
+$key = q/^{14};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img198.png"
+ ALT="$^{14}$">|; 
 
 $key = q/c_{d};MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -211,6 +369,77 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="352" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img25.png"
  ALT="$d=\sum^{intersecting-source-cells}_{i}(s_{i}+\nabla s_{i} \cdot (c_{si}-c_{d}))$">|; 
+
+$key = q/displaystylehatR(veca-vecp)+vecp;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="92" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img130.png"
+ ALT="$\displaystyle \hat R (\vec a - \vec p) + \vec p$">|; 
+
+$key = q/displaystylehatRveca+({1!!1}-hatR)vecp;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="107" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img131.png"
+ ALT="$\displaystyle \hat R \vec a + ({1\!\!1} - \hat R) \vec p$">|; 
+
+$key = q/displaystyleleft(array{{l}i+i_{size}slash2<row_mark>j_{max}array{right)-left(arrol_mark>-1array{right)left(array{{l}i<row_mark>j_{max}+1array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="319" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img171.png"
+ ALT="$\displaystyle \left( \begin{array}{l}
+i + i_{size}/2\\\\
+j_{max} \end{array} \ri...
+...\end{array} \right)
+\left( \begin{array}{l}
+i \\\\
+j_{max}+1 \end{array} \right)$">|; 
+
+$key = q/displaystyleleft(array{{l}i_{max}+i_{min}<row_mark>2j_{max}+1array{right).;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="132" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img179.png"
+ ALT="$\displaystyle \left( \begin{array}{l}
+i_{max}+i_{min}\\\\
+2j_{max} +1 \end{array} \right).$">|; 
+
+$key = q/displaystyleleft(array{{l}i_{max}<row_mark>j_{max}array{right)-left(array{{rr}-1k>-1array{right)left(array{{l}i_{min}<row_mark>j_{max}+1array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="294" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img178.png"
+ ALT="$\displaystyle \left( \begin{array}{l}
+i_{max}\\\\
+j_{max} \end{array} \right)
+- ...
+...rray} \right)
+\left( \begin{array}{l}
+i_{min} \\\\
+j_{max}+1 \end{array} \right)$">|; 
+
+$key = q/displaystyleleft(array{{l}i_{size}slash2<row_mark>2j_{max}+1array{right).;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="119" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img172.png"
+ ALT="$\displaystyle \left( \begin{array}{l}
+i_{size}/2\\\\
+2j_{max} +1 \end{array} \right).$">|; 
+
+$key = q/displaystylevecP;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="17" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img169.png"
+ ALT="$\displaystyle \vec P$">|; 
+
+$key = q/displaystylevecarightarrowvecb;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="44" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img128.png"
+ ALT="$\displaystyle \vec a \rightarrow \vec b$">|; 
+
+$key = q/displaystylevecb-hatRveca;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="51" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img170.png"
+ ALT="$\displaystyle \vec b - \hat R \vec a$">|; 
 
 $key = q/dstField(i)=i*srcField(i),i=1...4;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -260,11 +489,51 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img34.png"
  ALT="$\frac{\rho}{\rho^\gamma} + u {(\frac{p}{\rho^\gamma})}_x + v {(\frac{p}{\rho^\gamma})}_y = 0$">|; 
 
+$key = q/hatR;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img119.png"
+ ALT="$\hat R$">|; 
+
+$key = q/hatR=left(array{{rr}0&-11&0array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="121" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img189.png"
+ ALT="$\hat R=\left(\begin{array}{rr}
+0 &amp; -1 \\\\
+1 &amp; 0 \end{array} \right)$">|; 
+
+$key = q/hatR=left(array{{rr}0&1-1&0array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="121" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img188.png"
+ ALT="$\hat R=\left(\begin{array}{rr}
+0 &amp; 1 \\\\
+-1 &amp; 0 \end{array} \right)$">|; 
+
+$key = q/hatR={1!!1};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="48" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img121.png"
+ ALT="$\hat R ={1\!\!1}$">|; 
+
+$key = q/i+1;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="37" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img163.png"
+ ALT="$i+1$">|; 
+
 $key = q/i;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="10" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img3.png"
  ALT="$i$">|; 
+
+$key = q/i=mod(i+i_{size}slash2,i_{size});MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="180" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img166.png"
+ ALT="$i=mod(i+i_{size}/2, i_{size})$">|; 
 
 $key = q/i_B;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -284,11 +553,30 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img43.png"
  ALT="$i_B \in [\phi, 1...n_B]$">|; 
 
+$key = q/i_{min};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="34" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img177.png"
+ ALT="$i_{min}$">|; 
+
+$key = q/i_{size}=i_{max}-i_{min}+1;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="163" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img167.png"
+ ALT="$i_{size}=i_{max}
+-i_{min}+1$">|; 
+
 $key = q/includegraphics{Comp_obj};AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="623" HEIGHT="191" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img17.png"
  ALT="\includegraphics{Comp_obj}">|; 
+
+$key = q/includegraphics{Log_obj};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="125" HEIGHT="306" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img201.png"
+ ALT="\includegraphics{Log_obj}">|; 
 
 $key = q/includegraphics{State_obj};AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -296,11 +584,241 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img22.png"
  ALT="\includegraphics{State_obj}">|; 
 
+$key = q/includegraphics{TimeMgr_desc};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="691" HEIGHT="202" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img195.png"
+ ALT="\includegraphics{TimeMgr_desc}">|; 
+
+$key = q/includegraphics{TimeMgr_obj};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="687" HEIGHT="315" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img197.png"
+ ALT="\includegraphics{TimeMgr_obj}">|; 
+
+$key = q/includegraphics{dgconnect_1tile_not_connected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="455" HEIGHT="489" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img158.png"
+ ALT="\includegraphics{dgconnect_1tile_not_connected.eps}">|; 
+
+$key = q/includegraphics{dgconnect_1tile_peribipole_connected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="505" HEIGHT="486" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img180.png"
+ ALT="\includegraphics{dgconnect_1tile_peribipole_connected.eps}">|; 
+
+$key = q/includegraphics{dgconnect_1tile_periodic1_connected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="455" HEIGHT="489" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img160.png"
+ ALT="\includegraphics{dgconnect_1tile_periodic1_connected.eps}">|; 
+
+$key = q/includegraphics{dgconnect_1tile_periodic2_connected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="496" HEIGHT="481" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img161.png"
+ ALT="\includegraphics{dgconnect_1tile_periodic2_connected.eps}">|; 
+
+$key = q/includegraphics{dgconnect_1tile_peripole_connected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="505" HEIGHT="485" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img174.png"
+ ALT="\includegraphics{dgconnect_1tile_peripole_connected.eps}">|; 
+
+$key = q/includegraphics{dgconnect_2tiles_connected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="698" HEIGHT="342" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img124.png"
+ ALT="\includegraphics{dgconnect_2tiles_connected.eps}">|; 
+
+$key = q/includegraphics{dgconnect_2tiles_not_connected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="698" HEIGHT="342" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img115.png"
+ ALT="\includegraphics{dgconnect_2tiles_not_connected.eps}">|; 
+
+$key = q/includegraphics{dgconnect_cusph_12connected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="595" HEIGHT="494" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img191.png"
+ ALT="\includegraphics{dgconnect_cusph_12connected.eps}">|; 
+
+$key = q/includegraphics{dgconnect_cusph_2rotconnected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="555" HEIGHT="422" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img190.png"
+ ALT="\includegraphics{dgconnect_cusph_2rotconnected.eps}">|; 
+
+$key = q/includegraphics{dgconnect_cusph_5connected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="555" HEIGHT="422" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img182.png"
+ ALT="\includegraphics{dgconnect_cusph_5connected.eps}">|; 
+
+$key = q/includegraphics{dgconnect_cusph_6connected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="556" HEIGHT="422" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img184.png"
+ ALT="\includegraphics{dgconnect_cusph_6connected.eps}">|; 
+
+$key = q/includegraphics{dgconnect_cusph_not_connected.eps};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="555" HEIGHT="422" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img181.png"
+ ALT="\includegraphics{dgconnect_cusph_not_connected.eps}">|; 
+
 $key = q/j;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="12" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img4.png"
  ALT="$j$">|; 
+
+$key = q/j=j_{max};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="66" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img164.png"
+ ALT="$j=j_{max}$">|; 
+
+$key = q/j_{max};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="37" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img162.png"
+ ALT="$j_{max}$">|; 
+
+$key = q/j_{min};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="35" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img173.png"
+ ALT="$j_{min}$">|; 
+
+$key = q/left(array{{rr}-1&00&-1array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="100" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img143.png"
+ ALT="$\left( \begin{array}{rr}
+-1 &amp; 0 \\\\
+0 &amp; -1 \end{array} \right)$">|; 
+
+$key = q/left(array{{rr}-1&00&1array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="88" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img148.png"
+ ALT="$\left( \begin{array}{rr}
+-1 &amp; 0 \\\\
+0 &amp; 1 \end{array} \right)$">|; 
+
+$key = q/left(array{{rr}0&-1-1&0array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="100" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img154.png"
+ ALT="$\left( \begin{array}{rr}
+0 &amp; -1 \\\\
+-1 &amp; 0 \end{array} \right)$">|; 
+
+$key = q/left(array{{rr}0&-11&0array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="88" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img140.png"
+ ALT="$\left( \begin{array}{rr}
+0 &amp; -1 \\\\
+1 &amp; 0 \end{array} \right)$">|; 
+
+$key = q/left(array{{rr}0&1-1&0array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="88" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img146.png"
+ ALT="$\left( \begin{array}{rr}
+0 &amp; 1 \\\\
+-1 &amp; 0 \end{array} \right)$">|; 
+
+$key = q/left(array{{rr}0&11&0array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="75" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img152.png"
+ ALT="$\left( \begin{array}{rr}
+0 &amp; 1 \\\\
+1 &amp; 0 \end{array} \right)$">|; 
+
+$key = q/left(array{{rr}1&00&-1array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="88" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img150.png"
+ ALT="$\left( \begin{array}{rr}
+1 &amp; 0 \\\\
+0 &amp; -1 \end{array} \right)$">|; 
+
+$key = q/left(array{{rr}1&00&1array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="75" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img138.png"
+ ALT="$\left( \begin{array}{rr}
+1 &amp; 0 \\\\
+0 &amp; 1 \end{array} \right)$">|; 
+
+$key = q/left(array{{r}-1-2array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img144.png"
+ ALT="$\left( \begin{array}{r}
+-1 \\\\
+-2 \end{array} \right)$">|; 
+
+$key = q/left(array{{r}-12array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img149.png"
+ ALT="$\left( \begin{array}{r}
+-1 \\\\
+2 \end{array} \right)$">|; 
+
+$key = q/left(array{{r}-2-1array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img155.png"
+ ALT="$\left( \begin{array}{r}
+-2 \\\\
+-1 \end{array} \right)$">|; 
+
+$key = q/left(array{{r}-21array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img141.png"
+ ALT="$\left( \begin{array}{r}
+-2 \\\\
+1 \end{array} \right)$">|; 
+
+$key = q/left(array{{r}1-2array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img151.png"
+ ALT="$\left( \begin{array}{r}
+1 \\\\
+-2 \end{array} \right)$">|; 
+
+$key = q/left(array{{r}12array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="51" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img139.png"
+ ALT="$\left( \begin{array}{r}
+1 \\\\
+2 \end{array} \right)$">|; 
+
+$key = q/left(array{{r}2-1array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="64" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img147.png"
+ ALT="$\left( \begin{array}{r}
+2 \\\\
+-1 \end{array} \right)$">|; 
+
+$key = q/left(array{{r}21array{right);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="51" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img153.png"
+ ALT="$\left( \begin{array}{r}
+2 \\\\
+1 \end{array} \right)$">|; 
 
 $key = q/localDeCount>1;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -331,6 +849,18 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img96.png"
  ALT="$n$">|; 
+
+$key = q/n=;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="30" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img194.png"
+ ALT="$n=$">|; 
+
+$key = q/nDEs;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="47" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img111.png"
+ ALT="$nDEs$">|; 
 
 $key = q/n_A;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -389,6 +919,12 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img36.png"
  ALT="$\rho$">|; 
 
+$key = q/rightarrow;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="20" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img183.png"
+ ALT="$\rightarrow$">|; 
+
 $key = q/s_{i};MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="17" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
@@ -400,6 +936,12 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="485" HEIGHT="437" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img23.png"
  ALT="\scalebox{0.5}{\includegraphics{webservices}}">|; 
+
+$key = q/scalebox{0.6}{includegraphics{VM_design}};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="723" HEIGHT="527" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img204.png"
+ ALT="\scalebox{0.6}{\includegraphics{VM_design}}">|; 
 
 $key = q/scalebox{0.6}{includegraphics{XGridEx1}};AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -436,6 +978,12 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="465" HEIGHT="275" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img79.png"
  ALT="\scalebox{0.75}{\includegraphics{GridStaggerLoc2D}}">|; 
+
+$key = q/scalebox{0.8}{includegraphics{Appendix_uml}};AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="461" HEIGHT="703" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img208.png"
+ ALT="\scalebox{0.8}{\includegraphics{Appendix_uml}}">|; 
 
 $key = q/scalebox{0.9}{includegraphics{ESMF_GEOS5}};AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -515,6 +1063,12 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img80.png"
  ALT="\scalebox{1.0}{\includegraphics{GridStaggerLoc3D}}">|; 
 
+$key = q/sim;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="16" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img108.png"
+ ALT="$\sim$">|; 
+
 $key = q/src_j;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="33" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
@@ -544,6 +1098,18 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="266" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img103.png"
  ALT="$\sum_{g=1}^{g=n\_srcgrid}\sum_{s=1}^{s=n\_srccell}{ f_{1s} f_{2s} A_s F_s }$">|; 
+
+$key = q/textstyle=;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img129.png"
+ ALT="$\textstyle =$">|; 
+
+$key = q/times;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img205.png"
+ ALT="$\times$">|; 
 
 $key = q/trightarrowinfty;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -592,6 +1158,61 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="179" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|img32.png"
  ALT="$v_t + u v_x + v v_y + \frac{1}{\rho} p_y = 0$">|; 
+
+$key = q/vecP;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="17" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img120.png"
+ ALT="$\vec P$">|; 
+
+$key = q/vecP=(0,0);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="73" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img122.png"
+ ALT="$\vec P = (0,0)$">|; 
+
+$key = q/vecP=vecb-veca=(1,3)-(11,3)=(-10,0);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="269" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img123.png"
+ ALT="$\vec P = \vec b - \vec a = (1,3) - (11,3) = (-10,0)$">|; 
+
+$key = q/vecP=vecb-veca=(1,j)-(51,j)=(-50,0);MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="268" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img159.png"
+ ALT="$\vec P = \vec b - \vec a = (1,j) - (51,j) =
+(-50,0)$">|; 
+
+$key = q/veca;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img117.png"
+ ALT="$\vec a$">|; 
+
+$key = q/vecarightarrowvecb;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="44" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img126.png"
+ ALT="$\vec a \rightarrow \vec b$">|; 
+
+$key = q/vecb;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="11" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img118.png"
+ ALT="$\vec b$">|; 
+
+$key = q/vecp;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="12" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img127.png"
+ ALT="$\vec p$">|; 
+
+$key = q/vect;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="11" HEIGHT="23" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img133.png"
+ ALT="$\vec t$">|; 
 
 $key = q/w_{ij};MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -645,6 +1266,68 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|img65.png"
  ALT="\begin{displaymath}
 f(i,j) = \sin(\alpha i)\cos(\beta j),
+\end{displaymath}">|; 
+
+$key = q/{displaymath}vecP=({1!!1}-hatR)vecp+vect.{displaymath};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="124" HEIGHT="61" BORDER="0"
+ SRC="|."$dir".q|img135.png"
+ ALT="\begin{displaymath}
+\vec P = ({1\!\!1} - \hat R) \vec p + \vec t.
+\end{displaymath}">|; 
+
+$key = q/{displaymath}vecP=({1!!1}-hatR)vecp{displaymath};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="98" HEIGHT="29" BORDER="0"
+ SRC="|."$dir".q|img132.png"
+ ALT="\begin{displaymath}
+\vec P = ({1\!\!1} - \hat R) \vec p
+\end{displaymath}">|; 
+
+$key = q/{displaymath}vecP=vecb-hatRveca.{displaymath};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="83" HEIGHT="57" BORDER="0"
+ SRC="|."$dir".q|img185.png"
+ ALT="\begin{displaymath}
+\vec P = \vec b - \hat R \vec a.
+\end{displaymath}">|; 
+
+$key = q/{displaymath}veca=left(array{{l}ij_{max}+1array{right)rightarrowvecb=left(array{{l}i+i_{size}slash2j_{max}array{right).{displaymath};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="297" HEIGHT="45" BORDER="0"
+ SRC="|."$dir".q|img168.png"
+ ALT="\begin{displaymath}
+\vec a = \left( \begin{array}{l}
+i \\\\
+j_{max}+1 \end{arr...
+...in{array}{l}
+i + i_{size}/2\\\\
+j_{max} \end{array} \right).
+\end{displaymath}">|; 
+
+$key = q/{displaymath}vecarightarrowvecb=hatRveca+({1!!1}-hatR)vecp+vect.{displaymath};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="192" HEIGHT="61" BORDER="0"
+ SRC="|."$dir".q|img134.png"
+ ALT="\begin{displaymath}
+\vec a \rightarrow \vec b =
+\hat R \vec a + ({1\!\!1} - \hat R) \vec p + \vec t.
+\end{displaymath}">|; 
+
+$key = q/{displaymath}vecarightarrowvecb=hatRveca+vecP.{displaymath};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="116" HEIGHT="57" BORDER="0"
+ SRC="|."$dir".q|img116.png"
+ ALT="\begin{displaymath}
+\vec a \rightarrow \vec b = \hat R \vec a + \vec P.
+\end{displaymath}">|; 
+
+$key = q/{displaymath}vecbrightarrowveca=hatR^{-1}vecb-hatR^{-1}vecP.{displaymath};MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="161" HEIGHT="26" BORDER="0"
+ SRC="|."$dir".q|img125.png"
+ ALT="\begin{displaymath}
+\vec b \rightarrow \vec a = \hat R^{-1} \vec b - \hat R^{-1} \vec P.
 \end{displaymath}">|; 
 
 $key = q/{rho}_t+{rhou}_x+{rhov}_y=0;MSF=1.6;AAT/;
