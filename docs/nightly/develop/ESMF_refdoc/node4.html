@@ -10372,6 +10372,10 @@ The valid values are:
 <DD>Contains data to be exported out of a component.
    
 </DD>
+<DT><STRONG>ESMF_STATEINTENT_INTERNAL</STRONG></DT>
+<DD>Contains data that is not exposed outside of a component.
+   
+</DD>
 <DT><STRONG>ESMF_STATEINTENT_UNSPECIFIED</STRONG></DT>
 <DD>The intent has not been specified.
 </DD>
@@ -11568,7 +11572,7 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>       function ESMF_StateCreate(stateintent, &amp;
+<PRE>       function ESMF_StateCreate(stateIntent, &amp;
                     arrayList, arraybundleList, &amp;
                     fieldList, fieldbundleList, &amp;
                     nestedStateList, &amp;
@@ -11577,7 +11581,7 @@ The arguments are:
 <PRE>       type(ESMF_State) :: ESMF_StateCreate
 </PRE><EM>ARGUMENTS:</EM>
 <PRE> -- The following arguments require argument keyword syntax (e.g. rc=rc). --
-       type(ESMF_StateIntent_Flag), intent(in), optional :: stateintent
+       type(ESMF_StateIntent_Flag), intent(in), optional :: stateIntent
        type(ESMF_Array), intent(in), optional :: arrayList(:)
        type(ESMF_ArrayBundle), intent(in), optional :: arraybundleList(:)
        type(ESMF_Field), intent(in), optional :: fieldList(:)
@@ -11617,11 +11621,10 @@ Create a new <TT>ESMF_State</TT>, set default characteristics for
 <P>
 The arguments are:
    <DL>
-<DT><STRONG>[stateintent]</STRONG></DT>
-<DD>Import or Export <TT>ESMF_State</TT>. Valid values are
-   <TT>ESMF_STATEINTENT_IMPORT</TT>, <TT>ESMF_STATEINTENT_EXPORT</TT>,
-   or <TT>ESMF_STATEINTENT_UNSPECIFIED</TT> The default
-   is <TT>ESMF_STATEINTENT_UNSPECIFIED</TT>.
+<DT><STRONG>[stateIntent]</STRONG></DT>
+<DD>The intent, e.g. Import, Export, or Internal, of this <TT>ESMF_State</TT>.
+   Possible values are listed in Section&nbsp;<A HREF="#const:stateintent">21.2.1</A>.
+   The default is <TT>ESMF_STATEINTENT_UNSPECIFIED</TT>.
    
 </DD>
 <DT><STRONG>[arrayList]</STRONG></DT>
@@ -11765,14 +11768,14 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 <PRE>       ! Private name; call using ESMF_StateGet()
        subroutine ESMF_StateGetInfo(state, &amp;
              itemSearch, itemorderflag, nestedFlag, &amp;
-             stateintent, itemCount, itemNameList, itemTypeList, name, rc)
+             stateIntent, itemCount, itemNameList, itemTypeList, name, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>       type(ESMF_State), intent(in) :: state
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
        character (len=*), intent(in), optional :: itemSearch
        type(ESMF_ItemOrder_Flag), intent(in), optional :: itemorderflag
        logical, intent(in), optional :: nestedFlag
-       type(ESMF_StateIntent_Flag), intent(out), optional :: stateintent
+       type(ESMF_StateIntent_Flag), intent(out), optional :: stateIntent
        integer, intent(out), optional :: itemCount
        character (len=*), intent(out), optional :: itemNameList(:)
        type(ESMF_StateItem_Flag), intent(out), optional :: itemTypeList(:)
@@ -11842,8 +11845,8 @@ The arguments are:
    nested States
    
 </DD>
-<DT><STRONG>[stateintent]</STRONG></DT>
-<DD>Returns the type, e.g., Import or Export, of this <TT>ESMF_State</TT>.
+<DT><STRONG>[stateIntent]</STRONG></DT>
+<DD>The intent, e.g. Import, Export, or Internal, of this <TT>ESMF_State</TT>.
    Possible values are listed in Section&nbsp;<A HREF="#const:stateintent">21.2.1</A>.
    
 </DD>
@@ -12544,7 +12547,7 @@ The arguments are:
 <PRE>     type(ESMF_State),            intent(inout)         :: state
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      type(ESMF_StateIntent_Flag), intent(in),  optional :: stateIntent
-      character(len = *),         intent(in),  optional :: name
+     character(len = *),          intent(in),  optional :: name
      integer,                     intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -12554,24 +12557,24 @@ The arguments are:
 Set the info in the <TT>state</TT> object.
 
 <P>
-The arguments are:
-        <DL>
+he arguments are:
+      <DL>
 <DT><STRONG>state</STRONG></DT>
 <DD>The <TT>ESMF_State</TT> to set.
-        
+      
 </DD>
-<DT><STRONG>stateIntent</STRONG></DT>
-<DD>Intent, e.g. Import or Export, of this <TT>ESMF_State</TT>.
-          Possible values are listed in Section&nbsp;<A HREF="#const:stateintent">21.2.1</A>.
-        
+<DT><STRONG>[stateIntent]</STRONG></DT>
+<DD>The intent, e.g. Import, Export, or Internal, of this <TT>ESMF_State</TT>.
+         Possible values are listed in Section&nbsp;<A HREF="#const:stateintent">21.2.1</A>.
+      
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
 <DD>The State name.
-        
+      
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
-        
+      
 </DD>
 </DL>
 
@@ -14458,7 +14461,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16757"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16750"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
