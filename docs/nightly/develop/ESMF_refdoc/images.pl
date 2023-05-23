@@ -963,7 +963,7 @@ $cached_env_img{$key} = q|<IMG
 
 $key = q/scalebox{0.75}{includegraphics{GridCustStaggerLoc}};AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="545" HEIGHT="272" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="544" HEIGHT="268" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|img88.png"
  ALT="\scalebox{0.75}{\includegraphics{GridCustStaggerLoc}}">|; 
 
