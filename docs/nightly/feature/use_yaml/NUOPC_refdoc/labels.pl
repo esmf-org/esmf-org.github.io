@@ -338,23 +338,23 @@ $external_latex_labels{$key} = q|3.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_RealizeCompleteG/;
-$external_latex_labels{$key} = q|3.9.21|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_RealizeCompleteLS/;
 $external_latex_labels{$key} = q|3.9.22|; 
 $noresave{$key} = "$nosave";
 
-$key = q/NUOPC_RealizeCompleteM/;
+$key = q/NUOPC_RealizeCompleteLS/;
 $external_latex_labels{$key} = q|3.9.23|; 
 $noresave{$key} = "$nosave";
 
-$key = q/NUOPC_RealizeField/;
+$key = q/NUOPC_RealizeCompleteM/;
 $external_latex_labels{$key} = q|3.9.24|; 
 $noresave{$key} = "$nosave";
 
-$key = q/NUOPC_RealizeTransfer/;
+$key = q/NUOPC_RealizeField/;
 $external_latex_labels{$key} = q|3.9.25|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeTransfer/;
+$external_latex_labels{$key} = q|3.9.26|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Namespaces/;
