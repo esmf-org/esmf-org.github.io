@@ -19454,22 +19454,26 @@ The <TT>ESMF_FieldRegridStore()</TT> method implements an auto-tuning scheme
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   !   Private name; call using ESMF_FieldRegridStore()
-       subroutine ESMF_FieldRegridStoreX(xgrid, srcField, dstField, &amp;
-                     regridmethod, routehandle, &amp;
+     subroutine ESMF_FieldRegridStoreX(xgrid, srcField, dstField, &amp;
+                     regridmethod, &amp;
+                     srcTermProcessing, pipeLineDepth, &amp;
+                     routehandle, &amp;
                      srcFracField, dstFracField, &amp;
                      srcMergeFracField, dstMergeFracField, rc)
 </PRE><EM>ARGUMENTS:</EM>
-<PRE>       type(ESMF_XGrid),       intent(in)              :: xgrid
-       type(ESMF_Field),       intent(in)              :: srcField
-       type(ESMF_Field),       intent(inout)           :: dstField
- -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+<PRE>       type(ESMF_XGrid),       intent(in)                      :: xgrid
+       type(ESMF_Field),       intent(in)                      :: srcField
+       type(ESMF_Field),       intent(inout)                   :: dstField
+       type(ESMF_KeywordEnforcer), optional                    :: keywordEnforcer ! must use keywords below
        type(ESMF_RegridMethod_Flag),   intent(in),    optional :: regridmethod
-       type(ESMF_RouteHandle), intent(inout), optional :: routehandle
-       type(ESMF_Field),       intent(inout), optional :: srcFracField
-       type(ESMF_Field),       intent(inout), optional :: dstFracField
-       type(ESMF_Field),       intent(inout), optional :: srcMergeFracField
-       type(ESMF_Field),       intent(inout), optional :: dstMergeFracField
-       integer,                intent(out),   optional :: rc
+       integer,                        intent(inout), optional :: srcTermProcessing
+       integer,                        intent(inout), optional :: pipeLineDepth
+       type(ESMF_RouteHandle), intent(inout), optional         :: routehandle
+       type(ESMF_Field),       intent(inout), optional         :: srcFracField
+       type(ESMF_Field),       intent(inout), optional         :: dstFracField
+       type(ESMF_Field),       intent(inout), optional         :: srcMergeFracField
+       type(ESMF_Field),       intent(inout), optional         :: dstMergeFracField
+       integer,                intent(out),   optional         :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
    
@@ -19544,6 +19548,79 @@ The arguments are:
 <DD>The type of interpolation. For this method only 
              <TT>ESMF_REGRIDMETHOD_CONSERVE</TT> and <TT>ESMF_REGRIDMETHOD_CONSERVE_2ND</TT> are
              supported. If not specified, defaults to <TT>ESMF_REGRIDMETHOD_CONSERVE</TT>.
+       
+</DD>
+<DT><STRONG>[srcTermProcessing]</STRONG></DT>
+<DD>The <TT>srcTermProcessing</TT> parameter controls how many source terms,
+             located on the same PET and summing into the same destination element,
+             are summed into partial sums on the source PET before being transferred
+             to the destination PET. A value of 0 indicates that the entire arithmetic
+             is done on the destination PET; source elements are neither multiplied 
+             by their factors nor added into partial sums before being sent off by the
+             source PET. A value of 1 indicates that source elements are multiplied
+             by their factors on the source side before being sent to the destination
+             PET. Larger values of <TT>srcTermProcessing</TT> indicate the maximum number
+             of terms in the partial sums on the source side.
+
+<P>
+Note that partial sums may lead to bit-for-bit differences in the results.
+       See section <A HREF="#RH:bfb">37.2.1</A> for an in-depth discussion of <EM>all</EM>
+       bit-for-bit reproducibility aspects related to route-based communication
+       methods.
+
+<P>
+The <TT>ESMF_FieldRegridStore()</TT> method implements an auto-tuning scheme
+       for the <TT>srcTermProcessing</TT> parameter. The intent on the 
+       <TT>srcTermProcessing</TT> argument is "<TT>inout</TT>" in order to 
+       support both overriding and accessing the auto-tuning parameter.
+       If an argument <SPAN CLASS="MATH"><IMG
+ WIDTH="41" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img41.png"
+ ALT="$&gt;= 0$"></SPAN> is specified, it is used for the 
+       <TT>srcTermProcessing</TT> parameter, and the auto-tuning phase is skipped.
+       In this case the <TT>srcTermProcessing</TT> argument is not modified on
+       return. If the provided argument is <SPAN CLASS="MATH"><IMG
+ WIDTH="29" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img42.png"
+ ALT="$&lt; 0$"></SPAN>, the <TT>srcTermProcessing</TT>
+       parameter is determined internally using the auto-tuning scheme. In this
+       case the <TT>srcTermProcessing</TT> argument is re-set to the internally
+       determined value on return. Auto-tuning is also used if the optional 
+       <TT>srcTermProcessing</TT> argument is omitted.
+
+<P>
+</DD>
+<DT><STRONG>[pipelineDepth]</STRONG></DT>
+<DD>The <TT>pipelineDepth</TT> parameter controls how many messages a PET
+       may have outstanding during a sparse matrix exchange. Larger values
+       of <TT>pipelineDepth</TT> typically lead to better performance. However,
+       on some systems too large a value may lead to performance degradation,
+       or runtime errors.
+
+<P>
+Note that the pipeline depth has no effect on the bit-for-bit
+       reproducibility of the results. However, it may affect the performance
+       reproducibility of the exchange.
+
+<P>
+The <TT>ESMF_FieldRegridStore()</TT> method implements an auto-tuning scheme
+       for the <TT>pipelineDepth</TT> parameter. The intent on the 
+       <TT>pipelineDepth</TT> argument is "<TT>inout</TT>" in order to 
+       support both overriding and accessing the auto-tuning parameter.
+       If an argument <SPAN CLASS="MATH"><IMG
+ WIDTH="41" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img41.png"
+ ALT="$&gt;= 0$"></SPAN> is specified, it is used for the 
+       <TT>pipelineDepth</TT> parameter, and the auto-tuning phase is skipped.
+       In this case the <TT>pipelineDepth</TT> argument is not modified on
+       return. If the provided argument is <SPAN CLASS="MATH"><IMG
+ WIDTH="29" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img42.png"
+ ALT="$&lt; 0$"></SPAN>, the <TT>pipelineDepth</TT>
+       parameter is determined internally using the auto-tuning scheme. In this
+       case the <TT>pipelineDepth</TT> argument is re-set to the internally
+       determined value on return. Auto-tuning is also used if the optional 
+       <TT>pipelineDepth</TT> argument is omitted.
        
 </DD>
 <DT><STRONG>[routehandle]</STRONG></DT>
@@ -38314,7 +38391,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="57063"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="57155"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -38355,7 +38432,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="57035"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="57127"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -38728,7 +38805,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="57280"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="57372"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -38769,7 +38846,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="57291"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="57383"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -40525,7 +40602,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="57842"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="57934"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -40934,7 +41011,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="57930"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="58022"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -41064,7 +41141,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="57949"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="58041"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -55039,7 +55116,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="68037"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="68129"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -57552,7 +57629,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="70147"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="70239"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -57730,7 +57807,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="69799"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="69891"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -57953,7 +58030,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="70148"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="70240"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -58237,7 +58314,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="69912"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="70004"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -58302,7 +58379,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="69927"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="70019"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -58359,7 +58436,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="69943"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="70035"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -58608,7 +58685,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="70150"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="70242"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -58766,7 +58843,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="70151"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="70243"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -58837,7 +58914,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="70059"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="70151"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -58945,7 +59022,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="70071"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="70163"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -59016,7 +59093,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="70082"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="70174"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -59215,7 +59292,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="70114"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="70206"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -59339,7 +59416,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="70122"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="70214"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
