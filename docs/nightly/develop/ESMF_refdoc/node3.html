@@ -105,9 +105,9 @@
 <LI><A NAME="tex2html2010"
   HREF="node3.html#SECTION03028100000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN> SCRIP Grid File Format</A>
 <LI><A NAME="tex2html2011"
-  HREF="node3.html#SECTION03028200000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">2</SPAN> ESMF Unstructured Grid File Format</A>
+  HREF="node3.html#SECTION03028200000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">2</SPAN> ESMF Unstructured Grid File Format (ESMFMESH)</A>
 <LI><A NAME="tex2html2012"
-  HREF="node3.html#SECTION03028300000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">3</SPAN> CF Convention Single Tile File Format</A>
+  HREF="node3.html#SECTION03028300000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">3</SPAN> CF Convention Single Tile File Format (CFGRID/GRIDSPEC)</A>
 <LI><A NAME="tex2html2013"
   HREF="node3.html#SECTION03028400000000000000"><SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">4</SPAN> CF Convention UGRID File Format</A>
 <LI><A NAME="tex2html2014"
@@ -259,23 +259,22 @@ different formats:  the SCRIP format&nbsp;<A HREF="#sec:fileformat:scrip">12.8.1
 the ESMF unstructured grid format&nbsp;<A HREF="#sec:fileformat:esmf">12.8.2</A> or the proposed CF unstructured grid data model (UGRID)&nbsp;<A HREF="#sec:fileformat:ugrid">12.8.4</A>.  GRIDSPEC is a proposed CF extension for the annotation of complex Earth system grids.  In the latest ESMF library, we added support for multi-tile GRIDSPEC Mosaic file with non-overlapping tiles. For UGRID, we support the 2D flexible mesh topology with mixed triangles and quadrilaterals and fully 3D unstructured mesh topology with hexahedrons and tetrahedrons.  
 
 <P>
-In the latest ESMF implementation, the <TT>ESMF_RegridWeightGen</TT> command line toll can detect the type of the input grid files automatically.  The user
-doesn't need to provide the source and destination grid file type arguments anymore.  The following arguments <TT>-t</TT>, <TT>-src_type</TT>, <TT>-dst_type</TT>, <TT>-src_meshname</TT>, and <TT>-dst_meshname</TT> are no longer needed.  If provided, the application will simply ingore them. The rule to determine the file format is the following:
+The <TT>ESMF_RegridWeightGen</TT> command line tool can detect the type of the input grid files automatically, so the specification of source and destination grid file type arguments is optional. However, these arguments (<TT>-t</TT>, <TT><code>--</code>src_type</TT> or <TT><code>--</code>dst_type</TT>) can be provided to override the auto-detection. If not explicitly specified, the rule to determine the file format is the following:
 
 <P>
 
 <UL>
-<LI>ESMF_FILEFORMAT_SCRIP:  variables grid_corner_lon and grid_corner_lat exists
-</LI>
 <LI>ESMF_FILEFORMAT_UGRID: a variable with attribute "cf_role" or "standard_name" set to "mesh_topology"
-</LI>
-<LI>ESMF_FILEFORMAT_ESMFMESH: variables nodeCoords and elementConn exists
-</LI>
-<LI>ESMF_FILEFORMAT_CFGRID: variables with attributes "degree_north" and "degree_east" exists
 </LI>
 <LI>ESMF_FILEFORMAT_MOSAIC: a variable with attribute "standard_name" set to "grid_mosaic_spec"
 </LI>
 <LI>ESMF_FILEFORMAT_TILE:  a varilable with attribute "standard_name" set to "grid_tile_spec"
+</LI>
+<LI>ESMF_FILEFORMAT_ESMFMESH: variables nodeCoords and elementConn exist
+</LI>
+<LI>ESMF_FILEFORMAT_SCRIP:  variables grid_corner_lon and grid_corner_lat exist
+</LI>
+<LI>ESMF_FILEFORMAT_CFGRID: variables with attributes "degree_north" and "degree_east" (or similar) exist, and other formats aren't matched
 </LI>
 </UL>
 
@@ -1056,7 +1055,7 @@ features supported by each of the grid file formats.
 <TR><TD ALIGN="LEFT">Feature</TD>
 <TD ALIGN="CENTER">SCRIP</TD>
 <TD ALIGN="CENTER">ESMF Unstruct.</TD>
-<TD ALIGN="CENTER">CF TILE</TD>
+<TD ALIGN="CENTER">CF Grid</TD>
 <TD ALIGN="CENTER">UGRID</TD>
 <TD ALIGN="CENTER">GRIDSPEC Mosaic</TD>
 </TR>
@@ -1231,7 +1230,7 @@ Both the SCRIP grid file format and the SCRIP weight file format work with the S
 
 <H3><A NAME="SECTION03028200000000000000"></A><A NAME="sec:fileformat:esmf"></A>
 <BR>
-<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">2</SPAN> ESMF Unstructured Grid File Format
+<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">2</SPAN> ESMF Unstructured Grid File Format (ESMFMESH)
 </H3>
 
 <P>
@@ -1409,13 +1408,13 @@ data:
 
 <H3><A NAME="SECTION03028300000000000000"></A><A NAME="sec:fileformat:gridspec"></A>
 <BR>
-<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">3</SPAN> CF Convention Single Tile File Format
+<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">3</SPAN> CF Convention Single Tile File Format (CFGRID/GRIDSPEC)
 </H3>
 
 <P>
 ESMF_RegridWeightGen supports single tile logically rectangular lat/lon grid files that follow the NETCDF CF convention based on
 <A NAME="tex2html12"
-  HREF="http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html">CF Metadata Conventions V1.6</A>. When using the ESMF API, the file format flag <TT>ESMF_FILEFORMAT_CFGRID</TT> (or its equivalent <TT>ESMF_FILEFORMAT_GRIDSPEC</TT>) can be used to indicate a file in this format.  
+  HREF="http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html">CF Metadata Conventions V1.6</A>. When using the ESMF API, the file format flag <TT>ESMF_FILEFORMAT_CFGRID</TT> (or its equivalent deprecated name, <TT>ESMF_FILEFORMAT_GRIDSPEC</TT>) can be used to indicate a file in this format.  
 
 <P>
 An example grid file is shown below.
