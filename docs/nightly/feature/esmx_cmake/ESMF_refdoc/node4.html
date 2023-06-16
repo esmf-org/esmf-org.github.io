@@ -1442,13 +1442,15 @@ The following sections discuss the above mentioned aspects in more detail.
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>       subroutine ESMF_Initialize(configFilename, configKey, &amp;
+<PRE>       subroutine ESMF_Initialize(configFilenameFromArgNum, &amp;
+         configFilename, configKey, &amp;
          defaultCalKind, defaultDefaultLogFilename, defaultLogFilename, &amp;
          defaultLogAppendFlag, logAppendFlag, defaultLogKindFlag, logKindFlag, &amp;
          mpiCommunicator,  ioUnitLBound, ioUnitUBound, &amp;
          defaultGlobalResourceControl, globalResourceControl, config, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE> -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+       integer,                 intent(in),  optional :: configFilenameFromArgNum
        character(len=*),        intent(in),  optional :: configFilename
        character(len=*),        intent(in),  optional :: configKey(:)
        type(ESMF_CalKind_Flag), intent(in),  optional :: defaultCalKind
@@ -1505,7 +1507,11 @@ Introduce <TT>default</TT> prefixed arguments:
 </DD>
 <DT><STRONG>8.5.0</STRONG></DT>
 <DD>Added argument <TT>configKey</TT> to support custom location of the
-                map of predefined initialization options for YAML configurations.
+                map of predefined initialization options for YAML
+                configurations.
+<BR>
+Added argument <TT>configFilenameFromArgNum</TT> to support config
+                file specification via the command line.
    
 </DD>
 </DL>
@@ -1598,6 +1604,13 @@ Before exiting the application the user must call <TT>ESMF_Finalize()</TT>
 <P>
 The arguments are:
        <DL>
+<DT><STRONG>[configFilenameFromArgNum]</STRONG></DT>
+<DD>Index of the command line argument specifying the config file
+             name. If the specified command line argument does not exist, or
+             <TT>configFilenameFromArgNum</TT> was not specified, the
+             <TT>configFilename</TT> argument, if provided, is used by default.
+       
+</DD>
 <DT><STRONG>[configFilename]</STRONG></DT>
 <DD>Name of the configuration file for the entire application.
              If this argument is specified, the configuration file must exist.
@@ -6075,7 +6088,7 @@ derived type within ESMF.  The user must create one of these types
 to represent a specific coupling function, such as the regular
 transfer of data between a data assimilation system and an 
 atmospheric model.  <A NAME="tex2html21"
-  HREF="footnode.html#foot8364"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="footnode.html#foot8374"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 The user-written part of a Coupler Component is associated with an
 <TT>ESMF_CplComp</TT> derived type through a routine called 
@@ -11105,7 +11118,7 @@ in that test:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="13240"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="13250"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11126,7 +11139,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="13242"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="13252"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11157,7 +11170,7 @@ Array object is empty, and the DELayout for the Grid is like this:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="13244"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="13254"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11178,7 +11191,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="13246"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="13256"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -14473,7 +14486,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16803"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16813"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
