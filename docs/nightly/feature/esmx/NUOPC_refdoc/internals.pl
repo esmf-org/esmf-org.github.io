@@ -98,6 +98,10 @@ $key = q/NUOPC_GridCompAttributeIng/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/NUOPC_GridCompAttributeIngHC/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/NUOPC_GridCompSetClock/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
