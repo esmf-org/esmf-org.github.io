@@ -90,11 +90,19 @@ $key = q/NUOPC_CplCompAttributeIng/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/NUOPC_CplCompAttributeIngHC/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/NUOPC_Driver/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_GridCompAttributeIng/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_GridCompAttributeIngHC/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
@@ -305,6 +313,10 @@ $key = q/NUOPC_CplCompAttributeIng/;
 $external_latex_labels{$key} = q|3.6.16|; 
 $noresave{$key} = "$nosave";
 
+$key = q/NUOPC_CplCompAttributeIngHC/;
+$external_latex_labels{$key} = q|3.6.18|; 
+$noresave{$key} = "$nosave";
+
 $key = q/NUOPC_Driver/;
 $external_latex_labels{$key} = q|3.1|; 
 $noresave{$key} = "$nosave";
@@ -313,8 +325,12 @@ $key = q/NUOPC_GridCompAttributeIng/;
 $external_latex_labels{$key} = q|3.6.15|; 
 $noresave{$key} = "$nosave";
 
+$key = q/NUOPC_GridCompAttributeIngHC/;
+$external_latex_labels{$key} = q|3.6.17|; 
+$noresave{$key} = "$nosave";
+
 $key = q/NUOPC_GridCompSetClock/;
-$external_latex_labels{$key} = q|3.6.36|; 
+$external_latex_labels{$key} = q|3.6.38|; 
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_Mediator/;
@@ -330,23 +346,23 @@ $external_latex_labels{$key} = q|3.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_RealizeCompleteG/;
-$external_latex_labels{$key} = q|3.9.21|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_RealizeCompleteLS/;
 $external_latex_labels{$key} = q|3.9.22|; 
 $noresave{$key} = "$nosave";
 
-$key = q/NUOPC_RealizeCompleteM/;
+$key = q/NUOPC_RealizeCompleteLS/;
 $external_latex_labels{$key} = q|3.9.23|; 
 $noresave{$key} = "$nosave";
 
-$key = q/NUOPC_RealizeField/;
+$key = q/NUOPC_RealizeCompleteM/;
 $external_latex_labels{$key} = q|3.9.24|; 
 $noresave{$key} = "$nosave";
 
-$key = q/NUOPC_RealizeTransfer/;
+$key = q/NUOPC_RealizeField/;
 $external_latex_labels{$key} = q|3.9.25|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeTransfer/;
+$external_latex_labels{$key} = q|3.9.26|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Namespaces/;
