@@ -14,7 +14,7 @@ excerpt: "A framework for building coupled Earth System Models from interoperabl
 
 #<small><a href="releases/8_0">Latest release v8.0</a></small>
 
-intro: 
+intro:
   - excerpt: >
        The Earth System Modeling Framework (ESMF) is high-performance, flexible software infrastructure
        for building and coupling weather, climate, and related Earth science applications. ESMF
@@ -32,14 +32,14 @@ feature_row:
     url: "/nuopc"
     btn_label: "Read More"
     btn_class: "btn--primary"
-  
+
   - image_path: /assets/images/twospheres.png
     alt: "Regridding"
     title: "Grid Remapping"
     excerpt: >
       ESMF's grid remapping software generates and applies interpolation
       weights, supports a wide range of structured and unstructured grids,
-      and is highly scalable.  
+      and is highly scalable.
     url: "/regrid"
     btn_label: "Read More"
     btn_class: "btn--primary"
@@ -52,7 +52,7 @@ feature_row:
     url: "#coming-soon"
     btn_label: "Coming Soon!"
     btn_class: "btn--primary"
-  
+
 
 
 #{% include feature_row id="intro" type="center" %}
