@@ -20,6 +20,16 @@ intro:
        structures and utilities for developing individual models.
 
 feature_row:
+
+  - image_path: /assets/images/chalkshake.jpg
+    alt: "ESMX"
+    title: "ESMX Layer"
+    excerpt: >
+      The Earth System Modeling eXecutable (ESMX) Layer.
+    url: "/esmx"
+    btn_label: "Read More"
+    btn_class: "btn--primary"
+
   - image_path: /assets/images/puzzlemap.jpg
     alt: "NUOPC"
     title: "NUOPC Layer"
@@ -41,17 +51,6 @@ feature_row:
     url: "/regrid"
     btn_label: "Read More"
     btn_class: "btn--primary"
-
-  - image_path: /assets/images/chalkshake.jpg
-    alt: "ESMX"
-    title: "ESMX Layer"
-    excerpt: >
-      The Earth System Modeling eXecutable (ESMX) Layer.
-    url: "#coming-soon"
-    btn_label: "Read More"
-    btn_class: "btn--primary"
-
-
 
 #{% include feature_row id="intro" type="center" %}
 ---
