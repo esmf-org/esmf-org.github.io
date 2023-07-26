@@ -1,5 +1,4 @@
 ---
-permalink: /new_index/
 layout: splash
 title: "High Performance Modeling Infrastructure"
 header:
@@ -11,6 +10,7 @@ header:
       url: "/download"
     - label: "Docs"
       url: "/doc/"
+excerpt: "A framework for building coupled Earth System Models from interoperable components."
 
 intro:
   - excerpt: >
