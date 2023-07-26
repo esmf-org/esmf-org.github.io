@@ -19,7 +19,6 @@ each ESMF release see the [Release Notes Table](/static/releases.html).
 TBD
 
 ### Previous Release Roadmaps
-*Release roadmaps prior to 2016 are not shown, but are available upon request*
 
 #### April 2022 - Covers releases 8.4, 8.5
 
