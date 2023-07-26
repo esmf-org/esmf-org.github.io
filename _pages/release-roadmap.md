@@ -16,7 +16,7 @@ each ESMF release see the [Release Notes Table](/static/releases.html).
 
 #### 2023/2024 - Covers releases 8.6, 8.7
 
-TBD
+TBD at the next CRB meeting.
 
 ### Previous Release Roadmaps
 
