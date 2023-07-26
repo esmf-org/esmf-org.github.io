@@ -1,13 +1,26 @@
 ---
-permalink: /release-schedule/
-title: "Release Schedules"
+permalink: /release-roadmap/
+title: "Release Roadmap"
 classes: wide
 toc: true
 ---
 
-Release notes from [all previous releases](/static/releases.html).
 
-### Upcoming
+Release roadmaps are compiled on a regular basis by the ESMF Change Review Board
+(CRB) in collaboration with the ESMF Core Team. Release roadmaps are forward
+looking. The dates indicate when a specific roadmap was compiled.
+
+The complete release notes published with each ESMF release are kept in the
+[Release Note Table](/static/releases.html).
+
+### Upcoming Release Roadmap
+
+#### 2023/2024 - Covers releases 8.6, 8.7
+
+TBD
+
+### Previous Release Roadmaps
+*Release roadmaps prior to 2016 are not shown, but are available upon request*
 
 #### April 2022 - Covers releases 8.4, 8.5
 
@@ -21,9 +34,6 @@ Release notes from [all previous releases](/static/releases.html).
 |Complete the time manager fixes | Addresses several known issues with current API, including incorrect Alarm implementation and issues when changing Clock direction.  Also includes updating the API to support adding alarms based on a list of times. |
 
 
-### Recent Previous Release Schedules
-*Release schedules prior to 2016 are not shown, but are available upon request*
-
 #### April 2021 - Covers releases 8.2, 8.3
 NOTE: Starting with release 8.2, the ESMF Change Review Board (CRB) approved
 moving to a more rapid, fixed release process with a new release every
@@ -31,7 +41,7 @@ six months.  Development priorities set by the CRB are no longer tied
 to a specific release number, but represent approximately one year of tasks
 distributed among the releases that year.
 
-The release schedule includes items priotirized by the CRB.  Additional
+The release roadmap includes items priotirized by the CRB.  Additional
 release items not listed come from contractual obligations.
 
 |Task|Description|
