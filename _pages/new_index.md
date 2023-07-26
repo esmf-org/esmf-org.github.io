@@ -21,7 +21,7 @@ intro:
 
 feature_row:
 
-  - image_path: /assets/images/chalkshake.jpg
+  - image_path: /assets/images/esmx_robot_v1.png
     alt: "ESMX"
     title: "ESMX Layer"
     excerpt: >
