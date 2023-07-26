@@ -21,7 +21,7 @@ No separate download or installation is required.
 
 ### Documentation
 
-See the [README.md](https://github.com/esmf-org/esmf/tree/develop/src/addon/ESMX) for the current ESMX documentation.
+See the [README.md](https://github.com/esmf-org/esmf/tree/develop/src/addon/ESMX#esmx) for the current ESMX documentation.
 
 ### Tutorial
 
