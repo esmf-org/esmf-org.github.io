@@ -8,10 +8,9 @@ toc: true
 
 Release roadmaps are compiled on a regular basis by the ESMF Change Review Board
 (CRB) in collaboration with the ESMF Core Team. Release roadmaps are forward
-looking. The dates indicate when a specific roadmap was compiled.
-
-The complete release notes published with each ESMF release are kept in the
-[Release Note Table](/static/releases.html).
+looking. The dates blow indicate when a specific roadmap was compiled, not the
+release date! For a complete list of release notes published with
+each ESMF release see the [Release Notes Table](/static/releases.html).
 
 ### Upcoming Release Roadmap
 
