@@ -1,6 +1,7 @@
 ---
 permalink: /doc/
 title: "Docs"
+classes: wide
 toc: True
 ---
 ### Last release documentation: ESMF 8.5.0
