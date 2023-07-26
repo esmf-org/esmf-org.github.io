@@ -1,4 +1,5 @@
 ---
+permalink: /new_index/
 layout: splash
 title: "High Performance Modeling Infrastructure"
 header:
@@ -10,9 +11,6 @@ header:
       url: "/download"
     - label: "Docs"
       url: "/doc/"
-excerpt: "A framework for building coupled Earth System Models from interoperable components."
-
-#<small><a href="releases/8_0">Latest release v8.0</a></small>
 
 intro:
   - excerpt: >
@@ -22,6 +20,18 @@ intro:
        structures and utilities for developing individual models.
 
 feature_row:
+
+  - image_path: /assets/images/esmx_robot_v1.png
+    alt: "ESMX"
+    title: "ESMX Layer"
+    excerpt: >
+      The Earth System Modeling eXecutable (ESMX) Layer simplifies building,
+      running, and testing applications built from NUOPC-compliant
+      components.
+    url: "/esmx"
+    btn_label: "Read More"
+    btn_class: "btn--primary"
+
   - image_path: /assets/images/puzzlemap.jpg
     alt: "NUOPC"
     title: "NUOPC Layer"
@@ -43,17 +53,6 @@ feature_row:
     url: "/regrid"
     btn_label: "Read More"
     btn_class: "btn--primary"
-
-  - image_path: /assets/images/chalkshake.jpg
-    alt: "Projects"
-    title: "ESMF Projects"
-    excerpt: >
-      Learn about our current projects.
-    url: "#coming-soon"
-    btn_label: "Coming Soon!"
-    btn_class: "btn--primary"
-
-
 
 #{% include feature_row id="intro" type="center" %}
 ---
