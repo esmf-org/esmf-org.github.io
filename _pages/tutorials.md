@@ -4,13 +4,13 @@ title: "Tutorials"
 classes: wide
 ---
 
-ESMF tutorials are offered on a regular basis to provide user training in both on-site and webinar formats. We are currently offering an overview tutorial that covers essential aspects of ESMF including component-based modeling, ESMF distributed data classes, grid representations and regridding, and the NUOPC Interoperability Layer.  
+ESMF tutorials are offered to provide user training in both on-site and webinar formats. We are currently offering an overview tutorial that covers essential aspects of ESMF including component-based modeling, ESMF distributed data classes, grid representations and regridding, and the NUOPC Interoperability Layer.  We also offer training with a focus on the new ESMX Layer.
 
 ### Upcoming Tutorials
 
-*Check back soon for next training event.*
+- Fall 2023 - [ESMX Training](https://docs.google.com/forms/d/e/1FAIpQLSdVuhydgFeGsiB4rzo2xKaaVyZJ_V6kRhq-RWX7HAHnveoqmQ/viewform)
 
-Registration information is sent several weeks ahead of time to the ESMF JST mailing list.  Please visit the [JST list page](http://mailman.cgd.ucar.edu/mailman/listinfo/esmf_jst) to subscribe or email ESMF support at [esmf_support@ucar.edu](mailto:esmf_support@ucar.edu).
+Tutorial announcements are sent through the ESMF JST mailing list. Please consider subscribing to [ESMF_JST](https://groups.google.com/a/ucar.edu/g/esmf_jst) if you are interested in ESMF training.
 
 ### Past Tutorials, Slides, and Videos
 

@@ -16,9 +16,13 @@ The Earth System Modeling eXecutable (ESMX) Layer is built on top of the ESMF an
 
 ### Download and Install
 
-The NUOPC Layer is included with the [ESMF distribution](/download/).
+The ESMX Layer is included with the [ESMF distribution](/download/).
 No separate download or installation is required.
 
 ### Documentation
 
 See the [README.md](https://github.com/esmf-org/esmf/tree/develop/src/addon/ESMX) for the current ESMX documentation.
+
+### Tutorial
+
+Please see the [Tutorials](/tutorials/) page for upcoming ESMX training.
