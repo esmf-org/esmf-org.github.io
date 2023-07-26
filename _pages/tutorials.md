@@ -8,7 +8,7 @@ ESMF tutorials are offered to provide user training in both on-site and webinar 
 
 ### Upcoming Tutorials
 
-- Fall 2023 - [ESMX Training](https://docs.google.com/forms/d/e/1FAIpQLSdVuhydgFeGsiB4rzo2xKaaVyZJ_V6kRhq-RWX7HAHnveoqmQ/viewform)
+- Fall 2023 - [ESMX Training (sign-up)](https://docs.google.com/forms/d/e/1FAIpQLSdVuhydgFeGsiB4rzo2xKaaVyZJ_V6kRhq-RWX7HAHnveoqmQ/viewform)
 
 Tutorial announcements are sent through the ESMF JST mailing list. Please consider subscribing to [ESMF_JST](https://groups.google.com/a/ucar.edu/g/esmf_jst) if you are interested in ESMF training.
 
