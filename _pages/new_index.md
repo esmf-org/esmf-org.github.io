@@ -25,7 +25,9 @@ feature_row:
     alt: "ESMX"
     title: "ESMX Layer"
     excerpt: >
-      The Earth System Modeling eXecutable (ESMX) Layer.
+      The Earth System Modeling eXecutable (ESMX) Layer simplifies building,
+      running, and testing of applications built from NUOPC-compliant
+      components.
     url: "/esmx"
     btn_label: "Read More"
     btn_class: "btn--primary"
