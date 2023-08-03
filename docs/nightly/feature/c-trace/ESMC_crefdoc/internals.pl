@@ -194,6 +194,10 @@ $key = q/sec:Log/;
 $ref_files{$key} = "$dir".q|node6.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:Profiling/;
+$ref_files{$key} = "$dir".q|node6.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:RHandle/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -223,6 +227,10 @@ $ref_files{$key} = "$dir".q|node6.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:TimeInterval/;
+$ref_files{$key} = "$dir".q|node6.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:Tracing/;
 $ref_files{$key} = "$dir".q|node6.html|; 
 $noresave{$key} = "$nosave";
 
