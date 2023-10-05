@@ -1,0 +1,838 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2018 (Released Feb 1, 2018) -->
+<HTML>
+<HEAD>
+<TITLE>10 Porting the ESMF</TITLE>
+<META NAME="description" CONTENT="10 Porting the ESMF">
+<META NAME="keywords" CONTENT="ESMF_usrdoc">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ESMF_usrdoc.css">
+
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="ESMF_usrdoc.html">
+<LINK REL="next" HREF="node12.html">
+</HEAD>
+
+<BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html376"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html372"
+  HREF="ESMF_usrdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html366"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html374"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html377"
+  HREF="node12.html">11 Validating an ESMF</A>
+<B> Up:</B> <A NAME="tex2html373"
+  HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
+<B> Previous:</B> <A NAME="tex2html367"
+  HREF="node10.html">9 Building and Installing</A>
+ &nbsp; <B>  <A NAME="tex2html375"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html378"
+  HREF="node11.html#SECTION000111000000000000000"><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN> The ESMF Build System</A>
+<UL>
+<LI><A NAME="tex2html379"
+  HREF="node11.html#SECTION000111100000000000000"><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">1</SPAN> General structure</A>
+<LI><A NAME="tex2html380"
+  HREF="node11.html#SECTION000111200000000000000"><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN> Build configuration</A>
+<LI><A NAME="tex2html381"
+  HREF="node11.html#SECTION000111300000000000000"><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN> Source code configuration</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html382"
+  HREF="node11.html#SECTION000112000000000000000"><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN> Porting the ESMF to New Platforms</A>
+<UL>
+<LI><A NAME="tex2html383"
+  HREF="node11.html#SECTION000112100000000000000"><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> Customizing the <TT>build_rules.mk</TT> fragment</A>
+<LI><A NAME="tex2html384"
+  HREF="node11.html#SECTION000112200000000000000"><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Customizing <TT>ESMC_Conf.h</TT> and <TT>ESMF_Conf.inc</TT></A>
+</UL>
+<BR>
+<LI><A NAME="tex2html385"
+  HREF="node11.html#SECTION000113000000000000000"><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">3</SPAN> Shared Object Libraries</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION000110000000000000000"></A>
+<A NAME="sec:TechOverPort"></A>
+<BR>
+<SPAN CLASS="arabic">10</SPAN> Porting the ESMF
+</H1>
+
+<P>
+This section goes into more detail about the ESMF build system and how to
+port the ESMF software to new platforms.
+
+<P>
+
+<P>
+
+<H2><A NAME="SECTION000111000000000000000"></A>
+<A NAME="sec:make"></A>
+<BR>
+<SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN> The ESMF Build System
+</H2>
+For most users the description of the build system in previous
+sections should be sufficient.  Some users, however, may wish to have
+a more detailed knowledge of the make system either for configuring
+different build options or for porting to unsupported platforms.
+
+<P>
+
+<H3><A NAME="SECTION000111100000000000000">
+<SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">1</SPAN> General structure</A>
+</H3>
+
+<P>
+The main components of the build system are:
+
+<P>
+<A NAME="sec:BuildOptions"></A>
+<UL>
+<LI><B>Build directories with makefile fragments</B>
+
+<P>
+There are two directories containing makefile fragment files used by
+the ESMF build system.  
+
+<P>
+The <TT>build</TT> directory contains the generic makefile fragment file
+<TT>common.mk</TT> that is included by the top level <TT>makefile</TT> in the source
+tree. The <TT>common.mk</TT> contains generic build system settings and build
+rules used across all platforms.  A user should have no reason to edit
+<TT>common.mk</TT>.
+
+<P>
+The <TT>build_config</TT> directory contains subdirectories with makefile
+fragments (<TT>build_rules.mk</TT>) for each supported platform defining
+compilers, compiler flags and the various other definitions that are
+necessary to build on each platform. One of the <TT>build_rules.mk</TT> files
+will be included by the <TT>build/common.mk</TT> file depending on the values of
+the environment variables ESMF_OS, ESMF_COMPILER and ESMF_SITE. See below
+for more details on environment variables.
+
+<P>
+</LI>
+<LI><B>Environment variables</B>
+
+<P>
+Environment variables with the prefix <TT>ESMF_</TT> are used to pass user
+specified information to the ESMF build system. A full list of <TT>ESMF_</TT>
+environment variables is provided in section <A HREF="node10.html#EnvironmentVariables">9.5</A> of this
+document.
+
+<P>
+Most environment variables are optional and the ESMF build system will use
+default settings if it finds these variable unset. One piece of information that
+must always be provided by setting the respective environment variable is the
+root of the ESMF directory. There are three sets of source codes the build
+system supports. All need environment variables set to point to their top 
+level source code directories.
+
+<P>
+<DL>
+<DT></DT>
+<DD>ESMF Library 
+
+<P>
+To build the ESMF library, ESMF_DIR needs to be set to the top level ESMF
+library source code directory.
+
+<P>
+</DD>
+<DT></DT>
+<DD>Implementation Report 
+
+<P>
+The build system needs ESMF_IMPL_DIR set to the top level source
+code directory of the Implementation Report source tree to build the
+report and to build and run the examples.
+
+<P>
+</DD>
+<DT></DT>
+<DD>EVA Applications 
+
+<P>
+An EVA source code tree does not contain a copy of the ESMF build
+system.  Instead it uses a copy found in an ESMF library source code
+tree.  Building the EVA applications requires that ESMF_EVA_DIR and
+ESMF_DIR be set.  ESMF_EVA_DIR has to be set to the top directory
+of the EVA source code.  ESMF_DIR has to be set to the top directory
+of an ESMF source code tree.
+
+<P>
+</DD>
+</DL>
+
+<P>
+</LI>
+<LI><B>Makefiles</B>
+
+<P>
+Every source tree contains a <TT>makefile</TT> in its top level directory. This
+<TT>makefile</TT> includes the <TT>common.mk</TT> file from the <TT>build</TT> directory
+which in turn includes the platform specific <TT>build_rules.mk</TT> file from
+one of the <TT>build_config</TT> subdirectories. The top level <TT>makefile</TT>
+contains makefile settings specific for the source code that it is found in.
+
+<P>
+Each directory in the source tree contains a <TT>makefile</TT> which includes
+the top level <TT>makefile</TT>. These local makefiles include definitions that
+allow the local files and documents to be built.
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION000111200000000000000">
+<SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN> Build configuration</A>
+</H3>
+
+<P>
+A single makefile or makefile fragment from the build system never
+constitutes a complete set of build rules and settings.  Starting from
+the local makefile, successive include commands are used to string
+together makefiles and makefile fragments to create a complete system
+of build rules and settings.  Configuration of the build system is
+done by including a configuration makefile fragment. A configuration for a
+specific machine or compiler is referred to as a site configuration.
+
+<P>
+The string of files included is fairly short.  Makefiles below the top
+level makefile include the top level makefile. The top level makefile
+includes <TT>build/common.mk</TT> and then <TT>build/common.mk</TT> includes a
+configuration file from the <TT>build_config</TT> directory.  The configuration
+files in the <TT>build_config</TT> directory contain the platform and site
+specific build settings.  The os, compiler and site that a file
+configures is determined by its name.  The configuration makefile
+fragments follow the naming convention
+
+<P>
+<PRE>
+    build_config/ESMF_OS.ESMF_COMPILER.ESMF_SITE/build_rules.mk
+</PRE>
+
+<P>
+where <TT>ESMF_OS</TT>, <TT>ESMF_COMPILER</TT> and <TT>ESMF_SITE</TT> are environment
+variables either set by the user or given default values by the build
+system. <TT>ESMF_OS</TT> is the target operating system. If the build is performed
+<EM>on</EM> the target system <TT>ESMF_OS</TT> will typically have the value
+returned by the command <TT>uname -s</TT>. <TT>ESMF_COMPILER</TT> is the compiler
+name. <TT>ESMF_SITE</TT>, if set, is generally the current machine name, the
+location, or the organization (e.g. mit, cola).  If there are no site specific
+files for a particular platform, then <TT>ESMF_COMPILER</TT> and <TT>ESMF_SITE</TT>
+will be set to <TT>default</TT>.  Examples:
+
+<P>
+<PRE>
+    ! Default configuration for IBM AIX systems
+    build_config/AIX.default.default/build_rules.mk
+    
+    ! Linux configuration using lahey compilers.    
+    build_config/Linux.lahey.default/build_rules.mk
+</PRE>
+
+<P>
+
+<H3><A NAME="SECTION000111300000000000000">
+<SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN> Source code configuration</A>
+</H3>
+
+<P>
+Some of the ESMF C++ and Fortran source files contain preprocessor directives
+to configure the source code for specific platforms.  The directives are 
+included in the source code and are pre-processed before the source code is 
+compiled.  The directives are used to determine among other things, the size 
+of variable types.
+
+<P>
+The ESMF build system provides preprocessor directives in 
+<TT>ESMC_Conf.h</TT> and <TT>ESMF_Conf.inc</TT> files
+that are included in the source code. These files are located in
+
+<P>
+<PRE>
+    build_config/ESMF_OS.ESMF_COMPILER.ESMF_SITE/ESMC_Conf.h
+    build_config/ESMF_OS.ESMF_COMPILER.ESMF_SITE/ESMF_Conf.inc
+</PRE>
+
+<P>
+where <TT>ESMF_OS</TT>, <TT>ESMF_COMPILER</TT> and <TT>ESMF_SITE</TT> are
+environment variables set by the user or given default values be the
+build system.  Based on the settings of these environment variables
+the build system provides a path to the correct files during
+source code compilation.
+
+<P>
+
+<H2><A NAME="SECTION000112000000000000000">
+<SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN> Porting the ESMF to New Platforms</A>
+</H2>
+
+<P>
+The ESMF build system can be ported to other Unix platforms by adding a new
+platform specific makefile fragment and two associated configuration files.
+These files (<TT>build_rules.mk</TT>, <TT>ESMC_Conf.h</TT>, <TT>ESMF_Conf.inc</TT>)
+must be placed into a new subdirectory of the <TT>build_config</TT> directory,
+following the <TT>ESMF_OS.ESMF_COMPILER.ESMF_SITE</TT> naming convention.
+
+<P>
+When porting to a new platform it is often helpful to start with a copy 
+of the configuration of an existing ESMF port. You may, for example, want to
+start with a copy of the <TT>build_config/Linux.g95.default</TT> directory when
+working on a new Linux configuration.
+
+<P>
+
+<H3><A NAME="SECTION000112100000000000000">
+<SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> Customizing the <TT>build_rules.mk</TT> fragment</A>
+</H3>
+
+<P>
+The purpose of the <TT>build_rules.mk</TT> makefile fragment is to customize the
+build procedure for a specific platform. The customization is done via makefile
+variables. The main <TT>makefile</TT> at the top level of the ESMF directory
+structure first includes the <TT>common.mk</TT> makefile fragment. This common
+makefile fragment defines a large number of variables, setting them either to
+generally valid default values or to specific values the user has set in their
+environment using <TT>ESMF_</TT> style environment variables.
+
+<P>
+The platform specific <TT>build_rules.mk</TT> makefile fragment is included by
+<TT>common.mk</TT> <EM>after</EM> the variables have been initialized, but 
+<EM>before</EM> any rules are defined in <TT>common.mk</TT> using these variables.
+This gives <TT>build_rules.mk</TT> a chance to modify these variables as it may
+be necessary to accommodate platform specific properties.
+
+<P>
+Fortunately only a very small subset of variables pre-defined in <TT>common.mk</TT>
+typically need to be modified or overridden in <TT>build_rules.mk</TT> with 
+platform specific settings. However, there are some variables that <EM>must</EM>
+be set in every <TT>build_rules.mk</TT> file. These are variables that are not
+pre-set in <TT>common.mk</TT>.
+
+<P>
+<DL>
+<DT><STRONG>ESMF_CXXDEFAULT</STRONG></DT>
+<DD>Default C++ compiler to be used on this platform. This variable will be used
+by <TT>common.mk</TT> to set the associated <TT>ESMF_CXX</TT> variables.
+</DD>
+<DT><STRONG>ESMF_CXXCOMPILER_VERSION</STRONG></DT>
+<DD>Command that when executed will provide information about the version of the
+C++ compiler to stdout.
+</DD>
+<DT><STRONG>ESMF_F90DEFAULT</STRONG></DT>
+<DD>Default Fortran compiler to be used on this platform. This variable will be used
+by <TT>common.mk</TT> to set the associated <TT>ESMF_F90</TT> variables.
+</DD>
+<DT><STRONG>ESMF_F90COMPILER_VERSION</STRONG></DT>
+<DD>Command that when executed will provide information about the version of the
+F90 compiler to stdout.
+</DD>
+<DT><STRONG>ESMF_MPIRUNDEFAULT</STRONG></DT>
+<DD>Default MPI job launch facility to be used on this platform. This variable will
+be used by <TT>common.mk</TT> to set the associated <TT>ESMF_MPIRUN</TT> variables.
+
+<P>
+</DD>
+</DL>
+
+<P>
+The following is a complete alphabetical list of variables that are pre-set 
+in <TT>common.mk</TT> before <TT>build_rules.mk</TT> is included. Some of these
+variables correspond to <TT>ESMF_</TT> environment variables while others have 
+a more complicated dependency on the environment variables set by the user.
+
+<P>
+<DL>
+<DT><STRONG>ESMF_ABI</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_APPSDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_AR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_ARCREATEFLAGS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_ARCREATEFLAGSDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_ARDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_AREXTRACTFLAGS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_AREXTRACTFLAGSDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_ARRAY_LITE</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_BOPT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_BUILD</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_BUILD_DOCDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_COMM</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_COMPILER</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CONFDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CPP</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CPPDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXCOMPILECPPFLAGS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXCOMPILEOPTS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXCOMPILEPATHS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXCOMPILEPATHSLOCAL</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXCOMPILER</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXCOMPILERDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXESMFLINKLIBS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXLINKER</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXLINKERDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXLINKLIBS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXLINKOPTS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXLINKPATHS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXLINKRPATHS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXOPTFLAG</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXOPTFLAG_G</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXOPTFLAG_O</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_CXXOPTFLAG_X</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_DIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_DOCDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_EXDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90COMPILECPPFLAGS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90COMPILEFIXCPP</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90COMPILEFIXNOCPP</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90COMPILEFREECPP</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90COMPILEFREENOCPP</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90COMPILEOPTS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90COMPILEPATHS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90COMPILEPATHSLOCAL</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90COMPILER</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90COMPILERDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90ESMFLINKLIBS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90IMOD</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90LINKER</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90LINKERDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90LINKLIBS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90LINKOPTS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90LINKPATHS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90LINKRPATHS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90MODDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90OPTFLAG</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90OPTFLAG_G</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90OPTFLAG_O</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_F90OPTFLAG_X</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_GREPV</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INCDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_BINDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_BINDIR_ABSPATH</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_DOCDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_DOCDIR_ABSPATH</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_HEADERDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_HEADERDIR_ABSPATH</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_LIBDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_LIBDIR_ABSPATH</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_MODDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_MODDIR_ABSPATH</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_PREFIX</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_INSTALL_PREFIX_ABSPATH</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_LDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_LIBDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_LOCOBJDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_MACHINE</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_MODDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_MPIBATCHOPTIONS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_MPILAUNCHOPTIONS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_MPIMPMDRUN</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_MPIMPMDRUNDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_MPIRUN</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_MPIRUNDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_MPISCRIPTOPTIONS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_MV</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_NO_INTEGER_1_BYTE</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_NO_INTEGER_2_BYTE</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_OS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_OPTLEVEL</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_PTHREADS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_PTHREADSDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_RANLIB</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_RANLIBDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_RM</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_RPATHPREFIX</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_SED</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_SEDDEFAULT</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_SITE</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_SITEDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_SL_LIBLIBS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_SL_LIBLINKER</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_SL_LIBOPTS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_SL_LIBS_TO_MAKE</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_SL_SUFFIX</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_STDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_TEMPLATES</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_TESTDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_TESTEXHAUSTIVE</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_TESTMPMD</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_TESTWITHTHREADS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_UTCDIR</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_UTCSCRIPTS</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>ESMF_WC</STRONG></DT>
+<DD><P>
+</DD>
+</DL>
+
+<P>
+
+<H3><A NAME="SECTION000112200000000000000">
+<SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Customizing <TT>ESMC_Conf.h</TT> and <TT>ESMF_Conf.inc</TT></A>
+</H3>
+
+<P>
+The <TT>ESMC_Conf.h</TT> file is used to define several settings used
+during compilation of ESMF library code written in C++.
+
+<P>
+<DL>
+<DT><STRONG>FTN_X(func)</STRONG></DT>
+<DD>Macro that will correctly expand "func" to match the Fortran symbol convention.
+Use this macro for function names that contain an underscore.
+
+<P>
+</DD>
+<DT><STRONG>FTNX(func)</STRONG></DT>
+<DD>Macro that will correctly expand "func" to match the Fortran symbol convention.
+Use this macro for function names that do <EM>not</EM> contain an underscore.
+
+<P>
+</DD>
+<DT><STRONG>ESMCI_FortranStrLenArg</STRONG></DT>
+<DD>Typedef to match the data type of the 'hidden' string length argument that
+Fortran uses when passing CHARACTER strings.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_PRESENT(arg)</STRONG></DT>
+<DD>Macro for a boolean expression that returns TRUE if "arg" is a "present"
+argument passed from Fortran into C++.
+
+<P>
+</DD>
+<DT><STRONG>ESMC_POINTER_SIZE</STRONG></DT>
+<DD>Size of C pointer in bytes.
+
+<P>
+</DD>
+</DL>
+
+<P>
+The <TT>ESMF_Conf.inc</TT> file is used to <EM>optionally</EM> define two 
+important macros:
+
+<P>
+<DL>
+<DT><STRONG>ESMF_NO_INITIALIZERS</STRONG></DT>
+<DD>If this macro is defined ESMF will assume that initializers inside 
+Fortran derived type definitions are not supported.
+
+<P>
+</DD>
+<DT><STRONG>ESMF_SEQUENCE_BUG</STRONG></DT>
+<DD>If this macro is defined ESMF will not use the <TT>SEQUENCE</TT> specifier
+inside Fortran derived types under certain circumstances.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION000113000000000000000">
+<SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">3</SPAN> Shared Object Libraries</A>
+</H2>
+
+<P>
+On many platforms, a shared object library is created in addition to the
+standard <TT>.a</TT> archive library.
+Shared object libraries are libraries that are pre-linked into an executable.
+They can then be linked to an application at run time.  There are many advantages
+to using shared libraries.  These include smaller executable files, and shared
+memory usage when multiple executables are running - as is often the case of
+programs using MPI.  They also allow easier bug fixing and development because
+the library can often be upgraded without necessarily re-linking the executables
+which call into it.
+
+<P>
+Shared object libraries can be pre-linked to system libraries and using them
+can simplify dealing with ESMF's dependency on Fortran90 and C++ runtime 
+libraries.
+
+<P>
+See <A HREF="node10.html#sec:ThirdParty">9.4</A> for third party library build requirements.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html376"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html372"
+  HREF="ESMF_usrdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html366"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html374"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html377"
+  HREF="node12.html">11 Validating an ESMF</A>
+<B> Up:</B> <A NAME="tex2html373"
+  HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
+<B> Previous:</B> <A NAME="tex2html367"
+  HREF="node10.html">9 Building and Installing</A>
+ &nbsp; <B>  <A NAME="tex2html375"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<A HREF=mailto:esmf_support@ucar.edu>esmf_support@ucar.edu</A>
+</ADDRESS>
+</BODY>
+</HTML>
