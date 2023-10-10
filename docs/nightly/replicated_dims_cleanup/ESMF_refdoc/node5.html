@@ -32201,12 +32201,13 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_ArrayGet()
-   subroutine ESMF_ArrayGetDefault(array, arrayspec, typekind, &amp;
-     rank, replicatedDimCount, localarrayList, indexflag, distgridToArrayMap, &amp;
+ subroutine ESMF_ArrayGetDefault(array, arrayspec, typekind, &amp;
+     rank, localarrayList, indexflag, distgridToArrayMap, &amp;
      distgridToPackedArrayMap, arrayToDistGridMap, undistLBound, &amp;
      undistUBound, exclusiveLBound, exclusiveUBound, computationalLBound, &amp;
      computationalUBound, totalLBound, totalUBound, computationalLWidth, &amp;
-     computationalUWidth, totalLWidth, totalUWidth, distgrid, dimCount, &amp;
+     computationalUWidth, totalLWidth, totalUWidth, distgrid, &amp;
+     dimCount, replicatedDimCount, &amp;
      tileCount, minIndexPTile, maxIndexPTile, deToTileMap, indexCountPDe, &amp;
      delayout, deCount, localDeCount, ssiLocalDeCount, localDeToDeMap, &amp;
      localDeList, &amp; ! DEPRECATED ARGUMENT
@@ -32217,7 +32218,6 @@ The arguments are:
      type(ESMF_ArraySpec), intent(out), optional :: arrayspec
      type(ESMF_TypeKind_Flag), intent(out), optional :: typekind
      integer, intent(out), optional :: rank
-     integer, intent(out), optional :: replicatedDimCount
      type(ESMF_LocalArray), target, intent(out), optional :: localarrayList(:)
      type(ESMF_Index_Flag), intent(out), optional :: indexflag
      integer, target, intent(out), optional :: distgridToArrayMap(:)
@@ -32237,6 +32237,7 @@ The arguments are:
      integer, target, intent(out), optional :: totalUWidth(:,:)
      type(ESMF_DistGrid), intent(out), optional :: distgrid
      integer, intent(out), optional :: dimCount
+     integer, intent(out), optional :: replicatedDimCount
      integer, intent(out), optional :: tileCount
      integer, intent(out), optional :: minIndexPTile(:,:)
      integer, intent(out), optional :: maxIndexPTile(:,:)
@@ -32316,12 +32317,6 @@ The arguments are:
 </DD>
 <DT><STRONG>[rank]</STRONG></DT>
 <DD>Rank of the Array object.
-   
-</DD>
-<DT><STRONG>[replicatedDimCount]</STRONG></DT>
-<DD>Number of replicated dimensions in the Array. (See
-   Section&nbsp;<A HREF="#sec:array:usage:replicated_dims">28.2.12</A> for an explanation of replicated
-   dimensions.)
    
 </DD>
 <DT><STRONG>[localarrayList]</STRONG></DT>
@@ -32446,6 +32441,12 @@ The arguments are:
 </DD>
 <DT><STRONG>[dimCount]</STRONG></DT>
 <DD>Number of dimensions (rank) of <TT>distgrid</TT>.
+   
+</DD>
+<DT><STRONG>[replicatedDimCount]</STRONG></DT>
+<DD>Number of replicated dimensions in the Array. (See
+   Section&nbsp;<A HREF="#sec:array:usage:replicated_dims">28.2.12</A> for an explanation of replicated
+   dimensions.)
    
 </DD>
 <DT><STRONG>[tileCount]</STRONG></DT>
