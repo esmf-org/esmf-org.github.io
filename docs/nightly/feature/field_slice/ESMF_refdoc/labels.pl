@@ -1222,6 +1222,14 @@ $key = q/sec:aliases/;
 $external_labels{$key} = "$URL/" . q|node2.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:array:usage:replicated_dims/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:array:usage:undistributed_dims/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:bundlerest/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -2859,6 +2867,14 @@ $noresave{$key} = "$nosave";
 
 $key = q/sec:aliases/;
 $external_latex_labels{$key} = q|6.3|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:array:usage:replicated_dims/;
+$external_latex_labels{$key} = q|28.2.12|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:array:usage:undistributed_dims/;
+$external_latex_labels{$key} = q|28.2.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:bundlerest/;

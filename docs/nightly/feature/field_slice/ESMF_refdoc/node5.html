@@ -622,7 +622,7 @@
 <LI><A NAME="tex2html2539"
   HREF="node5.html#SECTION050521000000000000000"><SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">10</SPAN> Working with Arrays of different rank</A>
 <LI><A NAME="tex2html2540"
-  HREF="node5.html#SECTION050521100000000000000"><SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">11</SPAN> Array and DistGrid rank - 2D+1 Arrays</A>
+  HREF="node5.html#SECTION050521100000000000000"><SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">11</SPAN> Arrays with undistributed dimensions</A>
 <LI><A NAME="tex2html2541"
   HREF="node5.html#SECTION050521200000000000000"><SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">12</SPAN> Arrays with replicated dimensions</A>
 <LI><A NAME="tex2html2542"
@@ -17361,8 +17361,9 @@ The arguments are:
 <PRE>   ! Private name; call using ESMF_FieldGet()
    subroutine ESMF_FieldGetDefault(field, arrayspec, status, &amp;
      geomtype, geom, grid, mesh, locstream, xgrid, array, localarrayList, &amp;
-     typekind, dimCount, rank, staggerloc, meshloc, xgridside, &amp;
-     gridindex, gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
+     typekind, rank, dimCount, geomDimCount, ungriddedDimCount, &amp;
+     replicatedDimCount, staggerloc, meshloc, xgridside, gridindex, &amp;
+     gridToFieldMap, ungriddedLBound, ungriddedUBound, &amp;
      totalLWidth, totalUWidth, localDeCount, ssiLocalDeCount, &amp;
      localDeToDeMap, minIndex, maxIndex, elementCount, &amp;
      localMinIndex, localMaxIndex, localElementCount, isESMFAllocated, &amp;
@@ -17381,8 +17382,11 @@ The arguments are:
      type(ESMF_Array), intent(out), optional :: array
      type(ESMF_LocalArray), target, intent(out), optional :: localarrayList(:)
      type(ESMF_TypeKind_Flag), intent(out), optional :: typekind
-     integer, intent(out), optional :: dimCount
      integer, intent(out), optional :: rank
+     integer, intent(out), optional :: dimCount
+     integer, intent(out), optional :: geomDimCount
+     integer, intent(out), optional :: ungriddedDimCount
+     integer, intent(out), optional :: replicatedDimCount
      type(ESMF_StaggerLoc), intent(out), optional :: staggerloc
      type(ESMF_MeshLoc), intent(out), optional :: meshloc
      type(ESMF_XGridSide_Flag), intent(out), optional :: xgridside
@@ -17455,6 +17459,15 @@ Added argument <TT>localDeToDeMap</TT> to support DE handling from
 </DD>
 <DT><STRONG>8.6.0</STRONG></DT>
 <DD>Added argument <TT>geom</TT> to support user query of Geom object.
+<BR>
+Added argument <TT>geomDimCount</TT> for easy access to dimension of
+   underlying Geom object.
+<BR>
+Added argument <TT>ungriddedDimCount</TT> for easy access to the
+   number of ungridded dimensions in the Field object.
+<BR>
+Added argument <TT>replicatedDimCount</TT> for easy access to the
+   number of dimensions across which the Field object is replicated.
    
 </DD>
 </DL>
@@ -17532,13 +17545,6 @@ The arguments are:
    complete list of values.
    
 </DD>
-<DT><STRONG>[dimCount]</STRONG></DT>
-<DD>Number of geometrical dimensions in <TT>field</TT>.
-   For an detailed discussion of this parameter, please see
-   section <A HREF="#sec:field:usage:createArbGrid">26.3.23</A> and
-   section <A HREF="#sec:field:usage:createArbGridRep">26.3.24</A>.
-   
-</DD>
 <DT><STRONG>[rank]</STRONG></DT>
 <DD>Number of dimensions in the physical memory of the <TT>field</TT> data. It is
    identical to dimCount when the corresponding grid is a non-arbitrary grid.
@@ -17546,6 +17552,25 @@ The arguments are:
    For an detailed discussion of this parameter, please see
    section <A HREF="#sec:field:usage:createArbGrid">26.3.23</A> and
    section <A HREF="#sec:field:usage:createArbGridRep">26.3.24</A>.
+   
+</DD>
+<DT><STRONG>[dimCount]</STRONG></DT>
+<DD>Number of geometrical dimensions in <TT>field</TT>.
+   For an detailed discussion of this parameter, please see
+   section <A HREF="#sec:field:usage:createArbGrid">26.3.23</A> and
+   section <A HREF="#sec:field:usage:createArbGridRep">26.3.24</A>.
+   
+</DD>
+<DT><STRONG>[geomDimCount]</STRONG></DT>
+<DD>Number of dimensions in the underlying Geom object.
+   
+</DD>
+<DT><STRONG>[ungriddedDimCount]</STRONG></DT>
+<DD>Number of ungridded dimensions in the Field object.
+   
+</DD>
+<DT><STRONG>[replicatedDimCount]</STRONG></DT>
+<DD>Number of replicated dimensions in the Field object.
    
 </DD>
 <DT><STRONG>[staggerloc]</STRONG></DT>
@@ -17593,24 +17618,20 @@ If xgridside is <TT>ESMF_XGRIDSIDE_A</TT> or <TT>ESMF_XGRIDSIDE_B</TT>
 </DD>
 <DT><STRONG>[ungriddedLBound]</STRONG></DT>
 <DD>Lower bounds of the ungridded dimensions of the <TT>field</TT>.
-   The number of elements in the <TT>ungriddedLBound</TT> is equal to the number of ungridded
+   The number of elements in the <TT>ungriddedLBound</TT> argument must be
+   equal or greater to <TT>ungriddedDimCount</TT>, the number of ungridded
    dimensions in the <TT>field</TT>. All ungridded dimensions of the
-   <TT>field</TT> are also undistributed. When field dimension count is
-   greater than grid dimension count, both ungriddedLBound and ungriddedUBound
-   must be specified. When both are specified the values are checked
-   for consistency. Note that the the ordering of
-   these ungridded dimensions is the same as their order in the <TT>field</TT>.
+   <TT>field</TT> are also undistributed. Note that the ordering of
+   the ungridded dimensions is the same as their order in the <TT>field</TT>.
    
 </DD>
 <DT><STRONG>[ungriddedUBound]</STRONG></DT>
 <DD>Upper bounds of the ungridded dimensions of the <TT>field</TT>.
-   The number of elements in the <TT>ungriddedUBound</TT> is equal to the number of ungridded
+   The number of elements in the <TT>ungriddedUBound</TT> argument must be
+   equal or greater to <TT>ungriddedDimCount</TT>, the number of ungridded
    dimensions in the <TT>field</TT>. All ungridded dimensions of the
-   <TT>field</TT> are also undistributed. When field dimension count is
-   greater than grid dimension count, both ungriddedLBound and ungriddedUBound
-   must be specified. When both are specified the values are checked
-   for consistency. Note that the the ordering of
-   these ungridded dimensions is the same as their order in the <TT>field</TT>.
+   <TT>field</TT> are also undistributed. Note that the ordering of
+   the ungridded dimensions is the same as their order in the <TT>field</TT>.
    
 </DD>
 <DT><STRONG>[totalLWidth]</STRONG></DT>
@@ -19221,6 +19242,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
                      polemethod, regridPoleNPnts, &amp; 
                      lineType, &amp;
                      normType, &amp;
+                     vectorRegrid, &amp; 
                      extrapMethod, &amp;
                      extrapNumSrcPnts, &amp;
                      extrapDistExponent, &amp;
@@ -19247,6 +19269,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
        integer,                        intent(in),    optional :: regridPoleNPnts
        type(ESMF_LineType_Flag),       intent(in),    optional :: lineType
        type(ESMF_NormType_Flag),       intent(in),    optional :: normType
+       logical,                        intent(in),    optional :: vectorRegrid
        type(ESMF_ExtrapMethod_Flag),   intent(in),    optional :: extrapMethod
        integer,                        intent(in),    optional :: extrapNumSrcPnts
        real(ESMF_KIND_R4),             intent(in),    optional :: extrapDistExponent
@@ -19439,6 +19462,12 @@ The arguments are:
              only applies to weights generated with <TT>regridmethod=ESMF_REGRIDMETHOD_CONSERVE</TT> or  <TT>regridmethod=ESMF_REGRIDMETHOD_CONSERVE_2ND</TT>
              Please see  Section&nbsp;<A HREF="node9.html#opt:normType">54.43</A> for a 
              list of valid options. If not specified <TT>normType</TT> defaults to <TT>ESMF_NORMTYPE_DSTAREA</TT>. 
+       
+</DD>
+<DT><STRONG>[vectorRegrid]</STRONG></DT>
+<DD>If true, treat a single ungridded dimension in the source and destination Fields
+             as the components of a vector. If true and there is more than one ungridded dimension in either
+             the source or destination, then an error will be returned. If not specified, defaults to false.      
        
 </DD>
 <DT><STRONG>[extrapMethod]</STRONG></DT>
@@ -26666,8 +26695,10 @@ Now the following kernel is sure to work with <TT>array3D</TT> and <TT>array2D</
 
 <P>
 
-<H3><A NAME="SECTION050521100000000000000">
-<SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">11</SPAN> Array and DistGrid rank - 2D+1 Arrays</A>
+<H3><A NAME="SECTION050521100000000000000"></A>
+   <A NAME="sec:array:usage:undistributed_dims"></A>
+<BR>
+<SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">11</SPAN> Arrays with undistributed dimensions
 </H3>
 
 <P>
@@ -26877,8 +26908,10 @@ Correct understanding about the association between Array and DistGrid
 
 <P>
 
-<H3><A NAME="SECTION050521200000000000000">
-<SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">12</SPAN> Arrays with replicated dimensions</A>
+<H3><A NAME="SECTION050521200000000000000"></A>
+   <A NAME="sec:array:usage:replicated_dims"></A>
+<BR>
+<SPAN CLASS="arabic">28</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">12</SPAN> Arrays with replicated dimensions
 </H3>
 
 <P>
@@ -32420,12 +32453,13 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_ArrayGet()
-   subroutine ESMF_ArrayGetDefault(array, arrayspec, typekind, &amp;
+ subroutine ESMF_ArrayGetDefault(array, arrayspec, typekind, &amp;
      rank, localarrayList, indexflag, distgridToArrayMap, &amp;
      distgridToPackedArrayMap, arrayToDistGridMap, undistLBound, &amp;
      undistUBound, exclusiveLBound, exclusiveUBound, computationalLBound, &amp;
      computationalUBound, totalLBound, totalUBound, computationalLWidth, &amp;
-     computationalUWidth, totalLWidth, totalUWidth, distgrid, dimCount, &amp;
+     computationalUWidth, totalLWidth, totalUWidth, distgrid, &amp;
+     dimCount, undistDimCount, replicatedDimCount, &amp;
      tileCount, minIndexPTile, maxIndexPTile, deToTileMap, indexCountPDe, &amp;
      delayout, deCount, localDeCount, ssiLocalDeCount, localDeToDeMap, &amp;
      localDeList, &amp; ! DEPRECATED ARGUMENT
@@ -32455,6 +32489,8 @@ The arguments are:
      integer, target, intent(out), optional :: totalUWidth(:,:)
      type(ESMF_DistGrid), intent(out), optional :: distgrid
      integer, intent(out), optional :: dimCount
+     integer, intent(out), optional :: undistDimCount
+     integer, intent(out), optional :: replicatedDimCount
      integer, intent(out), optional :: tileCount
      integer, intent(out), optional :: minIndexPTile(:,:)
      integer, intent(out), optional :: maxIndexPTile(:,:)
@@ -32500,6 +32536,16 @@ Added argument <TT>vm</TT> in order to offer information about the
 <DD>Added argument <TT>isESMFAllocated</TT> to support user query of
    whether ESMF or user is responsible for the data allocation
    referenced by this object.
+   
+</DD>
+<DT><STRONG>8.6.0</STRONG></DT>
+<DD>Added argument <TT>undistDimCount</TT> to support direct user
+   query of the number of undistributed dimensions in the Array
+   object.
+<BR>
+Added argument <TT>replicatedDimCount</TT> to support direct user
+   query of the number of replicated dimensions in the Array
+   object.
    
 </DD>
 </DL>
@@ -32658,6 +32704,18 @@ The arguments are:
 </DD>
 <DT><STRONG>[dimCount]</STRONG></DT>
 <DD>Number of dimensions (rank) of <TT>distgrid</TT>.
+   
+</DD>
+<DT><STRONG>[undistDimCount]</STRONG></DT>
+<DD>Number of undistributed dimensions in the Array. (See
+   Section&nbsp;<A HREF="#sec:array:usage:undistributed_dims">28.2.11</A> for an explanation
+   of undistributed Array dimensions.)
+   
+</DD>
+<DT><STRONG>[replicatedDimCount]</STRONG></DT>
+<DD>Number of replicated dimensions in the Array. (See
+   Section&nbsp;<A HREF="#sec:array:usage:replicated_dims">28.2.12</A> for an explanation of
+   replicated Array dimensions.)
    
 </DD>
 <DT><STRONG>[tileCount]</STRONG></DT>
@@ -38613,7 +38671,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="57465"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="57496"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -38654,7 +38712,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="57437"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="57468"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -39027,7 +39085,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="57682"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="57713"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -39068,7 +39126,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="57693"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="57724"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -40824,7 +40882,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="58244"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="58275"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -41233,7 +41291,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="58332"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="58363"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -41363,7 +41421,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="58351"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="58382"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -55338,7 +55396,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="68439"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="68470"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -57851,7 +57909,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="70549"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="70580"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -58029,7 +58087,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="70201"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="70232"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -58252,7 +58310,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="70550"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="70581"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -58536,7 +58594,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="70314"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="70345"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -58601,7 +58659,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="70329"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="70360"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -58658,7 +58716,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="70345"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="70376"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -58907,7 +58965,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="70552"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="70583"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -59065,7 +59123,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="70553"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="70584"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -59136,7 +59194,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="70461"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="70492"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -59244,7 +59302,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="70473"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="70504"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -59315,7 +59373,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="70484"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="70515"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -59514,7 +59572,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="70516"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="70547"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -59638,7 +59696,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="70524"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="70555"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
