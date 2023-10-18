@@ -1018,6 +1018,10 @@ $key = q/regridoutput/;
 $ref_files{$key} = "$dir".q|node3.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec::vectorRegrid/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:Alarm/;
 $ref_files{$key} = "$dir".q|node6.html|; 
 $noresave{$key} = "$nosave";

@@ -1018,6 +1018,10 @@ $key = q/regridoutput/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec::vectorRegrid/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:Alarm/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
@@ -2659,6 +2663,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/regridoutput/;
 $external_latex_labels{$key} = q|12.9.3|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec::vectorRegrid/;
+$external_latex_labels{$key} = q|24.2.17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Alarm/;
