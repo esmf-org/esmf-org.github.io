@@ -3673,7 +3673,7 @@ temporary or multiple Clocks and Alarms.  Sections&nbsp;<A HREF="#sec:Clock">45.
 <BR><P></P>
 <DIV ALIGN="CENTER">
 
-<A NAME="78657"></A>
+<A NAME="78680"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 4:</STRONG>
 Specifiers for Times and TimeIntervals</CAPTION>
@@ -26051,8 +26051,8 @@ The arguments are:
 <PRE>   ! Private name; call using ESMF_VMGet()
    recursive subroutine ESMF_VMGetDefault(vm, localPet, &amp;
      currentSsiPe, petCount, peCount, ssiCount, ssiMap, ssiMinPetCount, ssiMaxPetCount, &amp;
-     ssiLocalPetCount, mpiCommunicator, pthreadsEnabledFlag, openMPEnabledFlag, &amp;
-     ssiSharedMemoryEnabledFlag, esmfComm, rc)
+     ssiLocalPetCount, ssiLocalPet, ssiLocalDevCount, ssiLocalDevList, mpiCommunicator, &amp;
+     pthreadsEnabledFlag, openMPEnabledFlag, ssiSharedMemoryEnabledFlag, esmfComm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_VM),        intent(in)            :: vm
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -26065,6 +26065,9 @@ The arguments are:
      integer,              intent(out), optional :: ssiMinPetCount
      integer,              intent(out), optional :: ssiMaxPetCount
      integer,              intent(out), optional :: ssiLocalPetCount
+     integer,              intent(out), optional :: ssiLocalPet
+     integer,              intent(out), optional :: ssiLocalDevCount
+     integer, allocatable, intent(out), optional :: ssiLocalDevList(:)
      integer,              intent(out), optional :: mpiCommunicator
      logical,              intent(out), optional :: pthreadsEnabledFlag
      logical,              intent(out), optional :: openMPEnabledFlag
@@ -26103,6 +26106,14 @@ Added argument <TT>ssiMap</TT> for a convenient way to obtain a view
 <DT><STRONG>8.2.0</STRONG></DT>
 <DD>Added argument <TT>esmfComm</TT> to provide easy access to the
      <TT>ESMF_COMM</TT> setting used by the ESMF installation.
+   
+</DD>
+<DT><STRONG>8.6.0</STRONG></DT>
+<DD>Added arguments <TT>ssiLocalDevCount</TT> and <TT>ssiLocalDevCount</TT>
+     to provide information about devices associated with the VM on the local
+     SSI. <BR>
+Added argument <TT>ssiLocalPet</TT> to help with SSI specific assignment
+     between PET and device resources.
    
 </DD>
 </DL>
@@ -26161,7 +26172,8 @@ The arguments are:
 <DT><STRONG>[ssiMap]</STRONG></DT>
 <DD>Upon return this array is allocated and holds the single system image
           id for each PET across the <TT>vm</TT>. The size of <TT>ssiMap</TT> is
-          equal to <TT>petCount</TT>, with lower bound 0 and upper bound petCount-1.
+          equal to <TT>petCount</TT>, with lower bound 0 and upper bound
+          <TT>petCount - 1</TT>.
      
 </DD>
 <DT><STRONG>[ssiMinPetCount]</STRONG></DT>
@@ -26177,6 +26189,25 @@ The arguments are:
 <DT><STRONG>[ssiLocalPetCount]</STRONG></DT>
 <DD>Upon return this holds the number of PETs running in the same
           single system as <TT>localPet</TT>.
+     
+</DD>
+<DT><STRONG>[ssiLocalPet]</STRONG></DT>
+<DD>Upon return this holds the SSI local index of the executing
+          <TT>localPet</TT>.
+     
+</DD>
+<DT><STRONG>[ssiLocalDevCount]</STRONG></DT>
+<DD>Upon return this holds the number of devices associated with this VM
+          on the local single system.
+     
+</DD>
+<DT><STRONG>[ssiLocalDevList]</STRONG></DT>
+<DD>Upon return this array is allocated and holds the local device ids
+          of devices associated with this VM. The size of <TT>ssiLocalDevList</TT>
+          is equal to <TT>ssiLocalDevCount</TT>, with lower bound 0 and upper
+          bound <TT>ssiLocalDevCount - 1</TT>. Local device ids can be used to
+          target specific devices using OpenMP, OpenACC, or similar device
+          API.
      
 </DD>
 <DT><STRONG>[mpiCommunicator]</STRONG></DT>

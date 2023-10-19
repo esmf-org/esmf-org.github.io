@@ -3101,7 +3101,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   recursive function ESMF_GridCompCreate(grid, gridList, &amp;
      mesh, meshList, locstream, locstreamList, xgrid, xgridList, &amp;
-     config, configFile, clock, petList, contextflag, name, rc)
+     config, configFile, clock, petList, devList, contextflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_GridComp) :: ESMF_GridCompCreate
 </PRE><EM>ARGUMENTS:</EM>
@@ -3118,6 +3118,7 @@ The arguments are:
      character(len=*),        intent(in),    optional :: configFile
      type(ESMF_Clock),        intent(in),    optional :: clock
      integer,                 intent(in),    optional :: petList(:)
+     integer,                 intent(in),    optional :: devList(:)
      type(ESMF_Context_Flag), intent(in),    optional :: contextflag
      character(len=*),        intent(in),    optional :: name
      integer,                 intent(out),   optional :: rc
@@ -3137,6 +3138,11 @@ Changes made after the 5.2.0r release:
      These arguments add support for holding references to multiple geom objects,
      either of the same type, or different type, in the same
      <TT>ESMF_GridComp</TT> object.
+   
+</DD>
+<DT><STRONG>8.6.0</STRONG></DT>
+<DD>Added argument <TT>devList</TT> to support management of accelerator
+     devices.
    
 </DD>
 </DL>
@@ -3290,6 +3296,12 @@ The arguments are:
      parent <TT>PET</TT>s are given to the child component. The order of
      PETs in <TT>petList</TT> determines how the child local PETs map back to
      the parent PETs.
+   
+</DD>
+<DT><STRONG>[devList]</STRONG></DT>
+<DD>List of accelerator devices global ids <TT>DEV</TT>s to be associated with the
+     created child component. If <TT>devList</TT> is not specified, or is empty,
+     no devices are associated with the component.
    
 </DD>
 <DT><STRONG>[contextflag]</STRONG></DT>
@@ -6134,7 +6146,7 @@ derived type within ESMF.  The user must create one of these types
 to represent a specific coupling function, such as the regular
 transfer of data between a data assimilation system and an 
 atmospheric model.  <A NAME="tex2html21"
-  HREF="footnode.html#foot8415"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="footnode.html#foot8425"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 The user-written part of a Coupler Component is associated with an
 <TT>ESMF_CplComp</TT> derived type through a routine called 
@@ -6643,7 +6655,7 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   recursive function ESMF_CplCompCreate(config, configFile, &amp;
-     clock, petList, contextflag, name, rc)
+     clock, petList, devList, contextflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_CplComp) :: ESMF_CplCompCreate
 </PRE><EM>ARGUMENTS:</EM>
@@ -6652,6 +6664,7 @@ The arguments are:
      character(len=*),        intent(in),  optional :: configFile
      type(ESMF_Clock),        intent(in),  optional :: clock
      integer,                 intent(in),  optional :: petList(:)
+     integer,                 intent(in),  optional :: devList(:)
      type(ESMF_Context_Flag), intent(in),  optional :: contextflag
      character(len=*),        intent(in),  optional :: name
      integer,                 intent(out), optional :: rc
@@ -6660,7 +6673,17 @@ The arguments are:
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.6.0</STRONG></DT>
+<DD>Added argument <TT>devList</TT> to support management of accelerator
+     devices.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -6715,6 +6738,12 @@ The arguments are:
      parent <TT>PET</TT>s are given to the child component. The order of
      PETs in <TT>petList</TT> determines how the child local PETs map back to
      the parent PETs.
+   
+</DD>
+<DT><STRONG>[devList]</STRONG></DT>
+<DD>List of accelerator devices global ids <TT>DEV</TT>s to be associated with the
+     created child component. If <TT>devList</TT> is not specified, or is empty,
+     no devices are associated with the component.
    
 </DD>
 <DT><STRONG>[contextflag]</STRONG></DT>
@@ -11164,7 +11193,7 @@ in that test:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="13291"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="13314"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11185,7 +11214,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="13293"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="13316"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11216,7 +11245,7 @@ Array object is empty, and the DELayout for the Grid is like this:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="13295"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="13318"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11237,7 +11266,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="13297"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="13320"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -14532,7 +14561,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16854"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16877"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
