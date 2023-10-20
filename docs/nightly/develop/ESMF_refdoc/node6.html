@@ -26040,7 +26040,7 @@ The arguments are:
 <P>
 
 <H3><A NAME="SECTION0601361800000000000000">
-<SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">18</SPAN> ESMF_VMGet - Get information from a VM</A>
+<SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">18</SPAN> ESMF_VMGet - Get general information from a VM</A>
 </H3>
 
 <P>
@@ -26281,7 +26281,7 @@ The arguments are:
 <P>
 
 <H3><A NAME="SECTION0601361900000000000000">
-<SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">19</SPAN> ESMF_VMGet - Get PET specific VM information</A>
+<SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">19</SPAN> ESMF_VMGet - Get PET specific information from a VM</A>
 </H3>
 
 <P>
@@ -26291,13 +26291,14 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_VMGet()
    subroutine ESMF_VMGetPetSpecific(vm, pet, peCount, &amp;
-     accDeviceCount, ssiId, threadCount, threadId, vas, rc)
+     accDeviceCount, &amp;   ! DEPRECATED ARGUMENT
+     ssiId, threadCount, threadId, vas, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_VM), intent(in)            :: vm
      integer,       intent(in)            :: pet
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,       intent(out), optional :: peCount
-     integer,       intent(out), optional :: accDeviceCount
+     integer,       intent(out), optional :: accDeviceCount ! DEPRECATED ARGUMENT
      integer,       intent(out), optional :: ssiId
      integer,       intent(out), optional :: threadCount
      integer,       intent(out), optional :: threadId
@@ -26316,6 +26317,12 @@ Changes made after the 5.2.0r release:
 <DT><STRONG>7.0.0</STRONG></DT>
 <DD>Added argument <TT>accDeviceCount</TT>.
      The argument provides access to the number of available accelerator devices.
+   
+</DD>
+<DT><STRONG>8.6.0</STRONG></DT>
+<DD>Started deprecation of argument <TT>accDeviceCount</TT> in favor of
+     the new arguments <TT>ssiLocalDevCount</TT> and <TT>ssiLocalDevList</TT> offered
+     by the general <TT>ESMF_VMGet()</TT> method.
    
 </DD>
 </DL>
@@ -26349,6 +26356,7 @@ The arguments are:
 <DT><STRONG>[accDeviceCount]</STRONG></DT>
 <DD>Upon return this holds the number of accelerated devices accessible
           from the specified PET in the <TT>ESMF_VM</TT> object.
+         <B>DEPRECATED ARGUMENT!</B> Please use the argument <TT>ssiLocalDevCount</TT> instead.
      
 </DD>
 <DT><STRONG>[ssiId]</STRONG></DT>
