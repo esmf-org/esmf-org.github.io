@@ -1230,6 +1230,10 @@ $key = q/sec:array:usage:replicated_dims/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:array:usage:undistributed_dims/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:bundlerest/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -1962,7 +1966,7 @@ $external_latex_labels{$key} = q|36.3.5|;
 $noresave{$key} = "$nosave";
 
 $key = q/ESMF_FieldFill/;
-$external_latex_labels{$key} = q|26.6.50|; 
+$external_latex_labels{$key} = q|26.6.52|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Field:rest/;
@@ -1970,11 +1974,11 @@ $external_latex_labels{$key} = q|26.4|;
 $noresave{$key} = "$nosave";
 
 $key = q/FieldRedistStoreNF/;
-$external_latex_labels{$key} = q|26.6.64|; 
+$external_latex_labels{$key} = q|26.6.66|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldRedistStoreTK/;
-$external_latex_labels{$key} = q|26.6.63|; 
+$external_latex_labels{$key} = q|26.6.65|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Field_shared_memory_features/;
@@ -2086,11 +2090,11 @@ $external_latex_labels{$key} = q|25.5.39|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldRead/;
-$external_latex_labels{$key} = q|26.6.60|; 
+$external_latex_labels{$key} = q|26.6.62|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldWrite/;
-$external_latex_labels{$key} = q|26.6.82|; 
+$external_latex_labels{$key} = q|26.6.84|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:SparseMatrixWrite/;
@@ -2102,7 +2106,7 @@ $external_latex_labels{$key} = q|25.5.26|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_fieldregridstorenx/;
-$external_latex_labels{$key} = q|26.6.67|; 
+$external_latex_labels{$key} = q|26.6.69|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_fileregrid/;
@@ -2875,6 +2879,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/sec:array:usage:replicated_dims/;
 $external_latex_labels{$key} = q|28.2.12|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:array:usage:undistributed_dims/;
+$external_latex_labels{$key} = q|28.2.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:bundlerest/;
