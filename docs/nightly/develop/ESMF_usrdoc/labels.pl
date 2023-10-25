@@ -530,6 +530,10 @@ $key = q/sec:MOAB/;
 $external_labels{$key} = "$URL/" . q|node10.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:NVML/;
+$external_labels{$key} = "$URL/" . q|node10.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:QuickStart/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
@@ -1155,6 +1159,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/sec:MOAB/;
 $external_latex_labels{$key} = q|9.4.8|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:NVML/;
+$external_latex_labels{$key} = q|9.4.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:QuickStart/;
