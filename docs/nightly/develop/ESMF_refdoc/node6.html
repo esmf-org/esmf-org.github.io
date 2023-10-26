@@ -27945,7 +27945,7 @@ The procedure for including MPI
 functions in the timing profile depends on whether the application is
 dynamically or statically linked. Most applications are dynamically linked,
 however on some systems (such as Cray), static linking may be used.
-Note that for either option, ESMF must be built with <TT>ESMF_TRACE_BUILD_LIB=ON</TT>,
+Note that for either option, ESMF must be built with <TT>ESMF_TRACE_LIB_BUILD=ON</TT>,
 which is the default.
 
 <P>
@@ -27970,14 +27970,41 @@ executable when starting the application as follows:
 
 <P>
 <PRE>
-# replace $(ESMF_INSTALL_LIBDIR) with absolute path to the ESMF installation lib directory
+# replace $(ESMF_INSTALL_LIBDIR) with absolute path
+# ... to the ESMF installation lib directory
 $ mpirun -np 8 $(ESMF_INSTALL_LIBDIR)/preload.sh ./myApp
 </PRE>
 
 <P>
 An advantage of this approach is that your application does <EM>not</EM> need to
 be recompiled. The MPI timing information will be included in the per-PET profiles and/or the summary
-profile, depending on the setting of <TT>ESMF_RUNTIME_PROFILE_OUTPUT</TT>.
+profile, depending on the setting of environment variable
+<TT>ESMF_RUNTIME_PROFILE_OUTPUT</TT>.
+
+<P>
+Notice that an additional step is required for dynamically linked applications
+on <EM>Darwin</EM> systems with System Integrity Protection (SIP) enabled! In
+addition to using the <TT>$(ESMF_INSTALL_LIBDIR)/preload.sh</TT> script during
+launching of the executable as shown above, the executable must <EM>also be
+linked</EM> against the dynamic ESMF trace preload library. This must happen during
+the link step of the executable. It is most easily accomplished by using
+variable <TT>$(ESMF_F90ESMFPRELOADLINKLIBS)</TT> instead of the typical
+<TT>$(ESMF_F90ESMFLINKLIBS)</TT> variable for the final link command. Both
+variables are defined in the <EM>esmf.mk</EM> file that should be imported by
+the application Makefile. For example:
+
+<P>
+<PRE>
+# import esmf.mk
+include $(ESMFMKFILE)
+
+# other makefile targets here...
+
+# example final link command, with $(ESMF_F90ESMFPRELOADLINKLIBS)
+myApp: myApp.o driver.o model.o
+        $(ESMF_F90LINKER) $(ESMF_F90LINKOPTS) $(ESMF_F90LINKPATHS) \
+        $(ESMF_F90LINKRPATHS) -o $@ $^ $(ESMF_F90ESMFPRELOADLINKLIBS)
+</PRE>
 
 <P>
 In <EM>statically linked applications</EM>, the application must be re-linked
@@ -27998,9 +28025,12 @@ include $(ESMFMKFILE)
 
 # other makefile targets here...
 
-# example final link command, with $(ESMF_TRACE_STATICLINKOPTS) and $(ESMF_TRACE_STATICLINKLIBS) added
+# example final link command, with $(ESMF_TRACE_STATICLINKOPTS)
+# ... and $(ESMF_TRACE_STATICLINKLIBS) added
 myApp: myApp.o driver.o model.o
-	$(ESMF_F90LINKER) $(ESMF_F90LINKOPTS) $(ESMF_F90LINKPATHS) $(ESMF_F90LINKRPATHS) -o $@ $^ $(ESMF_F90ESMFLINKLIBS) $(ESMF_TRACE_STATICLINKOPTS) $(ESMF_TRACE_STATICLINKLIBS)
+        $(ESMF_F90LINKER) $(ESMF_F90LINKOPTS) $(ESMF_F90LINKPATHS) \
+        $(ESMF_F90LINKRPATHS) -o $@ $^ $(ESMF_F90ESMFLINKLIBS) \
+        $(ESMF_TRACE_STATICLINKOPTS) $(ESMF_TRACE_STATICLINKLIBS)
 </PRE>
 
 <P>
@@ -28392,6 +28422,12 @@ This example illustrates how to manually instrument code with
 <LI><B>Limited types of trace events.</B>
   Currently only a few trace event types are available. The tracer may
   be extended in the future to record additional types of events.
+</LI>
+<LI><B>MPI call profing not available for statically linked executables on Darwin.</B>
+  Currently the linker on Darwin systems does not support the wrapping of
+  symbols during static linking. In order to access MPI call profiling on Darwin,
+  executables should be linked dynamically in combination with the procedure
+  described in section <A HREF="#sec:MPIProfiling">52.2.4</A>.
 </LI>
 </OL>
 
