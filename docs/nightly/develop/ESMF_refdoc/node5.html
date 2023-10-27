@@ -2691,22 +2691,21 @@ However, the weight matrix will be in the format that allows it to contain tenso
 dimension of the <TT>factorIndexList</TT> will be of size 4). 
 
 <P>
-In this initial version the meaning of the different components in the vector is fixed. They will be interpreted as:
+In this initial version, the meaning of the different entries in the vector dimension are fixed. They will be interpreted as:
 <BR>
 <DL>
 <DD></DD>
-<DT><STRONG>1st component</STRONG></DT>
-<DD>the east value
+<DT><STRONG>1st entry</STRONG></DT>
+<DD>the east component of the vector
   
 </DD>
-<DT><STRONG>2nd component</STRONG></DT>
-<DD>the north value
+<DT><STRONG>2nd entry</STRONG></DT>
+<DD>the north component of the vector
 </DD>
 </DL>
 
 <P>
-Note that because the different components are mixed, using vector regridding with a conservative regrid method will not necessarily produce vectors whose components
-are conservative. 
+Note that because the different components are mixed, using vector regridding with a conservative regrid method will not necessarily produce vectors whose components are conservative. 
 
 <P>
 
@@ -19512,9 +19511,13 @@ The arguments are:
 <DT><STRONG>[vectorRegrid]</STRONG></DT>
 <DD>If true, treat a single ungridded dimension in the source and destination Fields
              as the components of a vector. If true and there is more than one ungridded dimension in either
-             the source or destination, then an error will be returned. Currently this functionality only
+             the source or destination, then an error will be returned. Currently, only undistributed (vector) dimensions of
+             size 2 are supported. In the vector dimension, the first entry is interpreted as the east component and the
+             second as the north component.
+             In addition, this functionality presently only
              works when both the source and destination Fields are build on a geometry (e.g. an ESMF Grid) with
-             a spherical coordinate system (e.g. ESMF_COORDSYS_SPH_DEG). See section&nbsp;<A HREF="#sec::vectorRegrid">24.2.17</A> for further
+             a spherical coordinate system (e.g. ESMF_COORDSYS_SPH_DEG). We expect these restrictions to be loosened over
+             time as new requirements come in from users. See section&nbsp;<A HREF="#sec::vectorRegrid">24.2.17</A> for further
              information on this functionality. If not specified, this argument defaults to false.
        
 </DD>
