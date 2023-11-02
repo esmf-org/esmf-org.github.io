@@ -14796,9 +14796,22 @@ The arguments are:
    
 </DD>
 <DT><STRONG>[trailingUngridSlice]</STRONG></DT>
-<DD>If present, the returned Field refers to the array slice of <TT>field</TT>
-   as defined by the specified tuple, applied to the right most
-   trailing ungridded dimensions.
+<DD>If present, the returned Field refers to a slice of <TT>field</TT>
+   created by removing some or all of the trailing undistributed dimensions
+   from the incoming Field object.
+   The number of trailing dimensions removed is equal to the size <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img61.png"
+ ALT="$n$"></SPAN>
+   of <TT>trailingUngridSlice</TT>, which must be less than or equal to the
+   total number of trailing undistributed dimensions in <TT>field</TT>. Under
+   this condition, the <TT>trailingUngridSlice</TT> argument is interpreted
+   as an index tuple for the <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img61.png"
+ ALT="$n$"></SPAN> rightmost trailing undistributed
+   dimensions in <TT>field</TT> in order, and the Field slice at that
+   location is returned.
    
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
@@ -18843,7 +18856,7 @@ The arguments are:
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img61.png"
+ SRC="img62.png"
  ALT="$rank \times tileCount$"></SPAN> elements in
      <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
      with the corresponding tile (in order), and interpreted as the
@@ -18998,7 +19011,7 @@ The arguments are:
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img61.png"
+ SRC="img62.png"
  ALT="$rank \times tileCount$"></SPAN> elements in
      <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
      with the corresponding tile (in order), and interpreted as the
@@ -25294,7 +25307,7 @@ None of the concerns discussed above are an issue in this example where the
    First <TT>farrayE</TT> is defined as a 2D explicit-shape array on each PET which 
    will automatically provide memory for <SPAN CLASS="MATH"><IMG
  WIDTH="55" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img62.png"
+ SRC="img63.png"
  ALT="$10\times 10$"></SPAN> elements.
 <P>
 <PRE>
@@ -26112,7 +26125,7 @@ Access to a specific local memory allocation of an Array object is still
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="132" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img63.png"
+ SRC="img64.png"
  ALT="$localDeCount &gt; 1 $"></SPAN> the formally optional <TT>localDe</TT> argument to
    <TT>ESMF_ArrayGet()</TT> turns into a practically required argument. While
    in general the <TT>localDe</TT> in ESMF is simply a local index variable that 
@@ -26617,7 +26630,7 @@ The index space covered by the Array and the decomposition description is
    provided to the Array create method by the <TT>distgrid</TT> argument. The index
    space in this example has 16 elements and covers the interval <SPAN CLASS="MATH"><IMG
  WIDTH="56" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img64.png"
+ SRC="img65.png"
  ALT="$[-10, 5]$"></SPAN>. It is 
    decomposed into as many DEs as there are PETs in the current context.
 <P>
@@ -26661,7 +26674,7 @@ The <TT>distgrid3D</TT> object decomposes the 3-dimensional index space into
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="104" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img65.png"
+ SRC="img66.png"
  ALT="$4\times 4\times 4 = 64$"></SPAN> DEs. These DEs are laid out across the computational
    resources (PETs) of the current component according to a default DELayout that
    is created during the DistGrid create call. Notice that in the index space 
@@ -27829,7 +27842,7 @@ The exclusive region on each DE is of shape 5 x 10, while the total region
    owns the DE. In this example the exclusive elements on every DE are
    initialized to the value <SPAN CLASS="MATH"><IMG
  WIDTH="46" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img66.png"
+ SRC="img67.png"
  ALT="$f(i,j)$"></SPAN> of the geometric function
    <BR>
 <DIV ALIGN="RIGHT" CLASS="mathdisplay">
@@ -27842,7 +27855,7 @@ f(i,j) = \sin(\alpha i)\cos(\beta j),
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="168" HEIGHT="29" BORDER="0"
- SRC="img67.png"
+ SRC="img68.png"
  ALT="\begin{displaymath}
 f(i,j) = \sin(\alpha i)\cos(\beta j),
 \end{displaymath}"></TD>
@@ -27862,7 +27875,7 @@ where
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="153" HEIGHT="29" BORDER="0"
- SRC="img68.png"
+ SRC="img69.png"
  ALT="\begin{displaymath}
 \alpha = 2\pi/N_i, i=1,...N_i
 \end{displaymath}"></TD>
@@ -27882,7 +27895,7 @@ and
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="162" HEIGHT="30" BORDER="0"
- SRC="img69.png"
+ SRC="img70.png"
  ALT="\begin{displaymath}
 \beta = 2\pi/N_j, j=1,...N_j,
 \end{displaymath}"></TD>
@@ -27892,10 +27905,10 @@ and
 <BR CLEAR="ALL"></DIV><P></P>
 with <SPAN CLASS="MATH"><IMG
  WIDTH="59" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img70.png"
+ SRC="img71.png"
  ALT="$N_i = 10$"></SPAN> and <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img71.png"
+ SRC="img72.png"
  ALT="$N_j = 20$"></SPAN>.
 <P>
 <PRE>
@@ -28940,19 +28953,19 @@ The following variation of the code shows that the same RouteHandle can be
 We prepare a source Array with <EM>two</EM> undistributed dimensions, in position
    1 and 3, of size <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img72.png"
+ SRC="img73.png"
  ALT="$2$"></SPAN> and <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img73.png"
+ SRC="img74.png"
  ALT="$5$"></SPAN>, respectively. Thus there are <SPAN CLASS="MATH"><IMG
  WIDTH="77" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img74.png"
+ SRC="img75.png"
  ALT="$2 \times 5=10$"></SPAN>
    undistributed source elements. The destination array is the same as before
    with only a <EM>single</EM> undistributed dimension in position 1
    of size <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img75.png"
+ SRC="img76.png"
  ALT="$10$"></SPAN>.
 <P>
 <PRE>
@@ -29199,7 +29212,7 @@ The situation is different in <EM>transpose</EM> mode. Here the number of source
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img61.png"
+ SRC="img62.png"
  ALT="$rank \times tileCount$"></SPAN>. In that case each source-destination tile-pair
    has its own transpose map.
 
@@ -29249,12 +29262,12 @@ Both problems can be circumvented by <EM>interpreting</EM> source and destinatio
 <P>
 The default sequence index rule assigns index <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img76.png"
+ SRC="img77.png"
  ALT="$1$"></SPAN> to the <TT>minIndex</TT> corner
    element of the first tile of the DistGrid on which the Array is defined. It then
    increments the sequence index by <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img76.png"
+ SRC="img77.png"
  ALT="$1$"></SPAN> for each element running through the
    DistGrid dimensions by order. The index space position of the DistGrid tiles
    does not affect the sequence labeling of elements. The default sequence indices
@@ -29734,10 +29747,10 @@ and
 <P>
 Here indices in <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img77.png"
+ SRC="img78.png"
  ALT="$()$"></SPAN> refer to distributed dimensions while indices in <SPAN CLASS="MATH"><IMG
  WIDTH="13" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img78.png"
+ SRC="img79.png"
  ALT="$[]$"></SPAN>
    correspond to undistributed dimensions.
 
@@ -32286,9 +32299,22 @@ The arguments are:
    
 </DD>
 <DT><STRONG>[trailingUndistSlice]</STRONG></DT>
-<DD>If present, the returned Array refers to the array slice of <TT>array</TT>
-   as defined by the specified tuple, applied to the right most
-   trailing undistributed dimensions.
+<DD>If present, the returned Array refers to a slice of <TT>array</TT>
+   created by removing some or all of the trailing undistributed dimensions
+   from the incoming Array object.
+   The number of trailing dimensions removed is equal to the size <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img61.png"
+ ALT="$n$"></SPAN>
+   of <TT>trailingUndistSlice</TT>, which must be less than or equal to the
+   total number of trailing undistributed dimensions in <TT>array</TT>. Under
+   this condition, the <TT>trailingUndistSlice</TT> argument is interpreted
+   as an index tuple for the <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img61.png"
+ ALT="$n$"></SPAN> rightmost trailing undistributed
+   dimensions in <TT>array</TT> in order, and the Array slice at that
+   location is returned.
    
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
@@ -33958,7 +33984,7 @@ This call is <EM>collective</EM> across the current VM.
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img61.png"
+ SRC="img62.png"
  ALT="$rank \times tileCount$"></SPAN> elements in
        <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
        with the corresponding tile (in order), and interpreted as the
@@ -34161,7 +34187,7 @@ This call is <EM>collective</EM> across the current VM.
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img61.png"
+ SRC="img62.png"
  ALT="$rank \times tileCount$"></SPAN> elements in
        <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
        with the corresponding tile (in order), and interpreted as the
@@ -34377,7 +34403,7 @@ This call is <EM>collective</EM> across the current VM.
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img61.png"
+ SRC="img62.png"
  ALT="$rank \times tileCount$"></SPAN> elements in
        <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
        with the corresponding tile (in order), and interpreted as the
@@ -34566,7 +34592,7 @@ This call is <EM>collective</EM> across the current VM.
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="126" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img61.png"
+ SRC="img62.png"
  ALT="$rank \times tileCount$"></SPAN> elements in
        <TT>srcToDstTransposeMap</TT>,  each block of size <TT>rank</TT> is associated
        with the corresponding tile (in order), and interpreted as the
@@ -38715,7 +38741,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="57539"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="57571"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -38726,7 +38752,7 @@ a grid <B>b</B> that is 6x3.</CAPTION>
  -->
 <IMG
  WIDTH="630" HEIGHT="192" ALIGN="BOTTOM" BORDER="0"
- SRC="img79.png"
+ SRC="img80.png"
  ALT="\scalebox{0.9}{\includegraphics{GridDecomps}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -38756,7 +38782,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="57511"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="57543"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -38766,7 +38792,7 @@ values needed to specify grid coordinates for each type.</CAPTION>
  -->
 <IMG
  WIDTH="636" HEIGHT="210" ALIGN="BOTTOM" BORDER="0"
- SRC="img80.png"
+ SRC="img81.png"
  ALT="\scalebox{0.9}{\includegraphics{LogRectGrids}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -39129,7 +39155,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="57756"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="57788"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -39138,7 +39164,7 @@ following are the valid predefined stagger locations.
  -->
 <IMG
  WIDTH="465" HEIGHT="275" ALIGN="BOTTOM" BORDER="0"
- SRC="img81.png"
+ SRC="img82.png"
  ALT="\scalebox{0.75}{\includegraphics{GridStaggerLoc2D}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -39170,7 +39196,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="57767"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="57799"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -39179,7 +39205,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
  -->
 <IMG
  WIDTH="433" HEIGHT="333" ALIGN="BOTTOM" BORDER="0"
- SRC="img82.png"
+ SRC="img83.png"
  ALT="\scalebox{1.0}{\includegraphics{GridStaggerLoc3D}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -40926,7 +40952,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="58318"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="58350"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -40935,7 +40961,7 @@ An example of a Grid's exclusive region for the corner stagger</CAPTION>
  -->
 <IMG
  WIDTH="577" HEIGHT="234" ALIGN="BOTTOM" BORDER="0"
- SRC="img83.png"
+ SRC="img84.png"
  ALT="\scalebox{0.75}{\includegraphics{GridExclusiveReg}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -41308,26 +41334,26 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
    positive x-axis oriented <EM>East</EM> and the positive y-axis oriented <EM>North</EM>.
    The resulting coordinate for the lower left corner is at <SPAN CLASS="MATH"><IMG
  WIDTH="64" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img84.png"
+ SRC="img85.png"
  ALT="$(-1,-1)$"></SPAN>, and upper right
    corner at <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img85.png"
+ SRC="img86.png"
  ALT="$(1,1)$"></SPAN>.
    However, because our staggers are symmetric they don't need to distinguish between
    the <SPAN CLASS="MATH"><IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img86.png"
+ SRC="img87.png"
  ALT="$-1$"></SPAN>, and the <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img76.png"
+ SRC="img77.png"
  ALT="$1$"></SPAN>, so we only need to concern ourselves with the first quadrant of
    this cell. We only need to use the <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img76.png"
+ SRC="img77.png"
  ALT="$1$"></SPAN>, and the <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img87.png"
+ SRC="img88.png"
  ALT="$0$"></SPAN>, and many of the cell locations
    collapse together (e.g. we only need to represent one corner). See figure&nbsp;<A HREF="#fig:gridcuststaggerloc">18</A>
    for an illustration of these concepts.
@@ -41335,7 +41361,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="58406"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="58438"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -41344,7 +41370,7 @@ An example of specifying 2D stagger locations using coordinates.</CAPTION>
  -->
 <IMG
  WIDTH="544" HEIGHT="268" ALIGN="BOTTOM" BORDER="0"
- SRC="img88.png"
+ SRC="img89.png"
  ALT="\scalebox{0.75}{\includegraphics{GridCustStaggerLoc}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -41354,21 +41380,21 @@ An example of specifying 2D stagger locations using coordinates.</CAPTION>
 <P>
 The cell center is represented by the coordinate pair <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img89.png"
+ SRC="img90.png"
  ALT="$(0,0)$"></SPAN> indicating the origin.
    The cell corner is <SPAN CLASS="MATH"><IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img90.png"
+ SRC="img91.png"
  ALT="$+1$"></SPAN> in each direction, giving a coordinate pair of <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img85.png"
+ SRC="img86.png"
  ALT="$(1,1)$"></SPAN>.
    The edges are each <SPAN CLASS="MATH"><IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img90.png"
+ SRC="img91.png"
  ALT="$+1$"></SPAN> in one dimension and <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img87.png"
+ SRC="img88.png"
  ALT="$0$"></SPAN> in the other indicating that
    they're even with the center in one dimension and offset in the other.
 
@@ -41377,14 +41403,14 @@ For three dimensions, the vertical component of the stagger location can be adde
    simply adding an additional coordinate. The three dimensional generalization of the
    cell center becomes <SPAN CLASS="MATH"><IMG
  WIDTH="54" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img91.png"
+ SRC="img92.png"
  ALT="$(0,0,0)$"></SPAN> and the cell corner becomes <SPAN CLASS="MATH"><IMG
  WIDTH="54" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img92.png"
+ SRC="img93.png"
  ALT="$(1,1,1)$"></SPAN>. The rest of
    the 3D stagger locations are combinations of <SPAN CLASS="MATH"><IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img90.png"
+ SRC="img91.png"
  ALT="$+1$"></SPAN> offsets from the center.
 
 <P>
@@ -41400,21 +41426,21 @@ To generalize this to <SPAN CLASS="MATH"><IMG
  SRC="img26.png"
  ALT="$d$"></SPAN> <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img87.png"
+ SRC="img88.png"
  ALT="$0$"></SPAN> and <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img76.png"
+ SRC="img77.png"
  ALT="$1$"></SPAN> is used to specify for each dimension
    whether a stagger location is aligned with the cell center in that dimension (<SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img87.png"
+ SRC="img88.png"
  ALT="$0$"></SPAN>),
    or offset by <SPAN CLASS="MATH"><IMG
  WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
- SRC="img90.png"
+ SRC="img91.png"
  ALT="$+1$"></SPAN> in that dimension (<SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img76.png"
+ SRC="img77.png"
  ALT="$1$"></SPAN>). Using this scheme we can represent
    any symmetric stagger location.
 
@@ -41465,7 +41491,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="58425"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="58457"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -41474,7 +41500,7 @@ An example 2D Grid with cell centers and corners.</CAPTION>
  -->
 <IMG
  WIDTH="351" HEIGHT="179" ALIGN="BOTTOM" BORDER="0"
- SRC="img93.png"
+ SRC="img94.png"
  ALT="\scalebox{0.75}{\includegraphics{GridCellsAndCorners}}"></TD></TR>
 </TABLE>
 </DIV>
@@ -41522,18 +41548,18 @@ The <TT>gridEdgeLWidth</TT> and
    the default behavior. The resulting Grid will have
    an exclusive region which extends from <SPAN CLASS="MATH"><IMG
  WIDTH="64" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img84.png"
+ SRC="img85.png"
  ALT="$(-1,-1)$"></SPAN> to
    <SPAN CLASS="MATH"><IMG
  WIDTH="55" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img94.png"
+ SRC="img95.png"
  ALT="$(10,10)$"></SPAN>, however, the cell center stagger location
    will still extend from <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img85.png"
+ SRC="img86.png"
  ALT="$(1,1)$"></SPAN> to <SPAN CLASS="MATH"><IMG
  WIDTH="55" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img94.png"
+ SRC="img95.png"
  ALT="$(10,10)$"></SPAN>.
 <P>
 <PRE>
@@ -49113,7 +49139,7 @@ chosen must be maintained in each of the keys.
 LocStreams can be very large. Data assimilation systems might use
 LocStreams with up to <SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="img95.png"
+ SRC="img96.png"
  ALT="$10^{8}$"></SPAN> observations, so efficiency is critical.
 LocStreams can be created from file, see <A HREF="#locstream:createfromfile">32.4.14</A>.
 
@@ -53146,7 +53172,7 @@ The parameters to this call <TT>elementIds</TT>, <TT>elementTypes</TT>, and
      and <TT>elementTypes</TT>. Each entry in <TT>elementConn</TT> consists of the list of
      nodes used to create that element, so the connections for element <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img96.png"
+ SRC="img97.png"
  ALT="$e$"></SPAN> in the
      <TT>elementIds</TT> array will start at <!-- MATH
  $number\_of\_nodes\_in\_element(1) + number\_of\_nodes\_in\_element(2) +
@@ -53154,7 +53180,7 @@ The parameters to this call <TT>elementIds</TT>, <TT>elementTypes</TT>, and
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="840" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="img97.png"
+ SRC="img98.png"
  ALT="$number\_of\_nodes\_in\_element(1) + number\_of\_nodes\_in\_element(2) +
 \cdots + number\_of\_nodes\_in\_element(e-1) + 1$"></SPAN> in <TT>elementConn</TT>.
 
@@ -53283,7 +53309,7 @@ The parameters to this call <TT>nodeIds</TT>, <TT>nodeCoords</TT>, and
      in <TT>nodeCoords</TT> consists of spatial dimension coordinates, so the coordinates
      for node <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img98.png"
+ SRC="img61.png"
  ALT="$n$"></SPAN> in the <TT>nodeIds</TT> array will start at <!-- MATH
  $(n-1)*spatialDim+1$
  -->
@@ -53477,7 +53503,7 @@ The parameters to this call <TT>nodeIds</TT>, <TT>nodeCoords</TT>, and
      in <TT>nodeCoords</TT> consists of spatial dimension coordinates, so the coordinates
      for node <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img98.png"
+ SRC="img61.png"
  ALT="$n$"></SPAN> in the <TT>nodeIds</TT> array will start at <!-- MATH
  $(n-1)*spatialDim+1$
  -->
@@ -53493,7 +53519,7 @@ The parameters to this call <TT>elementIds</TT>, <TT>elementTypes</TT>, and
      and <TT>elementTypes</TT>. Each entry in <TT>elementConn</TT> consists of the list of
      nodes used to create that element, so the connections for element <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img96.png"
+ SRC="img97.png"
  ALT="$e$"></SPAN> in the
      <TT>elementIds</TT> array will start at <!-- MATH
  $number\_of\_nodes\_in\_element(1) + number\_of\_nodes\_in\_element(2) +
@@ -53501,7 +53527,7 @@ The parameters to this call <TT>elementIds</TT>, <TT>elementTypes</TT>, and
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="840" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="img97.png"
+ SRC="img98.png"
  ALT="$number\_of\_nodes\_in\_element(1) + number\_of\_nodes\_in\_element(2) +
 \cdots + number\_of\_nodes\_in\_element(e-1) + 1$"></SPAN> in <TT>elementConn</TT>.
 
@@ -54094,7 +54120,7 @@ The parameters to this call <TT>elementIds</TT>, <TT>elementTypes</TT>, and
      and <TT>elementTypes</TT>. The argument <TT>elementCornerCoords</TT> consists of a list of
      all the corners used to create all the elements, so the corners for element <SPAN CLASS="MATH"><IMG
  WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img96.png"
+ SRC="img97.png"
  ALT="$e$"></SPAN> in the
      <TT>elementTypes</TT> array will start at <!-- MATH
  $number\_of\_corners\_in\_element(1)
@@ -55440,7 +55466,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="68513"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="68545"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -57327,7 +57353,7 @@ The default decomposition for a DistGrid of rank <SPAN CLASS="MATH"><IMG
  SRC="img114.png"
  ALT="$N-1$"></SPAN> factors of <SPAN CLASS="MATH"><IMG
  WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img76.png"
+ SRC="img77.png"
  ALT="$1$"></SPAN>. For the 2D example above this means
    a <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
@@ -57953,7 +57979,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="70623"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="70655"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -58131,7 +58157,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="70275"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="70307"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -58354,7 +58380,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="70624"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="70656"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -58638,7 +58664,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="70388"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="70420"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -58703,7 +58729,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="70403"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="70435"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -58760,7 +58786,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="70419"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="70451"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -59009,7 +59035,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="70626"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="70658"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -59167,7 +59193,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="70627"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="70659"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -59238,7 +59264,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="70535"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="70567"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -59346,7 +59372,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="70547"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="70579"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -59417,7 +59443,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="70558"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="70590"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -59616,7 +59642,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="70590"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="70622"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -59740,7 +59766,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="70598"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="70630"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
@@ -61133,7 +61159,7 @@ In addition to the arbitrarily distributed dimension, regular DistGrid
        dimensions can be specified in <TT>minIndexPTile</TT> and <TT>maxIndexPTile</TT>. The
        <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img98.png"
+ SRC="img61.png"
  ALT="$n$"></SPAN> dimensional subspace spanned by the regular dimensions is "multiplied"
        with the arbitrary dimension on each DE, to form a <SPAN CLASS="MATH"><IMG
  WIDTH="41" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
@@ -63263,7 +63289,7 @@ Notice that ESMF implements a throttle on the VMEpoch as to limit the number
    increasing memory pressure on the receiving side, ultimatily resulting in
    out-of-memory conditions. The default throttle in VMEpoch is set to <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="img75.png"
+ SRC="img76.png"
  ALT="$10$"></SPAN>
    outstanding message between any two PETs. It can be adjusted by specifying
    the <TT>throttle</TT> argument when calling <TT>ESMF_VMEpochEnter()</TT>.
