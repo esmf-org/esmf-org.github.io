@@ -1242,7 +1242,7 @@ $external_latex_labels{$key} = q|12.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:systemreq/;
-$external_latex_labels{$key} = q|9.3|; 
+$external_latex_labels{$key} = q|9.3.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:xerces/;
