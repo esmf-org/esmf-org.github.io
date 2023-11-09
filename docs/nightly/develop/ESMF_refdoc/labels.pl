@@ -362,10 +362,6 @@ $key = q/cite_Hat84/;
 $external_labels{$key} = "$URL/" . q|node8.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/cite_IEEE-Floating-Point/;
-$external_labels{$key} = "$URL/" . q|node8.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/cite_ISO/;
 $external_labels{$key} = "$URL/" . q|node8.html|; 
 $noresave{$key} = "$nosave";
@@ -375,10 +371,6 @@ $external_labels{$key} = "$URL/" . q|node8.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/cite_JDNcalculator/;
-$external_labels{$key} = "$URL/" . q|node8.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_Kahan-IEEE-754/;
 $external_labels{$key} = "$URL/" . q|node8.html|; 
 $noresave{$key} = "$nosave";
 
@@ -415,10 +407,6 @@ $external_labels{$key} = "$URL/" . q|node8.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/cite_Sierra/;
-$external_labels{$key} = "$URL/" . q|node8.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_XML-W3C/;
 $external_labels{$key} = "$URL/" . q|node8.html|; 
 $noresave{$key} = "$nosave";
 

@@ -362,10 +362,6 @@ $key = q/cite_Hat84/;
 $ref_files{$key} = "$dir".q|node8.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/cite_IEEE-Floating-Point/;
-$ref_files{$key} = "$dir".q|node8.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/cite_ISO/;
 $ref_files{$key} = "$dir".q|node8.html|; 
 $noresave{$key} = "$nosave";
@@ -375,10 +371,6 @@ $ref_files{$key} = "$dir".q|node8.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/cite_JDNcalculator/;
-$ref_files{$key} = "$dir".q|node8.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_Kahan-IEEE-754/;
 $ref_files{$key} = "$dir".q|node8.html|; 
 $noresave{$key} = "$nosave";
 
@@ -415,10 +407,6 @@ $ref_files{$key} = "$dir".q|node8.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/cite_Sierra/;
-$ref_files{$key} = "$dir".q|node8.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/cite_XML-W3C/;
 $ref_files{$key} = "$dir".q|node8.html|; 
 $noresave{$key} = "$nosave";
 
