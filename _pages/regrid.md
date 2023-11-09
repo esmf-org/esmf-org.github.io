@@ -32,16 +32,16 @@ There are several ways to use ESMF regridding.
   - **Fortran:**  Within Fortran code, such as in a coupled numerical
     model, ESMF regridding can be called to generate and apply interpolation
     weights.  This is sometimes called "online" or "integrated" regridding.
-    See the [Field regridding](/docs/release/ESMF_8_0_1/ESMF_refdoc/node5.html#sec:fieldregrid)
+    See the [Field regridding](/docs/release/latest/ESMF_refdoc/node5.html#sec:fieldregrid)
     section of the ESMF Reference Manual for more information on this option.
     The NUOPC Layer provides automatic regridding between components using
-    [Connector](/docs/release/ESMF_8_0_1/NUOPC_refdoc/node3.html#SECTION00031000000000000000) components.
+    [Connector](/docs/release/latest/NUOPC_refdoc/node3.html#SECTION00031000000000000000) components.
 
   - **Command line:**  Two command line appliations are installed with
     ESMF to generate and optionally apply interpolation weights from the
     command line using NetCDF files.  These applications are
-    [ESMF_RegridWeightGen](/docs/release/ESMF_8_0_1/ESMF_refdoc/node3.html#SECTION03020000000000000000),
-    which generates interpolation weights and [ESMF_Regrid](/docs/release/ESMF_8_0_1/ESMF_refdoc/node3.html#SECTION03030000000000000000),
+    [ESMF_RegridWeightGen](/docs/release/latest/ESMF_refdoc/node3.html#SECTION03020000000000000000),
+    which generates interpolation weights and [ESMF_Regrid](/docs/release/latest/ESMF_refdoc/node3.html#SECTION03030000000000000000),
     which generates and applies interpolation weights.
 
    - **Python:** In Python scripts, the access to ESMF regridding
