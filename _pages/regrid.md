@@ -169,6 +169,22 @@ See the "Grid File Formats" section in the reference manual for a more in-depth 
 
 
 
+### <a name="regridstatus-860"/> Status of Regridding Methods (covers release 8.6.0)
+
+Changes compared to previous releases are indicated by a purple border
+in the status tables. The only change is addition of the "Vector Regridding"
+option.
+
+#### Online (integrated) Regridding
+![Online Regridding Status](/assets/images/RegridStatusIntegrated_8_6_0.png)
+
+#### Offline Regridding
+![Offline Regridding Status](/assets/images/RegridStatusOffline_8_6_0.png)
+
+#### Regridding Options Status
+![Regridding Options Status](/assets/images/RegridStatusOptions_8_6_0.png)
+
+
 ### <a name="regridstatus-850"/><a name="regridstatus-842"/><a name="regridstatus-841"/><a name="regridstatus-840"/><a name="regridstatus-830-etc"/><a name="-status-of-regridding-methods-covers-release-830"/> Status of Regridding Methods (covers releases 8.3.0/8.3.1/8.4.0/8.4.1/8.4.2/8.5.0)
 
 #### Online (integrated) Regridding
