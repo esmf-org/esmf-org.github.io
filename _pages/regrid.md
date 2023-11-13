@@ -172,8 +172,8 @@ See the "Grid File Formats" section in the reference manual for a more in-depth 
 ### <a name="regridstatus-860"/> Status of Regridding Methods (covers release 8.6.0)
 
 Changes compared to previous releases are indicated by a purple border
-in the status tables. The only change is addition of the "Vector Regridding"
-option.
+in the status tables below. The only change with this release is the addition
+of the "Vector Regridding" option.
 
 #### Online (integrated) Regridding
 ![Online Regridding Status](/assets/images/RegridStatusIntegrated_8_6_0.png)
