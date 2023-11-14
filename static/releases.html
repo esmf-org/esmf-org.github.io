@@ -129,6 +129,104 @@ missing or have formatting errors.
 </tr>
 
 
+<!--ESMF_8_6_0-->
+<tr valign="top">
+<td ><a name="8_6_0"></a>
+<a href="https://github.com/esmf-org/esmf/releases/tag/v8.6.0">
+v8.6.0</a>
+<br>
+<br>
+Reference Manual for Fortran<br>
+<a href="/docs/release/ESMF_8_6_0/ESMF_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_6_0/ESMF_refdoc.pdf">(pdf)</a>
+<br><br>
+Reference Manual for C<br>
+<a href="/docs/release/ESMF_8_6_0/ESMC_crefdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_6_0/ESMC_crefdoc.pdf">(pdf)</a>
+<br><br>
+User's Guide<br>
+<a href="/docs/release/ESMF_8_6_0/ESMF_usrdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_6_0/ESMF_usrdoc.pdf">(pdf)</a>
+<br><br>
+NUOPC Layer Reference Manual<br>
+<a href="/docs/release/ESMF_8_6_0/NUOPC_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_6_0/NUOPC_refdoc.pdf">(pdf)</a>
+<br><br>
+Building a NUOPC Model Manual<br>
+<a href="/docs/release/ESMF_8_6_0/NUOPC_howtodoc/">(html)</a>
+<a href="/docs/release/ESMF_8_6_0/NUOPC_howtodoc.pdf">(pdf)</a>
+<br><br>
+ESMPy Documentation <br>
+<a href="/esmpy_doc/release/ESMF_8_6_0/html">(html)</a>
+<a href="/esmpy_doc/release/ESMF_8_6_0/ESMPy.pdf">(pdf)</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/regrid/#regridstatus-850">Regridding Status</a>
+<br><br>
+<a href="/release/platforms_8_6_0">Supported Platforms</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_6_0/API-850-860.pdf">API Changes since v8.5.0</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_Testing_Metrics.html">API Test Coverage</a>
+</td>
+
+<td>11/14/23</td>
+
+<td>
+
+<ul>
+
+<li>The public Fortran API in this release is backward compatible with the previous release, ESMF 8.5.0. There were a few API changes, none of which require user code changes. The complete list of API changes is summarized in a <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_6_0/API-850-860.pdf">table showing interface changes since ESMF 8.5.0</a>. The table includes the rationale and impact for each change.
+
+<li>No bit-for-bit changes were observed for this release compared to ESMF 8.5.0. This is based on test runs with the Intel compilers using options "-O2 -fp-model precise". However, changes were made to the implementation of the conservative weight calculation to remove a problem caused by the same calculation being optimized differently in two places in the code. Bit-for-bit changes compared to ESMF 8.5.0 from this change are possible when using regridding methods ESMF_REGRIDMETHOD_CONSERVE or ESMF_REGRIDMETHOD_CONSERVE_2ND and not using strict floating point compiler options.
+
+<li>No changes that affect the status of existing regridding methods were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. However, the tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#regridstatus-860">ESMF regridding status</a> were extended to cover the spherical vector regridding option added in this release.
+
+<li>Keys to match all of the ESMF_RUNTIME_* environment variables were added to the <a href="https://github.com/esmf-org/esmf/tree/develop/src/addon/ESMX#esmxapp-options">App Options</a> of the ESMX run configuration. This feature provides a convenient way to control the run-time behavior of the ESMX executable from its standard configuration file.
+
+<li>Basic accelerator device management for multi-component applications was implemented. This feature allows the user to assign accelerator devices via the "devList" option to individual components. "devList" is available as a new argument to <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node4.html#SECTION04034400000000000000">ESMF_GridCompCreate()</a> and <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node4.html#SECTION04044400000000000000">ESMF_CplCompCreate()</a>, and is also accessible on the ESMX level as <a href="https://github.com/esmf-org/esmf/tree/develop/src/addon/ESMX#component-label-options">Component Label Option</a>. Once specified, ESMF handles the device bookkeeping, and provides the user with context specific device information through the <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node6.html#SECTION0601361800000000000000">ESMF_VMGet()</a> API. This feature can be leveraged in connection with popular accelerator programming paradigms like OpenACC, OpenMP, or standard language approaches to offload component code to the desired devices.
+
+<li>Basic support for <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050121700000000000000">vector regridding</a> was added to the <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050366900000000000000">ESMF_FieldRegridStore()</a> method. The initial implementation of this feature is limited to 2D tangential vectors (expressed in terms of east and north components) on a spherical geometry (e.g. an ESMF_Grid with ESMF_COORDSYS_SPH_DEG) and requires that the vector components are stored in an ungridded Field dimension. The advantage of using this capability, which maps vectors through 3D Cartesian space, instead of regridding both components separately, is that it provides more accurate results, particularly in the polar regions.
+
+<li>The "normalization" attribute in mapping files written by the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a> was changed to now correctly set "N/A" for anything other than the conservative regridding methods. User code that accesses the "normalization" attribute in ESMF mapping files might need to be adjusted accordingly.
+
+<li>A new entry point was added to the <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050363000000000000000">ESMF_FieldCreate()</a> interface allowing creation from an existing Field object. The interface supports slicing with respect to trailing ungridded dimensions.
+
+<li>The <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050551500000000000000">ESMF_ArrayCreate()</a> entry point that allows creation from an existing Array object was extended to support slicing with respect to trailing undistributed dimensions.
+
+<li>The Read and Write operations for multi-tile Arrays and Fields (e.g., for representing a cubed sphere grid as a six-tile grid) have been extended to permit I/O for Arrays / Fields with layouts other than 1 DE per PET. This change applies to the <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050552700000000000000">ESMF_ArrayRead()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050554700000000000000">ESMF_ArrayWrite()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050451600000000000000">ESMF_ArrayBundleRead()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050452700000000000000">ESMF_ArrayBundleWrite()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050366000000000000000">ESMF_FieldRead()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050368200000000000000">ESMF_FieldWrite()</a>, <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050251900000000000000">ESMF_FieldBundleRead()</a>, and <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050253900000000000000">ESMF_FieldBundleWrite()</a> methods. The remaining limitations of the implementation are discussed in the <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050154000000000000000">Restrictions and Future Work section of the I/O Capability</a> in the reference manual.
+
+<li>A basic <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMC_crefdoc/node6.html#SECTION060100000000000000000">ESMF C API</a> was added to provide access to the ESMF tracing and profiling capability from code written in C.
+
+<li>Crashes that were observed with ESMF applications during MPI_Finalize() with the Darshan or Cray Performance Analysis Tool active have been resolved. (The issue was traced back to an interaction with the MPI Tools interface that used to be initialized during ESMF_Initialize(). ESMF no longer initializes the MPI Tools interface by default to avoid this problem.)
+
+<li>The issues noted in previous releases with regard to using the <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node6.html#SECTION060142400000000000000">ESMF tracing and profiling feature for MPI calls</a> have been resolved. This capability is now fully functional on all the supported platforms.
+
+<li>NVIDIA's NVHPC compiler suite is now fully supported by ESMF for both ESMF_OS=Linux and ESMF_OS=Unicos, and setting ESMF_COMPILER=nvhpc. This is particularly important for users looking at exploring ESMF accelerator device support on systems with NVIDIA GPUs.
+
+</ul>
+
+</td>
+
+<td>
+<ul>
+
+<li>Using vector regridding (vectorRegrid=.true.) through the <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050366900000000000000">ESMF_FieldRegridStore()</a> interface in combination with either conservative regridding method (regridmethod=ESMF_REGRIDMETHOD_CONSERVE or regridmethod=ESMF_REGRIDMETHOD_CONSERVE_2ND) currently results in an error. 
+
+<li>Attempting to write weight files from the ESMPy Regrid object when using <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_6_0/html/FileMode.html">filemode=FileMode.WITHAUX</a> currently crashes.
+<p>
+
+    <strong>Platform-specific issues:</strong>
+</p>
+
+<li>Compiling ESMF with GCC version 8.1.0 triggers an internal compiler error in ESMF_HConfig.F90 due to the use of allocatable character variables. Earlier and later versions of GCC do not have this issue.
+
+<li>On Darwin, with version 15 of the clang C compiler, when building under Rosetta, it is sometimes necessary to add "-Wl,-ld_classic" to environment variables ESMF_CXXLINKOPTS, ESMF_CLINKOPTS, and ESMF_F90LINKOPTS to work around link errors. (For more details, see the related <a href="https://github.com/esmf-org/esmf/issues/193">GitHub issue</a>.)
+
+</ul>
+</td>
+</tr>
+
+
 <!--ESMF_8_5_0-->
 <tr valign="top">
 <td ><a name="8_5_0"></a>
