@@ -514,6 +514,10 @@ $key = q/const:coordsys/;
 $external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/const:cubedspherecalcflag/;
+$external_labels{$key} = "$URL/" . q|node9.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/const:datacopyflag/;
 $external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
@@ -2165,12 +2169,16 @@ $key = q/const:coordsys/;
 $external_latex_labels{$key} = q|54.11|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:datacopyflag/;
+$key = q/const:cubedspherecalcflag/;
 $external_latex_labels{$key} = q|54.12|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:decompflag/;
+$key = q/const:datacopyflag/;
 $external_latex_labels{$key} = q|54.13|; 
+$noresave{$key} = "$nosave";
+
+$key = q/const:decompflag/;
+$external_latex_labels{$key} = q|54.14|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:direction/;
@@ -2190,19 +2198,19 @@ $external_latex_labels{$key} = q|26.2.1|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:fileformatflag/;
-$external_latex_labels{$key} = q|54.19|; 
-$noresave{$key} = "$nosave";
-
-$key = q/const:filemodeflag/;
 $external_latex_labels{$key} = q|54.20|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:filestatusflag/;
+$key = q/const:filemodeflag/;
 $external_latex_labels{$key} = q|54.21|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:geomtype/;
+$key = q/const:filestatusflag/;
 $external_latex_labels{$key} = q|54.22|; 
+$noresave{$key} = "$nosave";
+
+$key = q/const:geomtype/;
+$external_latex_labels{$key} = q|54.23|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:gridconn/;
@@ -2222,27 +2230,27 @@ $external_latex_labels{$key} = q|31.2.4|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:indexflag/;
-$external_latex_labels{$key} = q|54.27|; 
+$external_latex_labels{$key} = q|54.28|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:ionetcdfflag/;
-$external_latex_labels{$key} = q|54.29|; 
-$noresave{$key} = "$nosave";
-
-$key = q/const:iopioflag/;
 $external_latex_labels{$key} = q|54.30|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:iopnetcdfflag/;
+$key = q/const:iopioflag/;
 $external_latex_labels{$key} = q|54.31|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:itemorderflag/;
+$key = q/const:iopnetcdfflag/;
 $external_latex_labels{$key} = q|54.32|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:kind/;
+$key = q/const:itemorderflag/;
 $external_latex_labels{$key} = q|54.33|; 
+$noresave{$key} = "$nosave";
+
+$key = q/const:kind/;
+$external_latex_labels{$key} = q|54.34|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:logerr/;
@@ -2270,19 +2278,19 @@ $external_latex_labels{$key} = q|33.2.1|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:meshloc/;
-$external_latex_labels{$key} = q|54.39|; 
-$noresave{$key} = "$nosave";
-
-$key = q/const:meshop/;
 $external_latex_labels{$key} = q|54.40|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:meshstatus/;
+$key = q/const:meshop/;
 $external_latex_labels{$key} = q|54.41|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:method/;
+$key = q/const:meshstatus/;
 $external_latex_labels{$key} = q|54.42|; 
+$noresave{$key} = "$nosave";
+
+$key = q/const:method/;
+$external_latex_labels{$key} = q|54.43|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:pin_flag/;
@@ -2294,19 +2302,19 @@ $external_latex_labels{$key} = q|31.2.5|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:polemethod/;
-$external_latex_labels{$key} = q|54.46|; 
-$noresave{$key} = "$nosave";
-
-$key = q/const:reduce/;
 $external_latex_labels{$key} = q|54.47|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:region/;
+$key = q/const:reduce/;
 $external_latex_labels{$key} = q|54.48|; 
 $noresave{$key} = "$nosave";
 
+$key = q/const:region/;
+$external_latex_labels{$key} = q|54.49|; 
+$noresave{$key} = "$nosave";
+
 $key = q/const:routesync/;
-$external_latex_labels{$key} = q|54.51|; 
+$external_latex_labels{$key} = q|54.52|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:servicereply_flag/;
@@ -2318,7 +2326,7 @@ $external_latex_labels{$key} = q|31.2.6|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:startregion/;
-$external_latex_labels{$key} = q|54.54|; 
+$external_latex_labels{$key} = q|54.55|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:stateintent/;
@@ -2330,23 +2338,23 @@ $external_latex_labels{$key} = q|21.2.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/const:sync/;
-$external_latex_labels{$key} = q|54.57|; 
-$noresave{$key} = "$nosave";
-
-$key = q/const:termorderflag/;
 $external_latex_labels{$key} = q|54.58|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:typekind/;
+$key = q/const:termorderflag/;
 $external_latex_labels{$key} = q|54.59|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:unmappedaction/;
+$key = q/const:typekind/;
 $external_latex_labels{$key} = q|54.60|; 
 $noresave{$key} = "$nosave";
 
-$key = q/const:version/;
+$key = q/const:unmappedaction/;
 $external_latex_labels{$key} = q|54.61|; 
+$noresave{$key} = "$nosave";
+
+$key = q/const:version/;
+$external_latex_labels{$key} = q|54.62|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:vmepoch_flag/;
@@ -2598,27 +2606,27 @@ $external_latex_labels{$key} = q|49|;
 $noresave{$key} = "$nosave";
 
 $key = q/opt:extrapmethod/;
-$external_latex_labels{$key} = q|54.17|; 
+$external_latex_labels{$key} = q|54.18|; 
 $noresave{$key} = "$nosave";
 
 $key = q/opt:iofmtflag/;
-$external_latex_labels{$key} = q|54.28|; 
+$external_latex_labels{$key} = q|54.29|; 
 $noresave{$key} = "$nosave";
 
 $key = q/opt:lineType/;
-$external_latex_labels{$key} = q|54.34|; 
+$external_latex_labels{$key} = q|54.35|; 
 $noresave{$key} = "$nosave";
 
 $key = q/opt:normType/;
-$external_latex_labels{$key} = q|54.43|; 
+$external_latex_labels{$key} = q|54.44|; 
 $noresave{$key} = "$nosave";
 
 $key = q/opt:regridmethod/;
-$external_latex_labels{$key} = q|54.49|; 
+$external_latex_labels{$key} = q|54.50|; 
 $noresave{$key} = "$nosave";
 
 $key = q/opt:regridstatus/;
-$external_latex_labels{$key} = q|54.50|; 
+$external_latex_labels{$key} = q|54.51|; 
 $noresave{$key} = "$nosave";
 
 $key = q/part:CLTs/;
