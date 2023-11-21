@@ -580,7 +580,8 @@ Component that drives and coordinates initialization of its child components: Mo
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_DriverAddComp()
    recursive subroutine NUOPC_DriverAddGridComp(driver, compLabel, &amp;
-     compSetServicesRoutine, compSetVMRoutine, petList, info, config, comp, rc)
+     compSetServicesRoutine, compSetVMRoutine, petList, devList, info, config, &amp;
+     comp, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp)                               :: driver
      character(len=*),    intent(in)                   :: compLabel
@@ -621,6 +622,7 @@ Component that drives and coordinates initialization of its child components: Mo
      procedure(SetVMRoutine),                 optional :: compSetVMRoutine
  #endif
      integer,             intent(in),         optional :: petList(:)
+     integer,             intent(in),         optional :: devList(:)
      type(ESMF_Info),     intent(in),         optional :: info
      type(ESMF_Config),   intent(in),         optional :: config
      type(ESMF_GridComp), intent(out),        optional :: comp
@@ -678,12 +680,13 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_DriverAddComp()
    recursive subroutine NUOPC_DriverAddGridCompSO(driver, compLabel, &amp;
-     sharedObj, petList, info, config, comp, rc)
+     sharedObj, petList, devList, info, config, comp, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp)                        :: driver
      character(len=*),    intent(in)            :: compLabel
      character(len=*),    intent(in),  optional :: sharedObj
      integer,             intent(in),  optional :: petList(:)
+     integer,             intent(in),  optional :: devList(:)
      type(ESMF_Info),     intent(in),  optional :: info
      type(ESMF_Config),   intent(in),  optional :: config
      type(ESMF_GridComp), intent(out), optional :: comp
@@ -737,8 +740,8 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_DriverAddComp()
    recursive subroutine NUOPC_DriverAddCplComp(driver, srcCompLabel, &amp;
-     dstCompLabel, compSetServicesRoutine, compSetVMRoutine, petList, info, &amp;
-     config, comp, rc)
+     dstCompLabel, compSetServicesRoutine, compSetVMRoutine, petList, devList, &amp;
+     info, config, comp, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp)                               :: driver
      character(len=*),    intent(in)                   :: srcCompLabel
@@ -780,6 +783,7 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
      procedure(SetVMRoutine),                 optional :: compSetVMRoutine
  #endif
      integer, target,     intent(in),         optional :: petList(:)
+     integer, target,     intent(in),         optional :: devList(:)
      type(ESMF_Info),     intent(in),         optional :: info
      type(ESMF_Config),   intent(in),         optional :: config
      type(ESMF_CplComp),  intent(out),        optional :: comp

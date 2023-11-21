@@ -5002,17 +5002,19 @@ a complete geometrical description of the exchange grid.
 
 <P>
 Once an <TT>ESMC_XGrid</TT> has been created, information describing it (e.g. cell areas, mesh representation, etc.)
-can be retrieved from the object using a set of get calls (e.g. <TT>ESMC_XGridGetElementArea()). The full extent of these
+can be retrieved from the object using a set of get calls (e.g. <TT>ESMC_XGridGetElementArea()</TT>). The full extent of these
 can be found in the API section below.  
-</TT>
+
 <H2><A NAME="SECTION05072000000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN> Restrictions and Future Work</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <H3><A NAME="SECTION05072100000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> Restrictions and Future Work</A>
 </H3>
+
 <P>
 
 <A NAME="XGrid:rest"></A>
@@ -5027,13 +5029,15 @@ as they are stored in different memory.
 <P>
 </LI>
 </OL>
+
 <P>
-<TT></TT>
+
 <H2><A NAME="SECTION05073000000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN> Design and Implementation Notes</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <OL>
 <LI>The XGrid class is implemented in Fortran, and as such is
 defined inside the framework by a XGrid derived type and a set of 
@@ -5050,23 +5054,28 @@ same XGrids at the same point in their execution.
 In addition to the unison rule, XGrid creation also performs inter-PET
 communication within the current executing VM. 
 </LI>
-</OL><TT>
-</TT>
+</OL>
+
 <H2><A NAME="SECTION05074000000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05074100000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN> ESMC_XGridCreate - Create an XGrid</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   ESMC_XGrid ESMC_XGridCreate(
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   ESMC_XGrid ESMC_XGridCreate(
                                int sideAGridCount,  ESMC_Grid *sideAGrid, // in
                                int sideAMeshCount,  ESMC_Mesh *sideAMesh, // in
                                int sideBGridCount,  ESMC_Grid *sideBGrid, // in
@@ -5080,22 +5089,22 @@ communication within the current executing VM.
                                int storeOverlay,                          // in
                                int *rc                                    // out
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    Newly created ESMC_XGrid object.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    Newly created ESMC_XGrid object.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Create an <TT>ESMC_XGrid</TT> object from user supplied input: the list of Grids or Meshes on side A and side B, 
+Create an <TT>ESMC_XGrid</TT> object from user supplied input: the list of Grids or Meshes on side A and side B, 
     and other optional arguments. A user can supply both Grids and Meshes on one side to create
     the XGrid. By default, the Grids have a higher priority over Meshes but the order of priority 
     can be adjusted by the optional GridPriority and MeshPriority arguments. The priority order
     of Grids and Meshes can also be interleaved by rearranging the optional 
     GridPriority and MeshPriority arguments accordingly.
-</TT>
+
 <P>
-<TT>Sparse matrix multiplication coefficients are internally computed and
+Sparse matrix multiplication coefficients are internally computed and
     uniquely determined by the Grids or Meshes provided in <TT>sideA</TT> and <TT>sideB</TT>. User can supply
     a single <TT>ESMC_Grid</TT> or an array of <TT>ESMC_Grid</TT> on either side of the 
     <TT>ESMC_XGrid</TT>. For an array of <TT>ESMC_Grid</TT> or <TT>ESMC_Mesh</TT> in <TT>sideA</TT> or <TT>sideB</TT>,
@@ -5106,21 +5115,21 @@ communication within the current executing VM.
     the corners of a Grid or Mesh cell. XGrid creation can be potentially memory expensive given the
     size of the input Grid and Mesh objects. By default, the super mesh is not stored
     to reduce memory usage. 
-</TT>
+
 <P>
-<TT>If <TT>sideA</TT> and <TT>sideB</TT> have a single 
+If <TT>sideA</TT> and <TT>sideB</TT> have a single 
     Grid or Mesh object, it's erroneous
     if the two Grids or Meshes are spatially disjoint. 
     It is also erroneous to specify a Grid or Mesh object in <TT>sideA</TT> or <TT>sideB</TT>
     that is spatially disjoint from the <TT>ESMC_XGrid</TT>. 
-</TT>
+
 <P>
-<TT>This call is <EM>collective</EM> across the current VM. For more details please refer to the description 
+This call is <EM>collective</EM> across the current VM. For more details please refer to the description 
     <A HREF="#sec:xgrid:desc">21.1</A> of the XGrid class. 
-</TT>
+
 <P>
-<TT>The arguments are:
-       </TT><DL>
+The arguments are:
+       <DL>
 <DT><STRONG>sideAGridCount</STRONG></DT>
 <DD>The number of Grids in the <TT>sideAGrid</TT> array.
        
@@ -5215,61 +5224,71 @@ communication within the current executing VM.
        
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05074200000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">2</SPAN> ESMC_XGridDestroy - Destroy a XGrid</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> int ESMC_XGridDestroy(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> int ESMC_XGridDestroy(
    ESMC_XGrid *xgrid     // inout
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    Return code; equals ESMF_SUCCESS if there are no errors.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    Return code; equals ESMF_SUCCESS if there are no errors.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Releases all resources associated with this <TT>ESMC_XGrid</TT>.
+Releases all resources associated with this <TT>ESMC_XGrid</TT>.
       Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
-</TT>
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>Destroy contents of this <TT>ESMC_XGrid</TT>.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05074300000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">3</SPAN> ESMC_XGridGetSideAGridCount - Get the number of Grids on side A.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> int ESMC_XGridGetSideAGridCount(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> int ESMC_XGridGetSideAGridCount(
    ESMC_XGrid xgrid,     // in
    int *rc               // out
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    The number of Grids on side A.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    The number of Grids on side A.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the number of Grids on side A. 
-</TT>
+Get the number of Grids on side A. 
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5279,31 +5298,36 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05074400000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">4</SPAN> ESMC_XGridGetSideAMeshCount - Get the number of Meshes on side A.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> int ESMC_XGridGetSideAMeshCount(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> int ESMC_XGridGetSideAMeshCount(
    ESMC_XGrid xgrid,     // in
    int *rc               // out
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    The number of Meshes on side A.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    The number of Meshes on side A.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the number of Meshes on side A. 
-</TT>
+Get the number of Meshes on side A. 
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5313,31 +5337,36 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05074500000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">5</SPAN> ESMC_XGridGetSideBGridCount - Get the number of Grids on side B.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> int ESMC_XGridGetSideBGridCount(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> int ESMC_XGridGetSideBGridCount(
    ESMC_XGrid xgrid,     // in
    int *rc               // out
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    The number of Grids on side B.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    The number of Grids on side B.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the number of Grids on side B. 
-</TT>
+Get the number of Grids on side B. 
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5347,31 +5376,36 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05074600000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">6</SPAN> ESMC_XGridGetSideBMeshCount - Get the number of Meshes on side B.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> int ESMC_XGridGetSideBMeshCount(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> int ESMC_XGridGetSideBMeshCount(
    ESMC_XGrid xgrid,     // in
    int *rc               // out
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    The number of Meshes on side B.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    The number of Meshes on side B.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the number of Meshes on side B. 
-</TT>
+Get the number of Meshes on side B. 
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5381,31 +5415,36 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05074700000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">7</SPAN> ESMC_XGridGetDimCount - Get the dimension of the XGrid.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> int ESMC_XGridGetDimCount(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> int ESMC_XGridGetDimCount(
    ESMC_XGrid xgrid,     // in
    int *rc               // out
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    The dimension of the XGrid.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    The dimension of the XGrid.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the dimension of the XGrid.
-</TT>
+Get the dimension of the XGrid.
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5415,31 +5454,36 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05074800000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">8</SPAN> ESMC_XGridGetElementCount - Get the number of elements in the XGrid.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> int ESMC_XGridGetElementCount(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> int ESMC_XGridGetElementCount(
    ESMC_XGrid xgrid,     // in
    int *rc               // out
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>       The number of elements in the XGrid.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>       The number of elements in the XGrid.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the number of elements in the XGrid.
-</TT>
+Get the number of elements in the XGrid.
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5449,31 +5493,36 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05074900000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">9</SPAN> ESMC_XGridGetMesh - Get the Mesh representation of the XGrid. </A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> ESMC_Mesh ESMC_XGridGetMesh(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> ESMC_Mesh ESMC_XGridGetMesh(
    ESMC_XGrid xgrid,     // in
    int *rc               // out
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    The ESMC_Mesh object representing the XGrid.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    The ESMC_Mesh object representing the XGrid.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the ESMC_Mesh object representing the XGrid. 
-</TT>
+Get the ESMC_Mesh object representing the XGrid. 
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The xgrid from which to get the information. 
     
@@ -5483,32 +5532,37 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION050741000000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">10</SPAN> ESMC_XGridGetElementArea - Get the area of elements in the XGrid.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> void ESMC_XGridGetElementArea(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> void ESMC_XGridGetElementArea(
    ESMC_XGrid xgrid,     // in
    ESMC_R8 *area,        // out
    int *rc               // out
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>       The number of elements in the XGrid.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>       The number of elements in the XGrid.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the number of elements in the XGrid.
-</TT>
+Get the number of elements in the XGrid.
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5523,32 +5577,37 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION050741100000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">11</SPAN> ESMC_XGridGetElementCentroid - Get the centroid of elements in the XGrid.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> void ESMC_XGridGetElementCentroid(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> void ESMC_XGridGetElementCentroid(
    ESMC_XGrid xgrid,     // in
    ESMC_R8 *centroid,    // out
    int *rc               // out
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>       The number of elements in the XGrid.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>       The number of elements in the XGrid.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the centroid for each element in the exchange grid. 
-</TT>
+Get the centroid for each element in the exchange grid. 
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5563,34 +5622,39 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION050741200000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">12</SPAN> ESMC_XGridGetSparseMatA2X - Get the sparse matrix that goes from a side A grid to the exchange grid.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> void ESMC_XGridGetSparseMatA2X(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> void ESMC_XGridGetSparseMatA2X(
                                 ESMC_XGrid xgrid,      // in
                                 int sideAIndex,        // in
                                 int *factorListCount,  // out
                                 double **factorList,   // out
                                 int **factorIndexList, // out
                                 int *rc);
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>       N/A
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>       N/A
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the sparse matrix that goes from a side A grid to the exchange grid.
-</TT>
+Get the sparse matrix that goes from a side A grid to the exchange grid.
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5628,34 +5692,39 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION050741300000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">13</SPAN> ESMC_XGridGetSparseMatA2X - Get the sparse matrix that goes from the exchange grid to a side A grid.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> void ESMC_XGridGetSparseMatX2A(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> void ESMC_XGridGetSparseMatX2A(
                                 ESMC_XGrid xgrid,      // in
                                 int sideAIndex,        // in
                                 int *factorListCount,  // out
                                 double **factorList,   // out
                                 int **factorIndexList, // out
                                 int *rc);
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>       N/A
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>       N/A
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the sparse matrix that goes from the exchange grid to a side A grid. 
-</TT>
+Get the sparse matrix that goes from the exchange grid to a side A grid. 
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5693,34 +5762,39 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION050741400000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">14</SPAN> ESMC_XGridGetSparseMatB2X - Get the sparse matrix that goes from a side B grid to the exchange grid.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> void ESMC_XGridGetSparseMatB2X(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> void ESMC_XGridGetSparseMatB2X(
                                 ESMC_XGrid xgrid,      // in
                                 int sideBIndex,        // in
                                 int *factorListCount,  // out
                                 double **factorList,   // out
                                 int **factorIndexList, // out
                                 int *rc);
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>       N/A
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>       N/A
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the sparse matrix that goes from a side B grid to the exchange grid.
-</TT>
+Get the sparse matrix that goes from a side B grid to the exchange grid.
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5758,34 +5832,39 @@ communication within the current executing VM.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION050741500000000000000">
 <SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">15</SPAN> ESMC_XGridGetSparseMatB2X - Get the sparse matrix that goes from the exchange grid to a side B grid.</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> void ESMC_XGridGetSparseMatX2B(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> void ESMC_XGridGetSparseMatX2B(
                                 ESMC_XGrid xgrid,      // in
                                 int sideBIndex,        // in
                                 int *factorListCount,  // out
                                 double **factorList,   // out
                                 int **factorIndexList, // out
                                 int *rc);
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>       N/A
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>       N/A
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get the sparse matrix that goes from the exchange grid to a side B grid. 
-</TT>
+Get the sparse matrix that goes from the exchange grid to a side B grid. 
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>xgrid</STRONG></DT>
 <DD>The XGrid from which to get the information.
     
@@ -5823,42 +5902,43 @@ communication within the current executing VM.
     
 </DD>
 </DL>
-<P>
-<TT>
 
-</TT>
+<P>
+
+
 <H1><A NAME="SECTION05080000000000000000">
 <SPAN CLASS="arabic">22</SPAN> DistGrid Class</A>
 </H1>
+
 <H2><A NAME="SECTION05081000000000000000">
 <SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
-<TT><A NAME="sec:DistGrid"></A>The ESMF DistGrid class sits on top of the DELayout class (not currently
+<A NAME="sec:DistGrid"></A>The ESMF DistGrid class sits on top of the DELayout class (not currently
 directly accessible through the ESMF C API) and holds domain
 information in index space. 
 A DistGrid object captures the index space topology
 and describes its decomposition in terms of DEs. Combined with DELayout and VM
 the DistGrid defines the data distribution of a domain decomposition across the
 computational resources of an ESMF Component.
-</TT>
+
 <P>
-<TT>The global domain is defined as the union of logically
+The global domain is defined as the union of logically
 rectangular (LR) sub-domains or <EM>tiles</EM>. The DistGrid create methods allow
 the specification of such a multi-tile global domain and its decomposition into
 exclusive, DE-local LR regions according to various degrees of user specified
 constraints. Complex index space topologies can be constructed by specifying
 connection relationships between tiles during creation.
-</TT>
+
 <P>
-<TT>The DistGrid class holds domain information for all DEs. Each DE is associated
+The DistGrid class holds domain information for all DEs. Each DE is associated
 with a local LR region. No overlap of the regions is allowed. The DistGrid
 offers query methods that allow DE-local topology information to be extracted,
 e.g. for the construction of halos by higher classes.
-</TT>
+
 <P>
-<TT>A DistGrid object only contains decomposable dimensions. The minimum rank for a
+A DistGrid object only contains decomposable dimensions. The minimum rank for a
 DistGrid object is 1. A maximum rank does not exist for DistGrid objects, 
 however, ranks greater than 7 may lead to difficulties with respect to the
 Fortran API of higher classes based on DistGrid. The rank of a DELayout object
@@ -5867,34 +5947,39 @@ class objects that use the DistGrid, such as an Array object, may be of
 different rank than the associated DistGrid object. The higher class object
 will hold the mapping information between its dimensions and the DistGrid
 dimensions.
-</TT>
+
 <H2><A NAME="SECTION05082000000000000000">
 <SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN> Class API</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05082100000000000000">
 <SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> ESMC_DistGridCreate - Create a DistGrid</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> ESMC_DistGrid ESMC_DistGridCreate(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> ESMC_DistGrid ESMC_DistGridCreate(
    ESMC_InterArrayInt minIndexInterfaceArg,  // in
    ESMC_InterArrayInt maxIndexInterfaceArg,  // in
    int *rc                                   // out
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    Newly created ESMC_DistGrid object.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    Newly created ESMC_DistGrid object.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Create an <TT>ESMC_DistGrid</TT> from a single logically rectangular (LR) 
+Create an <TT>ESMC_DistGrid</TT> from a single logically rectangular (LR) 
     tile with default decomposition. The default decomposition is 
     <TT>deCount</TT><!-- MATH
  $\times 1 \times ... \times 1$
@@ -5906,10 +5991,10 @@ dimensions.
     number of DEs in a default DELayout, equal to <TT>petCount</TT>. This means
     that the default decomposition will be into as many DEs as there are PETs,
     with 1 DE per PET.
-</TT>
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>minIndex</STRONG></DT>
 <DD>Global coordinate tuple of the lower corner of the tile.
     
@@ -5923,94 +6008,106 @@ dimensions.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05082200000000000000">
 <SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> ESMC_DistGridDestroy - Destroy a DistGrid</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> int ESMC_DistGridDestroy(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> int ESMC_DistGridDestroy(
    ESMC_DistGrid *distgrid         // inout
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    Return code; equals ESMF_SUCCESS if there are no errors.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    Return code; equals ESMF_SUCCESS if there are no errors.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Destroy an <TT>ESMC_DistGrid</TT> object.
-</TT>
+Destroy an <TT>ESMC_DistGrid</TT> object.
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>distgrid</STRONG></DT>
 <DD><TT>ESMC_DistGrid</TT> object to be destroyed.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05082300000000000000">
 <SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN> ESMC_DistGridPrint - Print a DistGrid</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> int ESMC_DistGridPrint(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> int ESMC_DistGridPrint(
    ESMC_DistGrid distgrid          // in
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    Return code; equals ESMF_SUCCESS if there are no errors.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    Return code; equals ESMF_SUCCESS if there are no errors.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Print internal information of the specified <TT>ESMC_DistGrid</TT> object.
-</TT>
+Print internal information of the specified <TT>ESMC_DistGrid</TT> object.
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>distgrid</STRONG></DT>
 <DD><TT>ESMC_DistGrid</TT> object to be destroyed.
     
 </DD>
 </DL>
-<P>
-<TT>
 
-</TT>
+<P>
+
+
 <H1><A NAME="SECTION05090000000000000000">
 <SPAN CLASS="arabic">23</SPAN> RouteHandle Class</A>
 </H1>
+
 <H2><A NAME="SECTION05091000000000000000">
 <SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
-<TT><A NAME="sec:RHandle"></A></TT>
+<A NAME="sec:RHandle"></A>
 <P>
-<TT>The ESMF RouteHandle class provides a unified interface for all route-based communication methods across the Field, FieldBundle, Array, and ArrayBundle classes. All route-based communication methods implement a pre-computation step, returning a RouteHandle, an execution step, and a release step. Typically the pre-computation, or Store() step will be a lot more expensive (both in memory and time) than the execution step. The idea is that once precomputed, a RouteHandle will be executed many times over during a model run, making the execution time a very performance critical piece of code. In ESMF, Regridding, Redisting, and Haloing are implemented as route-based communication methods. The following sections discuss the RouteHandle concepts that apply uniformly to all route-based communication methods, across all of the above mentioned classes.
-</TT>
+The ESMF RouteHandle class provides a unified interface for all route-based communication methods across the Field, FieldBundle, Array, and ArrayBundle classes. All route-based communication methods implement a pre-computation step, returning a RouteHandle, an execution step, and a release step. Typically the pre-computation, or Store() step will be a lot more expensive (both in memory and time) than the execution step. The idea is that once precomputed, a RouteHandle will be executed many times over during a model run, making the execution time a very performance critical piece of code. In ESMF, Regridding, Redisting, and Haloing are implemented as route-based communication methods. The following sections discuss the RouteHandle concepts that apply uniformly to all route-based communication methods, across all of the above mentioned classes.
+
 <P>
-<TT></TT>
+
 <H2><A NAME="SECTION05092000000000000000">
 <SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
-<TT>The user interacts with the RouteHandle class through the route-based communication methods of Field, FieldBundle, Array, and ArrayBundle. The usage of these methods are described in detail under their respective class documentation section. The following examples focus on the RouteHandle aspects common across classes and methods.
-</TT>
+The user interacts with the RouteHandle class through the route-based communication methods of Field, FieldBundle, Array, and ArrayBundle. The usage of these methods are described in detail under their respective class documentation section. The following examples focus on the RouteHandle aspects common across classes and methods.
+
 <H2><A NAME="SECTION05093000000000000000">
 <SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <UL>
 <LI><B>Non-blocking</B> communication via the <TT>routesyncflag</TT> option is implemented for Fields and Arrays. It is <EM>not</EM> available for FieldBundles and ArrayBundles. The user is advised to use the VMEpoch approach for all cases to achive asynchronicity.
 
@@ -6041,15 +6138,15 @@ dimensions.
 
 <P>
 </LI>
-</UL><TT>
-</TT>
+</UL>
+
 <H2><A NAME="SECTION05094000000000000000">
 <SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">4</SPAN> Design and Implementation Notes</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
-<TT>Internally all route-based communication calls are implemented as sparse matrix multiplications. The precompute step for all of the supported communication methods can be broken up into three steps:
-</TT>
+Internally all route-based communication calls are implemented as sparse matrix multiplications. The precompute step for all of the supported communication methods can be broken up into three steps:
+
 <OL>
 <LI>Construction of the sparse matrix for the specific communication method.
 </LI>
@@ -6057,98 +6154,113 @@ dimensions.
 </LI>
 <LI>Encoding of the communication pattern for each participating PET in form of an XXE stream.
 </LI>
-</OL><TT>
-</TT>
+</OL>
+
 <H2><A NAME="SECTION05095000000000000000">
 <SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">5</SPAN> Class API</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05095100000000000000">
 <SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN> ESMC_RouteHandleCreateFromFile - Create a RouteHandle</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> ESMC_RouteHandle ESMC_RouteHandleCreateFromFile(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> ESMC_RouteHandle ESMC_RouteHandleCreateFromFile(
    char *filename,
    int *rc
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    ESMC_RouteHandle
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    ESMC_RouteHandle
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Create an <TT>ESMC_RouteHandle</TT> object.
-</TT>
+Create an <TT>ESMC_RouteHandle</TT> object.
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>filename</STRONG></DT>
 <DD>The file that describes the <TT>ESMC_RouteHandle</TT> object.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05095200000000000000">
 <SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN> ESMC_RouteHandlePrint - Print a RouteHandle</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> int ESMC_RouteHandlePrint(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> int ESMC_RouteHandlePrint(
    ESMC_RouteHandle rh            // in
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    Return code; equals ESMF_SUCCESS if there are no errors.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    Return code; equals ESMF_SUCCESS if there are no errors.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Print internal information of the specified <TT>ESMC_RouteHandle</TT> object.
-</TT>
+Print internal information of the specified <TT>ESMC_RouteHandle</TT> object.
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>rh</STRONG></DT>
 <DD><TT>ESMC_RouteHandle</TT> object to be printed.
     
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION05095300000000000000">
 <SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN> ESMC_RouteHandleWrite - Write a RouteHandle to file</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE> int ESMC_RouteHandleWrite(
+<I CLASS="sans">INTERFACE:</I>
+<PRE> int ESMC_RouteHandleWrite(
    ESMC_RouteHandle rh,          // in
    char *filename                // in
  );
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>    Return code; equals ESMF_SUCCESS if there are no errors.
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>    Return code; equals ESMF_SUCCESS if there are no errors.
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Write <TT>ESMC_RouteHandle</TT> object to file to save regrid information for
+Write <TT>ESMC_RouteHandle</TT> object to file to save regrid information for
     fast input for regridding operations during runtime.
-</TT>
+
 <P>
-<TT>The arguments are:
-    </TT><DL>
+The arguments are:
+    <DL>
 <DT><STRONG>rh</STRONG></DT>
 <DD><TT>ESMC_RouteHandle</TT> object to be printed.
     
@@ -6158,11 +6270,10 @@ dimensions.
     
 </DD>
 </DL>
+
 <P>
-<TT>
 
 
-</TT>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html626"
