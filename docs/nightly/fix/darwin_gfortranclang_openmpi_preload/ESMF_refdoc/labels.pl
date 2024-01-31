@@ -2398,7 +2398,7 @@ $external_latex_labels{$key} = q|40.4.29|;
 $noresave{$key} = "$nosave";
 
 $key = q/esmfstateremovelist/;
-$external_latex_labels{$key} = q|21.7.16|; 
+$external_latex_labels{$key} = q|21.7.17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ex:TraceEx/;
