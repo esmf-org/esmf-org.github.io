@@ -1846,7 +1846,7 @@ $external_latex_labels{$key} = q|33.4.8|;
 $noresave{$key} = "$nosave";
 
 $key = q/API:TimeIntervalSetStr/;
-$external_latex_labels{$key} = q|44.4.25|; 
+$external_latex_labels{$key} = q|44.4.26|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:ArbHalo/;
