@@ -167,6 +167,18 @@ See the "Grid File Formats" section in the reference manual for a more in-depth 
      The value filled into a new location is the average of its already filled neighbors' values. The process of filling unmapped
      neighbors from mapped neighbors is repeated a user specified number of times (levels).
 
+### <a name="regridstatus-861"/> Status of Regridding Methods (covers release 8.6.1)
+
+There was no change in this release compared to 8.6.0.
+
+#### Online (integrated) Regridding
+![Online Regridding Status](/assets/images/RegridStatusIntegrated_8_6_1.png)
+
+#### Offline Regridding
+![Offline Regridding Status](/assets/images/RegridStatusOffline_8_6_1.png)
+
+#### Regridding Options Status
+![Regridding Options Status](/assets/images/RegridStatusOptions_8_6_1.png)
 
 
 ### <a name="regridstatus-860"/> Status of Regridding Methods (covers release 8.6.0)
