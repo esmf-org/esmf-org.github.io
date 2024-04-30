@@ -578,6 +578,10 @@ $key = q/const:gridstatus/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/const:hconfigmatch/;
+$ref_files{$key} = "$dir".q|node6.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/const:indexflag/;
 $ref_files{$key} = "$dir".q|node9.html|; 
 $noresave{$key} = "$nosave";
