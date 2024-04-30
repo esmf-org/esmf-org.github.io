@@ -578,6 +578,10 @@ $key = q/const:gridstatus/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/const:hconfigmatch/;
+$external_labels{$key} = "$URL/" . q|node6.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/const:indexflag/;
 $external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
@@ -2235,6 +2239,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/const:gridstatus/;
 $external_latex_labels{$key} = q|31.2.4|; 
+$noresave{$key} = "$nosave";
+
+$key = q/const:hconfigmatch/;
+$external_latex_labels{$key} = q|48.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:indexflag/;
