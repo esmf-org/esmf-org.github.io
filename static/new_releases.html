@@ -178,8 +178,37 @@ ESMPy Documentation <br>
 
 <li>No changes were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. The ESMF tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#regridstatus-861">ESMF regridding status</a> are unchanged compared to ESMF 8.6.0.
 
-<!-- TODO: FILL RNs HERE-->
+<li> The index space information (minIndex, maxIndex, elementCount) returned by method ESMF_FieldGet() is now correct for a Field on any ESMF_STAGGERLOC (Grid) or ESMF_MESHLOC (Mesh) location.
 
+<li> Enhance ESMF Config by removing the 1024 character limit. It is now possible to set strings to values longer than 1024 characters. The maximum size is determined by the ESMF_Config buffer size, which is 256k.
+
+<li> Multiple bugs in the implementation of ESMF_Config have been fixed.
+<ul>
+  <li> A bug has been fixed that prevented changing values to a different string length.
+  <li> It is now possible to enclose number sign (#) characters within single or double quotes in order to include this character in string values.
+  <li> It is now possible to enclose apostrophes / single quote (‘) characters within double quotes in order to include this character in string values.
+  <li> It is now possible to enclose double quote (“) characters within single quotes in order to include this character in string values.
+  <li> It is now possible to set values to blank and change blank values to non-blank values.
+  <li> Note: ESMF_Config will be deprecated in a future major release for the preferred ESMF_HConfig class, which supports YAML coded configuration files. Deprecation has not been scheduled at this time due to the high impact it will have on existing configuration files.  
+</ul>
+</li>
+
+<li> The ESMF library target within the FindESMF module for CMake has been changed to ‘ESMF::ESMF’. This conforms to the imported library standard as seen in modules provided by Kitware. For backwards compatibility ‘ESMF’ has been added as an alias target.
+
+<li> The issue of inadvertently exporting ISO_C_BINDING symbols via the ESMF Fortran module has been addressed.
+
+<li> ESMF_RUNTIME_ environment variable keys that are set on the top level of the configuration file ingested by the ESMF_Initialize() method are now correctly interpreted.
+
+<li> The ESMF_NVML=OFF build option now works correctly as documented.
+
+<li> The build of libesmftrace_preload.dylib on some Darwin (Mac) systems with OpenMPI has been fixed. (Incorrect link flags were being used in this build.)
+
+<li> The problem of building ESMF with macro ESMF_NO_GETHOSTID defined has been fixed.
+
+<li> The ESMFMesh unstructured mesh file format now correctly begins the connection index calculation at the start_index value when the start_index attribute is attached to the elementConn variable. Previously, beginning in ESMF 8.3.0, this attribute had been incorrectly ignored. 
+
+<li> The ESMF_HConfig and ESMF_HConfigIter equality operators have been fixed. Previously, on some platforms, identical objects could be detected as not equal which could lead to problems with iterations not terminating correctly, etc. 
+  
 </ul>
 
 </td>
