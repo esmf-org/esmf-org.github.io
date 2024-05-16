@@ -5,8 +5,9 @@ classes: wide
 toc: True
 ---
 ### Releases
-[Download ESMF 8.6.0](https://github.com/esmf-org/esmf/releases/latest){: .btn .btn--info} (Latest release - November 14, 2023)
+[Download ESMF 8.6.1](https://github.com/esmf-org/esmf/releases/latest){: .btn .btn--info} (Latest release - May 16, 2024)
 - Recent previous releases:
+    - [ESMF 8.6.0](https://github.com/esmf-org/esmf/releases/tag/v8.6.0)        (November 14, 2023)
     - [ESMF 8.5.0](https://github.com/esmf-org/esmf/releases/tag/v8.5.0)        (July 26, 2023)
     - [ESMF 8.4.2](https://github.com/esmf-org/esmf/releases/tag/v8.4.2)        (April 25, 2023)
     - [ESMF 8.4.1](https://github.com/esmf-org/esmf/releases/tag/v8.4.1)        (March 06, 2023)
