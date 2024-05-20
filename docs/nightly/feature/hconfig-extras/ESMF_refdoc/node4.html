@@ -1450,7 +1450,8 @@ The following sections discuss the above mentioned aspects in more detail.
          defaultDefaultLogFilename, defaultLogFilename, &amp;
          defaultLogAppendFlag, logAppendFlag, defaultLogKindFlag, logKindFlag, &amp;
          mpiCommunicator,  ioUnitLBound, ioUnitUBound, &amp;
-         defaultGlobalResourceControl, globalResourceControl, config, vm, rc)
+         defaultGlobalResourceControl, globalResourceControl, config, hconfig, &amp;
+         vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE> -- The following arguments require argument keyword syntax (e.g. rc=rc). --
        integer,                 intent(in),  optional :: configFilenameFromArgNum
@@ -1470,6 +1471,7 @@ The following sections discuss the above mentioned aspects in more detail.
        logical,                 intent(in),  optional :: defaultGlobalResourceControl
        logical,                 intent(in),  optional :: globalResourceControl
        type(ESMF_Config),       intent(out), optional :: config
+       type(ESMF_HConfig),      intent(out), optional :: hconfig
        type(ESMF_VM),           intent(out), optional :: vm
        integer,                 intent(out), optional :: rc
 </PRE>
@@ -1521,6 +1523,11 @@ Added argument <TT>configFilenameFromArgNum</TT> to support config
 <DT><STRONG>8.6.0</STRONG></DT>
 <DD>Added <TT>defaultDefaultCalKind</TT> argument to allow specifiation
                 of a default for <TT>defaultCalKind</TT>.
+   
+</DD>
+<DT><STRONG>8.7.0</STRONG></DT>
+<DD>Added argument <TT>hconfig</TT> to simplify direct access to the
+                default <TT>ESMF_HConfig</TT> object.
    
 </DD>
 </DL>
@@ -1824,8 +1831,14 @@ ESMF allows the user to affect certain details about the execution
              presence of this argument triggers an error.
        
 </DD>
+<DT><STRONG>[hconfig]</STRONG></DT>
+<DD>Returns the default <TT>ESMF_HConfig</TT> if the
+             <TT>configFilename</TT> argument was provided. Otherwise the
+             presence of this argument triggers an error.
+       
+</DD>
 <DT><STRONG>[vm]</STRONG></DT>
-<DD>Returns the global <TT>ESMF_VM</TT> that was created 
+<DD>Returns the global <TT>ESMF_VM</TT> that was created
              during initialization.
        
 </DD>
@@ -3103,7 +3116,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   recursive function ESMF_GridCompCreate(grid, gridList, &amp;
      mesh, meshList, locstream, locstreamList, xgrid, xgridList, &amp;
-     config, configFile, clock, petList, devList, contextflag, name, rc)
+     hconfig, config, configFile, clock, petList, devList, contextflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_GridComp) :: ESMF_GridCompCreate
 </PRE><EM>ARGUMENTS:</EM>
@@ -3116,6 +3129,7 @@ The arguments are:
      type(ESMF_LocStream),    intent(in),    optional :: locstreamList(:)
      type(ESMF_XGrid),        intent(in),    optional :: xgrid
      type(ESMF_XGrid),        intent(in),    optional :: xgridList(:)
+     type(ESMF_HConfig),      intent(in),    optional :: hconfig
      type(ESMF_Config),       intent(in),    optional :: config
      character(len=*),        intent(in),    optional :: configFile
      type(ESMF_Clock),        intent(in),    optional :: clock
@@ -3145,6 +3159,11 @@ Changes made after the 5.2.0r release:
 <DT><STRONG>8.6.0</STRONG></DT>
 <DD>Added argument <TT>devList</TT> to support management of accelerator
      devices.
+   
+</DD>
+<DT><STRONG>8.7.0</STRONG></DT>
+<DD>Added argument <TT>hconfig</TT> to simplify direct usage of
+     <TT>ESMF_HConfig</TT> objects with Components.
    
 </DD>
 </DL>
@@ -3268,20 +3287,27 @@ The arguments are:
      no <TT>ESMF_XGrid</TT> objects are associated with the component.
    
 </DD>
+<DT><STRONG>[hconfig]</STRONG></DT>
+<DD>An already-created <TT>ESMF_HConfig</TT> object to be attached to the newly
+     created component.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
+   
+</DD>
 <DT><STRONG>[config]</STRONG></DT>
 <DD>An already-created <TT>ESMF_Config</TT> object to be attached to the newly
      created component.
-     If both <TT>config</TT> and <TT>configFile</TT> arguments are specified,
-     <TT>config</TT> takes priority.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
    
 </DD>
 <DT><STRONG>[configFile]</STRONG></DT>
-<DD>The filename of an <TT>ESMF_Config</TT> format file.
+<DD>The filename of a config file.
      If specified, a new <TT>ESMF_Config</TT> object is created and attached to the
      newly created component. The <TT>configFile</TT> file is opened and associated
      with the new config object.
-     If both <TT>config</TT> and <TT>configFile</TT> arguments are specified,
-     <TT>config</TT> takes priority.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
    
 </DD>
 <DT><STRONG>[clock]</STRONG></DT>
@@ -3553,10 +3579,10 @@ The arguments are:
      gridIsPresent, grid, gridList, meshIsPresent, mesh, meshList, &amp;
      locstreamIsPresent, locstream, locstreamList, xgridIsPresent, &amp;
      xgrid, xgridList, importStateIsPresent, importState, &amp;
-     exportStateIsPresent, exportState, configIsPresent, config, &amp;
-     configFileIsPresent, configFile, clockIsPresent, clock, localPet, &amp;
-     petCount, contextflag, currentMethod, currentPhase, comptype, &amp;
-     vmIsPresent, vm, name, rc)
+     exportStateIsPresent, exportState, hconfigIsPresent, hconfig, &amp;
+     configIsPresent, config, configFileIsPresent, configFile, &amp;
+     clockIsPresent, clock, localPet, petCount, contextflag, &amp;
+     currentMethod, currentPhase, comptype, vmIsPresent, vm, name, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp),           intent(in)            :: gridcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -3576,6 +3602,8 @@ The arguments are:
      type(ESMF_State),              intent(out), optional :: importState
      logical,                       intent(out), optional :: exportStateIsPresent
      type(ESMF_State),              intent(out), optional :: exportState
+     logical,                       intent(out), optional :: hconfigIsPresent
+     type(ESMF_HConfig),            intent(out), optional :: hconfig
      logical,                       intent(out), optional :: configIsPresent
      type(ESMF_Config),             intent(out), optional :: config
      logical,                       intent(out), optional :: configFileIsPresent
@@ -3609,6 +3637,11 @@ Changes made after the 5.2.0r release:
      These arguments add support for accessing references to multiple geom objects,
      either of the same type, or different type, associated with the same
      <TT>ESMF_GridComp</TT> object.
+   
+</DD>
+<DT><STRONG>8.7.0</STRONG></DT>
+<DD>Added arguments <TT>hconfigIsPresent</TT> and <TT>hconfig</TT> to
+     simplify direct usage of <TT>ESMF_HConfig</TT> objects with Components.
    
 </DD>
 </DL>
@@ -3749,20 +3782,32 @@ The arguments are:
      the status.
    
 </DD>
+<DT><STRONG>[hconfigIsPresent]</STRONG></DT>
+<DD><TT>.true.</TT> if <TT>hconfig</TT> is available in the GridComp object,
+     <TT>.false.</TT> otherwise.
+   
+</DD>
+<DT><STRONG>[hconfig]</STRONG></DT>
+<DD>Return the associated HConfig object.
+     It is an error to query for the HConfig object if none is associated with
+     the GridComp. If unsure, get <TT>hconfigIsPresent</TT> first to determine
+     the status.
+   
+</DD>
 <DT><STRONG>[configIsPresent]</STRONG></DT>
-<DD><TT>.true.</TT> if <TT>config</TT> was set in GridComp object,
+<DD><TT>.true.</TT> if <TT>config</TT> is available in the GridComp object,
      <TT>.false.</TT> otherwise.
    
 </DD>
 <DT><STRONG>[config]</STRONG></DT>
-<DD>Return the associated Config.
+<DD>Return the associated Config object.
      It is an error to query for the Config if none is associated with
      the GridComp. If unsure, get <TT>configIsPresent</TT> first to determine
      the status.
    
 </DD>
 <DT><STRONG>[configFileIsPresent]</STRONG></DT>
-<DD><TT>.true.</TT> if <TT>configFile</TT> was set in GridComp object,
+<DD><TT>.true.</TT> if <TT>configFile</TT> is available in the GridComp object,
      <TT>.false.</TT> otherwise.
    
 </DD>
@@ -4577,7 +4622,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine ESMF_GridCompSet(gridcomp, grid, gridList, &amp;
      mesh, meshList, locstream, locstreamList, xgrid, xgridList, &amp;
-     config, configFile, clock, name, rc)
+     hconfig, config, configFile, clock, name, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp),    intent(inout)         :: gridcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -4589,6 +4634,7 @@ The arguments are:
      type(ESMF_LocStream),   intent(in),  optional :: locstreamList(:)
      type(ESMF_XGrid),       intent(in),  optional :: xgrid
      type(ESMF_XGrid),       intent(in),  optional :: xgridList(:)
+     type(ESMF_HConfig),     intent(in),  optional :: hconfig
      type(ESMF_Config),      intent(in),  optional :: config
      character(len=*),       intent(in),  optional :: configFile
      type(ESMF_Clock),       intent(in),  optional :: clock
@@ -4610,6 +4656,11 @@ Changes made after the 5.2.0r release:
      These arguments add support for holding references to multiple geom objects,
      either of the same type, or different type, in the same
      <TT>ESMF_GridComp</TT> object.
+   
+</DD>
+<DT><STRONG>8.7.0</STRONG></DT>
+<DD>Added argument <TT>hconfig</TT> to simplify direct usage of
+     <TT>ESMF_HConfig</TT> objects with Components.
    
 </DD>
 </DL>
@@ -4732,20 +4783,27 @@ The arguments are:
      component remains unchanged.
    
 </DD>
+<DT><STRONG>[hconfig]</STRONG></DT>
+<DD>An already-created <TT>ESMF_HConfig</TT> object to be attached to the
+     component.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
+   
+</DD>
 <DT><STRONG>[config]</STRONG></DT>
 <DD>An already-created <TT>ESMF_Config</TT> object to be attached to the
      component.
-     If both <TT>config</TT> and <TT>configFile</TT> arguments are specified,
-     <TT>config</TT> takes priority.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
    
 </DD>
 <DT><STRONG>[configFile]</STRONG></DT>
-<DD>The filename of an <TT>ESMF_Config</TT> format file.
+<DD>The filename of a config file.
      If specified, a new <TT>ESMF_Config</TT> object is created and attached to the
      component. The <TT>configFile</TT> file is opened and associated
      with the new config object.
-     If both <TT>config</TT> and <TT>configFile</TT> arguments are specified,
-     <TT>config</TT> takes priority.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
    
 </DD>
 <DT><STRONG>[clock]</STRONG></DT>
@@ -6156,7 +6214,7 @@ derived type within ESMF.  The user must create one of these types
 to represent a specific coupling function, such as the regular
 transfer of data between a data assimilation system and an 
 atmospheric model.  <A NAME="tex2html21"
-  HREF="footnode.html#foot8436"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="footnode.html#foot8504"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 The user-written part of a Coupler Component is associated with an
 <TT>ESMF_CplComp</TT> derived type through a routine called 
@@ -6664,12 +6722,13 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>   recursive function ESMF_CplCompCreate(config, configFile, &amp;
-     clock, petList, devList, contextflag, name, rc)
+<PRE>   recursive function ESMF_CplCompCreate(hconfig, config, &amp;
+     configFile, clock, petList, devList, contextflag, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>     type(ESMF_CplComp) :: ESMF_CplCompCreate
 </PRE><EM>ARGUMENTS:</EM>
 <PRE> -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_HConfig),      intent(in),  optional :: hconfig
      type(ESMF_Config),       intent(in),  optional :: config
      character(len=*),        intent(in),  optional :: configFile
      type(ESMF_Clock),        intent(in),  optional :: clock
@@ -6691,6 +6750,11 @@ Changes made after the 5.2.0r release:
 <DT><STRONG>8.6.0</STRONG></DT>
 <DD>Added argument <TT>devList</TT> to support management of accelerator
      devices.
+   
+</DD>
+<DT><STRONG>8.7.0</STRONG></DT>
+<DD>Added argument <TT>hconfig</TT> to simplify direct usage of
+     <TT>ESMF_HConfig</TT> objects with Components.
    
 </DD>
 </DL>
@@ -6718,20 +6782,27 @@ The return value is the new <TT>ESMF_CplComp</TT>.
 <P>
 The arguments are:
    <DL>
+<DT><STRONG>[hconfig]</STRONG></DT>
+<DD>An already-created <TT>ESMF_HConfig</TT> object to be attached to the newly
+     created component.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
+   
+</DD>
 <DT><STRONG>[config]</STRONG></DT>
 <DD>An already-created <TT>ESMF_Config</TT> object to be attached to the newly
      created component.
-     If both <TT>config</TT> and <TT>configFile</TT> arguments are specified,
-     <TT>config</TT> takes priority.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
    
 </DD>
 <DT><STRONG>[configFile]</STRONG></DT>
-<DD>The filename of an <TT>ESMF_Config</TT> format file.
+<DD>The filename of a config file.
      If specified, a new <TT>ESMF_Config</TT> object is created and attached to the
      newly created component. The <TT>configFile</TT> file is opened and associated
      with the new config object.
-     If both <TT>config</TT> and <TT>configFile</TT> arguments are specified,
-     <TT>config</TT> takes priority.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
    
 </DD>
 <DT><STRONG>[clock]</STRONG></DT>
@@ -6999,13 +7070,15 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>   subroutine ESMF_CplCompGet(cplcomp, configIsPresent, config, &amp;
-     configFileIsPresent, configFile, clockIsPresent, clock, localPet, &amp;
+<PRE>   subroutine ESMF_CplCompGet(cplcomp, hconfigIsPresent, hconfig, &amp;
+     configIsPresent, config, configFileIsPresent, configFile, clockIsPresent, clock, localPet, &amp;
      petCount, contextflag, currentMethod, currentPhase, vmIsPresent, &amp;
      vm, name, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_CplComp),      intent(in)            :: cplcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     logical,                 intent(out), optional :: hconfigIsPresent
+     type(ESMF_HConfig),      intent(out), optional :: hconfig
      logical,                 intent(out), optional :: configIsPresent
      type(ESMF_Config),       intent(out), optional :: config
      logical,                 intent(out), optional :: configFileIsPresent
@@ -7026,7 +7099,17 @@ The arguments are:
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.7.0</STRONG></DT>
+<DD>Added arguments <TT>hconfigIsPresent</TT> and <TT>hconfig</TT> to
+     simplify direct usage of <TT>ESMF_HConfig</TT> objects with Components.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -7049,15 +7132,32 @@ The arguments are:
      <TT>.false.</TT> otherwise.
    
 </DD>
+<DT><STRONG>[hconfigIsPresent]</STRONG></DT>
+<DD><TT>.true.</TT> if <TT>hconfig</TT> is available in the CplComp object,
+     <TT>.false.</TT> otherwise.
+   
+</DD>
+<DT><STRONG>[hconfig]</STRONG></DT>
+<DD>Return the associated HConfig object.
+     It is an error to query for the HConfig object if none is associated with
+     the CplComp. If unsure, get <TT>hconfigIsPresent</TT> first to determine
+     the status.
+   
+</DD>
+<DT><STRONG>[configIsPresent]</STRONG></DT>
+<DD><TT>.true.</TT> if <TT>config</TT> is available in the CplComp object,
+     <TT>.false.</TT> otherwise.
+   
+</DD>
 <DT><STRONG>[config]</STRONG></DT>
-<DD>Return the associated Config.
+<DD>Return the associated Config object.
      It is an error to query for the Config if none is associated with
      the CplComp. If unsure, get <TT>configIsPresent</TT> first to determine
      the status.
    
 </DD>
 <DT><STRONG>[configFileIsPresent]</STRONG></DT>
-<DD><TT>.true.</TT> if <TT>configFile</TT> was set in CplComp object,
+<DD><TT>.true.</TT> if <TT>configFile</TT> is available in the CplComp object,
      <TT>.false.</TT> otherwise.
    
 </DD>
@@ -7864,11 +7964,12 @@ The arguments are:
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>   subroutine ESMF_CplCompSet(cplcomp, config, configFile, &amp;
-     clock, name, rc)
+<PRE>   subroutine ESMF_CplCompSet(cplcomp, hconfig, config, &amp;
+     configFile, clock, name, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_CplComp), intent(inout)         :: cplcomp
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     type(ESMF_HConfig), intent(in),  optional :: hconfig
      type(ESMF_Config),  intent(in),  optional :: config
      character(len=*),   intent(in),  optional :: configFile
      type(ESMF_Clock),   intent(in),  optional :: clock
@@ -7879,7 +7980,17 @@ The arguments are:
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
+</LI>
+<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
+<BR>
+Changes made after the 5.2.0r release:
+   <DL>
+<DT><STRONG>8.7.0</STRONG></DT>
+<DD>Added argument <TT>hconfig</TT> to simplify direct usage of
+     <TT>ESMF_HConfig</TT> objects with Components.
    
+</DD>
+</DL>
 </LI>
 </UL>
 
@@ -7901,20 +8012,27 @@ The arguments are:
 <DD>Set the name of the <TT>ESMF_CplComp</TT>.
    
 </DD>
+<DT><STRONG>[hconfig]</STRONG></DT>
+<DD>An already-created <TT>ESMF_HConfig</TT> object to be attached to the
+     component.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
+   
+</DD>
 <DT><STRONG>[config]</STRONG></DT>
 <DD>An already-created <TT>ESMF_Config</TT> object to be attached to the
      component.
-     If both <TT>config</TT> and <TT>configFile</TT> arguments are specified,
-     <TT>config</TT> takes priority.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
    
 </DD>
 <DT><STRONG>[configFile]</STRONG></DT>
-<DD>The filename of an <TT>ESMF_Config</TT> format file.
+<DD>The filename of a config file.
      If specified, a new <TT>ESMF_Config</TT> object is created and attached to the
      component. The <TT>configFile</TT> file is opened and associated
      with the new config object.
-     If both <TT>config</TT> and <TT>configFile</TT> arguments are specified,
-     <TT>config</TT> takes priority.
+     Only one of <TT>hconfig</TT>, <TT>config</TT>, or <TT>configFile</TT> must be
+     specified.
    
 </DD>
 <DT><STRONG>[clock]</STRONG></DT>
@@ -11211,7 +11329,7 @@ in that test:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="13337"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source"></A><A NAME="13476"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11232,7 +11350,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="13339"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination"></A><A NAME="13478"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11263,7 +11381,7 @@ Array object is empty, and the DELayout for the Grid is like this:
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="13341"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_source_cpl"></A><A NAME="13480"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -11284,7 +11402,7 @@ in the FieldExcl system test.</CAPTION>
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="13343"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:excl_destination_cpl"></A><A NAME="13482"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 The mapping of PETs (processors) to DEs (data)
@@ -14642,7 +14760,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16959"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="17098"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
