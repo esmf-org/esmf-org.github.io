@@ -1974,11 +1974,11 @@ $external_latex_labels{$key} = q|26.4|;
 $noresave{$key} = "$nosave";
 
 $key = q/FieldRedistStoreNF/;
-$external_latex_labels{$key} = q|26.6.66|; 
+$external_latex_labels{$key} = q|26.6.67|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldRedistStoreTK/;
-$external_latex_labels{$key} = q|26.6.65|; 
+$external_latex_labels{$key} = q|26.6.66|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Field_shared_memory_features/;
@@ -2090,11 +2090,11 @@ $external_latex_labels{$key} = q|25.5.40|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldRead/;
-$external_latex_labels{$key} = q|26.6.62|; 
+$external_latex_labels{$key} = q|26.6.63|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldWrite/;
-$external_latex_labels{$key} = q|26.6.84|; 
+$external_latex_labels{$key} = q|26.6.85|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:SparseMatrixWrite/;
@@ -2106,7 +2106,7 @@ $external_latex_labels{$key} = q|25.5.27|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_fieldregridstorenx/;
-$external_latex_labels{$key} = q|26.6.69|; 
+$external_latex_labels{$key} = q|26.6.70|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_fileregrid/;
