@@ -25094,7 +25094,7 @@ In the current implementation of the VM communication methods all the data
 
 <P>
 </LI>
-<LI><B>Limitations when using VMEpoch.</B> Using a blocking collective call (e.g. the MPI_Bcast() used by ESMF_InfoBroadcast(), ESMF_VMBroadcast(), etc.) within the region enclosed by <TT>ESMF_VMEpochEnter()</TT> and <TT>ESMF_VMEpochExit()</TT> will result in a deadlock. 
+<LI><B>Limitations when using VMEpoch.</B> Using a blocking collective call (e.g. <TT>ESMF_VMBroadcast()</TT>, the <TT>MPI_Bcast()</TT> used by <TT>ESMF_InfoBroadcast()</TT>, etc.) within the region enclosed by <TT>ESMF_VMEpochEnter()</TT> and <TT>ESMF_VMEpochExit()</TT> will result in a deadlock. 
 
 <P>
 </LI>
@@ -26367,12 +26367,12 @@ Enter a specific VM epoch. VM epochs change low level communication behavior
      which can have significant performance implications. It is an error to call
      <TT>ESMF_VMEpochEnter()</TT> again before exiting a previous epoch with 
      <TT>ESMF_VMEpochExit()</TT>. Also, blocking collective calls
-     (e.g. <TT>ESMF_VMBroadcast()) should not be used within a VMEpoch region.
+     (e.g. <TT>ESMF_VMBroadcast()</TT>) should not be used within a VMEpoch region.
      Doing so will result in a deadlock. 
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>[vm]</STRONG></DT>
 <DD><TT>ESMF_VM</TT> object. Defaults to the current VM.
      
@@ -26400,31 +26400,36 @@ Enter a specific VM epoch. VM epochs change low level communication behavior
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601361500000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">15</SPAN> ESMF_VMEpochExit - Exit an ESMF epoch</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_VMEpochExit(vm, keepAlloc, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE> -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_VMEpochExit(vm, keepAlloc, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE> -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      type(ESMF_VM),            intent(in),  optional :: vm
      logical,                  intent(in),  optional :: keepAlloc
      integer,                  intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Exit the current VM epoch.
-</TT>
+Exit the current VM epoch.
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>[vm]</STRONG></DT>
 <DD><TT>ESMF_VM</TT> object. Defaults to the current VM.
      
@@ -26441,19 +26446,24 @@ Enter a specific VM epoch. VM epochs change low level communication behavior
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601361600000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">16</SPAN> ESMF_VMGather - Gather data from across VM</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>    subroutine ESMF_VMGather(vm, sendData, recvData, count, rootPet, &amp;
+<I CLASS="sans">INTERFACE:</I>
+<PRE>    subroutine ESMF_VMGather(vm, sendData, recvData, count, rootPet, &amp;
       syncflag, commhandle, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>      type(ESMF_VM),                    intent(in)            :: vm
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>      type(ESMF_VM),                    intent(in)            :: vm
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)            :: sendData(:)
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(out)           :: recvData(:)
       integer,                          intent(in)            :: count
@@ -26462,20 +26472,21 @@ Enter a specific VM epoch. VM epochs change low level communication behavior
       type(ESMF_Sync_Flag),             intent(in),  optional :: syncflag
       type(ESMF_CommHandle),            intent(out), optional :: commhandle
       integer,                          intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data
+Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data
      of &lt;type&gt;&lt;kind&gt; from all PETs of an <TT>ESMF_VM</TT> object (including the 
      <TT>rootPet</TT> itself) into an array on <TT>rootPet</TT>.
      The <TT>count</TT> elements sent from the <TT>sendData</TT> array on PET <TT>i</TT>
@@ -26487,16 +26498,16 @@ Enter a specific VM epoch. VM epochs change low level communication behavior
  WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
  SRC="img206.png"
  ALT="$+$"></SPAN> 1.
-</TT>
+
 <P>
-<TT>This method is overloaded for:
+This method is overloaded for:
      <TT>ESMF_TYPEKIND_I4</TT>, <TT>ESMF_TYPEKIND_I8</TT>,
      <TT>ESMF_TYPEKIND_R4</TT>, <TT>ESMF_TYPEKIND_R8</TT>, 
      <TT>ESMF_TYPEKIND_LOGICAL</TT>.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD><TT>ESMF_VM</TT> object.
      
@@ -26542,19 +26553,24 @@ Enter a specific VM epoch. VM epochs change low level communication behavior
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601361700000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">17</SPAN> ESMF_VMGatherV - GatherV data from across VM</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>    subroutine ESMF_VMGatherV(vm, sendData, sendCount, recvData, &amp;
+<I CLASS="sans">INTERFACE:</I>
+<PRE>    subroutine ESMF_VMGatherV(vm, sendData, sendCount, recvData, &amp;
       recvCounts, recvOffsets, rootPet, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>      type(ESMF_VM),                    intent(in)            :: vm
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>      type(ESMF_VM),                    intent(in)            :: vm
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)            :: sendData(:)
       integer,                          intent(in)            :: sendCount
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(out)           :: recvData(:)
@@ -26563,41 +26579,42 @@ Enter a specific VM epoch. VM epochs change low level communication behavior
       integer,                          intent(in)            :: rootPet
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
       integer,                          intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data
+Collective <TT>ESMF_VM</TT> communication call that gathers contiguous data
      of &lt;type&gt;&lt;kind&gt; from all PETs of an <TT>ESMF_VM</TT> object (including the 
      <TT>rootPet</TT> itself) into an array on <TT>rootPet</TT>.
      The <TT>sendCount</TT> elements sent from the <TT>sendData</TT> array on PET
      <TT>i</TT> are stored contiguously in the <TT>recvData</TT> array on <TT>rootPet</TT>
      starting at position <TT>recvOffsets(i)</TT>.
-</TT>
+
 <P>
-<TT>This method is overloaded for:
+This method is overloaded for:
      <TT>ESMF_TYPEKIND_I4</TT>, <TT>ESMF_TYPEKIND_I8</TT>,
      <TT>ESMF_TYPEKIND_R4</TT>, <TT>ESMF_TYPEKIND_R8</TT>.
-</TT>
+
 <P>
-<TT>T<SMALL>ODO:</SMALL> The current version of this method does not provide an 
+T<SMALL>ODO:</SMALL> The current version of this method does not provide an 
      implementation of the <EM>non-blocking</EM> feature. When calling this 
      method with <TT>syncflag = ESMF_SYNC_NONBLOCKING</TT>, error code 
      <TT>ESMF_RC_NOT_IMPL</TT> will be returned and an error will be 
      logged.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD><TT>ESMF_VM</TT> object.
      
@@ -26638,22 +26655,27 @@ Enter a specific VM epoch. VM epochs change low level communication behavior
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601361800000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">18</SPAN> ESMF_VMGet - Get general information from a VM</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   ! Private name; call using ESMF_VMGet()
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   ! Private name; call using ESMF_VMGet()
    recursive subroutine ESMF_VMGetDefault(vm, localPet, &amp;
      currentSsiPe, petCount, peCount, ssiCount, ssiMap, ssiMinPetCount, ssiMaxPetCount, &amp;
      ssiLocalPetCount, ssiLocalPet, ssiLocalDevCount, ssiLocalDevList, mpiCommunicator, &amp;
      pthreadsEnabledFlag, openMPEnabledFlag, ssiSharedMemoryEnabledFlag, esmfComm, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     type(ESMF_VM),        intent(in)            :: vm
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     type(ESMF_VM),        intent(in)            :: vm
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,              intent(out), optional :: localPet
      integer,              intent(out), optional :: currentSsiPe
@@ -26673,9 +26695,9 @@ Enter a specific VM epoch. VM epochs change low level communication behavior
      logical,              intent(out), optional :: ssiSharedMemoryEnabledFlag
      character(:), allocatable, intent(out), optional :: esmfComm
      integer,              intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
 </LI>
@@ -26718,16 +26740,17 @@ Added argument <TT>ssiLocalPet</TT> to help with SSI specific assignment
 </DL>
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get internal information about the specified <TT>ESMF_VM</TT> object.
-</TT>
+Get internal information about the specified <TT>ESMF_VM</TT> object.
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD>Queried <TT>ESMF_VM</TT> object.
      
@@ -26873,21 +26896,26 @@ Added argument <TT>ssiLocalPet</TT> to help with SSI specific assignment
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601361900000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">19</SPAN> ESMF_VMGet - Get PET specific information from a VM</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   ! Private name; call using ESMF_VMGet()
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   ! Private name; call using ESMF_VMGet()
    subroutine ESMF_VMGetPetSpecific(vm, pet, peCount, &amp;
      accDeviceCount, &amp;   ! DEPRECATED ARGUMENT
      ssiId, threadCount, threadId, vas, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     type(ESMF_VM), intent(in)            :: vm
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     type(ESMF_VM), intent(in)            :: vm
      integer,       intent(in)            :: pet
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,       intent(out), optional :: peCount
@@ -26897,9 +26925,9 @@ Added argument <TT>ssiLocalPet</TT> to help with SSI specific assignment
      integer,       intent(out), optional :: threadId
      integer,       intent(out), optional :: vas
      integer,       intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
 </LI>
@@ -26921,17 +26949,18 @@ Changes made after the 5.2.0r release:
 </DL>
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get internal information about a specific PET within an <TT>ESMF_VM</TT> 
+Get internal information about a specific PET within an <TT>ESMF_VM</TT> 
      object.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD>Queried <TT>ESMF_VM</TT> object.
      
@@ -26975,57 +27004,61 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601362000000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">20</SPAN> ESMF_VMGetGlobal - Get Global VM</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_VMGetGlobal(vm, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     type(ESMF_VM), intent(out)            :: vm
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_VMGetGlobal(vm, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     type(ESMF_VM), intent(out)            :: vm
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,       intent(out), optional  :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>
-     Get the global <TT>ESMF_VM</TT> object. This is the VM object
+Get the global <TT>ESMF_VM</TT> object. This is the VM object
      that is created during <TT>ESMF_Initialize()</TT> and is the ultimate
      parent of all VM objects in an ESMF application. It is identical to the VM
      object returned by <TT>ESMF_Initialize(..., vm=vm, ...)</TT>.
-     
-</TT>
+
 <P>
-<TT>The <TT>ESMF_VMGetGlobal()</TT> call provides access to information about the
+The <TT>ESMF_VMGetGlobal()</TT> call provides access to information about the
      global execution context via the global VM. This call is necessary because
      ESMF does not created a global ESMF Component during
      <TT>ESMF_Initialize()</TT> that could be queried for information about
      the global execution context of an ESMF application.
-</TT>
+
 <P>
-<TT>Usage of <TT>ESMF_VMGetGlobal()</TT> from within Component code is
+Usage of <TT>ESMF_VMGetGlobal()</TT> from within Component code is
      strongly discouraged. ESMF Components should only access their own VM
      objects through Component methods. Global information, if required by
      the Component user code, should be passed down to the Component from the 
      driver through the Component calling interface.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD>Upon return this holds the <TT>ESMF_VM</TT> object of the global execution 
        context.
@@ -27036,64 +27069,68 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601362100000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">21</SPAN> ESMF_VMGetCurrent - Get Current VM</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_VMGetCurrent(vm, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     type(ESMF_VM), intent(out)           :: vm
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_VMGetCurrent(vm, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     type(ESMF_VM), intent(out)           :: vm
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,       intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>
-     Get the <TT>ESMF_VM</TT> object of the current execution context. Calling
+Get the <TT>ESMF_VM</TT> object of the current execution context. Calling
      <TT>ESMF_VMGetCurrent()</TT> within an ESMF Component, will return the
      same VM object as
      <TT>ESMF_GridCompGet(..., vm=vm, ...)</TT> or
-     <TT>ESMF_CplCompGet(..., vm=vm, ...)</TT>. 
-     
-</TT>
+     <TT>ESMF_CplCompGet(..., vm=vm, ...)</TT>.
+
 <P>
-<TT>The main purpose of providing <TT>ESMF_VMGetCurrent()</TT> is to simplify ESMF
+The main purpose of providing <TT>ESMF_VMGetCurrent()</TT> is to simplify ESMF
      adoption in legacy code. Specifically, code that uses <TT>MPI_COMM_WORLD</TT>
      deep within its calling tree can easily be modified to use the correct MPI
      communicator of the current ESMF execution context. The advantage is that
      these modifications are very local, and do not require wide reaching
      interface changes in the legacy code to pass down the ESMF component object,
      or the MPI communicator.
-</TT>
+
 <P>
-<TT>The use of <TT>ESMF_VMGetCurrent()</TT> is strongly discouraged in newly
+The use of <TT>ESMF_VMGetCurrent()</TT> is strongly discouraged in newly
      written Component code. Instead, the ESMF Component object should be used as
      the appropriate container of ESMF context information. This object should be
      passed between the subroutines of a Component, and be queried for any
      Component specific information.
-</TT>
+
 <P>
-<TT>Outside of a Component context, i.e. within the driver context, the call
+Outside of a Component context, i.e. within the driver context, the call
      to <TT>ESMF_VMGetCurrent()</TT> is identical to <TT>ESMF_VMGetGlobal()</TT>.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD>Upon return this holds the <TT>ESMF_VM</TT> object of the current execution
        context.
@@ -27104,34 +27141,39 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601362200000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">22</SPAN> ESMF_VMIsCreated - Check whether a VM object has been created</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   function ESMF_VMIsCreated(vm, rc)
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>     logical :: ESMF_VMIsCreated
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     type(ESMF_VM), intent(in)            :: vm
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   function ESMF_VMIsCreated(vm, rc)
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>     logical :: ESMF_VMIsCreated
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     type(ESMF_VM), intent(in)            :: vm
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,       intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Return <TT>.true.</TT> if the <TT>vm</TT> has been created. Otherwise return 
+Return <TT>.true.</TT> if the <TT>vm</TT> has been created. Otherwise return 
      <TT>.false.</TT>. If an error occurs, i.e. <TT>rc /= ESMF_SUCCESS</TT> is 
      returned, the return value of the function will also be <TT>.false.</TT>.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD><TT>ESMF_VM</TT> queried.
      
@@ -27141,32 +27183,37 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601362300000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">23</SPAN> ESMF_VMLog - Log VM information</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_VMLog(vm, prefix, logMsgFlag, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     type(ESMF_VM),          intent(in)              :: vm
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_VMLog(vm, prefix, logMsgFlag, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     type(ESMF_VM),          intent(in)              :: vm
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      character(len=*),       intent(in),   optional  :: prefix
      type(ESMF_LogMsg_Flag), intent(in),   optional  :: logMsgFlag
      integer, intent(out),                 optional  :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Write information about <TT>vm</TT> to the ESMF default Log.
-</TT>
+Write information about <TT>vm</TT> to the ESMF default Log.
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD><TT>ESMF_VM</TT> object logged.
      
@@ -27185,30 +27232,35 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601362400000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">24</SPAN> ESMF_VMLogSystem - LogSystem</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_VMLogSystem(prefix, logMsgFlag, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     character(len=*),       intent(in),   optional  :: prefix
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_VMLogSystem(prefix, logMsgFlag, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     character(len=*),       intent(in),   optional  :: prefix
      type(ESMF_LogMsg_Flag), intent(in),   optional  :: logMsgFlag
      integer, intent(out),                 optional  :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Log the VM.
-</TT>
+Log the VM.
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>[prefix]</STRONG></DT>
 <DD>String to prefix the log message. Default is no prefix.
      
@@ -27223,39 +27275,45 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601362500000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">25</SPAN> ESMF_VMPrint - Print VM information</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_VMPrint(vm, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     type(ESMF_VM),  intent(in)            :: vm
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_VMPrint(vm, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     type(ESMF_VM),  intent(in)            :: vm
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,        intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Print internal information about the specified <TT>ESMF_VM</TT> to
+Print internal information about the specified <TT>ESMF_VM</TT> to
      <TT>stdout</TT>.
-<BR></TT>
+<BR>
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD>Specified <TT>ESMF_VM</TT> object.
      
@@ -27265,19 +27323,24 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601362600000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">26</SPAN> ESMF_VMRecv - Receive data from srcPet</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>    subroutine ESMF_VMRecv(vm, recvData, count, srcPet, &amp;
+<I CLASS="sans">INTERFACE:</I>
+<PRE>    subroutine ESMF_VMRecv(vm, recvData, count, srcPet, &amp;
       syncflag, commhandle, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>      type(ESMF_VM),                     intent(in)            :: vm
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>      type(ESMF_VM),                     intent(in)            :: vm
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target,  intent(out)           :: recvData(:)
       integer,                           intent(in)            :: count
       integer,                           intent(in)            :: srcPet
@@ -27285,32 +27348,33 @@ Changes made after the 5.2.0r release:
       type(ESMF_Sync_Flag),              intent(in),  optional :: syncflag
       type(ESMF_CommHandle),             intent(out), optional :: commhandle
       integer,                           intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Receive contiguous data from <TT>srcPet</TT> within the same <TT>ESMF_VM</TT> 
+Receive contiguous data from <TT>srcPet</TT> within the same <TT>ESMF_VM</TT> 
      object.
-</TT>
+
 <P>
-<TT>This method is overloaded for:
+This method is overloaded for:
      <TT>ESMF_TYPEKIND_I4</TT>, <TT>ESMF_TYPEKIND_I8</TT>,
      <TT>ESMF_TYPEKIND_R4</TT>, <TT>ESMF_TYPEKIND_R8</TT>, 
      <TT>ESMF_TYPEKIND_LOGICAL</TT>, 
      <TT>ESMF_TYPEKIND_CHARACTER</TT>.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD><TT>ESMF_VM</TT> object.
      
@@ -27348,19 +27412,24 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601362700000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">27</SPAN> ESMF_VMReduce - Reduce data from across VM</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>    subroutine ESMF_VMReduce(vm, sendData, recvData, count, &amp;
+<I CLASS="sans">INTERFACE:</I>
+<PRE>    subroutine ESMF_VMReduce(vm, sendData, recvData, count, &amp;
       reduceflag, rootPet, syncflag, commhandle, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>      type(ESMF_VM),                    intent(in)            :: vm
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>      type(ESMF_VM),                    intent(in)            :: vm
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)            :: sendData(:)
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(out)           :: recvData(:)
       integer,                          intent(in)            :: count
@@ -27370,39 +27439,40 @@ Changes made after the 5.2.0r release:
       type(ESMF_Sync_Flag),             intent(in),  optional :: syncflag
       type(ESMF_CommHandle),            intent(out), optional :: commhandle
       integer,                          intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Collective <TT>ESMF_VM</TT> communication call that reduces a contiguous data
+Collective <TT>ESMF_VM</TT> communication call that reduces a contiguous data
      array across the <TT>ESMF_VM</TT> object into a contiguous data array of 
      the same &lt;type&gt;&lt;kind&gt;. The result array is returned on <TT>rootPet</TT>. 
      Different reduction operations can be specified.
-</TT>
+
 <P>
-<TT>This method is overloaded for:
+This method is overloaded for:
      <TT>ESMF_TYPEKIND_I4</TT>, <TT>ESMF_TYPEKIND_I8</TT>,
      <TT>ESMF_TYPEKIND_R4</TT>, <TT>ESMF_TYPEKIND_R8</TT>.
-</TT>
+
 <P>
-<TT>T<SMALL>ODO:</SMALL> The current version of this method does not provide an 
+T<SMALL>ODO:</SMALL> The current version of this method does not provide an 
      implementation of the <EM>non-blocking</EM> feature. When calling this 
      method with <TT>syncflag = ESMF_SYNC_NONBLOCKING</TT>, error code 
      <TT>ESMF_RC_NOT_IMPL</TT> will be returned and an error will be 
      logged.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD><TT>ESMF_VM</TT> object.
      
@@ -27452,19 +27522,24 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601362800000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">28</SPAN> ESMF_VMScatter - Scatter data across VM</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>    subroutine ESMF_VMScatter(vm, sendData, recvData, count, &amp;
+<I CLASS="sans">INTERFACE:</I>
+<PRE>    subroutine ESMF_VMScatter(vm, sendData, recvData, count, &amp;
       rootPet, syncflag, commhandle, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>      type(ESMF_VM),                    intent(in)            :: vm
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>      type(ESMF_VM),                    intent(in)            :: vm
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)            :: sendData(:)
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(out)           :: recvData(:)
       integer,                          intent(in)            :: count
@@ -27473,20 +27548,21 @@ Changes made after the 5.2.0r release:
       type(ESMF_Sync_Flag),             intent(in),  optional :: syncflag
       type(ESMF_CommHandle),            intent(out), optional :: commhandle
       integer,                          intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Collective <TT>ESMF_VM</TT> communication call that scatters contiguous data
+Collective <TT>ESMF_VM</TT> communication call that scatters contiguous data
      of &lt;type&gt;&lt;kind&gt; from <TT>rootPet</TT> across all the PETs of an <TT>ESMF_VM</TT>
      object. Every PET, including <TT>rootPet</TT>, receives a portion of the data.
      The <TT>count</TT> number of elements received by PET <TT>i</TT> originate from
@@ -27499,16 +27575,16 @@ Changes made after the 5.2.0r release:
  SRC="img206.png"
  ALT="$+$"></SPAN> 1. Each PET stores the received contiguous data
      portion at the start of its <TT>recvData</TT> array.
-</TT>
+
 <P>
-<TT>This method is overloaded for:
+This method is overloaded for:
      <TT>ESMF_TYPEKIND_I4</TT>, <TT>ESMF_TYPEKIND_I8</TT>,
      <TT>ESMF_TYPEKIND_R4</TT>, <TT>ESMF_TYPEKIND_R8</TT>, 
      <TT>ESMF_TYPEKIND_LOGICAL</TT>.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD><TT>ESMF_VM</TT> object.
      
@@ -27553,19 +27629,24 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601362900000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">29</SPAN> ESMF_VMScatterV - ScatterV across VM</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>    subroutine ESMF_VMScatterV(vm, sendData, sendCounts, &amp;
+<I CLASS="sans">INTERFACE:</I>
+<PRE>    subroutine ESMF_VMScatterV(vm, sendData, sendCounts, &amp;
       sendOffsets, recvData, recvCount, rootPet, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>      type(ESMF_VM),                    intent(in)            :: vm
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>      type(ESMF_VM),                    intent(in)            :: vm
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)            :: sendData(:)
       integer,                          intent(in)            :: sendCounts(:)
       integer,                          intent(in)            :: sendOffsets(:)
@@ -27574,35 +27655,36 @@ Changes made after the 5.2.0r release:
       integer,                          intent(in)            :: rootPet
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
       integer,                          intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Collective <TT>ESMF_VM</TT> communication call that scatters contiguous data
+Collective <TT>ESMF_VM</TT> communication call that scatters contiguous data
      of &lt;type&gt;&lt;kind&gt; from <TT>rootPet</TT> across all the PETs of an <TT>ESMF_VM</TT>
      object. Every PET, including <TT>rootPet</TT>, receives a portion of the data.
      The <TT>recvCount</TT> number of elements received by PET <TT>i</TT> originate
      from the <TT>sendData</TT> array on <TT>rootPet</TT>, starting at position
      <TT>sendOffsets(i)</TT>. Each PET stores the received contiguous data
      portion at the start of its <TT>recvData</TT> array.
-</TT>
+
 <P>
-<TT>This method is overloaded for:
+This method is overloaded for:
      <TT>ESMF_TYPEKIND_I4</TT>, <TT>ESMF_TYPEKIND_I8</TT>,
      <TT>ESMF_TYPEKIND_R4</TT>, <TT>ESMF_TYPEKIND_R8</TT>.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD><TT>ESMF_VM</TT> object.
      
@@ -27642,19 +27724,24 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601363000000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">30</SPAN> ESMF_VMSend - Send data to dstPet</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>    subroutine ESMF_VMSend(vm, sendData, count, dstPet, &amp;
+<I CLASS="sans">INTERFACE:</I>
+<PRE>    subroutine ESMF_VMSend(vm, sendData, count, dstPet, &amp;
       syncflag, commhandle, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>      type(ESMF_VM),                    intent(in)            :: vm
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>      type(ESMF_VM),                    intent(in)            :: vm
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)            :: sendData(:)
       integer,                          intent(in)            :: count
       integer,                          intent(in)            :: dstPet
@@ -27662,31 +27749,32 @@ Changes made after the 5.2.0r release:
       type(ESMF_Sync_Flag),             intent(in),  optional :: syncflag
       type(ESMF_CommHandle),            intent(out), optional :: commhandle
       integer,                          intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Send contiguous data to <TT>dstPet</TT> within the same <TT>ESMF_VM</TT> object.
-</TT>
+Send contiguous data to <TT>dstPet</TT> within the same <TT>ESMF_VM</TT> object.
+
 <P>
-<TT>This method is overloaded for:
+This method is overloaded for:
      <TT>ESMF_TYPEKIND_I4</TT>, <TT>ESMF_TYPEKIND_I8</TT>,
      <TT>ESMF_TYPEKIND_R4</TT>, <TT>ESMF_TYPEKIND_R8</TT>, 
      <TT>ESMF_TYPEKIND_LOGICAL</TT>, 
      <TT>ESMF_TYPEKIND_CHARACTER</TT>.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD><TT>ESMF_VM</TT> object.
      
@@ -27724,19 +27812,24 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601363100000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">31</SPAN> ESMF_VMSendRecv - Send and Recv data to and from PETs</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>    subroutine ESMF_VMSendRecv(vm, sendData, sendCount, dstPet, &amp;
+<I CLASS="sans">INTERFACE:</I>
+<PRE>    subroutine ESMF_VMSendRecv(vm, sendData, sendCount, dstPet, &amp;
       recvData, recvCount, srcPet, syncflag, commhandle, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>      type(ESMF_VM),                    intent(in)            :: vm
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>      type(ESMF_VM),                    intent(in)            :: vm
       &lt;type&gt;(ESMF_KIND_&lt;kind&gt;), target, intent(in)            :: sendData(:)
       integer,                          intent(in)            :: sendCount
       integer,                          intent(in)            :: dstPet
@@ -27747,34 +27840,35 @@ Changes made after the 5.2.0r release:
       type(ESMF_Sync_Flag),             intent(in),  optional :: syncflag
       type(ESMF_CommHandle),            intent(out), optional :: commhandle
       integer,                          intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Send contiguous data to <TT>dstPet</TT> within the same <TT>ESMF_VM</TT> object
+Send contiguous data to <TT>dstPet</TT> within the same <TT>ESMF_VM</TT> object
      while receiving contiguous data from <TT>srcPet</TT> within the same 
      <TT>ESMF_VM</TT> object. The <TT>sendData</TT> and <TT>recvData</TT> arrays must be
      disjoint!
-</TT>
+
 <P>
-<TT>This method is overloaded for:
+This method is overloaded for:
      <TT>ESMF_TYPEKIND_I4</TT>, <TT>ESMF_TYPEKIND_I8</TT>,
      <TT>ESMF_TYPEKIND_R4</TT>, <TT>ESMF_TYPEKIND_R8</TT>,
      <TT>ESMF_TYPEKIND_LOGICAL</TT>, 
      <TT>ESMF_TYPEKIND_CHARACTER</TT>.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD><TT>ESMF_VM</TT> object.
      
@@ -27824,39 +27918,45 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601363200000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">32</SPAN> ESMF_VMValidate - Validate VM internals</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_VMValidate(vm, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     type(ESMF_VM), intent(in)            :: vm
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_VMValidate(vm, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     type(ESMF_VM), intent(in)            :: vm
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,       intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Validates that the <TT>vm</TT> is internally consistent.
+Validates that the <TT>vm</TT> is internally consistent.
         The method returns an error code if problems are found.  
-</TT>
+
 <P>
-<TT>The arguments are:
-       </TT><DL>
+The arguments are:
+       <DL>
 <DT><STRONG>vm</STRONG></DT>
 <DD>Specified <TT>ESMF_VM</TT> object.
        
@@ -27866,39 +27966,45 @@ Changes made after the 5.2.0r release:
        
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601363300000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">33</SPAN> ESMF_VMWtime - Get floating-point number of seconds</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_VMWtime(time, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     real(ESMF_KIND_R8), intent(out)           :: time
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_VMWtime(time, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     real(ESMF_KIND_R8), intent(out)           :: time
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,            intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get floating-point number of seconds of elapsed wall-clock time since the
+Get floating-point number of seconds of elapsed wall-clock time since the
      beginning of execution of the application.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>time</STRONG></DT>
 <DD>Time in seconds.
      
@@ -27908,38 +28014,44 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601363400000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">34</SPAN> ESMF_VMWtimeDelay - Delay execution</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   recursive subroutine ESMF_VMWtimeDelay(delay, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     real(ESMF_KIND_R8), intent(in)            :: delay
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   recursive subroutine ESMF_VMWtimeDelay(delay, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     real(ESMF_KIND_R8), intent(in)            :: delay
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,            intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Delay execution for amount of seconds.
-</TT>
+Delay execution for amount of seconds.
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>delay</STRONG></DT>
 <DD>Delay time in seconds.
      
@@ -27949,42 +28061,48 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601363500000000000000">
 <SPAN CLASS="arabic">51</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">35</SPAN> ESMF_VMWtimePrec - Timer precision as floating-point number of seconds</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_VMWtimePrec(prec, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     real(ESMF_KIND_R8), intent(out)           :: prec
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_VMWtimePrec(prec, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     real(ESMF_KIND_R8), intent(out)           :: prec
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,            intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Get a run-time estimate of the timer precision as floating-point number 
+Get a run-time estimate of the timer precision as floating-point number 
      of seconds. This is a relatively expensive call since the timer precision
      is measured several times before the maximum is returned as the estimate.
      The returned value is PET-specific and may differ across the VM 
      context.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>prec</STRONG></DT>
 <DD>Timer precision in seconds.
      
@@ -27994,25 +28112,28 @@ Changes made after the 5.2.0r release:
      
 </DD>
 </DL>
-<P>
-<TT>
 
-</TT>
+<P>
+
+
 <H1><A NAME="SECTION060140000000000000000">
 <SPAN CLASS="arabic">52</SPAN> Profiling and Tracing</A>
 </H1>
+
 <H2><A NAME="SECTION060141000000000000000">
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <H3><A NAME="SECTION060141100000000000000"></A>
 <A NAME="sec:Profiling"></A>
 <BR>
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">1</SPAN> Profiling
 </H3>
+
 <P>
-<TT>ESMF's built in <EM>profiling</EM> capability collects runtime statistics
+ESMF's built in <EM>profiling</EM> capability collects runtime statistics
 of an executing ESMF application through both automatic and manual code
 instrumentation. Timing information for all phases of all ESMF components
 executing in an application can be automatically collected using the
@@ -28021,7 +28142,7 @@ Additionally, arbitrary user-defined code regions can be timed by
 manually instrumenting code with special API calls.  Timing profiles
 of component phases and user-defined regions can be output in several
 different formats:
-</TT>
+
 <UL>
 <LI>in text at the end of ESMF Log files
 </LI>
@@ -28034,47 +28155,52 @@ different formats:
 for profile visualization
 </LI>
 </UL>
+
 <P>
-<TT>The following table lists important environment variables that control
+The following table lists important environment variables that control
 aspects of ESMF profiling.
-</TT>
-<P><TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT><B>Environment Variable</B> </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><TT><B>Description</B> </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT><B>Example Values</B> </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT><B>Default</B></TT></TD>
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><B>Environment Variable</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><B>Description</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><B>Example Values</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><B>Default</B></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_PROFILE </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><TT> Enable/disables all profiling functions </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ON or OFF </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>OFF </TT></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_PROFILE</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227>Enable/disables all profiling functions</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ON</TT> or <TT>OFF</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>OFF</TT></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_PROFILE_PETLIST </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><TT> Limits profiling to an explicit list of PETs </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT> &ldquo;0-9 50 99&rdquo; </TT></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_PROFILE_PETLIST</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227>Limits profiling to an explicit list of PETs</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>&ldquo;<TT>0-9 50 99</TT>&rdquo;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><EM>profile all PETs</EM></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_PROFILE_OUTPUT </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><TT> Controls output format of profiles;  multiple can be specified in a space separated list </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>TEXT, SUMMARY, BINARY </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>TEXT </TT></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_PROFILE_OUTPUT</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227>Controls output format of profiles;  multiple can be specified in a space separated list</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>TEXT</TT>, <TT>SUMMARY</TT>, <TT>BINARY</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>TEXT</TT></TD>
 </TR>
 </TABLE>
+
 <P>
+
 <H3><A NAME="SECTION060141200000000000000"></A>
 <A NAME="sec:Tracing"></A>
 <BR>
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN> Tracing
 </H3>
+
 <P>
-<TT>Whereas profiling collects summary information from an application,
+Whereas profiling collects summary information from an application,
 <EM>tracing</EM> records a more detailed set of events for later analysis. Trace
 analysis can be used to understand what happened during a program's
 execution and is often used for diagnosing problems, debugging, and
 performance analysis.
-</TT>
+
 <P>
-<TT>ESMF has a built-in tracing capability that records events into special
+ESMF has a built-in tracing capability that records events into special
 binary log files.  Unlike log files written by the <TT>ESMF_Log</TT> class,
 which are primarily for human consumption (see Section <A HREF="#sec:Log">49.1</A>),
 the trace output files are
@@ -28085,13 +28211,13 @@ to produce various analyses. ESMF event streams are recorded in the
 (CTF).
 CTF traces include one or more event streams,
 as well as a metadata file describing the events in the streams.
-</TT>
+
 <P>
-<TT>Several tools are available for reading in the CTF traces output by ESMF.
+Several tools are available for reading in the CTF traces output by ESMF.
 Of the tools listed below, the first one is designed specifically for
 analyzing ESMF applications and the second two are general purpose tools
 for working with all CTF traces.
-</TT>
+
 <UL>
 <LI><A NAME="tex2html64"
   HREF="https://github.com/esmf-org/esmf-profiler">esmf-profiler</A>
@@ -28109,10 +28235,11 @@ is a command-line tool and library for trace conversion
   to open CTF traces are iterate through events.  
 </LI>
 </UL>
+
 <P>
-<TT>Events that can be captured by the ESMF tracer include the following. Events
+Events that can be captured by the ESMF tracer include the following. Events
 are recorded with a high-precision timestamp to allow timing analyses.
-</TT><DL>
+<DL>
 <DT><STRONG>phase_enter</STRONG></DT>
 <DD>indicates entry into an initialize, run, or finalize ESMF component routine
 </DD>
@@ -28126,61 +28253,67 @@ are recorded with a high-precision timestamp to allow timing analyses.
 <DD>indicates exit from a user-defined code region
 </DD>
 </DL>
+
 <P>
-<TT>The following table lists important environment variables that control
+The following table lists important environment variables that control
 aspects of ESMF tracing.
-</TT>
-<P><TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT><B>Environment Variable</B> </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><TT><B>Description</B> </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT><B>Example Values</B> </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT><B>Default</B></TT></TD>
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><B>Environment Variable</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><B>Description</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><B>Example Values</B></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><B>Default</B></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_TRACE </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><TT> Enable/disables all tracing functions </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ON or OFF </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>OFF </TT></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_TRACE</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227>Enable/disables all tracing functions</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ON</TT> or <TT>OFF</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>OFF</TT></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_TRACE_CLOCK </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><TT> Sets the type of clock for timestamping events (see Section <A HREF="#sec:TracingClocks"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>). </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>REALTIME or MONOTONIC or MONOTONIC_SYNC </TT></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_TRACE_CLOCK</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227>Sets the type of clock for timestamping events (see Section <A HREF="#sec:TracingClocks"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>).</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>REALTIME</TT> or <TT>MONOTONIC</TT> or <TT>MONOTONIC_SYNC</TT></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>REALTIME</TT></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_TRACE_PETLIST </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><TT> Limits tracing to an explicit list of PETs </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT> &ldquo;0-9 50 99&rdquo; </TT></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_TRACE_PETLIST</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227>Limits tracing to an explicit list of PETs</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170>&ldquo;<TT>0-9 50 99</TT>&rdquo;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><EM>trace all PETs</EM></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_TRACE_COMPONENT </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><TT> Enables/disable tracing of Component phase_enter and phase_exit events </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ON or OFF </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ON </TT></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_TRACE_COMPONENT</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227>Enables/disable tracing of Component phase_enter and phase_exit events</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ON</TT> or <TT>OFF</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ON</TT></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_TRACE_FLUSH </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><TT> Controls frequency of event stream flushing to file </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>DEFAULT or EAGER </TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>DEFAULT </TT></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>ESMF_RUNTIME_TRACE_FLUSH</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227>Controls frequency of event stream flushing to file</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>DEFAULT</TT> or <TT>EAGER</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><TT>DEFAULT</TT></TD>
 </TR>
 </TABLE>
+
 <P>
-<TT></TT>
+
 <H2><A NAME="SECTION060142000000000000000">
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <H3><A NAME="SECTION060142100000000000000"></A>
 <A NAME="sec:BasicProfiling"></A>
 <BR>
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> Output a Timing Profile to Text
 </H3>
+
 <P>
-<TT>ESMF profiling is disabled by default. To profile an application,
+ESMF profiling is disabled by default. To profile an application,
 set the <TT>ESMF_RUNTIME_PROFILE</TT> variable to <TT>ON</TT> prior
 to executing the application.  You do not need to recompile
 your code to enable profiling.
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 # csh shell
 $ setenv ESMF_RUNTIME_PROFILE ON
 
@@ -28189,15 +28322,17 @@ $ export ESMF_RUNTIME_PROFILE=ON
 
 # (from now on, only the csh shell version will be shown)
 </PRE>
+
 <P>
-<TT>Then execute the application in the usual way. At the end of
+Then execute the application in the usual way. At the end of
 the run the profile information will be available at the end
 of each PET log (if ESMF Logs are turned on) or in a set of
 separate files, one per PET, with names <EM>ESMF_Profile.XXX</EM>
 where XXX is the PET number.  Below is an example timing
 profile.  Some regions are left out for brevity.
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 Region                           Count  Total (s)   Self (s)    Mean (s)    Min (s)     Max (s)
   [esm] Init 1                   1      4.0878      0.0341      4.0878      4.0878      4.0878
     [OCN-TO-ATM] IPDv05p6b       1      2.6007      2.6007      2.6007      2.6007      2.6007
@@ -28230,8 +28365,9 @@ Region                           Count  Total (s)   Self (s)    Mean (s)    Min 
     [OCN] FinalizePhase1         1      0.0001      0.0001      0.0001      0.0001      0.0001
     [ATM] FinalizePhase1         1      0.0000      0.0000      0.0000      0.0000      0.0000
 </PRE>
+
 <P>
-<TT>A timed region is either an ESMF component phase (e.g., initialize,
+A timed region is either an ESMF component phase (e.g., initialize,
 run, or finalize) or a user-defined region of code surrounded by calls to
 <TT>ESMF_TraceRegionEnter()</TT> and <TT>ESMF_TraceRegionExit()</TT>. (See
 section <A HREF="#ex:TraceUserEx"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A> for more information on instrumenting
@@ -28248,37 +28384,44 @@ By default, timings are based on elapsed wall clock time and are collected
 on a per-PET basis. Therefore, regions timings may differ across PETs. Regions
 are sorted with the most expensive regions appearing at the top. The following
 describes the meaning of the statistics in each column:
-</TT>
-<P><table width="90%"><tr><td align="right" valign="top"><TT>Count</TT></td><td valign="top">&nbsp;the number of times the region is executed</td></tr>
+
+<P>
+<table width="90%"><tr><td align="right" valign="top"><TT>Count</TT></td><td valign="top">&nbsp;the number of times the region is executed</td></tr>
 <tr><td align="right" valign="top"><TT>Total</TT></td><td valign="top">&nbsp;the aggregate time spent in the region, inclusive of all sub-regions</td></tr>
 <tr><td align="right" valign="top"><TT>Self</TT></td><td valign="top">&nbsp;the aggregate time spend in the region, exclusive of all sub-regions</td></tr>
 <tr><td align="right" valign="top"><TT>Mean</TT></td><td valign="top">&nbsp;the average amount of time for one execution of the region</td></tr>
 <tr><td align="right" valign="top"><TT>Min</TT></td><td valign="top">&nbsp;time of the fastest execution of the region</td></tr>
 <tr><td align="right" valign="top"><TT>Max</TT></td><td valign="top">&nbsp;time of the slowest execution of the region
 </td></tr></table>
+
 <P>
+
 <H3><A NAME="SECTION060142200000000000000"></A>
 <A NAME="sec:SummaryProfiling"></A>
 <BR>
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Summarize Timings across Multiple PETs
 </H3>
+
 <P>
-<TT>By default, separate timing profiles are generated for each PET
+By default, separate timing profiles are generated for each PET
 in the application.  The per-PET profiles can be aggregated together
 and output to a single file, <EM>ESMF_Profile.summary</EM>, by setting the
 <TT>ESMF_RUNTIME_PROFILE_OUTPUT</TT> environment variable as follows:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 $ setenv ESMF_RUNTIME_PROFILE ON              # turn on profiling
 $ setenv ESMF_RUNTIME_PROFILE_OUTPUT SUMMARY  # specify summary output
 </PRE>
+
 <P>
-<TT>Note the <TT>ESMF_RUNTIME_PROFILE</TT> environment variable must
+Note the <TT>ESMF_RUNTIME_PROFILE</TT> environment variable must
 also be set to <TT>ON</TT> since this controls all profiling capabilities.
 The <EM>ESMF_Profile.summary</EM> file will contain a tree of
 timed regions, but aggregated across all PETs. For example:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 Region                           PETs   PEs    Count    Mean (s)    Min (s)     Min PET Max (s)     Max PET
   [esm] Init 1                   4      4      1        4.0880      4.0878      2       4.0883      1
     [OCN-TO-ATM] IPDv05p6b       4      4      1        2.6007      2.6007      2       2.6007      3
@@ -28313,9 +28456,10 @@ Region                           PETs   PEs    Count    Mean (s)    Min (s)     
     [OCN] FinalizePhase1         4      4      1        0.0001      0.0001      3       0.0001      0
     [ATM] FinalizePhase1         4      4      1        0.0001      0.0000      0       0.0001      2
 </PRE>
+
 <P>
-<TT>The meaning of the statistics in each column in as follows:
-</TT><table width="90%"><tr><td align="right" valign="top"><TT>PETs</TT></td><td valign="top">&nbsp;the number of reporting PETs that executed the region</td></tr>
+The meaning of the statistics in each column in as follows:
+<table width="90%"><tr><td align="right" valign="top"><TT>PETs</TT></td><td valign="top">&nbsp;the number of reporting PETs that executed the region</td></tr>
 <tr><td align="right" valign="top"><TT>PEs</TT></td><td valign="top">&nbsp;the number of PEs associated with the reporting PETs that executed the region</td></tr>
 <tr><td align="right" valign="top"><TT>Count</TT></td><td valign="top">&nbsp;the number of times each reporting PET executed the region
       or &ldquo;MULTIPLE&rdquo; if not all PETs executed the region the same number of times</td></tr>
@@ -28325,23 +28469,28 @@ Region                           PETs   PEs    Count    Mean (s)    Min (s)     
 <tr><td align="right" valign="top"><TT>Max</TT></td><td valign="top">&nbsp;the maximum across all reporting PETs of the total time spent in the region</td></tr>
 <tr><td align="right" valign="top"><TT>Max PET</TT></td><td valign="top">&nbsp;the PET that reported the maximum time
 </td></tr></table>
+
 <P>
-<TT>Note that setting the <TT>ESMF_RUNTIME_PROFILE_PETLIST</TT> environment variable
+Note that setting the <TT>ESMF_RUNTIME_PROFILE_PETLIST</TT> environment variable
 (described below) may reduce the number of reporting PETs. Only reporting PETs are
 included in the summary profile. To output both the per-PET and summary timing profiles,
 set the <TT>ESMF_RUNTIME_PROFILE_OUTPUT</TT> environment variable as follows:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 $ setenv ESMF_RUNTIME_PROFILE_OUTPUT "TEXT SUMMARY"
 </PRE>
+
 <P>
+
 <H3><A NAME="SECTION060142300000000000000"></A>
 <A NAME="sec:LimitProfiling"></A>
 <BR>
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN> Limit the Set of Profiled PETs
 </H3>
+
 <P>
-<TT>By default, all PETs in an application are profiled. It may be desirable
+By default, all PETs in an application are profiled. It may be desirable
 to only profile a subset of PETs to reduce the amount of output.
 An explicit list of PETs can be specified by setting the
 <TT>ESMF_RUNTIME_PROFILE_PETLIST</TT> environment variable.
@@ -28349,32 +28498,37 @@ The syntax of this environment variable is to list
 PET numbers separated by spaces. PET ranges are also supported using
 the &ldquo;X-Y&rdquo; syntax where X &lt; Y.
 For example:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 # only profile PETs 0, 20, and 35 through 39
 $ setenv ESMF_RUNTIME_PROFILE_PETLIST "0 20 35-39"
 </PRE>
+
 <P>
-<TT>When used in conjunction with the <TT>SUMMARY</TT> option above, the summarized
+When used in conjunction with the <TT>SUMMARY</TT> option above, the summarized
 profile will only aggregate over the specified set of PETs. The one exception is that
 PET 0 is always profiled if <TT>ESMF_RUNTIME_PROFILE=ON</TT>, regardless of the
 <TT>ESMF_RUNTIME_TRACE_PETLIST</TT> setting.
-</TT>
+
 <P>
+
 <H3><A NAME="SECTION060142400000000000000"></A>
 <A NAME="sec:MPIProfiling"></A>
 <BR>
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN> Include MPI Communication in the Profile
 </H3>
+
 <P>
-<TT>MPI functions can be included in the timing profile to indicate how much time
+MPI functions can be included in the timing profile to indicate how much time
 is spent inside communication calls.  This can also help to determine load imbalance
 in the system, since large times spent inside MPI may indicate that communication
 between PETs is not tightly synchronized.  This option includes <EM>all</EM> MPI calls in
 the application, whether or not they originate from the ESMF library.  Here is a partial
 example summary profile that contains MPI times:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 Region                           PETs   Count    Mean (s)    Min (s)     Min PET Max (s)     Max PET
   [esm] RunPhase1                8      1        4.9307      4.6867      0       4.9656      1
     [OCN] RunPhase1              8      1824     0.8344      0.8164      0       0.8652      1
@@ -28407,45 +28561,50 @@ Region                           PETs   Count    Mean (s)    Min (s)     Min PET
       MPI_Recv                   8      MULTIPLE 0.0000      0.0000      0       0.0000      3
       MPI_Bcast                  8      1        0.0000      0.0000      0       0.0000      7
 </PRE>
+
 <P>
-<TT>The procedure for including MPI
+The procedure for including MPI
 functions in the timing profile depends on whether the application is
 dynamically or statically linked. Most applications are dynamically linked,
 however on some systems (such as Cray), static linking may be used.
 Note that for either option, ESMF must be built with <TT>ESMF_TRACE_LIB_BUILD=ON</TT>,
 which is the default.
-</TT>
+
 <P>
-<TT>In <EM>dynamically linked applications</EM>, the <TT>LD_PRELOAD</TT> (Linux) or
+In <EM>dynamically linked applications</EM>, the <TT>LD_PRELOAD</TT> (Linux) or
 <TT>DYLD_INSERT_LIBRARIES</TT> (Darwin) environment variable must be used when
 executing the MPI application.  This instructs the dynamic loader to interpose
 certain MPI symbols so they can be captured by the ESMF profiler.  To simplify
 this process, a script is provided at <TT>$(ESMF_INSTALL_LIBDIR)/preload.sh</TT>
 that sets the appropriate variable.
-</TT>
+
 <P>
-<TT>For example, if you typically execute your application as as follows:
-</TT>
-<P><PRE>
+For example, if you typically execute your application as as follows:
+
+<P>
+<PRE>
 $ mpirun -np 8 ./myApp
 </PRE>
+
 <P>
-<TT>then you should add the <EM>preload.sh</EM> script in front of the
+then you should add the <EM>preload.sh</EM> script in front of the
 executable when starting the application as follows:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 # replace $(ESMF_INSTALL_LIBDIR) with absolute path
 # ... to the ESMF installation lib directory
 $ mpirun -np 8 $(ESMF_INSTALL_LIBDIR)/preload.sh ./myApp
 </PRE>
+
 <P>
-<TT>An advantage of this approach is that your application does <EM>not</EM> need to
+An advantage of this approach is that your application does <EM>not</EM> need to
 be recompiled. The MPI timing information will be included in the per-PET profiles and/or the summary
 profile, depending on the setting of environment variable
 <TT>ESMF_RUNTIME_PROFILE_OUTPUT</TT>.
-</TT>
+
 <P>
-<TT>Notice that an additional step is required for dynamically linked applications
+Notice that an additional step is required for dynamically linked applications
 on <EM>Darwin</EM> systems with System Integrity Protection (SIP) enabled! In
 addition to using the <TT>$(ESMF_INSTALL_LIBDIR)/preload.sh</TT> script during
 launching of the executable as shown above, the executable must <EM>also be
@@ -28455,8 +28614,9 @@ variable <TT>$(ESMF_F90ESMFPRELOADLINKLIBS)</TT> instead of the typical
 <TT>$(ESMF_F90ESMFLINKLIBS)</TT> variable for the final link command. Both
 variables are defined in the <EM>esmf.mk</EM> file that should be imported by
 the application Makefile. For example:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 # import esmf.mk
 include $(ESMFMKFILE)
 
@@ -28467,8 +28627,9 @@ myApp: myApp.o driver.o model.o
         $(ESMF_F90LINKER) $(ESMF_F90LINKOPTS) $(ESMF_F90LINKPATHS) \
         $(ESMF_F90LINKRPATHS) -o $@ $^ $(ESMF_F90ESMFPRELOADLINKLIBS)
 </PRE>
+
 <P>
-<TT>In <EM>statically linked applications</EM>, the application must be re-linked
+In <EM>statically linked applications</EM>, the application must be re-linked
 with specific options provided to the linker.  These options instruct the linker
 to wrap the MPI symbols with the ESMF profiling functions. The linking flags that
 must be provided are included in the <EM>esmf.mk</EM> Makefile fragment that
@@ -28478,8 +28639,9 @@ first import the <EM>esmf.mk</EM> file into your application Makefile. The path
 to this file is typically stored in the <TT>ESMFMKFILE</TT> environment variable.
 Then, pass the variables <TT>$(ESMF_TRACE_STATICLINKOPTS)</TT> and
 <TT>$(ESMF_TRACE_STATICLINKLIBS)</TT> to the final linking command.  For example:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 # import esmf.mk
 include $(ESMFMKFILE)
 
@@ -28492,97 +28654,110 @@ myApp: myApp.o driver.o model.o
         $(ESMF_F90LINKRPATHS) -o $@ $^ $(ESMF_F90ESMFLINKLIBS) \
         $(ESMF_TRACE_STATICLINKOPTS) $(ESMF_TRACE_STATICLINKLIBS)
 </PRE>
+
 <P>
-<TT>This option will statically wrap all of the MPI functions and include them
+This option will statically wrap all of the MPI functions and include them
 in the profile output.  Execute the application in the normal way
 with the environment variable <TT>ESMF_RUNTIME_PROFILE</TT> set to <TT>ON</TT>.
 You will see the MPI functions included in the timing profile.
-</TT>
+
 <P>
+
 <H3><A NAME="SECTION060142500000000000000">
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN> Output a Detailed Trace for Analysis</A>
 </H3>
+
 <P>
-<TT>ESMF tracing is disabled by default. To enable tracing, set the
+ESMF tracing is disabled by default. To enable tracing, set the
 <TT>ESMF_RUNTIME_TRACE</TT> environment variable to <TT>ON</TT>. You
 do not need to recompile your code to enable tracing.
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 # csh shell
 $ setenv ESMF_RUNTIME_TRACE ON
 
 # bash shell
 $ export ESMF_RUNTIME_TRACE=ON
 </PRE>
+
 <P>
-<TT>When enabled, the default behavior is to trace all PETs of the
+When enabled, the default behavior is to trace all PETs of the
 ESMF application. Although the ESMF tracer is designed to write
 events in a compact form, tracing can produce an extremely
 large number of events depending on the total number of PETs and
 the length of the run. To reduce output, it is possible to restrict
 the PETs that produce trace output by setting the <TT>ESMF_RUNTIME_TRACE_PETLIST</TT>
 environment variable. For example, this setting:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 $ setenv ESMF_RUNTIME_TRACE_PETLIST "0 101 192-196"
 </PRE>
+
 <P>
-<TT>will instruct the tracer to only trace PETs 0, 101, and 192 through 196
+will instruct the tracer to only trace PETs 0, 101, and 192 through 196
 (inclusive). The syntax of this environment variable is to list
 PET numbers separated by spaces. PET ranges are also supported using
 the &ldquo;X-Y&rdquo; syntax where X &lt; Y. For PET counts greater than 100, it is
 recommended to set this environment variable. The one exception is that
 PET 0 is always traced, regardless of the <TT>ESMF_RUNTIME_TRACE_PETLIST</TT>
 setting.
-</TT>
+
 <P>
-<TT>ESMF's profiling and tracing options can be used together.  A typical
+ESMF's profiling and tracing options can be used together.  A typical
 use would be to set <TT>ESMF_RUNTIME_PROFILE=ON</TT> for all PETs to
 capture summary timings, and set <TT>ESMF_RUNTIME_TRACE=ON</TT> and
 <TT>ESMF_RUNTIME_TRACE_PETLIST</TT> to a subset of of PETs,
 such as the root PET of each ESMF component. This helps to keep trace
 sizes small while still providing timing summaries over all PETs.
-</TT>
+
 <P>
-<TT>When tracing is enabled, <TT>phase_enter</TT> and <TT>phase_exit</TT> events will
+When tracing is enabled, <TT>phase_enter</TT> and <TT>phase_exit</TT> events will
 automatically be recorded for all initialize, run, and finalize phases of all
 Components in the application. To trace <EM>only</EM> user-instrumented regions (via
 the <TT>ESMF_TraceRegionEnter()</TT> and <TT>ESMF_TraceRegionExit()</TT> calls),
 Component-level tracing can be turned off by setting:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 $ setenv ESMF_RUNTIME_TRACE_COMPONENT OFF
 </PRE>
+
 <P>
-<TT>After running an ESMF application with tracing enabled, a directory
+After running an ESMF application with tracing enabled, a directory
 called <EM>traceout</EM> will be created in the run directory and it will
 contain a <EM>metadata</EM> file and an event stream file <EM>esmf_stream_XXXX</EM>
 for each PET with tracing enabled. Together these files form a valid
 CTF trace which may be analyzed with any of the tools listed above.
-</TT>
+
 <P>
-<TT>Trace events are flushed to file at a regular interval. If the application
+Trace events are flushed to file at a regular interval. If the application
 crashes, some of the most recent events may not be flushed to file. To
 maximize the number of events appearing in the trace, an option is available
 to flush events to file more frequently. Because this option may have
 negative performance implications due to increased file I/O, it is not
 recommended unless needed. To turn on eager flushing use:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
 $ setenv ESMF_RUNTIME_TRACE_FLUSH EAGER
 </PRE>
+
 <P>
+
 <H3><A NAME="SECTION060142600000000000000"></A>
 <A NAME="sec:TracingClocks"></A>
 <BR>
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN> Set the Clock used for Profiling/Tracing
 </H3>
+
 <P>
-<TT>There are three options for the kind of clock to use to timestamp
+There are three options for the kind of clock to use to timestamp
 events when profiling/tracing an application.
 These options are controlled by setting the environment variable
 <TT>ESMF_RUNTIME_TRACE_CLOCK</TT>.
-</TT><table width="90%"><tr><td align="right" valign="top"><TT>REALTIME</TT></td><td valign="top">&nbsp;The <TT>REALTIME</TT> clock timestamps events with the current time on
+<table width="90%"><tr><td align="right" valign="top"><TT>REALTIME</TT></td><td valign="top">&nbsp;The <TT>REALTIME</TT> clock timestamps events with the current time on
       the system.  This is the default clock if the above environment
       variable is not set.  This setting can be useful when tracing PETs that
       span multiple physical computing nodes assuming that the system clocks
@@ -28604,22 +28779,27 @@ These options are controlled by setting the environment variable
       by determining a PET-local offset to be applied to timestamps. Therefore this option
       can be used to compare trace streams across physical nodes.
 </td></tr></table>
-<TT>
-</TT>
+
+
 <P>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060142700000000000000"></A> <A NAME="ex:TraceEx"></A>
 <BR>
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">7</SPAN> Tracing a simple ESMF application
 </H3>
+
 <P>
-<TT>This example illustrates how to trace a simple ESMF
+This example illustrates how to trace a simple ESMF
    application and print the event stream using Babeltrace.
    The first part of the code is a module representing
    a trivial ESMF Gridded Component.  The second part is a
-   main program that creates and executes the component.</TT>
-<P><PRE>
+   main program that creates and executes the component.
+<P>
+<PRE>
 module SimpleComp
 
   use ESMF
@@ -28677,57 +28857,82 @@ contains
 
 end module SimpleComp
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
 program ESMF_TraceEx
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       ! Use ESMF framework module
       use ESMF
       use SimpleComp, only: SetServices
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       implicit none
 
       ! Local variables  
       integer :: rc, finalrc, i
       type(ESMF_GridComp)     :: gridcomp
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       ! initialize ESMF
       finalrc = ESMF_SUCCESS
       call ESMF_Initialize(vm=vm, defaultlogfilename="TraceEx.Log", &amp;
                     logkindflag=ESMF_LOGKIND_MULTI, rc=rc)
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       ! create the component and then execute
       ! initialize, run, and finalize routines
       gridcomp = ESMF_GridCompCreate(name="test", rc=rc)
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       call ESMF_GridCompSetServices(gridcomp, userRoutine=SetServices, rc=rc)
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       call ESMF_GridCompInitialize(gridcomp, rc=rc)
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       do i=1, 5
          call ESMF_GridCompRun(gridcomp, rc=rc)
       enddo
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       call ESMF_GridCompFinalize(gridcomp, rc=rc)
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       call ESMF_GridCompDestroy(gridcomp, rc=rc)
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       call ESMF_Finalize(rc=rc)
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
 end program ESMF_TraceEx
 </PRE>
+
 <P>
-<TT>Assuming the code above is executed on four PETs with
+Assuming the code above is executed on four PETs with
    the environment variable <TT>ESMF_RUNTIME_TRACE</TT> set to
    <TT>ON</TT>, then a folder will be created in the run directory
    called <EM>traceout</EM> containing a <EM>metadata</EM> file and
@@ -28735,23 +28940,27 @@ end program ESMF_TraceEx
    where <EM>XXXX</EM> is the PET number.  If Babeltrace is
    available on the system, the list of events can be printed
    by executing the following from the run directory:
-   </TT><PRE>
+   <PRE>
    $ babeltrace ./traceout
-</PRE><TT>
+</PRE>
    For details about iterating over trace events and performing
    analyses on CTF traces, see the corresponding documentation
    in the tools listed in Section <A HREF="#sec:Tracing"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
 
-</TT>
+
 <P>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060142800000000000000"></A> <A NAME="ex:TraceUserEx"></A>
 <BR>
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">8</SPAN> Profiling/Tracing User-defined Code Regions
 </H3>
+
 <P>
-<TT>This example illustrates how to manually instrument code with
+This example illustrates how to manually instrument code with
    entry and exit points for user-defined code regions. Note that the
    API calls <TT>ESMF_TraceRegionEnter</TT> and <TT>ESMF_TraceRegionExit</TT>
    should always appear in pairs, wrapping a particular section
@@ -28760,25 +28969,32 @@ end program ESMF_TraceEx
    regions. If not at least one is set, the calls to
    <TT>ESMF_TraceRegionEnter</TT> and <TT>ESMF_TraceRegionExit</TT>
    will simply return immediately. For this reason, it is safe to
-   leave this instrumentation in application code, even when not being profiled.  </TT>
-<P><PRE>
+   leave this instrumentation in application code, even when not being profiled.  
+<P>
+<PRE>
       ! Use ESMF framework module
       use ESMF
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       implicit none
 
       ! Local variables  
       integer :: rc, finalrc
       integer :: i, j, tmp
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       ! initialize ESMF
       finalrc = ESMF_SUCCESS
       call ESMF_Initialize(vm=vm, defaultlogfilename="TraceUserEx.Log", &amp;
                     logkindflag=ESMF_LOGKIND_MULTI, rc=rc)
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       ! record entrance into "outer_region"
       call ESMF_TraceRegionEnter("outer_region", rc=rc)
 
@@ -28809,18 +29025,21 @@ end program ESMF_TraceEx
       ! record exit from "outer_region"
       call ESMF_TraceRegionExit("outer_region", rc=rc)
 </PRE>
-<P><PRE>
+
+<P>
+<PRE>
       call ESMF_Finalize(rc=rc)
 </PRE>
-<P>
-<TT>
 
-</TT>
+<P>
+
+
 <H2><A NAME="SECTION060143000000000000000">
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">3</SPAN> Restrictions and Future Work</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <OL>
 <LI><B>Limited types of trace events.</B>
   Currently only a few trace event types are available. The tracer may
@@ -28833,32 +29052,38 @@ end program ESMF_TraceEx
   described in section <A HREF="#sec:MPIProfiling"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
 </LI>
 </OL>
+
 <P>
-<TT></TT>
+
 <H2><A NAME="SECTION060144000000000000000">
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">4</SPAN> Class API</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060144100000000000000">
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN> ESMF_TraceRegionEnter - Trace user-defined region entry event</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_TraceRegionEnter(name, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     character(len=*), intent(in) :: name
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_TraceRegionEnter(name, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     character(len=*), intent(in) :: name
      integer, intent(out), optional  :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Record an event in the trace for this PET indicating entry
+Record an event in the trace for this PET indicating entry
      into a user-defined region with the given name.  This call
      must be paired with a call to <TT>ESMF_TraceRegionExit()</TT>
      with a matching <TT>name</TT> parameter.  User-defined regions may be
@@ -28866,10 +29091,10 @@ end program ESMF_TraceEx
      If tracing is disabled on the calling PET or for the application
      as a whole, no event will be recorded and
      the call will return immediately.
-</TT>
+
 <P>
-<TT>The arguments are:
-   </TT><DL>
+The arguments are:
+   <DL>
 <DT><STRONG>name</STRONG></DT>
 <DD>A user-defined name for the region of code being entered
    
@@ -28878,36 +29103,41 @@ end program ESMF_TraceEx
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
    
 </DD>
-</DL>
+</DL>     
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060144200000000000000">
 <SPAN CLASS="arabic">52</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">2</SPAN> ESMF_TraceRegionExit - Trace user-defined region exit event</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_TraceRegionExit(name, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     character(len=*), intent(in) :: name
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_TraceRegionExit(name, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     character(len=*), intent(in) :: name
      integer, intent(out), optional  :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Record an event in the trace for this PET indicating exit
+Record an event in the trace for this PET indicating exit
      from a user-defined region with the given name.  This call
      must appear after a call to <TT>ESMF_TraceRegionEnter()</TT>
      with a matching <TT>name</TT> parameter.
      If tracing is disabled on the calling PET or for the application
      as a whole, no event will be recorded and
      the call will return immediately.
-</TT>
+
 <P>
-<TT>The arguments are:
-   </TT><DL>
+The arguments are:
+   <DL>
 <DT><STRONG>name</STRONG></DT>
 <DD>A user-defined name for the region of code being exited
    
@@ -28916,73 +29146,76 @@ end program ESMF_TraceEx
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
    
 </DD>
-</DL><TT>
+</DL>
 
-</TT>
+
 <H1><A NAME="SECTION060150000000000000000">
 <SPAN CLASS="arabic">53</SPAN> Fortran I/O and System Utilities</A>
 </H1>
+
 <H2><A NAME="SECTION060151000000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">1</SPAN> Description</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
-<TT><A NAME="sec:IOUtil"></A></TT>
+<A NAME="sec:IOUtil"></A>
 <P>
-<TT>
 The ESMF Fortran I/O and System utilities provide portable methods to
 access capabilities which are often implemented in different
 ways amongst different environments.  These utility methods are
 divided into three groups: command line access, Fortran I/O, and
 sorting.
-</TT>
+
 <P>
-<TT>Command line arguments may be accessed using three methods:
+Command line arguments may be accessed using three methods:
 <TT>ESMF_UtilGetArg()</TT> returns a given command line argument,
 <TT>ESMF_UtilGetArgC()</TT> returns a count of the number of command line
 arguments available.  Finally, the <TT>ESMF_UtilGetArgIndex()</TT> method
 returns the index of a desired argument value, given its keyword name.
-</TT>
+
 <P>
-<TT>Two I/O methods are implemented: <TT>ESMF_IOUnitGet()</TT>,
+Two I/O methods are implemented: <TT>ESMF_IOUnitGet()</TT>,
 to obtain an unopened Fortran unit number within the range of unit numbers that
 ESMF is allowed to use, and <TT>ESMF_IOUnitFlush()</TT> to flush the
 I/O buffer associated with a specific Fortran unit.
-</TT>
+
 <P>
-<TT>Finally, the <TT>ESMF_UtilSort()</TT> method sorts integer, floating point,
+Finally, the <TT>ESMF_UtilSort()</TT> method sorts integer, floating point,
 and character string data types in either ascending or descending order.
 
-</TT>
+
 <H2><A NAME="SECTION060152000000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">2</SPAN> Use and Examples</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <H3><A NAME="SECTION060152100000000000000"></A> <A NAME="fio:unitnumbers"></A>
 <BR>
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> Fortran unit number management
-</H3><TT>
+</H3>
 The <TT>ESMF_UtilIOUnitGet()</TT> method is provided so that applications
 using ESMF can remain free of unit number conflicts -- both when combined
 with other third party code, or with ESMF itself.  This call is typically
 used just prior to an <TT>OPEN</TT> statement:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
   call ESMF_UtilIOUnitGet (unit=grid_unit, rc=rc)
   open (unit=grid_unit, file='grid_data.dat', status='old', action='read')
 </PRE>
+
 <P>
-<TT>By default, unit numbers between 50 and 99 are scanned to find an unopened
+By default, unit numbers between 50 and 99 are scanned to find an unopened
 unit number.
-</TT>
+
 <P>
-<TT>Internally, ESMF also uses <TT>ESMF_UtilIOUnitGet()</TT> when it needs to open
+Internally, ESMF also uses <TT>ESMF_UtilIOUnitGet()</TT> when it needs to open
 Fortran unit numbers for file I/O.  By using the same API for both user and
 ESMF code, unit number collisions can be avoided.
-</TT>
+
 <P>
-<TT>When integrating ESMF into an application where there are conflicts with
+When integrating ESMF into an application where there are conflicts with
 other uses of the same unit number range, such as when hard-coded unit number
 values are used, an alternative unit number range can be specified.
 The <TT>ESMF_Initialize()</TT> optional arguments <TT>IOUnitLower</TT> and <TT>IOUnitUpper</TT>
@@ -28990,22 +29223,26 @@ may be set as needed.  Note that <TT>IOUnitUpper</TT> must be set to a value hig
 <TT>IOUnitLower</TT>, and that both must be non-negative.  Otherwise <TT>ESMF_Initialize</TT>
 will return a return code of <TT>ESMF_FAILURE</TT>.  ESMF itself does not typically need more
 than about five units for internal use.
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
   call ESMF_Initialize (..., IOUnitLower=120, IOUnitUpper=140)
 </PRE>
+
 <P>
-<TT>All current Fortran environments have preconnected unit numbers, such as
+All current Fortran environments have preconnected unit numbers, such as
 units 5 and 6 for standard input and output, in the single digit range.
 So it is recommended that the unit number range is chosen to begin at unit 10
 or higher to avoid these preconnected units.
-</TT>
+
 <P>
+
 <H3><A NAME="SECTION060152200000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Flushing output</A>
 </H3>
+
 <P>
-<TT>Fortran run-time libraries generally use buffering techniques to improve I/O
+Fortran run-time libraries generally use buffering techniques to improve I/O
 performance.  However output buffering can be problematic when output is needed,
 but is &ldquo;trapped&rdquo; in the buffer because it is not full.
 This is a common occurrance when debugging a program, and inserting <TT>WRITE</TT> statements
@@ -29016,13 +29253,14 @@ to ensure that the output buffer is flushed at predictable
 points in the program in order to get the needed results.
 Likewise, in parallel code, predictable flushing of output buffers is a common
 requirement, often in conjunction with <TT>ESMF_VMBarrier()</TT> calls.  
-</TT>
+
 <P>
-<TT>The <TT>ESMF_UtilIOUnitFlush()</TT> API is provided to flush a unit as desired.  Here is
+The <TT>ESMF_UtilIOUnitFlush()</TT> API is provided to flush a unit as desired.  Here is
 an example of code which prints debug values, and serializes the output to a
 terminal in PET order:
-</TT>
-<P><PRE>
+
+<P>
+<PRE>
   type(ESMF_VM) :: vm
 
   integer :: tty_unit
@@ -29042,34 +29280,36 @@ terminal in PET order:
     end if
     call ESMF_VMBarrier (vm=vm)
   end do
-</PRE><TT>
-</TT>
+</PRE>
+
 <H2><A NAME="SECTION060153000000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">3</SPAN> Design and Implementation Notes</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <H3><A NAME="SECTION060153100000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN> Fortran unit number management</A>
 </H3>
+
 <P>
-<TT>When ESMF needs to open a Fortran I/O unit, it calls <TT>ESMF_IOUnitGet()</TT> to find
+When ESMF needs to open a Fortran I/O unit, it calls <TT>ESMF_IOUnitGet()</TT> to find
 an unopened unit number.  As delivered, the range of unit numbers that are
 searched are between <TT>ESMF_LOG_FORTRAN_UNIT_NUMBER</TT> (normally set to
 50), and <TT>ESMF_LOG_UPPER</TT> (normally set to 99.)
 Unopened unit numbers are found by using the Fortran <TT>INQUIRE</TT> statement.
-</TT>
+
 <P>
-<TT>When integrating ESMF into an application where there are conflicts with
+When integrating ESMF into an application where there are conflicts with
 other uses of the same unit number range, an alternative range can be specified
 in the <TT>ESMF_Initialize()</TT> call by setting the <TT>IOUnitLower</TT> and <TT>IOUnitUpper</TT>
 arguments as needed.  <TT>ESMF_IOUnitGet()</TT> will then search the alternate range
 of unit numbers.  Note that <TT>IOUnitUpper</TT> must be set to a value higher than
 <TT>IOUnitLower</TT>, and that both must be non-negative.  Otherwise <TT>ESMF_Initialize</TT>
 will return a return code of <TT>ESMF_FAILURE</TT>.
-</TT>
+
 <P>
-<TT>Fortran unit numbers are not standardized in the Fortran 90 Standard.  The standard
+Fortran unit numbers are not standardized in the Fortran 90 Standard.  The standard
 only requires that they be non-negative integers.  But other than that, it is
 up to the compiler writers and application developers to provide and
 use units which work with the particular implementation.  For example,
@@ -29077,18 +29317,20 @@ units 5 and 6 are a defacto standard for &ldquo;standard input&rdquo; and
 &ldquo;standard output&rdquo; -- even though this is not specified in the actual Fortran
 standard.  The Fortran standard also does not specify which unit numbers can
 be used, nor does it specify how many can be open simultaneously.
-</TT>
+
 <P>
-<TT>Since all current compilers have preconnected unit numbers, and these are
+Since all current compilers have preconnected unit numbers, and these are
 typically found on units lower than 10, it is recommended that applications
 use unit numbers 10 and higher.
-</TT>
+
 <P>
+
 <H3><A NAME="SECTION060153200000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Flushing output</A>
 </H3>
+
 <P>
-<TT>When ESMF needs to flush a Fortran unit, the <TT>ESMF_IOUnitFlush()</TT> API is used
+When ESMF needs to flush a Fortran unit, the <TT>ESMF_IOUnitFlush()</TT> API is used
 to centralize the file flushing capability, because Fortran has not historically
 had a standard mechanism for flushing output buffers.  Most compilers run-time libraries
 support various library extensions to provide this functionality -- though,
@@ -29096,72 +29338,82 @@ being non-standard, the spelling and number of arguments vary between implementa
 Fortran 2003 also provides for a <TT>FLUSH</TT> statement which is built into the
 language.  When possible, <TT>ESMF_IOUnitFlush()</TT> uses the F2003 <TT>FLUSH</TT> statement.
 With older compilers, the appropriate library call is made.
-</TT>
+
 <P>
+
 <H3><A NAME="SECTION060153300000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">3</SPAN> Sorting algorithms</A>
 </H3>
+
 <P>
-<TT>The <TT>ESMF_UtilSort()</TT> algorithms are the same as those in the <TT>LAPACK</TT>
+The <TT>ESMF_UtilSort()</TT> algorithms are the same as those in the <TT>LAPACK</TT>
 sorting procedures <TT>SLASRT()</TT> and <TT>DLASRT()</TT>.  Two algorithms are used.
 For small sorts, arrays with 20 or fewer elements, a simple Insertion sort is
 used.  For larger sorts, a Quicksort algorithm is used.
-</TT>
+
 <P>
-<TT>Compared to the original <TT>LAPACK</TT> code, a full Fortran 90 style
+Compared to the original <TT>LAPACK</TT> code, a full Fortran 90 style
 interface is supported for ease of use and enhanced compile time checking.
 Additional support is also provided for integer and character string data
 types.
-</TT>
+
 <H2><A NAME="SECTION060154000000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN> Utility API</A>
-</H2><TT>
-</TT>
+</H2>
+
 <P>
+
 <P>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060154100000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN> ESMF_UtilGetArg - Return a command line argument</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_UtilGetArg(argindex, argvalue, arglength, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     integer,      intent(in)            :: argindex
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_UtilGetArg(argindex, argvalue, arglength, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     integer,      intent(in)            :: argindex
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      character(*), intent(out), optional :: argvalue
      integer,      intent(out), optional :: arglength
      integer,      intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>This method returns a copy of a command line argument specified
+This method returns a copy of a command line argument specified
    when the process was started.  This argument is the same as an
    equivalent C++ program would find in the argv array.
-</TT>
+
 <P>
-<TT>Some MPI implementations do not consistently provide command line
+Some MPI implementations do not consistently provide command line
    arguments on PETs other than PET 0.  It is therefore recommended
    that PET 0 call this method and broadcast the results to the other
    PETs by using the <TT>ESMF_VMBroadcast()</TT> method.
-</TT>
+
 <P>
-<TT>The arguments are:
-</TT>
-<P><DL>
+The arguments are:
+
+<P>
+<DL>
 <DT><STRONG>argindex</STRONG></DT>
 <DD>A non-negative index into the command line argument <TT>argv</TT> array.
    If argindex is negative or greater than the number of user-specified
@@ -29185,51 +29437,58 @@ types.
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
    
 </DD>
-</DL>
+</DL> 
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060154200000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">2</SPAN> ESMF_UtilGetArgC - Return number of command line arguments</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_UtilGetArgC(count, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     integer, intent(out)           :: count
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_UtilGetArgC(count, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     integer, intent(out)           :: count
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer, intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>This method returns the number of command line arguments specified
+This method returns the number of command line arguments specified
    when the process was started.
-</TT>
+
 <P>
-<TT>The number of arguments returned does not include the name of the
+The number of arguments returned does not include the name of the
    command itself - which is typically returned as argument zero.
-</TT>
+
 <P>
-<TT>Some MPI implementations do not consistently provide command line
+Some MPI implementations do not consistently provide command line
    arguments on PETs other than PET 0.  It is therefore recommended
    that PET 0 call this method and broadcast the results to the other
    PETs by using the <TT>ESMF_VMBroadcast()</TT> method.
-</TT>
+
 <P>
-<TT>The arguments are:
-</TT>
-<P><DL>
+The arguments are:
+
+<P>
+<DL>
 <DT><STRONG>count</STRONG></DT>
 <DD>Count of command line arguments.
    
@@ -29239,49 +29498,56 @@ types.
    
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060154300000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">3</SPAN> ESMF_UtilGetArgIndex - Return the index of a command line argument</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_UtilGetArgIndex(argvalue, argindex, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     character(*), intent(in)            :: argvalue
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_UtilGetArgIndex(argvalue, argindex, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     character(*), intent(in)            :: argvalue
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,      intent(out), optional :: argindex
      integer,      intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>This method searches for, and returns the index of a desired command
+This method searches for, and returns the index of a desired command
    line argument.  An example might be to find a specific keyword
    (e.g., -esmf_path) so that its associated value argument could be
    obtained by adding 1 to the argindex and calling <TT>ESMF_UtilGetArg()</TT>.
-</TT>
+
 <P>
-<TT>Some MPI implementations do not consistently provide command line
+Some MPI implementations do not consistently provide command line
    arguments on PETs other than PET 0.  It is therefore recommended
    that PET 0 call this method and broadcast the results to the other
    PETs by using the <TT>ESMF_VMBroadcast()</TT> method.
-</TT>
+
 <P>
-<TT>The arguments are:
-</TT>
-<P><DL>
+The arguments are:
+
+<P>
+<DL>
 <DT><STRONG>argvalue</STRONG></DT>
 <DD>A character string which will be searched for in the command line
    argument list.
@@ -29297,32 +29563,37 @@ types.
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
    
 </DD>
-</DL>
+</DL> 
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060154400000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">4</SPAN> ESMF_UtilIOGetCWD - Get the current directory</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_UtilIOGetCWD (pathName, rc)
-</PRE><TT><EM>PARAMETERS:</EM>
-</TT><PRE>     character(*), intent(out)           :: pathName
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_UtilIOGetCWD (pathName, rc)
+</PRE><EM>PARAMETERS:</EM>
+<PRE>     character(*), intent(out)           :: pathName
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,      intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Call the system-dependent routine to get the current directory from the file
+Call the system-dependent routine to get the current directory from the file
      system.
-</TT>
+
 <P>
-<TT>The arguments are:
-       </TT><DL>
+The arguments are:
+       <DL>
 <DT><STRONG>pathName</STRONG></DT>
 <DD>Name of the current working directory.
        
@@ -29331,35 +29602,40 @@ types.
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
        
 </DD>
-</DL>
+</DL> 
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060154500000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">5</SPAN> ESMF_UtilIOMkDir - Create a directory in the file system</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>    subroutine ESMF_UtilIOMkDir (pathName,  &amp;
+<I CLASS="sans">INTERFACE:</I>
+<PRE>    subroutine ESMF_UtilIOMkDir (pathName,  &amp;
         mode, relaxedFlag,  &amp;
         rc)
-</PRE><TT><EM>PARAMETERS:</EM>
-</TT><PRE>      character(*), intent(in)            :: pathName
+</PRE><EM>PARAMETERS:</EM>
+<PRE>      character(*), intent(in)            :: pathName
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
       integer,      intent(in),  optional :: mode
       logical,      intent(in),  optional :: relaxedFlag
       integer,      intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Call the system-dependent routine to create a directory in the file system.
-</TT>
+Call the system-dependent routine to create a directory in the file system.
+
 <P>
-<TT>The arguments are:
-       </TT><DL>
+The arguments are:
+       <DL>
 <DT><STRONG>pathName</STRONG></DT>
 <DD>Name of the directory to be created.
        
@@ -29382,35 +29658,40 @@ types.
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
        
 </DD>
-</DL>
+</DL> 
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060154600000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">6</SPAN> ESMF_UtilIORmDir - Remove a directory from the file system</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>    subroutine ESMF_UtilIORmDir (pathName,  &amp;
+<I CLASS="sans">INTERFACE:</I>
+<PRE>    subroutine ESMF_UtilIORmDir (pathName,  &amp;
         relaxedFlag, rc)
-</PRE><TT><EM>PARAMETERS:</EM>
-</TT><PRE>      character(*), intent(in)            :: pathName
+</PRE><EM>PARAMETERS:</EM>
+<PRE>      character(*), intent(in)            :: pathName
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
       logical,      intent(in),  optional :: relaxedFlag
       integer,      intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Call the system-dependent routine to remove a directory from the file
+Call the system-dependent routine to remove a directory from the file
      system.  Note that the directory must be empty in order to be successfully
      removed.
-</TT>
+
 <P>
-<TT>The arguments are:
-       </TT><DL>
+The arguments are:
+       <DL>
 <DT><STRONG>pathName</STRONG></DT>
 <DD>Name of the directory to be removed.
        
@@ -29425,42 +29706,47 @@ types.
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
        
 </DD>
-</DL>
+</DL> 
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060154700000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">7</SPAN> ESMF_UtilString2Double - Convert a string to floating point real</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   function ESMF_UtilString2Double(string, rc)
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>     real(ESMF_KIND_R8) :: ESMF_UtilString2Double
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     character(len=*), intent(in)            :: string
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   function ESMF_UtilString2Double(string, rc)
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>     real(ESMF_KIND_R8) :: ESMF_UtilString2Double
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     character(len=*), intent(in)            :: string
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,          intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Return the numerical real value represented by the <TT>string</TT>.
-</TT>
+Return the numerical real value represented by the <TT>string</TT>.
+
 <P>
-<TT>Leading and trailing blanks in <TT>string</TT> are ignored when directly
+Leading and trailing blanks in <TT>string</TT> are ignored when directly
      converting into integers.
-</TT>
+
 <P>
-<TT>This procedure may fail when used in an expression in a <TT>write</TT> statement
+This procedure may fail when used in an expression in a <TT>write</TT> statement
      with some older, pre-Fortran 2003, compiler environments that do not support
      re-entrant I/O calls.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>string</STRONG></DT>
 <DD>The string to be converted
      
@@ -29470,56 +29756,61 @@ types.
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060154800000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">8</SPAN> ESMF_UtilString2Int - Convert a string to an integer</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   function ESMF_UtilString2Int(string,  &amp;
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   function ESMF_UtilString2Int(string,  &amp;
        specialStringList, specialValueList, rc)
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>     integer :: ESMF_UtilString2Int
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     character(len=*), intent(in)            :: string
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>     integer :: ESMF_UtilString2Int
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     character(len=*), intent(in)            :: string
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      character(len=*), intent(in),  optional :: specialStringList(:)
      integer,          intent(in),  optional :: specialValueList(:)
      integer,          intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Return the numerical integer value represented by the <TT>string</TT>.
+Return the numerical integer value represented by the <TT>string</TT>.
      If <TT>string</TT> matches a string in the optional <TT>specialStringList</TT>, the
      corresponding special value will be returned instead.
-</TT>
+
 <P>
-<TT>If special strings are to be taken into account, both 
+If special strings are to be taken into account, both 
      <TT>specialStringList</TT> and <TT>specialValueList</TT> arguments must be
      present and of same size.
-</TT>
+
 <P>
-<TT>An error is returned, and return value set to 0, if <TT>string</TT> is not
+An error is returned, and return value set to 0, if <TT>string</TT> is not
      found in <TT>specialStringList</TT>, and does not convert into an integer
      value.
-</TT>
+
 <P>
-<TT>Leading and trailing blanks in <TT>string</TT> are ignored when directly
+Leading and trailing blanks in <TT>string</TT> are ignored when directly
      converting into integers.
-</TT>
+
 <P>
-<TT>This procedure may fail when used in an expression in a <TT>write</TT> statement
+This procedure may fail when used in an expression in a <TT>write</TT> statement
      with some older, pre-Fortran 2003, compiler environments that do not support
      re-entrant I/O calls.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>string</STRONG></DT>
 <DD>The string to be converted
      
@@ -29537,41 +29828,46 @@ types.
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION060154900000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">9</SPAN> ESMF_UtilString2Real - Convert a string to floating point real</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   function ESMF_UtilString2Real(string, rc)
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>     real :: ESMF_UtilString2Real
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     character(len=*), intent(in)            :: string
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   function ESMF_UtilString2Real(string, rc)
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>     real :: ESMF_UtilString2Real
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     character(len=*), intent(in)            :: string
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer,          intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Return the numerical real value represented by the <TT>string</TT>.
-</TT>
+Return the numerical real value represented by the <TT>string</TT>.
+
 <P>
-<TT>Leading and trailing blanks in <TT>string</TT> are ignored when directly
+Leading and trailing blanks in <TT>string</TT> are ignored when directly
      converting into integers.
-</TT>
+
 <P>
-<TT>This procedure may fail when used in an expression in a <TT>write</TT> statement
+This procedure may fail when used in an expression in a <TT>write</TT> statement
      with some older, pre-Fortran 2003, compiler environments that do not support
      re-entrant I/O calls.
-</TT>
+
 <P>
-<TT>The arguments are:
-     </TT><DL>
+The arguments are:
+     <DL>
 <DT><STRONG>string</STRONG></DT>
 <DD>The string to be converted
      
@@ -29581,38 +29877,43 @@ types.
      
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601541000000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">10</SPAN> ESMF_UtilStringInt2String - convert integer to character string</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>     function ESMF_UtilStringInt2String (i, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>       integer, intent(in) :: i
+<I CLASS="sans">INTERFACE:</I>
+<PRE>     function ESMF_UtilStringInt2String (i, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>       integer, intent(in) :: i
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
        integer, intent(out), optional  :: rc
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>       character(int2str_len (i)) :: ESMF_UtilStringInt2String
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>       character(int2str_len (i)) :: ESMF_UtilStringInt2String
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Converts given an integer to string representation.  The returned string is
+Converts given an integer to string representation.  The returned string is
      sized such that it does not contain leading or trailing blanks.
-</TT>
+
 <P>
-<TT>This procedure may fail when used in an expression in a <TT>write</TT> statement
+This procedure may fail when used in an expression in a <TT>write</TT> statement
      with some older, pre-Fortran 2003, compiler environments that do not support
      re-entrant I/O calls.
-</TT>
+
 <P>
-<TT>The arguments are:
-       </TT><DL>
+The arguments are:
+       <DL>
 <DT><STRONG>i</STRONG></DT>
 <DD>An integer.
        
@@ -29622,32 +29923,37 @@ types.
        
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601541100000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">11</SPAN> ESMF_UtilStringLowerCase - convert string to lowercase</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>     function ESMF_UtilStringLowerCase(string, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>       character(len=*), intent(in) :: string
+<I CLASS="sans">INTERFACE:</I>
+<PRE>     function ESMF_UtilStringLowerCase(string, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>       character(len=*), intent(in) :: string
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
        integer, intent(out), optional  :: rc
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>       character(len (string)) :: ESMF_UtilStringLowerCase
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>       character(len (string)) :: ESMF_UtilStringLowerCase
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Converts given string to lowercase.
-</TT>
+Converts given string to lowercase.
+
 <P>
-<TT>The arguments are:
-       </TT><DL>
+The arguments are:
+       <DL>
 <DT><STRONG>string</STRONG></DT>
 <DD>A character string.
        
@@ -29657,32 +29963,37 @@ types.
        
 </DD>
 </DL>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601541200000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">12</SPAN> ESMF_UtilStringUpperCase - convert string to uppercase</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>       function ESMF_UtilStringUpperCase(string, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>       character(len=*), intent(in) :: string
+<I CLASS="sans">INTERFACE:</I>
+<PRE>       function ESMF_UtilStringUpperCase(string, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>       character(len=*), intent(in) :: string
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
        integer, intent(out), optional  :: rc
-</PRE><TT><EM>RETURN VALUE:</EM>
-</TT><PRE>       character(len (string)) :: ESMF_UtilStringUpperCase
-</PRE><TT>
+</PRE><EM>RETURN VALUE:</EM>
+<PRE>       character(len (string)) :: ESMF_UtilStringUpperCase
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Converts given string to uppercase.
-</TT>
+Converts given string to uppercase.
+
 <P>
-<TT>The arguments are:
-       </TT><DL>
+The arguments are:
+       <DL>
 <DT><STRONG>string</STRONG></DT>
 <DD>A character string.
        
@@ -29692,45 +30003,52 @@ types.
        
 </DD>
 </DL>
-<P>
-<TT>
 
-</TT>
 <P>
+
+
 <P>
+
 <P>
+
 <P>
+
+<P>
+
 <H3><A NAME="SECTION0601541300000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">13</SPAN> ESMF_UtilIOUnitFlush - Flush output on a unit number</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_UtilIOUnitFlush(unit, rc)
-</PRE><TT><EM>PARAMETERS:</EM>
-</TT><PRE>     integer, intent(in)            :: unit
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_UtilIOUnitFlush(unit, rc)
+</PRE><EM>PARAMETERS:</EM>
+<PRE>     integer, intent(in)            :: unit
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer, intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Call the system-dependent routine to force output on a specific
+Call the system-dependent routine to force output on a specific
      Fortran unit number.
-</TT>
+
 <P>
-<TT>The arguments are:
-       </TT><DL>
+The arguments are:
+       <DL>
 <DT><STRONG>unit</STRONG></DT>
 <DD>A Fortran I/O unit number.  If the unit is not connected to a file,
          no flushing occurs.
@@ -29740,52 +30058,58 @@ types.
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
        
 </DD>
-</DL>
+</DL> 
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601541400000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">14</SPAN> ESMF_UtilIOUnitGet - Scan for a free I/O unit number</A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_UtilIOUnitGet(unit, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>     integer, intent(out)           :: unit
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_UtilIOUnitGet(unit, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>     integer, intent(out)           :: unit
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      integer, intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">STATUS:</I>
-   </TT>
+   
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
    
 </LI>
 </UL>
+
 <P>
-<TT><I CLASS="sans">DESCRIPTION:
+<I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Scan for, and return, a free Fortran I/O unit number.
+Scan for, and return, a free Fortran I/O unit number.
      By default, the range of unit numbers returned is between 50 and 99
      (parameters <TT>ESMF_LOG_FORTRAN_UNIT_NUMBER</TT> and <TT>ESMF_LOG_UPPER</TT>
      respectively.) When integrating ESMF into an application where these values
      conflict with other usages, the range of values may be moved by setting the
      optional <TT>IOUnitLower</TT> and <TT>IOUnitUpper</TT> arguments in the initial
      <TT>ESMF_Initialize()</TT> call with values in a safe, alternate, range.
-</TT>
+
 <P>
-<TT>The Fortran unit number which is returned is not reserved in any way.
+The Fortran unit number which is returned is not reserved in any way.
      Successive calls without intervening <TT>OPEN</TT> or <TT>CLOSE</TT> statements
      (or other means of connecting to units), might not return a unique unit
      number.  It is recommended that an <TT>OPEN</TT> statement immediately follow
      the call to <TT>ESMF_IOUnitGet()</TT> to activate the unit.
-</TT>
+
 <P>
-<TT>The arguments are:
-       </TT><DL>
+The arguments are:
+       <DL>
 <DT><STRONG>unit</STRONG></DT>
 <DD>A Fortran I/O unit number.
        
@@ -29794,31 +30118,36 @@ types.
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
        
 </DD>
-</DL><TT>
+</DL>
 
-</TT>
+
 <P>
+
 <P>
+
 <P>
+
 <H3><A NAME="SECTION0601541500000000000000">
 <SPAN CLASS="arabic">53</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">15</SPAN> ESMF_UtilSort - Sort data </A>
 </H3>
+
 <P>
+
 <P><P>
 <BR>
-<TT><I CLASS="sans">INTERFACE:</I>
-</TT><PRE>   subroutine ESMF_UtilSort (list, direction, rc)
-</PRE><TT><EM>ARGUMENTS:</EM>
-</TT><PRE>   &lt;list&gt;, see below for supported values 
+<I CLASS="sans">INTERFACE:</I>
+<PRE>   subroutine ESMF_UtilSort (list, direction, rc)
+</PRE><EM>ARGUMENTS:</EM>
+<PRE>   &lt;list&gt;, see below for supported values 
    type(ESMF_SortFlag), intent(in) :: direction 
    integer, intent(out), optional :: rc
-</PRE><TT>
+</PRE>
 <I CLASS="sans">DESCRIPTION:
 <BR></I>
-</TT>
+
 <P>
-<TT>Supported values for &lt;list&gt; are: 
-   </TT><DL>
+Supported values for &lt;list&gt; are: 
+   <DL>
 <DT></DT>
 <DD>integer(ESMF_KIND_I4), intent(inout) :: list(:) 
    
@@ -29840,18 +30169,19 @@ types.
    
 </DD>
 </DL>
+
 <P>
-<TT>Use Quick Sort, reverting to Insertion sort on lists of 
+Use Quick Sort, reverting to Insertion sort on lists of 
    size &lt;= 20. 
-</TT>
+
 <P>
-<TT>This is an ESMFized version of SLASRT from LAPACK version 3.1. 
+This is an ESMFized version of SLASRT from LAPACK version 3.1. 
    Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd. 
    November 2006 
-</TT>
+
 <P>
-<TT>The arguments are: 
-   </TT><DL>
+The arguments are: 
+   <DL>
 <DT><STRONG>list</STRONG></DT>
 <DD>Array of data to be sorted. The original data is overwritten by the 
    sorted data. 
@@ -29866,12 +30196,11 @@ types.
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if the sorting is successful. 
    
 </DD>
-</DL>
+</DL> 
+
 <P>
-<TT>
 
 
-</TT>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html2952"
