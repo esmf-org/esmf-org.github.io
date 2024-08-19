@@ -581,7 +581,7 @@ Component that drives and coordinates initialization of its child components: Mo
 <PRE>   ! Private name; call using NUOPC_DriverAddComp()
    recursive subroutine NUOPC_DriverAddGridComp(driver, compLabel, &amp;
      compSetServicesRoutine, compSetVMRoutine, petList, devList, info, config, &amp;
-     comp, rc)
+     hconfig, comp, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp)                               :: driver
      character(len=*),    intent(in)                   :: compLabel
@@ -625,6 +625,7 @@ Component that drives and coordinates initialization of its child components: Mo
      integer,             intent(in),         optional :: devList(:)
      type(ESMF_Info),     intent(in),         optional :: info
      type(ESMF_Config),   intent(in),         optional :: config
+     type(ESMF_HConfig),  intent(in),         optional :: hconfig
      type(ESMF_GridComp), intent(out),        optional :: comp
      integer,             intent(out),        optional :: rc
 </PRE>
@@ -638,11 +639,12 @@ Create and add a GridComp (i.e. Model, Mediator, or Driver) as a child
 
 <P>
 The specified <TT>compSetServicesRoutine()</TT> is called back immediately after
-   the new child component has been created internally. Very little around the
-   component is set up at that time (e.g. NUOPC component attributes will not be
-   available). The routine should therefore be very light weight, with the sole
-   purpose of setting the entry points of the component - typically by deriving
-   from a generic component followed by the appropriate specilizations.
+   the new child component has been created internally.
+   Very little around the component is set up at that time (e.g. NUOPC component
+   attributes are not yet available at this stage). The routine should therefore
+   be very light weight, with the sole purpose of setting the entry points of
+   the component - typically by deriving from a generic component followed by
+   the appropriate specilizations.
 
 <P>
 If provided, the <TT>compSetVMRoutine()</TT> is called back before the
@@ -680,7 +682,7 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_DriverAddComp()
    recursive subroutine NUOPC_DriverAddGridCompSO(driver, compLabel, &amp;
-     sharedObj, petList, devList, info, config, comp, rc)
+     sharedObj, petList, devList, info, config, hconfig, comp, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp)                        :: driver
      character(len=*),    intent(in)            :: compLabel
@@ -689,6 +691,7 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
      integer,             intent(in),  optional :: devList(:)
      type(ESMF_Info),     intent(in),  optional :: info
      type(ESMF_Config),   intent(in),  optional :: config
+     type(ESMF_HConfig),  intent(in),  optional :: hconfig
      type(ESMF_GridComp), intent(out), optional :: comp
      integer,             intent(out), optional :: rc
 </PRE>
@@ -701,13 +704,22 @@ Create and add a GridComp (i.e. Model, Mediator, or Driver) as a child
    or by default across all of the Driver PETs.
 
 <P>
-The <TT>SetServices()</TT> routine in the <TT>sharedObj</TT> is called back
-   immediately after the
-   new child component has been created internally. Very little around the
-   component is set up at that time (e.g. NUOPC component attributes will not be
-   available). The routine should therefore be very light weight, with the sole
-   purpose of setting the entry points of the component - typically by deriving
-   from a generic component followed by the appropriate specilizations.
+The <TT>SetVM()</TT> and <TT>SetServices()</TT> routines in <TT>sharedObj</TT>
+   are called back immediately after the new child component has been created
+   internally. 
+   Very little around the component is set up at that time (e.g. NUOPC component
+   attributes are not yet available at this stage). The routine should therefore
+   be very light weight, with the sole purpose of setting the entry points of
+   the component - typically by deriving from a generic component followed by
+   the appropriate specilizations.
+
+<P>
+The asterisk character <TT>(*)</TT> is supported as a wildcard for the
+   file name suffix in <TT>sharedObj</TT>. When present, the asterisk is replaced
+   by "so", "dylib", and "dll", in this order, and the first successfully
+   loaded object is used. If the <TT>sharedObj</TT> argument is not provided, the
+   executable itself is searched for the "<TT>SetVM</TT>" and "<TT>SetServices</TT>"
+   symbols.
 
 <P>
 The <TT>info</TT> argument can be used to pass custom attributes to the child
@@ -741,7 +753,7 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
 <PRE>   ! Private name; call using NUOPC_DriverAddComp()
    recursive subroutine NUOPC_DriverAddCplComp(driver, srcCompLabel, &amp;
      dstCompLabel, compSetServicesRoutine, compSetVMRoutine, petList, devList, &amp;
-     info, config, comp, rc)
+     info, config, hconfig, comp, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp)                               :: driver
      character(len=*),    intent(in)                   :: srcCompLabel
@@ -786,6 +798,7 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
      integer, target,     intent(in),         optional :: devList(:)
      type(ESMF_Info),     intent(in),         optional :: info
      type(ESMF_Config),   intent(in),         optional :: config
+     type(ESMF_HConfig),  intent(in),         optional :: hconfig
      type(ESMF_CplComp),  intent(out),        optional :: comp
      integer,             intent(out),        optional :: rc
 </PRE>
@@ -800,11 +813,12 @@ Create and add a CplComp (i.e. Connector) as a child component to a Driver.
 
 <P>
 The specified <TT>SetServices()</TT> routine is called back immediately after the
-   new child component has been created internally. Very little around the
-   component is set up at that time (e.g. NUOPC component attributes will not be
-   available). The routine should therefore be very light weight, with the sole
-   purpose of setting the entry points of the component - typically by deriving
-   from a generic component followed by the appropriate specilizations.
+   new child component has been created internally.
+   Very little around the component is set up at that time (e.g. NUOPC component
+   attributes are not yet available at this stage). The routine should therefore
+   be very light weight, with the sole purpose of setting the entry points of
+   the component - typically by deriving from a generic component followed by
+   the appropriate specilizations.
 
 <P>
 The <TT>info</TT> argument can be used to pass custom attributes to the child
@@ -4412,7 +4426,12 @@ Set an <EM>internal</EM> entry point for a GridComp (i.e. Driver). Only Drivers
 Try to find a routine called "<TT>SetServices</TT>" in the <TT>sharedObj</TT> file
      and execute the routine. An attempt is made to find a routine that
      is close in name to "<TT>SetServices</TT>", allowing for compiler name
-     mangling, i.e. upper and lower case, as well as trailing underscores. 
+     mangling, i.e. upper and lower case, as well as trailing underscores.
+     The asterisk character <TT>(*)</TT> is supported as a wildcard for the
+     file name suffix in <TT>sharedObj</TT>. When present, the asterisk is replaced
+     by "so", "dylib", and "dll", in this order, and the first successfully
+     loaded object is used. If the <TT>sharedObj</TT> argument is not provided, the
+     executable itself is searched. 
 
 <P>
 
@@ -4442,7 +4461,12 @@ Try to find a routine called "<TT>SetServices</TT>" in the <TT>sharedObj</TT> fi
 Try to find a routine called "<TT>SetVM</TT>" in the <TT>sharedObj</TT> file
      and execute the routine. An attempt is made to find a routine that
      is close in name to "<TT>SetVM</TT>", allowing for compiler name
-     mangling, i.e. upper and lower case, as well as trailing underscores. 
+     mangling, i.e. upper and lower case, as well as trailing underscores.
+     The asterisk character <TT>(*)</TT> is supported as a wildcard for the
+     file name suffix in <TT>sharedObj</TT>. When present, the asterisk is replaced
+     by "so", "dylib", and "dll", in this order, and the first successfully
+     loaded object is used. If the <TT>sharedObj</TT> argument is not provided, the
+     executable itself is searched. 
 
 <P>
 
@@ -7482,15 +7506,18 @@ The arguments are:
 <BR></I>
 
 <P>
-Write the data of the fields within a <TT>state</TT> to NetCDF files. Each 
-     field is written to an individual file using the "StandardName" attribute
-     as NetCDF attribute.
+Write the data of the fields contained in <TT>state</TT> to NetCDF files.
+     Each field is written to an individual file using its "StandardName"
+     attribute as its NetCDF attribute.
+     FieldBundle objects that are encountered within <TT>state</TT> are traversed,
+     and the contained fields are handled in the same manner as fields directly
+     held by the <TT>state</TT> object.
 
 <P>
 The arguments are:
      <DL>
 <DT><STRONG>state</STRONG></DT>
-<DD>The <TT>ESMF_State</TT> object containing the fields.
+<DD>The <TT>ESMF_State</TT> object containing the fields written.
      
 </DD>
 <DT><STRONG>[fieldNameList]</STRONG></DT>
@@ -7503,7 +7530,7 @@ The arguments are:
      
 </DD>
 <DT><STRONG>[overwrite]</STRONG></DT>
-<DD>A logical flag, the default is .false., i.e., existing Field data may
+<DD>A logical flag, the default is .false., i.e., existing file data may
         <EM>not</EM> be overwritten. If .true., the
         data corresponding to each field's name will be
         be overwritten. If the <TT>timeslice</TT> option is given, only data for
@@ -7513,7 +7540,7 @@ The arguments are:
      
 </DD>
 <DT><STRONG>[status]</STRONG></DT>
-<DD>The file status. Valid options are <TT>ESMF_FILESTATUS_NEW</TT>, 
+<DD>The file status. Valid options are <TT>ESMF_FILESTATUS_NEW</TT>,
         <TT>ESMF_FILESTATUS_OLD</TT>, <TT>ESMF_FILESTATUS_REPLACE</TT>, and
         <TT>ESMF_FILESTATUS_UNKNOWN</TT> (default).
      
@@ -7586,9 +7613,9 @@ The arguments are:
 <BR></I>
 
 <P>
-Write the data of the fields within a <TT>fieldbundle</TT> to NetCDF files.
-     Each field is written to an individual file using the "StandardName"
-     attribute as NetCDF attribute.
+Write the data of the fields contained in <TT>fieldbundle</TT> to NetCDF files.
+     Each field is written to an individual file using its "StandardName"
+     attribute as its NetCDF attribute.
 
 <P>
 The arguments are:
@@ -7617,7 +7644,7 @@ The arguments are:
      
 </DD>
 <DT><STRONG>[status]</STRONG></DT>
-<DD>The file status. Valid options are <TT>ESMF_FILESTATUS_NEW</TT>, 
+<DD>The file status. Valid options are <TT>ESMF_FILESTATUS_NEW</TT>,
         <TT>ESMF_FILESTATUS_OLD</TT>, <TT>ESMF_FILESTATUS_REPLACE</TT>, and
         <TT>ESMF_FILESTATUS_UNKNOWN</TT> (default).
      
