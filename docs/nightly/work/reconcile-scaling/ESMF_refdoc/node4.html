@@ -12009,7 +12009,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 <PRE>       ! Private name; call using ESMF_StateGet()
        subroutine ESMF_StateGetInfo(state, &amp;
              itemSearch, itemorderflag, nestedFlag, &amp;
-             stateIntent, itemCount, itemNameList, itemTypeList, name, rc)
+             stateIntent, itemCount, itemNameList, itemTypeList, name, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>       type(ESMF_State), intent(in) :: state
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -12021,6 +12021,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
        character (len=*), intent(out), optional :: itemNameList(:)
        type(ESMF_StateItem_Flag), intent(out), optional :: itemTypeList(:)
        character (len=*), intent(out), optional :: name
+       type(ESMF_VM), intent(out), optional :: vm
        integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
@@ -12036,6 +12037,11 @@ Changes made after the 5.2.0r release:
 <DD>Added argument <TT>itemorderflag</TT>.
    The new argument gives the user control over the order in which
    the items are returned.
+   
+</DD>
+<DT><STRONG>8.8.0</STRONG></DT>
+<DD>Added argument <TT>vm</TT> in order to offer information about the
+   VM on which the State was created.
    
 </DD>
 </DL>
@@ -12119,6 +12125,10 @@ The arguments are:
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
 <DD>Returns the name of this <TT>ESMF_State</TT>.
+   
+</DD>
+<DT><STRONG>[vm</STRONG></DT>
+<DD>The VM on which the State object was created.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -14761,7 +14771,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="17098"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="17102"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture

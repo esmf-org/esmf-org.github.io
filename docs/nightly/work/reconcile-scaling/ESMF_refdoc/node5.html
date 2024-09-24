@@ -1723,7 +1723,7 @@ The rest of this section further describes the various options available in ESMF
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="17515"></A>
+<DIV ALIGN="CENTER"><A NAME="17519"></A>
 <TABLE>
 <CAPTION><STRONG>Table 1:</STRONG>
 Regrid Interfaces</CAPTION>
@@ -2614,7 +2614,7 @@ The last option (<TT>polemethod=ESMF_POLEMETHOD_TEETH</TT>) does not construct a
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="17756"></A>
+<DIV ALIGN="CENTER"><A NAME="17760"></A>
 <TABLE>
 <CAPTION><STRONG>Table 2:</STRONG>
 Line Type Support by Regrid Method (* indicates the default)</CAPTION>
@@ -5202,7 +5202,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 <PRE>     ! Private name; call using ESMF_FieldBundleGet()
      subroutine ESMF_FieldBundleGetListAll(fieldbundle, &amp;
        itemorderflag, geomtype, grid, locstream, mesh, xgrid, &amp;
-       fieldCount, fieldList, fieldNameList, isPacked, name, rc)
+       fieldCount, fieldList, fieldNameList, isPacked, name, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_FieldBundle), intent(in) :: fieldbundle
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -5217,6 +5217,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
      character(len=*), intent(out), optional :: fieldNameList(:)
      logical, intent(out), optional :: isPacked
      character(len=*), intent(out), optional :: name
+     type(ESMF_VM), intent(out), optional :: vm
      integer, intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
@@ -5237,6 +5238,11 @@ Changes made after the 5.2.0r release:
 <DT><STRONG>8.0.0</STRONG></DT>
 <DD>Added argument <TT>isPacked</TT>.
    The new argument allows the user to query if this is a packed FieldBundle.
+   
+</DD>
+<DT><STRONG>8.8.0</STRONG></DT>
+<DD>Added argument <TT>vm</TT> in order to offer information about the
+   VM on which the FieldBundle was created.
    
 </DD>
 </DL>
@@ -5305,7 +5311,11 @@ Get the list of all Fields and field names bundled in a FieldBundle.
    
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
-<DD>Name of the fieldbundle object.
+<DD>Name of the FieldBundle object.
+   
+</DD>
+<DT><STRONG>[vm</STRONG></DT>
+<DD>The VM on which the FieldBundle object was created.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -9394,7 +9404,7 @@ This example is similar to example <A HREF="#sec:field:usage:create_2dgrid_3dptr
     is shown here.
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="24721"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:fieldparameter"></A><A NAME="24729"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 12:</STRONG>
 Field dimension configuration from Grid, halos, and Fortran data array.</CAPTION>
@@ -23350,9 +23360,9 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 <P><P>
 <BR>
 <I CLASS="sans">INTERFACE:</I>
-<PRE>     ! Private name; call using ESMF_ArrayBundleGet()   
+<PRE>     ! Private name; call using ESMF_ArrayBundleGet()
      subroutine ESMF_ArrayBundleGetListAll(arraybundle, &amp;
-       itemorderflag, arrayCount, arrayList, arrayNameList, name, rc)
+       itemorderflag, arrayCount, arrayList, arrayNameList, name, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_ArrayBundle),    intent(in)            :: arraybundle
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
@@ -23361,6 +23371,7 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
      type(ESMF_Array),          intent(out), optional :: arrayList(:)
      character(len=*),          intent(out), optional :: arrayNameList(:)
      character(len=*),          intent(out), optional :: name
+     type(ESMF_VM),             intent(out), optional :: vm
      integer,                   intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">STATUS:</I>
@@ -23376,6 +23387,11 @@ Changes made after the 5.2.0r release:
 <DD>Added argument <TT>itemorderflag</TT>.
                 The new argument gives the user control over the order in which
                 the items are returned.
+   
+</DD>
+<DT><STRONG>8.8.0</STRONG></DT>
+<DD>Added argument <TT>vm</TT> in order to offer information about the
+                VM on which the ArrayBundle was created.
    
 </DD>
 </DL>
@@ -23419,6 +23435,10 @@ Get general, i.e. not Array name specific information from the ArrayBundle.
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
 <DD>Name of the ArrayBundle object.
+     
+</DD>
+<DT><STRONG>[vm</STRONG></DT>
+<DD>The VM on which the ArrayBundle object was created.
      
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -38970,7 +38990,7 @@ an example of creating a Grid with an arbitrary distribution.
 <P>
 Figure <A HREF="#fig:GridDecomps">13</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="57987"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="57999"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
 Examples of regular and irregular decomposition of
@@ -39011,7 +39031,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="57959"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="57971"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -39384,7 +39404,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="58204"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="58216"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -39425,7 +39445,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="58215"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="58227"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
@@ -41181,7 +41201,7 @@ The default stagger padding depends on the topology of the Grid.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="58766"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridexreg"></A><A NAME="58778"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 17:</STRONG>
 An example of a Grid's exclusive region for the corner stagger</CAPTION>
@@ -41590,7 +41610,7 @@ To illustrate this approach, consider a 2D cell. In 2 dimensions
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="58854"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcuststaggerloc"></A><A NAME="58866"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 18:</STRONG>
 An example of specifying 2D stagger locations using coordinates.</CAPTION>
@@ -41720,7 +41740,7 @@ There is an added complication with the data (e.g. coordinates) stored at stagge
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="58873"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridcellsandcorners"></A><A NAME="58885"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 19:</STRONG>
 An example 2D Grid with cell centers and corners.</CAPTION>
@@ -55713,7 +55733,7 @@ In this example, we will set up a simple XGrid from overlapping Grids on
    to the other side of the XGrid. The Grids are laid out in the following figure:
   <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="68971"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:xgridsimple"></A><A NAME="68983"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 20:</STRONG>
 Grid layout for simple XGrid creation example. Overlapping of 3 Grids
@@ -58226,7 +58246,7 @@ By default all of the edges of the index space tiles making up a DistGrid
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="71081"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_not_connected"></A><A NAME="71093"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 21:</STRONG>
 Two 10x10 index space tiles next to each other without
@@ -58404,7 +58424,7 @@ To see the impact that the index scheme has on the <TT>positionVector</TT>,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="70733"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_2tiles_connected"></A><A NAME="70745"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 22:</STRONG>
 Two 10x10 index space tiles next to each other with a single
@@ -58627,7 +58647,7 @@ By definition, DistGrid connections associate an index tuple of one tile
    <DIV ALIGN="CENTER">
 
 </DIV>   
-   <A NAME="tab:dg_ops"></A>   <A NAME="71082"></A>
+   <A NAME="tab:dg_ops"></A>   <A NAME="71094"></A>
 <TABLE CELLPADDING=3 BORDER="1">
 <CAPTION><STRONG>Table 3:</STRONG>
 The 8 unique rotational operations in 2 dimensional index space. The
@@ -58911,7 +58931,7 @@ In order to better visualize the topology, the first index space
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="70846"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_not_connected"></A><A NAME="70858"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 23:</STRONG>
 A single 50x20 index space tile without connections. For better
@@ -58976,7 +58996,7 @@ Creating a DistGrid on the same index space tile, but with this connection,
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="70861"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic1_connected"></A><A NAME="70873"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 24:</STRONG>
 A single 50x20 index space tile with periodic connection along
@@ -59033,7 +59053,7 @@ Now we can code any connection on this tile in terms of <TT>minIndex</TT> and
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="70877"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_periodic2_connected"></A><A NAME="70889"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 25:</STRONG>
 A single 50x20 index space tile with periodic connections
@@ -59282,7 +59302,7 @@ The pole connection at <SPAN CLASS="MATH"><IMG
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="71084"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peripole_connected"></A><A NAME="71096"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 26:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -59440,7 +59460,7 @@ Figure <A HREF="#fig:dgconnect_1tile_peribipole_connected">27</A> visualizes the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="71085"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_1tile_peribipole_connected"></A><A NAME="71097"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 27:</STRONG>
 A single 50x20 index space tile with periodic connection
@@ -59511,7 +59531,7 @@ Starting point of the multi-tile connection examples will be the
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="70993"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_not_connected"></A><A NAME="71005"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 28:</STRONG>
 Six 10x10 square index space tiles without connections. The tile
@@ -59619,7 +59639,7 @@ The five connections between tiles 1&amp;2, 2&amp;3, 3&amp;4, 4&amp;5, 5&amp;6 a
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="71005"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_5connected"></A><A NAME="71017"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 29:</STRONG>
 The six tiles of an unfolded cube with five connections defined.</CAPTION>
@@ -59690,7 +59710,7 @@ According to the general transformation relationship
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="71016"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_6connected"></A><A NAME="71028"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 30:</STRONG>
 The six tiles of an unfolded cube with all six connections that
@@ -59889,7 +59909,7 @@ Again using equation (<A HREF="#eqn:dg_forward_pvec">13</A>) we find the positio
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="71048"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_2rotconnected"></A><A NAME="71060"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 31:</STRONG>
 The six tiles of an unfolded cube with two connections that
@@ -60013,7 +60033,7 @@ For better visualization the resulting cubic topology is plotted in 3D.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="71056"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:dgconnect_cusph_12connected"></A><A NAME="71068"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 32:</STRONG>
 Six index space tiles with all 12 connections to form a cubic
@@ -65007,11 +65027,12 @@ It is generally recommended to leave the <TT>noGarbage</TT> argument
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_RouteHandleGet()
-   subroutine ESMF_RouteHandleGetP(routehandle, name, rc)
+   subroutine ESMF_RouteHandleGetP(routehandle, name, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_RouteHandle), intent(in)            :: routehandle
  -- The following arguments require argument keyword syntax (e.g. rc=rc). --
      character(len=*),       intent(out), optional :: name
+     type(ESMF_VM),          intent(out), optional :: vm
      integer,                intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -65029,6 +65050,10 @@ The arguments are:
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
 <DD>Name of the RouteHandle object.
+       
+</DD>
+<DT><STRONG>[vm</STRONG></DT>
+<DD>The VM on which the RouteHandle object was created.
        
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
