@@ -5297,13 +5297,14 @@ NOTE that if by below default rules, <TT>ShortName</TT> is also used as
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using NUOPC_Advertise() 
    subroutine NUOPC_AdvertiseFields(state, StandardNames, &amp;
-     TransferOfferGeomObject, SharePolicyField, SharePolicyGeomObject, rc)
+     TransferOfferGeomObject, SharePolicyField, SharePolicyGeomObject, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_State), intent(inout)         :: state
      character(*),     intent(in)            :: StandardNames(:)
      character(*),     intent(in),  optional :: TransferOfferGeomObject
      character(*),     intent(in),  optional :: SharePolicyField
      character(*),     intent(in),  optional :: SharePolicyGeomObject
+     type(ESMF_VM),    intent(in),  optional :: vm
      integer,          intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -5355,6 +5356,12 @@ The arguments are:
        controls the vocabulary of this attribute. Valid options are 
        "share", and "not share".
        If omitted, the default is equal to <TT>SharePolicyField</TT>.
+     
+</DD>
+<DT><STRONG>[vm]</STRONG></DT>
+<DD>If present, the Field objects used during advertising are created on the
+       specified <TT>ESMF_VM</TT> object. The default is to create the Field
+       objects on the VM of the current component context.
      
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
