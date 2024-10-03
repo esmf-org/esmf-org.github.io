@@ -66,6 +66,10 @@ $key = q/API:MeshCreateFromFile/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/API:TimeIntervalSetStr/;
+$ref_files{$key} = "$dir".q|node6.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/Array:ArbHalo/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -210,6 +214,10 @@ $key = q/GridComp:SetServicesShObj/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/HConfigMatch/;
+$ref_files{$key} = "$dir".q|node6.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/RH:DynMask/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -340,6 +348,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/appendix_esmf_error_codes/;
 $ref_files{$key} = "$dir".q|node9.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/assignment_equality_copy_compare/;
+$ref_files{$key} = "$dir".q|node2.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/cite_BalajiXGrid/;
@@ -514,6 +526,10 @@ $key = q/const:coordsys/;
 $ref_files{$key} = "$dir".q|node9.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/const:cubedspherecalcflag/;
+$ref_files{$key} = "$dir".q|node9.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/const:datacopyflag/;
 $ref_files{$key} = "$dir".q|node9.html|; 
 $noresave{$key} = "$nosave";
@@ -568,6 +584,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/const:gridstatus/;
 $ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/const:hconfigmatch/;
+$ref_files{$key} = "$dir".q|node6.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:indexflag/;
