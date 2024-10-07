@@ -195,22 +195,40 @@ ESMPy Documentation <br>
 
 <li>No changes were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. The ESMF tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#regridstatus-870">ESMF regridding status</a> are unchanged compared to ESMF 8.6.1.
 
-<li>Builds using mpiuni (the stub, single-processor MPI library bundled with ESMF) now support ESMF_PIO=internal, allowing full I/O with mpiuni. This is particularly useful for ESMPy.
-<li>An enhancement was made to ESMPy to allow associating a node mask with an ESMPy Mesh. The Mesh.add_nodes method now accepts a keyword, node_mask, through which a user can pass a mask array of length n_nodes. Previously it was only possible to associate a mask with a mesh's elements.
-<li>Added the capability to set an ESMF_TimeInterval object from a string in ISO 8601 time interval format. This allows a user familiar with that format to more intuitively set a time interval in ESMF.
-<li>Added a new repeat capability to the ESMF Clock. This capability can be enabled by setting the repeatDuration argument when creating a Clock. When enabled the clock stays within the range from the clock’s startTime to its startTime+repeatDuration. For example, when advancing if the current time goes past startTime+repeatDuration, then it loops back to startTime and continues from there. ESMF Alarms also work with this capability. One example of when this capability can be useful is when spinning up models.
-<li>Allow setting the endFlag when finalizing ESMPy. In particular, this allows the user to control whether the MPI library is finalized along with ESMPy or is still available afterwards.
-<li>A more scalable method of calculating cubed sphere coordinates was added. This method can be selected using the new coordCalcFlag argument added to the ESMF_GridCreateCubedSphere interfaces. Setting the argument to ESMF_CUBEDSPHERECALC_LOCAL selects the new method.
-<li>The routeHandle calculation was improved to be faster when mapping data locations to their eventual PET destinations. This improvement is expected to increase scalability, especially when redistributing data from a small number of PETs to a large number.
-<li>During ‘make install’ the FindESMF.cmake file is copied into the ESMF_INSTALL_PREFIX/cmake directory. The default location can be overwritten by setting an environment variable, ESMF_INSTALL_CMAKEDIR. This variable can be specified as an absolute path (starting with "/") or relative to ESMF_INSTALL_PREFIX.
-<li>Starting with this release all pull requests into develop will be automatically tested using a combination of settings including: BOPT=O/g, COMPILER=gfortran/clang, COMM=mpiuni/mpich/openmpi, and TESTEXHAUSTIVE=ON/OFF. These tests can be manually executed on any fork/branch by going to Development Tests in the Actions tab on GitHub.
+<li>All of the fixes and improvements released with patch <a href="https://github.com/esmf-org/esmf/releases/tag/v8.6.1">8.6.1</a> are included in release 8.7.0.
+
 <li>Added ESMF_StateLog(), ESMF_FieldLog(), ESMF_ArrayBundleLog(), ESMF_ArrayLog(), and ESMF_DistGridLog() methods. These methods allow inspection of ESMF objects from the user level, which can be useful during code development and debugging. ESMF object logging is also leveraged by the standard NUOPC Verbosity attributes of the generic NUOPC components.
+  
 <li>Added ESMF_HConfigLog() and ESMF_HConfigMatch() methods to facilitate ESMF_HConfig object usage in application code. New sections with code examples were added to the reference manual discussing comparison of ESMF_HConfig objects, and usage of quoted strings and the Norway problem.
-<li>The ESMF capability to access components through dynamically loaded objects was made more portable by introducing wildcard support for the suffix of specified shared objects.
-<li>New NUOPC application prototypes were added to showcase basic C API support through ESMX and NUOPC. This approach leverages components in dynamically loaded objects.
-<li>A new NUOPC application prototype was added to demonstrate coupling a component written in Julia, with a cap in C.
+
+<li>Added the capability to set an ESMF_TimeInterval object from a string in ISO 8601 time interval format. This allows a user familiar with that format to more intuitively set a time interval in ESMF.
+  
+<li>Added a new repeat capability to the ESMF Clock. This capability can be enabled by setting the repeatDuration argument when creating a Clock. When enabled the clock stays within the range from the clock’s startTime to its startTime+repeatDuration. For example, when advancing if the current time goes past startTime+repeatDuration, then it loops back to startTime and continues from there. ESMF Alarms also work with this capability. One example of when this capability can be useful is when spinning up a model.
+    
+<li>An enhancement was made to ESMPy to allow associating a node mask with an ESMPy Mesh. The Mesh.add_nodes method now accepts a keyword, node_mask, through which a user can pass a mask array of length n_nodes. Previously it was only possible to associate a mask with a mesh's elements.
+  
+<li>Allow setting the endFlag when finalizing ESMPy. In particular, this allows the user to control whether the MPI library is finalized along with ESMPy or is still available afterwards.
+
+<li>Builds using mpiuni (the stub, single-processor MPI library bundled with ESMF) now support ESMF_PIO=internal, allowing full I/O with mpiuni. This is particularly useful for ESMPy.
+ 
+<li>A more scalable method of calculating cubed sphere coordinates was added. This method can be selected using the new coordCalcFlag argument added to the ESMF_GridCreateCubedSphere interfaces. Setting the argument to ESMF_CUBEDSPHERECALC_LOCAL selects the new method.
+  
+<li>The routeHandle calculation was improved to be faster when mapping data locations to their eventual PET destinations. This improvement is expected to increase scalability, especially when redistributing data from a small number of PETs to a large number.
+  
 <li>An internal data member in the ESMF_Array class, with a size that scales with the total number of PETs (i.e. MPI tasks) across which the Array was created, has been eliminated. This improvement dramatically reduces the memory requirement for applications that have a large number of Arrays or Fields and run on large numbers of PETs.
+  
+<li>During ‘make install’ the FindESMF.cmake file is copied into the ESMF_INSTALL_PREFIX/cmake directory. The default location can be overwritten by setting an environment variable, ESMF_INSTALL_CMAKEDIR. This variable can be specified as an absolute path (starting with "/") or relative to ESMF_INSTALL_PREFIX.
+
+<li>Starting with this release all pull requests into develop will be automatically tested using a combination of settings including: BOPT=O/g, COMPILER=gfortran/clang, COMM=mpiuni/mpich/openmpi, and TESTEXHAUSTIVE=ON/OFF. These tests can be manually executed on any fork/branch by going to Development Tests in the Actions tab on GitHub.
+  
+<li>The ESMF capability to access components through dynamically loaded objects was made more portable by introducing wildcard support for the suffix of specified shared objects.
+  
 <li>The NUOPC Connection Options now support remapMethod “conserve_2nd” and extrapMethod “nearest_d”.
+  
+<li>New NUOPC application prototypes were added to showcase basic C API support through ESMX and NUOPC. This approach leverages components in dynamically loaded objects.
+  
+<li>A new NUOPC application prototype was added to demonstrate coupling a component written in Julia, with a cap in C.
+
 <p>
 
     <strong>Bug Fixes:</strong>
@@ -227,8 +245,6 @@ ESMPy Documentation <br>
 
 <td>
 <ul>
-
-<li>Using vector regridding (vectorRegrid=.true.) through the <a href="http://earthsystemmodeling.org/docs/release/ESMF_8_6_0/ESMF_refdoc/node5.html#SECTION050366900000000000000">ESMF_FieldRegridStore()</a> interface in combination with either conservative regridding method (regridmethod=ESMF_REGRIDMETHOD_CONSERVE or regridmethod=ESMF_REGRIDMETHOD_CONSERVE_2ND) currently results in an error.
 
 <li>Attempting to write weight files from the ESMPy Regrid object when using <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_6_0/html/FileMode.html">filemode=FileMode.WITHAUX</a> currently crashes.
 <p>
