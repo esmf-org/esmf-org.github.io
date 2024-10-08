@@ -185,8 +185,7 @@ ESMPy Documentation <br>
 <br>
 
 <p>
-  
-    <strong>Notes:</strong>
+    <strong>Compatability Notes:</strong>
 </p>
 
 <li>The public Fortran API in this release is backward compatible with the previous release of ESMF, 8.6.0, and patch release 8.6.1. There were some API changes, none of which require user code changes. The complete list of API changes is summarized in a <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_7_0/API-860-870.pdf">table showing interface changes since ESMF 8.6.0</a>. The table includes the rationale and impact for each change.
@@ -194,9 +193,15 @@ ESMPy Documentation <br>
 <li>No bit-for-bit changes are expected for this release compared to ESMF 8.6.0 or 8.6.1.
 
 <li>No changes were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. The ESMF tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#regridstatus-861">ESMF regridding status</a> are unchanged compared to ESMF 8.6.1.
-
+  
+<p>
+    <strong>Feature Enhancements:</strong>
+</p>
+  
 <li>All of the fixes and improvements released with patch <a href="https://github.com/esmf-org/esmf/releases/tag/v8.6.1">8.6.1</a> are included in release 8.7.0.
 
+<li>Starting with this release all pull requests into develop will be automatically tested using a combination of settings including: BOPT=O/g, COMPILER=gfortran/clang, COMM=mpiuni/mpich/openmpi, and TESTEXHAUSTIVE=ON/OFF. These tests can be manually executed on any fork/branch by going to Development Tests in the Actions tab on GitHub.
+  
 <li>Added ESMF_StateLog(), ESMF_FieldLog(), ESMF_ArrayBundleLog(), ESMF_ArrayLog(), and ESMF_DistGridLog() methods. These methods allow inspection of ESMF objects from the user level, which can be useful during code development and debugging. ESMF object logging is also leveraged by the standard NUOPC Verbosity attributes of the generic NUOPC components.
   
 <li>Added ESMF_HConfigLog() and ESMF_HConfigMatch() methods to facilitate ESMF_HConfig object usage in application code. New sections with code examples were added to the reference manual discussing comparison of ESMF_HConfig objects, and usage of quoted strings and the Norway problem.
@@ -210,6 +215,12 @@ ESMPy Documentation <br>
 <li>Allow setting the endFlag when finalizing ESMPy. In particular, this allows the user to control whether the MPI library is finalized along with ESMPy or is still available afterwards.
 
 <li>Builds using mpiuni (the stub, single-processor MPI library bundled with ESMF) now support ESMF_PIO=internal, allowing full I/O with mpiuni. This is particularly useful for ESMPy.
+
+<li>The NUOPC Connection Options now support remapMethod “conserve_2nd” and extrapMethod “nearest_d”.
+  
+<li>New NUOPC application prototypes were added to showcase basic C API support through ESMX and NUOPC. This approach leverages components in dynamically loaded objects.
+  
+<li>A new NUOPC application prototype was added to demonstrate coupling a component written in Julia, with a cap in C.
  
 <li>A more scalable method of calculating cubed sphere coordinates was added. This method can be selected using the new coordCalcFlag argument added to the ESMF_GridCreateCubedSphere interfaces. Setting the argument to ESMF_CUBEDSPHERECALC_LOCAL selects the new method.
   
@@ -218,17 +229,9 @@ ESMPy Documentation <br>
 <li>An internal data member in the ESMF_Array class, with a size that scales with the total number of PETs (i.e. MPI tasks) across which the Array was created, has been eliminated. This improvement dramatically reduces the memory requirement for applications that have a large number of Arrays or Fields and run on large numbers of PETs.
   
 <li>During ‘make install’ the FindESMF.cmake file is copied into the ESMF_INSTALL_PREFIX/cmake directory. The default location can be overwritten by setting an environment variable, ESMF_INSTALL_CMAKEDIR. This variable can be specified as an absolute path (starting with "/") or relative to ESMF_INSTALL_PREFIX.
-
-<li>Starting with this release all pull requests into develop will be automatically tested using a combination of settings including: BOPT=O/g, COMPILER=gfortran/clang, COMM=mpiuni/mpich/openmpi, and TESTEXHAUSTIVE=ON/OFF. These tests can be manually executed on any fork/branch by going to Development Tests in the Actions tab on GitHub.
   
 <li>The ESMF capability to access components through dynamically loaded objects was made more portable by introducing wildcard support for the suffix of specified shared objects.
   
-<li>The NUOPC Connection Options now support remapMethod “conserve_2nd” and extrapMethod “nearest_d”.
-  
-<li>New NUOPC application prototypes were added to showcase basic C API support through ESMX and NUOPC. This approach leverages components in dynamically loaded objects.
-  
-<li>A new NUOPC application prototype was added to demonstrate coupling a component written in Julia, with a cap in C.
-
 <p>
 
     <strong>Bug Fixes:</strong>
