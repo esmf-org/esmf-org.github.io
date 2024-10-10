@@ -129,6 +129,126 @@ missing or have formatting errors.
 </tr>
 
 
+<!--ESMF_8_7_0-->
+<tr valign="top">
+<td ><a name="8_7_0"></a>
+<a href="https://github.com/esmf-org/esmf/releases/tag/v8.7.0">
+v8.7.0</a>
+<br>
+<br>
+Reference Manual for Fortran<br>
+<a href="/docs/release/ESMF_8_7_0/ESMF_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_7_0/ESMF_refdoc.pdf">(pdf)</a>
+<br><br>
+Reference Manual for C<br>
+<a href="/docs/release/ESMF_8_7_0/ESMC_crefdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_7_0/ESMC_crefdoc.pdf">(pdf)</a>
+<br><br>
+User's Guide<br>
+<a href="/docs/release/ESMF_8_7_0/ESMF_usrdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_7_0/ESMF_usrdoc.pdf">(pdf)</a>
+<br><br>
+NUOPC Layer Reference Manual<br>
+<a href="/docs/release/ESMF_8_7_0/NUOPC_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_7_0/NUOPC_refdoc.pdf">(pdf)</a>
+<br><br>
+Building a NUOPC Model Manual<br>
+<a href="/docs/release/ESMF_8_7_0/NUOPC_howtodoc/">(html)</a>
+<a href="/docs/release/ESMF_8_7_0/NUOPC_howtodoc.pdf">(pdf)</a>
+<br><br>
+ESMPy Documentation <br>
+<a href="/esmpy_doc/release/ESMF_8_7_0/html">(html)</a>
+<a href="/esmpy_doc/release/ESMF_8_7_0/ESMPy.pdf">(pdf)</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/regrid/#regridstatus-861">Regridding Status</a>
+<br><br>
+<a href="/release/platforms_8_7_0">Supported Platforms</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_7_0/API-860-870.pdf">API Changes since v8.6.0</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_7_0/ESMF_Testing_Metrics.html">API Test Coverage</a>
+</td>
+
+<td>10/10/24</td>
+
+<td>
+
+<ul>
+
+<li> <b>Thank you!</b> The ESMF team is grateful for the many years of support, ideation, feedback, testing, and code contributions that the ESMF user community has provided since its inception. We look forward to continuing this partnership with the community to further improve and add features to ESMF.
+
+<li>The public Fortran API in this release is backward compatible with the previous release of ESMF, 8.6.0, and patch release 8.6.1. There were some API changes, none of which require user code changes. The complete list of API changes is summarized in a <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_7_0/API-860-870.pdf">table showing interface changes since ESMF 8.6.0</a>. The table includes the rationale and impact for each change.
+
+<li>No bit-for-bit changes are expected for this release compared to ESMF 8.6.0 or 8.6.1.
+
+<li>No changes were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. The ESMF tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#regridstatus-861">ESMF regridding status</a> are unchanged compared to ESMF 8.6.1.
+  
+<li>All of the fixes and improvements released with patch <a href="https://github.com/esmf-org/esmf/releases/tag/v8.6.1">8.6.1</a> are included in release 8.7.0.
+
+<li>Starting with this release all pull requests into develop will be automatically tested using a combination of settings including: BOPT=O/g, COMPILER=gfortran/clang, COMM=mpiuni/mpich/openmpi, and TESTEXHAUSTIVE=ON/OFF. These tests can be manually executed on any fork/branch by going to Development Tests in the Actions tab on GitHub.
+  
+<li>Added ESMF_StateLog(), ESMF_FieldLog(), ESMF_ArrayBundleLog(), ESMF_ArrayLog(), and ESMF_DistGridLog() methods. These methods allow inspection of ESMF objects from the user level, which can be useful during code development and debugging. ESMF object logging is also leveraged by the standard NUOPC Verbosity attributes of the generic NUOPC components.
+  
+<li>Added ESMF_HConfigLog() and ESMF_HConfigMatch() methods to facilitate ESMF_HConfig object usage in application code. New sections with code examples were added to the reference manual discussing comparison of ESMF_HConfig objects, and usage of quoted strings and the Norway problem.
+
+<li>Added the capability to set an ESMF_TimeInterval object from a string in ISO 8601 time interval format. This allows a user familiar with that format to more intuitively set a time interval in ESMF.
+  
+<li>Added a new repeat capability to the ESMF Clock. This capability can be enabled by setting the repeatDuration argument when creating a Clock. When enabled the clock stays within the range from the clock’s startTime to its startTime+repeatDuration. For example, when advancing if the current time goes past startTime+repeatDuration, then it loops back to startTime and continues from there. ESMF Alarms also work with this capability. One example of when this capability can be useful is when spinning up a model.
+    
+<li>An enhancement was made to ESMPy to allow associating a node mask with an ESMPy Mesh. The Mesh.add_nodes method now accepts a keyword, node_mask, through which a user can pass a mask array of length n_nodes. Previously it was only possible to associate a mask with a mesh's elements.
+  
+<li>Allow setting the endFlag when finalizing ESMPy. In particular, this allows the user to control whether the MPI library is finalized along with ESMPy or is still available afterwards.
+
+<li>Builds using mpiuni (the stub, single-processor MPI library bundled with ESMF) now support ESMF_PIO=internal, allowing full I/O with mpiuni. This is particularly useful for ESMPy.
+
+<li>The NUOPC Connection Options now support remapMethod “conserve_2nd” and extrapMethod “nearest_d”.
+  
+<li>New NUOPC application prototypes were added to showcase basic C API support through ESMX and NUOPC. This approach leverages components in dynamically loaded objects.
+  
+<li>A new NUOPC application prototype was added to demonstrate coupling a component written in Julia, with a cap in C.
+ 
+<li>A more scalable method of calculating cubed sphere coordinates was added. This method can be selected using the new coordCalcFlag argument added to the ESMF_GridCreateCubedSphere interfaces. Setting the argument to ESMF_CUBEDSPHERECALC_LOCAL selects the new method.
+  
+<li>The routeHandle calculation was improved to be faster when mapping data locations to their eventual PET destinations. This improvement is expected to increase scalability, especially when redistributing data from a small number of PETs to a large number.
+  
+<li>An internal data member in the ESMF_Array class, with a size that scales with the total number of PETs (i.e. MPI tasks) across which the Array was created, has been eliminated. This improvement dramatically reduces the memory requirement for applications that have a large number of Arrays or Fields and run on large numbers of PETs.
+  
+<li>During ‘make install’ the FindESMF.cmake file is copied into the ESMF_INSTALL_PREFIX/cmake directory. The default location can be overwritten by setting an environment variable, ESMF_INSTALL_CMAKEDIR. This variable can be specified as an absolute path (starting with "/") or relative to ESMF_INSTALL_PREFIX.
+  
+<li>The ESMF capability to access components through dynamically loaded objects was made more portable by introducing wildcard support for the suffix of specified shared objects.
+  
+<p>
+ 
+    <strong>Bug Fixes:</strong>
+</p>
+<li>A fix was made in ESMPy to permit the creation of Grids where the product of the dimensions exceeds approximately 268,000,000.
+<li>The build of libesmftrace_preload.dylib on some Darwin (Mac) systems with OpenMPI has been fixed. (Incorrect link flags were being used in this build.)
+<li>A fix was made to ESMPy to allow the creation of 3D Meshes. Previously creating a 3D Mesh in ESMPy would result in an error.
+<li>The regridding system was fixed so that the patch regrid method (ESMF_REGRIDMETHOD_PATCH) can be used on a source Field built on a Mesh where the PET list of the component that contains the destination Field has some PETs that aren’t in the source Field’s component’s PET list. Previously this condition would have resulted in an error.
+<li>A fix was made to ESMX to add link_module_paths to the CMAKE_MODULE_PATH list.
+<li>A fix was made to ESMX to support using variables that are defined by setting link_packages in esmxBuild.yaml files.
+
+</ul>
+</td>
+
+<td>
+<ul>
+
+<li>Attempting to write weight files from the ESMPy Regrid object when using <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_6_0/html/FileMode.html">filemode=FileMode.WITHAUX</a> currently crashes.
+<p>
+
+    <strong>Platform-specific issues:</strong>
+</p>
+
+<li>Compiling ESMF with GCC version 8.1.0 triggers an internal compiler error in ESMF_HConfig.F90 due to the use of allocatable character variables. Earlier and later versions of GCC do not have this issue.
+
+<li>On Darwin, with version 15 of the clang C compiler, when building under Rosetta, it is sometimes necessary to add "-Wl,-ld_classic" to environment variables ESMF_CXXLINKOPTS, ESMF_CLINKOPTS, and ESMF_F90LINKOPTS to work around link errors. (For more details, see the related <a href="https://github.com/esmf-org/esmf/issues/193">GitHub issue</a>.)
+
+<li>The cray (cce) compiler currently has problems running PIO with mpiuni, at least for some versions of this compiler (tested with version 15.0.1).
+
+</ul>
+</td>
+</tr>
 
 <!--ESMF_8_6_1-->
 <tr valign="top">
@@ -969,6 +1089,7 @@ ESMPy Documentation <br>
  
 <li>Orion: Linux+GNU+mpiuni
 </ul>
+</ul>
 </td>
 </tr>
 
@@ -1086,6 +1207,7 @@ ESMPy Documentation <br>
  
 <li>Orion: Linux+GNU+mpiuni
 </ul>
+</ul>
 </td>
 </tr>
 
@@ -1134,6 +1256,7 @@ ESMPy Documentation <br>
 <li>No bit-for-bit changes are expected for this release compared to ESMF 8.1.0.
 <li>No changes were made to the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a>. The ESMF tables summarizing the <a href="https://earthsystemmodeling.org/regrid/#-status-of-regridding-methods-covers-releases-810811">ESMF regridding status</a> are unchanged.
 <li>This patch release corrects a regression in the handling of user level OpenMP threads. See the Known Bugs column for details.
+</ul>
 </td>
 
 <td>
@@ -1361,6 +1484,7 @@ ESMPy Documentation <br>
  
 <li>Orion: Linux+GNU+mpiuni
 </ul>
+</ul>
 </td>
 </tr>
 
@@ -1411,6 +1535,7 @@ ESMPy Documentation <br>
 <li>The ESMF Virtual Machine (ESMF_VM) now supports message aggregation to improve performance for some very common communication patterns. Two new methods,  ESMF_VMEpochEnter() and ESMF_VMEpochExit(), allow explicit use of this feature. <li>The generic NUOPC_Connector automatically takes advantage of VMEpoch message aggregation when used between components on disjoint petLists.
 <li>The ability to write/read ESMF RouteHandles to/from file was added to the ESMPy layer. This allows a user to perform the costly RouteHandle generation once, and re-use it in subsequent runs. This provides a more efficient approach to Regridding in the situation where the number of PETs does not change between runs.
 <li>The pole_kind parameter was added to allow specification of pole behavior when creating an ESMPy Grid.
+</ul>
 </td>
 
 <td>
@@ -3179,7 +3304,7 @@ All changes since ESMF_5_1_0 are summarized in two tables including the rational
 
 <li> The <a href="http://earthsystemcog.org/projects/nuopc/">National Unified Operational Prediction Capability (NUOPC) Layer</a> prototype code is now part of the ESMF source distribution. It builds automatically with the ESMF library and is available along side ESMF. ESMF application makefiles can be used unchanged to link against the NUOPC layer.</li>
 
-
+</ul>
 </td><td><ul>
 
      <li> The time spent in ESMF_Finalize() increases super-linearly with the number of DELayout objects. DELayout objects are created by the default method of creating Arrays and Fields.</li>
@@ -3662,7 +3787,7 @@ were not well-defined, and they were rarely used.    These methods may be revisi
 
 <li> Implemented halo communication operation for Field, FieldBundle, Array and ArrayBundle classes. Variable and asymmetric halo depths are supported. </li>
 
-<li> Added regridding support for FieldBundle objects. </li.
+<li> Added regridding support for FieldBundle objects.
 
 <li> First order conservative regridding has been added as a modification to the existing Field regridding methods in both the offline and online and regridding. This modification is based on a finite element L2 projection method. In this initial version quantities are conserved globally. Further work is required for satisfactory local conservation.</li>
 
@@ -3795,7 +3920,7 @@ ESMF interface changes since ESMF_4_0_0r.</a>
 <li> The linker flags that are provided to the user through "esmf.mk" on the ORNL Cray XT systems are now portable between jaguar (XT4) and jaguarpf (XT5).</li>
 <li> The "mvapich2" option was added to build environment variable ESMF_COMM.  Please refer to the second table in the Supported Platforms section of the User Guide to see where it can be used.</li>
 <li> A number of known bugs have been fixed, including issues with repeating sticky and non-sticky Alarms. Please see the known bugs list for more information. </li>
- 
+</ul>
 </td><td><ul>
 <li> The same as ESMF_4_0_0r with the following exceptions:     
     <ul>
@@ -3812,7 +3937,6 @@ ESMF interface changes since ESMF_4_0_0r.</a>
 <b>Platform-specific issues:</b>
 <li> Windows/Cygwin g95: ESMF_LogErrUTest.F90 fails intermittently. </li>
 
-<ul> 
 </ul></td>
 </tr>
 
@@ -4532,7 +4656,7 @@ User's Guide<br>
  <ul >
   <li> Field and Bundle communication methods and corresponding unit tests and examples </li>
   <li> Many Field and Bundle get and set methods and corresponding unit tests and examples </li>
-  <li> System tests *except* for CompCreate, DistDir, ArraySparseMatMul, FieldSparseMatMul, ArrayRedist, and ArrayScatterGather. Other system tests have not yet been modified to work with updated Field and Bundle classes, and will be restored in a future release. </li></li>
+  <li> System tests *except* for CompCreate, DistDir, ArraySparseMatMul, FieldSparseMatMul, ArrayRedist, and ArrayScatterGather. Other system tests have not yet been modified to work with updated Field and Bundle classes, and will be restored in a future release.
  </ul>
 </li>
 
@@ -4814,7 +4938,7 @@ User's Guide<br>
 <li>All NAG compiler combinations we tested (on Linux as well as on Darwin) show random run-time failures when ESMF is compiled in optimized mode and also when user code that links with ESMF is compiled in optimized mode. Consequently ESMF sets ESMF_OPTLEVEL to 0 (zero) by default when compiling ESMF with NAG and we advise NAG users to not use optimization on user code that links against the ESMF library.</li>
 <li>On the PGI 5.0-2 compiler with mpiuni, five regriding unit tests fail.</li>
 <li>On the PGI 6.1-1 compiler with mpiuni, multiple unit tests, examples and 2 system tests fail.</li>
-<liOn the PGI 5.2-4 compiler with mpich, multiple unit tests fail with ESMF_BOPT=g.</li>
+<li>On the PGI 5.2-4 compiler with mpich, multiple unit tests fail with ESMF_BOPT=g.</li>
 <li>Also see <a href="https://sourceforge.net/p/esmf/tix/search/?q=_category%3ABug+AND+%28status%3ANo-First-Contact+OR+status%3AOpen%29">SourceForge bugs list</a>.</li>
 </ul>
 
@@ -6176,7 +6300,7 @@ see <a
 
 <!--ESMF_2_0_0rp1-->
 <tr valign="top" class="public" >
-<td >
+<td>
 <a href="https://github.com/esmf-org/esmf/releases/tag/ESMF_2_0_0rp1">ESMF_2_0_0rp1</a>
 <br>
          <br>
@@ -6269,7 +6393,7 @@ Field
 directory.</li>
           <li>Problems
 with the VM:</li>
-          <ul >
+          <ul>
             <li>On some MPICH environments VM ran with
 only
 one PET, regardless of the number specified on the mpirun command line.</li>
@@ -6280,7 +6404,7 @@ device.</li>
           <li>Time
 Manager
 bugs:</li>
-          <ul >
+          <ul>
             <li>Non-sticky
 alarms in Time Manager are not functioning properly.<br>
               </li>
