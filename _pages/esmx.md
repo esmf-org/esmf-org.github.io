@@ -7,7 +7,7 @@ toc: true
 
 ### Overview
 
-The Earth System Modeling eXecutable (ESMX) Layer is built on top of the ESMF and NUOPC APIs. The goals of ESMX are to:
+The Earth System Modeling eXecutable (ESMX) is built on top of the ESMF and NUOPC APIs. The goals of ESMX are to:
 - simplify standing up new NUOPC-based systems,
 - promote hierarchical model component testing, 
 - reduce the cost of maintaining NUOPC-based modeling systems, 
@@ -16,7 +16,7 @@ The Earth System Modeling eXecutable (ESMX) Layer is built on top of the ESMF an
 
 ### Download and Install
 
-The ESMX Layer is included with the [ESMF distribution](/download/).
+ESMX is included with the [ESMF distribution](/download/).
 No separate download or installation is required.
 
 ### Documentation

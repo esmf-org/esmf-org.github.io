@@ -23,9 +23,9 @@ feature_row:
 
   - image_path: /assets/images/esmx_robot_v1.png
     alt: "ESMX"
-    title: "ESMX Layer"
+    title: "ESMX"
     excerpt: >
-      The Earth System Modeling eXecutable (ESMX) Layer simplifies building,
+      The Earth System Modeling eXecutable (ESMX) approach simplifies building,
       running, and testing applications built from NUOPC-compliant
       components.
     url: "/esmx"
