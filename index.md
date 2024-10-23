@@ -26,7 +26,7 @@ feature_row:
     title: "ESMX"
     excerpt: >
       The Earth System Modeling eXecutable (ESMX) approach simplifies building,
-      running, and testing applications built from NUOPC-compliant
+      running, and testing applications constructed from NUOPC-compliant
       components.
     url: "/esmx"
     btn_label: "Read More"
