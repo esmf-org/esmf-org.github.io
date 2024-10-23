@@ -1,6 +1,6 @@
 ---
 permalink: /esmx/
-title: "ESMX Layer"
+title: "ESMX"
 classes: wide
 toc: true
 ---
