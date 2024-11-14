@@ -2094,11 +2094,11 @@ $external_latex_labels{$key} = q|28.6.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldBundleRead/;
-$external_latex_labels{$key} = q|25.5.20|; 
+$external_latex_labels{$key} = q|25.5.19|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldBundleWrite/;
-$external_latex_labels{$key} = q|25.5.40|; 
+$external_latex_labels{$key} = q|25.5.39|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldRead/;
@@ -2114,7 +2114,7 @@ $external_latex_labels{$key} = q|28.5.49|;
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_fieldbundleregridstore/;
-$external_latex_labels{$key} = q|25.5.27|; 
+$external_latex_labels{$key} = q|25.5.26|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_fieldregridstorenx/;
