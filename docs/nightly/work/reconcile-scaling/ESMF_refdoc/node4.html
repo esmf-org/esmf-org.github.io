@@ -12338,7 +12338,7 @@ The arguments are:
 <P>
 
 <H3><A NAME="SECTION040771400000000000000">
-<SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">14</SPAN> ESMF_StateReconcile - Reconcile State data across all PETs in a VM</A>
+<SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">14</SPAN> ESMF_StateReconcile - Reconcile State across PETs</A>
 </H3>
 
 <P>
@@ -12359,44 +12359,40 @@ The arguments are:
 
 <P>
 Must be called for any <TT>ESMF_State</TT> which contains ESMF objects
-       that have not been created on all the <TT>PET</TT>s of the currently
-       running <TT>ESMF_Component</TT>.
-       For example, if a coupler is operating on data
-       which was created by another component that ran on only a subset
-       of the couplers <TT>PET</TT>s, the coupler must make this call first
-       before operating on any data inside that <TT>ESMF_State</TT>.
-       After calling <TT>ESMF_StateReconcile</TT> all <TT>PET</TT>s will have
-       a common view of all objects contained in this <TT>ESMF_State</TT>.
+     that have not been created on all the <TT>PET</TT>s of the current VM.
+     For example, if a coupler component is operating on data
+     which was created by another component that ran on only a subset
+     of the coupler <TT>PET</TT>s, the coupler must make this call first
+     before operating with any of the objects held by the <TT>ESMF_State</TT>.
+     After calling <TT>ESMF_StateReconcile()</TT> all <TT>PET</TT>s will have
+     a common view of all objects contained in this <TT>ESMF_State</TT>.
 
 <P>
 This call is collective across the specified VM.
 
 <P>
 The arguments are:
-       <DL>
+     <DL>
 <DT><STRONG>state</STRONG></DT>
 <DD><TT>ESMF_State</TT> to reconcile.
-       
+     
 </DD>
 <DT><STRONG>[vm]</STRONG></DT>
-<DD><TT>ESMF_VM</TT> across which to reconcile. The default is the
-         current VM.
-       
+<DD><TT>ESMF_VM</TT> across which to reconcile. The default is the current VM.
+     
 </DD>
 <DT><STRONG>[checkflag]</STRONG></DT>
-<DD>If set to <TT>.TRUE.</TT> the reconciled State object will be checked
-         for consistency across PETs before returning. Any detected issues will
-         be indicated in <TT>rc</TT>. Set <TT>checkflag</TT> to <TT>.FALSE.</TT> in order
-         to achieve highest performance. The default is <TT>.FALSE.</TT>.
-       
+<DD>If set to <TT>.TRUE.</TT> the reconciled State object is checked for
+       consistency across PETs before returning. Any detected issues are
+       indicated in <TT>rc</TT>. Set <TT>checkflag</TT> to <TT>.FALSE.</TT> in order
+       to achieve highest performance. The default is <TT>.FALSE.</TT>.
+     
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
 <DD>Return code; equals <TT>ESMF_SUCCESS</TT> if there are no errors.
-       
+     
 </DD>
 </DL>
-
-<P>
 
 
 <P>
@@ -14529,7 +14525,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16890"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="16885"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
