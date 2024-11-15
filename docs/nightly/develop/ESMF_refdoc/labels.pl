@@ -794,10 +794,6 @@ $key = q/example:CurviGridWithUndistDim/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/example:StateRdWr/;
-$external_labels{$key} = "$URL/" . q|node4.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/fig:GEOS5/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
@@ -2430,7 +2426,7 @@ $external_latex_labels{$key} = q|40.4.29|;
 $noresave{$key} = "$nosave";
 
 $key = q/esmfstateremovelist/;
-$external_latex_labels{$key} = q|21.7.17|; 
+$external_latex_labels{$key} = q|21.7.16|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ex:TraceEx/;
@@ -2463,10 +2459,6 @@ $noresave{$key} = "$nosave";
 
 $key = q/example:CurviGridWithUndistDim/;
 $external_latex_labels{$key} = q|31.3.6|; 
-$noresave{$key} = "$nosave";
-
-$key = q/example:StateRdWr/;
-$external_latex_labels{$key} = q|21.3.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:GEOS5/;

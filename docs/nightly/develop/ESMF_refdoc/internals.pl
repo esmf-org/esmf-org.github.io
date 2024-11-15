@@ -794,10 +794,6 @@ $key = q/example:CurviGridWithUndistDim/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/example:StateRdWr/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/fig:GEOS5/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
