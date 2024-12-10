@@ -5034,12 +5034,13 @@ Print a FreeFormat object.
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   subroutine NUOPC_AddNamespace(state, Namespace, nestedStateName, &amp;
-     nestedState, rc)
+     nestedState, vm, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_State), intent(inout)         :: state
      character(len=*), intent(in)            :: Namespace
      character(len=*), intent(in),  optional :: nestedStateName
      type(ESMF_State), intent(out), optional :: nestedState
+     type(ESMF_VM),    intent(in),  optional :: vm
      integer,          intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -5069,6 +5070,12 @@ The arguments are:
 </DD>
 <DT><STRONG>[nestedState]</STRONG></DT>
 <DD>Optional return of the newly created nested state.
+     
+</DD>
+<DT><STRONG>[vm]</STRONG></DT>
+<DD>If present, the nested State created to hold the namespace is created on
+       the specified <TT>ESMF_VM</TT> object. The default is to create the nested
+       State on the VM of the current component context.
      
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
