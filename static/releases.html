@@ -128,6 +128,128 @@ missing or have formatting errors.
 </td>
 </tr>
 
+<!--ESMF_8_8_0-->
+<tr valign="top">
+<td ><a name="8_8_0"></a>
+<a href="https://github.com/esmf-org/esmf/releases/tag/v8.8.0">
+v8.8.0</a>
+<br>
+<br>
+Reference Manual for Fortran<br>
+<a href="/docs/release/ESMF_8_8_0/ESMF_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_8_0/ESMF_refdoc.pdf">(pdf)</a>
+<br><br>
+Reference Manual for C<br>
+<a href="/docs/release/ESMF_8_8_0/ESMC_crefdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_8_0/ESMC_crefdoc.pdf">(pdf)</a>
+<br><br>
+User's Guide<br>
+<a href="/docs/release/ESMF_8_8_0/ESMF_usrdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_8_0/ESMF_usrdoc.pdf">(pdf)</a>
+<br><br>
+NUOPC Layer Reference Manual<br>
+<a href="/docs/release/ESMF_8_8_0/NUOPC_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_8_0/NUOPC_refdoc.pdf">(pdf)</a>
+<br><br>
+Building a NUOPC Model Manual<br>
+<a href="/docs/release/ESMF_8_8_0/NUOPC_howtodoc/">(html)</a>
+<a href="/docs/release/ESMF_8_8_0/NUOPC_howtodoc.pdf">(pdf)</a>
+<br><br>
+ESMPy Documentation <br>
+<a href="/esmpy_doc/release/ESMF_8_8_0/html">(html)</a>
+<a href="/esmpy_doc/release/ESMF_8_8_0/ESMPy.pdf">(pdf)</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/regrid/#regridstatus-880">Regridding Status</a>
+<br><br>
+<a href="/release/platforms_8_8_0">Supported Platforms</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_8_0/API-870-880.pdf">API Changes since v8.7.0</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_8_0/ESMF_Testing_Metrics.html">API Test Coverage</a>
+</td>
+
+<td>01/10/25</td>
+
+<td>
+
+<ul>
+
+<li>The public Fortran API in this release is backward compatible with the previous release, ESMF 8.7.0, for all the interfaces that are marked as backward compatible in the Reference Manual. There were API changes to a few unmarked methods that may require minor modifications to user code that uses these methods. The complete list of API changes is summarized in a <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_8_0/API-870-880.pdf">table showing interface changes since ESMF 8.7.0</a>. The table includes the rationale and impact for each change.</li>
+
+<li>Some bit-for-bit changes are expected for this release compared to ESMF 8.7.0. This is based on test runs with the Intel compiler suite using options “-O2 -fp-model precise”, and due to the following change:</li> 
+<ul>
+ 
+<li>The second-order conservative weight calculation algorithm used by the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a> was modified to operate on the incoming destination cells in the order of their ids. This fixes an issue where sometimes weights were calculated slightly differently on different PETs due to changes in destination order. The fix was made to both the 2D Cartesian and 2D spherical weight calculation. Expected bit-for-bit changes:</li>  
+<ul>
+  
+<li>Roundoff level changes to second-order conservative weights due to a change in calculation order. </li>  
+</ul>
+ 
+<li>The algorithm for calculating second-order conservative weights on the XGrid has been improved to use more of the information inherent in the XGrid. This removes some issues with unmapped cells as well as making the results more precise.</li>  
+<ul>
+  
+<li>Changes to second-order conservative weights when calculating through the XGrid. </li>  
+</ul></li>  
+</ul>
+
+<li>ESMPy has been updated to support newer Python versions and drop support for older versions; specifically:</li> 
+<ul>
+ 
+<li>Python 3.7 is no longer supported.</li>
+ 
+<li>The LocStream __getitem__ function has been fixed for Python 3.12 and later.</li>
+ 
+<li>Segmentation faults that sometimes occurred with MeshCreateFromFile and RouteHandleCreateFromFile have been fixed.</li>
+ 
+<li>Some unit tests have been fixed to work with recent versions of numpy.</li>
+ 
+<li>Some unused Python code was upgraded to Python 3; despite being unused, this code caused problems with some installations (e.g., via spack).</li> 
+</ul>
+
+<li>The <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_8_0/NUOPC_refdoc/node3.html#SECTION00033500000000000000">NUOPC State metadata</a> was extended to include a new option for the <code>FieldTransferPolicy</code> attribute:  “<code>transferAllWithNamespace</code>”. This new option mirror transfers all of the Fields from the provider to the acceptor component by automatically placing them into the namespace of the provider component.</li>
+
+<li>The <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_8_0/ESMF_refdoc/node4.html#SECTION040771400000000000000">ESMF_StateReconcile()</a> method has been fundamentally re-implemented. This method plays a central role during the setup of multi-component coupled systems. Many users, particularly under NUOPC, do not directly interact with this ESMF method. However, the generic NUOPC Connector uses it heavily during the NUOPC initialization process. Previous to ESMF 8.8.0, the implementation of ESMF_StateReconcile() leveraged all-to-all communications, leading to memory usage and execution times that increased quadratic with the number of PETs across which the method was called. The new implementation completely avoids all-to-all communications, showing memory usage and execution times that increase close to the theoretically expected logarithmic scaling by the number of participating PETs.</li>
+
+<li>The ESMF_StateRead(), ESMF_StateWrite(), ESMF_StateWriteRestart(), and ESMF_StateReadRestart() methods have been removed from the ESMF API. The implementation of these methods was very problematic and it was decided to remove them to prevent users from employing them in their code. If you do need them, please contact ESMF support (<a href="mailto:esmf_support@ucar.edu">esmf_support@ucar.edu</a>) and we can help find a solution. </li>
+
+<li>Added the capability to reset an ESMF Field back to a less complete <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_8_0/ESMF_refdoc/node5.html#SECTION05032100000000000000">field status</a>. This new functionality allows a Field to be repeatedly stripped down and then built up again with different features (e.g. with a different typekind). This capability is provided via the new method <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_8_0/ESMF_refdoc/node5.html#SECTION050364700000000000000">ESMF_FieldEmptyReset()</a>.</li>
+
+<li>The ESMF Geom class was further extended to include <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_8_0/ESMF_refdoc/node5.html#SECTION050122200000000000000">equality</a> and <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_8_0/ESMF_refdoc/node5.html#SECTION050122300000000000000">inequality</a> operators, as well as the <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_8_0/ESMF_refdoc/node5.html#SECTION0501221000000000000000">ESMF_GeomMatch()</a> method. The later method outputs different levels of comparison between Geom objects.</li>
+
+<li>Added support for creating a RouteHandle representing the transpose of a regrid weight matrix. This new RouteHandle is available through the <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_8_0/ESMF_refdoc/node5.html#SECTION050367100000000000000">ESMF_FieldRegridStore()</a> interface.
+
+<p>
+    <strong>Bug Fixes:</strong>
+</p>
+<li>Fixed an issue where, with some compilers, Time Manager methods like ESMF_TimeGet() and ESMF_TimePrint() returned garbled time strings.</li>
+
+<li>Fixed an issue where some sequences of regrid weight generation calls (e.g. ESMF_FieldRegridStore()) on a Field containing a Mesh can result in mask values from a previous call being used in a following call. For example, doing a bilinear regridding on a Field created on a Mesh on the ESMF_MESHLOC_ELEMENT location with one set of mask values followed by a conservative regridding on the same Mesh with a different set of mask values can lead to some wrong mask values being used during the second regridding.
+</ul>
+</td>
+
+<td>
+<ul>
+
+<li>Attempting to write weight files from the ESMPy Regrid object when using <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_8_0/html/FileMode.html">filemode=FileMode.WITHAUX</a> currently crashes.
+
+<p>
+    <strong>Platform-specific issues:</strong>
+</p>
+
+<li>It has been found that running ESMF applications across > 1000 MPI tasks on Infiniband based clusters, using IntelMPI requires setting environment variable <code>FI_MLX_INJECT_LIMIT=0</code>. This recommendation was made by Intel support staff when looking at larger ESMF applications that would hang inside MPI calls on such hardware for no apparent reason.
+
+<li>Compiling ESMF with GCC version 8.1.0 triggers an internal compiler error in ESMF_HConfig.F90 due to the use of allocatable character variables. Earlier and later versions of GCC do not have this issue.</li>
+
+<li>On Darwin, with version 15 of the clang C compiler, when building under Rosetta, it is sometimes necessary to add “-Wl,-ld_classic” to environment variables ESMF_CXXLINKOPTS, ESMF_CLINKOPTS, and ESMF_F90LINKOPTS to work around link errors. (For more details, see the related <a href="https://github.com/esmf-org/esmf/issues/193">GitHub issue</a>.)</li>
+
+<li>The Cray (cce) compiler currently has problems running PIO with mpiuni, at least for some versions of this compiler (tested with version 15.0.1).</li>
+
+<li>There is an issue with intercepting the MPI calls for profiling on one of the supported platforms (hearhear: Darwin+gfortran+mpich set up via spack). This results in a single FAIL reported for ESMF_TraceMPIUTest.F90. 
+
+</ul>
+</td>
+</tr>
+
 
 <!--ESMF_8_7_0-->
 <tr valign="top">
@@ -160,7 +282,7 @@ ESMPy Documentation <br>
 <a href="/esmpy_doc/release/ESMF_8_7_0/html">(html)</a>
 <a href="/esmpy_doc/release/ESMF_8_7_0/ESMPy.pdf">(pdf)</a>
 <br><br>
-<a href="https://earthsystemmodeling.org/regrid/#regridstatus-861">Regridding Status</a>
+<a href="https://earthsystemmodeling.org/regrid/#regridstatus-870">Regridding Status</a>
 <br><br>
 <a href="/release/platforms_8_7_0">Supported Platforms</a>
 <br><br>
@@ -234,7 +356,7 @@ ESMPy Documentation <br>
 <td>
 <ul>
 
-<li>Attempting to write weight files from the ESMPy Regrid object when using <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_6_0/html/FileMode.html">filemode=FileMode.WITHAUX</a> currently crashes.
+<li>Attempting to write weight files from the ESMPy Regrid object when using <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_7_0/html/FileMode.html">filemode=FileMode.WITHAUX</a> currently crashes.
 <p>
 
     <strong>Platform-specific issues:</strong>
@@ -244,7 +366,7 @@ ESMPy Documentation <br>
 
 <li>On Darwin, with version 15 of the clang C compiler, when building under Rosetta, it is sometimes necessary to add "-Wl,-ld_classic" to environment variables ESMF_CXXLINKOPTS, ESMF_CLINKOPTS, and ESMF_F90LINKOPTS to work around link errors. (For more details, see the related <a href="https://github.com/esmf-org/esmf/issues/193">GitHub issue</a>.)
 
-<li>The cray (cce) compiler currently has problems running PIO with mpiuni, at least for some versions of this compiler (tested with version 15.0.1).
+<li>The Cray (cce) compiler currently has problems running PIO with mpiuni, at least for some versions of this compiler (tested with version 15.0.1).
 
 </ul>
 </td>
