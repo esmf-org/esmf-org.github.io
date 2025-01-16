@@ -1,4 +1,4 @@
-# LaTeX2HTML 2018 (Released Feb 1, 2018)
+# LaTeX2HTML 2025 (Released January 1, 2025)
 # Associate internals original text with physical files.
 
 
@@ -70,43 +70,11 @@ $key = q/ModelCompMeta/;
 $ref_files{$key} = "$dir".q|node3.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/NUOPC_AddNestedState/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_AdvertiseField/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_AdvertiseFields/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/NUOPC_Connector/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/NUOPC_CplCompAttributeIng/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_CplCompAttributeIngHC/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/NUOPC_Driver/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_GridCompAttributeIng/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_GridCompAttributeIngHC/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_GridCompSetClock/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
@@ -119,26 +87,6 @@ $ref_files{$key} = "$dir".q|node4.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_ModelBase/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_RealizeCompleteG/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_RealizeCompleteLS/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_RealizeCompleteM/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_RealizeField/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/NUOPC_RealizeTransfer/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
@@ -184,10 +132,6 @@ $noresave{$key} = "$nosave";
 
 $key = q/TransferGeom/;
 $ref_files{$key} = "$dir".q|node3.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/api_NUOPC_SCRIPWrite/;
-$ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/componentDep/;

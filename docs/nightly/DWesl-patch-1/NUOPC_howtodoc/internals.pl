@@ -1,40 +1,8 @@
-# LaTeX2HTML 2018 (Released Feb 1, 2018)
+# LaTeX2HTML 2025 (Released January 1, 2025)
 # Associate internals original text with physical files.
 
 
 $key = q/sec:approach/;
-$ref_files{$key} = "$dir".q|node4.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:atmexample/;
-$ref_files{$key} = "$dir".q|node5.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:atmexample_advancespec/;
-$ref_files{$key} = "$dir".q|node5.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:atmexample_advertisefields/;
-$ref_files{$key} = "$dir".q|node5.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:atmexample_moduleimports/;
-$ref_files{$key} = "$dir".q|node5.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:atmexample_realizefields/;
-$ref_files{$key} = "$dir".q|node5.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:atmexample_retcodes/;
-$ref_files{$key} = "$dir".q|node5.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:atmexample_setservices/;
-$ref_files{$key} = "$dir".q|node5.html|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:basicexamplecap/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
