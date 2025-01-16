@@ -1,0 +1,1100 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2025 (Released January 1, 2025) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>3 API</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2025">
+
+<LINK REL="STYLESHEET" HREF="NUOPC_refdoc.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="NUOPC_refdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A ID="tex2html169"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A
+ HREF="node5.html">4 Standardized Component Dependencies</A>
+<B> Up:</B> <A
+ HREF="NUOPC_refdoc.html">NUOPC_refdoc</A>
+<B> Previous:</B> <A
+ HREF="node3.html">2 Design and Implementation Notes</A>
+ &nbsp; <B>  <A ID="tex2html170"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html171"
+  HREF="node4.html#SECTION00041000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN> Generic Component: NUOPC_Driver</A>
+<LI><A ID="tex2html172"
+  HREF="node4.html#SECTION00042000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Generic Component: NUOPC_ModelBase</A>
+<LI><A ID="tex2html173"
+  HREF="node4.html#SECTION00043000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">3</SPAN> Generic Component: NUOPC_Model</A>
+<LI><A ID="tex2html174"
+  HREF="node4.html#SECTION00044000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">4</SPAN> Generic Component: NUOPC_Mediator</A>
+<LI><A ID="tex2html175"
+  HREF="node4.html#SECTION00045000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">5</SPAN> Generic Component: NUOPC_Connector</A>
+<LI><A ID="tex2html176"
+  HREF="node4.html#SECTION00046000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">6</SPAN> General Generic Component Methods</A>
+<LI><A ID="tex2html177"
+  HREF="node4.html#SECTION00047000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">7</SPAN> Field Dictionary Methods</A>
+<LI><A ID="tex2html178"
+  HREF="node4.html#SECTION00048000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">8</SPAN> Free Format Methods</A>
+<LI><A ID="tex2html179"
+  HREF="node4.html#SECTION00049000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">9</SPAN> Utility Routines</A>
+<LI><A ID="tex2html180"
+  HREF="node4.html#SECTION000410000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">10</SPAN> Auxiliary Routines</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION00040000000000000000">
+<SPAN CLASS="arabic">3</SPAN> API</A>
+</H1>
+
+<H2><A ID="SECTION00041000000000000000"></A>
+<A ID="NUOPC_Driver"></A>
+<BR>
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN> Generic Component: NUOPC_Driver
+</H2>
+
+<P>
+
+<P>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">MODULE:</SPAN>
+<PRE>  module NUOPC_Driver
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">DESCRIPTION:
+<BR></SPAN>
+Component that drives and coordinates initialization of its child components: Model, Mediator, and Connector components. For every Driver time step the same run sequence, i.e. sequence of Model, Mediator, and Connector <SPAN style="font-family:monospace">Run</SPAN> methods is called. The run sequence is fully customizable. The default run sequence implements explicit time stepping.
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SUPER:</SPAN>
+<PRE>  ESMF_GridComp
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">USE DEPENDENCIES:</SPAN>
+<PRE>  use ESMF
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SETSERVICES:</SPAN>
+<PRE>  subroutine SetServices(driver, rc)
+    type(ESMF_GridComp)   :: driver
+    integer, intent(out)  :: rc
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SEMANTIC SPECIALIZATION LABELS:</SPAN>
+
+<UL>
+<LI>Initialize:
+  
+<UL>
+<LI><B>label_SetModelServices</B>
+    
+<UL>
+<LI>Optional. By default driver has no child components.
+</LI>
+<LI>Use <SPAN style="font-family:monospace">NUOPC_DriverAddComp()</SPAN> repeatedly to add child components to the driver.
+</LI>
+<LI>Use <SPAN style="font-family:monospace">NUOPC_CompAttributeSet()</SPAN> or <SPAN style="font-family:monospace">NUOPC_CompAttributeIngest()</SPAN> to set attributes on child components.
+</LI>
+<LI>Create and set driver clock with startTime, stopTime, and timeStep, if not done by the driver's parent.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_SetRunSequence</B>
+    
+<UL>
+<LI>Optional. By default drive child components in the sequence they were added.
+</LI>
+<LI>Define and set a RunSequence either by calling <SPAN style="font-family:monospace">NUOPC_DriverIngestRunSequence()</SPAN>, or by using the <SPAN style="font-family:monospace">NUOPC_DriverNewRunSequence()</SPAN> and <SPAN style="font-family:monospace">NUOPC_DriverAddRunElement()</SPAN> API.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_ModifyInitializePhaseMap</B>
+    
+<UL>
+<LI>Optional. By default InitializePhaseMap attributes are not modified.
+</LI>
+<LI>Modify the InitializePhaseMap attribute on the child components as desired. This is very rarely needed.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_ModifyCplLists</B>
+    
+<UL>
+<LI>Optional. By default CplList attributes are  not modified.
+</LI>
+<LI>Modify the CplList attribute on the child components as desired. This can be useful to set custom Connection Options for specific Field pairs.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_PreChildrenAdvertise</B>
+    
+<UL>
+<LI>Optional.
+</LI>
+<LI>Allow driver to execute specific code before calling the Advertise phase of its children.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_PostChildrenAdvertise</B>
+    
+<UL>
+<LI>Optional.
+</LI>
+<LI>Allow driver to execute specific code after calling the Advertise phase of its children.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_PreChildrenRealize</B>
+    
+<UL>
+<LI>Optional.
+</LI>
+<LI>Allow driver to execute specific code before calling the Realize phase of its children.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_PostChildrenRealize</B>
+    
+<UL>
+<LI>Optional.
+</LI>
+<LI>Allow driver to execute specific code after calling the Realize phase of its children.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_PreChildrenDataInitialize</B>
+    
+<UL>
+<LI>Optional.
+</LI>
+<LI>Allow driver to execute specific code before calling the DataInitialize phase of its children.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_PostChildrenDataInitialize</B>
+    
+<UL>
+<LI>Optional.
+</LI>
+<LI>Allow driver to execute specific code after calling the DataInitialize phase of its children.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+<LI>Run:
+  
+<UL>
+<LI><B>label_SetRunClock</B>
+      
+<UL>
+<LI>Optional. By default driver clock is left unchanged if the parent component has no valid clock.
+          If there is a valid parent clock, the current time is checked between it and the driver clock. An
+          error is returned if the current time does not agree. Otherwise (current time does agree between
+          both clocks), the driver clock stop time is adjusted to a single time step of the parent clock in
+          the future. This ensures that the driver returns at the appropriate parent time step, even if that
+          might change dynamically during the run.
+</LI>
+<LI>Modify the driver clock before executing RunSequence. This is very rarely needed.
+      
+</LI>
+</UL>
+</LI>
+<LI><B>label_ExecuteRunSequence</B>
+    
+<UL>
+<LI>Optional. By default use NUOPC generic RunSequence execution.
+</LI>
+<LI>Implement a custom RunSequence execution. This is very rarely needed.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+<LI>Finalize:
+  
+<UL>
+<LI><B>label_Finalize</B>
+    
+<UL>
+<LI>Optional. By default do nothing.
+</LI>
+<LI>Destroy any objects created during Initalize.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<P>
+
+<H2><A ID="SECTION00042000000000000000"></A>
+<A ID="NUOPC_ModelBase"></A>
+<BR>
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Generic Component: NUOPC_ModelBase
+</H2>
+
+<P>
+
+<P>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">MODULE:</SPAN>
+<PRE>  module NUOPC_ModelBase
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">DESCRIPTION:
+<BR></SPAN>
+Partial specialization of a component with a default <EM>explicit</EM> time dependency. Each time the <SPAN style="font-family:monospace">Run</SPAN> method is called the component steps one timeStep forward on the passed in parent
+clock. The component flags incompatibility during <SPAN style="font-family:monospace">Run</SPAN> if the current time of the incoming
+clock does not match the current time of the internal clock.
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SUPER:</SPAN>
+<PRE>  ESMF_GridComp
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">USE DEPENDENCIES:</SPAN>
+<PRE>  use ESMF
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SETSERVICES:</SPAN>
+<PRE>  subroutine SetServices(modelBase, rc)
+    type(ESMF_GridComp)   :: modelBase
+    integer, intent(out)  :: rc
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SEMANTIC SPECIALIZATION LABELS:</SPAN>
+
+<UL>
+<LI>Initialize:
+  
+<UL>
+<LI><B>label_Advertise</B>
+    
+<UL>
+<LI>Required in order to advertise fields.
+</LI>
+<LI>Use <SPAN style="font-family:monospace">NUOPC_Advertise()</SPAN> to advertise specific fields in the Import- and ExportState of the component.
+</LI>
+<LI>Alternatively set the FieldTransferPolicy attribute on the Import- and ExportState of the component to request field mirroring.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_ModifyAdvertised</B>
+    
+<UL>
+<LI>Optional. By default do not modify the advertised fields.
+</LI>
+<LI>Mostly used when field mirroring was requested during Advertise.
+</LI>
+<LI>Remove undesired advertised fields in the Import- and ExportState of the component.
+</LI>
+<LI>Adjust attributes e.g. for TransferOffer on advertised fields.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_RealizeProvided</B>
+    
+<UL>
+<LI>Required in order to realize fields.
+</LI>
+<LI>Use <SPAN style="font-family:monospace">NUOPC_Realize()</SPAN> to realize fields previously advertised, and for which this component is responsible for providing the Field allocation and/or the GeomObject.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_AcceptTransfer</B>
+    
+<UL>
+<LI>Optional. By default accept the Distribution of the transferred GeomObjects.
+</LI>
+<LI>Change the distribution of any of the transferred GeomObjects.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_RealizeAccepted</B>
+    
+<UL>
+<LI>Optional. Needed for any fields for which component is accepting the GeomObject.
+</LI>
+<LI>Use <SPAN style="font-family:monospace">NUOPC_Realize()</SPAN> to realize fields previously advertised, and for which this component is accepting the GeomObject.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_SetClock</B>
+    
+<UL>
+<LI>Optional. By default create clock according to time information provided by driver.
+</LI>
+<LI>Adjust and set the component clock.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_DataInitialize</B>
+    
+<UL>
+<LI>Optional. Needed to initialize data, and to participate in resolution of data dependencies between components during initialize.
+</LI>
+<LI>Initialize data in fields.
+</LI>
+<LI>Set NUOPC attributes used for data dependency resolution.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+<LI>Run:
+  
+<UL>
+<LI><B>label_Advance</B>
+    
+<UL>
+<LI>Called every timeStep on the component internal clock.
+</LI>
+<LI>Implement the forward integration of the model.
+</LI>
+<LI>Ensure data in the export fields is updated before returning.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_AdvanceClock</B>
+    
+<UL>
+<LI>Optional. By default the component internal clock is advanced by one internal timeStep at the end of the Advance step.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_CheckImport</B>
+    
+<UL>
+<LI>Optional. By default check the timestamp of all import fields against the current time of the internal clock.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_SetRunClock</B>
+    
+<UL>
+<LI>Optional. By default do not adjust the internal clock when entering Run.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_TimestampExport</B>
+    
+<UL>
+<LI>Optinal. By default timestamp all export fields according to the current time of the component internal clock before returning.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+<LI>Finalize:
+  
+<UL>
+<LI><B>label_Finalize</B>
+    
+<UL>
+<LI>Optional. By default do nothing.
+</LI>
+<LI>Destroy any objects created during Initalize.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<P>
+
+<H2><A ID="SECTION00043000000000000000"></A>
+<A ID="NUOPC_Model"></A>
+<BR>
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">3</SPAN> Generic Component: NUOPC_Model
+</H2>
+
+<P>
+
+<P>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">MODULE:</SPAN>
+<PRE>  module NUOPC_Model
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">DESCRIPTION:
+<BR></SPAN>
+Model component with a default <EM>explicit</EM> time dependency. Each time the <SPAN style="font-family:monospace">Run</SPAN> method is called the model integrates one timeStep forward on the passed in parent clock. The internal clock is advanced at the end of each <SPAN style="font-family:monospace">Run</SPAN> call. The component flags incompatibility during <SPAN style="font-family:monospace">Run</SPAN> if the current time of the incoming clock does not match the current time of the internal clock.
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SUPER:</SPAN>
+<PRE>  NUOPC_ModelBase
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">USE DEPENDENCIES:</SPAN>
+<PRE>  use ESMF
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SETSERVICES:</SPAN>
+<PRE>  subroutine SetServices(model, rc)
+    type(ESMF_GridComp)   :: model
+    integer, intent(out)  :: rc
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SEMANTIC SPECIALIZATION LABELS:</SPAN>
+
+<UL>
+<LI>Initialize:
+  
+<UL>
+<LI><B>label_Advertise</B>
+    
+<UL>
+<LI>Required in order to advertise fields.
+</LI>
+<LI>Use <SPAN style="font-family:monospace">NUOPC_Advertise()</SPAN> to advertise specific fields in the Import- and ExportState of the component.
+</LI>
+<LI>Alternatively set the FieldTransferPolicy attribute on the Import- and ExportState of the component to request field mirroring.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_ModifyAdvertised</B>
+    
+<UL>
+<LI>Optional. By default do not modify the advertised fields.
+</LI>
+<LI>Mostly used when field mirroring was requested during Advertise.
+</LI>
+<LI>Remove undesired advertised fields in the Import- and ExportState of the component.
+</LI>
+<LI>Adjust attributes e.g. for TransferOffer on advertised fields.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_RealizeProvided</B>
+    
+<UL>
+<LI>Required in order to realize fields.
+</LI>
+<LI>Use <SPAN style="font-family:monospace">NUOPC_Realize()</SPAN> to realize fields previously advertised, and for which this component is responsible for providing the Field allocation and/or the GeomObject.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_AcceptTransfer</B>
+    
+<UL>
+<LI>Optional. By default accept the Distribution of the transferred GeomObjects.
+</LI>
+<LI>Change the distribution of any of the transferred GeomObjects.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_RealizeAccepted</B>
+    
+<UL>
+<LI>Optional. Needed for any fields for which component is accepting the GeomObject.
+</LI>
+<LI>Use <SPAN style="font-family:monospace">NUOPC_Realize()</SPAN> to realize fields previously advertised, and for which this component is accepting the GeomObject.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_SetClock</B>
+    
+<UL>
+<LI>Optional. By default create clock according to time information provided by driver.
+</LI>
+<LI>Adjust and set the component clock.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_DataInitialize</B>
+    
+<UL>
+<LI>Optional. Needed to initialize data, and to participate in resolution of data dependencies between components during initialize.
+</LI>
+<LI>Initialize data in fields.
+</LI>
+<LI>Set NUOPC attributes used for data dependency resolution.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+<LI>Run:
+  
+<UL>
+<LI><B>label_Advance</B>
+    
+<UL>
+<LI>Called every timeStep on the component internal clock.
+</LI>
+<LI>Implement the forward integration of the model.
+</LI>
+<LI>Ensure data in the export fields is updated before returning.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_AdvanceClock</B>
+    
+<UL>
+<LI>Optional. By default the component internal clock is advanced by one internal timeStep at the end of the Advance step.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_CheckImport</B>
+    
+<UL>
+<LI>Optional. By default check the timestamp of all import fields against the current time of the internal clock.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_SetRunClock</B>
+    
+<UL>
+<LI>Optional. By default do not adjust the internal clock when entering Run.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_TimestampExport</B>
+    
+<UL>
+<LI>Optinal. By default timestamp all export fields according to the current time of the component internal clock before returning.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+<LI>Finalize:
+  
+<UL>
+<LI><B>label_Finalize</B>
+    
+<UL>
+<LI>Optional. By default do nothing.
+</LI>
+<LI>Destroy any objects created during Initalize.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<P>
+
+<H2><A ID="SECTION00044000000000000000"></A>
+<A ID="NUOPC_Mediator"></A>
+<BR>
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">4</SPAN> Generic Component: NUOPC_Mediator
+</H2>
+
+<P>
+
+<P>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">MODULE:</SPAN>
+<PRE>  module NUOPC_Mediator
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">DESCRIPTION:
+<BR></SPAN>
+Mediator component with a default <EM>explicit</EM> time dependency. Each time the <SPAN style="font-family:monospace">Run</SPAN> method is called, the time stamp on the imported Fields must match the current time (on both the incoming and internal clock). Before returning, the Mediator time stamps the exported Fields with the same current time, before advancing the internal clock one timeStep forward.
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SUPER:</SPAN>
+<PRE>  NUOPC_ModelBase
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">USE DEPENDENCIES:</SPAN>
+<PRE>  use ESMF
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SETSERVICES:</SPAN>
+<PRE>  subroutine SetServices(mediator, rc)
+    type(ESMF_GridComp)   :: mediator
+    integer, intent(out)  :: rc
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SEMANTIC SPECIALIZATION LABELS:</SPAN>
+
+<UL>
+<LI>Initialize:
+  
+<UL>
+<LI><B>label_Advertise</B>
+    
+<UL>
+<LI>Required in order to advertise fields.
+</LI>
+<LI>Use <SPAN style="font-family:monospace">NUOPC_Advertise()</SPAN> to advertise specific fields in the Import- and ExportState of the component.
+</LI>
+<LI>Alternatively set the FieldTransferPolicy attribute on the Import- and ExportState of the component to request field mirroring.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_ModifyAdvertised</B>
+    
+<UL>
+<LI>Optional. By default do not modify the advertised fields.
+</LI>
+<LI>Mostly used when field mirroring was requested during Advertise.
+</LI>
+<LI>Remove undesired advertised fields in the Import- and ExportState of the component.
+</LI>
+<LI>Adjust attributes e.g. for TransferOffer on advertised fields.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_RealizeProvided</B>
+    
+<UL>
+<LI>Required in order to realize fields.
+</LI>
+<LI>Use <SPAN style="font-family:monospace">NUOPC_Realize()</SPAN> to realize fields previously advertised, and for which this component is responsible for providing the Field allocation and/or the GeomObject.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_AcceptTransfer</B>
+    
+<UL>
+<LI>Optional. By default accept the Distribution of the transferred GeomObjects.
+</LI>
+<LI>Change the distribution of any of the transferred GeomObjects.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_RealizeAccepted</B>
+    
+<UL>
+<LI>Optional. Needed for any fields for which component is accepting the GeomObject.
+</LI>
+<LI>Use <SPAN style="font-family:monospace">NUOPC_Realize()</SPAN> to realize fields previously advertised, and for which this component is accepting the GeomObject.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_SetClock</B>
+    
+<UL>
+<LI>Optional. By default create clock according to time information provided by driver.
+</LI>
+<LI>Adjust and set the component clock.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_DataInitialize</B>
+    
+<UL>
+<LI>Optional. Needed to initialize data, and to participate in resolution of data dependencies between components during initialize.
+</LI>
+<LI>Initialize data in fields.
+</LI>
+<LI>Set NUOPC attributes used for data dependency resolution.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+<LI>Run:
+  
+<UL>
+<LI><B>label_Advance</B>
+    
+<UL>
+<LI>Called every timeStep on the component internal clock.
+</LI>
+<LI>Implement the forward integration of the model.
+</LI>
+<LI>Ensure data in the export fields is updated before returning.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_AdvanceClock</B>
+    
+<UL>
+<LI>Optional. By default the component internal clock is advanced by one internal timeStep at the end of the Advance step.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_CheckImport</B>
+    
+<UL>
+<LI>Optional. By default check the timestamp of all import fields against the current time of the internal clock.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_SetRunClock</B>
+    
+<UL>
+<LI>Optional. By default do not adjust the internal clock when entering Run.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_TimestampExport</B>
+    
+<UL>
+<LI>Optinal. By default timestamp all export fields according to the current time of the component internal clock before returning.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+<LI>Finalize:
+  
+<UL>
+<LI><B>label_Finalize</B>
+    
+<UL>
+<LI>Optional. By default do nothing.
+</LI>
+<LI>Destroy any objects created during Initalize.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<P>
+
+<H2><A ID="SECTION00045000000000000000"></A>
+<A ID="NUOPC_Connector"></A>
+<BR>
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">5</SPAN> Generic Component: NUOPC_Connector
+</H2>
+
+<P>
+
+<P>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">MODULE:</SPAN>
+<PRE>  module NUOPC_Connector
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">DESCRIPTION:
+<BR></SPAN>
+Component that makes a unidirectional connection between model, mediator, and or driver components. During initialization field pairing is performed between the import and export side according to section <A HREF="node3.html#FieldPairing">2.4.2</A>, and paired fields are connected. By default the bilinear regrid method is used during <SPAN style="font-family:monospace">Run</SPAN> to transfer data from the connected import Fields to the connected export Fields.
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SUPER:</SPAN>
+<PRE>  ESMF_CplComp
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">USE DEPENDENCIES:</SPAN>
+<PRE>  use ESMF
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SETSERVICES:</SPAN>
+<PRE>  subroutine SetServices(connector, rc)
+    type(ESMF_CplComp)    :: connector
+    integer, intent(out)  :: rc
+</PRE>
+
+<P>
+
+<P><P>
+<BR>
+<SPAN style="font-family:sans-serif">SEMANTIC SPECIALIZATION LABELS:</SPAN>
+
+<UL>
+<LI>Initialize:
+  
+<UL>
+<LI><B>label_ComputeRouteHandle</B>
+    
+<UL>
+<LI>Optional. By default compute routehandles according to CplList attribute.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+<LI>Run:
+  
+<UL>
+<LI><B>label_ExecuteRouteHandle</B>
+    
+<UL>
+<LI>Optional. By default execute routehandles stored in the Connector.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+<LI>Finalize:
+  
+<UL>
+<LI><B>label_ReleaseRouteHandle</B>
+    
+<UL>
+<LI>Optional. By default release routehandles stored in the Connector.
+    
+</LI>
+</UL>
+</LI>
+<LI><B>label_Finalize</B>
+    
+<UL>
+<LI>Optional. By default do nothing.
+</LI>
+<LI>Destroy any objects created during Initalize.
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<P>
+
+<H2><A ID="SECTION00046000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">6</SPAN> General Generic Component Methods</A>
+</H2>
+
+<H2><A ID="SECTION00047000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">7</SPAN> Field Dictionary Methods</A>
+</H2>
+
+<H2><A ID="SECTION00048000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">8</SPAN> Free Format Methods</A>
+</H2>
+
+<H2><A ID="SECTION00049000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">9</SPAN> Utility Routines</A>
+</H2>
+
+<H2><A ID="SECTION000410000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">10</SPAN> Auxiliary Routines</A>
+</H2>
+Auxiliary routines are provided with the NUOPC Layer as a convenience to the
+user. Typically more work is needed on these methods before considering them
+NUOPC core functionality.
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="NUOPC_refdoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A ID="tex2html169"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A
+ HREF="node5.html">4 Standardized Component Dependencies</A>
+<B> Up:</B> <A
+ HREF="NUOPC_refdoc.html">NUOPC_refdoc</A>
+<B> Previous:</B> <A
+ HREF="node3.html">2 Design and Implementation Notes</A>
+ &nbsp; <B>  <A ID="tex2html170"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<A HREF=mailto:esmf_support@ucar.edu>esmf_support@ucar.edu</A>
+</ADDRESS>
+</BODY>
+</HTML>
