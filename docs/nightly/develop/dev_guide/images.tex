@@ -1,5 +1,4 @@
 \batchmode
-
 \documentclass[english,dvips]{article}
 \RequirePackage{ifthen}
 
@@ -13,7 +12,6 @@
 \usepackage[T1]{fontenc}
 
 
-
 \setlength{\textwidth}{6.5truein} 
 
 \setlength{\textheight}{8.5truein} 
@@ -24,10 +22,7 @@
 
 
 
-
 \usepackage{xcolor}
-
-\usepackage[latin1]{inputenc}
 
 
 
@@ -53,7 +48,6 @@
 \addtolength{\textheight}{\topmargin}\setlength{\topmargin}{0pt}
 \addtolength{\textheight}{\headheight}\setlength{\headheight}{0pt}
 \addtolength{\textheight}{\headsep}\setlength{\headsep}{0pt}
-\setlength{\textwidth}{349pt}
 \newwrite\lthtmlwrite
 \makeatletter
 \let\realnormalsize=\normalsize
@@ -70,56 +64,44 @@
  \parindent=0pt\abovedisplayskip=0pt\belowdisplayskip=0pt}%
  \def\phantompar{\csname par\endcsname}\normalsize}%
 \def\lthtmltypeout#1{{\let\protect\string \immediate\write\lthtmlwrite{#1}}}%
-\newcommand\lthtmlhboxmathA{\adjustnormalsize\setbox\sizebox=\hbox\bgroup\kern.05em }%
-\newcommand\lthtmlhboxmathB{\adjustnormalsize\setbox\sizebox=\hbox to\hsize\bgroup\hfill }%
-\newcommand\lthtmlvboxmathA{\adjustnormalsize\setbox\sizebox=\vbox\bgroup %
- \let\ifinner=\iffalse \let\)\liih@math }%
-\newcommand\lthtmlboxmathZ{\@next\next\@currlist{}{\def\next{\voidb@x}}%
- \expandafter\box\next\egroup}%
-\newcommand\lthtmlmathtype[1]{\gdef\lthtmlmathenv{#1}}%
-\newcommand\lthtmllogmath{\dimen0\ht\sizebox \advance\dimen0\dp\sizebox
-  \ifdim\dimen0>.95\vsize
-   \lthtmltypeout{%
-*** image for \lthtmlmathenv\space is too tall at \the\dimen0, reducing to .95 vsize ***}%
-   \ht\sizebox.95\vsize \dp\sizebox\z@ \fi
-  \lthtmltypeout{l2hSize %
-:\lthtmlmathenv:\the\ht\sizebox::\the\dp\sizebox::\the\wd\sizebox.\preveqno}}%
-\newcommand\lthtmlfigureA[1]{\let\@savefreelist\@freelist
-       \lthtmlmathtype{#1}\lthtmlvboxmathA}%
-\newcommand\lthtmlpictureA{\bgroup\catcode`\_=8 \lthtmlpictureB}%
-\newcommand\lthtmlpictureB[1]{\lthtmlmathtype{#1}\egroup
-       \let\@savefreelist\@freelist \lthtmlhboxmathB}%
-\newcommand\lthtmlpictureZ[1]{\hfill\lthtmlfigureZ}%
-\newcommand\lthtmlfigureZ{\lthtmlboxmathZ\lthtmllogmath\copy\sizebox
-       \global\let\@freelist\@savefreelist}%
-\newcommand\lthtmldisplayA{\bgroup\catcode`\_=8 \lthtmldisplayAi}%
-\newcommand\lthtmldisplayAi[1]{\lthtmlmathtype{#1}\egroup\lthtmlvboxmathA}%
-\newcommand\lthtmldisplayB[1]{\edef\preveqno{(\theequation)}%
-  \lthtmldisplayA{#1}\let\@eqnnum\relax}%
-\newcommand\lthtmldisplayZ{\lthtmlboxmathZ\lthtmllogmath\lthtmlsetmath}%
-\newcommand\lthtmlinlinemathA{\bgroup\catcode`\_=8 \lthtmlinlinemathB}
-\newcommand\lthtmlinlinemathB[1]{\lthtmlmathtype{#1}\egroup\lthtmlhboxmathA
-  \vrule height1.5ex width0pt }%
-\newcommand\lthtmlinlineA{\bgroup\catcode`\_=8 \lthtmlinlineB}%
-\newcommand\lthtmlinlineB[1]{\lthtmlmathtype{#1}\egroup\lthtmlhboxmathA}%
-\newcommand\lthtmlinlineZ{\egroup\expandafter\ifdim\dp\sizebox>0pt %
-  \expandafter\centerinlinemath\fi\lthtmllogmath\lthtmlsetinline}
-\newcommand\lthtmlinlinemathZ{\egroup\expandafter\ifdim\dp\sizebox>0pt %
-  \expandafter\centerinlinemath\fi\lthtmllogmath\lthtmlsetmath}
-\newcommand\lthtmlindisplaymathZ{\egroup %
-  \centerinlinemath\lthtmllogmath\lthtmlsetmath}
-\def\lthtmlsetinline{\hbox{\vrule width.1em \vtop{\vbox{%
-  \kern.1em\copy\sizebox}\ifdim\dp\sizebox>0pt\kern.1em\else\kern.3pt\fi
-  \ifdim\hsize>\wd\sizebox \hrule depth1pt\fi}}}
-\def\lthtmlsetmath{\hbox{\vrule width.1em\kern-.05em\vtop{\vbox{%
-  \kern.1em\kern0.8 pt\hbox{\hglue.17em\copy\sizebox\hglue0.8 pt}}\kern.3pt%
-  \ifdim\dp\sizebox>0pt\kern.1em\fi \kern0.8 pt%
-  \ifdim\hsize>\wd\sizebox \hrule depth1pt\fi}}}
-\def\centerinlinemath{%
-  \dimen1=\ifdim\ht\sizebox<\dp\sizebox \dp\sizebox\else\ht\sizebox\fi
-  \advance\dimen1by.5pt \vrule width0pt height\dimen1 depth\dimen1 
- \dp\sizebox=\dimen1\ht\sizebox=\dimen1\relax}
-
+\usepackage[tightpage,active]{preview}
+\PreviewBorder=0.5bp
+\newbox\lthtmlPageBox
+\newdimen\lthtmlCropMarkHeight
+\newdimen\lthtmlCropMarkDepth
+\long\def\lthtmlTightVBoxA#1{\def\lthtmllabel{#1}
+    \setbox\lthtmlPageBox\vbox\bgroup\catcode`\_=8 }%
+\long\def\lthtmlTightVBoxZ{\egroup
+    \lthtmlCropMarkHeight=\ht\lthtmlPageBox \advance \lthtmlCropMarkHeight 6pt
+    \lthtmlCropMarkDepth=\dp\lthtmlPageBox
+    \lthtmltypeout{^^J:\lthtmllabel:lthtmlCropMarkHeight:=\the\lthtmlCropMarkHeight}%
+    \lthtmltypeout{^^J:\lthtmllabel:lthtmlCropMarkDepth:=\the\lthtmlCropMarkDepth:1ex:=\the \dimexpr 1ex}%
+    \begin{preview}\copy\lthtmlPageBox\end{preview}}%
+\long\def\lthtmlTightFBoxA#1{\def\lthtmllabel{#1}%
+    \adjustnormalsize\setbox\lthtmlPageBox=\vbox\bgroup\hbox\bgroup %
+    \let\ifinner=\iffalse \let\)\liih@math %
+    \bgroup\catcode`\_=8 }%
+\long\def\lthtmlTightFBoxZ{\egroup\egroup
+    \@next\next\@currlist{}{\def\next{\voidb@x}}%
+    \expandafter\box\next\egroup %
+    \lthtmlCropMarkHeight=\ht\lthtmlPageBox \advance \lthtmlCropMarkHeight 6pt
+    \lthtmlCropMarkDepth=\dp\lthtmlPageBox
+    \lthtmltypeout{^^J:\lthtmllabel:lthtmlCropMarkHeight:=\the\lthtmlCropMarkHeight}%
+    \lthtmltypeout{^^J:\lthtmllabel:lthtmlCropMarkDepth:=\the\lthtmlCropMarkDepth:1ex:=\the \dimexpr 1ex}%
+    \begin{preview}\copy\lthtmlPageBox\end{preview}}%
+    \long\def\lthtmlinlinemathA#1#2\lthtmlindisplaymathZ{\lthtmlTightVBoxA{#1}{\hbox\bgroup#2\egroup}\lthtmlTightVBoxZ}
+    \def\lthtmlinlineA#1#2\lthtmlinlineZ{\lthtmlTightVBoxA{#1}{\hbox\bgroup#2\egroup}\lthtmlTightVBoxZ}
+    \long\def\lthtmldisplayA#1#2\lthtmldisplayZ{\lthtmlTightVBoxA{#1}{#2}\lthtmlTightVBoxZ}
+    \long\def\lthtmldisplayB#1#2\lthtmldisplayZ{\\edef\preveqno{(\theequation)}%
+        \lthtmlTightVBoxA{#1}{\let\@eqnnum\relax#2}\lthtmlTightVBoxZ}
+    \long\def\lthtmlfigureA#1{\let\@savefreelist\@freelist
+        \lthtmlTightFBoxA{#1}}
+    \long\def\lthtmlfigureZ{
+        \lthtmlTightFBoxZ\global\let\@freelist\@savefreelist}
+    \long\def\lthtmlpictureA#1{\let\@savefreelist\@freelist
+        \lthtmlTightVBoxA{#1}}
+    \long\def\lthtmlpictureZ{
+        \lthtmlTightVBoxZ\global\let\@freelist\@savefreelist}
 \def\lthtmlcheckvsize{\ifdim\ht\sizebox<\vsize 
   \ifdim\wd\sizebox<\hsize\expandafter\hfill\fi \expandafter\vfill
   \else\expandafter\vss\fi}%
@@ -218,205 +200,205 @@
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1471}%
+\lthtmlinlinemathA{tex2html_wrap_inline1787}%
 $[ G1 \; ; G2 ]$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1473}%
+\lthtmlinlinemathA{tex2html_wrap_inline1789}%
 $G$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1475}%
+\lthtmlinlinemathA{tex2html_wrap_inline1791}%
 $[ G2; G1 ]$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1477}%
+\lthtmlinlinemathA{tex2html_wrap_inline1793}%
 $B$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1479}%
+\lthtmlinlinemathA{tex2html_wrap_inline1795}%
 $[B1 \; G1; \; B2 \; G2; \; G3]$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{paragraph}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1483}%
+\lthtmlinlinemathA{tex2html_wrap_inline1799}%
 $U$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1487}%
+\lthtmlinlinemathA{tex2html_wrap_inline1803}%
 $G i_g \; + H \{ \# : \# \}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1489}%
+\lthtmlinlinemathA{tex2html_wrap_inline1805}%
 $i_g$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1491}%
+\lthtmlinlinemathA{tex2html_wrap_inline1807}%
 $H \{ \# : \# \}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1493}%
+\lthtmlinlinemathA{tex2html_wrap_inline1809}%
 $\#$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1495}%
+\lthtmlinlinemathA{tex2html_wrap_inline1811}%
 $+$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1497}%
+\lthtmlinlinemathA{tex2html_wrap_inline1813}%
 $\ast$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{paragraph}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1503}%
+\lthtmlinlinemathA{tex2html_wrap_inline1819}%
 $B \; i_D$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1505}%
+\lthtmlinlinemathA{tex2html_wrap_inline1821}%
 $i_D$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1507}%
+\lthtmlinlinemathA{tex2html_wrap_inline1823}%
 $C \; i_D$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1511}%
+\lthtmlinlinemathA{tex2html_wrap_inline1827}%
 $A$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1513}%
+\lthtmlinlinemathA{tex2html_wrap_inline1829}%
 $[ B1 \; G1; \; B2 \; G2 ]$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{paragraph}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1519}%
+\lthtmlinlinemathA{tex2html_wrap_inline1835}%
 $-- \!\!\! >$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1521}%
+\lthtmlinlinemathA{tex2html_wrap_inline1837}%
 $=\chi=>$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1523}%
+\lthtmlinlinemathA{tex2html_wrap_inline1839}%
 $\chi$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1527}%
+\lthtmlinlinemathA{tex2html_wrap_inline1843}%
 $P$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1529}%
+\lthtmlinlinemathA{tex2html_wrap_inline1845}%
 $C$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1531}%
+\lthtmlinlinemathA{tex2html_wrap_inline1847}%
 $S$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1533}%
+\lthtmlinlinemathA{tex2html_wrap_inline1849}%
 $N$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1535}%
+\lthtmlinlinemathA{tex2html_wrap_inline1851}%
 $X$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1541}%
+\lthtmlinlinemathA{tex2html_wrap_inline1857}%
 $=$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{paragraph}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1543}%
+\lthtmlinlinemathA{tex2html_wrap_inline1859}%
 $[ \cdots ]$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1545}%
+\lthtmlinlinemathA{tex2html_wrap_inline1861}%
 $\{ \cdots \}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1549}%
+\lthtmlinlinemathA{tex2html_wrap_inline1865}%
 $0$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1551}%
+\lthtmlinlinemathA{tex2html_wrap_inline1867}%
 $\{ 0,0 \}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1553}%
+\lthtmlinlinemathA{tex2html_wrap_inline1869}%
 $\{ +,+ \}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1555}%
+\lthtmlinlinemathA{tex2html_wrap_inline1871}%
 $\{ +, 0 \}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1557}%
+\lthtmlinlinemathA{tex2html_wrap_inline1873}%
 $\{ 0,+ \}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
@@ -424,365 +406,386 @@ $\{ 0,+ \}$%
 \stepcounter{subsubsection}
 \stepcounter{paragraph}
 {\newpage\clearpage
-\lthtmldisplayA{eqnarraystar1206}%
-\begin{eqnarray*}
-X_{ij} &=& \hat{x}_{i} + \epsilon \Delta x \Gamma_{x}(x_{i},y_{j}) \\
-Y_{ij} &=& \hat{y}_{j} + \epsilon \Delta y  \Gamma_{y}(x_{i},y_{j})
-\end{eqnarray*}%
-\lthtmldisplayZ
+\lthtmlinlinemathA{tex2html_wrap_indisplay5059}%
+$\displaystyle X_{ij}$%
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1569}%
+\lthtmlinlinemathA{tex2html_wrap_indisplay5060}%
+$\textstyle =$%
+\lthtmlindisplaymathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_indisplay5061}%
+$\displaystyle \hat{x}_{i} + \epsilon \Delta x \Gamma_{x}(x_{i},y_{j})$%
+\lthtmlindisplaymathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_indisplay5062}%
+$\displaystyle Y_{ij}$%
+\lthtmlindisplaymathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_indisplay5064}%
+$\displaystyle \hat{y}_{j} + \epsilon \Delta y  \Gamma_{y}(x_{i},y_{j})$%
+\lthtmlindisplaymathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline1885}%
 $X_{ij}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1571}%
+\lthtmlinlinemathA{tex2html_wrap_inline1887}%
 $Y_{ij}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1573}%
+\lthtmlinlinemathA{tex2html_wrap_inline1889}%
 $\hat{x}_{i}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1575}%
+\lthtmlinlinemathA{tex2html_wrap_inline1891}%
 $\hat{y}_{j}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1577}%
+\lthtmlinlinemathA{tex2html_wrap_inline1893}%
 $0 < \epsilon < 1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1579}%
+\lthtmlinlinemathA{tex2html_wrap_inline1895}%
 $\Delta x$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1581}%
+\lthtmlinlinemathA{tex2html_wrap_inline1897}%
 $\Delta y$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1583}%
+\lthtmlinlinemathA{tex2html_wrap_inline1899}%
 $\Gamma$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1587}%
+\lthtmlinlinemathA{tex2html_wrap_inline1903}%
 $\Gamma(x_{i},y_{j})$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1589}%
+\lthtmlinlinemathA{tex2html_wrap_inline1905}%
 $\Gamma_{x}(x_{i},y_{j}) = -(x_{i}/L_{x})(1-x_{i}/L_{x})(0.5-x_{i}/L_{x} )(y_{j}/L_{y})(1-y_{j}/L_{y})$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1591}%
+\lthtmlinlinemathA{tex2html_wrap_inline1907}%
 $\Gamma_{y}(x_{i},y_{j}) = -(y_{j}/L_{y})(1-y_{j}/L_{y})(0.5-y_{j}/L_{y} )(x_{i}/L_{x})(1-x_{i}/L_{x})$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1593}%
+\lthtmlinlinemathA{tex2html_wrap_inline1909}%
 $\Gamma_{x}(x_{i},y_{j}) = +(x_{i}/L_{x})(1-x_{i}/L_{x} )(0.5-x_{i}/L_{x} )(y_{j}/L_{y})(1-y_{j}/L_{y})$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1595}%
+\lthtmlinlinemathA{tex2html_wrap_inline1911}%
 $\Gamma_{y}(x_{i},y_{j}) = +(y_{j}/L_{y})(1-y_{j}/L_{y})(0.5-y_{j}/L_{y} )(x_{i}/L_{x})(1-x_{i}/L_{x})$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1597}%
+\lthtmlinlinemathA{tex2html_wrap_inline1913}%
 $ \Gamma_{x}(x_{i},y_{j}) = \sin(4 \pi x{i}/L_{x}) \cos(6 \pi y_{j})/L_{y})$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1599}%
+\lthtmlinlinemathA{tex2html_wrap_inline1915}%
 $ \Gamma_{y}(x_{i},y_{j}) = \sin(4 \pi x{i}/L_{x}) \cos(6 \pi y_{j})/L_{y})$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1603}%
+\lthtmlinlinemathA{tex2html_wrap_inline1919}%
 $ \Gamma_{y}(x_{i},y_{j}) = \sin(4 \pi y{j}/L_{y}) \cos(6 \pi x_{i})/L_{x})$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlpictureA{tex2html_wrap1889}%
+\lthtmlpictureA{tex2html_wrap2883}%
 \scalebox{0.3}{\includegraphics{Harness_ContractedGrid} }%
 \lthtmlpictureZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlpictureA{tex2html_wrap1891}%
+\lthtmlpictureA{tex2html_wrap2885}%
 \scalebox{0.3}{\includegraphics{Harness_ExpandedGrid} }%
 \lthtmlpictureZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlpictureA{tex2html_wrap1893}%
+\lthtmlpictureA{tex2html_wrap2887}%
 \scalebox{0.3}{\includegraphics{Harness_SymmetricGrid} }%
 \lthtmlpictureZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlpictureA{tex2html_wrap1895}%
+\lthtmlpictureA{tex2html_wrap2889}%
 \scalebox{0.3}{\includegraphics{Harness_AsymmetricGrid} }%
 \lthtmlpictureZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{paragraph}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1607}%
+\lthtmlinlinemathA{tex2html_wrap_inline1923}%
 $\&$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{paragraph}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1611}%
+\lthtmlinlinemathA{tex2html_wrap_inline1927}%
 $2.1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1613}%
+\lthtmlinlinemathA{tex2html_wrap_inline1929}%
 $0.1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1617}%
+\lthtmlinlinemathA{tex2html_wrap_inline1933}%
 $|a+b| + a*\cos(2\pi * k_x * x/L_x ) + b*\sin(2\pi * l_y * x/L_y )$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1619}%
+\lthtmlinlinemathA{tex2html_wrap_inline1935}%
 $2 \times 3$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1621}%
+\lthtmlinlinemathA{tex2html_wrap_inline1937}%
 $(1,2)-->(2,1)$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1623}%
+\lthtmlinlinemathA{tex2html_wrap_inline1939}%
 $ 1 \times 2$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1625}%
+\lthtmlinlinemathA{tex2html_wrap_inline1941}%
 $ 2 \times 1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1627}%
+\lthtmlinlinemathA{tex2html_wrap_inline1943}%
 $D1==1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1629}%
+\lthtmlinlinemathA{tex2html_wrap_inline1945}%
 $D2=2$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1637}%
+\lthtmlinlinemathA{tex2html_wrap_inline1953}%
 $D2=*1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1639}%
+\lthtmlinlinemathA{tex2html_wrap_inline1955}%
 $ 1 \times NPETS$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1641}%
+\lthtmlinlinemathA{tex2html_wrap_inline1957}%
 $NPETS \times 1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1643}%
+\lthtmlinlinemathA{tex2html_wrap_inline1959}%
 $D1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1645}%
+\lthtmlinlinemathA{tex2html_wrap_inline1961}%
 $D2$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1651}%
+\lthtmlinlinemathA{tex2html_wrap_inline1967}%
 $NPETS$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1653}%
+\lthtmlinlinemathA{tex2html_wrap_inline1969}%
 $N\times N \leq NPETS$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1655}%
+\lthtmlinlinemathA{tex2html_wrap_inline1971}%
 $NPETS=4$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1657}%
+\lthtmlinlinemathA{tex2html_wrap_inline1973}%
 $N=2$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1659}%
+\lthtmlinlinemathA{tex2html_wrap_inline1975}%
 $NPETS=6$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1663}%
+\lthtmlinlinemathA{tex2html_wrap_inline1979}%
 $4$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1665}%
+\lthtmlinlinemathA{tex2html_wrap_inline1981}%
 $2 N \times 1/2 N$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1667}%
+\lthtmlinlinemathA{tex2html_wrap_inline1983}%
 $D1=*  2$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1669}%
+\lthtmlinlinemathA{tex2html_wrap_inline1985}%
 $1/2 N \times 2N$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1679}%
+\lthtmlinlinemathA{tex2html_wrap_inline1995}%
 $D2=+ 1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1681}%
+\lthtmlinlinemathA{tex2html_wrap_inline1997}%
 $2N$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1685}%
+\lthtmlinlinemathA{tex2html_wrap_inline2001}%
 $1/2N$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1687}%
+\lthtmlinlinemathA{tex2html_wrap_inline2003}%
 $D2=* 0.5$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1689}%
+\lthtmlinlinemathA{tex2html_wrap_inline2005}%
 $(1/2)(N) +1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1693}%
+\lthtmlinlinemathA{tex2html_wrap_inline2009}%
 $2N \times (1/2)(N) +1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1703}%
+\lthtmlinlinemathA{tex2html_wrap_inline2019}%
 $(1/2)(N+1)$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1705}%
+\lthtmlinlinemathA{tex2html_wrap_inline2021}%
 $+P$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1707}%
+\lthtmlinlinemathA{tex2html_wrap_inline2023}%
 $80 \times 20$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1709}%
+\lthtmlinlinemathA{tex2html_wrap_inline2025}%
 $G1 \{80 \}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1711}%
+\lthtmlinlinemathA{tex2html_wrap_inline2027}%
 $G2 \{ 20 \}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1713}%
+\lthtmlinlinemathA{tex2html_wrap_inline2029}%
 $npets \times 1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1715}%
+\lthtmlinlinemathA{tex2html_wrap_inline2031}%
 $B1 \{ npets \}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1717}%
+\lthtmlinlinemathA{tex2html_wrap_inline2033}%
 $B2 \{ 1 \}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
@@ -825,15 +828,15 @@ $B2 \{ 1 \}$%
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2758}%
+\lthtmlinlinemathA{tex2html_wrap_inline2035}%
 $/=1$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2760}%
+\lthtmlinlinemathA{tex2html_wrap_inline2037}%
 $/= 2$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
@@ -841,9 +844,9 @@ $/= 2$%
 \stepcounter{subsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3187}%
+\lthtmlinlinemathA{tex2html_wrap_inline2043}%
 $10^{19}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
@@ -857,9 +860,9 @@ $10^{19}$%
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3455}%
+\lthtmlinlinemathA{tex2html_wrap_inline2045}%
 $<n>$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
@@ -879,28 +882,28 @@ $<n>$%
 \stepcounter{subsubsection}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4024}%
+\lthtmlinlinemathA{tex2html_wrap_inline2051}%
 $-r8$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4026}%
+\lthtmlinlinemathA{tex2html_wrap_inline2053}%
 $-i8$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4028}%
+\lthtmlinlinemathA{tex2html_wrap_inline2055}%
 $<esmfKind>$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4030}%
+\lthtmlinlinemathA{tex2html_wrap_inline2057}%
 $[42*(2**4)]=672$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsection}
@@ -934,9 +937,9 @@ $[42*(2**4)]=672$%
 \stepcounter{subsection}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4697}%
+\lthtmlinlinemathA{tex2html_wrap_inline2059}%
 $\bullet$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 
