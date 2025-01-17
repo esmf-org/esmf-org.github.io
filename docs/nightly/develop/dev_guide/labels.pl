@@ -1,4 +1,4 @@
-# LaTeX2HTML 2025 (Released January 1, 2025)
+# LaTeX2HTML 2018 (Released Feb 1, 2018)
 # Associate labels original text with physical files.
 
 
@@ -101,20 +101,24 @@ $noresave{$key} = "$nosave";
 1;
 
 
-# LaTeX2HTML 2025 (Released January 1, 2025)
+# LaTeX2HTML 2018 (Released Feb 1, 2018)
 # labels from external_latex_labels array.
 
 
+$key = q/_/;
+$external_latex_labels{$key} = q|<|; 
+$noresave{$key} = "$nosave";
+
 $key = q/core/;
-$external_latex_labels{$key} = q|2.1.1 Core Team Roles|; 
+$external_latex_labels{$key} = q|2.1.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/crb/;
-$external_latex_labels{$key} = q|2.3 Change Review Board (CRB)|; 
+$external_latex_labels{$key} = q|2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:intro/;
-$external_latex_labels{$key} = q|1 Introduction|; 
+$external_latex_labels{$key} = q|1|; 
 $noresave{$key} = "$nosave";
 
 1;

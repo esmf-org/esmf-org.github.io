@@ -1,4 +1,4 @@
-# LaTeX2HTML 2025 (Released January 1, 2025)
+# LaTeX2HTML 2018 (Released Feb 1, 2018)
 # Associate internals original text with physical files.
 
 
@@ -260,6 +260,30 @@ $noresave{$key} = "$nosave";
 
 $key = q/sec:localcomm/;
 $ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:mesh:capi:meshaddelements/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:mesh:capi:meshaddnodes/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:mesh:capi:meshcreate/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:mesh:capi:meshcreatefromfile/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:mesh:capi:meshgetcoord/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:mesh:capi:meshgetelemcoord/;
+$ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:overallimpl/;

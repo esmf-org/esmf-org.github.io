@@ -1,4 +1,4 @@
-# LaTeX2HTML 2025 (Released January 1, 2025)
+# LaTeX2HTML 2018 (Released Feb 1, 2018)
 # Associate labels original text with physical files.
 
 
@@ -70,11 +70,43 @@ $key = q/ModelCompMeta/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/NUOPC_AddNestedState/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_AdvertiseField/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_AdvertiseFields/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/NUOPC_Connector/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/NUOPC_CplCompAttributeIng/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_CplCompAttributeIngHC/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/NUOPC_Driver/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_GridCompAttributeIng/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_GridCompAttributeIngHC/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_GridCompSetClock/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
@@ -87,6 +119,26 @@ $external_labels{$key} = "$URL/" . q|node4.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_ModelBase/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeCompleteG/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeCompleteLS/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeCompleteM/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeField/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeTransfer/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
@@ -132,6 +184,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/TransferGeom/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_NUOPC_SCRIPWrite/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/componentDep/;
@@ -165,168 +221,228 @@ $noresave{$key} = "$nosave";
 1;
 
 
-# LaTeX2HTML 2025 (Released January 1, 2025)
+# LaTeX2HTML 2018 (Released Feb 1, 2018)
 # labels from external_latex_labels array.
 
 
 $key = q/AdvancedResourceControl/;
-$external_latex_labels{$key} = q|2.7 Resource Control and Threaded Components|; 
+$external_latex_labels{$key} = q|2.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Checker/;
-$external_latex_labels{$key} = q|5.1 The Compliance Checker|; 
+$external_latex_labels{$key} = q|5.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Compliance/;
-$external_latex_labels{$key} = q|5 NUOPC Layer Compliance|; 
+$external_latex_labels{$key} = q|5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ComponentHierarchy/;
-$external_latex_labels{$key} = q|2.6 Component Hierarchies|; 
+$external_latex_labels{$key} = q|2.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ConnectorCompMeta/;
-$external_latex_labels{$key} = q|2.3.4 Connector Component Metadata|; 
+$external_latex_labels{$key} = q|2.3.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/CplSets/;
-$external_latex_labels{$key} = q|2.4.4 Using Coupling Sets for Coupling Multiple Nests|; 
+$external_latex_labels{$key} = q|2.4.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/DataDepInit/;
-$external_latex_labels{$key} = q|2.4.6 Data-Dependencies during Initialize|; 
+$external_latex_labels{$key} = q|2.4.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/DriverCompMeta/;
-$external_latex_labels{$key} = q|2.3.1 Driver Component Metadata|; 
+$external_latex_labels{$key} = q|2.3.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Explorer/;
-$external_latex_labels{$key} = q|5.2 The Component Explorer|; 
+$external_latex_labels{$key} = q|5.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ExternalInterface/;
-$external_latex_labels{$key} = q|2.8 External NUOPC Interface|; 
+$external_latex_labels{$key} = q|2.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldMeta/;
-$external_latex_labels{$key} = q|2.3.6 Field Metadata|; 
+$external_latex_labels{$key} = q|2.3.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldMirror/;
-$external_latex_labels{$key} = q|2.4.9 Field Mirroring|; 
+$external_latex_labels{$key} = q|2.4.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldPairing/;
-$external_latex_labels{$key} = q|2.4.2 Field Pairing|; 
+$external_latex_labels{$key} = q|2.4.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/IPD/;
-$external_latex_labels{$key} = q|7 Appendix B: Initialize Phase Definition Versions|; 
+$external_latex_labels{$key} = q|7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/MediatorCompMeta/;
-$external_latex_labels{$key} = q|2.3.3 Mediator Component Metadata|; 
+$external_latex_labels{$key} = q|2.3.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Metadata/;
-$external_latex_labels{$key} = q|2.3 Metadata|; 
+$external_latex_labels{$key} = q|2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ModelCompMeta/;
-$external_latex_labels{$key} = q|2.3.2 Model Component Metadata|; 
+$external_latex_labels{$key} = q|2.3.2|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_AddNestedState/;
+$external_latex_labels{$key} = q|3.9.2|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_AdvertiseField/;
+$external_latex_labels{$key} = q|3.9.3|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_AdvertiseFields/;
+$external_latex_labels{$key} = q|3.9.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_Connector/;
-$external_latex_labels{$key} = q|3.5 Generic Component: NUOPC_Connector|; 
+$external_latex_labels{$key} = q|3.5|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_CplCompAttributeIng/;
+$external_latex_labels{$key} = q|3.6.16|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_CplCompAttributeIngHC/;
+$external_latex_labels{$key} = q|3.6.18|; 
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_Driver/;
-$external_latex_labels{$key} = q|3.1 Generic Component: NUOPC_Driver|; 
+$external_latex_labels{$key} = q|3.1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_GridCompAttributeIng/;
+$external_latex_labels{$key} = q|3.6.15|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_GridCompAttributeIngHC/;
+$external_latex_labels{$key} = q|3.6.17|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_GridCompSetClock/;
+$external_latex_labels{$key} = q|3.6.38|; 
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_Mediator/;
-$external_latex_labels{$key} = q|3.4 Generic Component: NUOPC_Mediator|; 
+$external_latex_labels{$key} = q|3.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_Model/;
-$external_latex_labels{$key} = q|3.3 Generic Component: NUOPC_Model|; 
+$external_latex_labels{$key} = q|3.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/NUOPC_ModelBase/;
-$external_latex_labels{$key} = q|3.2 Generic Component: NUOPC_ModelBase|; 
+$external_latex_labels{$key} = q|3.2|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeCompleteG/;
+$external_latex_labels{$key} = q|3.9.22|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeCompleteLS/;
+$external_latex_labels{$key} = q|3.9.23|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeCompleteM/;
+$external_latex_labels{$key} = q|3.9.24|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeField/;
+$external_latex_labels{$key} = q|3.9.25|; 
+$noresave{$key} = "$nosave";
+
+$key = q/NUOPC_RealizeTransfer/;
+$external_latex_labels{$key} = q|3.9.26|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Namespaces/;
-$external_latex_labels{$key} = q|2.4.3 Namespaces|; 
+$external_latex_labels{$key} = q|2.4.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/PhaseMaps/;
-$external_latex_labels{$key} = q|2.4.1 Phase Maps, Semantic Specialization Labels, and Component Labels|; 
+$external_latex_labels{$key} = q|2.4.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Sharing/;
-$external_latex_labels{$key} = q|2.4.8 Field and Grid/Mesh/LocStream Reference Sharing|; 
+$external_latex_labels{$key} = q|2.4.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/StandardCompDep:C/;
-$external_latex_labels{$key} = q|4.5 Components written in C/C++|; 
+$external_latex_labels{$key} = q|4.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/StandardCompDep:CompOnComp/;
-$external_latex_labels{$key} = q|4.4 Components that depend on components|; 
+$external_latex_labels{$key} = q|4.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/StandardCompDep:FortranSharedLib/;
-$external_latex_labels{$key} = q|4.2 Fortran components that are provided as shared libraries|; 
+$external_latex_labels{$key} = q|4.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/StandardCompDep:FortranStatic/;
-$external_latex_labels{$key} = q|4.1 Fortran components that are statically built into the executable|; 
+$external_latex_labels{$key} = q|4.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/StandardCompDep:SharedObject/;
-$external_latex_labels{$key} = q|4.3 Components that are loaded during run-time as shared objects|; 
+$external_latex_labels{$key} = q|4.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/StateMeta/;
-$external_latex_labels{$key} = q|2.3.5 State Metadata|; 
+$external_latex_labels{$key} = q|2.3.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Timekeeping/;
-$external_latex_labels{$key} = q|2.5 Timekeeping|; 
+$external_latex_labels{$key} = q|2.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/TransferGeom/;
-$external_latex_labels{$key} = q|2.4.7 Transfer of Grid/Mesh/LocStream Objects between Components|; 
+$external_latex_labels{$key} = q|2.4.7|; 
+$noresave{$key} = "$nosave";
+
+$key = q/_/;
+$external_latex_labels{$key} = q|<|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_NUOPC_SCRIPWrite/;
+$external_latex_labels{$key} = q|3.10.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/componentDep/;
-$external_latex_labels{$key} = q|4 Standardized Component Dependencies|; 
+$external_latex_labels{$key} = q|4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/connection_options/;
-$external_latex_labels{$key} = q|2.4.5 Connection Options|; 
+$external_latex_labels{$key} = q|2.4.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fd:default/;
-$external_latex_labels{$key} = q|2.2.2 Preloaded Field Dictionary|; 
+$external_latex_labels{$key} = q|2.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fd:docfile/;
-$external_latex_labels{$key} = q|2.2.1 Field Dictionary file|; 
+$external_latex_labels{$key} = q|2.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/field_dictionary/;
-$external_latex_labels{$key} = q|2.2 Field Dictionary|; 
+$external_latex_labels{$key} = q|2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:NUOPCGenericComp/;
-$external_latex_labels{$key} = q|1 The NUOPC Generic Component inheritance structure. The tree on the left is rooted in <SPAN style="font-family:monospace">ESMF_GridComp</SPAN>, while the tree on the right is rooted in <SPAN style="font-family:monospace">ESMF_CplComp</SPAN>. The ESMF data types are shown in green. The four main NUOPC Generic Component kinds are shown in dark blue boxes. The yellow box shows a partial specialization in the inheritance tree|; 
+$external_latex_labels{$key} = q|1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:NUOPCRunSequence/;
-$external_latex_labels{$key} = q|2 NUOPC_RunSequence class as it relates to the surrounding data structures|; 
+$external_latex_labels{$key} = q|2|; 
 $noresave{$key} = "$nosave";
 
 1;
