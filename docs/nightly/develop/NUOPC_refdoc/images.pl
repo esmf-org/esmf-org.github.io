@@ -1,25 +1,53 @@
-# LaTeX2HTML 2025 (Released January 1, 2025)
+# LaTeX2HTML 2018 (Released Feb 1, 2018)
 # Associate images original text with physical files.
 
 
+$key = q/1000s;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="43" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img6.png"
+ ALT="$1000s$">|; 
+
+$key = q/100s;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="35" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img4.png"
+ ALT="$100s$">|; 
+
+$key = q/1800s;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="43" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img7.png"
+ ALT="$1800s$">|; 
+
+$key = q/800s;MSF=1.6;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="35" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img5.png"
+ ALT="$800s$">|; 
+
 $key = q/<<<;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
- STYLE="height: 1.50ex; vertical-align: -0.20ex; " SRC="|."$dir".q|img3.svg"
+ WIDTH="41" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img3.png"
  ALT="$&#171;&lt;$">|; 
 
 $key = q/>>>;MSF=1.6;AAT/;
 $cached_env_img{$key} = q|<IMG
- STYLE="height: 1.50ex; vertical-align: -0.20ex; " SRC="|."$dir".q|img2.svg"
+ WIDTH="41" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|img2.png"
  ALT="$&#187;&gt;$">|; 
 
 $key = q/scalebox{0.6}{includegraphics{NUOPC_GC}};AAT/;
 $cached_env_img{$key} = q|<IMG
- STYLE="height: 9.82ex; vertical-align: -0.11ex; " SRC="|."$dir".q|img1.svg"
+ WIDTH="575" HEIGHT="182" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img1.png"
  ALT="\scalebox{0.6}{\includegraphics{NUOPC_GC}}">|; 
 
 $key = q/scalebox{0.6}{includegraphics{NUOPC_RunSequence}};AAT/;
 $cached_env_img{$key} = q|<IMG
- STYLE="height: 9.82ex; vertical-align: -0.11ex; " SRC="|."$dir".q|img4.svg"
+ WIDTH="721" HEIGHT="495" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|img8.png"
  ALT="\scalebox{0.6}{\includegraphics{NUOPC_RunSequence}}">|; 
 
 1;
