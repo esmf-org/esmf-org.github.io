@@ -1,4 +1,4 @@
-# LaTeX2HTML 2025 (Released January 1, 2025)
+# LaTeX2HTML 2018 (Released Feb 1, 2018)
 # Associate labels original text with physical files.
 
 
@@ -85,88 +85,92 @@ $noresave{$key} = "$nosave";
 1;
 
 
-# LaTeX2HTML 2025 (Released January 1, 2025)
+# LaTeX2HTML 2018 (Released Feb 1, 2018)
 # labels from external_latex_labels array.
 
 
+$key = q/_/;
+$external_latex_labels{$key} = q|<|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:approach/;
-$external_latex_labels{$key} = q|3 Writing and Testing a NUOPC Cap for your Model|; 
+$external_latex_labels{$key} = q|3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:atmexample/;
-$external_latex_labels{$key} = q|4 An Example Cap|; 
+$external_latex_labels{$key} = q|4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:atmexample_advancespec/;
-$external_latex_labels{$key} = q|4.6 Model Advance Specialization|; 
+$external_latex_labels{$key} = q|4.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:atmexample_advertisefields/;
-$external_latex_labels{$key} = q|4.4 Initialize Phase - Advertise Fields|; 
+$external_latex_labels{$key} = q|4.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:atmexample_moduleimports/;
-$external_latex_labels{$key} = q|4.1 Module Imports|; 
+$external_latex_labels{$key} = q|4.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:atmexample_realizefields/;
-$external_latex_labels{$key} = q|4.5 Initialize Phase - Realize Fields|; 
+$external_latex_labels{$key} = q|4.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:atmexample_retcodes/;
-$external_latex_labels{$key} = q|4.3 Checking Return Codes|; 
+$external_latex_labels{$key} = q|4.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:atmexample_setservices/;
-$external_latex_labels{$key} = q|4.2 SetServices|; 
+$external_latex_labels{$key} = q|4.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:basicexamplecap/;
-$external_latex_labels{$key} = q|3.11 Example NUOPC Model cap|; 
+$external_latex_labels{$key} = q|3.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:bigidea/;
-$external_latex_labels{$key} = q|2 The Big Idea|; 
+$external_latex_labels{$key} = q|2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:callrunfromcap/;
-$external_latex_labels{$key} = q|3.7 Call Your Model's Run Subroutine from the Cap|; 
+$external_latex_labels{$key} = q|3.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:chooseconfig/;
-$external_latex_labels{$key} = q|3.3 Choose a Configuration of Your Model for Development|; 
+$external_latex_labels{$key} = q|3.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:genmakefrag/;
-$external_latex_labels{$key} = q|3.5 Modify Your Build to Generate a NUOPC Makefile Fragment|; 
+$external_latex_labels{$key} = q|3.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:initmodelfromcap/;
-$external_latex_labels{$key} = q|3.6 Initialize Your Model from the Cap|; 
+$external_latex_labels{$key} = q|3.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:installesmf/;
-$external_latex_labels{$key} = q|3.1 Install ESMF and NUOPC on the Target Machine|; 
+$external_latex_labels{$key} = q|3.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:integratecap/;
-$external_latex_labels{$key} = q|3.4 Integrate a Cap Template into Your Codebase|; 
+$external_latex_labels{$key} = q|3.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:preparemodel/;
-$external_latex_labels{$key} = q|3.2 Prepare Your Model Code|; 
+$external_latex_labels{$key} = q|3.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:runcapwithdriver/;
-$external_latex_labels{$key} = q|3.8 Run the Cap with a NUOPC Driver|; 
+$external_latex_labels{$key} = q|3.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:splitinit/;
-$external_latex_labels{$key} = q|3.9 Split Up the Initialization Phases|; 
+$external_latex_labels{$key} = q|3.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:validatecap/;
-$external_latex_labels{$key} = q|3.10 Test and Validate Your Cap|; 
+$external_latex_labels{$key} = q|3.10|; 
 $noresave{$key} = "$nosave";
 
 1;

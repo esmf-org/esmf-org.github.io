@@ -1,4 +1,4 @@
-# LaTeX2HTML 2025 (Released January 1, 2025)
+# LaTeX2HTML 2018 (Released Feb 1, 2018)
 # Associate labels original text with physical files.
 
 
@@ -1785,1664 +1785,1668 @@ $noresave{$key} = "$nosave";
 1;
 
 
-# LaTeX2HTML 2025 (Released January 1, 2025)
+# LaTeX2HTML 2018 (Released Feb 1, 2018)
 # labels from external_latex_labels array.
 
 
 $key = q/API:GridCreateFrmNCFile/;
-$external_latex_labels{$key} = q|31.6.13 ESMF_GridCreate|; 
+$external_latex_labels{$key} = q|31.6.13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridCreateMosaicReg/;
-$external_latex_labels{$key} = q|31.6.28 ESMF_GridCreateCubedSphere|; 
+$external_latex_labels{$key} = q|31.6.28|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGet/;
-$external_latex_labels{$key} = q|31.6.35 ESMF_GridEmptyCreate|; 
+$external_latex_labels{$key} = q|31.6.35|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetCoord/;
-$external_latex_labels{$key} = q|31.6.40 ESMF_GridGet|; 
+$external_latex_labels{$key} = q|31.6.40|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetCoordInfo/;
-$external_latex_labels{$key} = q|31.6.44 ESMF_GridGetCoord|; 
+$external_latex_labels{$key} = q|31.6.44|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetCoordIntoArray/;
-$external_latex_labels{$key} = q|31.6.41 ESMF_GridGetCoord|; 
+$external_latex_labels{$key} = q|31.6.41|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetCoordR4/;
-$external_latex_labels{$key} = q|31.6.42 ESMF_GridGetCoord|; 
+$external_latex_labels{$key} = q|31.6.42|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetCoordR8/;
-$external_latex_labels{$key} = q|31.6.43 ESMF_GridGetCoord|; 
+$external_latex_labels{$key} = q|31.6.43|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetItem/;
-$external_latex_labels{$key} = q|31.6.46 ESMF_GridGetCoordBounds|; 
+$external_latex_labels{$key} = q|31.6.46|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetItemInfo/;
-$external_latex_labels{$key} = q|31.6.48 ESMF_GridGetItem|; 
+$external_latex_labels{$key} = q|31.6.48|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetItemIntoArray/;
-$external_latex_labels{$key} = q|31.6.47 ESMF_GridGetItem|; 
+$external_latex_labels{$key} = q|31.6.47|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetPLocalDe/;
-$external_latex_labels{$key} = q|31.6.36 ESMF_GridGet|; 
+$external_latex_labels{$key} = q|31.6.36|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetPLocalDePSloc/;
-$external_latex_labels{$key} = q|31.6.37 ESMF_GridGet|; 
+$external_latex_labels{$key} = q|31.6.37|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetPSloc/;
-$external_latex_labels{$key} = q|31.6.38 ESMF_GridGet|; 
+$external_latex_labels{$key} = q|31.6.38|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:GridGetPSlocPTile/;
-$external_latex_labels{$key} = q|31.6.39 ESMF_GridGet|; 
+$external_latex_labels{$key} = q|31.6.39|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:MeshCreateFromFile/;
-$external_latex_labels{$key} = q|33.4.8 ESMF_MeshCreate|; 
+$external_latex_labels{$key} = q|33.4.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:TimeIntervalSetStr/;
-$external_latex_labels{$key} = q|44.4.26 ESMF_TimeIntervalSet|; 
+$external_latex_labels{$key} = q|44.4.26|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:ArbHalo/;
-$external_latex_labels{$key} = q|28.2.16 Communication &ndash; Halo for arbitrary distribution|; 
+$external_latex_labels{$key} = q|28.2.16|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:CommNB/;
-$external_latex_labels{$key} = q|28.2.20 Non-blocking Communications|; 
+$external_latex_labels{$key} = q|28.2.20|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:Halo/;
-$external_latex_labels{$key} = q|28.2.15 Communication &ndash; Halo|; 
+$external_latex_labels{$key} = q|28.2.15|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:LocalArray/;
-$external_latex_labels{$key} = q|28.2.3 Array from <SPAN style="font-family:monospace">ESMF_LocalArray</SPAN>|; 
+$external_latex_labels{$key} = q|28.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:Redist/;
-$external_latex_labels{$key} = q|28.2.17 Communication &ndash; Redist|; 
+$external_latex_labels{$key} = q|28.2.17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:Redist:DefaultMode/;
-$external_latex_labels{$key} = q|28.2.17 Default Mode|; 
+$external_latex_labels{$key} = q|28.2.17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:Redist:TransposeMode/;
-$external_latex_labels{$key} = q|28.2.17 Transpose Mode|; 
+$external_latex_labels{$key} = q|28.2.17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:ScatterGather/;
-$external_latex_labels{$key} = q|28.2.14 Communication &ndash; Scatter and Gather|; 
+$external_latex_labels{$key} = q|28.2.14|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:ScatterGatherRevisited/;
-$external_latex_labels{$key} = q|28.2.19 Communication &ndash; Scatter and Gather, revisited|; 
+$external_latex_labels{$key} = q|28.2.19|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:SparseMatMul/;
-$external_latex_labels{$key} = q|28.2.18 Communication &ndash; SparseMatMul|; 
+$external_latex_labels{$key} = q|28.2.18|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:fpadding/;
-$external_latex_labels{$key} = q|28.2.2 Array from native Fortran array with extra elements for halo or padding|; 
+$external_latex_labels{$key} = q|28.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:padding/;
-$external_latex_labels{$key} = q|28.2.8 Computational region and extra elements for halo or padding|; 
+$external_latex_labels{$key} = q|28.2.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array:rest/;
-$external_latex_labels{$key} = q|28.3 Restrictions and Future Work|; 
+$external_latex_labels{$key} = q|28.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ArrayRedistStoreNF/;
-$external_latex_labels{$key} = q|28.5.33 ESMF_ArrayRedistStore|; 
+$external_latex_labels{$key} = q|28.5.33|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ArrayRedistStoreNFTP/;
-$external_latex_labels{$key} = q|28.5.34 ESMF_ArrayRedistStore|; 
+$external_latex_labels{$key} = q|28.5.34|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ArrayRedistStoreTK/;
-$external_latex_labels{$key} = q|28.5.31 ESMF_ArrayRedistStore|; 
+$external_latex_labels{$key} = q|28.5.31|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ArrayRedistStoreTKTP/;
-$external_latex_labels{$key} = q|28.5.32 ESMF_ArrayRedistStore|; 
+$external_latex_labels{$key} = q|28.5.32|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ArraySMMStoreNF/;
-$external_latex_labels{$key} = q|28.5.42 ESMF_ArraySMMStore|; 
+$external_latex_labels{$key} = q|28.5.42|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ArraySMMStoreNFTP/;
-$external_latex_labels{$key} = q|28.5.43 ESMF_ArraySMMStore|; 
+$external_latex_labels{$key} = q|28.5.43|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ArraySMMStoreTK/;
-$external_latex_labels{$key} = q|28.5.40 ESMF_ArraySMMStore|; 
+$external_latex_labels{$key} = q|28.5.40|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ArraySMMStoreTKTP/;
-$external_latex_labels{$key} = q|28.5.41 ESMF_ArraySMMStore|; 
+$external_latex_labels{$key} = q|28.5.41|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array_from_native_1_to_1/;
-$external_latex_labels{$key} = q|28.2.1 Array from native Fortran array with 1 DE per PET|; 
+$external_latex_labels{$key} = q|28.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array_native_language_localde/;
-$external_latex_labels{$key} = q|28.2.5 Native language memory access|; 
+$external_latex_labels{$key} = q|28.2.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array_regions_and_default_bounds/;
-$external_latex_labels{$key} = q|28.2.6 Regions and default bounds|; 
+$external_latex_labels{$key} = q|28.2.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Array_shared_memory_features/;
-$external_latex_labels{$key} = q|28.2.13 Shared memory features: DE pinning, sharing, and migration|; 
+$external_latex_labels{$key} = q|28.2.13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/CplComp:SetServices/;
-$external_latex_labels{$key} = q|18.4.19 ESMF_CplCompSetServices|; 
+$external_latex_labels{$key} = q|18.4.19|; 
 $noresave{$key} = "$nosave";
 
 $key = q/CplComp:SetServicesShObj/;
-$external_latex_labels{$key} = q|18.4.20 ESMF_CplCompSetServices|; 
+$external_latex_labels{$key} = q|18.4.20|; 
 $noresave{$key} = "$nosave";
 
 $key = q/DELayout_general_mapping/;
-$external_latex_labels{$key} = q|50.3.7 Working with a DELayout - general DE-to-PET mapping|; 
+$external_latex_labels{$key} = q|50.3.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/DistGrid:ArbitrarySeqInd/;
-$external_latex_labels{$key} = q|36.3.5 Arbitrary DistGrids with user-supplied sequence indices|; 
+$external_latex_labels{$key} = q|36.3.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ESMF_FieldFill/;
-$external_latex_labels{$key} = q|26.6.53 ESMF_FieldFill|; 
+$external_latex_labels{$key} = q|26.6.53|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Field:rest/;
-$external_latex_labels{$key} = q|26.4 Restrictions and Future Work|; 
+$external_latex_labels{$key} = q|26.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldRedistStoreNF/;
-$external_latex_labels{$key} = q|26.6.68 ESMF_FieldRedistStore|; 
+$external_latex_labels{$key} = q|26.6.68|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldRedistStoreTK/;
-$external_latex_labels{$key} = q|26.6.67 ESMF_FieldRedistStore|; 
+$external_latex_labels{$key} = q|26.6.67|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Field_shared_memory_features/;
-$external_latex_labels{$key} = q|26.3.10 Shared memory features: DE pinning, sharing, and migration|; 
+$external_latex_labels{$key} = q|26.3.10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/GridComp:SetServices/;
-$external_latex_labels{$key} = q|17.4.19 ESMF_GridCompSetServices|; 
+$external_latex_labels{$key} = q|17.4.19|; 
 $noresave{$key} = "$nosave";
 
 $key = q/GridComp:SetServicesShObj/;
-$external_latex_labels{$key} = q|17.4.20 ESMF_GridCompSetServices|; 
+$external_latex_labels{$key} = q|17.4.20|; 
 $noresave{$key} = "$nosave";
 
 $key = q/HConfigMatch/;
-$external_latex_labels{$key} = q|48.6.44 ESMF_HConfigMatch|; 
+$external_latex_labels{$key} = q|48.6.44|; 
 $noresave{$key} = "$nosave";
 
 $key = q/RH:DynMask/;
-$external_latex_labels{$key} = q|37.2.6 Dynamic Masking|; 
+$external_latex_labels{$key} = q|37.2.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/RH:RHfromFile/;
-$external_latex_labels{$key} = q|37.2.4 Write a RouteHandle to file and creating a RouteHandle from file|; 
+$external_latex_labels{$key} = q|37.2.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/RH:RHfromRH/;
-$external_latex_labels{$key} = q|37.2.3 Creating a RouteHandle from an existing RouteHandle &ndash; Transfer to a different set of PETs|; 
+$external_latex_labels{$key} = q|37.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/RH:Reusability/;
-$external_latex_labels{$key} = q|37.2.5 Reusablity of RouteHandles and interleaved distributed and undistributed dimensions|; 
+$external_latex_labels{$key} = q|37.2.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/RH:asyncVMEpoch/;
-$external_latex_labels{$key} = q|37.2.2 Asynchronous RouteHandle communication with VMEpoch|; 
+$external_latex_labels{$key} = q|37.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/RH:bfb/;
-$external_latex_labels{$key} = q|37.2.1 Bit-for-bit reproducibility|; 
+$external_latex_labels{$key} = q|37.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Regrid_Interfaces/;
-$external_latex_labels{$key} = q|24.2 Regrid|; 
+$external_latex_labels{$key} = q|24.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/VM:NBVMEpoch/;
-$external_latex_labels{$key} = q|51.3.11 Communication - Non-blocking option and VMEpochs|; 
+$external_latex_labels{$key} = q|51.3.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/XGrid:rest/;
-$external_latex_labels{$key} = q|34.4.1 Restrictions and Future Work|; 
+$external_latex_labels{$key} = q|34.4.1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/_/;
+$external_latex_labels{$key} = q|<|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:ArrayBundleRead/;
-$external_latex_labels{$key} = q|27.5.17 ESMF_ArrayBundleRead|; 
+$external_latex_labels{$key} = q|27.5.17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:ArrayBundleWrite/;
-$external_latex_labels{$key} = q|27.5.28 ESMF_ArrayBundleWrite|; 
+$external_latex_labels{$key} = q|27.5.28|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:ArrayRead/;
-$external_latex_labels{$key} = q|28.5.28 ESMF_ArrayRead|; 
+$external_latex_labels{$key} = q|28.5.28|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:ArrayWrite/;
-$external_latex_labels{$key} = q|28.5.48 ESMF_ArrayWrite|; 
+$external_latex_labels{$key} = q|28.5.48|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DistGridConnectionGet/;
-$external_latex_labels{$key} = q|36.7.1 ESMF_DistGridConnectionGet|; 
+$external_latex_labels{$key} = q|36.7.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DistGridConnectionSet/;
-$external_latex_labels{$key} = q|36.7.2 ESMF_DistGridConnectionSet|; 
+$external_latex_labels{$key} = q|36.7.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DynamicMaskSetR4R4R4/;
-$external_latex_labels{$key} = q|28.6.5 ESMF_DynamicMaskSetR4R4R4|; 
+$external_latex_labels{$key} = q|28.6.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DynamicMaskSetR4R4R4V/;
-$external_latex_labels{$key} = q|28.6.6 ESMF_DynamicMaskSetR4R4R4V|; 
+$external_latex_labels{$key} = q|28.6.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DynamicMaskSetR4R8R4/;
-$external_latex_labels{$key} = q|28.6.3 ESMF_DynamicMaskSetR4R8R4|; 
+$external_latex_labels{$key} = q|28.6.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DynamicMaskSetR4R8R4V/;
-$external_latex_labels{$key} = q|28.6.4 ESMF_DynamicMaskSetR4R8R4V|; 
+$external_latex_labels{$key} = q|28.6.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DynamicMaskSetR8R8R8/;
-$external_latex_labels{$key} = q|28.6.1 ESMF_DynamicMaskSetR8R8R8|; 
+$external_latex_labels{$key} = q|28.6.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:DynamicMaskSetR8R8R8V/;
-$external_latex_labels{$key} = q|28.6.2 ESMF_DynamicMaskSetR8R8R8V|; 
+$external_latex_labels{$key} = q|28.6.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldBundleRead/;
-$external_latex_labels{$key} = q|25.5.19 ESMF_FieldBundleRead|; 
+$external_latex_labels{$key} = q|25.5.19|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldBundleWrite/;
-$external_latex_labels{$key} = q|25.5.39 ESMF_FieldBundleWrite|; 
+$external_latex_labels{$key} = q|25.5.39|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldRead/;
-$external_latex_labels{$key} = q|26.6.64 ESMF_FieldRead|; 
+$external_latex_labels{$key} = q|26.6.64|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldWrite/;
-$external_latex_labels{$key} = q|26.6.86 ESMF_FieldWrite|; 
+$external_latex_labels{$key} = q|26.6.86|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:SparseMatrixWrite/;
-$external_latex_labels{$key} = q|28.5.49 ESMF_SparseMatrixWrite|; 
+$external_latex_labels{$key} = q|28.5.49|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_fieldbundleregridstore/;
-$external_latex_labels{$key} = q|25.5.26 ESMF_FieldBundleRegridStore|; 
+$external_latex_labels{$key} = q|25.5.26|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_fieldregridstorenx/;
-$external_latex_labels{$key} = q|26.6.71 ESMF_FieldRegridStore|; 
+$external_latex_labels{$key} = q|26.6.71|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_fileregrid/;
-$external_latex_labels{$key} = q|24.3.3 ESMF_FileRegrid|; 
+$external_latex_labels{$key} = q|24.3.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_regridweightgenDG/;
-$external_latex_labels{$key} = q|24.3.2 ESMF_RegridWeightGen|; 
+$external_latex_labels{$key} = q|24.3.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_regridweightgenfile/;
-$external_latex_labels{$key} = q|24.3.1 ESMF_RegridWeightGen|; 
+$external_latex_labels{$key} = q|24.3.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/appendix_attribute_legacy_api/;
-$external_latex_labels{$key} = q|57 Appendix D: Attribute Class Legacy API|; 
+$external_latex_labels{$key} = q|57|; 
 $noresave{$key} = "$nosave";
 
 $key = q/appendix_esmf_error_codes/;
-$external_latex_labels{$key} = q|56 Appendix C: ESMF Error Return Codes|; 
+$external_latex_labels{$key} = q|56|; 
 $noresave{$key} = "$nosave";
 
 $key = q/assignment_equality_copy_compare/;
-$external_latex_labels{$key} = q|8.4 Assignment, Equality, Copying and Comparing Objects|; 
+$external_latex_labels{$key} = q|8.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:alarmlist/;
-$external_latex_labels{$key} = q|46.2.1 ESMF_ALARMLIST|; 
+$external_latex_labels{$key} = q|46.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:arbdim/;
-$external_latex_labels{$key} = q|54.2 ESMF_DIM_ARB|; 
+$external_latex_labels{$key} = q|54.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:attcopy/;
-$external_latex_labels{$key} = q|57.1.1 ESMF_ATTCOPY|; 
+$external_latex_labels{$key} = q|57.1.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:attgetcount/;
-$external_latex_labels{$key} = q|57.1.2 ESMF_ATTGETCOUNT|; 
+$external_latex_labels{$key} = q|57.1.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:attnest/;
-$external_latex_labels{$key} = q|54.5 ESMF_ATTNEST|; 
+$external_latex_labels{$key} = q|54.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:attreconcile/;
-$external_latex_labels{$key} = q|54.6 ESMF_ATTRECONCILE|; 
+$external_latex_labels{$key} = q|54.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:attwrite/;
-$external_latex_labels{$key} = q|57.1.3 ESMF_ATTWRITE|; 
+$external_latex_labels{$key} = q|57.1.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:calkindflag/;
-$external_latex_labels{$key} = q|42.2.1 ESMF_CALKIND|; 
+$external_latex_labels{$key} = q|42.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:comptype/;
-$external_latex_labels{$key} = q|54.9 ESMF_COMPTYPE|; 
+$external_latex_labels{$key} = q|54.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:contextflag/;
-$external_latex_labels{$key} = q|54.10 ESMF_CONTEXT|; 
+$external_latex_labels{$key} = q|54.10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:coordkeyname/;
-$external_latex_labels{$key} = q|32.2.1 Coordinate keyNames|; 
+$external_latex_labels{$key} = q|32.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:coordsys/;
-$external_latex_labels{$key} = q|54.11 ESMF_COORDSYS|; 
+$external_latex_labels{$key} = q|54.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:cubedspherecalcflag/;
-$external_latex_labels{$key} = q|54.12 ESMF_CUBEDSPHERECALC|; 
+$external_latex_labels{$key} = q|54.12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:datacopyflag/;
-$external_latex_labels{$key} = q|54.13 ESMF_DATACOPY|; 
+$external_latex_labels{$key} = q|54.13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:decompflag/;
-$external_latex_labels{$key} = q|54.14 ESMF_DECOMP|; 
+$external_latex_labels{$key} = q|54.14|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:direction/;
-$external_latex_labels{$key} = q|45.2.1 ESMF_DIRECTION|; 
+$external_latex_labels{$key} = q|45.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:distgridmatch/;
-$external_latex_labels{$key} = q|36.2.1 ESMF_DISTGRIDMATCH|; 
+$external_latex_labels{$key} = q|36.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:endflag/;
-$external_latex_labels{$key} = q|16.2.1 ESMF_END|; 
+$external_latex_labels{$key} = q|16.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:fieldstatus/;
-$external_latex_labels{$key} = q|26.2.1 ESMF_FIELDSTATUS|; 
+$external_latex_labels{$key} = q|26.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:fileformatflag/;
-$external_latex_labels{$key} = q|54.20 ESMF_FILEFORMAT|; 
+$external_latex_labels{$key} = q|54.20|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:filemodeflag/;
-$external_latex_labels{$key} = q|54.21 ESMF_FILEMODE|; 
+$external_latex_labels{$key} = q|54.21|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:filestatusflag/;
-$external_latex_labels{$key} = q|54.22 ESMF_FILESTATUS|; 
+$external_latex_labels{$key} = q|54.22|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:geomtype/;
-$external_latex_labels{$key} = q|54.23 ESMF_GEOMTYPE|; 
+$external_latex_labels{$key} = q|54.23|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:gridconn/;
-$external_latex_labels{$key} = q|31.2.1 ESMF_GRIDCONN|; 
+$external_latex_labels{$key} = q|31.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:griditem/;
-$external_latex_labels{$key} = q|31.2.2 ESMF_GRIDITEM|; 
+$external_latex_labels{$key} = q|31.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:gridmatch/;
-$external_latex_labels{$key} = q|31.2.3 ESMF_GRIDMATCH|; 
+$external_latex_labels{$key} = q|31.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:gridstatus/;
-$external_latex_labels{$key} = q|31.2.4 ESMF_GRIDSTATUS|; 
+$external_latex_labels{$key} = q|31.2.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:hconfigmatch/;
-$external_latex_labels{$key} = q|48.2.1 ESMF_HCONFIGMATCH|; 
+$external_latex_labels{$key} = q|48.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:indexflag/;
-$external_latex_labels{$key} = q|54.29 ESMF_INDEX|; 
+$external_latex_labels{$key} = q|54.29|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:ionetcdfflag/;
-$external_latex_labels{$key} = q|54.31 ESMF_IO_NETCDF_PRESENT|; 
+$external_latex_labels{$key} = q|54.31|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:iopioflag/;
-$external_latex_labels{$key} = q|54.32 ESMF_IO_PIO_PRESENT|; 
+$external_latex_labels{$key} = q|54.32|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:iopnetcdfflag/;
-$external_latex_labels{$key} = q|54.33 ESMF_IO_PNETCDF_PRESENT|; 
+$external_latex_labels{$key} = q|54.33|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:itemorderflag/;
-$external_latex_labels{$key} = q|54.34 ESMF_ITEMORDER|; 
+$external_latex_labels{$key} = q|54.34|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:kind/;
-$external_latex_labels{$key} = q|54.35 ESMF_KIND|; 
+$external_latex_labels{$key} = q|54.35|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:logerr/;
-$external_latex_labels{$key} = q|49.2.1 ESMF_LOGERR|; 
+$external_latex_labels{$key} = q|49.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:logkindflag/;
-$external_latex_labels{$key} = q|49.2.2 ESMF_LOGKIND|; 
+$external_latex_labels{$key} = q|49.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:logmsgflag/;
-$external_latex_labels{$key} = q|49.2.3 ESMF_LOGMSG|; 
+$external_latex_labels{$key} = q|49.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:maskkeyname/;
-$external_latex_labels{$key} = q|32.2.2 Masking keyName|; 
+$external_latex_labels{$key} = q|32.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:master/;
-$external_latex_labels{$key} = q|54 Appendix A: Master List of Constants|; 
+$external_latex_labels{$key} = q|54|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:meshelemtype/;
-$external_latex_labels{$key} = q|33.2.1 ESMF_MESHELEMTYPE|; 
+$external_latex_labels{$key} = q|33.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:meshloc/;
-$external_latex_labels{$key} = q|54.41 ESMF_MESHLOC|; 
+$external_latex_labels{$key} = q|54.41|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:meshop/;
-$external_latex_labels{$key} = q|54.42 ESMF_MESHOP|; 
+$external_latex_labels{$key} = q|54.42|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:meshstatus/;
-$external_latex_labels{$key} = q|54.43 ESMF_MESHSTATUS|; 
+$external_latex_labels{$key} = q|54.43|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:method/;
-$external_latex_labels{$key} = q|54.44 ESMF_METHOD|; 
+$external_latex_labels{$key} = q|54.44|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:pin_flag/;
-$external_latex_labels{$key} = q|50.2.1 ESMF_PIN|; 
+$external_latex_labels{$key} = q|50.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:polekind/;
-$external_latex_labels{$key} = q|31.2.5 ESMF_POLEKIND|; 
+$external_latex_labels{$key} = q|31.2.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:polemethod/;
-$external_latex_labels{$key} = q|54.48 ESMF_POLEMETHOD|; 
+$external_latex_labels{$key} = q|54.48|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:reduce/;
-$external_latex_labels{$key} = q|54.49 ESMF_REDUCE|; 
+$external_latex_labels{$key} = q|54.49|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:region/;
-$external_latex_labels{$key} = q|54.50 ESMF_REGION|; 
+$external_latex_labels{$key} = q|54.50|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:routesync/;
-$external_latex_labels{$key} = q|54.53 ESMF_ROUTESYNC|; 
+$external_latex_labels{$key} = q|54.53|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:servicereply_flag/;
-$external_latex_labels{$key} = q|50.2.2 ESMF_SERVICEREPLY|; 
+$external_latex_labels{$key} = q|50.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:staggerloc/;
-$external_latex_labels{$key} = q|31.2.6 ESMF_STAGGERLOC|; 
+$external_latex_labels{$key} = q|31.2.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:startregion/;
-$external_latex_labels{$key} = q|54.56 ESMF_STARTREGION|; 
+$external_latex_labels{$key} = q|54.56|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:stateintent/;
-$external_latex_labels{$key} = q|21.2.1 ESMF_STATEINTENT|; 
+$external_latex_labels{$key} = q|21.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:stateitem/;
-$external_latex_labels{$key} = q|21.2.2 ESMF_STATEITEM|; 
+$external_latex_labels{$key} = q|21.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:sync/;
-$external_latex_labels{$key} = q|54.59 ESMF_SYNC|; 
+$external_latex_labels{$key} = q|54.59|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:termorderflag/;
-$external_latex_labels{$key} = q|54.60 ESMF_TERMORDER|; 
+$external_latex_labels{$key} = q|54.60|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:typekind/;
-$external_latex_labels{$key} = q|54.61 ESMF_TYPEKIND|; 
+$external_latex_labels{$key} = q|54.61|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:unmappedaction/;
-$external_latex_labels{$key} = q|54.62 ESMF_UNMAPPEDACTION|; 
+$external_latex_labels{$key} = q|54.62|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:version/;
-$external_latex_labels{$key} = q|54.63 ESMF_VERSION|; 
+$external_latex_labels{$key} = q|54.63|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:vmepoch_flag/;
-$external_latex_labels{$key} = q|51.2.1 ESMF_VMEPOCH|; 
+$external_latex_labels{$key} = q|51.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:xgridside/;
-$external_latex_labels{$key} = q|34.2.1 ESMF_XGRIDSIDE|; 
+$external_latex_labels{$key} = q|34.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/eqn:dg_forward_connect_form/;
-$external_latex_labels{$key} = q|4 DistGrid Connections - Definition|; 
+$external_latex_labels{$key} = q|4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/eqn:dg_forward_connect_pivot/;
-$external_latex_labels{$key} = q|6 DistGrid Connections - Definition|; 
+$external_latex_labels{$key} = q|6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/eqn:dg_forward_connect_pivot_trans/;
-$external_latex_labels{$key} = q|8 DistGrid Connections - Definition|; 
+$external_latex_labels{$key} = q|8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/eqn:dg_forward_connect_pivot_trans_pv/;
-$external_latex_labels{$key} = q|9 DistGrid Connections - Definition|; 
+$external_latex_labels{$key} = q|9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/eqn:dg_forward_pvec/;
-$external_latex_labels{$key} = q|13 DistGrid Connections - Multi tile connections|; 
+$external_latex_labels{$key} = q|13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/esmf_info_class/;
-$external_latex_labels{$key} = q|40 Info Class (Object Attributes)|; 
+$external_latex_labels{$key} = q|40|; 
 $noresave{$key} = "$nosave";
 
 $key = q/esmf_infobroadcast/;
-$external_latex_labels{$key} = q|40.4.4 ESMF_InfoBroadcast|; 
+$external_latex_labels{$key} = q|40.4.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/esmf_infosync/;
-$external_latex_labels{$key} = q|40.4.30 ESMF_InfoSync|; 
+$external_latex_labels{$key} = q|40.4.30|; 
 $noresave{$key} = "$nosave";
 
 $key = q/esmfstateremovelist/;
-$external_latex_labels{$key} = q|21.7.16 ESMF_StateRemove|; 
+$external_latex_labels{$key} = q|21.7.16|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ex:TraceEx/;
-$external_latex_labels{$key} = q|52.2.7 Tracing a simple ESMF application|; 
+$external_latex_labels{$key} = q|52.2.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ex:TraceUserEx/;
-$external_latex_labels{$key} = q|52.2.8 Profiling/Tracing User-defined Code Regions|; 
+$external_latex_labels{$key} = q|52.2.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/example:2DIrregCurviGrid/;
-$external_latex_labels{$key} = q|31.3.5 Create a 2D irregularly distributed Grid with curvilinear coordinates|; 
+$external_latex_labels{$key} = q|31.3.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/example:2DIrregUniGrid/;
-$external_latex_labels{$key} = q|31.3.4 Create a 2D irregularly distributed rectilinear Grid with uniformly spaced coordinates|; 
+$external_latex_labels{$key} = q|31.3.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/example:2DPeriRegUniGrid/;
-$external_latex_labels{$key} = q|31.3.3 Create a periodic 2D regularly distributed rectilinear Grid|; 
+$external_latex_labels{$key} = q|31.3.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/example:2DRegUniGrid/;
-$external_latex_labels{$key} = q|31.3.2 Create a 2D regularly distributed rectilinear Grid with uniformly spaced coordinates|; 
+$external_latex_labels{$key} = q|31.3.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/example:ArbGridWithUndistDim/;
-$external_latex_labels{$key} = q|31.3.7 Create an arbitrarily distributed rectilinear Grid with a non-distributed vertical dimension|; 
+$external_latex_labels{$key} = q|31.3.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/example:CurviGridWithUndistDim/;
-$external_latex_labels{$key} = q|31.3.6 Create an irregularly distributed rectilinear Grid with a non-distributed vertical dimension|; 
+$external_latex_labels{$key} = q|31.3.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:GEOS5/;
-$external_latex_labels{$key} = q|2 ESMF enables applications such as the atmospheric general circulation model GEOS-5 to be structured hierarchically, and reconfigured and extended easily. Each box in this diagram is an ESMF Gridded Component|; 
+$external_latex_labels{$key} = q|2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:GridDecomps/;
-$external_latex_labels{$key} = q|13 Examples of regular and irregular decomposition of a grid <B>a</B> that is 6x6, and an arbitrary decomposition of a grid <B>b</B> that is 6x3|; 
+$external_latex_labels{$key} = q|13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:LogRectGrids/;
-$external_latex_labels{$key} = q|14 Types of logically rectangular grid tiles. Red circles show the values needed to specify grid coordinates for each type|; 
+$external_latex_labels{$key} = q|14|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:TheESMFwich/;
-$external_latex_labels{$key} = q|1 Schematic of the ESMF &ldquo;sandwich&rdquo; architecture. The framework consists of two parts, an upper level <B>superstructure</B> layer and a lower level <B>infrastructure</B> layer. User code is sandwiched between these two layers|; 
+$external_latex_labels{$key} = q|1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:appunit/;
-$external_latex_labels{$key} = q|3 A call to a standard ESMF initialize (run, finalize) method by a parent component triggers calls to initialize (run, finalize) all of its child components|; 
+$external_latex_labels{$key} = q|3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:concurrent/;
-$external_latex_labels{$key} = q|5 Schematic of the run method of a coupled application, with an &ldquo;Atmosphere&rdquo; and an &ldquo;Ocean&rdquo; Gridded Component running concurrently with an &ldquo;Atm-Ocean Coupler.&rdquo; The top-level &ldquo;Hurricane Model&rdquo; Gridded Component contains the sequencing information and time advancement loop. The application driver, Coupler, and top-level &ldquo;Hurricane Model&rdquo; Gridded Component are distributed over nine PETs. The &ldquo;Atmosphere&rdquo; Gridded Component is distributed over three PETs and the &ldquo;Ocean&rdquo; Gridded Component is distributed over six PETs|; 
+$external_latex_labels{$key} = q|5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_1tile_not_connected/;
-$external_latex_labels{$key} = q|23 A single 50x20 index space tile without connections. For better visualization the index space points are plotted on the unit circle. The gap between the right and left edge of the tile is visible. Further the top and the bottom edges of the tile are visibly without connection|; 
+$external_latex_labels{$key} = q|23|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_1tile_peribipole_connected/;
-$external_latex_labels{$key} = q|27 A single 50x20 index space tile with periodic connection along $i$, and bi-pole at $j_max$. The regular pole connection at $j_min$ is hidden from sight|; 
+$external_latex_labels{$key} = q|27|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_1tile_periodic1_connected/;
-$external_latex_labels{$key} = q|24 A single 50x20 index space tile with periodic connection along the first dimension|; 
+$external_latex_labels{$key} = q|24|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_1tile_periodic2_connected/;
-$external_latex_labels{$key} = q|25 A single 50x20 index space tile with periodic connections along both directions. The topology is that of a torus, however, because of the chosen spherical coordinates the connection through the middle has the shape of a cylinder|; 
+$external_latex_labels{$key} = q|25|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_1tile_peripole_connected/;
-$external_latex_labels{$key} = q|26 A single 50x20 index space tile with periodic connection along $i$, and pole at $j_max$. The hole at $j_min$ is hidden from sight|; 
+$external_latex_labels{$key} = q|26|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_2tiles_connected/;
-$external_latex_labels{$key} = q|22 Two 10x10 index space tiles next to each other with a single connection between the right edge of tile 1 and the left edge of tile 2. The index tuple (11,3), which is referenced in the text, is marked by a black circle|; 
+$external_latex_labels{$key} = q|22|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_2tiles_not_connected/;
-$external_latex_labels{$key} = q|21 Two 10x10 index space tiles next to each other without connections. Both tiles operate in the same global index space chosen by <SPAN style="font-family:monospace">ESMF_INDEX_GLOBAL</SPAN> when creating the DistGrid object. The index tuples held by the DistGrid are represented by the vertices of the shown grid structure. The index tuple (11,3), which is referenced in the text, is marked by a black circle|; 
+$external_latex_labels{$key} = q|21|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_cusph_12connected/;
-$external_latex_labels{$key} = q|32 Six index space tiles with all 12 connections to form a cubic topology. The coordinates at every index space point are chosen to form a spherical geometry, resulting in a cubed sphere|; 
+$external_latex_labels{$key} = q|32|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_cusph_2rotconnected/;
-$external_latex_labels{$key} = q|31 The six tiles of an unfolded cube with two connections that involve rotation of tiles|; 
+$external_latex_labels{$key} = q|31|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_cusph_5connected/;
-$external_latex_labels{$key} = q|29 The six tiles of an unfolded cube with five connections defined|; 
+$external_latex_labels{$key} = q|29|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_cusph_6connected/;
-$external_latex_labels{$key} = q|30 The six tiles of an unfolded cube with all six connections that do not involve any rotation of tiles|; 
+$external_latex_labels{$key} = q|30|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:dgconnect_cusph_not_connected/;
-$external_latex_labels{$key} = q|28 Six 10x10 square index space tiles without connections. The tile number is indicated by color as indicated by the legend|; 
+$external_latex_labels{$key} = q|28|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:excl_destination/;
-$external_latex_labels{$key} = q|8 The mapping of PETs (processors) to DEs (data) in the destination grid created by <SPAN style="font-family:monospace">user_model2.F90</SPAN> in the FieldExcl system test|; 
+$external_latex_labels{$key} = q|8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:excl_destination_cpl/;
-$external_latex_labels{$key} = q|10 The mapping of PETs (processors) to DEs (data) in the destination grid after the reconcile call in <SPAN style="font-family:monospace">user_coupler.F90</SPAN> in the FieldExcl system test|; 
+$external_latex_labels{$key} = q|10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:excl_source/;
-$external_latex_labels{$key} = q|7 The mapping of PETs (processors) to DEs (data) in the source grid created by <SPAN style="font-family:monospace">user_model1.F90</SPAN> in the FieldExcl system test|; 
+$external_latex_labels{$key} = q|7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:excl_source_cpl/;
-$external_latex_labels{$key} = q|9 The mapping of PETs (processors) to DEs (data) in the source grid after the reconcile call in <SPAN style="font-family:monospace">user_coupler.F90</SPAN> in the FieldExcl system test|; 
+$external_latex_labels{$key} = q|9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:fieldparameter/;
-$external_latex_labels{$key} = q|12 Field dimension configuration from Grid, halos, and Fortran data array|; 
+$external_latex_labels{$key} = q|12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:gridcellsandcorners/;
-$external_latex_labels{$key} = q|19 An example 2D Grid with cell centers and corners|; 
+$external_latex_labels{$key} = q|19|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:gridcuststaggerloc/;
-$external_latex_labels{$key} = q|18 An example of specifying 2D stagger locations using coordinates|; 
+$external_latex_labels{$key} = q|18|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:gridexreg/;
-$external_latex_labels{$key} = q|17 An example of a Grid's exclusive region for the corner stagger|; 
+$external_latex_labels{$key} = q|17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:gridfileformatfeatures/;
-$external_latex_labels{$key} = q|12.8 Grid File Formats|; 
+$external_latex_labels{$key} = q|12.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:gridstaggerloc2d/;
-$external_latex_labels{$key} = q|15 2D Predefined Stagger Locations|; 
+$external_latex_labels{$key} = q|15|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:gridstaggerloc3d/;
-$external_latex_labels{$key} = q|16 3D Predefined Stagger Locations|; 
+$external_latex_labels{$key} = q|16|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:reconcile/;
-$external_latex_labels{$key} = q|6 An <SPAN style="font-family:monospace">ESMF_StateReconcile()</SPAN> call creates proxy objects for use in subsequent communication calls. The reconcile call would normally be made during Coupler initialization|; 
+$external_latex_labels{$key} = q|6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:serial/;
-$external_latex_labels{$key} = q|4 Schematic of the run method of a coupled application, with an &ldquo;Atmosphere&rdquo; and an &ldquo;Ocean&rdquo; Gridded Component running sequentially with an &ldquo;Atm-Ocean Coupler.&rdquo; The top-level &ldquo;Hurricane Model&rdquo; Gridded Component contains the sequencing information and time advancement loop. The application driver, Coupler, and all Gridded Components are distributed over nine PETs|; 
+$external_latex_labels{$key} = q|4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:webservices_fig/;
-$external_latex_labels{$key} = q|11 The diagram describes the ESMF Web Services software architecture. The architecture defines a multi-tiered set of applications that provide a flexible approach for accessing model components|; 
+$external_latex_labels{$key} = q|11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:xgridsimple/;
-$external_latex_labels{$key} = q|20 Grid layout for simple XGrid creation example. Overlapping of 3 Grids (Green 2x2, Red 2x1, Blue 2x2). Green and red Grids on side A, blue Grid on side B, black indicates the resulting XGrid. Color coded sequence indices are shown. Physical coordinates are the tuples in parenthesis, e.g. at the four corners of rectangular computational domain|; 
+$external_latex_labels{$key} = q|20|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fio:unitnumbers/;
-$external_latex_labels{$key} = q|53.2.1 Fortran unit number management|; 
+$external_latex_labels{$key} = q|53.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/get_info_handle_from_esmf_object/;
-$external_latex_labels{$key} = q|40.3.1 Retrieve an Info Handle|; 
+$external_latex_labels{$key} = q|40.3.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/gridspecexample/;
-$external_latex_labels{$key} = q|13.1 Description|; 
+$external_latex_labels{$key} = q|13.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/info_key_format/;
-$external_latex_labels{$key} = q|40.2 Key Format Overview|; 
+$external_latex_labels{$key} = q|40.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/info_tutorial/;
-$external_latex_labels{$key} = q|40.3.2 General Usage Examples|; 
+$external_latex_labels{$key} = q|40.3.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/io:dataio/;
-$external_latex_labels{$key} = q|38.2 Data I/O|; 
+$external_latex_labels{$key} = q|38.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/line_type_support/;
-$external_latex_labels{$key} = q|24.2.16 Spherical grids and poles|; 
+$external_latex_labels{$key} = q|24.2.16|; 
 $noresave{$key} = "$nosave";
 
 $key = q/locstream:createfromfile/;
-$external_latex_labels{$key} = q|32.4.14 ESMF_LocStreamCreate|; 
+$external_latex_labels{$key} = q|32.4.14|; 
 $noresave{$key} = "$nosave";
 
 $key = q/log_class/;
-$external_latex_labels{$key} = q|49 Log Class|; 
+$external_latex_labels{$key} = q|49|; 
 $noresave{$key} = "$nosave";
 
 $key = q/opt:extrapmethod/;
-$external_latex_labels{$key} = q|54.18 ESMF_EXTRAPMETHOD|; 
+$external_latex_labels{$key} = q|54.18|; 
 $noresave{$key} = "$nosave";
 
 $key = q/opt:iofmtflag/;
-$external_latex_labels{$key} = q|54.30 ESMF_IOFMT|; 
+$external_latex_labels{$key} = q|54.30|; 
 $noresave{$key} = "$nosave";
 
 $key = q/opt:lineType/;
-$external_latex_labels{$key} = q|54.36 ESMF_LINETYPE|; 
+$external_latex_labels{$key} = q|54.36|; 
 $noresave{$key} = "$nosave";
 
 $key = q/opt:normType/;
-$external_latex_labels{$key} = q|54.45 ESMF_NORMTYPE|; 
+$external_latex_labels{$key} = q|54.45|; 
 $noresave{$key} = "$nosave";
 
 $key = q/opt:regridmethod/;
-$external_latex_labels{$key} = q|54.51 ESMF_REGRIDMETHOD|; 
+$external_latex_labels{$key} = q|54.51|; 
 $noresave{$key} = "$nosave";
 
 $key = q/opt:regridstatus/;
-$external_latex_labels{$key} = q|54.52 ESMF_REGRIDSTATUS|; 
+$external_latex_labels{$key} = q|54.52|; 
 $noresave{$key} = "$nosave";
 
 $key = q/part:CLTs/;
-$external_latex_labels{$key} = q|II Command Line Tools|; 
+$external_latex_labels{$key} = q|II|; 
 $noresave{$key} = "$nosave";
 
 $key = q/part:ESMFOverview/;
-$external_latex_labels{$key} = q|I ESMF Overview|; 
+$external_latex_labels{$key} = q|I|; 
 $noresave{$key} = "$nosave";
 
 $key = q/part:Superstructure/;
-$external_latex_labels{$key} = q|III Superstructure|; 
+$external_latex_labels{$key} = q|III|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ref:distgridconnection/;
-$external_latex_labels{$key} = q|36.7 Class API: DistGridConnection Methods|; 
+$external_latex_labels{$key} = q|36.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ref:distgridregdecomp/;
-$external_latex_labels{$key} = q|36.8 Class API: DistGridRegDecomp Methods|; 
+$external_latex_labels{$key} = q|36.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ref:dynamicmask/;
-$external_latex_labels{$key} = q|28.6 Class API: DynamicMask Methods|; 
+$external_latex_labels{$key} = q|28.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ref:stagsub/;
-$external_latex_labels{$key} = q|31.7 Class API: StaggerLoc Methods|; 
+$external_latex_labels{$key} = q|31.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/regrid:masking/;
-$external_latex_labels{$key} = q|24.2.10 Masking|; 
+$external_latex_labels{$key} = q|24.2.10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/regridoutput/;
-$external_latex_labels{$key} = q|12.9.3 Regrid Calculation Output|; 
+$external_latex_labels{$key} = q|12.9.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec::vectorRegrid/;
-$external_latex_labels{$key} = q|24.2.17 Vector regridding|; 
+$external_latex_labels{$key} = q|24.2.17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Alarm/;
-$external_latex_labels{$key} = q|46.1 Description|; 
+$external_latex_labels{$key} = q|46.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:AppDriverIntProc/;
-$external_latex_labels{$key} = q|16.4.9 Use of <SPAN style="font-family:monospace">internal procedures</SPAN> as user-provided procedures|; 
+$external_latex_labels{$key} = q|16.4.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:AppDriverSetVM/;
-$external_latex_labels{$key} = q|16.4.8 User-code <SPAN style="font-family:monospace">SetVM</SPAN> method|; 
+$external_latex_labels{$key} = q|16.4.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:BasicProfiling/;
-$external_latex_labels{$key} = q|52.2.1 Output a Timing Profile to Text|; 
+$external_latex_labels{$key} = q|52.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Calendar/;
-$external_latex_labels{$key} = q|42.1 Description|; 
+$external_latex_labels{$key} = q|42.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Clock/;
-$external_latex_labels{$key} = q|45.1 Description|; 
+$external_latex_labels{$key} = q|45.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CompTunnel/;
-$external_latex_labels{$key} = q|20.1 Description|; 
+$external_latex_labels{$key} = q|20.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CompTunnelActualCreate/;
-$external_latex_labels{$key} = q|20.2.1 Creating an <EM>actual</EM> Component|; 
+$external_latex_labels{$key} = q|20.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CompTunnelActualDestroy/;
-$external_latex_labels{$key} = q|20.2.8 Destroying a connected <EM>actual</EM> Component|; 
+$external_latex_labels{$key} = q|20.2.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CompTunnelActualSide/;
-$external_latex_labels{$key} = q|20.2.3 Setting up the <EM>actual</EM> side of a Component Tunnel|; 
+$external_latex_labels{$key} = q|20.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CompTunnelDualCreate/;
-$external_latex_labels{$key} = q|20.2.2 Creating a <EM>dual</EM> Component|; 
+$external_latex_labels{$key} = q|20.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CompTunnelDualDestroy/;
-$external_latex_labels{$key} = q|20.2.7 Destroying a connected <EM>dual</EM> Component|; 
+$external_latex_labels{$key} = q|20.2.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CompTunnelDualSide/;
-$external_latex_labels{$key} = q|20.2.4 Setting up the <EM>dual</EM> side of a Component Tunnel|; 
+$external_latex_labels{$key} = q|20.2.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CompTunnelInvoking/;
-$external_latex_labels{$key} = q|20.2.5 Invoking standard Component methods through a Component Tunnel|; 
+$external_latex_labels{$key} = q|20.2.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CompTunnelInvokingNonblocking/;
-$external_latex_labels{$key} = q|20.2.6 The non-blocking option to invoke standard Component methods through a Component Tunnel|; 
+$external_latex_labels{$key} = q|20.2.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Config/;
-$external_latex_labels{$key} = q|47.1 Description|; 
+$external_latex_labels{$key} = q|47.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CplComp/;
-$external_latex_labels{$key} = q|18.1 Description|; 
+$external_latex_labels{$key} = q|18.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CplFinalize/;
-$external_latex_labels{$key} = q|18.2.4 Implement a user-code <SPAN style="font-family:monospace">Finalize</SPAN> routine|; 
+$external_latex_labels{$key} = q|18.2.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CplInitialize/;
-$external_latex_labels{$key} = q|18.2.2 Implement a user-code <SPAN style="font-family:monospace">Initialize</SPAN> routine|; 
+$external_latex_labels{$key} = q|18.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CplRun/;
-$external_latex_labels{$key} = q|18.2.3 Implement a user-code <SPAN style="font-family:monospace">Run</SPAN> routine|; 
+$external_latex_labels{$key} = q|18.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CplSetServ/;
-$external_latex_labels{$key} = q|18.2.1 Implement a user-code <SPAN style="font-family:monospace">SetServices</SPAN> routine|; 
+$external_latex_labels{$key} = q|18.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:CplSetVM/;
-$external_latex_labels{$key} = q|18.2.5 Implement a user-code <SPAN style="font-family:monospace">SetVM</SPAN> routine|; 
+$external_latex_labels{$key} = q|18.2.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:DistGrid/;
-$external_latex_labels{$key} = q|36.1 Description|; 
+$external_latex_labels{$key} = q|36.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:ESMF_PrintInfo/;
-$external_latex_labels{$key} = q|11 ESMF_PrintInfo|; 
+$external_latex_labels{$key} = q|11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:ESMF_Regrid/;
-$external_latex_labels{$key} = q|13 ESMF_Regrid|; 
+$external_latex_labels{$key} = q|13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:ESMF_RegridWeightGen/;
-$external_latex_labels{$key} = q|12 ESMF_RegridWeightGen|; 
+$external_latex_labels{$key} = q|12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:ESMF_Scrip2Unstruct/;
-$external_latex_labels{$key} = q|14 ESMF_Scrip2Unstruct|; 
+$external_latex_labels{$key} = q|14|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:GridComp/;
-$external_latex_labels{$key} = q|17.1 Description|; 
+$external_latex_labels{$key} = q|17.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:GridFinalize/;
-$external_latex_labels{$key} = q|17.2.4 Implement a user-code <SPAN style="font-family:monospace">Finalize</SPAN> routine|; 
+$external_latex_labels{$key} = q|17.2.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:GridInitialize/;
-$external_latex_labels{$key} = q|17.2.2 Implement a user-code <SPAN style="font-family:monospace">Initialize</SPAN> routine|; 
+$external_latex_labels{$key} = q|17.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:GridRun/;
-$external_latex_labels{$key} = q|17.2.3 Implement a user-code <SPAN style="font-family:monospace">Run</SPAN> routine|; 
+$external_latex_labels{$key} = q|17.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:GridSetServ/;
-$external_latex_labels{$key} = q|17.2.1 Implement a user-code <SPAN style="font-family:monospace">SetServices</SPAN> routine|; 
+$external_latex_labels{$key} = q|17.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:GridSetVM/;
-$external_latex_labels{$key} = q|17.2.5 Implement a user-code <SPAN style="font-family:monospace">SetVM</SPAN> routine|; 
+$external_latex_labels{$key} = q|17.2.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:HConfig/;
-$external_latex_labels{$key} = q|48.1 Description|; 
+$external_latex_labels{$key} = q|48.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:IOUtil/;
-$external_latex_labels{$key} = q|53.1 Description|; 
+$external_latex_labels{$key} = q|53.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:LimitProfiling/;
-$external_latex_labels{$key} = q|52.2.3 Limit the Set of Profiled PETs|; 
+$external_latex_labels{$key} = q|52.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Log/;
-$external_latex_labels{$key} = q|49.1 Description|; 
+$external_latex_labels{$key} = q|49.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:MPIProfiling/;
-$external_latex_labels{$key} = q|52.2.4 Include MPI Communication in the Profile|; 
+$external_latex_labels{$key} = q|52.2.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Profiling/;
-$external_latex_labels{$key} = q|52.1.1 Profiling|; 
+$external_latex_labels{$key} = q|52.1.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:RHandle/;
-$external_latex_labels{$key} = q|37.1 Description|; 
+$external_latex_labels{$key} = q|37.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:SciComp/;
-$external_latex_labels{$key} = q|19.1 Description|; 
+$external_latex_labels{$key} = q|19.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:ShapeShortcut/;
-$external_latex_labels{$key} = q|31.1.3 Grid Topologies and Periodicity|; 
+$external_latex_labels{$key} = q|31.1.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:State/;
-$external_latex_labels{$key} = q|21.1 Description|; 
+$external_latex_labels{$key} = q|21.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Submission/;
-$external_latex_labels{$key} = q|4 How to Submit Comments, Bug Reports, and Feature Requests|; 
+$external_latex_labels{$key} = q|4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:SummaryProfiling/;
-$external_latex_labels{$key} = q|52.2.2 Summarize Timings across Multiple PETs|; 
+$external_latex_labels{$key} = q|52.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Support/;
-$external_latex_labels{$key} = q|3 How to Contact User Support and Find Additional Information|; 
+$external_latex_labels{$key} = q|3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Time/;
-$external_latex_labels{$key} = q|43.1 Description|; 
+$external_latex_labels{$key} = q|43.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:TimeInterval/;
-$external_latex_labels{$key} = q|44.1 Description|; 
+$external_latex_labels{$key} = q|44.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Tracing/;
-$external_latex_labels{$key} = q|52.1.2 Tracing|; 
+$external_latex_labels{$key} = q|52.1.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:TracingClocks/;
-$external_latex_labels{$key} = q|52.2.6 Set the Clock used for Profiling/Tracing|; 
+$external_latex_labels{$key} = q|52.2.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:aliases/;
-$external_latex_labels{$key} = q|6.3 Aliases and Named Aliases|; 
+$external_latex_labels{$key} = q|6.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:array:usage:replicated_dims/;
-$external_latex_labels{$key} = q|28.2.12 Arrays with replicated dimensions|; 
+$external_latex_labels{$key} = q|28.2.12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:array:usage:undistributed_dims/;
-$external_latex_labels{$key} = q|28.2.11 Arrays with undistributed dimensions|; 
+$external_latex_labels{$key} = q|28.2.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:bundlerest/;
-$external_latex_labels{$key} = q|25.3 Restrictions and Future Work|; 
+$external_latex_labels{$key} = q|25.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:component:usage:scicomp/;
-$external_latex_labels{$key} = q|19.2.1 Use ESMF_SciComp and Attach Attributes|; 
+$external_latex_labels{$key} = q|19.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:concurrency/;
-$external_latex_labels{$key} = q|15.3 Sequential and Concurrent Execution of Components|; 
+$external_latex_labels{$key} = q|15.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:conventions/;
-$external_latex_labels{$key} = q|5 Conventions|; 
+$external_latex_labels{$key} = q|5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:coordspec/;
-$external_latex_labels{$key} = q|31.1.5 Grid Coordinates|; 
+$external_latex_labels{$key} = q|31.1.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:deepshallow/;
-$external_latex_labels{$key} = q|6.2 Deep and Shallow Classes|; 
+$external_latex_labels{$key} = q|6.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:desc:dist/;
-$external_latex_labels{$key} = q|31.1.4 Grid Distribution|; 
+$external_latex_labels{$key} = q|31.1.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:example:2DLogRecFromScrip/;
-$external_latex_labels{$key} = q|31.3.8 Create a curvilinear Grid using the coordinates defined in a SCRIP file|; 
+$external_latex_labels{$key} = q|31.3.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:example:MeshCubedSphere/;
-$external_latex_labels{$key} = q|33.3.9 Create a Mesh representation of a cubed sphere grid|; 
+$external_latex_labels{$key} = q|33.3.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:example:UnstructFromFile/;
-$external_latex_labels{$key} = q|33.3.8 Create a Mesh from an unstructured grid file|; 
+$external_latex_labels{$key} = q|33.3.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:extrapolation:creep/;
-$external_latex_labels{$key} = q|24.2.14 Extrapolation methods: creep fill|; 
+$external_latex_labels{$key} = q|24.2.14|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:extrapolation:nearestidavg/;
-$external_latex_labels{$key} = q|24.2.13 Extrapolation methods: inverse distance weighted average|; 
+$external_latex_labels{$key} = q|24.2.13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:extrapolation:neareststod/;
-$external_latex_labels{$key} = q|24.2.12 Extrapolation methods: nearest source to destination|; 
+$external_latex_labels{$key} = q|24.2.12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:extrapolation:overview/;
-$external_latex_labels{$key} = q|24.2.11 Extrapolation methods: overview|; 
+$external_latex_labels{$key} = q|24.2.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:createArbGrid/;
-$external_latex_labels{$key} = q|26.3.23 Create a Field on an arbitrarily distributed Grid|; 
+$external_latex_labels{$key} = q|26.3.23|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:createArbGridRep/;
-$external_latex_labels{$key} = q|26.3.24 Create a Field on an arbitrarily distributed Grid with replicated dimensions &amp; ungridded bounds|; 
+$external_latex_labels{$key} = q|26.3.24|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:createMeshArrayspecOpt/;
-$external_latex_labels{$key} = q|26.3.21 Create a Field from a Mesh and an ArraySpec with optional features|; 
+$external_latex_labels{$key} = q|26.3.21|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_2darray/;
-$external_latex_labels{$key} = q|26.3.11 Create a 2D Field with a 2D Grid and a Fortran data array|; 
+$external_latex_labels{$key} = q|26.3.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_2dgrid_3dptr/;
-$external_latex_labels{$key} = q|26.3.13 Create a 3D Field with a 2D Grid and a 3D Fortran data array|; 
+$external_latex_labels{$key} = q|26.3.13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_2dgrid_3dptr_map/;
-$external_latex_labels{$key} = q|26.3.14 Create a 3D Field with a 2D Grid and a 3D Fortran data array with gridToFieldMap argument|; 
+$external_latex_labels{$key} = q|26.3.14|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_2dgrid_3dptr_map_halo/;
-$external_latex_labels{$key} = q|26.3.15 Create a 3D Field with a 2D Grid and a 3D Fortran data array with halos|; 
+$external_latex_labels{$key} = q|26.3.15|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_2dptr/;
-$external_latex_labels{$key} = q|26.3.12 Create a 2D Field with a 2D Grid and a Fortran data pointer|; 
+$external_latex_labels{$key} = q|26.3.12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_5dgrid_7dptr_2dungridded/;
-$external_latex_labels{$key} = q|26.3.9 Create a 7D Field with a 5D Grid and 2D ungridded bounds from a Fortran data array|; 
+$external_latex_labels{$key} = q|26.3.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_empty/;
-$external_latex_labels{$key} = q|26.3.8 Create an empty Field and complete it with FieldEmptyComplete|; 
+$external_latex_labels{$key} = q|26.3.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_grid_array/;
-$external_latex_labels{$key} = q|26.3.6 Create a Field with a Grid and Array|; 
+$external_latex_labels{$key} = q|26.3.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_grid_arrayspec/;
-$external_latex_labels{$key} = q|26.3.5 Create a Field with a Grid and Arrayspec|; 
+$external_latex_labels{$key} = q|26.3.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_grid_tkr/;
-$external_latex_labels{$key} = q|26.3.4 Create a Field with a Grid, typekind, and rank|; 
+$external_latex_labels{$key} = q|26.3.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_locs_arrayspec/;
-$external_latex_labels{$key} = q|26.3.17 Create a Field from a LocStream and arrayspec|; 
+$external_latex_labels{$key} = q|26.3.17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_locs_tkr/;
-$external_latex_labels{$key} = q|26.3.16 Create a Field from a LocStream, typekind, and rank|; 
+$external_latex_labels{$key} = q|26.3.16|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_mesh_array/;
-$external_latex_labels{$key} = q|26.3.20 Create a Field from a Mesh and an Array|; 
+$external_latex_labels{$key} = q|26.3.20|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_mesh_arrayspec/;
-$external_latex_labels{$key} = q|26.3.19 Create a Field from a Mesh and arrayspec|; 
+$external_latex_labels{$key} = q|26.3.19|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_mesh_tkr/;
-$external_latex_labels{$key} = q|26.3.18 Create a Field from a Mesh, typekind, and rank|; 
+$external_latex_labels{$key} = q|26.3.18|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:create_repdim/;
-$external_latex_labels{$key} = q|26.3.22 Create a Field with replicated dimensions|; 
+$external_latex_labels{$key} = q|26.3.22|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:field_get_dataptr/;
-$external_latex_labels{$key} = q|26.3.2 Get Fortran data pointer, bounds, and counts information from a Field|; 
+$external_latex_labels{$key} = q|26.3.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:field_get_default/;
-$external_latex_labels{$key} = q|26.3.3 Get Grid, Array, and other information from a Field|; 
+$external_latex_labels{$key} = q|26.3.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:gather_2dptr/;
-$external_latex_labels{$key} = q|26.3.28 Gather Field data onto root PET|; 
+$external_latex_labels{$key} = q|26.3.28|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:halo/;
-$external_latex_labels{$key} = q|26.3.34 Field Halo solving a domain decomposed heat transfer problem|; 
+$external_latex_labels{$key} = q|26.3.34|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:partial_creation/;
-$external_latex_labels{$key} = q|26.3.7 Create an empty Field and complete it with FieldEmptySet and FieldEmptyComplete|; 
+$external_latex_labels{$key} = q|26.3.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:redist_1dptr/;
-$external_latex_labels{$key} = q|26.3.30 Redistribute data from source Field to destination Field|; 
+$external_latex_labels{$key} = q|26.3.30|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:redist_gathering/;
-$external_latex_labels{$key} = q|26.3.32 FieldRedist as a form of gather involving arbitrary distribution|; 
+$external_latex_labels{$key} = q|26.3.32|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:redist_scattering/;
-$external_latex_labels{$key} = q|26.3.31 FieldRedist as a form of scatter involving arbitrary distribution|; 
+$external_latex_labels{$key} = q|26.3.31|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:scatter_2dptr/;
-$external_latex_labels{$key} = q|26.3.29 Scatter Field data from root PET onto its set of joint PETs|; 
+$external_latex_labels{$key} = q|26.3.29|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:smm_1dptr/;
-$external_latex_labels{$key} = q|26.3.33 Sparse matrix multiplication from source Field to destination Field|; 
+$external_latex_labels{$key} = q|26.3.33|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldbundle:usage:create_empty/;
-$external_latex_labels{$key} = q|25.2.2 Creating an empty FieldBundle then add one Field to it|; 
+$external_latex_labels{$key} = q|25.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldbundle:usage:create_emptylist/;
-$external_latex_labels{$key} = q|25.2.3 Creating an empty FieldBundle then add a list of Fields to it|; 
+$external_latex_labels{$key} = q|25.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldbundle:usage:create_list/;
-$external_latex_labels{$key} = q|25.2.1 Creating a FieldBundle from a list of Fields|; 
+$external_latex_labels{$key} = q|25.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldbundle:usage:get/;
-$external_latex_labels{$key} = q|25.2.4 Query a Field stored in the FieldBundle by name or index|; 
+$external_latex_labels{$key} = q|25.2.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldbundle:usage:getlist/;
-$external_latex_labels{$key} = q|25.2.5 Query FieldBundle for Fields list either alphabetical or in order of addition|; 
+$external_latex_labels{$key} = q|25.2.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldbundle:usage:halo/;
-$external_latex_labels{$key} = q|25.2.12 Perform FieldBundle halo update|; 
+$external_latex_labels{$key} = q|25.2.12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldbundle:usage:packedFBGrid/;
-$external_latex_labels{$key} = q|25.2.6 Create a packed FieldBundle on a Grid|; 
+$external_latex_labels{$key} = q|25.2.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldbundle:usage:packedFBMesh/;
-$external_latex_labels{$key} = q|25.2.7 Create a packed FieldBundle on a Mesh|; 
+$external_latex_labels{$key} = q|25.2.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldbundle:usage:redist_1dptr/;
-$external_latex_labels{$key} = q|25.2.9 Redistribute data from a source FieldBundle to a destination FieldBundle|; 
+$external_latex_labels{$key} = q|25.2.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldbundle:usage:redist_packed/;
-$external_latex_labels{$key} = q|25.2.10 Redistribute data from a packed source FieldBundle to a packed destination FieldBundle|; 
+$external_latex_labels{$key} = q|25.2.10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldbundle:usage:smm_1dptr/;
-$external_latex_labels{$key} = q|25.2.11 Perform sparse matrix multiplication from a source FieldBundle to a destination FieldBundle|; 
+$external_latex_labels{$key} = q|25.2.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fieldregrid/;
-$external_latex_labels{$key} = q|26.3.25 Field regridding|; 
+$external_latex_labels{$key} = q|26.3.25|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:filebasedregrid/;
-$external_latex_labels{$key} = q|24.3 File-based Regrid API|; 
+$external_latex_labels{$key} = q|24.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fileformat:esmf/;
-$external_latex_labels{$key} = q|12.8.2 ESMF Unstructured Grid File Format (ESMFMESH)|; 
+$external_latex_labels{$key} = q|12.8.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fileformat:gridspec/;
-$external_latex_labels{$key} = q|12.8.3 CF Convention Single Tile File Format (CFGRID/GRIDSPEC)|; 
+$external_latex_labels{$key} = q|12.8.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fileformat:mosaic/;
-$external_latex_labels{$key} = q|12.8.5 GRIDSPEC Mosaic File Format|; 
+$external_latex_labels{$key} = q|12.8.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fileformat:scrip/;
-$external_latex_labels{$key} = q|12.8.1 SCRIP Grid File Format|; 
+$external_latex_labels{$key} = q|12.8.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fileformat:ugrid/;
-$external_latex_labels{$key} = q|12.8.4 CF Convention UGRID File Format|; 
+$external_latex_labels{$key} = q|12.8.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:fileregridusage/;
-$external_latex_labels{$key} = q|13.2 Usage|; 
+$external_latex_labels{$key} = q|13.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:grid:usage:bounds/;
-$external_latex_labels{$key} = q|31.3.19 Grid regions and bounds|; 
+$external_latex_labels{$key} = q|31.3.19|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:hierarchy/;
-$external_latex_labels{$key} = q|15.2 Hierarchical Creation of Components|; 
+$external_latex_labels{$key} = q|15.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:interpolation:bilinear/;
-$external_latex_labels{$key} = q|24.2.1 Interpolation methods: bilinear|; 
+$external_latex_labels{$key} = q|24.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:interpolation:conservation/;
-$external_latex_labels{$key} = q|24.2.7 Conservation|; 
+$external_latex_labels{$key} = q|24.2.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:interpolation:conservative_norm_opts/;
-$external_latex_labels{$key} = q|24.2.8 The effect of normalization options on integrals and values produced by conservative methods|; 
+$external_latex_labels{$key} = q|24.2.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:interpolation:conserve/;
-$external_latex_labels{$key} = q|24.2.5 Interpolation methods: first-order conservative|; 
+$external_latex_labels{$key} = q|24.2.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:interpolation:conserve_2ndorder/;
-$external_latex_labels{$key} = q|24.2.6 Interpolation methods: second-order conservative|; 
+$external_latex_labels{$key} = q|24.2.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:interpolation:great_circle_cells/;
-$external_latex_labels{$key} = q|24.2.9 Great circle cells|; 
+$external_latex_labels{$key} = q|24.2.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:interpolation:nearestdtos/;
-$external_latex_labels{$key} = q|24.2.4 Interpolation methods: nearest destination to source|; 
+$external_latex_labels{$key} = q|24.2.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:interpolation:neareststod/;
-$external_latex_labels{$key} = q|24.2.3 Interpolation methods: nearest source to destination|; 
+$external_latex_labels{$key} = q|24.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:interpolation:patch/;
-$external_latex_labels{$key} = q|24.2.2 Interpolation methods: higher-order patch|; 
+$external_latex_labels{$key} = q|24.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:localcomm/;
-$external_latex_labels{$key} = q|15.4 Intra-Component Communication|; 
+$external_latex_labels{$key} = q|15.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:1pet1step/;
-$external_latex_labels{$key} = q|33.3.2 Create a small single PET Mesh in one step|; 
+$external_latex_labels{$key} = q|33.3.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:1pet3step/;
-$external_latex_labels{$key} = q|33.3.3 Create a small single PET Mesh in three steps|; 
+$external_latex_labels{$key} = q|33.3.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:4pet1step/;
-$external_latex_labels{$key} = q|33.3.4 Create a small Mesh on 4 PETs in one step|; 
+$external_latex_labels{$key} = q|33.3.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:4pet1stepee/;
-$external_latex_labels{$key} = q|33.3.7 Create a small Mesh of multiple element types on 4 PETs using easy element method|; 
+$external_latex_labels{$key} = q|33.3.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:4pet1stepee1type/;
-$external_latex_labels{$key} = q|33.3.6 Create a small Mesh of all one element type on 4 PETs using easy element method|; 
+$external_latex_labels{$key} = q|33.3.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:api:meshaddelements/;
-$external_latex_labels{$key} = q|33.4.4 ESMF_MeshAddElements|; 
+$external_latex_labels{$key} = q|33.4.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:api:meshaddnodes/;
-$external_latex_labels{$key} = q|33.4.5 ESMF_MeshAddNodes|; 
+$external_latex_labels{$key} = q|33.4.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:api:meshcreate/;
-$external_latex_labels{$key} = q|33.4.6 ESMF_MeshCreate|; 
+$external_latex_labels{$key} = q|33.4.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:halo/;
-$external_latex_labels{$key} = q|33.3.12 Mesh Halo Communication|; 
+$external_latex_labels{$key} = q|33.3.12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:mask/;
-$external_latex_labels{$key} = q|33.3.11 Mesh Masking|; 
+$external_latex_labels{$key} = q|33.3.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:usage:meshCreation/;
-$external_latex_labels{$key} = q|33.3.1 Mesh creation|; 
+$external_latex_labels{$key} = q|33.3.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:meshrep/;
-$external_latex_labels{$key} = q|33.1.1 Mesh representation in ESMF|; 
+$external_latex_labels{$key} = q|33.1.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:overallimpl/;
-$external_latex_labels{$key} = q|9 Overall Design and Implementation Notes|; 
+$external_latex_labels{$key} = q|9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:overallrest/;
-$external_latex_labels{$key} = q|10 Overall Restrictions and Future Work|; 
+$external_latex_labels{$key} = q|10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:performance/;
-$external_latex_labels{$key} = q|15.6 Performance|; 
+$external_latex_labels{$key} = q|15.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:regrid/;
-$external_latex_labels{$key} = q|24.2 Regrid|; 
+$external_latex_labels{$key} = q|24.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:regridusage/;
-$external_latex_labels{$key} = q|12.6 Usage|; 
+$external_latex_labels{$key} = q|12.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:regridweightgencheck/;
-$external_latex_labels{$key} = q|12.10 ESMF_RegridWeightGenCheck|; 
+$external_latex_labels{$key} = q|12.10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg:conservation/;
-$external_latex_labels{$key} = q|12.4 Conservation|; 
+$external_latex_labels{$key} = q|12.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg:conservative_norm_opts/;
-$external_latex_labels{$key} = q|12.5 The effect of normalization options on integrals and values produced by conservative methods|; 
+$external_latex_labels{$key} = q|12.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_bilinear/;
-$external_latex_labels{$key} = q|12.3.1 Bilinear|; 
+$external_latex_labels{$key} = q|12.3.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_conserve/;
-$external_latex_labels{$key} = q|12.3.4 First-order conservative|; 
+$external_latex_labels{$key} = q|12.3.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_conserve2d/;
-$external_latex_labels{$key} = q|12.3.5 Second-order conservative|; 
+$external_latex_labels{$key} = q|12.3.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_extrap/;
-$external_latex_labels{$key} = q|12.2.3 Extrapolation|; 
+$external_latex_labels{$key} = q|12.2.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_linetype/;
-$external_latex_labels{$key} = q|12.2.5 Line type|; 
+$external_latex_labels{$key} = q|12.2.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_masking/;
-$external_latex_labels{$key} = q|12.2.2 Masking|; 
+$external_latex_labels{$key} = q|12.2.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_nearest/;
-$external_latex_labels{$key} = q|12.3.3 Nearest neighbor|; 
+$external_latex_labels{$key} = q|12.3.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_options/;
-$external_latex_labels{$key} = q|12.2 Regridding Options|; 
+$external_latex_labels{$key} = q|12.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_patch/;
-$external_latex_labels{$key} = q|12.3.2 Patch|; 
+$external_latex_labels{$key} = q|12.3.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_poles/;
-$external_latex_labels{$key} = q|12.2.1 Poles|; 
+$external_latex_labels{$key} = q|12.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_regridmethods/;
-$external_latex_labels{$key} = q|12.3 Regridding Methods|; 
+$external_latex_labels{$key} = q|12.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_unmapped/;
-$external_latex_labels{$key} = q|12.2.4 Unmapped destination points|; 
+$external_latex_labels{$key} = q|12.2.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:scoping/;
-$external_latex_labels{$key} = q|15.5 Data Distribution and Scoping in Components|; 
+$external_latex_labels{$key} = q|15.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:spatialclasses/;
-$external_latex_labels{$key} = q|6.6 ESMF Spatial Classes|; 
+$external_latex_labels{$key} = q|6.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:adv:create/;
-$external_latex_labels{$key} = q|31.3.24 Create more complex Grids using DistGrid|; 
+$external_latex_labels{$key} = q|31.3.24|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:coords:accessing/;
-$external_latex_labels{$key} = q|31.3.16 Access coordinates|; 
+$external_latex_labels{$key} = q|31.3.16|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:cubedsphere/;
-$external_latex_labels{$key} = q|31.3.10 Create a six-tile cubed sphere Grid|; 
+$external_latex_labels{$key} = q|31.3.10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:cubedspherefromfile/;
-$external_latex_labels{$key} = q|31.3.12 Create a six-tile cubed sphere Grid from a GRIDSPEC Mosaic file|; 
+$external_latex_labels{$key} = q|31.3.12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:cubedspherewttransform/;
-$external_latex_labels{$key} = q|31.3.11 Create a six-tile cubed sphere Grid and apply Schmidt transform|; 
+$external_latex_labels{$key} = q|31.3.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:items/;
-$external_latex_labels{$key} = q|31.3.17 Associate items with stagger locations|; 
+$external_latex_labels{$key} = q|31.3.17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:items:accessing/;
-$external_latex_labels{$key} = q|31.3.18 Access items|; 
+$external_latex_labels{$key} = q|31.3.18|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:setcommit/;
-$external_latex_labels{$key} = q|31.3.9 Create an empty Grid in a parent Component for completion in a child Component|; 
+$external_latex_labels{$key} = q|31.3.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:staggerloc/;
-$external_latex_labels{$key} = q|31.3.13 Grid stagger locations|; 
+$external_latex_labels{$key} = q|31.3.13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:staggerloc:adv/;
-$external_latex_labels{$key} = q|31.3.25 Specify custom stagger locations|; 
+$external_latex_labels{$key} = q|31.3.25|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:usage:staggerpadding:adv/;
-$external_latex_labels{$key} = q|31.3.26 Specify custom stagger padding|; 
+$external_latex_labels{$key} = q|31.3.26|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:weightfileformat/;
-$external_latex_labels{$key} = q|12.9 Regrid Weight File Format|; 
+$external_latex_labels{$key} = q|12.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:xgrid:desc/;
-$external_latex_labels{$key} = q|34.1 Description|; 
+$external_latex_labels{$key} = q|34.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:xgrid:usage:xgrid_create/;
-$external_latex_labels{$key} = q|34.3.1 Create an XGrid from Grids then use it for regridding|; 
+$external_latex_labels{$key} = q|34.3.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:xgrid:usage:xgrid_create_masking/;
-$external_latex_labels{$key} = q|34.3.2 Using XGrid in Earth System modeling|; 
+$external_latex_labels{$key} = q|34.3.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:xgrid:usage:xgrid_createfromsparsemat/;
-$external_latex_labels{$key} = q|34.3.3 Create an XGrid from user input data then use it for regridding|; 
+$external_latex_labels{$key} = q|34.3.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:xgrid:usage:xgrid_destroy/;
-$external_latex_labels{$key} = q|34.3.5 Destroying the XGrid and other resources|; 
+$external_latex_labels{$key} = q|34.3.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:xgrid:usage:xgrid_get/;
-$external_latex_labels{$key} = q|34.3.4 Query the XGrid for its internal information|; 
+$external_latex_labels{$key} = q|34.3.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/subsec:Calendar_options/;
-$external_latex_labels{$key} = q|42.2 Constants|; 
+$external_latex_labels{$key} = q|42.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/subsec:Calendar_rest/;
-$external_latex_labels{$key} = q|42.4 Restrictions and Future Work|; 
+$external_latex_labels{$key} = q|42.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/subsec:Time_Instants_and_TimeIntervals/;
-$external_latex_labels{$key} = q|41.3 Time Instants and TimeIntervals|; 
+$external_latex_labels{$key} = q|41.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/tab:dg_ops/;
-$external_latex_labels{$key} = q|3 The 8 unique rotational operations in 2 dimensional index space. The associated <SPAN style="font-family:monospace">orientationVector</SPAN> argument for each operation is also shown|; 
+$external_latex_labels{$key} = q|3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/table:timeOpts/;
-$external_latex_labels{$key} = q|41.4 Clocks and Alarms|; 
+$external_latex_labels{$key} = q|41.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/ugridexample/;
-$external_latex_labels{$key} = q|13.1 Description|; 
+$external_latex_labels{$key} = q|13.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/vm_higherrank/;
-$external_latex_labels{$key} = q|51.3.12 Using VM communication methods with data of rank greater than one|; 
+$external_latex_labels{$key} = q|51.3.12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/vm_inside_user_mpi/;
-$external_latex_labels{$key} = q|51.3.5 Nesting ESMF inside a user MPI application|; 
+$external_latex_labels{$key} = q|51.3.5|; 
 $noresave{$key} = "$nosave";
 
 $key = q/vm_multi_instance_esmf/;
-$external_latex_labels{$key} = q|51.3.7 Multiple concurrent instances of ESMF under separate MPI communicators|; 
+$external_latex_labels{$key} = q|51.3.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/vm_nesting_esmf/;
-$external_latex_labels{$key} = q|51.3.6 Nesting ESMF inside a user MPI application on a subset of MPI ranks|; 
+$external_latex_labels{$key} = q|51.3.6|; 
 $noresave{$key} = "$nosave";
 
 1;
