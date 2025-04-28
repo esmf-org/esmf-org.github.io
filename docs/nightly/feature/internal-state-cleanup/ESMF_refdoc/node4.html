@@ -12666,8 +12666,8 @@ InternalState information added to a component can be associated with a
   wrap%p%testScaling = 0.8
 
   ! Add Internal State to the Component with label
-  call ESMF_InternalStateAdd(comp, label="first named data block", &amp;
-    internalState=wrap, rc=rc)
+  call ESMF_InternalStateAdd(comp, internalState=wrap, &amp;
+    label="first named data block", rc=rc)
   if (rc .ne. ESMF_SUCCESS) finalrc = ESMF_FAILURE
 
   ! And allocate another private data block
@@ -12678,8 +12678,8 @@ InternalState information added to a component can be associated with a
   wrap%p%testScaling = 0.1
 
   ! Add Internal State to the Component with label
-  call ESMF_InternalStateAdd(comp, label="second named data block", &amp;
-    internalState=wrap, rc=rc)
+  call ESMF_InternalStateAdd(comp, internalState=wrap, &amp;
+    label="second named data block", rc=rc)
   if (rc .ne. ESMF_SUCCESS) finalrc = ESMF_FAILURE
 
   ! A list of InternalState labels can be queried from the component object.
@@ -12700,16 +12700,16 @@ The last internal state added under a specific label can be retrieved using
 <P>
 <PRE>
   ! Get Internal State
-  call ESMF_InternalStateGet(comp, label="first named data block", &amp;
-    internalState=wrap, rc=rc)
+  call ESMF_InternalStateGet(comp, internalState=wrap, &amp;
+    label="first named data block", rc=rc)
   if (rc .ne. ESMF_SUCCESS) finalrc = ESMF_FAILURE
 
   ! Deallocate the private data block
   deallocate(wrap%p)
 
   ! Get Internal State
-  call ESMF_InternalStateGet(comp, label="second named data block", &amp;
-    internalState=wrap, rc=rc)
+  call ESMF_InternalStateGet(comp, internalState=wrap, &amp;
+    label="second named data block", rc=rc)
   if (rc .ne. ESMF_SUCCESS) finalrc = ESMF_FAILURE
 
   ! Deallocate the private data block
@@ -12757,11 +12757,13 @@ Future work will align the <TT>ESMF_InternalState</TT> API with the <TT>ESMF_Att
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_InternalStateAdd()
-   subroutine ESMF_InternalStateCplCompAdd(cplcomp, label, internalState, rc)
+   subroutine ESMF_InternalStateCplCompAdd(cplcomp, &amp;
+     internalState, label, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_CplComp),  intent(in)            :: cplcomp
-     character(*),        intent(in),  optional :: label
      type(*)                                    :: internalState
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     character(*),        intent(in),  optional :: label
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -12771,19 +12773,24 @@ Future work will align the <TT>ESMF_InternalState</TT> API with the <TT>ESMF_Att
 Add an internal state.
 
 <P>
+CAUTION: This interface is only implemented for compilers that support
+   Fortran 2018 assumed-type dummy arguments. Do not use this method in code
+   that requires portability with compilers that do not support this feature!
+
+<P>
 The arguments are:
    <DL>
 <DT><STRONG>cplcomp</STRONG></DT>
 <DD>The <TT>ESMF_CplComp</TT> object to hold the internal state.
    
 </DD>
+<DT><STRONG>internalState</STRONG></DT>
+<DD>The internal state to add.
+   
+</DD>
 <DT><STRONG>[label]</STRONG></DT>
 <DD>The label to associate with the internal state. By default, associated
      without label.
-   
-</DD>
-<DT><STRONG>internalState</STRONG></DT>
-<DD>The internal state to add.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -12808,11 +12815,13 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_InternalStateAdd()
-   subroutine ESMF_InternalStateGridCompAdd(gcomp, label, internalState, rc)
+   subroutine ESMF_InternalStateGridCompAdd(gcomp, &amp;
+     internalState, label, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp), intent(in)            :: gcomp
-     character(*),        intent(in),  optional :: label
      type(*)                                    :: internalState
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     character(*),        intent(in),  optional :: label
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -12822,19 +12831,24 @@ The arguments are:
 Add an internal state.
 
 <P>
+CAUTION: This interface is only implemented for compilers that support
+   Fortran 2018 assumed-type dummy arguments. Do not use this method in code
+   that requires portability with compilers that do not support this feature!
+
+<P>
 The arguments are:
    <DL>
 <DT><STRONG>gcomp</STRONG></DT>
 <DD>The <TT>ESMF_GridComp</TT> object to hold the internal state.
    
 </DD>
+<DT><STRONG>internalState</STRONG></DT>
+<DD>The internal state to add.
+   
+</DD>
 <DT><STRONG>[label]</STRONG></DT>
 <DD>The label to associate with the internal state. By default, associated
      without label.
-   
-</DD>
-<DT><STRONG>internalState</STRONG></DT>
-<DD>The internal state to add.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -12859,11 +12873,13 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_InternalStateGet()
-   subroutine ESMF_InternalStateCplCompGet(cplcomp, label, internalState, rc)
+   subroutine ESMF_InternalStateCplCompGet(cplcomp, &amp;
+     internalState, label, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_CplComp),  intent(in)            :: cplcomp
-     character(*),        intent(in),  optional :: label
      type(*)                                    :: internalState
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     character(*),        intent(in),  optional :: label
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -12873,19 +12889,24 @@ The arguments are:
 Access the internal state.
 
 <P>
+CAUTION: This interface is only implemented for compilers that support
+   Fortran 2018 assumed-type dummy arguments. Do not use this method in code
+   that requires portability with compilers that do not support this feature!
+
+<P>
 The arguments are:
    <DL>
 <DT><STRONG>cplcomp</STRONG></DT>
 <DD>The <TT>ESMF_CplComp</TT> object holding the internal state.
    
 </DD>
+<DT><STRONG>internalState</STRONG></DT>
+<DD>The returned internal state.
+   
+</DD>
 <DT><STRONG>[label]</STRONG></DT>
 <DD>The label of the internal state accessed. By default, access the last
      internal state set without label.
-   
-</DD>
-<DT><STRONG>internalState</STRONG></DT>
-<DD>The returned internal state.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -12957,11 +12978,13 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>   ! Private name; call using ESMF_InternalStateGet()
-   subroutine ESMF_InternalStateGridCompGet(gcomp, label, internalState, rc)
+   subroutine ESMF_InternalStateGridCompGet(gcomp, &amp;
+     internalState, label, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp), intent(in)            :: gcomp
-     character(*),        intent(in),  optional :: label
      type(*)                                    :: internalState
+ -- The following arguments require argument keyword syntax (e.g. rc=rc). --
+     character(*),        intent(in),  optional :: label
      integer,             intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -12971,19 +12994,24 @@ The arguments are:
 Access the internal state.
 
 <P>
+CAUTION: This interface is only implemented for compilers that support
+   Fortran 2018 assumed-type dummy arguments. Do not use this method in code
+   that requires portability with compilers that do not support this feature!
+
+<P>
 The arguments are:
    <DL>
 <DT><STRONG>cplcomp</STRONG></DT>
 <DD>The <TT>ESMF_CplComp</TT> object holding the internal state.
    
 </DD>
+<DT><STRONG>internalState</STRONG></DT>
+<DD>The returned internal state.
+   
+</DD>
 <DT><STRONG>[label]</STRONG></DT>
 <DD>The label of the internal state accessed. By default, access the last
      internal state set without label.
-   
-</DD>
-<DT><STRONG>internalState</STRONG></DT>
-<DD>The returned internal state.
    
 </DD>
 <DT><STRONG>[rc]</STRONG></DT>
@@ -14791,7 +14819,7 @@ a service, and then make it accessible via the Web.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="17290"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:webservices_fig"></A><A NAME="17298"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
 The diagram describes the ESMF Web Services software architecture. The architecture
