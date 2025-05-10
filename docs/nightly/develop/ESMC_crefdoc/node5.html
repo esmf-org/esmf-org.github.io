@@ -1527,6 +1527,7 @@ The arguments are:
      int *regridPoleNPnts,                          // in
      enum ESMC_LineType_Flag *lineType,             // in
      enum ESMC_NormType_Flag *normType,             // in
+     enum ESMC_Logical *vectorRegrid,               // in
      enum ESMC_ExtrapMethod_Flag *extrapMethod,     // in
      int *extrapNumSrcPnts,                         // in
      float *extrapDistExponent,                     // in
@@ -1608,6 +1609,20 @@ The arguments are:
 <DD>This argument controls the type of normalization used when generating conservative weights.
       This option only applies to weights generated with <TT>regridmethod=ESMF_REGRIDMETHOD_CONSERVE</TT>.
       If not specified normType defaults to <TT>ESMF_NORMTYPE_DSTAREA</TT>.
+    
+</DD>
+<DT><STRONG>[vectorRegrid]</STRONG></DT>
+<DD>If true, treat a single ungridded dimension in the source and destination Fields
+      as the components of a vector. If true and there is more than one ungridded dimension in either
+      the source or destination, then an error will be returned. Currently, only undistributed (vector) dimensions of
+      size 2 are supported. In the vector dimension, the first entry is interpreted as the east component and the
+      second as the north component.
+      In addition, this functionality presently only
+      works when both the source and destination Fields are build on a geometry (e.g. an ESMF Grid) with
+      a spherical coordinate system (e.g. ESMF_COORDSYS_SPH_DEG). Also, this functionality is not currently supported with conservative
+      regrid methods (e.g. <TT>regridmethod=ESMF_REGRIDMETHOD_CONSERVE</TT>). We expect these restrictions to be loosened over
+      time as new requirements come in from users. See section&nbsp;<A HREF="#sec::vectorRegrid"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A> for further
+      information on this functionality. If not specified, this argument defaults to false.
     
 </DD>
 <DT><STRONG>[extrapMethod]</STRONG></DT>
@@ -1705,6 +1720,7 @@ The arguments are:
      int *regridPoleNPnts,                          // in
      enum ESMC_LineType_Flag *lineType,             // in
      enum ESMC_NormType_Flag *normType,             // in
+     enum ESMC_Logical *vectorRegrid,               // in
      enum ESMC_UnmappedAction_Flag *unmappedaction, // in
      enum ESMC_Logical *ignoreDegenerate,           // in
      enum ESMC_Logical *create_rh,                  // in
@@ -1791,6 +1807,20 @@ The arguments are:
 <DD>This argument controls the type of normalization used when generating conservative weights.
       This option only applies to weights generated with <TT>regridmethod=ESMC_REGRIDMETHOD_CONSERVE</TT>.
       If not specified normType defaults to <TT>ESMC_NORMTYPE_DSTAREA</TT>.
+    
+</DD>
+<DT><STRONG>[vectorRegrid]</STRONG></DT>
+<DD>If true, treat a single ungridded dimension in the source and destination Fields
+      as the components of a vector. If true and there is more than one ungridded dimension in either
+      the source or destination, then an error will be returned. Currently, only undistributed (vector) dimensions of
+      size 2 are supported. In the vector dimension, the first entry is interpreted as the east component and the
+      second as the north component.
+      In addition, this functionality presently only
+      works when both the source and destination Fields are build on a geometry (e.g. an ESMF Grid) with
+      a spherical coordinate system (e.g. ESMF_COORDSYS_SPH_DEG). Also, this functionality is not currently supported with conservative
+      regrid methods (e.g. <TT>regridmethod=ESMF_REGRIDMETHOD_CONSERVE</TT>). We expect these restrictions to be loosened over
+      time as new requirements come in from users. See section&nbsp;<A HREF="#sec::vectorRegrid"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A> for further
+      information on this functionality. If not specified, this argument defaults to false.
     
 </DD>
 <DT><STRONG>[unmappedaction]</STRONG></DT>
@@ -2686,7 +2716,7 @@ is limited in the current version of ESMF.
 <P>
 Figure <A HREF="#fig:GridDecomps">7</A> illustrates options for distribution.
 
-<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="4925"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:GridDecomps"></A><A NAME="4935"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
 Examples of regular and irregular decomposition of
@@ -2727,7 +2757,7 @@ does not affect the computations performed on an ocean model grid.  Figure
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="4893"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:LogRectGrids"></A><A NAME="4903"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
 Types of logically rectangular grid tiles.  Red circles show the
@@ -3072,7 +3102,7 @@ following are the valid predefined stagger locations.
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="5148"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc2d"></A><A NAME="5158"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
 2D Predefined Stagger Locations</CAPTION>
@@ -3113,7 +3143,7 @@ The 2D predefined stagger locations (illustrated in figure&nbsp;<A HREF="#fig:gr
 <P>
 <DIV ALIGN="CENTER">
 </DIV>
-<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="5159"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:gridstaggerloc3d"></A><A NAME="5169"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
 3D Predefined Stagger Locations</CAPTION>
