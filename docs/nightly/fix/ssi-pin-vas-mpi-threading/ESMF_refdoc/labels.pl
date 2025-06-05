@@ -2050,7 +2050,7 @@ $external_latex_labels{$key} = q|25.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/VM:NBVMEpoch/;
-$external_latex_labels{$key} = q|52.3.11|; 
+$external_latex_labels{$key} = q|52.3.12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/XGrid:rest/;
@@ -3466,7 +3466,7 @@ $external_latex_labels{$key} = q|13.1|;
 $noresave{$key} = "$nosave";
 
 $key = q/vm_higherrank/;
-$external_latex_labels{$key} = q|52.3.12|; 
+$external_latex_labels{$key} = q|52.3.13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/vm_inside_user_mpi/;
