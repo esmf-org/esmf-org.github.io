@@ -758,6 +758,22 @@ $key = q/esmf_infosync/;
 $ref_files{$key} = "$dir".q|node6.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/esmfinternalstateaddcplcomp/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/esmfinternalstateaddgcomp/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/esmfinternalstategetcplcomp/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/esmfinternalstategetgcomp/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/esmfstateremovelist/;
 $ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
