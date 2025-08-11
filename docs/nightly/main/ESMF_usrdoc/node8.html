@@ -23,26 +23,26 @@
 <BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html332"
+<A NAME="tex2html350"
   HREF="node9.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html328"
+<A NAME="tex2html346"
   HREF="ESMF_usrdoc.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html322"
+<A NAME="tex2html340"
   HREF="node7.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html330"
+<A NAME="tex2html348"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Next:</B> <A NAME="tex2html333"
+<B> Next:</B> <A NAME="tex2html351"
   HREF="node9.html">8 Using Bundled ESMF</A>
-<B> Up:</B> <A NAME="tex2html329"
+<B> Up:</B> <A NAME="tex2html347"
   HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
-<B> Previous:</B> <A NAME="tex2html323"
+<B> Previous:</B> <A NAME="tex2html341"
   HREF="node7.html">6 Compiling and Linking</A>
- &nbsp; <B>  <A NAME="tex2html331"
+ &nbsp; <B>  <A NAME="tex2html349"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
@@ -226,31 +226,58 @@ In fact the location of the division by zero is correctly identified by the
 runtime library at line 149 in file <TT>ocn.F90</TT>.
 
 <P>
+It is possible to force a hard crash within the ESMF library while logging
+ERRORS or WARNINGS to the <TT>PET&lt;nnn&gt;.ESMF_LogFile</TT>. Doing so can be
+advantageous because it may produce a code dump and/or backtrace at the
+initial point of error without ESMF return code handling. There are two
+settings controlling log message error handling. The first setting,
+<TT>ESMF_RUNTIME_ABORT_LOGMSG_TYPES</TT>, configures the ESMF library to abort
+during specified log message types, such as <TT>ESMF_LOGMSG_ERROR</TT>. When
+setting <TT>ESMF_RUNTIME_ABORT_LOGMSG_TYPES</TT>, multiple log message types
+can be listed, such as <TT>ESMF_LOGMSG_ERROR,ESMF_LOGMSG_WARNING</TT>. The
+second setting, <TT>ESMF_RUNTIME_ABORT_ACTION</TT>, configures the ESMF library
+abort action. By default, the ESMF library abort handler will call
+<TT>MPI_Abort</TT>. This can be changed to <TT>SIGABRT</TT> or <TT>SIGQUIT</TT>, which
+will raise their respective exceptions. These two settings can be configured in
+the user environment before initializing ESMF or set in the configuration file
+passed to <TT>ESMF_Initialize</TT>.
+
+<P>
+An example configuration file configuring ESMF to raise <TT>SIGABRT</TT> during
+<TT>ESMF_LOGMSG_ERROR</TT> or <TT>ESMF_LOGMSG_WARNING</TT>.
+
+<P>
+<PRE>
+ESMF_RUNTIME_ABORT_ACTION: "SIGABRT"
+ESMF_RUNTIME_ABORT_LOGMSG_TYPES: "ESMF_LOGMSG_ERROR,ESMF_LOGMSG_WARNING"
+</PRE>
+
+<P>
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html332"
+<A NAME="tex2html350"
   HREF="node9.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html328"
+<A NAME="tex2html346"
   HREF="ESMF_usrdoc.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html322"
+<A NAME="tex2html340"
   HREF="node7.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html330"
+<A NAME="tex2html348"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Next:</B> <A NAME="tex2html333"
+<B> Next:</B> <A NAME="tex2html351"
   HREF="node9.html">8 Using Bundled ESMF</A>
-<B> Up:</B> <A NAME="tex2html329"
+<B> Up:</B> <A NAME="tex2html347"
   HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
-<B> Previous:</B> <A NAME="tex2html323"
+<B> Previous:</B> <A NAME="tex2html341"
   HREF="node7.html">6 Compiling and Linking</A>
- &nbsp; <B>  <A NAME="tex2html331"
+ &nbsp; <B>  <A NAME="tex2html349"
   HREF="node1.html">Contents</A></B> </DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
