@@ -127,6 +127,144 @@ missing or have formatting errors.
 <td class="col4">Known issues are only listed for official releases.
 </td>
 </tr>
+<!--ESMF_8_9_0-->
+<tr valign="top">
+<td ><a name="8_9_0"></a>
+<a href="https://github.com/esmf-org/esmf/releases/tag/v8.9.0">
+v8.9.0</a>
+<br>
+<br>
+Reference Manual for Fortran<br>
+<a href="/docs/release/ESMF_8_9_0/ESMF_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_9_0/ESMF_refdoc.pdf">(pdf)</a>
+<br><br>
+Reference Manual for C<br>
+<a href="/docs/release/ESMF_8_9_0/ESMC_crefdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_9_0/ESMC_crefdoc.pdf">(pdf)</a>
+<br><br>
+User's Guide<br>
+<a href="/docs/release/ESMF_8_9_0/ESMF_usrdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_9_0/ESMF_usrdoc.pdf">(pdf)</a>
+<br><br>
+NUOPC Layer Reference Manual<br>
+<a href="/docs/release/ESMF_8_9_0/NUOPC_refdoc/">(html)</a>
+<a href="/docs/release/ESMF_8_9_0/NUOPC_refdoc.pdf">(pdf)</a>
+<br><br>
+Building a NUOPC Model Manual<br>
+<a href="/docs/release/ESMF_8_9_0/NUOPC_howtodoc/">(html)</a>
+<a href="/docs/release/ESMF_8_9_0/NUOPC_howtodoc.pdf">(pdf)</a>
+<br><br>
+ESMPy Documentation <br>
+<a href="/esmpy_doc/release/ESMF_8_9_0/html">(html)</a>
+<a href="/esmpy_doc/release/ESMF_8_9_0/ESMPy.pdf">(pdf)</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/regrid/#regridstatus-890">Regridding Status</a>
+<br><br>
+<a href="/release/platforms_8_9_0">Supported Platforms</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/API-880-890.pdf">API Changes since v8.9.0</a>
+<br><br>
+<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/ESMF_Testing_Metrics.html">API Test Coverage</a>
+
+</td>
+
+<td>08/15/25</td>
+
+<td>
+
+<ul>
+    <li>Thank you! The ESMF team is grateful for the many years of support, ideation, feedback, testing, and code contributions that the ESMF user community has provided since its inception. We look forward to continuing this partnership with the community to further improve and add features to ESMF.</li>
+
+    <li>The public Fortran API in this release is backward compatible with the previous releases, ESMF 8.8.0 and ESMF 8.8.1, for all the interfaces that are marked as backward compatible in the Reference Manual. There were API changes to a few unmarked methods that may require minor modifications to user code that uses these methods. The complete list of API changes is summarized in a table showing interface changes since ESMF 8.8.0. <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/API-880-890.pdf"> The table </a> includes the rationale and impact for each change. </li>
+    <li>Some bit-for-bit changes are expected for this release compared to ESMF 8.8.0 and 8.8.1. This is based on test runs with the Intel compiler suite using options “-O2 -fp-model precise”, and due to the following change:
+      <ul>
+          <li>The mesh dual algorithm used by the ESMF regrid weight generation methods and applications was modified to support some previously unsupported element configurations. This change might affect node ordering for similar element configurations in supported Meshes, slightly changing weight calculation results.
+          </li>
+          <li>Expected bit-for-bit changes: Possible roundoff level changes when the source Field is built on the ESMF_MESHLOC_ELEMENT location of a Mesh and the bilinear or patch regrid methods are used.
+          </li>
+      </ul>
+    </li>
+    <li>ESMPy has been updated to support multiple decomposition elements (DEs) on a single Persistent Execution Thread (PET). The main use case for this is working with multi-tile cubed-sphere grids with fewer than 6 processors. This is described in more detail in the <a href ="https://earthsystemmodeling.org/esmpy_doc/nightly/esmpy_improve_docs/html/api.html#decomposition-elements-des">ESMPy documentation</a>. Partly connected to this but also useful in other contexts, functions were added to the C API to retrieve the local DE count of a Grid, Array, or Field (ESMC_GridGetLocalDECount(), ESMC_ArrayGetLocalDECount(), and ESMC_FieldGetLocalDECount()) </li>
+
+    <li>The C and ESMPy APIs have been updated to support the vectorRegrid flag. </li>
+    <li>The ESMPy Field API has been updated to include a grid_to_field_map argument.</li>
+    <li>The ESMPy version retrieval and check have been made more robust: </li>
+        <ul>
+            <li>The ESMPy version retrieval method has been changed to a method that works even when no git information is present (e.g., when obtaining a tarball of ESMF).</li>
+             <li>An exception is now raised if even the patch version differs between ESMPy and ESMF (previously, only the major and minor versions were checked).</li>
+            <li>An exception is now raised if one of ESMPy / ESMF is a development/beta version while the other is a release version.</li>
+        </ul>
+    <li>The internal version of the ParallelIO library (used when building with ESMF_PIO=internal) has been updated from version 2.6.2 to version 2.6.6, fixing a number of issues. Bug fixes most relevant to ESMF are:
+        <ul>
+            <li>A fix needed for recent versions of NetCDF (4.9.3 or later) to avoid build errors with undeclared use of _FillValue.</li>
+            <li>A fix needed for CMake version 4</li>
+
+        </ul>
+    <li>Two new ESMF runtime settings have been added for debugging ESMF errors. The ESMF_RUNTIME_ABORT_LOGMSG_TYPES setting will abort directly after an ESMF log message is written for specified log message type(s): ESMF_LOGMSG_ERROR, ESMF_LOGMSG_WARNING, etc. This eliminates the need to pass return codes up the call stack. The ESMF_RUNTIME_ABORT_ACTION setting will configure the ESMF abort handler. The default is to call MPI_ABORT but this can be changed to SIGABRT, which is capable of outputting a core dump from the abort location.</li>
+    <li>ESMX now integrates seamlessly with user maintained CMake build systems for simplified support of complex applications. This is in addition to the ESMX_Builder and direct CMake build options. All of the available options are discussed under the <a href = "https://github.com/esmf-org/esmf/tree/develop/src/addon/ESMX#the-unified-driver-executable">Unified Driver Executable section </a> of the ESMX documentation.</li>
+    <li>The <a href = "https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/ESMF_usrdoc/node10.html#SECTION000105000000000000000">ESMF_COMM build setting</a> for MVAPICH has been reworked to simplify its usage. The ESMF_COMM=mvapich setting now covers all of the available MVAPICH versions. The mvapich2 option is still supported for backward compatibility, but triggers a WARNING, advising the user  to switch to the more general mvapich option.</li>
+    <li>ESMF support for the <a href ="http://llvm.org">LLVM Compiler Infrastructure</a> is still experimental, with LLVM Fortran support through Flang under active development. In this release, ESMF is able to build with recent LLVM versions 20, 21, and 22.</li>
+    <li>A public <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/ESMF_refdoc/node4.html#SECTION04080000000000000000">ESMF_InternalState</a> API was added that allows user code to attach private data allocations to ESMF components, and later retrieve them. While the “internal state” concept has been part of ESMF for a long time, most of the API has not been public due to a lack of Fortran support. The new ESMF_InternalState API leverages the Fortran 2018 deferred type(*) language feature and provides a consistent public API to the user.</li>
+    <li>The NUOPC attribute HierarchyConnectors was introduced to provide more control over the connections made between levels of component hierarchies. It is now possible to manually define hierarchy connections, while the automatic generation of all hierarchy connections is still the default. The new feature is discussed under the <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/NUOPC_refdoc/node3.html#SECTION00036000000000000000">Component Hierarchy</a> section of the NUOPC reference document. </li>
+    <li>Functionality was added to the ESMF component classes to redirect the stdout and stderr streams. This allows information written to these streams by user code from within standard component methods (Initialize/Run/Finalize) to be piped into custom files. This feature is available on the ESMF level (<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/ESMF_refdoc/node4.html#SECTION040342800000000000000">ESMF_GridCompSetVMStdRedirect</a>, <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/ESMF_refdoc/node4.html#SECTION040442800000000000000">ESMF_CplCompSetVMStdRedirect</a>), the NUOPC level (<a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/NUOPC_refdoc/node3.html#SECTION00038000000000000000">Redirection Hints</a>), and the <a href="https://github.com/esmf-org/esmf/tree/develop/src/addon/ESMX#component-label-options">ESMX level (Component Label Options)</a>.</li>
+    <li>The behavior of the ESMF garbage collection can now be controlled via run time settings ESMF_RUNTIME_GARBAGE and ESMF_RUNTIME_GARBAGE_LOG. Either can be set as an environment variable or via configuration file read by <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/ESMF_refdoc/node4.html#SECTION04024100000000000000">ESMF_Initialize()</a>, or alternatively set as <a href="https://github.com/esmf-org/esmf/tree/develop/src/addon/ESMX#esmxapp-options">ESMX/App Options</a>.</li>
+    <li>The MPI thread support level used by ESMF can now be controlled via environment variable <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/ESMF_refdoc/node6.html#SECTION060133800000000000000">ESMF_RUNTIME_MPI_THREAD_SUPPORT</a>. The default is MPI_THREAD_MULTIPLE, the highest MPI thread support level, as before. Any of the standard MPI thread support levels (MPI_THREAD_SINGLE, MPI_THREAD_FUNNELED, MPI_THREAD_SERIALIZED, MPI_THREAD_MULTIPLE) are supported. ESMF automatically limits internal functionality to the requested MPI thread support level.</li>
+    <li>A new section that documents <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/ESMF_usrdoc/node6.html#SECTION00064000000000000000">building ESMF with Spack</a> was added to the ESMF user’s guide. </li>
+    <li>The mesh dual algorithm used by the <a href="https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/node15.html#glos:RegridWeightGenerationMethodsAndApplications">ESMF regrid weight generation methods and applications</a> has been upgraded to support some previously unsupported element configurations that can occur in complex Meshes. This broadens the range of Meshes that can be used as a source when using the bilinear or patch methods on a Field built on the ESMF_MESHLOC_ELEMENT location.</li>
+    <li>The capability to retrieve the generic geometry class (Geom) from a FieldBundle has been added to the <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/ESMF_refdoc/node5.html#SECTION050251000000000000000">ESMF_FieldBundleGet()</a> method. </li>
+    <li>The version of <a href="https://earthsystemmodeling.org/docs/release/ESMF_8_9_0/ESMF_refdoc/node5.html#SECTION050367200000000000000">ESMF_FieldRegridStore()</a> that operates through an XGrid has been upgraded to allow the user to retrieve the sparse matrix representation (i.e. factorList and factorIndexList) of a regridding. </li>
+</ul>
+
+<p>
+    <strong>Bug Fixes:</strong>
+</p>
+
+<ul>
+    <li>Fixed data types for attributes written to NetCDF files; this is important so that attributes like missing_value match the variables data type. This may be flagged as answer changing in application regression tests that compare NetCDF attributes with baselines.
+    </li>
+    <li>Fixed a link issue on cygwin systems related to the order of PIO and NetCDF on the link line</li>
+    <li>Fixed creation of cubed-sphere grids via the ESMC or ESMPy APIs when regDecompPTile was not specified.</li>
+    <li>Fixed the passing of some logical arguments from the C API to underlying Fortran code; previously, some logical arguments in the C API for Field, Grid and Mesh could take on incorrect values.</li>
+    <li>Fixed some calls from ESMPy to ESMF that could result in segmentation faults or possibly incorrect behavior in some circumstances.</li>
+    <li>Fixed the slicing of Grids in ESMPy so that the size property is correct after slicing.</li>
+    <li>Fixed issue where completing a Field containing replicated dimensions (i.e. gridToFieldMap(i)=0 for some i) using ESMF_FieldEmptyComplete() incorrectly returned an error.</li>
+    <li>Fixed issue where nearest neighbor regridding could give different results for equidistant points when running on different numbers of processors. </li>
+</ul>
+<p>
+    <strong>NOTIFICATION: Future 9.0.0 non-backward compatible changes (Final list is still pending)</strong>
+</p>
+<ul>
+    <li>C API changes - We intend to change some aspects of the existing C API (ESMC_* functions), such as the handling of return codes. (For more details, see the related <a href="https://github.com/esmf-org/esmf/issues/432">GitHub issue</a>.) These changes will be in preparation for building out the C API to a level similar to the Fortran API, so that components can have C-based NUOPC caps. If you currently use the C API and have concerns about this backwards-incompatible change, please reach out to esmf_support@ucar.edu.</li>
+    <li>Other features will be announced on <a href="https://github.com/orgs/esmf-org/discussions/476">Github Discussion</a> and through the esmf_info@ucar.edu list.</li>
+
+</ul>
+
+
+</td>
+
+<td>
+<ul>
+
+<li>Attempting to write weight files from the ESMPy Regrid object when using <a href="http://earthsystemmodeling.org/esmpy_doc/release/ESMF_8_8_0/html/FileMode.html">filemode=FileMode.WITHAUX</a> currently crashes.
+<li>ESMPy installation fails with pip versions earlier than 21.3. (With pip versions 21.1 and 21.2 a workaround is to add --use-feature=in-tree-build to the pip install line.)</li>
+<p>
+    <strong>Platform-specific issues:</strong>
+</p>
+
+<li>It has been found that running ESMF applications across > 1000 MPI tasks on Infiniband based clusters, using IntelMPI requires setting environment variable <code>FI_MLX_INJECT_LIMIT=0</code>. This recommendation was made by Intel support staff when looking at larger ESMF applications that would hang inside MPI calls on such hardware for no apparent reason.
+
+<li>Compiling ESMF with GCC version 8.1.0 triggers an internal compiler error in ESMF_HConfig.F90 due to the use of allocatable character variables. Earlier and later versions of GCC do not have this issue.</li>
+
+<li>On Darwin, with version 15 of the clang C compiler, when building under Rosetta, it is sometimes necessary to add “-Wl,-ld_classic” to environment variables ESMF_CXXLINKOPTS, ESMF_CLINKOPTS, and ESMF_F90LINKOPTS to work around link errors. (For more details, see the related <a href="https://github.com/esmf-org/esmf/issues/193">GitHub issue</a>.)</li>
+
+<li>The Cray (cce) compiler currently has problems running PIO with mpiuni, at least for some versions of this compiler (tested with version 15.0.1).</li>
+<li>The Cray (cce) compiler version 19 in optimized mode (ESMF_BOPT=O) seems to get confused when generating object files for some Fortran test programs with optimization level 2 (ESMF_OPTLEVEL=2), the default. The recommended work-around if encountering this problem is to use optimization level 1.</li>
+<li>There is an issue with intercepting the MPI calls for profiling on one of the supported platforms (hearhear: Darwin+gfortran+mpich set up via spack). This results in a single FAIL reported for ESMF_TraceMPIUTest.F90.
+
+
+</ul>
+</td>
+</tr>
 
 
 <!--ESMF_8_8_1-->
