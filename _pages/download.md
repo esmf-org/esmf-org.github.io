@@ -5,8 +5,9 @@ classes: wide
 toc: True
 ---
 ### Releases
-[Download ESMF 8.8.1](https://github.com/esmf-org/esmf/releases/latest){: .btn .btn--info} (Latest release - April 18, 2025)
+[Download ESMF 8.9.0](https://github.com/esmf-org/esmf/releases/latest){: .btn .btn--info} (Latest release - August 15, 2025)
 - Recent previous releases:
+    - [ESMF 8.8.1](https://github.com/esmf-org/esmf/releases/tag/v8.8.1)        (April 18, 2025)
     - [ESMF 8.8.0](https://github.com/esmf-org/esmf/releases/tag/v8.8.0)        (January 10, 2025)
     - [ESMF 8.7.0](https://github.com/esmf-org/esmf/releases/tag/v8.7.0)        (October 10, 2024)
     - [ESMF 8.6.1](https://github.com/esmf-org/esmf/releases/tag/v8.6.1)        (May 16, 2024)
@@ -30,10 +31,10 @@ Please subscribe to the [ESMF_Info](https://groups.google.com/a/ucar.edu/g/esmf_
 ### Development Snapshots
 Development snapshots (or "beta snapshots") are tagged regularly to assist in testing new features before an official release.
 The [development tags](https://github.com/esmf-org/esmf/tags) have the naming convention `vX.Y.ZbNN`.
-The following command demonstrates how to download beta snapshot `v8.9.0b01`:
+The following command demonstrates how to download beta snapshot `v9.0.0b01`:
 
 ```bash
-git clone https://github.com/esmf-org/esmf.git --branch v8.9.0b01 --depth 1
+git clone https://github.com/esmf-org/esmf.git --branch v9.0.0b01 --depth 1
 ```
 
 ### Clone from GitHub
