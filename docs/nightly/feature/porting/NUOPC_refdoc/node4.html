@@ -585,7 +585,7 @@ Component that drives and coordinates initialization of its child components: Mo
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp)                               :: driver
      character(len=*),    intent(in)                   :: compLabel
- #if defined (__NVCOMPILER) || defined (__PGI) || defined (ESMF_COMPILER_AOCC)
+ #if defined (__NVCOMPILER) || defined (__PGI)
      interface
        recursive subroutine compSetServicesRoutine(gridcomp, rc)
          use ESMF
@@ -603,6 +603,9 @@ Component that drives and coordinates initialization of its child components: Mo
        end subroutine
      end interface
      optional                                          :: compSetVMRoutine
+ #elif defined (ESMF_COMPILER_AOCC)
+     procedure(SetServicesInterfaceGridComp)           :: compSetServicesRoutine
+     procedure(SetVMInterfaceGridComp),       optional :: compSetVMRoutine
  #else
      abstract interface
        recursive subroutine SetServicesRoutine(gridcomp, rc)
@@ -758,7 +761,7 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
 <PRE>     type(ESMF_GridComp)                               :: driver
      character(len=*),    intent(in)                   :: srcCompLabel
      character(len=*),    intent(in)                   :: dstCompLabel
- #if defined (__NVCOMPILER) || defined (__PGI) || defined (ESMF_COMPILER_AOCC)
+ #if defined (__NVCOMPILER) || defined (__PGI)
      interface
        recursive subroutine compSetServicesRoutine(cplcomp, rc)
          use ESMF
@@ -776,6 +779,9 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
        end subroutine
      end interface
      optional                                          :: compSetVMRoutine
+ #elif defined (ESMF_COMPILER_AOCC)
+     procedure(SetServicesInterfaceCplComp)            :: compSetServicesRoutine
+     procedure(SetVMInterfaceCplComp),        optional :: compSetVMRoutine
  #else
      abstract interface
        recursive subroutine SetServicesRoutine(cplcomp, rc)
