@@ -585,10 +585,7 @@ Component that drives and coordinates initialization of its child components: Mo
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>     type(ESMF_GridComp)                               :: driver
      character(len=*),    intent(in)                   :: compLabel
- #if defined (ESMF_COMPILER_AOCC) || defined (__NVCOMPILER)
-     procedure(SetServicesInterfaceGridComp)           :: compSetServicesRoutine
-     procedure(SetVMInterfaceGridComp),       optional :: compSetVMRoutine
- #else
+ #if defined (NAGFOR)
      abstract interface
        recursive subroutine SetServicesRoutine(gridcomp, rc)
          use ESMF
@@ -605,6 +602,9 @@ Component that drives and coordinates initialization of its child components: Mo
      end interface
      procedure(SetServicesRoutine)                     :: compSetServicesRoutine
      procedure(SetVMRoutine),                 optional :: compSetVMRoutine
+ #else
+     procedure(SetServicesInterfaceGridComp)           :: compSetServicesRoutine
+     procedure(SetVMInterfaceGridComp),       optional :: compSetVMRoutine
  #endif
      integer,             intent(in),         optional :: petList(:)
      integer,             intent(in),         optional :: devList(:)
@@ -743,10 +743,7 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
 <PRE>     type(ESMF_GridComp)                               :: driver
      character(len=*),    intent(in)                   :: srcCompLabel
      character(len=*),    intent(in)                   :: dstCompLabel
- #if defined (ESMF_COMPILER_AOCC) || defined (__NVCOMPILER)
-     procedure(SetServicesInterfaceCplComp)            :: compSetServicesRoutine
-     procedure(SetVMInterfaceCplComp),        optional :: compSetVMRoutine
- #else
+ #if defined (NAGFOR)
      abstract interface
        recursive subroutine SetServicesRoutine(cplcomp, rc)
          use ESMF
@@ -763,6 +760,9 @@ If the <TT>comp</TT> argument is specified, it will reference the newly created
      end interface
      procedure(SetServicesRoutine)                     :: compSetServicesRoutine
      procedure(SetVMRoutine),                 optional :: compSetVMRoutine
+ #else
+     procedure(SetServicesInterfaceCplComp)            :: compSetServicesRoutine
+     procedure(SetVMInterfaceCplComp),        optional :: compSetVMRoutine
  #endif
      integer, target,     intent(in),         optional :: petList(:)
      integer, target,     intent(in),         optional :: devList(:)
