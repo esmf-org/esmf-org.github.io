@@ -8226,8 +8226,11 @@ The valid values are:
 <DT><STRONG>ESMF_FIELDSTATUS_EMPTY</STRONG></DT>
 <DD>Field is empty without geombase or data storage. Such a Field can be added to a <TT>ESMF_State</TT> and participate <TT>ESMF_StateReconcile()</TT>. 
 </DD>
-<DT><STRONG>ESMF_FIELDSTATUS_GRIDSET</STRONG></DT>
+<DT><STRONG>ESMF_FIELDSTATUS_GEOMSET</STRONG></DT>
 <DD>Field is partially created. It has a geombase object internally created and the geombase object associates with either a <TT>ESMF_Grid</TT>, or a <TT>ESMF_Mesh</TT>, or an <TT>ESMF_XGrid</TT>, or a <TT>ESMF_LocStream</TT>. It's an error to set another geombase object in such a Field. It can also be added to a <TT>ESMF_State</TT> and participate <TT>ESMF_StateReconcile()</TT>.
+</DD>
+<DT><STRONG>ESMF_FIELDSTATUS_GRIDSET</STRONG></DT>
+<DD>An alias of ESMF_FIELDSTATUS_GEOMSET maintained for backward compatibility.
 </DD>
 <DT><STRONG>ESMF_FIELDSTATUS_COMPLETE</STRONG></DT>
 <DD>Field is completely created with geombase and data storage internally allocated. 
@@ -15007,7 +15010,7 @@ Changes made after the 5.2.0r release:
 Complete an <TT>ESMF_Field</TT> and allocate space internally for an
    <TT>ESMF_Array</TT> based on arrayspec.
    The input <TT>ESMF_Field</TT> must have a status of
-   <TT>ESMF_FIELDSTATUS_GRIDSET</TT>. After this call the completed <TT>ESMF_Field</TT>
+   <TT>ESMF_FIELDSTATUS_GEOMSET</TT>. After this call the completed <TT>ESMF_Field</TT>
    has a status of <TT>ESMF_FIELDSTATUS_COMPLETE</TT>.
 
 <P>
@@ -15015,7 +15018,7 @@ The arguments are:
    <DL>
 <DT><STRONG>field</STRONG></DT>
 <DD>The input <TT>ESMF_Field</TT> with a status of
-   <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
    
 </DD>
 <DT><STRONG>arrayspec</STRONG></DT>
@@ -15164,7 +15167,7 @@ Changes made after the 5.2.0r release:
 Complete an <TT>ESMF_Field</TT> and allocate space internally for an
    <TT>ESMF_Array</TT> based on typekind.
    The input <TT>ESMF_Field</TT> must have a status of
-   <TT>ESMF_FIELDSTATUS_GRIDSET</TT>. After this call the completed <TT>ESMF_Field</TT>
+   <TT>ESMF_FIELDSTATUS_GEOMSET</TT>. After this call the completed <TT>ESMF_Field</TT>
    has a status of <TT>ESMF_FIELDSTATUS_COMPLETE</TT>.
 
 <P>
@@ -15177,7 +15180,7 @@ The arguments are:
    <DL>
 <DT><STRONG>field</STRONG></DT>
 <DD>The input <TT>ESMF_Field</TT> with a status of
-   <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
 
 </DD>
 <DT><STRONG>typekind</STRONG></DT>
@@ -15316,7 +15319,7 @@ The arguments are:
 Complete an <TT>ESMF_Field</TT> and allocate space internally for an 
    <TT>ESMF_Array</TT> based on typekind. 
    The input <TT>ESMF_Field</TT> must have a status of 
-   <TT>ESMF_FIELDSTATUS_GRIDSET</TT>. After this call the completed <TT>ESMF_Field</TT> 
+   <TT>ESMF_FIELDSTATUS_GEOMSET</TT>. After this call the completed <TT>ESMF_Field</TT> 
    has a status of <TT>ESMF_FIELDSTATUS_COMPLETE</TT>.
 
 <P>
@@ -15333,7 +15336,7 @@ The arguments are:
    <DL>
 <DT><STRONG>field</STRONG></DT>
 <DD>The input <TT>ESMF_Field</TT> with a status of 
-   <TT>ESMF_FIELDSTATUS_GRIDSET</TT>. 
+   <TT>ESMF_FIELDSTATUS_GEOMSET</TT>. 
    The <TT>ESMF_Field</TT> will have the same dimension 
    (dimCount) as the rank of the <TT>farray</TT>. 
    
@@ -15466,7 +15469,7 @@ The arguments are:
 Complete an <TT>ESMF_Field</TT> and allocate space internally for an 
    <TT>ESMF_Array</TT> based on typekind. 
    The input <TT>ESMF_Field</TT> must have a status of 
-   <TT>ESMF_FIELDSTATUS_GRIDSET</TT>. After this call the completed <TT>ESMF_Field</TT> 
+   <TT>ESMF_FIELDSTATUS_GEOMSET</TT>. After this call the completed <TT>ESMF_Field</TT> 
    has a status of <TT>ESMF_FIELDSTATUS_COMPLETE</TT>. 
 
 <P>
@@ -15479,7 +15482,7 @@ The arguments are:
    <DL>
 <DT><STRONG>field</STRONG></DT>
 <DD>The input <TT>ESMF_Field</TT> with a status of 
-   <TT>ESMF_FIELDSTATUS_GRIDSET</TT>. 
+   <TT>ESMF_FIELDSTATUS_GEOMSET</TT>. 
    The <TT>ESMF_Field</TT> will have the same dimension 
    (dimCount) as the rank of the <TT>farrayPtr</TT>. 
    
@@ -16908,8 +16911,8 @@ Set a geom in a non-completed <TT>ESMF_Field</TT>. The
    operation, the <TT>ESMF_Field</TT> contains
    the <TT>ESMF_Geom</TT> internally but holds no data.
    The status of the field changes from
-   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GRIDSET</TT> or
-   stays <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GEOMSET</TT> or
+   stays <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
 
 <P>
 For an example and
@@ -16924,7 +16927,7 @@ The arguments are:
    operation, the <TT>ESMF_Field</TT> contains
    the <TT>ESMF_Grid</TT> internally but holds no data.
    The status of the field changes from
-   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
    
 </DD>
 <DT><STRONG>geom</STRONG></DT>
@@ -16996,8 +16999,8 @@ Set a grid and an optional staggerloc (default to center stagger
    operation, the <TT>ESMF_Field</TT> contains
    the <TT>ESMF_Grid</TT> internally but holds no data.
    The status of the field changes from
-   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GRIDSET</TT> or
-   stays <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GEOMSET</TT> or
+   stays <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
 
 <P>
 For an example and
@@ -17012,7 +17015,7 @@ The arguments are:
    operation, the <TT>ESMF_Field</TT> contains
    the <TT>ESMF_Grid</TT> internally but holds no data.
    The status of the field changes from
-   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
    
 </DD>
 <DT><STRONG>grid</STRONG></DT>
@@ -17072,8 +17075,8 @@ Set a mesh and an optional meshloc (default to center stagger
    operation, the <TT>ESMF_Field</TT> contains
    the <TT>ESMF_Mesh</TT> internally but holds no data.
    The status of the field changes from
-   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GRIDSET</TT> or
-   stays <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GEOMSET</TT> or
+   stays <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
 
 <P>
 
@@ -17085,7 +17088,7 @@ The arguments are:
    operation, the <TT>ESMF_Field</TT> contains
    the <TT>ESMF_Mesh</TT> internally but holds no data.
    The status of the field changes from
-   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
    
 </DD>
 <DT><STRONG>mesh</STRONG></DT>
@@ -17141,8 +17144,8 @@ Set a <TT>ESMF_LocStream</TT> in a non-completed <TT>ESMF_Field</TT>. The
    operation, the <TT>ESMF_Field</TT> contains
    the <TT>ESMF_LocStream</TT> internally but holds no data.
    The status of the field changes from
-   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GRIDSET</TT> or
-   stays <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GEOMSET</TT> or
+   stays <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
 
 <P>
 
@@ -17154,7 +17157,7 @@ The arguments are:
    operation, the <TT>ESMF_Field</TT> contains
    the <TT>ESMF_LocStream</TT> internally but holds no data.
    The status of the field changes from
-   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
 
 </DD>
 <DT><STRONG>locstream</STRONG></DT>
@@ -17207,8 +17210,8 @@ Set a xgrid and optional xgridside (default to balanced side
    operation, the <TT>ESMF_Field</TT> contains
    the <TT>ESMF_XGrid</TT> internally but holds no data.
    The status of the field changes from
-   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GRIDSET</TT>
-   or stays <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GEOMSET</TT>
+   or stays <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
 
 <P>
 
@@ -17220,7 +17223,7 @@ The arguments are:
    operation, the <TT>ESMF_Field</TT> contains
    the <TT>ESMF_XGrid</TT> internally but holds no data.
    The status of the field changes from
-   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GRIDSET</TT>.
+   <TT>ESMF_FIELDSTATUS_EMPTY</TT> to <TT>ESMF_FIELDSTATUS_GEOMSET</TT>.
 
 </DD>
 <DT><STRONG>xgrid</STRONG></DT>
