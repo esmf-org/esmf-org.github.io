@@ -178,6 +178,10 @@ $key = q/StateMeta/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/StdRedirect/;
+$external_labels{$key} = "$URL/" . q|node3.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/Timekeeping/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
@@ -262,7 +266,7 @@ $external_latex_labels{$key} = q|5.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/ExternalInterface/;
-$external_latex_labels{$key} = q|2.8|; 
+$external_latex_labels{$key} = q|2.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldMeta/;
@@ -399,6 +403,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/StateMeta/;
 $external_latex_labels{$key} = q|2.3.5|; 
+$noresave{$key} = "$nosave";
+
+$key = q/StdRedirect/;
+$external_latex_labels{$key} = q|2.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Timekeeping/;
