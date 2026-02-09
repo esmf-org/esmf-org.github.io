@@ -12722,6 +12722,7 @@ The code below demonstrates the basic InternalState API. Notice that an
   end type
 
   type(dataWrapper)             :: wrap
+  type(testData), pointer       :: p
   character(len=:), allocatable :: labelList(:)
 </PRE>
 
@@ -12778,7 +12779,8 @@ This could be called, for example, during a Component's run phase.
   endif
 
   ! Deallocate the private data block
-  deallocate(wrap%p)
+  p =&gt; wrap%p  ! LLVM workaround for deallocate() runtime error!
+  deallocate(p)
 </PRE>
 
 <P>
@@ -12841,7 +12843,8 @@ The last internal state added under a specific label can be retrieved using
   if (rc .ne. ESMF_SUCCESS) finalrc = ESMF_FAILURE
 
   ! Deallocate the private data block
-  deallocate(wrap%p)
+  p =&gt; wrap%p  ! LLVM workaround for deallocate() runtime error!
+  deallocate(p)
 
   ! Get Internal State
   call ESMF_InternalStateGet(comp, internalState=wrap, &amp;
@@ -12849,7 +12852,8 @@ The last internal state added under a specific label can be retrieved using
   if (rc .ne. ESMF_SUCCESS) finalrc = ESMF_FAILURE
 
   ! Deallocate the private data block
-  deallocate(wrap%p)
+  p =&gt; wrap%p  ! LLVM workaround for deallocate() runtime error!
+  deallocate(p)
 </PRE>
 
 <P>
