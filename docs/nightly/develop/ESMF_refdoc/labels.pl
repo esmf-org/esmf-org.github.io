@@ -566,6 +566,10 @@ $key = q/const:filestatusflag/;
 $external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/const:geommatch/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/const:geomtype/;
 $external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
@@ -2247,6 +2251,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/const:filestatusflag/;
 $external_latex_labels{$key} = q|55.22|; 
+$noresave{$key} = "$nosave";
+
+$key = q/const:geommatch/;
+$external_latex_labels{$key} = q|36.2.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:geomtype/;
