@@ -10,6 +10,18 @@ $key = q/appendix_esmf_error_codes/;
 $ref_files{$key} = "$dir".q|node9.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/cite_BalajiXGrid/;
+$ref_files{$key} = "$dir".q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_ref:SCRIP/;
+$ref_files{$key} = "$dir".q|node8.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_uml/;
+$ref_files{$key} = "$dir".q|node8.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/const:calkindflag_c/;
 $ref_files{$key} = "$dir".q|node6.html|; 
 $noresave{$key} = "$nosave";
