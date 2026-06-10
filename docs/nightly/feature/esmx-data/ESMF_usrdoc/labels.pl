@@ -1158,7 +1158,7 @@ $external_latex_labels{$key} = q|7|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:EsmfMkMethod/;
-$external_latex_labels{$key} = q|6.1|; 
+$external_latex_labels{$key} = q|6.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:MOAB/;

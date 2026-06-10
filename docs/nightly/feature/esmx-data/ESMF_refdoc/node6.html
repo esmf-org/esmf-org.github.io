@@ -10922,7 +10922,7 @@ The arguments are:
 <I CLASS="sans">INTERFACE:</I>
 <PRE>       ! Private name; call using ESMF_ClockCreate()
        function ESMF_ClockCreateNew(timeStep, startTime, &amp;
-         stopTime, runDuration, runTimeStepCount, refTime, repeatDuration, name, rc)
+         stopTime, runDuration, runTimeStepCount, refTime, repeatDuration, repeatCountStart, name, rc)
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>       type(ESMF_Clock) :: ESMF_ClockCreateNew
 </PRE><EM>ARGUMENTS:</EM>
@@ -10934,6 +10934,7 @@ The arguments are:
        integer,                 intent(in),  optional :: runTimeStepCount
        type(ESMF_Time),         intent(in),  optional :: refTime
        type(ESMF_TimeInterval), intent(in),  optional :: repeatDuration
+       integer,                 intent(in),  optional :: repeatCountStart
        character (len=*),       intent(in),  optional :: name
        integer,                 intent(out), optional :: rc
 </PRE>
@@ -10951,6 +10952,13 @@ Changes made after the 5.2.0r release:
                 The new argument allows the user to specify that they want the
                 clock to be a repeat clock and repeatedly go through the same
                 interval of time.
+   
+</DD>
+<DT><STRONG>9.0.0</STRONG></DT>
+<DD>Added argument <TT>repeatCountStart</TT>.
+                The new argument allows the user to start counting repeats at a specific
+                value. This is useful for situations like restarting where the user
+                may be beginning in the middle of a repeat sequence. 
    
 </DD>
 </DL>
@@ -11013,7 +11021,11 @@ The arguments are:
             the range of <TT>startTime</TT> to <TT>startTime</TT>+<TT>repeatDuration</TT>. For example, when advancing
             if the current time goes past <TT>startTime</TT>+<TT>repeatDuration</TT>, then it resets
             back to <TT>startTime</TT> to continue. Currently, the repeat functionality is not supported with clocks
-            that run backwards (e.g. that have a negative timeStep). 
+            that run backwards (e.g. that have a negative timeStep).
+       
+</DD>
+<DT><STRONG>[repeatCountStart]</STRONG></DT>
+<DD>The value to initialize the repeatCount with. If not specified, defaults to 0.
        
 </DD>
 <DT><STRONG>[name]</STRONG></DT>
