@@ -23,26 +23,26 @@
 <BODY BGCOLOR=white LINK=#083194 VLINK=#21004A>
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html336"
+<A NAME="tex2html338"
   HREF="node8.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html332"
+<A NAME="tex2html334"
   HREF="ESMF_usrdoc.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html326"
+<A NAME="tex2html328"
   HREF="node6.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html334"
+<A NAME="tex2html336"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Next:</B> <A NAME="tex2html337"
+<B> Next:</B> <A NAME="tex2html339"
   HREF="node8.html">7 Debugging of ESMF</A>
-<B> Up:</B> <A NAME="tex2html333"
+<B> Up:</B> <A NAME="tex2html335"
   HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
-<B> Previous:</B> <A NAME="tex2html327"
+<B> Previous:</B> <A NAME="tex2html329"
   HREF="node6.html">5 Quick Start</A>
- &nbsp; <B>  <A NAME="tex2html335"
+ &nbsp; <B>  <A NAME="tex2html337"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
@@ -51,10 +51,12 @@
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html338"
-  HREF="node7.html#SECTION00071000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">1</SPAN> esmf.mk method</A>
-<LI><A NAME="tex2html339"
-  HREF="node7.html#SECTION00072000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">2</SPAN> CMake method</A>
+<LI><A NAME="tex2html340"
+  HREF="node7.html#SECTION00071000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">1</SPAN> CMake method using config mode</A>
+<LI><A NAME="tex2html341"
+  HREF="node7.html#SECTION00072000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">2</SPAN> CMake method using module mode</A>
+<LI><A NAME="tex2html342"
+  HREF="node7.html#SECTION00073000000000000000"><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">3</SPAN> GNU Make method using the esmf.mk file</A>
 </UL>
 <!--End of Table of Child-Links-->
 <HR>
@@ -66,29 +68,119 @@
 </H1>
 
 <P>
-Building user applications against an ESMF installation requires that the 
-compiler and linker be able to find the appropriate ESMF header, module and 
-library files. If this procedure has been documented by the installer of the 
+Building user applications against an ESMF installation requires that the
+compiler and linker be able to find the appropriate ESMF header, module, and
+library files. If this procedure has been documented by the installer of the
 ESMF library on your system then follow the directions provided.
 
 <P>
-In the absence of installation specific instructions there are two standard
-methods supported by ESMF to build user code against the installation. The
-first method is based on a GNU makefile fragment that can be included by the
-user code build infrastructure. This method requires that the user application
-also uses the
+In the absence of site-specific instructions, there are standard
 <A NAME="tex2html14"
-  HREF="http://www.gnu.org/software/make/make.html">GNU Make</A>
-system. The second method is based on 
+  HREF="https://cmake.org/">CMake</A>
+and
 <A NAME="tex2html15"
-  HREF="https://cmake.org/">CMake</A>.
+  HREF="http://www.gnu.org/software/make/make.html">GNU Make</A>
+methods that ESMF supports to build user code against an ESMF installation.
 
 <P>
 
-<H2><A NAME="SECTION00071000000000000000"></A>
+<H2><A NAME="SECTION00071000000000000000">
+<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">1</SPAN> CMake method using config mode</A>
+</H2>
+
+<P>
+Starting with ESMF version 9, a standard <TT>ESMFConfig.cmake</TT> file is generated
+when ESMF built and installed. CMake tries to locate this <TT>ESMFConfig.cmake</TT> file
+in standard locations. During this search, CMake respects
+paths provided by the <TT>CMAKE_PREFIX_PATH</TT> variable in the user's environment. Spack-loaded
+installations of ESMF automatically set <TT>CMAKE_PREFIX_PATH</TT>, making this the
+most convenient method of building CMake-based applications against ESMF.
+For ESMF installations not managed by Spack, explicitly add the ESMF
+installation root directory to the <TT>CMAKE_PREFIX_PATH</TT> environment variable
+for seamless integration with CMake.
+
+<P>
+The configuration file provides exported imported targets that transitively bundle include directories, linked libraries, and compiler definitions (such as OpenMP or MPI requirements). To consume ESMF targets, utilize the <TT>find_package()</TT> command in your project's <TT>CMakeLists.txt</TT> file:
+
+<P>
+<PRE>
+cmake_minimum_required(VERSION 3.22)
+project(MyESMFApplication LANGUAGES Fortran C)
+
+# 1. Locate the ESMF Package
+# Specify a minimum version or version constraints if desired
+# Explicitly request config mode
+find_package(ESMF 9.0.0 REQUIRED CONFIG)
+
+# 2. Define your application target
+add_executable(my_model main.F90 physics_mod.F90)
+
+# 3. Link against ESMF Imported Targets
+# This automatically manages include paths, RPATHs, and downstream dependencies
+target_link_libraries(my_model PUBLIC ESMF::ESMF)
+</PRE>
+
+<P>
+Depending on whether the use application code is written in Fortran or C/C++, the ESMF package
+defines separate targets to avoid linking mismatch issues. Target aliases are provided for
+compatibility.
+
+<P>
+<BR>
+<BR>
+<BR>
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<DIV ALIGN="CENTER">
+
+</DIV><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT"><SPAN  CLASS="textbf">Target</SPAN></TH>
+<TH ALIGN="LEFT"><SPAN  CLASS="textbf">Alias</SPAN></TH>
+<TH ALIGN="LEFT"><SPAN  CLASS="textbf">Language Focus</SPAN></TH>
+<TH ALIGN="LEFT"><SPAN  CLASS="textbf">Description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>ESMF::ESMF</TT></TD>
+<TD ALIGN="LEFT"><TT>ESMF::ESMF_Fortran</TT></TD>
+<TD ALIGN="LEFT">Fortran</TD>
+<TD ALIGN="LEFT">Configured for Fortran libraries and compiler variables, OpenMP flags, and tracking for <TT>MPI::MPI_Fortran</TT> dependencies.</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>ESMF::ESMC</TT></TD>
+<TD ALIGN="LEFT"><TT>ESMF::ESMF_C</TT></TD>
+<TD ALIGN="LEFT">C/C++</TD>
+<TD ALIGN="LEFT">Configured with native C/C++ compiler variables, OpenMP flags, and tracking for <TT>MPI::MPI_C</TT> dependencies.</TD>
+</TR>
+</TABLE>
+</DIV>
+<BR>
+
+<P>
+
+<H2><A NAME="SECTION00072000000000000000">
+<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">2</SPAN> CMake method using module mode</A>
+</H2>
+
+<P>
+An ESMF CMake find file is located at: <SPAN  CLASS="textit">&lt;ESMF source or install directory&gt;/cmake/FindESMF.cmake</SPAN>
+
+<P>
+The find file will parse the <SPAN  CLASS="textit">esmf.mk</SPAN> file created following a successful
+ESMF build. (See <A HREF="#sec:EsmfMkMethod">6.3</A> for a description of the <SPAN  CLASS="textit">esmf.mk</SPAN> file.)
+The CMake module sets <SPAN  CLASS="textit">esmf.mk</SPAN> variables as global CMake variables. When
+using the find file, <TT>ESMFMKFILE</TT> must be set to the filepath of <SPAN  CLASS="textit">esmf.mk</SPAN>.
+If this is NOT set, then <TT>ESMF_FOUND</TT> will always be <TT>FALSE</TT>. If <TT>ESMFMKFILE</TT>
+exists, then <TT>ESMF_FOUND=TRUE</TT> and all ESMF makefile variables will be set
+in the global scope. Optionally, set <TT>ESMF_MKGLOBALS</TT> to a string list to
+filter makefile variables. For example, to globally scope only <TT>ESMF_LIBSDIR</TT>
+and <TT>ESMF_APPSDIR</TT> variables, use this CMake command in <SPAN  CLASS="textit">CMakeLists.txt</SPAN>: <code>set(ESMF_MKGLOBALS "LIBSDIR" "APPSDIR")</code>
+
+<P>
+
+<H2><A NAME="SECTION00073000000000000000"></A>
 <A NAME="sec:EsmfMkMethod"></A>
 <BR>
-<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">1</SPAN> esmf.mk method
+<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">3</SPAN> GNU Make method using the esmf.mk file
 </H2>
 
 <P>
@@ -235,50 +327,30 @@ installation.
 
 <P>
 
-<H2><A NAME="SECTION00072000000000000000">
-<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">2</SPAN> CMake method</A>
-</H2>
-
-<P>
-An ESMF CMake find file is located at: <SPAN  CLASS="textit">&lt;ESMF source directory&gt;/cmake/FindESMF.cmake</SPAN>
-
-<P>
-The find file will parse the <SPAN  CLASS="textit">esmf.mk</SPAN> file created following a successful
-ESMF build. (See <A HREF="#sec:EsmfMkMethod">6.1</A> for a description of the <SPAN  CLASS="textit">esmf.mk</SPAN> file.)
-The CMake module sets <SPAN  CLASS="textit">esmf.mk</SPAN> variables as global CMake variables. When
-using the find file, <TT>ESMFMKFILE</TT> must be set to the filepath of <SPAN  CLASS="textit">esmf.mk</SPAN>.
-If this is NOT set, then <TT>ESMF_FOUND</TT> will always be <TT>FALSE</TT>. If <TT>ESMFMKFILE</TT>
-exists, then <TT>ESMF_FOUND=TRUE</TT> and all ESMF makefile variables will be set
-in the global scope. Optionally, set <TT>ESMF_MKGLOBALS</TT> to a string list to
-filter makefile variables. For example, to globally scope only <TT>ESMF_LIBSDIR</TT>
-and <TT>ESMF_APPSDIR</TT> variables, use this CMake command in <SPAN  CLASS="textit">CMakeLists.txt</SPAN>: <code>set(ESMF_MKGLOBALS "LIBSDIR" "APPSDIR")</code>
-
-<P>
-
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html336"
+<A NAME="tex2html338"
   HREF="node8.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html332"
+<A NAME="tex2html334"
   HREF="ESMF_usrdoc.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html326"
+<A NAME="tex2html328"
   HREF="node6.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html334"
+<A NAME="tex2html336"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Next:</B> <A NAME="tex2html337"
+<B> Next:</B> <A NAME="tex2html339"
   HREF="node8.html">7 Debugging of ESMF</A>
-<B> Up:</B> <A NAME="tex2html333"
+<B> Up:</B> <A NAME="tex2html335"
   HREF="ESMF_usrdoc.html">ESMF_usrdoc</A>
-<B> Previous:</B> <A NAME="tex2html327"
+<B> Previous:</B> <A NAME="tex2html329"
   HREF="node6.html">5 Quick Start</A>
- &nbsp; <B>  <A NAME="tex2html335"
+ &nbsp; <B>  <A NAME="tex2html337"
   HREF="node1.html">Contents</A></B> </DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
