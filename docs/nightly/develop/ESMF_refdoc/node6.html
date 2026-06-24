@@ -8063,7 +8063,7 @@ The argument is:
          d_r8, h_r8, m_r8, s_r8, &amp;
          ms_r8, us_r8, ns_r8, &amp;
          sN, sN_i8, sD, sD_i8, &amp;
-         startTime, calendar, calkindflag, isAbsolute,  &amp;
+         startTime, calendar, calkindflag, &amp;
          timeString, timeStringISOFrac, rc)
 </PRE><EM>ARGUMENTS:</EM>
 <PRE>       type(ESMF_TimeInterval), intent(in)            :: timeinterval
@@ -8095,7 +8095,6 @@ The argument is:
        type(ESMF_Time),         intent(out), optional :: startTime
        type(ESMF_Calendar),     intent(out), optional :: calendar
        type(ESMF_CalKind_Flag), intent(out), optional :: calkindflag
-       logical,                 intent(out), optional :: isAbsolute
        character (len=*),       intent(out), optional :: timeString
        character (len=*),       intent(out), optional :: timeStringISOFrac
        integer,                 intent(out), optional :: rc
@@ -8104,17 +8103,7 @@ The argument is:
    
 <UL>
 <LI>This interface is backward compatible with ESMF versions starting at 5.2.0r. If code using this interface compiles with any version of ESMF starting with 5.2.0r, then it will compile with the current version.
-</LI>
-<LI>This interface was modified since ESMF version 5.2.0r. The fact that code using this interface compiles with the current ESMF version does not guarantee that it compiles with previous versions of this interface. If user code compatibility with version 5.2.0r is desired then care must be taken to limit the use of this interface to features that were available in the 5.2.0r release. 
-<BR>
-Changes made after the 5.2.0r release:
-   <DL>
-<DT><STRONG>9.0.0</STRONG></DT>
-<DD>Added argument <TT>isAbsolute</TT> to allow the user to determine if
-                the time interval refers to a specific period of time.
    
-</DD>
-</DL>
 </LI>
 </UL>
 
@@ -8273,14 +8262,6 @@ The arguments are:
 </DD>
 <DT><STRONG>[calkindflag]</STRONG></DT>
 <DD>Associated <TT>CalKind_Flag</TT>, if any.
-       
-</DD>
-<DT><STRONG>[isAbsolute]</STRONG></DT>
-<DD>Returns true if the time interval is an absolute interval. That is
-            if the time interval refers to a specific period of time with a
-            specific start time (e.g. March 1, 2014 to March 1, 2015).
-            If false, the time interval is a duration that doesn't refer to a
-            specific period of time (e.g. 1 year).
        
 </DD>
 <DT><STRONG>[timeString]</STRONG></DT>
