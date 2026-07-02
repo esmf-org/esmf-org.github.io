@@ -61,7 +61,7 @@
 <LI><A NAME="tex2html382"
   HREF="node10.html#SECTION000103100000000000000"><SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN> General Requirements</A>
 <LI><A NAME="tex2html383"
-  HREF="node10.html#SECTION000103200000000000000"><SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Intel Compiler (Classic and oneAPI)</A>
+  HREF="node10.html#SECTION000103200000000000000"><SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Intel Compiler (Classic and LLVM-based)</A>
 <LI><A NAME="tex2html384"
   HREF="node10.html#SECTION000103300000000000000"><SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">3</SPAN> MacOS Darwin</A>
 </UL>
@@ -345,43 +345,26 @@ The csh shell is also required to complete the documentation build.
 <P>
 
 <H3><A NAME="SECTION000103200000000000000">
-<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Intel Compiler (Classic and oneAPI)</A>
+<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Intel Compiler (Classic and LLVM-based)</A>
 </H3>
 
 <P>
-ESMF supports the Intel compiler suite via <TT>ESMF_COMPILER=intel</TT>. Starting in 2020, Intel began promoting their
-new LLVM-based C/C++ and Fortran compiler line under the oneAPI brand. As of 2023, the older compilers are still
-part of the Intel compiler suite and referred to as Intel Compiler Classic. ESMF supports both the classic and oneAPI
-compiler lines. The following paragraphs provide important details that allow users to fine-tune the interaction
-with the Intel compilers.
+ESMF supports the Intel compiler suite via <TT>ESMF_COMPILER=intel</TT>. Starting in 2020, Intel began promoting their new LLVM-based C/C++ and Fortran compiler line as part of the oneAPI brand. During a multi-year transition period, the oneAPI product shipped with both classic (<TT>icc</TT>, <TT>icpc</TT>, <TT>ifort</TT>) <EM>and</EM> LLVM-based (<TT>icx</TT>, <TT>icpx</TT>, <TT>ifx</TT>) compilers. As of version 2024.0 of oneAPI, only the LLVM-based compilers are provided by Intel. ESMF supports both Intel compiler lines. The following paragraphs provide important details that allow users to fine-tune the interaction with the Intel compiler suite.
 
 <P>
-Under <TT>ESMF_OS=Linux</TT>, with <TT>ESMF_COMPILER=intel</TT> and <TT>ESMF_COMM=mpiuni</TT> set, the C, C++, and
-Fortran compiler front-ends default to the classic options <TT>icc</TT>, <TT>icpc</TT>, and <TT>ifort</TT>, respectively. Any
-of these defaults can be overridden by explicitly setting the <TT>ESMF_C</TT>, <TT>ESMF_CXX</TT>, or <TT>ESMF_F90</TT>
-environment variables to the oneAPI options <TT>icx</TT>, <TT>icpx</TT>, and <TT>ifx</TT>, respectively.
+Under <TT>ESMF_OS=Linux</TT>, with <TT>ESMF_COMPILER=intel</TT> and <TT>ESMF_COMM=mpiuni</TT> set, the C, C++, and Fortran compiler front-ends default to the LLVM-based option <TT>icx</TT>, <TT>icpx</TT>, and <TT>ifx</TT>, respectively. Any of these defaults can be overridden by explicitly setting the <TT>ESMF_C</TT>, <TT>ESMF_CXX</TT>, or <TT>ESMF_F90</TT> environment variables, e.g. to the classic compiler options <TT>icc</TT>, <TT>icpc</TT>, and <TT>ifort</TT>, respectively.
 
 <P>
-Under <TT>ESMF_OS=Linux</TT>, with <TT>ESMF_COMPILER=intel</TT> and <TT>ESMF_COMM=intelmpi</TT> set, the C, C++, and
-Fortran compiler front-ends default to the MPI compiler wrappers <TT>mpiicc</TT>, <TT>mpicpc</TT>, and <TT>mpiifort</TT>,
-respectively. It depends on the IntelMPI installation details whether classic, oneAPI, or a mixture of compilers
-are used underneath the MPI wrappers. The IntelMPI defaults can be overridden by explicitly setting the
-<TT>I_MPI_CC</TT>, <TT>I_MPI_CXX</TT>, or <TT>I_MPI_F90</TT> environment variables. This is an IntelMPI feature.
+Under <TT>ESMF_OS=Linux</TT>, with <TT>ESMF_COMPILER=intel</TT> and <TT>ESMF_COMM=intelmpi</TT> set, the C, C++, and Fortran compiler front-ends default to the MPI compiler wrappers <TT>mpiicc</TT>, <TT>mpicpc</TT>, and <TT>mpiifort</TT>, respectively. It depends on the IntelMPI installation details whether classic, LLVM-based, or a mixture of compilers are used underneath the MPI wrappers. The IntelMPI defaults can be overridden by explicitly setting the IntelMPI-specific environment variables <TT>I_MPI_CC</TT>, <TT>I_MPI_CXX</TT>, or <TT>I_MPI_F90</TT>. This is an IntelMPI feature.
 
 <P>
-The recommendation for Cray systems that use the Cray compiler wrappers <TT>cc</TT>, <TT>CC</TT>, and <TT>ftn</TT>,
-respectively, is to use <TT>ESMF_OS=Unicos</TT>. In most cases this setting is detected automatically by the ESMF
-build system, and should <EM>not</EM> be overridden.
+The recommendation for Cray systems that utilize the Cray Programming Environment (CPE) is to use <TT>ESMF_OS=Unicos</TT>. In most cases this setting is detected automatically by the ESMF build system, and should <EM>not</EM> be overridden.
 
 <P>
-Under <TT>ESMF_OS=Unicos</TT>, with <TT>ESMF_COMPILER=intel</TT>, the C, C++, and Fortran compiler front-ends default to
-<TT>cc</TT>, <TT>CC</TT>, and <TT>ftn</TT>, respectively, regardless of the  <TT>ESMF_COMM</TT> setting. The appropriate
-classic, oneAPI, or mixed compiler combination is typically determined by the Intel environment module loaded.
-Common module names on Cray systems are <TT>intel-classic</TT>, <TT>intel-oneAPI</TT>, and <TT>intel</TT>, respectively.
+Under <TT>ESMF_OS=Unicos</TT>, with <TT>ESMF_COMPILER=intel</TT>, the C, C++, and Fortran compiler front-ends default to <TT>cc</TT>, <TT>CC</TT>, and <TT>ftn</TT>, respectively, regardless of the  <TT>ESMF_COMM</TT> setting. The appropriate classic, oneAPI, or mixed compiler combination is typically determined by the Intel environment module loaded. Common module names on Cray systems are <TT>intel-classic</TT>, <TT>intel-oneAPI</TT>, and <TT>intel</TT>, respectively.
 
 <P>
-<B>Tip: </B> Use the ESMF "<TT>make info</TT>" target to query compiler version information. This can be used to determine the
-appropriate settings, and to diagnose issues before kicking off the complete ESMF build procedure.
+<B>Tip: </B> Use the ESMF "<TT>make info</TT>" target to query detailed compiler version information. This can be used to determine the appropriate settings, and to diagnose issues before kicking off the complete ESMF build procedure.
 
 <P>
 
