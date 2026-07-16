@@ -19108,7 +19108,7 @@ The arguments are:
 <BR>
 <I CLASS="sans">INTERFACE:</I>
 <PRE>    function ESMF_HConfigCreateAt(hconfig, index, key, &amp;
-      keyString, doc, rc)
+      keyString, keyStringList, doc, foundFlag, rc
 </PRE><EM>RETURN VALUE:</EM>
 <PRE>      type(ESMF_HConfig) :: ESMF_HConfigCreateAt
 </PRE><EM>ARGUMENTS:</EM>
@@ -19117,7 +19117,9 @@ The arguments are:
       integer,            intent(in),  optional :: index
       type(ESMF_HConfig), intent(in),  optional :: key
       character(*),       intent(in),  optional :: keyString
+      character(*),       intent(in),  optional :: keyStringList(:)
       integer,            intent(in),  optional :: doc
+      logical,            intent(out), optional :: foundFlag
       integer,            intent(out), optional :: rc
 </PRE>
 <I CLASS="sans">DESCRIPTION:
@@ -19125,7 +19127,8 @@ The arguments are:
 
 <P>
 Create a new HConfig object at the current iteration, or
-     as specified by <TT>index</TT>, <TT>key</TT> or <TT>keyString</TT>.
+     as specified by <TT>index</TT>, <TT>key</TT>, <TT>keyString</TT>,
+     or <TT>keyStringList</TT>.
      The <TT>hconfig</TT> must <EM>not</EM> be a map iterator.
 
 <P>
@@ -19138,18 +19141,33 @@ The arguments are:
 <DT><STRONG>[index]</STRONG></DT>
 <DD>Attempt to access by index if specified.
        Requires <TT>hconfig</TT> of NodeType Sequence.
-       Muturally exclusive with <TT>key</TT> and <TT>keyString</TT>.
+       Muturally exclusive with <TT>key</TT>, <TT>keyString</TT>,
+       and <TT>keyStringList</TT>.
      
 </DD>
 <DT><STRONG>[key]</STRONG></DT>
-<DD>Attempt to access by key if specified. Muturally exclusive with
-       <TT>index</TT> and <TT>keyString</TT>,
+<DD>Attempt to access by key if specified.
+       Muturally exclusive with <TT>index</TT>, <TT>keyString</TT>,
+       and <TT>keyStringList</TT>.
      
 </DD>
 <DT><STRONG>[keyString]</STRONG></DT>
 <DD>Attempt to access by key string if specified.
        Requires <TT>hconfig</TT> of NodeType Map.
-       Muturally exclusive with <TT>index</TT> and <TT>key</TT>.
+       Muturally exclusive with <TT>index</TT>, <TT>key</TT>,
+       and <TT>keyStringList</TT>.
+     
+</DD>
+<DT><STRONG>[keyStringList]</STRONG></DT>
+<DD>Attempt to access by nested key strings if specified.
+       Requires <TT>hconfig</TT> of NodeType Map.
+       Muturally exclusive with <TT>index</TT>, <TT>key</TT>,
+       and <TT>keyString</TT>.
+     
+</DD>
+<DT><STRONG>[foundFlag]</STRONG></DT>
+<DD>Only valid for <TT>rc==ESMF_SUCCESS</TT>. A value of <TT>.true.</TT> indicates
+       that the requested item was found. Returns <TT>.false.</TT> otherwise.
      
 </DD>
 <DT><STRONG>[doc]</STRONG></DT>
