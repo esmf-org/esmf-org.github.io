@@ -358,6 +358,30 @@ $key = q/api:esmf_regridweightgenfile/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/api_ESMF_I_CplCompEntryPoint/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_CplCompServices/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_CplCompVM/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_GridCompEntryPoint/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_GridCompServices/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_GridCompVM/;
+$external_labels{$key} = "$URL/" . q|node4.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/appendix_attribute_legacy_api/;
 $external_labels{$key} = "$URL/" . q|node9.html|; 
 $noresave{$key} = "$nosave";
@@ -1994,11 +2018,11 @@ $external_latex_labels{$key} = q|29.2.13|;
 $noresave{$key} = "$nosave";
 
 $key = q/CplComp:SetServices/;
-$external_latex_labels{$key} = q|18.4.19|; 
+$external_latex_labels{$key} = q|18.4.22|; 
 $noresave{$key} = "$nosave";
 
 $key = q/CplComp:SetServicesShObj/;
-$external_latex_labels{$key} = q|18.4.20|; 
+$external_latex_labels{$key} = q|18.4.23|; 
 $noresave{$key} = "$nosave";
 
 $key = q/DELayout_general_mapping/;
@@ -2030,11 +2054,11 @@ $external_latex_labels{$key} = q|27.3.10|;
 $noresave{$key} = "$nosave";
 
 $key = q/GridComp:SetServices/;
-$external_latex_labels{$key} = q|17.4.19|; 
+$external_latex_labels{$key} = q|17.4.22|; 
 $noresave{$key} = "$nosave";
 
 $key = q/GridComp:SetServicesShObj/;
-$external_latex_labels{$key} = q|17.4.20|; 
+$external_latex_labels{$key} = q|17.4.23|; 
 $noresave{$key} = "$nosave";
 
 $key = q/HConfigMatch/;
@@ -2183,6 +2207,30 @@ $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_regridweightgenfile/;
 $external_latex_labels{$key} = q|25.3.1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_CplCompEntryPoint/;
+$external_latex_labels{$key} = q|18.4.1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_CplCompServices/;
+$external_latex_labels{$key} = q|18.4.2|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_CplCompVM/;
+$external_latex_labels{$key} = q|18.4.3|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_GridCompEntryPoint/;
+$external_latex_labels{$key} = q|17.4.1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_GridCompServices/;
+$external_latex_labels{$key} = q|17.4.2|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_GridCompVM/;
+$external_latex_labels{$key} = q|17.4.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/appendix_attribute_legacy_api/;
