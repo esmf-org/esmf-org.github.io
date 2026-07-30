@@ -278,6 +278,22 @@ $key = q/api:DistGridConnectionSet/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/api:DynamicMaskSetPreR4R8R4/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetPreR4R8R4V/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetPreR8R8R8/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetPreR8R8R8V/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/api:DynamicMaskSetR4R4R4/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -2113,28 +2129,44 @@ $key = q/api:DistGridConnectionSet/;
 $external_latex_labels{$key} = q|37.7.2|; 
 $noresave{$key} = "$nosave";
 
-$key = q/api:DynamicMaskSetR4R4R4/;
-$external_latex_labels{$key} = q|29.6.5|; 
-$noresave{$key} = "$nosave";
-
-$key = q/api:DynamicMaskSetR4R4R4V/;
-$external_latex_labels{$key} = q|29.6.6|; 
-$noresave{$key} = "$nosave";
-
-$key = q/api:DynamicMaskSetR4R8R4/;
+$key = q/api:DynamicMaskSetPreR4R8R4/;
 $external_latex_labels{$key} = q|29.6.3|; 
 $noresave{$key} = "$nosave";
 
-$key = q/api:DynamicMaskSetR4R8R4V/;
+$key = q/api:DynamicMaskSetPreR4R8R4V/;
 $external_latex_labels{$key} = q|29.6.4|; 
 $noresave{$key} = "$nosave";
 
-$key = q/api:DynamicMaskSetR8R8R8/;
+$key = q/api:DynamicMaskSetPreR8R8R8/;
 $external_latex_labels{$key} = q|29.6.1|; 
 $noresave{$key} = "$nosave";
 
-$key = q/api:DynamicMaskSetR8R8R8V/;
+$key = q/api:DynamicMaskSetPreR8R8R8V/;
 $external_latex_labels{$key} = q|29.6.2|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetR4R4R4/;
+$external_latex_labels{$key} = q|29.6.9|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetR4R4R4V/;
+$external_latex_labels{$key} = q|29.6.10|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetR4R8R4/;
+$external_latex_labels{$key} = q|29.6.7|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetR4R8R4V/;
+$external_latex_labels{$key} = q|29.6.8|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetR8R8R8/;
+$external_latex_labels{$key} = q|29.6.5|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetR8R8R8V/;
+$external_latex_labels{$key} = q|29.6.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/api:FieldBundleRead/;
