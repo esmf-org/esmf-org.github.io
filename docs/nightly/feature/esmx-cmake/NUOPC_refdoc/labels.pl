@@ -26,6 +26,10 @@ $key = q/CplSets/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/DataConsiderInit/;
+$external_labels{$key} = "$URL/" . q|node3.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/DataDepInit/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
@@ -253,8 +257,12 @@ $key = q/CplSets/;
 $external_latex_labels{$key} = q|2.4.4|; 
 $noresave{$key} = "$nosave";
 
-$key = q/DataDepInit/;
+$key = q/DataConsiderInit/;
 $external_latex_labels{$key} = q|2.4.6|; 
+$noresave{$key} = "$nosave";
+
+$key = q/DataDepInit/;
+$external_latex_labels{$key} = q|2.4.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/DriverCompMeta/;
@@ -274,7 +282,7 @@ $external_latex_labels{$key} = q|2.3.6|;
 $noresave{$key} = "$nosave";
 
 $key = q/FieldMirror/;
-$external_latex_labels{$key} = q|2.4.9|; 
+$external_latex_labels{$key} = q|2.4.10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/FieldPairing/;
@@ -378,7 +386,7 @@ $external_latex_labels{$key} = q|2.4.1|;
 $noresave{$key} = "$nosave";
 
 $key = q/Sharing/;
-$external_latex_labels{$key} = q|2.4.8|; 
+$external_latex_labels{$key} = q|2.4.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/StandardCompDep:C/;
@@ -414,7 +422,7 @@ $external_latex_labels{$key} = q|2.5|;
 $noresave{$key} = "$nosave";
 
 $key = q/TransferGeom/;
-$external_latex_labels{$key} = q|2.4.7|; 
+$external_latex_labels{$key} = q|2.4.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/_/;
