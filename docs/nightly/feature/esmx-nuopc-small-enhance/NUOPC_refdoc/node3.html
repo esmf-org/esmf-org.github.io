@@ -1813,12 +1813,12 @@ The generic NUOPC component implementation provides the following assistance to 
 </LI>
 </UL>
 </LI>
-<LI>Finally the component clock is stepped forward from <TT>currTime</TT> to <TT>stopTime</TT>, using the <TT>timeStep</TT> interval set in the child clock. During this loop, the <TT>label_Advance</TT> specialization is called at the beginning of each time step. The <TT>label_Advance</TT> specialization is responsible for any accumulating and averaging that may be necessary.
+<LI>Finally the component clock is stepped forward from <TT>currTime</TT> to <TT>stopTime</TT>. During this time stepping loop, the <TT>label_Advance</TT> specialization is called at the beginning of each time step, followed by <TT>label_AdvanceClock</TT>, if specialized. By default, i.e. without <TT>label_AdvanceClock</TT> specialization, the model clock is advanced by <TT>timeStep</TT> each step. The <TT>label_Advance</TT> specialization is responsible for any accumulating and averaging that may be necessary.
 
 <UL>
-<LI>In practice often the <TT>timeStep</TT> on the child clock is chosen to be identical to that of the parent clock. This way the <TT>label_Advance</TT> specialization is only called <EM>once</EM> for every coupling period. In this approach the details about potentially smaller model time steps, and associated accumulation and averaging is handled below the NUOPC cap layer of a model.
+<LI>In practice, often the <TT>timeStep</TT> on the child clock (model or mediator) is chosen to be identical to that of the parent clock (driver). This way the <TT>label_Advance</TT> specialization is only called <EM>once</EM> for every coupling period. In this approach the details about potentially smaller model time steps, and associated accumulation and averaging is handled below the NUOPC cap layer of a model.
 </LI>
-<LI>Special handling for <TT>timeStep==0</TT> is implemented. Under this condition, the <TT>label_Advance</TT> specialization is called exactly <EM>once</EM>.
+<LI>Special handling for <TT>timeStep==0</TT> is implemented. Under this condition, the <TT>label_Advance</TT> specialization is called exactly <EM>once</EM>. The model clock is not stepped forward, neither is the <TT>label_AdvanceClock</TT> specialization called.
 </LI>
 </UL>
 </LI>
