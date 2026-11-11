@@ -1558,6 +1558,10 @@ $key = q/sec:interpolation:bilinear/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:interpolation:binning/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:interpolation:conservation/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -1675,6 +1679,10 @@ $external_labels{$key} = "$URL/" . q|node3.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_bilinear/;
+$external_labels{$key} = "$URL/" . q|node3.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:rwg_binning/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
 
@@ -2738,7 +2746,7 @@ $external_latex_labels{$key} = q|39.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/line_type_support/;
-$external_latex_labels{$key} = q|25.2.16|; 
+$external_latex_labels{$key} = q|25.2.17|; 
 $noresave{$key} = "$nosave";
 
 $key = q/locstream:createfromfile/;
@@ -2802,7 +2810,7 @@ $external_latex_labels{$key} = q|32.7|;
 $noresave{$key} = "$nosave";
 
 $key = q/regrid:masking/;
-$external_latex_labels{$key} = q|25.2.10|; 
+$external_latex_labels{$key} = q|25.2.11|; 
 $noresave{$key} = "$nosave";
 
 $key = q/regridoutput/;
@@ -2810,7 +2818,7 @@ $external_latex_labels{$key} = q|12.9.3|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec::vectorRegrid/;
-$external_latex_labels{$key} = q|25.2.17|; 
+$external_latex_labels{$key} = q|25.2.18|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Alarm/;
@@ -3066,19 +3074,19 @@ $external_latex_labels{$key} = q|34.3.8|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:extrapolation:creep/;
-$external_latex_labels{$key} = q|25.2.14|; 
+$external_latex_labels{$key} = q|25.2.15|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:extrapolation:nearestidavg/;
-$external_latex_labels{$key} = q|25.2.13|; 
+$external_latex_labels{$key} = q|25.2.14|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:extrapolation:neareststod/;
-$external_latex_labels{$key} = q|25.2.12|; 
+$external_latex_labels{$key} = q|25.2.13|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:extrapolation:overview/;
-$external_latex_labels{$key} = q|25.2.11|; 
+$external_latex_labels{$key} = q|25.2.12|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:field:usage:createArbGrid/;
@@ -3285,24 +3293,28 @@ $key = q/sec:interpolation:bilinear/;
 $external_latex_labels{$key} = q|25.2.1|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:interpolation:conservation/;
-$external_latex_labels{$key} = q|25.2.7|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:interpolation:conservative_norm_opts/;
-$external_latex_labels{$key} = q|25.2.8|; 
-$noresave{$key} = "$nosave";
-
-$key = q/sec:interpolation:conserve/;
+$key = q/sec:interpolation:binning/;
 $external_latex_labels{$key} = q|25.2.5|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:interpolation:conserve_2ndorder/;
+$key = q/sec:interpolation:conservation/;
+$external_latex_labels{$key} = q|25.2.8|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:interpolation:conservative_norm_opts/;
+$external_latex_labels{$key} = q|25.2.9|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:interpolation:conserve/;
 $external_latex_labels{$key} = q|25.2.6|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:interpolation:conserve_2ndorder/;
+$external_latex_labels{$key} = q|25.2.7|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:interpolation:great_circle_cells/;
-$external_latex_labels{$key} = q|25.2.9|; 
+$external_latex_labels{$key} = q|25.2.10|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:interpolation:nearestdtos/;
@@ -3405,12 +3417,16 @@ $key = q/sec:rwg_bilinear/;
 $external_latex_labels{$key} = q|12.3.1|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:rwg_conserve/;
+$key = q/sec:rwg_binning/;
 $external_latex_labels{$key} = q|12.3.4|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:rwg_conserve2d/;
+$key = q/sec:rwg_conserve/;
 $external_latex_labels{$key} = q|12.3.5|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:rwg_conserve2d/;
+$external_latex_labels{$key} = q|12.3.6|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_extrap/;
