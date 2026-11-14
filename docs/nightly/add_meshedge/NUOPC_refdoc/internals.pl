@@ -26,6 +26,10 @@ $key = q/CplSets/;
 $ref_files{$key} = "$dir".q|node3.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/DataConsiderInit/;
+$ref_files{$key} = "$dir".q|node3.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/DataDepInit/;
 $ref_files{$key} = "$dir".q|node3.html|; 
 $noresave{$key} = "$nosave";

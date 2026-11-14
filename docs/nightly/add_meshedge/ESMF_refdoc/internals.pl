@@ -278,6 +278,22 @@ $key = q/api:DistGridConnectionSet/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/api:DynamicMaskSetPreR4R8R4/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetPreR4R8R4V/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetPreR8R8R8/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api:DynamicMaskSetPreR8R8R8V/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/api:DynamicMaskSetR4R4R4/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -340,6 +356,30 @@ $noresave{$key} = "$nosave";
 
 $key = q/api:esmf_regridweightgenfile/;
 $ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_CplCompEntryPoint/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_CplCompServices/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_CplCompVM/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_GridCompEntryPoint/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_GridCompServices/;
+$ref_files{$key} = "$dir".q|node4.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/api_ESMF_I_GridCompVM/;
+$ref_files{$key} = "$dir".q|node4.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/appendix_attribute_legacy_api/;
@@ -564,6 +604,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/const:filestatusflag/;
 $ref_files{$key} = "$dir".q|node9.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/const:geommatch/;
+$ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
 $key = q/const:geomtype/;
@@ -1514,6 +1558,10 @@ $key = q/sec:interpolation:bilinear/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:interpolation:binning/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:interpolation:conservation/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -1635,6 +1683,10 @@ $ref_files{$key} = "$dir".q|node3.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:rwg_bilinear/;
+$ref_files{$key} = "$dir".q|node3.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:rwg_binning/;
 $ref_files{$key} = "$dir".q|node3.html|; 
 $noresave{$key} = "$nosave";
 

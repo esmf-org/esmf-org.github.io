@@ -166,6 +166,10 @@ $key = q/part:Superstructure/;
 $external_labels{$key} = "$URL/" . q|node4.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/ref:dynamicmask/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:Calendar/;
 $external_labels{$key} = "$URL/" . q|node6.html|; 
 $noresave{$key} = "$nosave";
@@ -479,6 +483,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/part:Superstructure/;
 $external_latex_labels{$key} = q|III|; 
+$noresave{$key} = "$nosave";
+
+$key = q/ref:dynamicmask/;
+$external_latex_labels{$key} = q|17.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:Calendar/;
