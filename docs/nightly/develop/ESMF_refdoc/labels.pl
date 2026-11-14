@@ -1618,6 +1618,10 @@ $key = q/sec:mesh:4pet1stepee1type/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:mesh:api:meshaddedges/;
+$external_labels{$key} = "$URL/" . q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:mesh:api:meshaddelements/;
 $external_labels{$key} = "$URL/" . q|node5.html|; 
 $noresave{$key} = "$nosave";
@@ -1918,7 +1922,7 @@ $external_latex_labels{$key} = q|32.6.39|;
 $noresave{$key} = "$nosave";
 
 $key = q/API:MeshCreateFromFile/;
-$external_latex_labels{$key} = q|34.4.8|; 
+$external_latex_labels{$key} = q|34.4.9|; 
 $noresave{$key} = "$nosave";
 
 $key = q/API:TimeIntervalSetStr/;
@@ -3353,16 +3357,20 @@ $key = q/sec:mesh:4pet1stepee1type/;
 $external_latex_labels{$key} = q|34.3.6|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:mesh:api:meshaddelements/;
+$key = q/sec:mesh:api:meshaddedges/;
 $external_latex_labels{$key} = q|34.4.4|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:mesh:api:meshaddnodes/;
+$key = q/sec:mesh:api:meshaddelements/;
 $external_latex_labels{$key} = q|34.4.5|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:mesh:api:meshcreate/;
+$key = q/sec:mesh:api:meshaddnodes/;
 $external_latex_labels{$key} = q|34.4.6|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:mesh:api:meshcreate/;
+$external_latex_labels{$key} = q|34.4.7|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:mesh:halo/;

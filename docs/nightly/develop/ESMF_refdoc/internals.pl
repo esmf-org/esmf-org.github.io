@@ -1618,6 +1618,10 @@ $key = q/sec:mesh:4pet1stepee1type/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:mesh:api:meshaddedges/;
+$ref_files{$key} = "$dir".q|node5.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:mesh:api:meshaddelements/;
 $ref_files{$key} = "$dir".q|node5.html|; 
 $noresave{$key} = "$nosave";
