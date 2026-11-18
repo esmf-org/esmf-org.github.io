@@ -30,6 +30,10 @@ $key = q/DataDepInit/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/DataInit/;
+$external_labels{$key} = "$URL/" . q|node3.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/DriverCompMeta/;
 $external_labels{$key} = "$URL/" . q|node3.html|; 
 $noresave{$key} = "$nosave";
@@ -254,6 +258,10 @@ $external_latex_labels{$key} = q|2.4.4|;
 $noresave{$key} = "$nosave";
 
 $key = q/DataDepInit/;
+$external_latex_labels{$key} = q|2.4.6|; 
+$noresave{$key} = "$nosave";
+
+$key = q/DataInit/;
 $external_latex_labels{$key} = q|2.4.6|; 
 $noresave{$key} = "$nosave";
 
